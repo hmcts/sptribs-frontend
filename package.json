@@ -24,7 +24,7 @@
   "dependencies": {
     "@hmcts/info-provider": "^1.0.0",
     "@hmcts/nodejs-healthcheck": "^1.7.1",
-    "@hmcts/nodejs-logging": "^4.0.1",
+    "@hmcts/nodejs-logging": "^4.0.2",
     "@hmcts/properties-volume": "^0.0.13",
     "@types/config": "^0.0.41",
     "@types/cookie-parser": "^1.4.3",
@@ -83,7 +83,7 @@
     "husky": "^8.0.1",
     "jest": "^27.4.7",
     "jest-html-reporter": "^3.5.0",
-    "lint-staged": "^13.0.2",
+    "lint-staged": "^13.0.3",
     "mini-css-extract-plugin": "^2.6.1",
     "nock": "^13.2.7",
     "node-sass": "^7.0.1",
