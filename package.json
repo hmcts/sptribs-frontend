@@ -89,7 +89,7 @@
     "node-sass": "^7.0.1",
     "nodemon": "^2.0.18",
     "pa11y": "^6.2.3",
-    "playwright": "^1.23.2",
+    "playwright": "^1.25.0",
     "prettier": "^2.7.1",
     "request": "^2.88.0",
     "sass-lint": "^1.13.1",
