@@ -1,0 +1,34 @@
+{
+    "translations": {
+        "en": {
+            "continue": "Continue",
+            "serviceName": "Enter subject's name",
+            "title": "Who is the person named on this application?",
+            "line1":"Enter their full name as it appears on the application."
+        },
+        "cy": {
+            "continue": "Continue",
+            "serviceName": "Enter subject's name (in welsh)",
+            "title": "Who is the person named on this application? (in welsh)",
+            "line1":"Enter their full name as it appears on the application. (in welsh)"
+        }
+    },
+    "errors":{
+        "en": {
+            "applicantFirstName": {
+                "required": "Enter your first names"
+            },
+            "applicantLastName": {
+                "required": "Enter your last names"
+            }
+        },
+        "cy": {
+            "applicantFirstName": {
+                "required": "Enter your first names (in welsh)"
+            },
+            "applicantLastName": {
+                "required": "Enter your last names (in welsh)"
+            }
+        }
+    }
+}

@@ -1,0 +1,12 @@
+version: '2'
+
+services:
+  fis-ds-web:
+    build:
+      context: .
+      args:
+        - http_proxy
+        - https_proxy
+        - no_proxy
+    ports:
+      - 4000:4000
