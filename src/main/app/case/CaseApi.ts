@@ -209,7 +209,7 @@ export class CaseApi {
 export const getCaseApi = (userDetails: UserDetails, logger: LoggerInstance): CaseApi => {
   return new CaseApi(
     Axios.create({
-      baseURL: config.get('services.fis.url'),
+      baseURL: config.get('services.sptribs.url'),
       headers: {
         Authorization: 'Bearer ' + userDetails.accessToken,
         ServiceAuthorization: getServiceAuthToken(),
@@ -230,7 +230,7 @@ interface CreateCaseResponse {
 export const mapCaseData = (req: AppRequest): any => {
   const data = {
     namedApplicant: req.session.userCase.namedApplicant,
-    caseTypeOfApplication: req.session['edgecaseType'],
+    caseTypeOfApplication: "FMPO",
     applicantFirstName: req.session.userCase.applicantFirstName,
     applicantLastName: req.session.userCase.applicantLastName,
     applicantDateOfBirth: toApiDate(req.session.userCase.applicantDateOfBirth),

@@ -4,7 +4,7 @@ properties([
 // H allow predefined but random minute see https://en.wikipedia.org/wiki/Cron#Non-standard_characters
 pipelineTriggers([cron('H 05 * * *')]),
 parameters([
-  string(name: 'FRONTEND_URL', defaultValue: 'https://fis-ds-web.aat.platform.hmcts.net/', description: 'The URL you want to run tests against'),
+  string(name: 'FRONTEND_URL', defaultValue: 'https://sptribs-frontend.aat.platform.hmcts.net/', description: 'The URL you want to run tests against'),
   string(name: 'FUNCTIONAL_TESTS_WORKERS',
     defaultValue: '2',
     description: 'Number of workers running functional tests'),
@@ -15,8 +15,8 @@ parameters([
 import uk.gov.hmcts.contino.AppPipelineConfig
 
 def type = "nodejs"
-def product = "fis"
-def component = "ds-web"
+def product = "sptribs"
+def component = "frontend"
 
 // SAUCELABS config - configured on Jenkins
 env.SAUCE_USERNAME = 'username'
@@ -34,7 +34,7 @@ static Map<String, Object> secret(String secretName, String envVariable) {
 }
 
 def secrets = [
-  'fis-${env}'    :[
+  'sptribs-${env}'    :[
     secret('idam-ui-secret', 'IDAM_SECRET'),
     secret('idam-system-user-password', 'TEST_PASSWORD'),
     secret('citizen-user', 'CITIZEN_USERNAME'),
@@ -49,7 +49,7 @@ def pipelineConf = new AppPipelineConfig()
 pipelineConf.vaultSecrets = secrets
 
 withNightlyPipeline(type, product, component) {
-  env.TEST_URL = "https://fis-ds-web.aat.platform.hmcts.net/?edgecaseType=FMP"
+  env.TEST_URL = "https://sptribs-frontend.aat.platform.hmcts.net/?edgecaseType=FMP"
   env.DS_UI_URL = params.FRONTEND_URL
   enableCrossBrowserTest(60)
   //enableFullFunctionalTest(120)
