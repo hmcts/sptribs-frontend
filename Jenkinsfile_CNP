@@ -5,8 +5,8 @@
 import uk.gov.hmcts.contino.AppPipelineConfig
 
 def type = "nodejs"
-def product = "fis"
-def component = "ds-web"
+def product = "sptribs"
+def component = "frontend"
 
 static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
   [ $class: 'AzureKeyVaultSecret',
@@ -18,7 +18,7 @@ static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
 }
 
 def secrets = [
-  'fis-${env}': [
+  'sptribs-${env}': [
     secret('idam-ui-secret', 'IDAM_SECRET'),
     secret('citizen-user', 'CITIZEN_USERNAME'),
     secret('citizen-password', 'CITIZEN_PASSWORD')
@@ -46,7 +46,7 @@ withPipeline(type, product, component) {
     yarnBuilder.yarn('build')
   }
   before('functionalTest:preview') {
-    env.DS_UI_URL = "https://fis-ds-web-pr-${CHANGE_ID}.service.core-compute-preview.internal/?edgecaseType=FMP"
+    env.DS_UI_URL = "https://sptribs-frontend-pr-${CHANGE_ID}.service.core-compute-preview.internal/?edgecaseType=FMP"
   }
 
   after('functionalTest:preview') {
@@ -54,7 +54,7 @@ withPipeline(type, product, component) {
   }
 
   before('smoketest:preview') {
-    env.DS_UI_URL = "https://fis-ds-web-pr-${CHANGE_ID}.service.core-compute-preview.internal/?edgecaseType=FMP"
+    env.DS_UI_URL = "https://sptribs-frontend-pr-${CHANGE_ID}.service.core-compute-preview.internal/?edgecaseType=FMP"
   }
 
   after('smoketest:preview') {
@@ -62,7 +62,7 @@ withPipeline(type, product, component) {
   }
 
   before('smoketest:aat') {
-    env.DS_UI_URL = "https://fis-ds-web-staging.service.core-compute-aat.internal/?edgecaseType=FMP"
+    env.DS_UI_URL = "https://sptribs-frontend-staging.service.core-compute-aat.internal/?edgecaseType=FMP"
   }
 
   after('smoketest:aat') {
@@ -70,7 +70,7 @@ withPipeline(type, product, component) {
   }
 
   before('functionalTest:aat') {
-    env.ADOP_WEB_URL = "https://fis-ds-web-staging.service.core-compute-aat.internal/?edgecaseType=FMP"
+    env.ADOP_WEB_URL = "https://sptribs-frontend-staging.service.core-compute-aat.internal/?edgecaseType=FMP"
   }
 
   after('functionalTest:aat') {

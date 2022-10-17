@@ -2,7 +2,7 @@ Arguments:
   /usr/bin/node /usr/share/yarn/bin/yarn.js install
 
 PATH: 
-  /opt/helm/bin:/opt/gradle/gradle-7.2/bin:/home/elfasij/workspace/HMCTS-Special-Tribunals/fis-ds-web/node_modules/.bin:/opt/helm/bin:/opt/gradle/gradle-7.2/bin:/home/elfasij/.local/bin:/home/elfasij/bin:/opt/helm/bin:/opt/gradle/gradle-7.2/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/home/elfasij/.local/share/JetBrains/Toolbox/scripts:/home/elfasij/.local/share/JetBrains/Toolbox/scriptseval
+  /opt/helm/bin:/opt/gradle/gradle-7.2/bin:/home/elfasij/workspace/HMCTS-Special-Tribunals/sptribs-frontend/node_modules/.bin:/opt/helm/bin:/opt/gradle/gradle-7.2/bin:/home/elfasij/.local/bin:/home/elfasij/bin:/opt/helm/bin:/opt/gradle/gradle-7.2/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/home/elfasij/.local/share/JetBrains/Toolbox/scripts:/home/elfasij/.local/share/JetBrains/Toolbox/scriptseval
 
 Yarn version: 
   1.22.5
@@ -14,7 +14,7 @@ Platform:
   linux x64
 
 Trace: 
-  Error: EACCES: permission denied, unlink '/home/elfasij/workspace/HMCTS-Special-Tribunals/fis-ds-web/node_modules/.bin/acorn'
+  Error: EACCES: permission denied, unlink '/home/elfasij/workspace/HMCTS-Special-Tribunals/sptribs-frontend/node_modules/.bin/acorn'
 
 npm manifest: 
   {
