@@ -1,7 +1,8 @@
 version: '2'
 
 services:
-  sptribs-frontend:
+  # TODO: change this name to match the name of your app
+  expressjs-template:
     build:
       context: .
       args:
@@ -9,4 +10,5 @@ services:
         - https_proxy
         - no_proxy
     ports:
-      - 4000:4000
+      # TODO: change this mapping to map the port your application listens on
+      - '3100:3100'
