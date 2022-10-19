@@ -1,11 +1,11 @@
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: "sptribs-frontend"
+  name: "fis-ds-web"
   annotations:
     # This must match folder-name/job-name in Jenkins.
-    jenkins.io/job-full-name: cft:HMCTS_d_to_i/sptribs-frontend
-    github.com/project-slug: hmcts/sptribs-frontend
+    jenkins.io/job-full-name: cft:HMCTS_d_to_i/fis-ds-web
+    github.com/project-slug: hmcts/fis-ds-web
   tags:
     - nodejs
   links:

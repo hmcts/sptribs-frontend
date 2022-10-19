@@ -94,8 +94,8 @@ export class GetController {
      *      ************************************  ************************************
      *
      */
-    const cookiesForPrefrences = req.cookies.hasOwnProperty('frontend-cookie-preferences')
-      ? JSON.parse(req.cookies['frontend-cookie-preferences'])
+    const cookiesForPrefrences = req.cookies.hasOwnProperty('ds-web-cookie-preferences')
+      ? JSON.parse(req.cookies['ds-web-cookie-preferences'])
       : {
           analytics: 'off',
           apm: 'off',
@@ -236,7 +236,7 @@ export class GetController {
       }
       const cookieValue = JSON.stringify(CookiePreferences);
 
-      res.cookie('frontend-cookie-preferences', cookieValue, {
+      res.cookie('ds-web-cookie-preferences', cookieValue, {
         maxAge: cookieExpiryDuration,
         httpOnly: false,
         encode: String,
