@@ -5,8 +5,8 @@
 import uk.gov.hmcts.contino.AppPipelineConfig
 
 def type = "nodejs"
-def product = "fis"
-def component = "ds-web"
+def product = "sptribs"
+def component = "frontend"
 
 static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
   [ $class: 'AzureKeyVaultSecret',
@@ -18,7 +18,7 @@ static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
 }
 
 def secrets = [
-  'fis-${env}': [
+  'sptribs-${env}': [
     secret('idam-ui-secret', 'IDAM_SECRET'),
     secret('citizen-user', 'CITIZEN_USERNAME'),
     secret('citizen-password', 'CITIZEN_PASSWORD')
