@@ -10,7 +10,7 @@ import {
   CONTENT_TYPE,
   CONTEXT_PATH,
   CREATE_API_PATH,
-  FIS_COS_API_BASE_URL,
+  SPTRIBS_COS_API_BASE_URL,
   UPDATE_API_PATH,
 } from '../../steps/common/constants/apiConstants';
 import { EMPTY, FORWARD_SLASH, SPACE } from '../../steps/common/constants/commonConstants';
@@ -63,7 +63,7 @@ export class CaseApi {
       if (req.session.userCase.id === EMPTY) {
         throw new Error('Error in updating case, case id is missing');
       }
-      const url: string = config.get(FIS_COS_API_BASE_URL);
+      const url: string = config.get(SPTRIBS_COS_API_BASE_URL);
       const AdditionalDocuments = req.session['AddtionalCaseDocuments'].map(document => {
         // eslint-disable-next-line @typescript-eslint/no-shadow
         const { url, fileName, documentId, binaryUrl } = document;
@@ -123,7 +123,7 @@ export class CaseApi {
    */
   public async createCaseNew(req: AppRequest, userDetails: UserDetails): Promise<any> {
     try {
-      const url: string = config.get(FIS_COS_API_BASE_URL);
+      const url: string = config.get(SPTRIBS_COS_API_BASE_URL);
       const headers = { CONTENT_TYPE: APPLICATION_JSON, Authorization: BEARER + SPACE + userDetails.accessToken };
       const res: AxiosResponse<CreateCaseResponse> = await Axios.post(
         url + CONTEXT_PATH + CREATE_API_PATH,
@@ -209,7 +209,7 @@ export class CaseApi {
 export const getCaseApi = (userDetails: UserDetails, logger: LoggerInstance): CaseApi => {
   return new CaseApi(
     Axios.create({
-      baseURL: config.get('services.fis.url'),
+      baseURL: config.get('services.sptribs.url'),
       headers: {
         Authorization: 'Bearer ' + userDetails.accessToken,
         ServiceAuthorization: getServiceAuthToken(),

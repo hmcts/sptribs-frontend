@@ -14,7 +14,7 @@ services:
     clientSecret: 'NEED TO INSERT SECRET'
     systemUsername: 'dummy_user'
     systemPassword: 'dummy_password'
-  fis:
+  sptribs:
     url: 'https://sptribs-frontend-pr-25.service.core-compute-preview.internal'
   postcodeLookup:
     url: 'https://api.os.uk/search/places/v1'

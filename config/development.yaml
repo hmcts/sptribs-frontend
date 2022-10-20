@@ -7,7 +7,7 @@ services:
     url: 'http://rpe-service-auth-provider-aat.service.core-compute-aat.internal'
     microservice: 'ds_ui'
     secret: 'NEED TO INSERT SECRET'
-  fis:
+  sptribs:
     url: 'https://sptribs-frontend-pr-25.service.core-compute-preview.internal'
   postcodeLookup:
     url: 'https://api.os.uk/search/places/v1'
