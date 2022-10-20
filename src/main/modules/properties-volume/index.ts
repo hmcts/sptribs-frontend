@@ -13,8 +13,8 @@ export class PropertiesVolume {
       this.setSecret('secrets.fis.idam-ui-secret', 'services.idam.clientSecret');
       this.setSecret('secrets.fis.idam-system-user-name', 'services.idam.systemUsername');
       this.setSecret('secrets.fis.idam-system-user-password', 'services.idam.systemPassword');
-      this.setSecret('secrets.fis.redis-access-key', 'session.redis.key');
-      this.setSecret('secrets.fis.redis-access-key', 'session.secret');
+      this.setSecret('secrets.fis.redis-access-key-frontend', 'session.redis.key');
+      this.setSecret('secrets.fis.redis-access-key-frontend', 'session.secret');
       this.setSecret('secrets.fis.s2s-secret', 'services.authProvider.secret');
       this.setSecret('secrets.fis.postcode-lookup-token', 'services.postcodeLookup.token');
       // this.setSecret('secrets.ds.adoption-pcq-token', 'services.equalityAndDiversity.tokenKey');

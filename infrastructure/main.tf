@@ -58,7 +58,7 @@ data "azurerm_key_vault_secret" "idam-system-user-password" {
 }
 
 resource "azurerm_key_vault_secret" "redis_access_key" {
-  name         = "redis-access-key"
+  name         = "redis-access-key-frontend"
   value        = module.fis-ds-web-session-storage.access_key
   key_vault_id = data.azurerm_key_vault.fis_key_vault.id
 }

@@ -20,7 +20,7 @@ nodejs:
         - idam-ui-secret
         - idam-system-user-name
         - idam-system-user-password
-        - redis-access-key
+        - redis-access-key-frontend
         - s2s-secret
         - AppInsightsInstrumentationKey
         - postcode-lookup-token
