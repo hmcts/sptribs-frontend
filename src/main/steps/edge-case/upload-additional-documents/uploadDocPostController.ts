@@ -11,7 +11,7 @@ import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
 import { FormFields, FormFieldsFn } from '../../../app/form/Form';
 import { ResourceReader } from '../../../modules/resourcereader/ResourceReader';
-import { SPTRIBS_COS_API_BASE_URL } from '../../../steps/common/constants/apiConstants';
+import { FIS_COS_API_BASE_URL } from '../../../steps/common/constants/apiConstants';
 const logger = Logger.getLogger('uploadDocumentPostController');
 import { ADDITIONAL_DOCUMENTS_UPLOAD, CHECK_YOUR_ANSWERS } from '../../urls';
 
@@ -63,7 +63,7 @@ type FileUploadErrorTranslatables = {
   NO_FILE_UPLOAD_ERROR?: string;
 };
 
-export const SPTRIBS_COS_API_URL: URL_OF_FILE = config.get(SPTRIBS_COS_API_BASE_URL);
+export const FIS_COS_API_URL: URL_OF_FILE = config.get(FIS_COS_API_BASE_URL);
 
 /**
  * @FileHandler
@@ -182,7 +182,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
           applicantApplicationFormDocuments: MappedUploadRequestCaseDocuments,
         };
 
-        await this.UploadDocumentInstance(SPTRIBS_COS_API_URL, Headers).put(baseURL, responseBody);
+        await this.UploadDocumentInstance(FIS_COS_API_URL, Headers).put(baseURL, responseBody);
         res.redirect(CHECK_YOUR_ANSWERS);
       } catch (error) {
         console.log(error);
@@ -266,7 +266,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
                 Authorization: `Bearer ${req.session.user['accessToken']}`,
               };
               try {
-                const RequestDocument = await this.UploadDocumentInstance(SPTRIBS_COS_API_URL, Headers).post(
+                const RequestDocument = await this.UploadDocumentInstance(FIS_COS_API_URL, Headers).post(
                   `/doc/dss-orhestration/upload?caseTypeOfApplication=${req.session['edgecaseType']}`,
                   formData,
                   {

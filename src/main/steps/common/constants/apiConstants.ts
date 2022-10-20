@@ -1,6 +1,6 @@
 export const AUTHORIZATION = 'Authorization';
 export const CONTENT_TYPE = 'Content-Type';
-export const SPTRIBS_COS_API_BASE_URL = 'services.sptribs.url';
+export const FIS_COS_API_BASE_URL = 'services.sptribs.url';
 export const APPLICATION_JSON = 'application/json';
 export const BEARER = 'Bearer';
 export const CONTEXT_PATH = '/case/dss-orchestration';
