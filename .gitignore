@@ -28,3 +28,7 @@ public/
 output/
 
 coverage
+
+# Terraform
+.terraform.lock.hcl
+.terraform
