@@ -88,14 +88,14 @@ export class GetController {
     /**
      *
      *                      This util allows to delete document
-     *                      the params it uses is @ds-web-cookie-preferences
+     *                      the params it uses is @frontend-cookie-preferences
      *                      This is used to check for current cookiesPreferences
      *      ************************************ ************************************
      *      ************************************  ************************************
      *
      */
-    const cookiesForPrefrences = req.cookies.hasOwnProperty('ds-web-cookie-preferences')
-      ? JSON.parse(req.cookies['ds-web-cookie-preferences'])
+    const cookiesForPrefrences = req.cookies.hasOwnProperty('frontend-cookie-preferences')
+      ? JSON.parse(req.cookies['frontend-cookie-preferences'])
       : {
           analytics: 'off',
           apm: 'off',
@@ -104,7 +104,7 @@ export class GetController {
     /**
      *
      *                      This util allows to delete document
-     *                      the params it uses is @ds-web-cookie-preferences
+     *                      the params it uses is @frontend-cookie-preferences
      *                      This is used to check for current cookiesPreferences
      *      ************************************ ************************************
      *      ************************************  ************************************
@@ -125,7 +125,7 @@ export class GetController {
     /**
      *
      *                      This util allows saved cookies to have redirect after successfully saving
-     *                      the params it uses is @ds-web-cookie-preferences
+     *                      the params it uses is @frontend-cookie-preferences
      *                      This is used to check for current cookiesPreferences
      *      ************************************ ************************************
      *      ************************************  ************************************
@@ -236,7 +236,7 @@ export class GetController {
       }
       const cookieValue = JSON.stringify(CookiePreferences);
 
-      res.cookie('ds-web-cookie-preferences', cookieValue, {
+      res.cookie('frontend-cookie-preferences', cookieValue, {
         maxAge: cookieExpiryDuration,
         httpOnly: false,
         encode: String,
