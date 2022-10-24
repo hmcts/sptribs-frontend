@@ -10,15 +10,15 @@ Scenario(
     applytoapplicantpage,
     dateofbirth,
     addresswithpostcode,
-    uploadfilepage,
+    //uploadfilepage,
     determineapplicantrole,
-    statementoftruth,
+    //statementoftruth,
     contactpreferencepage,
     //additiondocumentpage,
     emailaddresspage,
-    checkyouranswerspage,
+    //checkyouranswerspage,
     contactnumber,
-    thankyoupage,
+    //thankyoupage,
   }) => {
     await landingPage.seeTheLandingPage();
     await loginPage.SignInUser();
@@ -29,10 +29,10 @@ Scenario(
     await contactpreferencepage.contactPreference();
     await emailaddresspage.emailAddress();
     await contactnumber.EnterHomeAndMobileNo('4423232323232', '4423232323232');
-    await uploadfilepage.uploadDocumentsSection();
+    //await uploadfilepage.uploadDocumentsSection();
     //await additiondocumentpage.uploadDocumentsSection();
-    await checkyouranswerspage.checkyouranswers();
-    await statementoftruth.statementOfTruth();
-    await thankyoupage.applicationsubmission();
+    //await checkyouranswerspage.checkyouranswers();
+    //await statementoftruth.statementOfTruth();
+    //await thankyoupage.applicationsubmission();
   }
 );
