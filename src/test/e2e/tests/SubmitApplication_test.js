@@ -14,7 +14,7 @@ Scenario(
     determineapplicantrole,
     statementoftruth,
     contactpreferencepage,
-    additiondocumentpage,
+    //additiondocumentpage,
     emailaddresspage,
     checkyouranswerspage,
     contactnumber,
@@ -30,7 +30,7 @@ Scenario(
     await emailaddresspage.emailAddress();
     await contactnumber.EnterHomeAndMobileNo('4423232323232', '4423232323232');
     await uploadfilepage.uploadDocumentsSection();
-    await additiondocumentpage.uploadDocumentsSection();
+    //await additiondocumentpage.uploadDocumentsSection();
     await checkyouranswerspage.checkyouranswers();
     await statementoftruth.statementOfTruth();
     await thankyoupage.applicationsubmission();
