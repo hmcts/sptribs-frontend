@@ -1,7 +1,7 @@
 nodejs:
   applicationPort: 4000
   aadIdentityName: sptribs
-  ingressHost: fis-ds-web.{{ .Values.global.environment }}.platform.hmcts.net
+  ingressHost: sptribs-frontend.{{ .Values.global.environment }}.platform.hmcts.net
   image: 'hmctspublic.azurecr.io/sptribs/frontend:latest'
 
   environment:
