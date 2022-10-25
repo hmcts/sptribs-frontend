@@ -12,11 +12,11 @@ Scenario(
     addresswithpostcode,
     //uploadfilepage,
     determineapplicantrole,
-    statementoftruth,
+    //statementoftruth,
     contactpreferencepage,
     //additiondocumentpage,
     emailaddresspage,
-    checkyouranswerspage,
+    //checkyouranswerspage,
     contactnumber,
     thankyoupage,
   }) => {
@@ -31,8 +31,8 @@ Scenario(
     await contactnumber.EnterHomeAndMobileNo('4423232323232', '4423232323232');
     //await uploadfilepage.uploadDocumentsSection();
     //await additiondocumentpage.uploadDocumentsSection();
-    await checkyouranswerspage.checkyouranswers();
-    await statementoftruth.statementOfTruth();
+    //await checkyouranswerspage.checkyouranswers();
+    //await statementoftruth.statementOfTruth();
     await thankyoupage.applicationsubmission();
   }
 );
