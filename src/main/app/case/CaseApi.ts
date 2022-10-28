@@ -209,7 +209,7 @@ export class CaseApi {
 export const getCaseApi = (userDetails: UserDetails, logger: LoggerInstance): CaseApi => {
   return new CaseApi(
     Axios.create({
-      baseURL: config.get('services.fis.url'),
+      baseURL: config.get('services.sptribs.url'),
       headers: {
         Authorization: 'Bearer ' + userDetails.accessToken,
         ServiceAuthorization: getServiceAuthToken(),
