@@ -1,4 +1,4 @@
-# sptribs
+# sptribs-frontend
 
 ## Getting Started
 
