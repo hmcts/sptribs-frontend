@@ -11,8 +11,8 @@ export class PropertiesVolume {
       propertiesVolume.addTo(config);
       this.setSecret('secrets.sptribs.AppInsightsInstrumentationKey', 'appInsights.instrumentationKey');
       this.setSecret('secrets.sptribs.idam-ui-secret', 'services.idam.clientSecret');
-      this.setSecret('secrets.sptribs.idam-system-user-name', 'services.idam.systemUsername');
-      this.setSecret('secrets.sptribs.idam-system-user-password', 'services.idam.systemPassword');
+      this.setSecret('secrets.sptribs.idam-systemupdate-username', 'services.idam.systemUsername');
+      this.setSecret('secrets.sptribs.idam-systemupdate-password', 'services.idam.systemPassword');
       this.setSecret('secrets.sptribs.redis-access-key', 'session.redis.key');
       this.setSecret('secrets.sptribs.redis-access-key', 'session.secret');
       this.setSecret('secrets.sptribs.s2s-secret', 'services.authProvider.secret');

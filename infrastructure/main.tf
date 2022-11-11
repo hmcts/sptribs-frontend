@@ -54,13 +54,13 @@ data "azurerm_key_vault_secret" "idam-ui-secret" {
   key_vault_id = data.azurerm_key_vault.sptribs_key_vault.id
 }
 
-data "azurerm_key_vault_secret" "idam-system-user-name" {
-  name         = "idam-system-user-name"
+data "azurerm_key_vault_secret" "idam-systemupdate-username" {
+  name         = "idam-systemupdate-username"
   key_vault_id = data.azurerm_key_vault.sptribs_key_vault.id
 }
 
-data "azurerm_key_vault_secret" "idam-system-user-password" {
-  name         = "idam-system-user-password"
+data "azurerm_key_vault_secret" "idam-systemupdate-password" {
+  name         = "idam-systemupdate-password"
   key_vault_id = data.azurerm_key_vault.sptribs_key_vault.id
 
 }
