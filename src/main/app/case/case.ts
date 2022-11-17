@@ -39,6 +39,8 @@ export interface Case {
   applicantAddressCountry: any;
   applicantAddressPostcode: any;
   applicantStatementOfTruth: string;
+  subjectFullName: string;
+  subjectDateOfBirth: Date;
 }
 
 export interface CaseWithId extends Case {

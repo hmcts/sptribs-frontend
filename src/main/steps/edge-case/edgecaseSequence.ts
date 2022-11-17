@@ -13,11 +13,17 @@ import {
   MANUAL_ADDRESS,
   SELECT_ADDRESS,
   STATEMENT_OF_TRUTH,
+  SUBJECT_DETAILS,
   UPLOAD_YOUR_DOCUMENTS,
   USER_ROLE,
 } from '../urls';
 
 export const edgecaseSequence: Step[] = [
+  {
+    url: SUBJECT_DETAILS,
+    showInSection: Sections.AboutEdgeCase,
+    getNextStep: () => USER_ROLE,
+  },
   {
     url: USER_ROLE,
     showInSection: Sections.AboutEdgeCase,
@@ -87,14 +93,14 @@ export const edgecaseSequence: Step[] = [
   {
     url: APPLICATION_SUBMITTED,
     showInSection: Sections.AboutEdgeCase,
-    getNextStep: () => USER_ROLE,
+    getNextStep: () => SUBJECT_DETAILS,
   },
   {
-    url: USER_ROLE,
-    getNextStep: () => FULL_NAME,
+    url: SUBJECT_DETAILS,
+    getNextStep: () => USER_ROLE,
   },
   {
     url: COOKIES,
-    getNextStep: () => USER_ROLE,
+    getNextStep: () => SUBJECT_DETAILS,
   },
 ];

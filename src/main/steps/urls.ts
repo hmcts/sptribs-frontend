@@ -18,6 +18,7 @@ export const APPLYING_WITH_URL: PageLink = '/applying-with';
 export const EDGE_CASE_URL: PageLink = '/edge-case';
 export const FULL_NAME: PageLink = '/full-name';
 export const USER_ROLE: PageLink = '/user-role';
+export const SUBJECT_DETAILS: PageLink = '/subject-details';
 export const DATE_OF_BIRTH: PageLink = '/date-of-birth';
 export const FIND_ADDRESS: PageLink = '/address/lookup';
 export const SELECT_ADDRESS: PageLink = '/address/select';
