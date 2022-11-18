@@ -57,7 +57,7 @@ export const doesArrayHaveValues: Validator = value => {
   }
 };
 
-export const isDateInputFilled: DateValidator = date => {
+export const isDateInputNotFilled: DateValidator = date => {
   const invalid = 'invalidDate';
   if (!date) {
     return invalid;

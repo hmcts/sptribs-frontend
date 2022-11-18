@@ -3,7 +3,7 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { covertToDateObject } from '../../../app/form/parser';
 import {
-  isDateInputFilled,
+  isDateInputNotFilled,
   isDateInputInvalid,
   isFieldFilledIn,
   isFutureDate,
@@ -22,23 +22,23 @@ export const form: FormContent = {
     subjectDateOfBirth: {
       type: 'date',
       classes: 'govuk-date-input',
-      label: ml => ml.subjectDateOfBirthLabel,
-      hint: ml => ml.hint,
+      label: l => l.subjectDateOfBirthLabel,
+      hint: l => l.hint,
       values: [
         {
-          label: ml => ml.dateFormat['day'],
+          label: l => l.dateFormat['day'],
           name: 'day',
           classes: 'govuk-input--width-2',
           attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
         },
         {
-          label: ml => ml.dateFormat['month'],
+          label: l => l.dateFormat['month'],
           name: 'month',
           classes: 'govuk-input--width-2',
           attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
         },
         {
-          label: ml => ml.dateFormat['year'],
+          label: l => l.dateFormat['year'],
           name: 'year',
           classes: 'govuk-input--width-4',
           attributes: { maxLength: 4, pattern: '[0-9]*', inputMode: 'numeric' },
@@ -46,7 +46,7 @@ export const form: FormContent = {
       ],
       parser: body => covertToDateObject('subjectDateOfBirth', body as Record<string, unknown>),
       validator: value => {
-        if (isDateInputFilled(value as CaseDate)) {
+        if (isDateInputNotFilled(value as CaseDate)) {
           return 'required';
         }
 
@@ -61,7 +61,7 @@ export const form: FormContent = {
     },
   },
   submit: {
-    text: ml => ml.continue,
+    text: l => l.continue,
   },
 };
 

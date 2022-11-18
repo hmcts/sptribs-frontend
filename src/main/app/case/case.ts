@@ -40,7 +40,7 @@ export interface Case {
   applicantAddressPostcode: any;
   applicantStatementOfTruth: string;
   subjectFullName: string;
-  subjectDateOfBirth: Date;
+  subjectDateOfBirth: CaseDate;
 }
 
 export interface CaseWithId extends Case {
