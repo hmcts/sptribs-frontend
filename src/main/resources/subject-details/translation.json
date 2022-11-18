@@ -2,49 +2,40 @@
     "translations": {
         "en": {
             "continue": "Continue",
-            "serviceName": "Contact Number",
+            "serviceName": "Subject Details",
             "title":"Who is the subject of this case?",
             "line1":"The subject of a case may be you, or the person who you are submitting this tribunal from on behalf of.",
             "subjectFullNameLabel": "Full name",
             "subjectDateOfBirthLabel": "Date of birth",
-            "homePhone": "Enter home phone number",
-            "mobilePhone": "Enter mobile phone number",
             "hint": "For example, 31 3 1980"
         },
         "cy": {
             "continue": "Continue (Welsh)",
-            "serviceName": "Contact Number (Welsh)",
-            "title":"What is the contact number of the named applicant? (Welsh)",
-            "line1":"This can be the number of a trusted friend if the applicant does not have a private number. (Welsh)",
-            "homePhoneLabel": "Home Phone (Welsh)",
-            "mobilePhoneLabel": "Mobile Phone (Welsh)",
-            "homePhone": "Enter home phone number (Welsh)",
-            "mobilePhone": "Enter mobile phone number (Welsh)"
+            "serviceName": "Subject Details (Welsh)",
+            "title":"ho is the subject of this case? (Welsh)",
+            "line1":"The subject of a case may be you, or the person who you are submitting this tribunal from on behalf of. (Welsh)",
+            "subjectFullNameLabel": "Home Phone (Welsh)",
+            "subjectDateOfBirthLabel": "Mobile Phone (Welsh)",
+            "hint": "For example, 31 3 1980 (Welsh)"
         }
     },
     "errors":{
         "en": {
             "subjectFullName": {
-                "required": "Please enter full name",
-                "invalid": "Please enter correct mobile phone number",
-                "atleastOneRequired": "Mobile phone number is empty, please fill up at least one contact"
+                "required": "Please enter full name"
             },
             "subjectDateOfBirth": {
                 "required": "Please enter date of birth",
-                "invalid": "Please enter valid date of birth",
-                "atleastOneRequired": "Home phone number is empty, please fill up at least one contact"
+                "invalid": "Please enter valid date of birth"
             }
         },
         "cy": {
             "subjectFullName": {
-                "required": "Please enter correct mobile phone number (Welsh)",
-                "invalid": "Please enter correct mobile phone number (Welsh)",
-                "atleastOneRequired": "Mobile phone number is empty, please fill up at least one contact (Welsh)"
+                "required": "Please enter full name (Welsh)"
             },
             "subjectDateOfBirth": {
-                "required": "Please enter correct home phone number (Welsh)",
-                "invalid": "Please enter correct home phone number (Welsh)",
-                "atleastOneRequired": "Home phone number is empty, please fill up at least one contact (Welsh)"
+                "required": "Please enter date of birth (Welsh)",
+                "invalid": "Please enter valid date of birth (Welsh)"
             }
         }
     }
