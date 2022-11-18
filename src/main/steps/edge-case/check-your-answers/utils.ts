@@ -118,7 +118,7 @@ export const ApplicantSummaryList = (
     {
       key: keys.namedPersonEmail,
       value: userCase['applicantEmailAddress'],
-      changeUrl: Urls['EMAIL_ADDRESS'],
+      changeUrl: Urls['SUBJECT_CONTACT_DETAILS'],
     },
     {
       key: keys.namedPersonTel,

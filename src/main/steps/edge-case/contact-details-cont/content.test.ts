@@ -7,7 +7,7 @@ import { CommonContent } from '../../common/common.content';
 import { generateContent } from './content';
 
 const resourceLoader = new ResourceReader();
-resourceLoader.Loader('email-address');
+resourceLoader.Loader('contact-details-cont');
 const translations = resourceLoader.getFileContents().translations;
 const errors = resourceLoader.getFileContents().errors;
 

@@ -69,7 +69,7 @@ describe('upload-addition-documents > check-your-answers', () => {
               actions: {
                 items: [
                   {
-                    href: '/email-address',
+                    href: '/contact-details-cont',
                     text: 'change',
                     visuallyHiddenText: 'Email address of the person named on the application',
                   },
@@ -164,7 +164,7 @@ describe('upload-addition-documents > named owner > check-your-answers', () => {
               actions: {
                 items: [
                   {
-                    href: '/email-address',
+                    href: '/contact-details-cont',
                     text: 'change',
                     visuallyHiddenText: 'Email address of the person named on the application',
                   },
@@ -259,7 +259,7 @@ describe('upload-addition-documents > named owner and both > named owner > check
               actions: {
                 items: [
                   {
-                    href: '/email-address',
+                    href: '/contact-details-cont',
                     text: 'change',
                     visuallyHiddenText: 'Email address of the person named on the application',
                   },

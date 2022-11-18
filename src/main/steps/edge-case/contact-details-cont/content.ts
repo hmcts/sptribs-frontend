@@ -1,19 +1,35 @@
 import { EmailAddress } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
-import { isEmailValid } from '../../../app/form/validation';
+import { isEmailValid, isFieldFilledIn, isPhoneNoValid } from '../../../app/form/validation';
 import { ResourceReader } from '../../../modules/resourcereader/ResourceReader';
 
 export const form: FormContent = {
   fields: {
-    applicantEmailAddress: {
+    subjectEmailAddress: {
       type: 'text',
       classes: 'govuk-input',
-      label: l => l.label,
-      hint: h => h.hint,
+      label: l => l.emailAddressLabel,
+      hint: h => h.emailAddressHint,
 
       values: [{ label: l => l.emailAddress, value: EmailAddress.EMAIL_ADDRESS }],
-      validator: value => isEmailValid(value),
+      validator: value => isFieldFilledIn(value) || isEmailValid(value),
+    },
+    subjectPhoneNumber: {
+      type: 'text',
+      classes: 'govuk-input',
+      label: l => l.contactNumberLabel,
+      hint: h => h.contactNumberHint,
+
+      values: [{ label: l => l.emailAddress, value: EmailAddress.EMAIL_ADDRESS }],
+      validator: value => isFieldFilledIn(value) || isPhoneNoValid(value),
+    },
+    subjectAgreeContact: {
+      type: 'checkboxes',
+      classes: 'govuk-checkboxes',
+      label: l => l.label,
+      values: [{ label: l => l.agreeContactLabel, value: 'Y' }],
+      validator: isFieldFilledIn,
     },
   },
   submit: {
@@ -23,7 +39,7 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const resourceLoader = new ResourceReader();
-  resourceLoader.Loader('email-address');
+  resourceLoader.Loader('contact-details-cont');
   const Translations = resourceLoader.getFileContents().translations;
   const errors = resourceLoader.getFileContents().errors;
 
