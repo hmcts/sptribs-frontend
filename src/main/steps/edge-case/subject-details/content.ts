@@ -3,8 +3,8 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { covertToDateObject } from '../../../app/form/parser';
 import {
-  isDateInputNotFilled,
   isDateInputInvalid,
+  isDateInputNotFilled,
   isFieldFilledIn,
   isFutureDate,
   isObsoleteDate,
