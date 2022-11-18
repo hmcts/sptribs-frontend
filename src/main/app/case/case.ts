@@ -41,6 +41,9 @@ export interface Case {
   applicantStatementOfTruth: string;
   subjectFullName: string;
   subjectDateOfBirth: CaseDate;
+  subjectEmailAddress: string;
+  subjectContactNumber: string;
+  subjectAgreeContact: string;
 }
 
 export interface CaseWithId extends Case {

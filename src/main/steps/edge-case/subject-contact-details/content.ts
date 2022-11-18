@@ -26,8 +26,7 @@ export const form: FormContent = {
     subjectAgreeContact: {
       type: 'checkboxes',
       classes: 'govuk-checkboxes',
-      label: l => l.agreeContactLabel,
-      values: [{ label: l => l.agreeContactLabel, value: 'Y' }],
+      values: [{ label: l => l.agreeContactLabel, value: 'Yes' }],
       validator: isFieldFilledIn,
     },
   },

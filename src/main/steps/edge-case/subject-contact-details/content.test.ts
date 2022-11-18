@@ -12,8 +12,6 @@ resourceLoader.Loader('subject-contact-details');
 const translations = resourceLoader.getFileContents().translations;
 const errors = resourceLoader.getFileContents().errors;
 
-jest.mock('../../../app/form/validation');
-
 const enContent = {
   ...translations.en,
   errors: {
@@ -57,7 +55,8 @@ describe('Email Address', () => {
     expect(emailAddressOptions.values[0].value).toBe(EmailAddress.EMAIL_ADDRESS);
     expect((emailAddressOptions.values[0].label as Function)(generatedContent)).toBe('Insert email address');
     expect((emailAddressOptions.validator as Function)('test@gmail.com')).toBe(undefined);
-    expect((emailAddressOptions.validator as Function)('')).toBe(undefined);
+    expect((emailAddressOptions.validator as Function)('')).toBe('required');
+    expect((emailAddressOptions.validator as Function)('notanemailaddress')).toBe('invalid');
   });
 
   it('should have a contact number text field', () => {
@@ -72,7 +71,8 @@ describe('Email Address', () => {
 
     const contactNumberOptions = fields.subjectContactNumber as FormOptions;
     expect((contactNumberOptions.validator as Function)('07712345678')).toBe(undefined);
-    expect((contactNumberOptions.validator as Function)('')).toBe(undefined);
+    expect((contactNumberOptions.validator as Function)('')).toBe('required');
+    expect((contactNumberOptions.validator as Function)('notaphonenumber')).toBe('invalid');
   });
 
   it('should contain Agree to be contacted checkbox field', () => {

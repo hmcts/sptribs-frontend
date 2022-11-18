@@ -27,7 +27,7 @@ export const setupCheckboxParser: CheckboxParser =
         if ((field as FormOptions).values.length > 1) {
           checkboxValues = checkbox.filter(Boolean);
         } else {
-          checkboxValues = checkbox[checkbox.length - 1];
+          checkboxValues = checkbox;
         }
 
         if (isSavingAndSigningOut && !checkboxValues) {
