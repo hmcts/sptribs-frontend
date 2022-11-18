@@ -15,19 +15,18 @@ export const form: FormContent = {
       values: [{ label: l => l.emailAddress, value: EmailAddress.EMAIL_ADDRESS }],
       validator: value => isFieldFilledIn(value) || isEmailValid(value),
     },
-    subjectPhoneNumber: {
+    subjectContactNumber: {
       type: 'text',
       classes: 'govuk-input',
       label: l => l.contactNumberLabel,
       hint: h => h.contactNumberHint,
 
-      values: [{ label: l => l.emailAddress, value: EmailAddress.EMAIL_ADDRESS }],
       validator: value => isFieldFilledIn(value) || isPhoneNoValid(value),
     },
     subjectAgreeContact: {
       type: 'checkboxes',
       classes: 'govuk-checkboxes',
-      label: l => l.label,
+      label: l => l.agreeContactLabel,
       values: [{ label: l => l.agreeContactLabel, value: 'Y' }],
       validator: isFieldFilledIn,
     },
@@ -39,7 +38,7 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const resourceLoader = new ResourceReader();
-  resourceLoader.Loader('contact-details-cont');
+  resourceLoader.Loader('subject-contact-details');
   const Translations = resourceLoader.getFileContents().translations;
   const errors = resourceLoader.getFileContents().errors;
 

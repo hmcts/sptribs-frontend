@@ -2,7 +2,7 @@
     "translations": {
         "en": {
             "continue": "Continue",
-            "serviceName": "Enter details (cont)",
+            "serviceName": "Subject details (cont)",
             "title": "Enter contact information",
             "line1": "Please enter the most appropriate contact details to use for this case.",
             "emailAddressLabel": "Email address",
@@ -14,7 +14,7 @@
         },
         "cy": {
             "continue": "Continue (Welsh)",
-            "serviceName": "Enter details (cont) (Welsh)",
+            "serviceName": "Subject details (cont) (Welsh)",
             "title": "Enter contact information (Welsh)",
             "line1": "Please enter the most appropriate contact details to use for this case. (Welsh)",
             "emailAddressLabel": "Email address (Welsh)",
@@ -31,9 +31,9 @@
                 "required": "Please enter a valid email address",
                 "invalid": "Every email address consists of 3 elements: local-part, @ symbol (pronounced as “at”), and a domain name"
             },
-            "subjectPhoneNumber": {
-                "required": "Please enter a valid phone number",
-                "invalid": "Please enter a valid phone number"
+            "subjectContactNumber": {
+                "required": "Please enter a valid contact number",
+                "invalid": "Please enter a valid contact number"
             },
             "subjectAgreeContact": {
                 "required" : "Please agree to be contacted using the details provided to continue"
@@ -44,9 +44,9 @@
                 "required": "Please enter a valid email address",
                 "invalid": "Every email address consists of 3 elements: local-part, @ symbol (pronounced as “at”), and a domain name (Welsh)"
             },
-            "subjectPhoneNumber": {
-                "required": "Please enter a valid phone number (Welsh)",
-                "invalid": "Please enter a valid phone number (Welsh)"
+            "subjectContactNumber": {
+                "required": "Please enter a valid contact number (Welsh)",
+                "invalid": "Please enter a valid contact number (Welsh)"
             },
             "subjectAgreeContact": {
                 "required" : "Please agree to be contacted using the details provided to continue (Welsh)"
