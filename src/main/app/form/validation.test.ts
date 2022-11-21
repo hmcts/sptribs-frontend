@@ -15,11 +15,11 @@ import {
   isInvalidPostcode,
   isLessThanAYear,
   isMoreThan18Years,
+  isObsoleteDate,
   isPhoneNoValid,
   isTextAreaValid,
   isValidAccessCode,
   isValidCaseReference,
-  isObsoleteDate
 } from './validation';
 
 describe('Validation', () => {
