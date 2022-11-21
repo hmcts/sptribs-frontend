@@ -1,21 +1,3 @@
-const mockIsDateInputNotFilled = jest.fn();
-const mockIsDateInputInvalid = jest.fn();
-const mockIsFutureDate = jest.fn();
-const mockIsObsoleteDate = jest.fn();
-const mockIsFieldFilledIn = jest.fn();
-const mockIsEmailValid = jest.fn();
-const mockIsPhoneNoValid = jest.fn();
-
-jest.mock('../../../app/form/validation', () => ({
-  isDateInputNotFilled: mockIsDateInputNotFilled,
-  isDateInputInvalid: mockIsDateInputInvalid,
-  isFutureDate: mockIsFutureDate,
-  isObsoleteDate: mockIsObsoleteDate,
-  isFieldFilledIn: mockIsFieldFilledIn,
-  isEmailValid: mockIsEmailValid,
-  isPhoneNoValid: mockIsPhoneNoValid,
-}));
-
 import { FormContent, FormFields, FormOptions } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import { ResourceReader } from '../../../modules/resourcereader/ResourceReader';
@@ -131,7 +113,7 @@ describe('subject-details-content', () => {
         'subjectDateOfBirth-year': '2018',
       })
     ).toEqual({ day: '21', month: '12', year: '2018' });
-    expect((dobField.validator as Function)({ day: '', month: '', year: '' })).toBe(undefined);
+    expect((dobField.validator as Function)({ day: '', month: '', year: '' })).toBe('required');
   });
 });
 
