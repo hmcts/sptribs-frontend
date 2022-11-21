@@ -5,7 +5,6 @@ import { CommonContent } from '../../common/common.content';
 
 //import { form as subjectFullName } from './content';
 import { generateContent } from './content';
-jest.mock('../../../app/form/validation');
 
 const EN = 'en';
 const CY = 'cy';
