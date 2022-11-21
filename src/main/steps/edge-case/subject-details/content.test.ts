@@ -21,6 +21,7 @@ import { isFieldFilledIn } from '../../../app/form/validation';
 import { ResourceReader } from '../../../modules/resourcereader/ResourceReader';
 import { CommonContent } from '../../common/common.content';
 
+//import { form as subjectFullName } from './content';
 import { generateContent } from './content';
 jest.mock('../../../app/form/validation');
 
@@ -29,6 +30,7 @@ const CY = 'cy';
 
 const commonContent = {
   language: EN,
+  userCase: {},
   dateFormat: {
     day: 'Day',
     month: 'Month',
@@ -133,16 +135,34 @@ describe('subject-details-content', () => {
   });
 });
 
-it('should have dateOfBirth label when language: en', () => {
-  const commonContent1 = { language: 'en', userCase: {} } as CommonContent;
+it('should use cy language translation and cover happy path', () => {
+  const generatedContent = generateContent(commonContent);
+  const form = generatedContent.form as FormContent;
+  const fields = form.fields as FormFields;
+  const subjectFullName = fields.subjectFullName as FormOptions;
 
+  expect(generatedContent.title).toBe(enContent.title);
+  expect(subjectFullName.validator).toBe(isFieldFilledIn);
+});
+
+it('should use en language translation and cover happy path', () => {
+  const generatedContent = generateContent(commonContent);
+  const form = generatedContent.form as FormContent;
+  const fields = form.fields as FormFields;
+  const subjectFullName = fields.subjectFullName as FormOptions;
+
+  expect(generatedContent.section).not.toBe('Ceisydd');
+  expect(subjectFullName.validator).toBe(isFieldFilledIn);
+});
+
+it('should use en language translation and cover error block', () => {
+  const commonContent1 = { language: 'en', userCase: {} } as CommonContent;
   const generatedContent1 = generateContent(commonContent1);
   expect(generatedContent1.title).toBe(enContent.title);
 });
 
-it('should have an dateOfBirth label when language: cy', () => {
-  const commonContent1 = { language: 'cy', userCase: {} } as CommonContent;
-
+it('should use cy language translation and cover error block', () => {
+  const commonContent1 = { language: 'en', userCase: {} } as CommonContent;
   const generatedContent1 = generateContent(commonContent1);
   expect(generatedContent1.section).not.toBe('Ceisydd');
 });

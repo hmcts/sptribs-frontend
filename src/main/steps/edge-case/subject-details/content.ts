@@ -48,13 +48,8 @@ export const form: FormContent = {
       validator: value => {
         console.log(value as CaseDate);
 
-        try {
-          if (isDateInputNotFilled(value as CaseDate)) {
-            console.log('test test test');
-            return 'required';
-          }
-        } catch (e) {
-          console.log(e);
+        if (isDateInputNotFilled(value as CaseDate)) {
+          return 'required';
         }
 
         if (
