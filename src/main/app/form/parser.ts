@@ -26,6 +26,8 @@ export const setupCheckboxParser: CheckboxParser =
         let checkboxValues;
         if ((field as FormOptions).values.length > 1) {
           checkboxValues = checkbox.filter(Boolean);
+        } else if (Array.isArray(checkbox)) {
+          checkboxValues = checkbox[checkbox.length - 1];
         } else {
           checkboxValues = checkbox;
         }

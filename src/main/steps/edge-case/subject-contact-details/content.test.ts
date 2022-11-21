@@ -79,10 +79,10 @@ describe('Email Address', () => {
     const generatedContent = generateContent(CommonContent);
     const form = generatedContent.form as FormContent;
     const fields = form.fields as FormFields;
-    const subjectAgreeContact = fields.subjectAgreeContact;
+    const subjectAgreeContact = fields.subjectAgreeContact as FormOptions;
     expect(subjectAgreeContact.type).toBe('checkboxes');
     expect(subjectAgreeContact.classes).toBe('govuk-checkboxes');
-    expect((subjectAgreeContact.label as Function)(generatedContent)).toBe(enContent.agreeContactLabel);
+    expect((subjectAgreeContact.values[0].label as Function)(generatedContent)).toBe(enContent.agreeContactLabel);
     expect(subjectAgreeContact.validator).toBe(isFieldFilledIn);
   });
 
