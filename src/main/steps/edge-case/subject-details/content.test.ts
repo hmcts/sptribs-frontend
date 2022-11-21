@@ -113,6 +113,7 @@ describe('subject-details-content', () => {
       })
     ).toEqual({ day: '21', month: '12', year: '2018' });
     expect((dobField.validator as Function)({ day: '', month: '', year: '' })).toBe('required');
+    expect((dobField.validator as Function)({ day: '1', month: '1', year: '1889' })).toBe('invalid');
   });
 });
 
