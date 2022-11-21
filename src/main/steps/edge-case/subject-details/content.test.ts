@@ -129,6 +129,20 @@ describe('subject-details-content', () => {
         'subjectDateOfBirth-year': '2018',
       })
     ).toEqual({ day: '21', month: '12', year: '2018' });
-    expect((dobField.validator as Function)({ day: '21', month: '12', year: '2018' })).toBe(undefined);
+    expect((dobField.validator as Function)({ day: '', month: '', year: '' })).toBe(undefined);
   });
+});
+
+it('should have dateOfBirth label when language: en', () => {
+  const commonContent1 = { language: 'en', userCase: {} } as CommonContent;
+
+  const generatedContent1 = generateContent(commonContent1);
+  expect(generatedContent1.title).toBe(enContent.title);
+});
+
+it('should have an dateOfBirth label when language: cy', () => {
+  const commonContent1 = { language: 'cy', userCase: {} } as CommonContent;
+
+  const generatedContent1 = generateContent(commonContent1);
+  expect(generatedContent1.section).not.toBe('Ceisydd');
 });
