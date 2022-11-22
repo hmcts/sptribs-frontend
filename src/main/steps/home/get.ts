@@ -6,8 +6,9 @@ import { AppRequest } from '../../app/controller/AppRequest';
 // import { Form, FormFields } from '../../app/form/Form';
 // import { form as applicant1FirstQuestionForm } from '../applicant1/applying-with/content';
 import {
-  USER_ROLE,
+  //USER_ROLE,
   //CITIZEN_HOME_URL,
+  SUBJECT_DETAILS,
 } from '../urls';
 
 export class HomeGetController {
@@ -23,7 +24,7 @@ export class HomeGetController {
 }
 
 const applicant1RedirectPageSwitch = (isFirstQuestionComplete: boolean) => {
-  return isFirstQuestionComplete ? USER_ROLE : USER_ROLE;
+  return isFirstQuestionComplete ? SUBJECT_DETAILS : SUBJECT_DETAILS;
 };
 
 // const getApplicantFirstQuestionForm = () => {

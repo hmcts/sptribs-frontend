@@ -2,7 +2,7 @@ import config from 'config';
 import { Request, Response } from 'express';
 
 import { ResourceReader } from '../../../modules/resourcereader/ResourceReader';
-import { SIGN_IN_URL, USER_ROLE } from '../../../steps/urls';
+import { SIGN_IN_URL, SUBJECT_DETAILS } from '../../../steps/urls';
 
 /*** query params for @edgeCaseType */
 const edgeCaseTypeQueryValidations = (req: Request, res: Response, loginURL, SystemContent, ToggleLanguage) => {
@@ -27,7 +27,7 @@ const edgeCaseTypeQueryValidations = (req: Request, res: Response, loginURL, Sys
 export const LandingController = (req: Request, res: Response): void => {
   const loginURL = SIGN_IN_URL;
   if (req.session.hasOwnProperty('user')) {
-    res.redirect(USER_ROLE);
+    res.redirect(SUBJECT_DETAILS);
   } else {
     try {
       const resourceLoader = new ResourceReader();

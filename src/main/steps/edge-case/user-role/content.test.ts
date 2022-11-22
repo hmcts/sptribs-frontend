@@ -31,6 +31,12 @@ const cyContent = {
 /* eslint-disable @typescript-eslint/ban-types */
 describe('role-type content', () => {
   const commonContent = { language: EN, userCase: {} } as CommonContent;
+  test('should contain submit button', () => {
+    const generatedContent = generateContent(commonContent);
+    const form = generatedContent.form as FormContent;
+
+    expect((form.submit.text as Function)(generateContent({ ...commonContent, language: EN }))).toBe('Continue');
+  });
   test('should return correct english content', () => {
     const generatedContent = generateContent(commonContent);
     expect(generatedContent.continue).toEqual(enContent.continue);

@@ -6,6 +6,7 @@ import {
   doesArrayHaveValues,
   isAddressSelected,
   isDateInputInvalid,
+  isDateInputNotFilled,
   isEmailValid,
   isFieldFilledIn,
   isFieldLetters,
@@ -14,6 +15,7 @@ import {
   isInvalidPostcode,
   isLessThanAYear,
   isMoreThan18Years,
+  isObsoleteDate,
   isPhoneNoValid,
   isTextAreaValid,
   isValidAccessCode,
@@ -93,6 +95,35 @@ describe('Validation', () => {
       isValid = isFutureDate(date);
 
       expect(isValid).toStrictEqual('invalidDateInFuture');
+    });
+  });
+
+  describe('isDateInputNotFilled()', () => {
+    test('Should check if date entered is future date', async () => {
+      const date = {
+        day: '',
+        month: '',
+        year: '',
+      };
+
+      let isValid = isDateInputNotFilled(undefined);
+      expect(isValid).toStrictEqual('invalidDate');
+
+      isValid = isDateInputNotFilled(date);
+      expect(isValid).toStrictEqual('invalidDate');
+    });
+  });
+
+  describe('isObsoleteDate()', () => {
+    test('Should check if date entered is future date', async () => {
+      const date = {
+        day: '01',
+        month: '01',
+        year: '1899',
+      };
+
+      const isValid = isObsoleteDate(date);
+      expect(isValid).toStrictEqual('invalidObsoleteDate');
     });
   });
 

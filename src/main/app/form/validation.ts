@@ -57,6 +57,25 @@ export const doesArrayHaveValues: Validator = value => {
   }
 };
 
+export const isDateInputNotFilled: DateValidator = date => {
+  const invalid = 'invalidDate';
+  if (!date) {
+    return invalid;
+  }
+
+  for (const value in date) {
+    if (isNaN(+date[value])) {
+      return invalid;
+    }
+  }
+
+  if (isEmpty(date.day || date.month || date.year)) {
+    return invalid;
+  } else {
+    return;
+  }
+};
+
 export const isDateInputInvalid: DateValidator = date => {
   const invalid = 'invalidDate';
   if (!date) {
@@ -88,6 +107,17 @@ export const isFutureDate: DateValidator = date => {
   const enteredDate = new Date(+date.year, +date.month - 1, +date.day);
   if (new Date() < enteredDate) {
     return 'invalidDateInFuture';
+  }
+};
+
+export const isObsoleteDate: DateValidator = date => {
+  if (!date) {
+    return;
+  }
+
+  const enteredDate = new Date(+date.year, +date.month - 1, +date.day);
+  if (new Date('1900-01-01') > enteredDate) {
+    return 'invalidObsoleteDate';
   }
 };
 

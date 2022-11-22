@@ -1,0 +1,42 @@
+{
+    "translations": {
+        "en": {
+            "continue": "Continue",
+            "serviceName": "Subject Details",
+            "title":"Who is the subject of this case?",
+            "line1":"The subject of a case may be you, or the person who you are submitting this tribunal from on behalf of.",
+            "subjectFullNameLabel": "Full name",
+            "subjectDateOfBirthLabel": "Date of birth",
+            "hint": "For example, 31 3 1980"
+        },
+        "cy": {
+            "continue": "Continue (Welsh)",
+            "serviceName": "Subject Details (Welsh)",
+            "title":"ho is the subject of this case? (Welsh)",
+            "line1":"The subject of a case may be you, or the person who you are submitting this tribunal from on behalf of. (Welsh)",
+            "subjectFullNameLabel": "Home Phone (Welsh)",
+            "subjectDateOfBirthLabel": "Mobile Phone (Welsh)",
+            "hint": "For example, 31 3 1980 (Welsh)"
+        }
+    },
+    "errors":{
+        "en": {
+            "subjectFullName": {
+                "required": "Please enter full name"
+            },
+            "subjectDateOfBirth": {
+                "required": "Please enter date of birth",
+                "invalid": "Please enter valid date of birth"
+            }
+        },
+        "cy": {
+            "subjectFullName": {
+                "required": "Please enter full name (Welsh)"
+            },
+            "subjectDateOfBirth": {
+                "required": "Please enter date of birth (Welsh)",
+                "invalid": "Please enter valid date of birth (Welsh)"
+            }
+        }
+    }
+}
