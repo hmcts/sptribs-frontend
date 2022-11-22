@@ -244,6 +244,9 @@ export const mapCaseData = (req: AppRequest): any => {
     applicantAddressCountry: 'United Kingdom',
     applicantAddressPostCode: req.session.userCase.applicantAddressPostcode,
     applicantStatementOfTruth: checkboxConverter(req.session.userCase.applicantStatementOfTruth),
+    subjectEmailAddress: req.session.userCase.subjectEmailAddress,
+    subjectContactNumber: req.session.userCase.subjectContactNumber,
+    subjectAgreeContact: checkboxConverter(req.session.userCase.subjectAgreeContact),
   };
   return data;
 };

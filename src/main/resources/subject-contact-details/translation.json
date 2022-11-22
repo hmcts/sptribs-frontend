@@ -1,0 +1,56 @@
+{
+    "translations": {
+        "en": {
+            "continue": "Continue",
+            "serviceName": "Subject details (cont)",
+            "title": "Enter contact information",
+            "line1": "Please enter the most appropriate contact details to use for this case.",
+            "emailAddressLabel": "Email address",
+            "emailAddressHint": "This may not be the subject's or applicant's email address. In some cases, it may be the email address of a parent, another relative, or an advocate.",
+            "emailAddress": "Insert email address",
+            "contactNumberLabel": "Contact number",
+            "contactNumberHint": "This may not be the subject's or applicant's contact number. In some cases, it may be the number of a parent, another relative, or an advocate.",
+            "agreeContactLabel": "I agree to be contacted about this case using the details I have provided"
+        },
+        "cy": {
+            "continue": "Continue (Welsh)",
+            "serviceName": "Subject details (cont) (Welsh)",
+            "title": "Enter contact information (Welsh)",
+            "line1": "Please enter the most appropriate contact details to use for this case. (Welsh)",
+            "emailAddressLabel": "Email address (Welsh)",
+            "emailAddressHint": "This may not be the subject's or applicant's email address. In some cases, it may be the email address of a parent, another relative, or an advocate. (Welsh)",
+            "emailAddress": "Insert email address (Welsh)",
+            "contactNumberLabel": "Contact number (Welsh)",
+            "contactNumberHint": "This may not be the subject's or applicant's contact number. In some cases, it may be the number of a parent, another relative, or an advocate. (Welsh)",
+            "agreeContactLabel": "I agree to be contacted about this case using the details I have provided (Welsh)"
+        }
+    },
+    "errors":{
+        "en": {
+            "subjectEmailAddress": {
+                "required": "Please enter a valid email address",
+                "invalid": "Every email address consists of 3 elements: local-part, @ symbol (pronounced as “at”), and a domain name"
+            },
+            "subjectContactNumber": {
+                "required": "Please enter a valid contact number",
+                "invalid": "Please enter a valid contact number"
+            },
+            "subjectAgreeContact": {
+                "required" : "Please agree to be contacted using the details provided to continue"
+            }
+        },
+        "cy": {
+            "subjectEmailAddress": {
+                "required": "Please enter a valid email address",
+                "invalid": "Every email address consists of 3 elements: local-part, @ symbol (pronounced as “at”), and a domain name (Welsh)"
+            },
+            "subjectContactNumber": {
+                "required": "Please enter a valid contact number (Welsh)",
+                "invalid": "Please enter a valid contact number (Welsh)"
+            },
+            "subjectAgreeContact": {
+                "required" : "Please agree to be contacted using the details provided to continue (Welsh)"
+            }
+        }
+    }
+}
