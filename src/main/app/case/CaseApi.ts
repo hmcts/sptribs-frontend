@@ -248,6 +248,7 @@ export const mapCaseData = (req: AppRequest): any => {
     subjectContactNumber: req.session.userCase.subjectContactNumber,
     subjectAgreeContact: checkboxConverter(req.session.userCase.subjectAgreeContact),
     representation: req.session.userCase.representation,
+    representationQualified: req.session.userCase.representationQualified,
   };
   return data;
 };

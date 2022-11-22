@@ -1,0 +1,32 @@
+{
+  "translations": {
+    "en": {
+      "continue": "Continue",
+      "serviceName": "Representation",
+      "label": "Is the named representative legally qualified?",
+      "hint": "A solicitor or a barrister are legally qualified representatives.",
+      "one": "Yes",
+      "two": "No"
+    },
+    "cy": {
+      "continue": "Continue (Welsh)",
+      "serviceName": "Representation (Welsh)",
+      "label": "Is the named representative legally qualified? (Welsh)",
+      "hint": "A solicitor or a barrister are legally qualified representatives. (Welsh)",
+      "one": "Yes (Welsh)",
+      "two": "No (Welsh)"
+    }
+  },
+  "errors":{
+    "en": {
+      "representation": {
+        "required": "Please select an answer before you can proceed further"
+      }
+    },
+    "cy": {
+      "representation": {
+        "required": "Please select an answer before you can proceed further (Welsh)"
+      }
+    }
+  }
+}

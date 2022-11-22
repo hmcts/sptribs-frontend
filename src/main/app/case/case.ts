@@ -45,6 +45,7 @@ export interface Case {
   subjectContactNumber: string;
   subjectAgreeContact: string;
   representation: YesOrNo;
+  representationQualified: YesOrNo;
 }
 
 export interface CaseWithId extends Case {

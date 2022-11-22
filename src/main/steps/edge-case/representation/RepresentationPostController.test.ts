@@ -3,7 +3,7 @@ import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import { YesOrNo } from '../../../app/case/definition';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import * as steps from '../../../steps';
-import { USER_ROLE } from '../../urls';
+import { REPRESENTATION_QUALIFIED, USER_ROLE } from '../../urls';
 
 import RepresentationPostController from './representationPostController';
 
@@ -42,7 +42,7 @@ describe('RepresentationPostController', () => {
     expect(req.session.errors).toEqual(errors);
   });
 
-  test('Should redirect to the user role page when yes radio button selected', async () => {
+  test('Should redirect to the representation qualifed page when yes radio button selected', async () => {
     const mockForm = {
       fields: {
         representation: {
@@ -67,7 +67,7 @@ describe('RepresentationPostController', () => {
     await controller.post(req, res);
 
     expect(getNextStepUrlMock).not.toHaveBeenCalled();
-    expect(res.redirect).toBeCalledWith(USER_ROLE);
+    expect(res.redirect).toBeCalledWith(REPRESENTATION_QUALIFIED);
   });
 
   test('Should redirect to user role page when no radio button selected', async () => {

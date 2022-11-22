@@ -1,10 +1,11 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
+import { YesOrNo } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../app/form/Form';
-import { USER_ROLE } from '../../urls';
+import { REPRESENTATION_QUALIFIED, USER_ROLE } from '../../urls';
 
 @autobind
 export default class RepresentationPostController extends PostController<AnyObject> {
@@ -22,13 +23,10 @@ export default class RepresentationPostController extends PostController<AnyObje
 
     Object.assign(req.session.userCase, formData);
 
-    this.redirect(req, res, req.session.errors?.length ? req.url : USER_ROLE);
-
-    // Replace line above with the block below once subsequent screens are done
-    // if (YesOrNo.YES === req.body.representation) {
-    //   this.redirect(req, res, req.session.errors?.length ? req.url : <URL1>);
-    // } else {
-    //   this.redirect(req, res, req.session.errors?.length ? req.url : <URL2>);
-    // }
+    if (YesOrNo.YES === req.body.representation) {
+      this.redirect(req, res, req.session.errors?.length ? req.url : REPRESENTATION_QUALIFIED);
+    } else {
+      this.redirect(req, res, req.session.errors?.length ? req.url : USER_ROLE);
+    }
   }
 }
