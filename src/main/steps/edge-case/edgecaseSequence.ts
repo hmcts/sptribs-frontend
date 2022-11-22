@@ -3,12 +3,10 @@ import {
   ADDITIONAL_DOCUMENTS_UPLOAD,
   APPLICATION_SUBMITTED,
   CHECK_YOUR_ANSWERS,
-  CONTACT_DETAILS,
   CONTACT_PREFERENCES,
   COOKIES,
   DATE_OF_BIRTH,
   FIND_ADDRESS,
-  FULL_NAME,
   MANUAL_ADDRESS,
   SELECT_ADDRESS,
   STATEMENT_OF_TRUTH,
@@ -31,11 +29,6 @@ export const edgecaseSequence: Step[] = [
   },
   {
     url: USER_ROLE,
-    showInSection: Sections.AboutEdgeCase,
-    getNextStep: () => FULL_NAME,
-  },
-  {
-    url: FULL_NAME,
     showInSection: Sections.AboutEdgeCase,
     getNextStep: () => DATE_OF_BIRTH,
   },
@@ -61,11 +54,6 @@ export const edgecaseSequence: Step[] = [
   },
   {
     url: CONTACT_PREFERENCES,
-    showInSection: Sections.AboutEdgeCase,
-    getNextStep: () => CONTACT_DETAILS,
-  },
-  {
-    url: CONTACT_DETAILS,
     showInSection: Sections.AboutEdgeCase,
     getNextStep: () => UPLOAD_YOUR_DOCUMENTS,
   },
