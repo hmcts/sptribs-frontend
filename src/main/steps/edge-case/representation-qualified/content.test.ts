@@ -30,7 +30,7 @@ const cyContent = {
 
 /* eslint-disable @typescript-eslint/ban-types */
 describe('Representation legally qualified', () => {
-  const commonContent = { language: EN, userCase: {} } as CommonContent;
+  const commonContent = { language: EN } as CommonContent;
   test('should return correct english content', () => {
     const generatedContent = generateContent(commonContent);
     expect(generatedContent.continue).toEqual(enContent.continue);
