@@ -1371,7 +1371,7 @@ Lockfile:
     dependencies:
       moment "^2.19.3"
       on-finished "^2.3.0"
-      winston "^2.4.5"
+      winston "^2.4.6"
 
   "@hmcts/properties-volume@^0.0.13":
     version "0.0.13"
@@ -12827,9 +12827,9 @@ Lockfile:
     resolved "https://registry.npmjs.org/wildcard/-/wildcard-2.0.0.tgz"
     integrity sha512-JcKqAHLPxcdb9KM49dufGXn2x3ssnfjbcaQdLlfZsL9rH9wgDQjUtDxbo8NE0F6SFvydeu1VhZe7hZuHsB2/pw==
 
-  winston@^2.4.5:
-    version "2.4.5"
-    resolved "https://registry.npmjs.org/winston/-/winston-2.4.5.tgz"
+  winston@^2.4.6:
+    version "2.4.6"
+    resolved "https://registry.npmjs.org/winston/-/winston-2.4.6.tgz"
     integrity sha512-TWoamHt5yYvsMarGlGEQE59SbJHqGsZV8/lwC+iCcGeAe0vUaOh+Lv6SYM17ouzC/a/LB1/hz/7sxFBtlu1l4A==
     dependencies:
       async "~1.0.0"
