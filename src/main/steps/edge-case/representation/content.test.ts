@@ -30,7 +30,7 @@ const cyContent = {
 
 /* eslint-disable @typescript-eslint/ban-types */
 describe('Representation', () => {
-  const commonContent = { language: EN, userCase: {} } as CommonContent;
+  const commonContent = { language: EN } as CommonContent;
   test('should return correct english content', () => {
     const generatedContent = generateContent(commonContent);
     expect(generatedContent.continue).toEqual(enContent.continue);
@@ -55,12 +55,12 @@ describe('Representation', () => {
     const generatedContent = generateContent(commonContent);
     const form = generatedContent.form as FormContent;
     const fields = form.fields as FormFields;
-    const namedApplicantField = fields.representation as FormOptions;
-    expect(namedApplicantField.type).toBe('radios');
-    expect(namedApplicantField.classes).toBe('govuk-radios');
-    expect((namedApplicantField.label as Function)(generatedContent)).toBe(enContent.label);
-    expect((namedApplicantField.values[0].label as Function)(generatedContent)).toBe(enContent.one);
-    expect((namedApplicantField.values[1].label as Function)(generatedContent)).toBe(enContent.two);
+    const representationField = fields.representation as FormOptions;
+    expect(representationField.type).toBe('radios');
+    expect(representationField.classes).toBe('govuk-radios');
+    expect((representationField.label as Function)(generatedContent)).toBe(enContent.label);
+    expect((representationField.values[0].label as Function)(generatedContent)).toBe(enContent.one);
+    expect((representationField.values[1].label as Function)(generatedContent)).toBe(enContent.two);
   });
 
   test('should contain continue button', () => {
