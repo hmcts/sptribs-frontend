@@ -13,7 +13,8 @@ import {
   STATEMENT_OF_TRUTH,
   SUBJECT_CONTACT_DETAILS,
   SUBJECT_DETAILS,
-  UPLOAD_YOUR_DOCUMENTS, USER_ROLE
+  UPLOAD_YOUR_DOCUMENTS,
+  USER_ROLE,
 } from '../urls';
 
 import { edgecaseSequence } from './edgecaseSequence';
