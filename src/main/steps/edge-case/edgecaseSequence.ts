@@ -8,6 +8,7 @@ import {
   DATE_OF_BIRTH,
   FIND_ADDRESS,
   MANUAL_ADDRESS,
+  REPRESENTATION,
   SELECT_ADDRESS,
   STATEMENT_OF_TRUTH,
   SUBJECT_CONTACT_DETAILS,
@@ -24,6 +25,11 @@ export const edgecaseSequence: Step[] = [
   },
   {
     url: SUBJECT_CONTACT_DETAILS,
+    showInSection: Sections.AboutEdgeCase,
+    getNextStep: () => REPRESENTATION,
+  },
+  {
+    url: REPRESENTATION,
     showInSection: Sections.AboutEdgeCase,
     getNextStep: () => USER_ROLE,
   },

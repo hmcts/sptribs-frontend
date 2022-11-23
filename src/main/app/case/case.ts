@@ -44,6 +44,7 @@ export interface Case {
   subjectEmailAddress: string;
   subjectContactNumber: string;
   subjectAgreeContact: string;
+  representation: YesOrNo;
 }
 
 export interface CaseWithId extends Case {

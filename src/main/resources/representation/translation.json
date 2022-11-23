@@ -1,0 +1,30 @@
+{
+  "translations": {
+    "en": {
+      "continue": "Continue",
+      "serviceName": "Representation",
+      "label": "Is there a representative named on completed tribunal form?",
+      "one": "Yes",
+      "two": "No"
+    },
+    "cy": {
+      "continue": "Continue (Welsh)",
+      "serviceName": "Representation (Welsh)",
+      "label": "Is there a representative named on completed tribunal form? (Welsh)",
+      "one": "Yes (Welsh)",
+      "two": "No (Welsh)"
+    }
+  },
+  "errors":{
+    "en": {
+      "representation": {
+        "required": "Please select an answer before you can proceed further"
+      }
+    },
+    "cy": {
+      "representation": {
+        "required": "Please select an answer before you can proceed further (Welsh)"
+      }
+    }
+  }
+}
