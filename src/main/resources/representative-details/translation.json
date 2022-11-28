@@ -1,0 +1,60 @@
+{
+    "translations": {
+        "en": {
+            "continue": "Continue",
+            "serviceName": "Representatives Details",
+            "title":"Representative's Details",
+            "line1":"Please enter details of the representative as stated on your tribunal form.",
+            "line2":"We will only use these details to contact this representative about this case.",
+            "fullNameLabel": "Full name",
+            "organisationNameLabel": "Organisation or business name",
+            "contactNumberLabel": "Contact number",
+            "emailAddressLabel": "Email address"
+        },
+        "cy": {
+          "continue": "Continue (Welsh)",
+          "serviceName": "Representatives Details (Welsh)",
+          "title":"Representative's Details (Welsh)",
+          "line1":"Please enter details of the representative as stated on your tribunal form. (Welsh)",
+          "line2":"We will only use these details to contact this representative about this case. (Welsh)",
+          "fullNameLabel": "Full name (Welsh)",
+          "organisationNameLabel": "Organisation or business name (Welsh)",
+          "contactNumberLabel": "Contact number (Welsh)",
+          "emailAddressLabel": "Email address (Welsh)"
+        }
+    },
+    "errors":{
+        "en": {
+            "representativeFullName": {
+                "required": "Please enter full name"
+            },
+            "representativeOrganisationName": {
+                "required": "Please enter organisation or business name"
+            },
+            "representativeContactNumber": {
+              "required": "Please enter a valid contact number",
+              "invalid": "Please enter a valid contact number"
+            },
+            "representativeEmailAddress": {
+              "required": "Please enter a valid email address",
+              "invalid": "Every email address consists of 3 elements: local-part, @ symbol (pronounced as “at”), and a domain name"
+            }
+        },
+        "cy": {
+          "representativeFullName": {
+            "required": "Please enter full name (Welsh)"
+          },
+          "representativeOrganisationName": {
+            "required": "Please enter organisation or business name (Welsh)"
+          },
+          "representativeContactNumber": {
+            "required": "Please enter a valid contact number (Welsh)",
+            "invalid": "Please enter a valid contact number (Welsh)"
+          },
+          "representativeEmailAddress": {
+            "required": "Please enter a valid email address (Welsh)",
+            "invalid": "Every email address consists of 3 elements: local-part, @ symbol (pronounced as “at”), and a domain name (Welsh)"
+          }
+        }
+    }
+}
