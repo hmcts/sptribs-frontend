@@ -19,12 +19,12 @@
   },
   "errors":{
     "en": {
-      "representation": {
+      "representationQualified": {
         "required": "Please select an answer before you can proceed further"
       }
     },
     "cy": {
-      "representation": {
+      "representationQualified": {
         "required": "Please select an answer before you can proceed further (Welsh)"
       }
     }
