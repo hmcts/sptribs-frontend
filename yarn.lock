@@ -5946,7 +5946,7 @@ fs-minipass@^2.0.0:
   dependencies:
     minipass "^3.0.0"
 
-fs-monkey@1.0.3:
+fs-monkey@^1.0.3:
   version "1.0.3"
   resolved "https://registry.npmjs.org/fs-monkey/-/fs-monkey-1.0.3.tgz"
   integrity sha512-cybjIfiiE+pTWicSCLFHSrXZ6EilF30oh91FDP9S2B051prEa7QWfrVTQm10/dDpswBDXZugPa1Ogu8Yh+HV0Q==
@@ -8529,12 +8529,12 @@ media-typer@0.3.0:
   resolved "https://registry.npmjs.org/media-typer/-/media-typer-0.3.0.tgz"
   integrity sha1-hxDXrwqmJvj/+hzgAWhUUmMlV0g=
 
-memfs@^3.2.2, memfs@^3.4.1:
-  version "3.4.1"
-  resolved "https://registry.npmjs.org/memfs/-/memfs-3.4.1.tgz"
-  integrity sha512-1c9VPVvW5P7I85c35zAdEr1TD5+F11IToIHIlrVIcflfnzPkJa0ZoYEoEdYDP8KgPFoSZ/opDrUsAoZWym3mtw==
+memfs@^3.4.12:
+  version "3.4.12"
+  resolved "https://registry.yarnpkg.com/memfs/-/memfs-3.4.12.tgz#d00f8ad8dab132dc277c659dc85bfd14b07d03bd"
+  integrity sha512-BcjuQn6vfqP+k100e0E9m61Hyqa//Brp+I3f0OBmN0ATHlFA8vx3Lt8z57R3u2bPqe3WGDBC+nF72fTH7isyEw==
   dependencies:
-    fs-monkey "1.0.3"
+    fs-monkey "^1.0.3"
 
 memorystream@^0.3.1:
   version "0.3.1"
@@ -8606,11 +8606,6 @@ micromatch@^4.0.0, micromatch@^4.0.2, micromatch@^4.0.4:
     braces "^3.0.1"
     picomatch "^2.2.3"
 
-mime-db@1.51.0:
-  version "1.51.0"
-  resolved "https://registry.npmjs.org/mime-db/-/mime-db-1.51.0.tgz"
-  integrity sha512-5y8A56jg7XVQx2mbv1lu49NR4dokRnhZYTtL+KGfaa27uq4pSTXkwQkFJl4pkRMyNFz/EtYDSkiiEHx3F7UN6g==
-
 mime-db@1.52.0, mime-db@^1.28.0:
   version "1.52.0"
   resolved "https://registry.npmjs.org/mime-db/-/mime-db-1.52.0.tgz"
@@ -8623,14 +8618,7 @@ mime-match@^1.0.2:
   dependencies:
     wildcard "^1.1.0"
 
-mime-types@^2.1.12, mime-types@^2.1.27, mime-types@^2.1.31, mime-types@~2.1.19, mime-types@~2.1.24:
-  version "2.1.34"
-  resolved "https://registry.npmjs.org/mime-types/-/mime-types-2.1.34.tgz"
-  integrity sha512-6cP692WwGIs9XXdOO4++N+7qjqv0rqxxVvJ3VHPh/Sc9mVZcQP+ZGhkKiTvWMQRr2tbHkJP/Yn7Y0npb3ZBs4A==
-  dependencies:
-    mime-db "1.51.0"
-
-mime-types@~2.1.34:
+mime-types@^2.1.12, mime-types@^2.1.27, mime-types@^2.1.31, mime-types@~2.1.19, mime-types@~2.1.24, mime-types@~2.1.34:
   version "2.1.35"
   resolved "https://registry.npmjs.org/mime-types/-/mime-types-2.1.35.tgz"
   integrity sha512-ZDY+bPm5zTTF+YpCrAU9nK0UgICYPT0QtT1NZWFv4s++TNkcgVaT0g6+4R2uI4MjQjzysHB1zxuWL50hzaeXiw==
@@ -12473,24 +12461,13 @@ webpack-cli@^4.9.2:
     rechoir "^0.7.0"
     webpack-merge "^5.7.3"
 
-webpack-dev-middleware@*:
-  version "5.3.1"
-  resolved "https://registry.npmjs.org/webpack-dev-middleware/-/webpack-dev-middleware-5.3.1.tgz"
-  integrity sha512-81EujCKkyles2wphtdrnPg/QqegC/AtqNH//mQkBYSMqwFVCQrxM6ktB2O/SPlZy7LqeEfTbV3cZARGQz6umhg==
+webpack-dev-middleware@*, webpack-dev-middleware@^6.0.1:
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/webpack-dev-middleware/-/webpack-dev-middleware-6.0.1.tgz#fd585127ed44dab3f253daf0d98f4d58a5088cc2"
+  integrity sha512-PZPZ6jFinmqVPJZbisfggDiC+2EeGZ1ZByyMP5sOFJcPPWSexalISz+cvm+j+oYPT7FIJyxT76esjnw9DhE5sw==
   dependencies:
     colorette "^2.0.10"
-    memfs "^3.4.1"
-    mime-types "^2.1.31"
-    range-parser "^1.2.1"
-    schema-utils "^4.0.0"
-
-webpack-dev-middleware@^5.3.0:
-  version "5.3.0"
-  resolved "https://registry.npmjs.org/webpack-dev-middleware/-/webpack-dev-middleware-5.3.0.tgz"
-  integrity sha512-MouJz+rXAm9B1OTOYaJnn6rtD/lWZPy2ufQCH3BPs8Rloh/Du6Jze4p7AeLYHkVi0giJnYLaSGDC7S+GM9arhg==
-  dependencies:
-    colorette "^2.0.10"
-    memfs "^3.2.2"
+    memfs "^3.4.12"
     mime-types "^2.1.31"
     range-parser "^1.2.1"
     schema-utils "^4.0.0"
