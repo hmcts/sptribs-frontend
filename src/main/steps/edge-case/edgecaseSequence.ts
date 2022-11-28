@@ -10,6 +10,7 @@ import {
   MANUAL_ADDRESS,
   REPRESENTATION,
   REPRESENTATION_QUALIFIED,
+  REPRESENTATIVES_DETAILS,
   SELECT_ADDRESS,
   STATEMENT_OF_TRUTH,
   SUBJECT_CONTACT_DETAILS,
@@ -36,6 +37,11 @@ export const edgecaseSequence: Step[] = [
   },
   {
     url: REPRESENTATION_QUALIFIED,
+    showInSection: Sections.AboutEdgeCase,
+    getNextStep: () => REPRESENTATIVES_DETAILS,
+  },
+  {
+    url: REPRESENTATIVES_DETAILS,
     showInSection: Sections.AboutEdgeCase,
     getNextStep: () => USER_ROLE,
   },
