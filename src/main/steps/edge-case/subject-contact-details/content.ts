@@ -24,9 +24,10 @@ export const form: FormContent = {
       validator: value => isFieldFilledIn(value) || isPhoneNoValid(value),
     },
     subjectAgreeContact: {
+      name: 'agree',
       type: 'checkboxes',
       classes: 'govuk-checkboxes',
-      values: [{ label: l => l.agreeContactLabel, value: 'Yes' }],
+      values: [{ name: 'subjectAgreeContact', label: l => l.agreeContactLabel, value: 'Yes' }],
       validator: isFieldFilledIn,
     },
   },
