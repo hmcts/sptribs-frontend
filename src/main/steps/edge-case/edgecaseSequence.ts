@@ -15,6 +15,7 @@ import {
   STATEMENT_OF_TRUTH,
   SUBJECT_CONTACT_DETAILS,
   SUBJECT_DETAILS,
+  UPLOAD_APPEAL_FORM,
   UPLOAD_YOUR_DOCUMENTS,
   USER_ROLE,
 } from '../urls';
@@ -42,6 +43,11 @@ export const edgecaseSequence: Step[] = [
   },
   {
     url: REPRESENTATIVES_DETAILS,
+    showInSection: Sections.AboutEdgeCase,
+    getNextStep: () => UPLOAD_APPEAL_FORM,
+  },
+  {
+    url: UPLOAD_APPEAL_FORM,
     showInSection: Sections.AboutEdgeCase,
     getNextStep: () => USER_ROLE,
   },

@@ -27,6 +27,7 @@ export const MANUAL_ADDRESS: PageLink = '/address/manual';
 export const CONTACT_DETAILS: PageLink = '/contact-details';
 export const PAY_YOUR_FEE: PageLink = '/payment/pay-your-fee';
 export const UPLOAD_YOUR_DOCUMENTS: PageLink = '/upload-your-documents';
+export const UPLOAD_APPEAL_FORM: PageLink = '/upload-appeal-form';
 export const CONTACT_PREFERENCES: PageLink = '/contact-preferences';
 export const CHECK_YOUR_ANSWERS: PageLink = '/check-your-answers';
 export const STATEMENT_OF_TRUTH: PageLink = '/statement-of-truth';
