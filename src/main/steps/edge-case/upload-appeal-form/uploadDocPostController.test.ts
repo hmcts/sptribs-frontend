@@ -7,7 +7,7 @@ import { YesOrNo } from '../../../app/case/definition';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import { ResourceReader } from '../../../modules/resourcereader/ResourceReader';
 import * as steps from '../../../steps';
-import { ADDITIONAL_DOCUMENTS_UPLOAD } from '../../../steps/urls';
+import { ADDITIONAL_DOCUMENTS_UPLOAD, UPLOAD_APPEAL_FORM } from '../../../steps/urls';
 import { FIS_COS_API_BASE_URL } from '../../common/constants/apiConstants';
 
 import UploadDocumentController, { FIS_COS_API_URL, FileMimeType, FileValidations } from './uploadDocPostController';
@@ -269,5 +269,15 @@ describe('checking for the redirect of post document upload', () => {
      */
     await postingcontroller.post(req, res);
     expect(res.redirect).toHaveBeenCalledWith(ADDITIONAL_DOCUMENTS_UPLOAD);
+  });
+
+  it('should redirect to same page if no documents uploaded', async () => {
+    req.session.caseDocuments = [];
+    req.session.AddtionalCaseDocuments = [];
+    req.files = [];
+    req.session.fileErrors = [];
+
+    await postingcontroller.post(req, res);
+    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_APPEAL_FORM);
   });
 });
