@@ -29,14 +29,6 @@ type FileType = {
   doc: string;
   docx: string;
   pdf: string;
-  png: string;
-  xls: string;
-  xlsx: string;
-  jpg: string;
-  txt: string;
-  rtf: string;
-  rtf2: string;
-  gif: string;
 };
 
 /**
@@ -46,14 +38,6 @@ type FileMimeTypeInfo = {
   'application/msword': string;
   'application/vnd.openxmlformats-officedocument.wordprocessingml.document': string;
   'application/pdf': string;
-  'image/png': string;
-  'application/vnd.ms-excel': string;
-  'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': string;
-  'image/jpeg': string;
-  'text/plain': string;
-  'application/rtf': string;
-  'text/rtf': string;
-  'image/gif': string;
 };
 
 /**
