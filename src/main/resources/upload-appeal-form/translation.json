@@ -5,7 +5,7 @@
     "title": "Upload tribunal form",
     "line1": "Please upload the First-tier tribunal form that you have already completed.",
     "line2": "If you have other evidence or supporting documents, you can upload these files on the next screen.",
-    "uploadRequirement": "<div class='govuk-body-s'><ul class=‘govuk-list govuk-list--bullet’><li>File formats: MS Word, MS Excel, PDF, JPG, GIF, PNG, TXT, RTF</li><li>File size per document: up to 20 megabytes (MB)</li><li>Files cannot be password protected</li></ul><p> You can’t upload executable(.exe) .zip or other archive files due to virus risks.</div>",
+    "uploadRequirement": "<div class='govuk-body-s'><ul class=‘govuk-list govuk-list--bullet’><li>File formats: MS Word, PDF</li><li>File size per document: up to 20 megabytes (MB)</li><li>Files cannot be password protected</li></ul><p> You can’t upload executable (.exe), .zip or other archive files due to virus risks.</div>",
     "uploadButton": "Upload file"
     },
     "cy": {
@@ -13,21 +13,21 @@
     "title": "Upload application form - (Welsh)",
     "line1": "Please upload the application form that you have already completed. - (Welsh)",
     "line2": "If you are not the person name on the application, you must need to complete an additional form to ask for permission to apply on behalf of someone else. - (Welsh)",
-    "uploadRequirement": "<div class='govuk-body-s'><ul class=‘govuk-list govuk-list--bullet’><li>File formats: MS Word, MS Excel, PDF, JPG, GIF, PNG, TXT, RTF</li><li>File size per document: up to 20 megabytes (MB)</li><li>Files cannot be password protected</li></ul><p> You can’t upload executable(.exe) .zip or other archive files due to virus risks.</div> (Welsh)",
+    "uploadRequirement": "<div class='govuk-body-s'><ul class=‘govuk-list govuk-list--bullet’><li>File formats: MS Word, PDF</li><li>File size per document: up to 20 megabytes (MB)</li><li>Files cannot be password protected</li></ul><p> You can’t upload executable (.exe), .zip or other archive files due to virus risks.</div> (Welsh)",
     "uploadButton": "Upload file (Welsh)"
     }
     },
     "errors": {
     "en": {
     "SIZE_ERROR": "File size exceeds 20Mb. Please upload a file that is less than 20Mb",
-    "FORMAT_ERROR": "This service only accepts files in the formats - Ms Word, Ms Excel, PDF, JPG, GIF, PNG, TXT, RTF",
+    "FORMAT_ERROR": "This service only accepts files in the formats - Ms Word, PDF",
     "TOTAL_FILES_EXCEED_ERROR": "You can upload 5 files only. Please delete one of the uploaded files and retry",
     "CONTINUE_WITHOUT_UPLOAD_ERROR": "You cannot continue without uploading the application",
     "NO_FILE_UPLOAD_ERROR": "Please choose a file to upload"
     },
     "cy": {
     "SIZE_ERROR": "File size exceeds 20Mb. Please upload a file that is less than 20Mb - welsh",
-    "FORMAT_ERROR": "This service only accepts files in the formats - Ms Word, Ms Excel, PDF, JPG, GIF, PNG, TXT, RTF - welsh",
+    "FORMAT_ERROR": "This service only accepts files in the formats - Ms Word, PDF - welsh",
     "TOTAL_FILES_EXCEED_ERROR": "You can upload 5 files only. Please delete one of the uploaded files and retry - welsh",
     "CONTINUE_WITHOUT_UPLOAD_ERROR": "You cannot continue without uploading the application (in welsh)",
     "NO_FILE_UPLOAD_ERROR": "Please choose a file to upload (in welsh)"
