@@ -206,7 +206,6 @@ export default class UploadDocumentController extends PostController<AnyObject> 
    */
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const { documentUploadProceed } = req.body;
-    console.log({ userDetais: req.session.user });
 
     let TotalUploadDocuments = 0;
     if (!req.session.hasOwnProperty('caseDocuments')) {
@@ -239,7 +238,6 @@ export default class UploadDocumentController extends PostController<AnyObject> 
 
           // making sure single file is uploaded
           if (!checkIfMultipleFiles) {
-            console.log({ mimetype: documents.mimetype });
             const validateMimeType: boolean = FileValidations.formatValidation(documents.mimetype);
             const validateFileSize: boolean = FileValidations.sizeValidation(documents.size);
             const formData: FormData = new FormData();
