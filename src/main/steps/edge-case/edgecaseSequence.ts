@@ -16,6 +16,7 @@ import {
   SUBJECT_CONTACT_DETAILS,
   SUBJECT_DETAILS,
   UPLOAD_APPEAL_FORM,
+  UPLOAD_SUPPORTING_DOCUMENTS,
   USER_ROLE,
 } from '../urls';
 
@@ -47,6 +48,11 @@ export const edgecaseSequence: Step[] = [
   },
   {
     url: UPLOAD_APPEAL_FORM,
+    showInSection: Sections.AboutEdgeCase,
+    getNextStep: () => UPLOAD_SUPPORTING_DOCUMENTS,
+  },
+  {
+    url: UPLOAD_SUPPORTING_DOCUMENTS,
     showInSection: Sections.AboutEdgeCase,
     getNextStep: () => USER_ROLE,
   },

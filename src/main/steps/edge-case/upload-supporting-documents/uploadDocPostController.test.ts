@@ -7,14 +7,14 @@ import { YesOrNo } from '../../../app/case/definition';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import { ResourceReader } from '../../../modules/resourcereader/ResourceReader';
 import * as steps from '../../../steps';
-import { UPLOAD_APPEAL_FORM, UPLOAD_SUPPORTING_DOCUMENTS } from '../../../steps/urls';
+import { ADDITIONAL_DOCUMENTS_UPLOAD, UPLOAD_SUPPORTING_DOCUMENTS } from '../../../steps/urls';
 import { FIS_COS_API_BASE_URL } from '../../common/constants/apiConstants';
 
 import UploadDocumentController, { FIS_COS_API_URL, FileMimeType, FileValidations } from './uploadDocPostController';
 
 const getNextStepUrlMock = jest.spyOn(steps, 'getNextStepUrl');
 
-describe('Document upload controller', () => {
+describe('Form upload controller', () => {
   afterEach(() => {
     getNextStepUrlMock.mockClear();
   });
@@ -34,28 +34,16 @@ describe('Document upload controller', () => {
       },
     };
     const controller = new UploadDocumentController(mockForm.fields);
-    const QUERY = {
-      query: 'delete',
-      documentId: 'xyz',
-      documentType: 'applicationform',
-    };
 
     const req = mockRequest({});
     const res = mockResponse();
     req.files = { documents: [] };
     req.session.caseDocuments = [];
-    req.query = QUERY;
     await controller.post(req, res);
-
-    expect(req.query).toEqual({
-      query: 'delete',
-      documentId: 'xyz',
-      documentType: 'applicationform',
-    });
 
     expect(req.locals.api.triggerEvent).not.toHaveBeenCalled();
     expect(getNextStepUrlMock).not.toHaveBeenCalled();
-    expect(res.redirect).not.toBeCalledWith('/upload-appeal-form');
+    expect(res.redirect).not.toBeCalledWith('/upload-supporting-documents');
     expect(req.session.errors).not.toEqual(errors);
   });
 
@@ -66,7 +54,6 @@ describe('Document upload controller', () => {
       const req = mockRequest({
         session: {
           user: { email: 'test@example.com' },
-
           save: jest.fn(done => done('MOCK_ERROR')),
         },
       });
@@ -85,6 +72,14 @@ describe('All of the listed Validation for files should be in place', () => {
     doc: 'application/msword',
     docx: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
     pdf: 'application/pdf',
+    png: 'image/png',
+    xls: 'application/vnd.ms-excel',
+    xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    jpg: 'image/jpeg',
+    txt: 'text/plain',
+    rtf: 'application/rtf',
+    rtf2: 'text/rtf',
+    gif: 'image/gif',
   };
 
   it('must match the file validations type', () => {
@@ -96,7 +91,7 @@ describe('All of the listed Validation for files should be in place', () => {
 
 describe('document format validation', () => {
   it('must match valid mimetypes', () => {
-    expect(FileValidations.formatValidation('image/gif')).toBe(false);
+    expect(FileValidations.formatValidation('image/gif')).toBe(true);
   });
 });
 
@@ -131,7 +126,7 @@ describe('Checking for file upload size', () => {
 
 describe('Check for System contents to match for en', () => {
   const resourceLoader = new ResourceReader();
-  resourceLoader.Loader('upload-appeal-form');
+  resourceLoader.Loader('upload-supporting-documents');
   const getContents = resourceLoader.getFileContents().errors;
 
   it('must match load English as Langauage', () => {
@@ -146,7 +141,7 @@ describe('Check for System contents to match for en', () => {
 
 describe('Check for System contents to match for cy', () => {
   const resourceLoader = new ResourceReader();
-  resourceLoader.Loader('upload-appeal-form');
+  resourceLoader.Loader('upload-supporting-documents');
   const getContents = resourceLoader.getFileContents().errors;
 
   it('must match load English as Language', () => {
@@ -161,7 +156,7 @@ describe('Check for System contents to match for cy', () => {
 
 describe('Check for System contents to match for fr', () => {
   const resourceLoader = new ResourceReader();
-  resourceLoader.Loader('upload-appeal-form');
+  resourceLoader.Loader('upload-supporting-documents');
   const getContents = resourceLoader.getFileContents().errors;
 
   it('must match load English as default Langauage', () => {
@@ -192,51 +187,6 @@ describe('checking for the redirect of post document upload', () => {
   const res = mockResponse();
   const postingcontroller = new UploadDocumentController(mockForm.fields);
   it('redirection after the documents has been proccessed', async () => {
-    req.session.caseDocuments = [
-      {
-        originalDocumentName: 'document1.docx',
-        _links: {
-          self: {
-            href: 'http://dm-example/documents/sae33',
-          },
-          binary: {
-            href: 'http://dm-example/documents/sae33/binary',
-          },
-        },
-      },
-      {
-        originalDocumentName: 'document2.docx',
-        _links: {
-          self: {
-            href: 'http://dm-example/documents/ce6e2',
-          },
-          binary: {
-            href: 'http://dm-example/documents/ce6e2/binary',
-          },
-        },
-      },
-    ];
-
-    await postingcontroller.PostDocumentUploader(req, res);
-    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_SUPPORTING_DOCUMENTS);
-  });
-
-  it('must be have axios instance', () => {
-    const SystemInstance = postingcontroller.UploadDocumentInstance('/', {});
-    expect(SystemInstance instanceof Axios);
-  });
-
-  it('procceding the document upload', () => {
-    const SystemInstance = postingcontroller.UploadDocumentInstance('/', {});
-    expect(SystemInstance instanceof Axios);
-  });
-
-  req.body['documentUploadProceed'] = true;
-  req.session.caseDocuments = [];
-
-  it('Post controller attributes', async () => {
-    // req.session.caseDocuments = [];
-
     req.session.supportingCaseDocuments = [
       {
         originalDocumentName: 'document1.docx',
@@ -261,14 +211,47 @@ describe('checking for the redirect of post document upload', () => {
         },
       },
     ];
+    await postingcontroller.PostDocumentUploader(req, res);
+    expect(res.redirect).toHaveBeenCalledWith(ADDITIONAL_DOCUMENTS_UPLOAD);
+  });
 
-    req.files = [];
+  it('must be have axios instance', () => {
+    const SystemInstance = postingcontroller.UploadDocumentInstance('/', {});
+    expect(SystemInstance instanceof Axios);
+  });
+
+  req.body['documentUploadProceed'] = true;
+  req.session.supportingCaseDocuments = [];
+
+  it('Post controller attributes', async () => {
+    req.session.caseDocuments = [];
 
     /**
-     *
-     */
+       * req.session.supportingCaseDocuments = [{
+        originalDocumentName : 'document1.docx',
+        _links: {
+          self: {
+          href: 'http://dm-example/documents/sae33'
+            },
+       binary: {
+        href: 'http://dm-example/documents/sae33/binary'
+         }
+       }
+      },
+      {
+        originalDocumentName : 'document2.docx',
+        _links: {
+            self: {
+            href: 'http://dm-example/documents/ce6e2'
+              },
+         binary: {
+          href: 'http://dm-example/documents/ce6e2/binary'
+           }
+         }
+      }];
+       */
     await postingcontroller.post(req, res);
-    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_SUPPORTING_DOCUMENTS);
+    expect(res.redirect).toHaveBeenCalledWith(ADDITIONAL_DOCUMENTS_UPLOAD);
   });
 
   it('should redirect to same page if no documents uploaded', async () => {
@@ -278,17 +261,6 @@ describe('checking for the redirect of post document upload', () => {
     req.session.fileErrors = [];
 
     await postingcontroller.post(req, res);
-    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_APPEAL_FORM);
-  });
-
-  it('should display error if upload clicked with no document', async () => {
-    req.session.caseDocuments = [];
-    req.session.supportingCaseDocuments = [];
-    (req.files as any) = null;
-    req.session.fileErrors = [];
-    req.body['documentUploadProceed'] = false;
-
-    await postingcontroller.post(req, res);
-    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_APPEAL_FORM);
+    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_SUPPORTING_DOCUMENTS);
   });
 });

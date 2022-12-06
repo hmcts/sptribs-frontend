@@ -113,7 +113,7 @@ export class GetController {
     let pageRenderableContents = {
       ...content,
       uploadedDocuments: req.session['caseDocuments'],
-      addtionalDocuments: req.session['AddtionalCaseDocuments'],
+      supportingDocuments: req.session['supportingCaseDocuments'],
       cookiePrefrences: cookiesForPrefrences,
       sessionErrors,
       cookieMessage: false,
