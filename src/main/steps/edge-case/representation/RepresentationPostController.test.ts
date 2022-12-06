@@ -3,7 +3,7 @@ import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import { YesOrNo } from '../../../app/case/definition';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import * as steps from '../../../steps';
-import { REPRESENTATION_QUALIFIED, USER_ROLE } from '../../urls';
+import { REPRESENTATION_QUALIFIED, UPLOAD_APPEAL_FORM } from '../../urls';
 
 import RepresentationPostController from './representationPostController';
 
@@ -95,6 +95,6 @@ describe('RepresentationPostController', () => {
     await controller.post(req, res);
 
     expect(getNextStepUrlMock).not.toHaveBeenCalled();
-    expect(res.redirect).toBeCalledWith(USER_ROLE);
+    expect(res.redirect).toBeCalledWith(UPLOAD_APPEAL_FORM);
   });
 });

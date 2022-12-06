@@ -230,7 +230,9 @@ interface CreateCaseResponse {
 export const mapCaseData = (req: AppRequest): any => {
   const data = {
     namedApplicant: req.session.userCase.namedApplicant,
-    caseTypeOfApplication: req.session['edgecaseType'],
+    //caseTypeOfApplication: req.session['edgecaseType'],
+    // Hardcode for now
+    caseTypeOfApplication: 'CIC',
     applicantFirstName: req.session.userCase.applicantFirstName,
     applicantLastName: req.session.userCase.applicantLastName,
     applicantDateOfBirth: toApiDate(req.session.userCase.applicantDateOfBirth),
@@ -244,6 +246,7 @@ export const mapCaseData = (req: AppRequest): any => {
     applicantAddressCountry: 'United Kingdom',
     applicantAddressPostCode: req.session.userCase.applicantAddressPostcode,
     applicantStatementOfTruth: checkboxConverter(req.session.userCase.applicantStatementOfTruth),
+    subjectFullName: req.session.userCase.subjectFullName,
     subjectEmailAddress: req.session.userCase.subjectEmailAddress,
     subjectContactNumber: req.session.userCase.subjectContactNumber,
     subjectAgreeContact: checkboxConverter(req.session.userCase.subjectAgreeContact),

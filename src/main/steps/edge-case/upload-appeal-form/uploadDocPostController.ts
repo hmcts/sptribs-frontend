@@ -7,14 +7,14 @@ import FormData from 'form-data';
 import { isNull } from 'lodash';
 
 // eslint-disable-next-line import/namespace
-import { mapCaseData } from '../../../app/case/CaseApi';
+// import { mapCaseData } from '../../../app/case/CaseApi';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
 import { FormFields, FormFieldsFn } from '../../../app/form/Form';
 import { ResourceReader } from '../../../modules/resourcereader/ResourceReader';
 import { FIS_COS_API_BASE_URL } from '../../../steps/common/constants/apiConstants';
 const logger = Logger.getLogger('uploadDocumentPostController');
-import { ADDITIONAL_DOCUMENTS_UPLOAD, UPLOAD_YOUR_DOCUMENTS } from '../../urls';
+import { ADDITIONAL_DOCUMENTS_UPLOAD, UPLOAD_APPEAL_FORM } from '../../urls';
 //import {mapCaseData} from '../../../app/case/CaseApi';
 
 /**
@@ -29,14 +29,6 @@ type FileType = {
   doc: string;
   docx: string;
   pdf: string;
-  png: string;
-  xls: string;
-  xlsx: string;
-  jpg: string;
-  txt: string;
-  rtf: string;
-  rtf2: string;
-  gif: string;
 };
 
 /**
@@ -46,14 +38,6 @@ type FileMimeTypeInfo = {
   'application/msword': string;
   'application/vnd.openxmlformats-officedocument.wordprocessingml.document': string;
   'application/pdf': string;
-  'image/png': string;
-  'application/vnd.ms-excel': string;
-  'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': string;
-  'image/jpeg': string;
-  'text/plain': string;
-  'application/rtf': string;
-  'text/rtf': string;
-  'image/gif': string;
 };
 
 /**
@@ -76,14 +60,6 @@ export const FileMimeType: Partial<Record<keyof FileType, keyof FileMimeTypeInfo
   doc: 'application/msword',
   docx: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
   pdf: 'application/pdf',
-  png: 'image/png',
-  xls: 'application/vnd.ms-excel',
-  xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-  jpg: 'image/jpeg',
-  txt: 'text/plain',
-  rtf: 'application/rtf',
-  rtf2: 'text/rtf',
-  gif: 'image/gif',
 };
 
 export class FileValidations {
@@ -97,7 +73,7 @@ export class FileValidations {
     let SystemContent: any | FileUploadErrorTranslatables = {};
     const SystemLangauge = req.session['lang'];
     const resourceLoader = new ResourceReader();
-    resourceLoader.Loader('upload-your-documents');
+    resourceLoader.Loader('upload-appeal-form');
     const ErrorInLangauges = resourceLoader.getFileContents().errors;
     switch (SystemLangauge) {
       case 'en':
@@ -152,54 +128,55 @@ export default class UploadDocumentController extends PostController<AnyObject> 
         const errorMessage = FileValidations.ResourceReaderContents(req).CONTINUE_WITHOUT_UPLOAD_ERROR;
         this.uploadFileError(req, res, errorMessage);
       } else {
-        const CaseId = req.session.userCase['id'];
-        const baseURL = '/case/dss-orchestration/' + CaseId + '/update?event=UPDATE';
-        const Headers = {
-          Authorization: `Bearer ${req.session.user['accessToken']}`,
-        };
-        try {
-          const MappedRequestCaseDocuments = req.session['caseDocuments'].map(document => {
-            const { url, fileName, documentId, binaryUrl } = document;
-            return {
-              id: documentId,
-              value: {
-                documentLink: {
-                  document_url: url,
-                  document_filename: fileName,
-                  document_binary_url: binaryUrl,
-                },
-              },
-            };
-          });
-
-          let AdditionalDocuments = [];
-          if (req.session.AddtionalCaseDocuments !== undefined) {
-            AdditionalDocuments = req.session['AddtionalCaseDocuments'].map(document => {
-              // eslint-disable-next-line @typescript-eslint/no-shadow
-              const { url, fileName, documentId, binaryUrl } = document;
-              return {
-                id: documentId,
-                value: {
-                  documentLink: {
-                    document_url: url,
-                    document_filename: fileName,
-                    document_binary_url: binaryUrl,
-                  },
-                },
-              };
-            });
-          }
-          const CaseData = mapCaseData(req);
-          const responseBody = {
-            ...CaseData,
-            applicantApplicationFormDocuments: MappedRequestCaseDocuments,
-            applicantAdditionalDocuments: AdditionalDocuments,
-          };
-          await this.UploadDocumentInstance(FIS_COS_API_URL, Headers).put(baseURL, responseBody);
-          res.redirect(ADDITIONAL_DOCUMENTS_UPLOAD);
-        } catch (error) {
-          console.log(error);
-        }
+        // const CaseId = req.session.userCase['id'];
+        // const baseURL = '/case/dss-orchestration/' + CaseId + '/update?event=UPDATE';
+        // const Headers = {
+        //   Authorization: `Bearer ${req.session.user['accessToken']}`,
+        // };
+        // try {
+        //   const MappedRequestCaseDocuments = req.session['caseDocuments'].map(document => {
+        //     const { url, fileName, documentId, binaryUrl } = document;
+        //     return {
+        //       id: documentId,
+        //       value: {
+        //         documentLink: {
+        //           document_url: url,
+        //           document_filename: fileName,
+        //           document_binary_url: binaryUrl,
+        //         },
+        //       },
+        //     };
+        //   });
+        //
+        //   let AdditionalDocuments = [];
+        //   if (req.session.AddtionalCaseDocuments !== undefined) {
+        //     AdditionalDocuments = req.session['AddtionalCaseDocuments'].map(document => {
+        //       // eslint-disable-next-line @typescript-eslint/no-shadow
+        //       const { url, fileName, documentId, binaryUrl } = document;
+        //       return {
+        //         id: documentId,
+        //         value: {
+        //           documentLink: {
+        //             document_url: url,
+        //             document_filename: fileName,
+        //             document_binary_url: binaryUrl,
+        //           },
+        //         },
+        //       };
+        //     });
+        //   }
+        //   const CaseData = mapCaseData(req);
+        //   const responseBody = {
+        //     ...CaseData,
+        //     applicantApplicationFormDocuments: MappedRequestCaseDocuments,
+        //     applicantAdditionalDocuments: AdditionalDocuments,
+        //   };
+        //   await this.UploadDocumentInstance(FIS_COS_API_URL, Headers).put(baseURL, responseBody);
+        //   res.redirect(ADDITIONAL_DOCUMENTS_UPLOAD);
+        // } catch (error) {
+        //   console.log(error);
+        // }
+        res.redirect(ADDITIONAL_DOCUMENTS_UPLOAD);
       }
     }
   }
@@ -219,7 +196,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
       href: '#',
     });
 
-    this.redirect(req, res, UPLOAD_YOUR_DOCUMENTS);
+    this.redirect(req, res, UPLOAD_APPEAL_FORM);
   }
 
   /**
@@ -229,8 +206,6 @@ export default class UploadDocumentController extends PostController<AnyObject> 
    */
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const { documentUploadProceed } = req.body;
-
-    console.log({ userDetais: req.session.user });
 
     let TotalUploadDocuments = 0;
     if (!req.session.hasOwnProperty('caseDocuments')) {
@@ -263,7 +238,6 @@ export default class UploadDocumentController extends PostController<AnyObject> 
 
           // making sure single file is uploaded
           if (!checkIfMultipleFiles) {
-            console.log({ mimetype: documents.mimetype });
             const validateMimeType: boolean = FileValidations.formatValidation(documents.mimetype);
             const validateFileSize: boolean = FileValidations.sizeValidation(documents.size);
             const formData: FormData = new FormData();
@@ -293,7 +267,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
                 const uploadedDocument = RequestDocument.data.document;
                 req.session['caseDocuments'].push(uploadedDocument);
                 req.session['errors'] = undefined;
-                this.redirect(req, res, UPLOAD_YOUR_DOCUMENTS);
+                this.redirect(req, res, UPLOAD_APPEAL_FORM);
               } catch (error) {
                 logger.error(error);
               }
@@ -315,7 +289,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
 
               req.session.fileErrors.push(...FormattedError);
 
-              this.redirect(req, res, UPLOAD_YOUR_DOCUMENTS);
+              this.redirect(req, res, UPLOAD_APPEAL_FORM);
             }
           }
         } else {
@@ -324,7 +298,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
             href: '#',
           });
 
-          this.redirect(req, res, UPLOAD_YOUR_DOCUMENTS);
+          this.redirect(req, res, UPLOAD_APPEAL_FORM);
         }
       }
     }
