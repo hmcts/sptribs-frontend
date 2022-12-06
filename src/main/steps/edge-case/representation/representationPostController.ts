@@ -5,7 +5,7 @@ import { YesOrNo } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../app/form/Form';
-import { REPRESENTATION_QUALIFIED, USER_ROLE } from '../../urls';
+import { REPRESENTATION_QUALIFIED, UPLOAD_APPEAL_FORM } from '../../urls';
 
 @autobind
 export default class RepresentationPostController extends PostController<AnyObject> {
@@ -26,7 +26,7 @@ export default class RepresentationPostController extends PostController<AnyObje
     if (YesOrNo.YES === req.body.representation) {
       this.redirect(req, res, req.session.errors?.length ? req.url : REPRESENTATION_QUALIFIED);
     } else {
-      this.redirect(req, res, req.session.errors?.length ? req.url : USER_ROLE);
+      this.redirect(req, res, req.session.errors?.length ? req.url : UPLOAD_APPEAL_FORM);
     }
   }
 }

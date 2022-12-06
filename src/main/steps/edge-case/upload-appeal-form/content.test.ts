@@ -8,7 +8,7 @@ import { generateContent } from './content';
 jest.mock('../../../app/form/validation');
 
 const resourceLoader = new ResourceReader();
-resourceLoader.Loader('upload-your-documents');
+resourceLoader.Loader('upload-appeal-form');
 const Translations = resourceLoader.getFileContents().translations;
 
 const EN = 'en';

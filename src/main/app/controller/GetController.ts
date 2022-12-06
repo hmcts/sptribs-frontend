@@ -9,7 +9,7 @@ import { CommonContent, Language, generatePageContent } from '../../steps/common
 import { FIS_COS_API_BASE_URL } from '../../steps/common/constants/apiConstants';
 import { TOGGLE_SWITCH } from '../../steps/common/constants/commonConstants';
 import * as Urls from '../../steps/urls';
-import { ADDITIONAL_DOCUMENTS_UPLOAD, COOKIES, UPLOAD_YOUR_DOCUMENTS } from '../../steps/urls';
+import { ADDITIONAL_DOCUMENTS_UPLOAD, COOKIES, UPLOAD_APPEAL_FORM } from '../../steps/urls';
 import { Case, CaseWithId } from '../case/case';
 
 import { AppRequest } from './AppRequest';
@@ -276,7 +276,7 @@ export class GetController {
               });
               req.session['caseDocuments'] = sessionObjectOfApplicationDocuments;
               this.saveSessionAndRedirect(req, res, () => {
-                res.redirect(UPLOAD_YOUR_DOCUMENTS);
+                res.redirect(UPLOAD_APPEAL_FORM);
               });
             } catch (error) {
               console.log(error);
