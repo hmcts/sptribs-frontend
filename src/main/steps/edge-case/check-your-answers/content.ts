@@ -3,7 +3,7 @@ import { FormContent } from '../../../app/form/Form';
 import { ResourceReader } from '../../../modules/resourcereader/ResourceReader';
 import { CommonContent } from '../../../steps/common/common.content';
 
-import { AdditonalFormSummary, ApplicantSummaryList, UploadFormSummary, UserRole } from './utils';
+import { AdditonalFormSummary, SubjectSummaryList, UploadFormSummary, UserRole } from './utils';
 const resourceLoader = new ResourceReader();
 resourceLoader.Loader('check-your-answers');
 const Translations = resourceLoader.getFileContents().translations;
@@ -14,17 +14,17 @@ export const enContent = {
 
 const en = (content: any) => {
   const userCase = content.userCase!;
-  const caseDocuments = content.uploadedDocuments;
-  const AdditionalDocuments = content.AddDocuments;
+  //const caseDocuments = content.uploadedDocuments;
+  //const AdditionalDocuments = content.AddDocuments;
 
   return {
     ...enContent,
     language: content.language,
     sections: [
-      UserRole(enContent, userCase),
-      ApplicantSummaryList(enContent, userCase),
-      UploadFormSummary(enContent, caseDocuments),
-      AdditonalFormSummary(enContent, AdditionalDocuments),
+      //UserRole(enContent, userCase),
+      SubjectSummaryList(enContent, userCase),
+      //UploadFormSummary(enContent, caseDocuments),
+      //AdditonalFormSummary(enContent, AdditionalDocuments),
     ],
   };
 };
@@ -43,7 +43,7 @@ const cy: typeof en = (content: CommonContent) => {
     language: content.language,
     sections: [
       UserRole(enContent, userCase),
-      ApplicantSummaryList(cyContent, userCase),
+      SubjectSummaryList(cyContent, userCase),
       UploadFormSummary(enContent, caseDocuments),
       AdditonalFormSummary(enContent, AdditionalDocuments),
     ],

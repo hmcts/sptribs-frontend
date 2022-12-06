@@ -7,14 +7,14 @@
             "change": "change",
             "continue": "Accept and continue",
             "sectionTitles": {
-              "applicantDetails": "Applicant details"
+              "subjectDetails": "Subject Details"
             },
             "keys": {
-              "phoneNumber": "Phone number",
-              "emailAddress": "Contact number of the person named on the application",
+              "fullName": "Full name",
+              "dateOfBirth": "Date of birth",
+              "emailAddress": "Email address",
+              "contactNumber": "Contact number",
               "user-role": "Are you named as the applicant on the application form you are submitting? ",
-              "fullName": "Subject’s name",
-              "dateOfBirth": "Subject’s DoB",
               "address": "Address",
               "recievingEmail": "Who should receive emails about the application",
               "namedPersonEmail": "Email address of the person named on the application",

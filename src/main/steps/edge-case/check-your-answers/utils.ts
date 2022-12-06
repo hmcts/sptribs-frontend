@@ -1,7 +1,6 @@
 import { getFormattedDate } from '../../../app/case/answers/formatDate';
 import { CaseWithId } from '../../../app/case/case';
 import { YesOrNo } from '../../../app/case/definition';
-import { getFormattedAddress } from '../../../app/case/formatter/address';
 import { PageContent } from '../../../app/controller/GetController';
 import * as Urls from '../../../steps/urls';
 
@@ -72,63 +71,34 @@ const getSectionSummaryList = (rows: SummaryListRow[], content: PageContent): Go
 };
 
 /* eslint-disable import/namespace */
-export const ApplicantSummaryList = (
+export const SubjectSummaryList = (
   { sectionTitles, keys, ...content }: SummaryListContent,
   userCase: Partial<CaseWithId>
 ): SummaryList | undefined => {
-  console.log('usercase in check your answer -->', userCase);
-  const sectionTitle = sectionTitles.applicantDetails;
-  console.log('Address in util userCase --->', userCase);
-
-  const UserContactPreferences = function () {
-    let perference = '';
-    if (userCase['contactPreferenceType'] === 'NAMED_PERSON') {
-      perference = 'The person named on this application';
-    } else if (userCase['contactPreferenceType'] === 'ACCOUNT_OWNER') {
-      perference = 'The account owner';
-    } else if (userCase['contactPreferenceType'] === 'BOTH_RECEIVE') {
-      perference = 'Both the account owner and the person named on this application';
-    } else {
-      perference = '';
-    }
-    return perference;
-  };
+  //console.log('usercase in check your answer -->', userCase);
+  const sectionTitle = sectionTitles.subjectDetails;
+  //console.log('Address in util userCase --->', userCase);
 
   const SummaryData = [
     {
       key: keys.fullName,
-      value: userCase['applicantFirstName'] + ' ' + userCase['applicantLastName'],
-      changeUrl: Urls['FULL_NAME'],
+      value: userCase['subjectFullName'],
+      changeUrl: Urls['SUBJECT_DETAILS'],
     },
     {
       key: keys.dateOfBirth,
-      value: getFormattedDate(userCase['applicantDateOfBirth'], content.language),
-      changeUrl: Urls['DATE_OF_BIRTH'],
+      value: getFormattedDate(userCase['subjectDateOfBirth'], content.language),
+      changeUrl: Urls['SUBJECT_DETAILS'],
     },
     {
-      key: keys.address,
-      valueHtml: getFormattedAddress(userCase),
-      changeUrl: Urls['MANUAL_ADDRESS'],
-    },
-    {
-      key: keys.recievingEmail,
-      value: UserContactPreferences(),
-      changeUrl: Urls['CONTACT_PREFERENCES'],
-    },
-    {
-      key: keys.namedPersonEmail,
-      value: userCase['applicantEmailAddress'],
+      key: keys.emailAddress,
+      value: userCase['subjectEmailAddress'],
       changeUrl: Urls['SUBJECT_CONTACT_DETAILS'],
     },
     {
-      key: keys.namedPersonTel,
-      value: userCase['applicantHomeNumber'],
-      changeUrl: Urls['CONTACT_DETAILS'],
-    },
-    {
-      key: keys.namedPersonMob,
-      value: userCase['applicantPhoneNumber'],
-      changeUrl: Urls['CONTACT_DETAILS'],
+      key: keys.contactNumber,
+      value: userCase['subjectContactNumber'],
+      changeUrl: Urls['SUBJECT_CONTACT_DETAILS'],
     },
   ];
 
