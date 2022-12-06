@@ -9,10 +9,10 @@
     "uploadButton": "Upload file"
     },
     "cy": {
-    "serviceName": "Application upload - (Welsh)",
-    "title": "Upload application form - (Welsh)",
-    "line1": "Please upload the application form that you have already completed. - (Welsh)",
-    "line2": "If you are not the person name on the application, you must need to complete an additional form to ask for permission to apply on behalf of someone else. - (Welsh)",
+    "serviceName": "Appeal form - (Welsh)",
+    "title": "Upload tribunal form - (Welsh)",
+    "line1": "Please upload the First-tier tribunal form that you have already completed. - (Welsh)",
+    "line2": "If you have other evidence or supporting documents, you can upload these files on the next screen. - (Welsh)",
     "uploadRequirement": "<div class='govuk-body-s'><ul class=‘govuk-list govuk-list--bullet’><li>File formats: MS Word, PDF</li><li>File size per document: up to 20 megabytes (MB)</li><li>Files cannot be password protected</li></ul><p> You can’t upload executable (.exe), .zip or other archive files due to virus risks.</div> (Welsh)",
     "uploadButton": "Upload file (Welsh)"
     }
