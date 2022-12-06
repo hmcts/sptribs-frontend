@@ -22,6 +22,7 @@ export interface AppSession extends Session {
   rpeToken: any;
   caseDocuments: any;
   supportingCaseDocuments: any;
+  AddtionalCaseDocuments: any;
   postDocs: any;
   cookieMessage: boolean;
   user: UserDetails;
