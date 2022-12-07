@@ -14,8 +14,7 @@ import { FormFields, FormFieldsFn } from '../../../app/form/Form';
 import { ResourceReader } from '../../../modules/resourcereader/ResourceReader';
 import { FIS_COS_API_BASE_URL } from '../../../steps/common/constants/apiConstants';
 const logger = Logger.getLogger('uploadDocumentPostController');
-import { UPLOAD_APPEAL_FORM, UPLOAD_SUPPORTING_DOCUMENTS } from '../../urls';
-//import {mapCaseData} from '../../../app/case/CaseApi';
+import { ADDITIONAL_DOCUMENTS_UPLOAD, UPLOAD_SUPPORTING_DOCUMENTS } from '../../urls';
 
 /**
  * ****** File Extensions Types are being check
@@ -29,6 +28,14 @@ type FileType = {
   doc: string;
   docx: string;
   pdf: string;
+  png: string;
+  xls: string;
+  xlsx: string;
+  jpg: string;
+  txt: string;
+  rtf: string;
+  rtf2: string;
+  gif: string;
 };
 
 /**
@@ -38,8 +45,15 @@ type FileMimeTypeInfo = {
   'application/msword': string;
   'application/vnd.openxmlformats-officedocument.wordprocessingml.document': string;
   'application/pdf': string;
+  'image/png': string;
+  'application/vnd.ms-excel': string;
+  'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': string;
+  'image/jpeg': string;
+  'text/plain': string;
+  'application/rtf': string;
+  'text/rtf': string;
+  'image/gif': string;
 };
-
 /**
  * ****** File Upload validations Message
  */
@@ -60,6 +74,14 @@ export const FileMimeType: Partial<Record<keyof FileType, keyof FileMimeTypeInfo
   doc: 'application/msword',
   docx: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
   pdf: 'application/pdf',
+  png: 'image/png',
+  xls: 'application/vnd.ms-excel',
+  xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+  jpg: 'image/jpeg',
+  txt: 'text/plain',
+  rtf: 'application/rtf',
+  rtf2: 'text/rtf',
+  gif: 'image/gif',
 };
 
 export class FileValidations {
@@ -73,17 +95,17 @@ export class FileValidations {
     let SystemContent: any | FileUploadErrorTranslatables = {};
     const SystemLangauge = req.session['lang'];
     const resourceLoader = new ResourceReader();
-    resourceLoader.Loader('upload-appeal-form');
-    const ErrorInLangauges = resourceLoader.getFileContents().errors;
+    resourceLoader.Loader('upload-supporting-documents');
+    const ErrorInLanguages = resourceLoader.getFileContents().errors;
     switch (SystemLangauge) {
       case 'en':
-        SystemContent = ErrorInLangauges.en;
+        SystemContent = ErrorInLanguages.en;
         break;
       case 'cy':
-        SystemContent = ErrorInLangauges.cy;
+        SystemContent = ErrorInLanguages.cy;
         break;
       default:
-        SystemContent = ErrorInLangauges.en;
+        SystemContent = ErrorInLanguages.en;
     }
     return SystemContent;
   };
@@ -116,13 +138,13 @@ export class FileValidations {
 
 @autobind
 export default class UploadDocumentController extends PostController<AnyObject> {
-  constructor(protected readonly fields: FormFields | FormFieldsFn) {
+  constructor(protected fields: FormFields | FormFieldsFn) {
     super(fields);
   }
 
   async PostDocumentUploader(req: AppRequest<AnyObject>, res: Response): Promise<void> {
-    if (req.session.hasOwnProperty('caseDocuments')) {
-      const TotalUploadDocuments = req.session.caseDocuments.length;
+    if (req.session.hasOwnProperty('supportingCaseDocuments')) {
+      const TotalUploadDocuments = req.session.supportingCaseDocuments.length;
 
       if (TotalUploadDocuments === 0) {
         const errorMessage = FileValidations.ResourceReaderContents(req).CONTINUE_WITHOUT_UPLOAD_ERROR;
@@ -134,7 +156,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
         //   Authorization: `Bearer ${req.session.user['accessToken']}`,
         // };
         // try {
-        //   const MappedRequestCaseDocuments = req.session['caseDocuments'].map(document => {
+        //   const MappedUploadRequestCaseDocuments = req.session['caseDocuments'].map(document => {
         //     const { url, fileName, documentId, binaryUrl } = document;
         //     return {
         //       id: documentId,
@@ -148,35 +170,32 @@ export default class UploadDocumentController extends PostController<AnyObject> 
         //     };
         //   });
         //
-        //   let AdditionalDocuments = [];
-        //   if (req.session.supportingCaseDocuments !== undefined) {
-        //     AdditionalDocuments = req.session['supportingCaseDocuments'].map(document => {
-        //       // eslint-disable-next-line @typescript-eslint/no-shadow
-        //       const { url, fileName, documentId, binaryUrl } = document;
-        //       return {
-        //         id: documentId,
-        //         value: {
-        //           documentLink: {
-        //             document_url: url,
-        //             document_filename: fileName,
-        //             document_binary_url: binaryUrl,
-        //           },
+        //   const MappedRequestCaseDocuments = req.session['supportingCaseDocuments'].map(document => {
+        //     const { url, fileName, documentId, binaryUrl } = document;
+        //     return {
+        //       id: documentId,
+        //       value: {
+        //         documentLink: {
+        //           document_url: url,
+        //           document_filename: fileName,
+        //           document_binary_url: binaryUrl,
         //         },
-        //       };
-        //     });
-        //   }
+        //       },
+        //     };
+        //   });
         //   const CaseData = mapCaseData(req);
         //   const responseBody = {
         //     ...CaseData,
-        //     applicantApplicationFormDocuments: MappedRequestCaseDocuments,
-        //     applicantAdditionalDocuments: AdditionalDocuments,
+        //     applicantAdditionalDocuments: MappedRequestCaseDocuments,
+        //     applicantApplicationFormDocuments: MappedUploadRequestCaseDocuments,
         //   };
+        //
         //   await this.UploadDocumentInstance(FIS_COS_API_URL, Headers).put(baseURL, responseBody);
-        //   res.redirect(ADDITIONAL_DOCUMENTS_UPLOAD);
+        //   res.redirect(CHECK_YOUR_ANSWERS);
         // } catch (error) {
         //   console.log(error);
         // }
-        res.redirect(UPLOAD_SUPPORTING_DOCUMENTS);
+        res.redirect(ADDITIONAL_DOCUMENTS_UPLOAD);
       }
     }
   }
@@ -196,7 +215,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
       href: '#',
     });
 
-    this.redirect(req, res, UPLOAD_APPEAL_FORM);
+    this.redirect(req, res, UPLOAD_SUPPORTING_DOCUMENTS);
   }
 
   /**
@@ -208,11 +227,11 @@ export default class UploadDocumentController extends PostController<AnyObject> 
     const { documentUploadProceed } = req.body;
 
     let TotalUploadDocuments = 0;
-    if (!req.session.hasOwnProperty('caseDocuments')) {
-      req.session['caseDocuments'] = [];
+    if (!req.session.hasOwnProperty('supportingCaseDocuments')) {
+      req.session['supportingCaseDocuments'] = [];
+      TotalUploadDocuments = 0;
     } else {
-      TotalUploadDocuments = req.session['caseDocuments'].length;
-      req.session['errors'] = [];
+      TotalUploadDocuments = req.session['supportingCaseDocuments'].length;
     }
 
     if (documentUploadProceed) {
@@ -224,11 +243,10 @@ export default class UploadDocumentController extends PostController<AnyObject> 
       const { files }: AppRequest<AnyObject> = req;
 
       if (isNull(files)) {
-        console.log('is null: ' + req.files);
         const errorMessage = FileValidations.ResourceReaderContents(req).NO_FILE_UPLOAD_ERROR;
         this.uploadFileError(req, res, errorMessage);
       } else {
-        if (TotalUploadDocuments < Number(config.get('documentUpload.validation.totaldocuments'))) {
+        if (TotalUploadDocuments < Number(config.get('documentUpload.validation.totalSupportingDocuments'))) {
           if (!req.session.hasOwnProperty('errors')) {
             req.session['errors'] = [];
           }
@@ -266,9 +284,9 @@ export default class UploadDocumentController extends PostController<AnyObject> 
                 );
 
                 const uploadedDocument = RequestDocument.data.document;
-                req.session['caseDocuments'].push(uploadedDocument);
+                req.session['supportingCaseDocuments'].push(uploadedDocument);
                 req.session['errors'] = undefined;
-                this.redirect(req, res, UPLOAD_APPEAL_FORM);
+                this.redirect(req, res, UPLOAD_SUPPORTING_DOCUMENTS);
               } catch (error) {
                 logger.error(error);
               }
@@ -280,7 +298,6 @@ export default class UploadDocumentController extends PostController<AnyObject> 
                   href: '#',
                 });
               }
-
               if (!validateMimeType) {
                 FormattedError.push({
                   text: FileValidations.ResourceReaderContents(req).FORMAT_ERROR,
@@ -290,7 +307,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
 
               req.session.fileErrors.push(...FormattedError);
 
-              this.redirect(req, res, UPLOAD_APPEAL_FORM);
+              this.redirect(req, res, UPLOAD_SUPPORTING_DOCUMENTS);
             }
           }
         } else {
@@ -299,7 +316,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
             href: '#',
           });
 
-          this.redirect(req, res, UPLOAD_APPEAL_FORM);
+          this.redirect(req, res, UPLOAD_SUPPORTING_DOCUMENTS);
         }
       }
     }
