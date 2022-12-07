@@ -1,0 +1,34 @@
+{
+    "translations": {
+    "en": {
+    "serviceName": "Supporting documents",
+    "title": "Upload supporting documents",
+    "line1": "You must send a copy of the Authority's Review decision letter with the completed tribunal form.",
+    "uploadRequirement": "<div class='govuk-body-s'><ul class=‘govuk-list govuk-list--bullet’><li>File formats: MS Word, MS Excel, PDF, JPG, GIF, PNG, TXT, RTF</li><li>File size per document: up to 20 megabytes (MB)</li><li>Files cannot be password protected</li></ul><p> You can’t upload executable (.exe), .zip or other archive files due to virus risks.</div>",
+    "uploadButton": "Upload file"
+    },
+    "cy": {
+    "serviceName": "Supporting documents - (Welsh)",
+    "title": "Upload supporting documents - (Welsh)",
+    "line1": "You must send a copy of the Authority's Review decision letter with the completed tribunal form. - (Welsh)",
+    "uploadRequirement": "<div class='govuk-body-s'><ul class=‘govuk-list govuk-list--bullet’><li>File formats: MS Word, MS Excel, PDF, JPG, GIF, PNG, TXT, RTF</li><li>File size per document: up to 20 megabytes (MB)</li><li>Files cannot be password protected</li></ul><p> You can’t upload executable (.exe), .zip or other archive files due to virus risks.</div> (Welsh)",
+    "uploadButton": "Upload file (Welsh)"
+    }
+    },
+    "errors": {
+    "en": {
+    "SIZE_ERROR": "File size exceeds 20Mb. Please upload a file that is less than 20Mb",
+    "FORMAT_ERROR": "This service only accepts files in the formats - MS Word, MS Excel, PDF, JPG, GIF, PNG, TXT, RTF",
+    "TOTAL_FILES_EXCEED_ERROR": "You can upload 5 files only. Please delete one of the uploaded files and retry",
+    "CONTINUE_WITHOUT_UPLOAD_ERROR": "You cannot continue without uploading supporting documentation",
+    "NO_FILE_UPLOAD_ERROR": "Please choose a file to upload"
+    },
+    "cy": {
+    "SIZE_ERROR": "File size exceeds 20Mb. Please upload a file that is less than 20Mb (Welsh)",
+    "FORMAT_ERROR": "This service only accepts files in the formats - MS Word, MS Excel, PDF, JPG, GIF, PNG, TXT, RTF (Welsh)",
+    "TOTAL_FILES_EXCEED_ERROR": "You can upload 5 files only. Please delete one of the uploaded files and retry (Welsh)",
+    "CONTINUE_WITHOUT_UPLOAD_ERROR": "You cannot continue without uploading supporting documentation (Welsh)",
+    "NO_FILE_UPLOAD_ERROR": "Please choose a file to upload (Welsh)"
+    }
+    }
+    }
