@@ -1,9 +1,16 @@
+import { YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { ResourceReader } from '../../../modules/resourcereader/ResourceReader';
 import { CommonContent } from '../../../steps/common/common.content';
 
-import { AdditonalFormSummary, SubjectSummaryList, UploadFormSummary, UserRole } from './utils';
+import {
+  AdditonalFormSummary,
+  RepresentationSummary,
+  RepresentativeSummaryList,
+  SubjectSummaryList,
+  UploadAppealFormSummary,
+} from './utils';
 const resourceLoader = new ResourceReader();
 resourceLoader.Loader('check-your-answers');
 const Translations = resourceLoader.getFileContents().translations;
@@ -14,18 +21,26 @@ export const enContent = {
 
 const en = (content: any) => {
   const userCase = content.userCase!;
-  //const caseDocuments = content.uploadedDocuments;
+  const caseDocuments = content.uploadedDocuments;
   //const AdditionalDocuments = content.AddDocuments;
 
   return {
     ...enContent,
     language: content.language,
-    sections: [
-      //UserRole(enContent, userCase),
-      SubjectSummaryList(enContent, userCase),
-      //UploadFormSummary(enContent, caseDocuments),
-      //AdditonalFormSummary(enContent, AdditionalDocuments),
-    ],
+    sections:
+      userCase['representation'] === YesOrNo.YES
+        ? [
+            SubjectSummaryList(enContent, userCase),
+            RepresentationSummary(enContent, userCase),
+            RepresentativeSummaryList(enContent, userCase),
+            UploadAppealFormSummary(enContent, caseDocuments),
+            //AdditonalFormSummary(enContent, AdditionalDocuments),
+          ]
+        : [
+            SubjectSummaryList(enContent, userCase),
+            RepresentationSummary(enContent, userCase),
+            UploadAppealFormSummary(enContent, caseDocuments),
+          ],
   };
 };
 
@@ -42,9 +57,8 @@ const cy: typeof en = (content: CommonContent) => {
     ...cyContent,
     language: content.language,
     sections: [
-      UserRole(enContent, userCase),
       SubjectSummaryList(cyContent, userCase),
-      UploadFormSummary(enContent, caseDocuments),
+      UploadAppealFormSummary(enContent, caseDocuments),
       AdditonalFormSummary(enContent, AdditionalDocuments),
     ],
   };

@@ -48,7 +48,12 @@ export const edgecaseSequence: Step[] = [
   {
     url: UPLOAD_APPEAL_FORM,
     showInSection: Sections.AboutEdgeCase,
-    getNextStep: () => USER_ROLE,
+    getNextStep: () => CHECK_YOUR_ANSWERS,
+  },
+  {
+    url: CHECK_YOUR_ANSWERS,
+    showInSection: Sections.AboutEdgeCase,
+    getNextStep: () => STATEMENT_OF_TRUTH,
   },
   {
     url: USER_ROLE,
@@ -77,11 +82,6 @@ export const edgecaseSequence: Step[] = [
   },
   {
     url: CONTACT_PREFERENCES,
-    showInSection: Sections.AboutEdgeCase,
-    getNextStep: () => UPLOAD_YOUR_DOCUMENTS,
-  },
-  {
-    url: UPLOAD_YOUR_DOCUMENTS,
     showInSection: Sections.AboutEdgeCase,
     getNextStep: () => ADDITIONAL_DOCUMENTS_UPLOAD,
   },

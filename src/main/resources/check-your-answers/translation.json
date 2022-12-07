@@ -7,20 +7,22 @@
             "change": "change",
             "continue": "Accept and continue",
             "sectionTitles": {
-              "subjectDetails": "Subject Details"
+              "subjectDetails": "Subject Details",
+              "representativeDetails": "Representative's Details",
+              "representation": "Representation"
             },
             "keys": {
               "fullName": "Full name",
               "dateOfBirth": "Date of birth",
               "emailAddress": "Email address",
               "contactNumber": "Contact number",
-              "user-role": "Are you named as the applicant on the application form you are submitting? ",
-              "address": "Address",
-              "recievingEmail": "Who should receive emails about the application",
-              "namedPersonEmail": "Email address of the person named on the application",
-              "namedPersonMob": "Enter your mobile phone number",
-              "namedPersonTel": "Enter your home phone number",
-              "uploadDocuments": "List of forms uploaded (Application form)",
+              "representationLabel": "Is there a representative named on completed tribunal form?",
+              "representativeQualifiedLabel": "Is the named representative legally qualified?",
+              "representativeFullName": "Full name",
+              "representativeOrganisationName": "Organisation or business name",
+              "representativeContactNumber": "Contact number",
+              "representativeEmailAddress": "Email address",
+              "appealDocuments": "List of forms uploaded (Appeal form)",
               "additionalDocuments": "List of Documents uploaded (supporting documents)"
             }
         },

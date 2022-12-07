@@ -3,7 +3,7 @@ import { mockUserCase1, mockUserCase2, mockUserCase3 } from '../../../../test/un
 //mockUserCase2, mockUserCase3
 
 import { enContent } from './content';
-import { AdditonalFormSummary, SubjectSummaryList, UploadFormSummary, UserRole } from './utils';
+import { AdditonalFormSummary, SubjectSummaryList, UploadAppealFormSummary, UserRole } from './utils';
 /**AdditonalFormSummary UploadFormSummary   */
 
 describe('upload-addition-documents > check-your-answers', () => {
@@ -359,7 +359,7 @@ describe('Form Summary > check-your-answers', () => {
         },
       },
     ])('return correct summary list items when %#', ({ userCase, expected }) => {
-      expect(UploadFormSummary(enContent, userCase)).not.toBe(expected);
+      expect(UploadAppealFormSummary(enContent, userCase)).not.toBe(expected);
     });
   });
 });

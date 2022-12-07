@@ -75,9 +75,7 @@ export const SubjectSummaryList = (
   { sectionTitles, keys, ...content }: SummaryListContent,
   userCase: Partial<CaseWithId>
 ): SummaryList | undefined => {
-  //console.log('usercase in check your answer -->', userCase);
   const sectionTitle = sectionTitles.subjectDetails;
-  //console.log('Address in util userCase --->', userCase);
 
   const SummaryData = [
     {
@@ -102,6 +100,79 @@ export const SubjectSummaryList = (
     },
   ];
 
+  return {
+    title: sectionTitle,
+    rows: getSectionSummaryList(SummaryData, content),
+  };
+};
+
+/* eslint-disable import/namespace */
+export const RepresentationSummary = (
+  { sectionTitles, keys, ...content }: SummaryListContent,
+  userCase: Partial<CaseWithId>
+): SummaryList | undefined => {
+  const sectionTitle = sectionTitles.representation;
+  const isRepresentation = userCase['representation'] === YesOrNo.YES ? 'Yes' : 'No';
+  const isRepresentationQualified = userCase['representationQualified'] === YesOrNo.YES ? 'Yes' : 'No';
+
+  const SummaryData =
+    userCase['representation'] === YesOrNo.YES
+      ? [
+          {
+            key: keys.representationLabel,
+            value: isRepresentation,
+            changeUrl: Urls['REPRESENTATION'],
+          },
+          {
+            key: keys.representativeQualifiedLabel,
+            value: isRepresentationQualified,
+            changeUrl: Urls['REPRESENTATION_QUALIFIED'],
+          },
+        ]
+      : [
+          {
+            key: keys.representationLabel,
+            value: isRepresentation,
+            changeUrl: Urls['REPRESENTATION'],
+          },
+        ];
+
+  return {
+    title: sectionTitle,
+    rows: getSectionSummaryList(SummaryData, content),
+  };
+};
+
+/* eslint-disable import/namespace */
+export const RepresentativeSummaryList = (
+  { sectionTitles, keys, ...content }: SummaryListContent,
+  userCase: Partial<CaseWithId>
+): SummaryList | undefined => {
+  const sectionTitle = sectionTitles.representativeDetails;
+
+  const SummaryData = [
+    {
+      key: keys.representativeFullName,
+      value: userCase['representativeFullName'],
+      changeUrl: Urls['REPRESENTATIVES_DETAILS'],
+    },
+    {
+      key: keys.representativeOrganisationName,
+      value: userCase['representativeOrganisationName'],
+      changeUrl: Urls['REPRESENTATIVES_DETAILS'],
+    },
+    {
+      key: keys.representativeContactNumber,
+      value: userCase['representativeContactNumber'],
+      changeUrl: Urls['REPRESENTATIVES_DETAILS'],
+    },
+    {
+      key: keys.representativeEmailAddress,
+      value: userCase['representativeEmailAddress'],
+      changeUrl: Urls['REPRESENTATIVES_DETAILS'],
+    },
+  ];
+
   /** Removes entry in @summarydata if user is not a named user */
 
   return {
@@ -111,11 +182,10 @@ export const SubjectSummaryList = (
 };
 
 /* eslint-disable import/namespace */
-export const UploadFormSummary = (
+export const UploadAppealFormSummary = (
   { sectionTitles, keys, ...content }: SummaryListContent,
   uploadedDocuments: Partial<any>
 ): SummaryList | undefined => {
-  console.log(uploadedDocuments);
   const ListOfUploadedDocuments = uploadedDocuments
     .map((document): string => {
       return document.fileName + '';
@@ -126,40 +196,14 @@ export const UploadFormSummary = (
 
   const SummaryData = [
     {
-      key: keys.uploadDocuments,
+      key: keys.appealDocuments,
       value: ListOfUploadedDocuments,
-      changeUrl: Urls['UPLOAD_YOUR_DOCUMENTS'],
+      changeUrl: Urls['UPLOAD_APPEAL_FORM'],
     },
   ];
-
-  /** Removes entry in @summarydata if user is not a named user */
 
   return {
     title: 'List of forms uploaded ',
-    rows: getSectionSummaryList(SummaryData, content),
-  };
-};
-
-/* eslint-disable import/namespace */
-export const UserRole = (
-  { sectionTitles, keys, ...content }: SummaryListContent,
-  userCase: Partial<CaseWithId>
-): SummaryList | undefined => {
-  const isNamedApplicant =
-    userCase['namedApplicant'] === YesOrNo.YES ? 'Yes' : 'No - I am sending an application for someone else.';
-
-  const SummaryData = [
-    {
-      key: keys['user-role'],
-      value: isNamedApplicant,
-      changeUrl: Urls['USER_ROLE'],
-    },
-  ];
-
-  /** Removes entry in @summarydata if user is not a named user */
-
-  return {
-    title: 'Determine User’s Role',
     rows: getSectionSummaryList(SummaryData, content),
   };
 };
@@ -183,8 +227,6 @@ export const AdditonalFormSummary = (
       changeUrl: Urls['ADDITIONAL_DOCUMENTS_UPLOAD'],
     },
   ];
-
-  /** Removes entry in @summarydata if user is not a named user */
 
   return {
     title: 'List of Documents uploaded  ',
