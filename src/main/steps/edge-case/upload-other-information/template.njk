@@ -19,6 +19,8 @@
 <h1 class="govuk-heading-l">{{ title }}</h1>
 <p class="govuk-body">{{ line1 }}</p>
 <p class="govuk-body">{{ line2 }}</p>
+<p class="govuk-body">{{ line3 }}</p>
+{{ uploadExamples }}
 
 {{ govukDetails({
   summaryText: "File uploads requirements",
@@ -27,14 +29,14 @@
 
 <div id="uploadGroup" tabindex="0" class="uploadGroup">
   <h2 class="govuk-heading-s">{{ uploadFiles }}</h2>
-  <p class="govuk-body govuk-section-break govuk-section-break--visible govuk-!-padding-bottom-3{% if uploadedDocuments|length %} hidden{% endif %}" id="noFilesUploaded">{{ noFilesUploaded }}</p>
+  <p class="govuk-body govuk-section-break govuk-section-break--visible govuk-!-padding-bottom-3{% if otherInformation|length %} hidden{% endif %}" id="noFilesUploaded">{{ noFilesUploaded }}</p>
   <ul id="filesUploaded" class="govuk-list">
-    {%if uploadedDocuments.length >0 %}
-    {% for file in uploadedDocuments %}
+    {%if otherInformation.length >0 %}
+    {% for file in otherInformation %}
       <li class="uploadedFile govuk-!-padding-top-2 govuk-!-padding-bottom-3 govuk-section-break govuk-section-break--visible">
         {{ file.fileName }}
         {% set documentId = file.documentId%}
-        <a href="/upload-appeal-form?query=delete&docId={{documentId}}&documentType=tribunalform" class="govuk-link--no-visited-state float-right ">{{ delete }}</a>
+        <a href="/upload-other-information?query=delete&docId={{documentId}}&documentType=other" class="govuk-link--no-visited-state float-right ">{{ delete }}</a>
       </li>
     {% endfor %}
     {%endif%}
@@ -46,7 +48,7 @@
   {{ fileSize }}
 </p>
 
-<form class="formRow" action="/upload-appeal-form?_csrf={{ csrfToken }}" method="post" enctype="multipart/form-data">
+<form class="formRow" action="/upload-other-information?_csrf={{ csrfToken }}" method="post" enctype="multipart/form-data">
   {{ govukFileUpload({
     id: "file-upload-1",
     name: "documents",
