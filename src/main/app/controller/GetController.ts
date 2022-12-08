@@ -9,7 +9,7 @@ import { CommonContent, Language, generatePageContent } from '../../steps/common
 import { FIS_COS_API_BASE_URL } from '../../steps/common/constants/apiConstants';
 import { TOGGLE_SWITCH } from '../../steps/common/constants/commonConstants';
 import * as Urls from '../../steps/urls';
-import { ADDITIONAL_DOCUMENTS_UPLOAD, COOKIES, UPLOAD_APPEAL_FORM } from '../../steps/urls';
+import { COOKIES, UPLOAD_APPEAL_FORM, UPLOAD_OTHER_INFORMATION, UPLOAD_SUPPORTING_DOCUMENTS } from '../../steps/urls';
 import { Case, CaseWithId } from '../case/case';
 
 import { AppRequest } from './AppRequest';
@@ -114,6 +114,7 @@ export class GetController {
       ...content,
       uploadedDocuments: req.session['caseDocuments'],
       supportingDocuments: req.session['supportingCaseDocuments'],
+      otherInformation: req.session['otherCaseInformation'],
       cookiePrefrences: cookiesForPrefrences,
       sessionErrors,
       cookieMessage: false,
@@ -266,7 +267,7 @@ export class GetController {
         /** Switching type of documents */
         /*eslint no-case-declarations: "error"*/
         switch (documentType) {
-          case 'applicationform': {
+          case 'tribunalform': {
             try {
               const baseURL = `/doc/dss-orhestration/${docId}/delete`;
               await DOCUMENT_DELETEMANAGER.delete(baseURL);
@@ -285,17 +286,36 @@ export class GetController {
             break;
           }
 
-          case 'additional': {
+          case 'supporting': {
             try {
               const baseURL = `/doc/dss-orhestration/${docId}/delete`;
               await DOCUMENT_DELETEMANAGER.delete(baseURL);
-              const sessionObjectOfAdditionalDocuments = req.session['AddtionalCaseDocuments'].filter(document => {
+              const sessionObjectOfSupportingDocuments = req.session['supportingCaseDocuments'].filter(document => {
                 const { documentId } = document;
                 return documentId !== docId;
               });
-              req.session['AddtionalCaseDocuments'] = sessionObjectOfAdditionalDocuments;
+              req.session['supportingCaseDocuments'] = sessionObjectOfSupportingDocuments;
               this.saveSessionAndRedirect(req, res, () => {
-                res.redirect(ADDITIONAL_DOCUMENTS_UPLOAD);
+                res.redirect(UPLOAD_SUPPORTING_DOCUMENTS);
+              });
+            } catch (error) {
+              console.log(error);
+            }
+
+            break;
+          }
+
+          case 'other': {
+            try {
+              const baseURL = `/doc/dss-orhestration/${docId}/delete`;
+              await DOCUMENT_DELETEMANAGER.delete(baseURL);
+              const sessionObjectOfOtherDocuments = req.session['otherCaseInformation'].filter(document => {
+                const { documentId } = document;
+                return documentId !== docId;
+              });
+              req.session['otherCaseInformation'] = sessionObjectOfOtherDocuments;
+              this.saveSessionAndRedirect(req, res, () => {
+                res.redirect(UPLOAD_OTHER_INFORMATION);
               });
             } catch (error) {
               console.log(error);

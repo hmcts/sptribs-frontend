@@ -7,14 +7,14 @@ import { YesOrNo } from '../../../app/case/definition';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import { ResourceReader } from '../../../modules/resourcereader/ResourceReader';
 import * as steps from '../../../steps';
-import { UPLOAD_OTHER_INFORMATION, UPLOAD_SUPPORTING_DOCUMENTS } from '../../../steps/urls';
+import { UPLOAD_OTHER_INFORMATION, USER_ROLE } from '../../../steps/urls';
 import { FIS_COS_API_BASE_URL } from '../../common/constants/apiConstants';
 
 import UploadDocumentController, { FIS_COS_API_URL, FileMimeType, FileValidations } from './uploadDocPostController';
 
 const getNextStepUrlMock = jest.spyOn(steps, 'getNextStepUrl');
 
-describe('Form upload controller', () => {
+describe('Document upload controller', () => {
   afterEach(() => {
     getNextStepUrlMock.mockClear();
   });
@@ -34,16 +34,29 @@ describe('Form upload controller', () => {
       },
     };
     const controller = new UploadDocumentController(mockForm.fields);
+    const QUERY = {
+      query: 'delete',
+      documentId: 'xyz',
+      documentType: 'other',
+    };
 
     const req = mockRequest({});
     const res = mockResponse();
-    req.files = { documents: [] };
+    (req.files as any) = { documents: { mimetype: 'text/plain' } };
     req.session.caseDocuments = [];
+    req.session.fileErrors = [];
+    req.query = QUERY;
     await controller.post(req, res);
+
+    expect(req.query).toEqual({
+      query: 'delete',
+      documentId: 'xyz',
+      documentType: 'other',
+    });
 
     expect(req.locals.api.triggerEvent).not.toHaveBeenCalled();
     expect(getNextStepUrlMock).not.toHaveBeenCalled();
-    expect(res.redirect).not.toBeCalledWith('/upload-supporting-documents');
+    expect(res.redirect).toBeCalledWith('/upload-other-information');
     expect(req.session.errors).not.toEqual(errors);
   });
 
@@ -54,6 +67,7 @@ describe('Form upload controller', () => {
       const req = mockRequest({
         session: {
           user: { email: 'test@example.com' },
+
           save: jest.fn(done => done('MOCK_ERROR')),
         },
       });
@@ -80,6 +94,8 @@ describe('All of the listed Validation for files should be in place', () => {
     rtf: 'application/rtf',
     rtf2: 'text/rtf',
     gif: 'image/gif',
+    mp4audio: 'audio/mp4',
+    mp4video: 'video/mp4',
   };
 
   it('must match the file validations type', () => {
@@ -104,17 +120,26 @@ describe('The url must match the config url', () => {
 describe('Checking for file upload size', () => {
   const file1Size = 10000000;
   const file2Size = 20000000;
-  const file3Size = 30000000;
+  const file3Size = 500000000;
+  const file4Size = 600000000;
   it('Checking for file1 size', () => {
-    expect(FileValidations.sizeValidation(file1Size)).toBe(true);
+    expect(FileValidations.sizeValidation('text/plain', file1Size)).toBe(true);
   });
 
   it('Checking for file2 size', () => {
-    expect(FileValidations.sizeValidation(file2Size)).toBe(true);
+    expect(FileValidations.sizeValidation('text/plain', file2Size)).toBe(true);
   });
 
   it('Checking for file3 size', () => {
-    expect(FileValidations.sizeValidation(file3Size)).toBe(false);
+    expect(FileValidations.sizeValidation('text/plain', file3Size)).toBe(false);
+  });
+
+  it('Checking for file3 multimedia size', () => {
+    expect(FileValidations.sizeValidation('video/mp4', file3Size)).toBe(true);
+  });
+
+  it('Checking for file4 multimedia size', () => {
+    expect(FileValidations.sizeValidation('video/mp4', file4Size)).toBe(false);
   });
 });
 
@@ -126,7 +151,7 @@ describe('Checking for file upload size', () => {
 
 describe('Check for System contents to match for en', () => {
   const resourceLoader = new ResourceReader();
-  resourceLoader.Loader('upload-supporting-documents');
+  resourceLoader.Loader('upload-other-information');
   const getContents = resourceLoader.getFileContents().errors;
 
   it('must match load English as Langauage', () => {
@@ -141,7 +166,7 @@ describe('Check for System contents to match for en', () => {
 
 describe('Check for System contents to match for cy', () => {
   const resourceLoader = new ResourceReader();
-  resourceLoader.Loader('upload-supporting-documents');
+  resourceLoader.Loader('upload-other-information');
   const getContents = resourceLoader.getFileContents().errors;
 
   it('must match load English as Language', () => {
@@ -156,7 +181,7 @@ describe('Check for System contents to match for cy', () => {
 
 describe('Check for System contents to match for fr', () => {
   const resourceLoader = new ResourceReader();
-  resourceLoader.Loader('upload-supporting-documents');
+  resourceLoader.Loader('upload-other-information');
   const getContents = resourceLoader.getFileContents().errors;
 
   it('must match load English as default Langauage', () => {
@@ -187,7 +212,7 @@ describe('checking for the redirect of post document upload', () => {
   const res = mockResponse();
   const postingcontroller = new UploadDocumentController(mockForm.fields);
   it('redirection after the documents has been proccessed', async () => {
-    req.session.supportingCaseDocuments = [
+    req.session.otherCaseInformation = [
       {
         originalDocumentName: 'document1.docx',
         _links: {
@@ -211,8 +236,9 @@ describe('checking for the redirect of post document upload', () => {
         },
       },
     ];
+
     await postingcontroller.PostDocumentUploader(req, res);
-    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION);
+    expect(res.redirect).toHaveBeenCalledWith(USER_ROLE);
   });
 
   it('must be have axios instance', () => {
@@ -220,58 +246,71 @@ describe('checking for the redirect of post document upload', () => {
     expect(SystemInstance instanceof Axios);
   });
 
+  it('procceding the document upload', () => {
+    const SystemInstance = postingcontroller.UploadDocumentInstance('/', {});
+    expect(SystemInstance instanceof Axios);
+  });
+
   req.body['documentUploadProceed'] = true;
-  req.session.supportingCaseDocuments = [];
+  req.session.otherCaseInformation = [];
 
   it('Post controller attributes', async () => {
-    req.session.caseDocuments = [];
+    // req.session.otherCaseInformation = [];
 
-    /**
-       * req.session.supportingCaseDocuments = [{
-        originalDocumentName : 'document1.docx',
+    req.session.otherCaseInformation = [
+      {
+        originalDocumentName: 'document1.docx',
         _links: {
           self: {
-          href: 'http://dm-example/documents/sae33'
-            },
-       binary: {
-        href: 'http://dm-example/documents/sae33/binary'
-         }
-       }
+            href: 'http://dm-example/documents/sae33',
+          },
+          binary: {
+            href: 'http://dm-example/documents/sae33/binary',
+          },
+        },
       },
       {
-        originalDocumentName : 'document2.docx',
+        originalDocumentName: 'document2.docx',
         _links: {
-            self: {
-            href: 'http://dm-example/documents/ce6e2'
-              },
-         binary: {
-          href: 'http://dm-example/documents/ce6e2/binary'
-           }
-         }
-      }];
-       */
+          self: {
+            href: 'http://dm-example/documents/ce6e2',
+          },
+          binary: {
+            href: 'http://dm-example/documents/ce6e2/binary',
+          },
+        },
+      },
+    ];
+
+    req.files = [];
+
+    /**
+     *
+     */
     await postingcontroller.post(req, res);
-    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION);
+    expect(res.redirect).toHaveBeenCalledWith(USER_ROLE);
   });
 
   it('should redirect to same page if no documents uploaded', async () => {
     req.session.caseDocuments = [];
     req.session.supportingCaseDocuments = [];
+    req.session.otherCaseInformation = [];
     req.files = [];
     req.session.fileErrors = [];
 
     await postingcontroller.post(req, res);
-    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_SUPPORTING_DOCUMENTS);
+    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION);
   });
 
   it('should display error if upload clicked with no document', async () => {
     req.session.caseDocuments = [];
     req.session.supportingCaseDocuments = [];
+    req.session.otherCaseInformation = [];
     (req.files as any) = null;
     req.session.fileErrors = [];
     req.body['documentUploadProceed'] = false;
 
     await postingcontroller.post(req, res);
-    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_SUPPORTING_DOCUMENTS);
+    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION);
   });
 });
