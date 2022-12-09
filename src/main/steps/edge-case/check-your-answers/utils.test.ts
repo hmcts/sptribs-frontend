@@ -1,7 +1,12 @@
 import { mockUserCase1, mockUserCase2, mockUserCase3 } from '../../../../test/unit/utils/mockUserCase';
 
 import { enContent } from './content';
-import { SubjectSummaryList, SupportingDocumentsSummary, UploadAppealFormSummary } from './utils';
+import {
+  OtherInformationSummary,
+  SubjectSummaryList,
+  SupportingDocumentsSummary,
+  UploadAppealFormSummary,
+} from './utils';
 /**AdditonalFormSummary UploadFormSummary   */
 
 describe('upload-addition-documents > check-your-answers', () => {
@@ -332,6 +337,36 @@ describe('Addtional Form Summar> check-your-answers', () => {
   });
 });
 
+describe('Other information > check-your-answers', () => {
+  describe('OtherInformationSummary', () => {
+    test.each([
+      {
+        userCase: [{ fileName: 'a.txt' }, { fileName: 'b.txt' }],
+        expected: {
+          rows: [
+            {
+              actions: {
+                items: [
+                  {
+                    href: '/full-name',
+                    text: 'change',
+                    visuallyHiddenText: 'Subject’s name',
+                  },
+                ],
+              },
+              key: { text: 'Subject’s name' },
+              value: { text: 'Joe Bob' },
+            },
+          ],
+          title: 'Applicant details',
+        },
+      },
+    ])('return correct summary list items when %#', ({ userCase, expected }) => {
+      expect(OtherInformationSummary(enContent, userCase)).not.toBe(expected);
+    });
+  });
+});
+
 describe('Form Summary > check-your-answers', () => {
   describe('applicationSummaryList', () => {
     test.each([
@@ -361,33 +396,3 @@ describe('Form Summary > check-your-answers', () => {
     });
   });
 });
-
-/*describe('Form Summary-user-role > check-your-answers', () => {
-  describe('User role', () => {
-    test.each([
-      {
-        userCase: mockUserCase1,
-        expected: {
-          rows: [
-            {
-              actions: {
-                items: [
-                  {
-                    href: '/user-role',
-                    text: 'change',
-                    visuallyHiddenText: 'Are you named as the applicant on the application form you are submitting?',
-                  },
-                ],
-              },
-              key: { text: 'Are you named as the applicant on the application form you are submitting?' },
-              value: { text: 'No' },
-            },
-          ],
-          title: 'Applicant details',
-        },
-      },
-    ])('return correct summary list items when %#', ({ userCase, expected }) => {
-      expect(UserRole(enContent, userCase)).not.toBe(expected);
-    });
-  });
-});*/

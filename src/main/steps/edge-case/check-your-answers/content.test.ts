@@ -24,6 +24,7 @@ describe('check-your-answer > content', () => {
     userCase: mockUserCase1,
     uploadedDocuments: [],
     supportingDocuments: [],
+    otherInformation: [],
     AddDocuments: [],
   } as unknown as CommonContent;
 
