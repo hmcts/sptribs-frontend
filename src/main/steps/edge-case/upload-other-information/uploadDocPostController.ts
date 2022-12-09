@@ -14,7 +14,8 @@ import { FormFields, FormFieldsFn } from '../../../app/form/Form';
 import { ResourceReader } from '../../../modules/resourcereader/ResourceReader';
 import { FIS_COS_API_BASE_URL } from '../../../steps/common/constants/apiConstants';
 const logger = Logger.getLogger('uploadDocumentPostController');
-import { UPLOAD_OTHER_INFORMATION, UPLOAD_SUPPORTING_DOCUMENTS } from '../../urls';
+import { UPLOAD_OTHER_INFORMATION, USER_ROLE } from '../../urls';
+//import {mapCaseData} from '../../../app/case/CaseApi';
 
 /**
  * ****** File Extensions Types are being check
@@ -36,6 +37,8 @@ type FileType = {
   rtf: string;
   rtf2: string;
   gif: string;
+  mp4audio: string;
+  mp4video: string;
 };
 
 /**
@@ -53,7 +56,10 @@ type FileMimeTypeInfo = {
   'application/rtf': string;
   'text/rtf': string;
   'image/gif': string;
+  'audio/mp4': string;
+  'video/mp4': string;
 };
+
 /**
  * ****** File Upload validations Message
  */
@@ -82,6 +88,8 @@ export const FileMimeType: Partial<Record<keyof FileType, keyof FileMimeTypeInfo
   rtf: 'application/rtf',
   rtf2: 'text/rtf',
   gif: 'image/gif',
+  mp4audio: 'audio/mp4',
+  mp4video: 'video/mp4',
 };
 
 export class FileValidations {
@@ -93,19 +101,19 @@ export class FileValidations {
 
   static ResourceReaderContents = (req: AppRequest<AnyObject>): FileUploadErrorTranslatables => {
     let SystemContent: any | FileUploadErrorTranslatables = {};
-    const SystemLanguage = req.session['lang'];
+    const SystemLangauge = req.session['lang'];
     const resourceLoader = new ResourceReader();
-    resourceLoader.Loader('upload-supporting-documents');
-    const ErrorInLanguages = resourceLoader.getFileContents().errors;
-    switch (SystemLanguage) {
+    resourceLoader.Loader('upload-appeal-form');
+    const ErrorInLangauges = resourceLoader.getFileContents().errors;
+    switch (SystemLangauge) {
       case 'en':
-        SystemContent = ErrorInLanguages.en;
+        SystemContent = ErrorInLangauges.en;
         break;
       case 'cy':
-        SystemContent = ErrorInLanguages.cy;
+        SystemContent = ErrorInLangauges.cy;
         break;
       default:
-        SystemContent = ErrorInLanguages.en;
+        SystemContent = ErrorInLangauges.en;
     }
     return SystemContent;
   };
@@ -115,8 +123,10 @@ export class FileValidations {
    * @param fileSize
    * @returns
    */
-  static sizeValidation = (fileSize: number): boolean => {
-    const KbsInMBS = Number(config.get('documentUpload.validation.sizeInKB'));
+  static sizeValidation = (mimeType: string, fileSize: number): boolean => {
+    const KbsInMBS = mimeType.endsWith('/mp4')
+      ? Number(config.get('documentUpload.validation.multimediaSizeInKB'))
+      : Number(config.get('documentUpload.validation.sizeInKB'));
     if (fileSize <= KbsInMBS) {
       return true;
     } else {
@@ -138,13 +148,13 @@ export class FileValidations {
 
 @autobind
 export default class UploadDocumentController extends PostController<AnyObject> {
-  constructor(protected fields: FormFields | FormFieldsFn) {
+  constructor(protected readonly fields: FormFields | FormFieldsFn) {
     super(fields);
   }
 
   async PostDocumentUploader(req: AppRequest<AnyObject>, res: Response): Promise<void> {
-    if (req.session.hasOwnProperty('supportingCaseDocuments')) {
-      const TotalUploadDocuments = req.session.supportingCaseDocuments.length;
+    if (req.session.hasOwnProperty('otherCaseInformation')) {
+      const TotalUploadDocuments = req.session.otherCaseInformation.length;
 
       if (TotalUploadDocuments === 0) {
         const errorMessage = FileValidations.ResourceReaderContents(req).CONTINUE_WITHOUT_UPLOAD_ERROR;
@@ -156,7 +166,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
         //   Authorization: `Bearer ${req.session.user['accessToken']}`,
         // };
         // try {
-        //   const MappedUploadRequestCaseDocuments = req.session['caseDocuments'].map(document => {
+        //   const MappedRequestCaseDocuments = req.session['caseDocuments'].map(document => {
         //     const { url, fileName, documentId, binaryUrl } = document;
         //     return {
         //       id: documentId,
@@ -170,32 +180,35 @@ export default class UploadDocumentController extends PostController<AnyObject> 
         //     };
         //   });
         //
-        //   const MappedRequestCaseDocuments = req.session['supportingCaseDocuments'].map(document => {
-        //     const { url, fileName, documentId, binaryUrl } = document;
-        //     return {
-        //       id: documentId,
-        //       value: {
-        //         documentLink: {
-        //           document_url: url,
-        //           document_filename: fileName,
-        //           document_binary_url: binaryUrl,
+        //   let AdditionalDocuments = [];
+        //   if (req.session.supportingCaseDocuments !== undefined) {
+        //     AdditionalDocuments = req.session['supportingCaseDocuments'].map(document => {
+        //       // eslint-disable-next-line @typescript-eslint/no-shadow
+        //       const { url, fileName, documentId, binaryUrl } = document;
+        //       return {
+        //         id: documentId,
+        //         value: {
+        //           documentLink: {
+        //             document_url: url,
+        //             document_filename: fileName,
+        //             document_binary_url: binaryUrl,
+        //           },
         //         },
-        //       },
-        //     };
-        //   });
+        //       };
+        //     });
+        //   }
         //   const CaseData = mapCaseData(req);
         //   const responseBody = {
         //     ...CaseData,
-        //     applicantAdditionalDocuments: MappedRequestCaseDocuments,
-        //     applicantApplicationFormDocuments: MappedUploadRequestCaseDocuments,
+        //     applicantApplicationFormDocuments: MappedRequestCaseDocuments,
+        //     applicantAdditionalDocuments: AdditionalDocuments,
         //   };
-        //
         //   await this.UploadDocumentInstance(FIS_COS_API_URL, Headers).put(baseURL, responseBody);
-        //   res.redirect(CHECK_YOUR_ANSWERS);
+        //   res.redirect(ADDITIONAL_DOCUMENTS_UPLOAD);
         // } catch (error) {
         //   console.log(error);
         // }
-        res.redirect(UPLOAD_OTHER_INFORMATION);
+        res.redirect(USER_ROLE);
       }
     }
   }
@@ -215,7 +228,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
       href: '#',
     });
 
-    this.redirect(req, res, UPLOAD_SUPPORTING_DOCUMENTS);
+    this.redirect(req, res, UPLOAD_OTHER_INFORMATION);
   }
 
   /**
@@ -227,11 +240,11 @@ export default class UploadDocumentController extends PostController<AnyObject> 
     const { documentUploadProceed } = req.body;
 
     let TotalUploadDocuments = 0;
-    if (!req.session.hasOwnProperty('supportingCaseDocuments')) {
-      req.session['supportingCaseDocuments'] = [];
-      TotalUploadDocuments = 0;
+    if (!req.session.hasOwnProperty('otherCaseInformation')) {
+      req.session['otherCaseInformation'] = [];
     } else {
-      TotalUploadDocuments = req.session['supportingCaseDocuments'].length;
+      TotalUploadDocuments = req.session['otherCaseInformation'].length;
+      req.session['errors'] = [];
     }
 
     if (documentUploadProceed) {
@@ -243,10 +256,11 @@ export default class UploadDocumentController extends PostController<AnyObject> 
       const { files }: AppRequest<AnyObject> = req;
 
       if (isNull(files)) {
+        console.log('is null: ' + req.files);
         const errorMessage = FileValidations.ResourceReaderContents(req).NO_FILE_UPLOAD_ERROR;
         this.uploadFileError(req, res, errorMessage);
       } else {
-        if (TotalUploadDocuments < Number(config.get('documentUpload.validation.totalSupportingDocuments'))) {
+        if (TotalUploadDocuments < Number(config.get('documentUpload.validation.totaldocuments'))) {
           if (!req.session.hasOwnProperty('errors')) {
             req.session['errors'] = [];
           }
@@ -258,7 +272,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
           // making sure single file is uploaded
           if (!checkIfMultipleFiles) {
             const validateMimeType: boolean = FileValidations.formatValidation(documents.mimetype);
-            const validateFileSize: boolean = FileValidations.sizeValidation(documents.size);
+            const validateFileSize: boolean = FileValidations.sizeValidation(documents.mimetype, documents.size);
             const formData: FormData = new FormData();
             if (validateMimeType && validateFileSize) {
               formData.append('file', documents.data, {
@@ -284,9 +298,9 @@ export default class UploadDocumentController extends PostController<AnyObject> 
                 );
 
                 const uploadedDocument = RequestDocument.data.document;
-                req.session['supportingCaseDocuments'].push(uploadedDocument);
+                req.session['otherCaseInformation'].push(uploadedDocument);
                 req.session['errors'] = undefined;
-                this.redirect(req, res, UPLOAD_SUPPORTING_DOCUMENTS);
+                this.redirect(req, res, UPLOAD_OTHER_INFORMATION);
               } catch (error) {
                 logger.error(error);
               }
@@ -298,6 +312,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
                   href: '#',
                 });
               }
+
               if (!validateMimeType) {
                 FormattedError.push({
                   text: FileValidations.ResourceReaderContents(req).FORMAT_ERROR,
@@ -307,7 +322,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
 
               req.session.fileErrors.push(...FormattedError);
 
-              this.redirect(req, res, UPLOAD_SUPPORTING_DOCUMENTS);
+              this.redirect(req, res, UPLOAD_OTHER_INFORMATION);
             }
           }
         } else {
@@ -316,7 +331,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
             href: '#',
           });
 
-          this.redirect(req, res, UPLOAD_SUPPORTING_DOCUMENTS);
+          this.redirect(req, res, UPLOAD_OTHER_INFORMATION);
         }
       }
     }

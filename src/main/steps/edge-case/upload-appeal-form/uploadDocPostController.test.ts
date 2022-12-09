@@ -37,25 +37,26 @@ describe('Document upload controller', () => {
     const QUERY = {
       query: 'delete',
       documentId: 'xyz',
-      documentType: 'applicationform',
+      documentType: 'tribunalform',
     };
 
     const req = mockRequest({});
     const res = mockResponse();
-    req.files = { documents: [] };
+    (req.files as any) = { documents: {} };
     req.session.caseDocuments = [];
+    req.session.fileErrors = [];
     req.query = QUERY;
     await controller.post(req, res);
 
     expect(req.query).toEqual({
       query: 'delete',
       documentId: 'xyz',
-      documentType: 'applicationform',
+      documentType: 'tribunalform',
     });
 
     expect(req.locals.api.triggerEvent).not.toHaveBeenCalled();
     expect(getNextStepUrlMock).not.toHaveBeenCalled();
-    expect(res.redirect).not.toBeCalledWith('/upload-appeal-form');
+    expect(res.redirect).toBeCalledWith('/upload-appeal-form');
     expect(req.session.errors).not.toEqual(errors);
   });
 

@@ -7,7 +7,7 @@ import { YesOrNo } from '../../../app/case/definition';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import { ResourceReader } from '../../../modules/resourcereader/ResourceReader';
 import * as steps from '../../../steps';
-import { CHECK_YOUR_ANSWERS } from '../../../steps/urls';
+import { ADDITIONAL_DOCUMENTS_UPLOAD, CHECK_YOUR_ANSWERS } from '../../../steps/urls';
 import { FIS_COS_API_BASE_URL } from '../../common/constants/apiConstants';
 
 import UploadDocumentController, { FIS_COS_API_URL, FileMimeType, FileValidations } from './uploadDocPostController';
@@ -252,5 +252,28 @@ describe('checking for the redirect of post document upload', () => {
        */
     await postingcontroller.post(req, res);
     expect(res.redirect).not.toHaveBeenCalledWith(CHECK_YOUR_ANSWERS);
+  });
+
+  it('should redirect to same page if no documents uploaded', async () => {
+    req.session.caseDocuments = [];
+    req.session.supportingCaseDocuments = [];
+    req.session.AddtionalCaseDocuments = [];
+    req.files = [];
+    req.session.fileErrors = [];
+
+    await postingcontroller.post(req, res);
+    expect(res.redirect).not.toHaveBeenCalledWith(ADDITIONAL_DOCUMENTS_UPLOAD);
+  });
+
+  it('should display error if upload clicked with no document', async () => {
+    req.session.caseDocuments = [];
+    req.session.supportingCaseDocuments = [];
+    req.session.AddtionalCaseDocuments = [];
+    (req.files as any) = null;
+    req.session.fileErrors = [];
+    req.body['documentUploadProceed'] = false;
+
+    await postingcontroller.post(req, res);
+    expect(res.redirect).toHaveBeenCalledWith(ADDITIONAL_DOCUMENTS_UPLOAD);
   });
 });

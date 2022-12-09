@@ -13,6 +13,7 @@ export const DOCUMENT_UPLOAD_URL: PageLink = '/document-manager';
 
 export const ADDITIONAL_DOCUMENTS_UPLOAD: PageLink = '/upload-additional-documents';
 export const UPLOAD_SUPPORTING_DOCUMENTS: PageLink = '/upload-supporting-documents';
+export const UPLOAD_OTHER_INFORMATION: PageLink = '/upload-other-information';
 export const TASK_LIST_URL: PageLink = '/task-list';
 
 export const APPLYING_WITH_URL: PageLink = '/applying-with';
