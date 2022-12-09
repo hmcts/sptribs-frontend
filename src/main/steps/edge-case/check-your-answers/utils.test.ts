@@ -27,7 +27,7 @@ describe('upload-addition-documents > check-your-answers', () => {
                 ],
               },
               key: { text: 'Subject’s name' },
-              value: { text: 'Joe Bob' },
+              value: { text: 'FirstName LastName' },
             },
             {
               actions: {
@@ -122,7 +122,7 @@ describe('upload-addition-documents > named owner > check-your-answers', () => {
                 ],
               },
               key: { text: 'Subject’s name' },
-              value: { text: 'Joe Bob' },
+              value: { text: 'FirstName LastName' },
             },
             {
               actions: {
@@ -217,7 +217,7 @@ describe('upload-addition-documents > named owner and both > named owner > check
                 ],
               },
               key: { text: 'Subject’s name' },
-              value: { text: 'Joe Bob' },
+              value: { text: 'FirstName LastName' },
             },
             {
               actions: {
@@ -325,7 +325,7 @@ describe('Addtional Form Summar> check-your-answers', () => {
                 ],
               },
               key: { text: 'Subject’s name' },
-              value: { text: 'Joe Bob' },
+              value: { text: 'FirstName LastName' },
             },
           ],
           title: 'Applicant details',
@@ -355,7 +355,7 @@ describe('Other information > check-your-answers', () => {
                 ],
               },
               key: { text: 'Subject’s name' },
-              value: { text: 'Joe Bob' },
+              value: { text: 'FirstName LastName' },
             },
           ],
           title: 'Applicant details',
@@ -385,7 +385,7 @@ describe('Form Summary > check-your-answers', () => {
                 ],
               },
               key: { text: 'Subject’s name' },
-              value: { text: 'Joe Bob' },
+              value: { text: 'FirstName LastName' },
             },
           ],
           title: 'Applicant details',
