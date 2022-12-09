@@ -7,7 +7,7 @@ import { YesOrNo } from '../../../app/case/definition';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import { ResourceReader } from '../../../modules/resourcereader/ResourceReader';
 import * as steps from '../../../steps';
-import { UPLOAD_OTHER_INFORMATION, USER_ROLE } from '../../../steps/urls';
+import { CHECK_YOUR_ANSWERS, UPLOAD_OTHER_INFORMATION } from '../../../steps/urls';
 import { FIS_COS_API_BASE_URL } from '../../common/constants/apiConstants';
 
 import UploadDocumentController, { FIS_COS_API_URL, FileMimeType, FileValidations } from './uploadDocPostController';
@@ -238,7 +238,7 @@ describe('checking for the redirect of post document upload', () => {
     ];
 
     await postingcontroller.PostDocumentUploader(req, res);
-    expect(res.redirect).toHaveBeenCalledWith(USER_ROLE);
+    expect(res.redirect).toHaveBeenCalledWith(CHECK_YOUR_ANSWERS);
   });
 
   it('must be have axios instance', () => {
@@ -288,7 +288,7 @@ describe('checking for the redirect of post document upload', () => {
      *
      */
     await postingcontroller.post(req, res);
-    expect(res.redirect).toHaveBeenCalledWith(USER_ROLE);
+    expect(res.redirect).toHaveBeenCalledWith(CHECK_YOUR_ANSWERS);
   });
 
   it('should redirect to same page if no documents uploaded', async () => {

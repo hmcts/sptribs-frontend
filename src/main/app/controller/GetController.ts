@@ -58,6 +58,8 @@ export class GetController {
       userCase: req.session.userCase,
       userEmail: req.session?.user?.email,
       uploadedDocuments: req.session['caseDocuments'],
+      supportingDocuments: req.session['supportingCaseDocuments'],
+      otherInformation: req.session['otherCaseInformation'],
       AddDocuments: req.session['AddtionalCaseDocuments'],
       addresses,
     });

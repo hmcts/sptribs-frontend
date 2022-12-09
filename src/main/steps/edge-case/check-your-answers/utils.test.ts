@@ -1,9 +1,12 @@
 import { mockUserCase1, mockUserCase2, mockUserCase3 } from '../../../../test/unit/utils/mockUserCase';
 
-//mockUserCase2, mockUserCase3
-
 import { enContent } from './content';
-import { AdditonalFormSummary, ApplicantSummaryList, UploadFormSummary, UserRole } from './utils';
+import {
+  OtherInformationSummary,
+  SubjectSummaryList,
+  SupportingDocumentsSummary,
+  UploadAppealFormSummary,
+} from './utils';
 /**AdditonalFormSummary UploadFormSummary   */
 
 describe('upload-addition-documents > check-your-answers', () => {
@@ -24,7 +27,7 @@ describe('upload-addition-documents > check-your-answers', () => {
                 ],
               },
               key: { text: 'Subject’s name' },
-              value: { text: 'Joe Bob' },
+              value: { text: 'FirstName LastName' },
             },
             {
               actions: {
@@ -96,7 +99,7 @@ describe('upload-addition-documents > check-your-answers', () => {
         },
       },
     ])('return correct summary list items when %#', ({ userCase, expected }) => {
-      expect(ApplicantSummaryList(enContent, userCase)).not.toBe(expected);
+      expect(SubjectSummaryList(enContent, userCase)).not.toBe(expected);
     });
   });
 });
@@ -119,7 +122,7 @@ describe('upload-addition-documents > named owner > check-your-answers', () => {
                 ],
               },
               key: { text: 'Subject’s name' },
-              value: { text: 'Joe Bob' },
+              value: { text: 'FirstName LastName' },
             },
             {
               actions: {
@@ -191,7 +194,7 @@ describe('upload-addition-documents > named owner > check-your-answers', () => {
         },
       },
     ])('return correct summary list items when %#', ({ userCase, expected }) => {
-      expect(ApplicantSummaryList(enContent, userCase)).not.toBe(expected);
+      expect(SubjectSummaryList(enContent, userCase)).not.toBe(expected);
     });
   });
 });
@@ -214,7 +217,7 @@ describe('upload-addition-documents > named owner and both > named owner > check
                 ],
               },
               key: { text: 'Subject’s name' },
-              value: { text: 'Joe Bob' },
+              value: { text: 'FirstName LastName' },
             },
             {
               actions: {
@@ -299,7 +302,7 @@ describe('upload-addition-documents > named owner and both > named owner > check
         },
       },
     ])('return correct summary list items when %#', ({ userCase, expected }) => {
-      expect(ApplicantSummaryList(enContent, userCase)).not.toBe(expected);
+      expect(SubjectSummaryList(enContent, userCase)).not.toBe(expected);
     });
   });
 });
@@ -322,14 +325,44 @@ describe('Addtional Form Summar> check-your-answers', () => {
                 ],
               },
               key: { text: 'Subject’s name' },
-              value: { text: 'Joe Bob' },
+              value: { text: 'FirstName LastName' },
             },
           ],
           title: 'Applicant details',
         },
       },
     ])('return correct summary list items when %#', ({ userCase, expected }) => {
-      expect(AdditonalFormSummary(enContent, userCase)).not.toBe(expected);
+      expect(SupportingDocumentsSummary(enContent, userCase)).not.toBe(expected);
+    });
+  });
+});
+
+describe('Other information > check-your-answers', () => {
+  describe('OtherInformationSummary', () => {
+    test.each([
+      {
+        userCase: [{ fileName: 'a.txt' }, { fileName: 'b.txt' }],
+        expected: {
+          rows: [
+            {
+              actions: {
+                items: [
+                  {
+                    href: '/full-name',
+                    text: 'change',
+                    visuallyHiddenText: 'Subject’s name',
+                  },
+                ],
+              },
+              key: { text: 'Subject’s name' },
+              value: { text: 'FirstName LastName' },
+            },
+          ],
+          title: 'Applicant details',
+        },
+      },
+    ])('return correct summary list items when %#', ({ userCase, expected }) => {
+      expect(OtherInformationSummary(enContent, userCase)).not.toBe(expected);
     });
   });
 });
@@ -352,44 +385,14 @@ describe('Form Summary > check-your-answers', () => {
                 ],
               },
               key: { text: 'Subject’s name' },
-              value: { text: 'Joe Bob' },
+              value: { text: 'FirstName LastName' },
             },
           ],
           title: 'Applicant details',
         },
       },
     ])('return correct summary list items when %#', ({ userCase, expected }) => {
-      expect(UploadFormSummary(enContent, userCase)).not.toBe(expected);
-    });
-  });
-});
-
-describe('Form Summary-user-role > check-your-answers', () => {
-  describe('User role', () => {
-    test.each([
-      {
-        userCase: mockUserCase1,
-        expected: {
-          rows: [
-            {
-              actions: {
-                items: [
-                  {
-                    href: '/user-role',
-                    text: 'change',
-                    visuallyHiddenText: 'Are you named as the applicant on the application form you are submitting?',
-                  },
-                ],
-              },
-              key: { text: 'Are you named as the applicant on the application form you are submitting?' },
-              value: { text: 'No' },
-            },
-          ],
-          title: 'Applicant details',
-        },
-      },
-    ])('return correct summary list items when %#', ({ userCase, expected }) => {
-      expect(UserRole(enContent, userCase)).not.toBe(expected);
+      expect(UploadAppealFormSummary(enContent, userCase)).not.toBe(expected);
     });
   });
 });

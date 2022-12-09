@@ -1,9 +1,17 @@
+import { YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { ResourceReader } from '../../../modules/resourcereader/ResourceReader';
 import { CommonContent } from '../../../steps/common/common.content';
 
-import { AdditonalFormSummary, ApplicantSummaryList, UploadFormSummary, UserRole } from './utils';
+import {
+  OtherInformationSummary,
+  RepresentationSummary,
+  RepresentativeSummaryList,
+  SubjectSummaryList,
+  SupportingDocumentsSummary,
+  UploadAppealFormSummary,
+} from './utils';
 const resourceLoader = new ResourceReader();
 resourceLoader.Loader('check-your-answers');
 const Translations = resourceLoader.getFileContents().translations;
@@ -14,18 +22,30 @@ export const enContent = {
 
 const en = (content: any) => {
   const userCase = content.userCase!;
-  const caseDocuments = content.uploadedDocuments;
-  const AdditionalDocuments = content.AddDocuments;
+  const caseAppealDocuments = content.uploadedDocuments;
+  const supportingDocuments = content.supportingDocuments;
+  const otherInformation = content.otherInformation;
 
   return {
     ...enContent,
     language: content.language,
-    sections: [
-      UserRole(enContent, userCase),
-      ApplicantSummaryList(enContent, userCase),
-      UploadFormSummary(enContent, caseDocuments),
-      AdditonalFormSummary(enContent, AdditionalDocuments),
-    ],
+    sections:
+      userCase['representation'] === YesOrNo.YES
+        ? [
+            SubjectSummaryList(enContent, userCase),
+            RepresentationSummary(enContent, userCase),
+            RepresentativeSummaryList(enContent, userCase),
+            UploadAppealFormSummary(enContent, caseAppealDocuments),
+            SupportingDocumentsSummary(enContent, supportingDocuments),
+            OtherInformationSummary(enContent, otherInformation),
+          ]
+        : [
+            SubjectSummaryList(enContent, userCase),
+            RepresentationSummary(enContent, userCase),
+            UploadAppealFormSummary(enContent, caseAppealDocuments),
+            SupportingDocumentsSummary(enContent, supportingDocuments),
+            OtherInformationSummary(enContent, otherInformation),
+          ],
   };
 };
 
@@ -35,18 +55,30 @@ const cyContent: typeof enContent = {
 
 const cy: typeof en = (content: CommonContent) => {
   const userCase = content.userCase!;
-  const caseDocuments = content.uploadedDocuments;
-  const AdditionalDocuments = content['AddDocuments'];
+  const caseAppealDocuments = content.uploadedDocuments;
+  const supportingDocuments = content.supportingDocuments;
+  const otherInformation = content.otherInformation;
 
   return {
     ...cyContent,
     language: content.language,
-    sections: [
-      UserRole(enContent, userCase),
-      ApplicantSummaryList(cyContent, userCase),
-      UploadFormSummary(enContent, caseDocuments),
-      AdditonalFormSummary(enContent, AdditionalDocuments),
-    ],
+    sections:
+      userCase['representation'] === YesOrNo.YES
+        ? [
+            SubjectSummaryList(cyContent, userCase),
+            RepresentationSummary(cyContent, userCase),
+            RepresentativeSummaryList(cyContent, userCase),
+            UploadAppealFormSummary(cyContent, caseAppealDocuments),
+            SupportingDocumentsSummary(cyContent, supportingDocuments),
+            OtherInformationSummary(cyContent, otherInformation),
+          ]
+        : [
+            SubjectSummaryList(cyContent, userCase),
+            RepresentationSummary(cyContent, userCase),
+            UploadAppealFormSummary(cyContent, caseAppealDocuments),
+            SupportingDocumentsSummary(cyContent, supportingDocuments),
+            OtherInformationSummary(cyContent, otherInformation),
+          ],
   };
 };
 
