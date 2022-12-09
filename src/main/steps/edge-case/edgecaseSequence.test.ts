@@ -11,7 +11,6 @@ import {
   REPRESENTATION_QUALIFIED,
   REPRESENTATIVES_DETAILS,
   SELECT_ADDRESS,
-  STATEMENT_OF_TRUTH,
   SUBJECT_CONTACT_DETAILS,
   SUBJECT_DETAILS,
   UPLOAD_APPEAL_FORM,
@@ -48,33 +47,33 @@ describe('Sequence must match respective path', () => {
     expect(edgecaseSequence[6].getNextStep({})).toBe(UPLOAD_OTHER_INFORMATION);
 
     expect(edgecaseSequence[7].url).toBe(UPLOAD_OTHER_INFORMATION);
-    expect(edgecaseSequence[7].getNextStep({})).toBe(USER_ROLE);
+    expect(edgecaseSequence[7].getNextStep({})).toBe(CHECK_YOUR_ANSWERS);
 
-    expect(edgecaseSequence[8].url).toBe(USER_ROLE);
-    expect(edgecaseSequence[8].getNextStep({})).toBe(DATE_OF_BIRTH);
+    expect(edgecaseSequence[8].url).toBe(CHECK_YOUR_ANSWERS);
+    expect(edgecaseSequence[8].getNextStep({})).toBe(APPLICATION_SUBMITTED);
 
-    expect(edgecaseSequence[9].url).toBe(DATE_OF_BIRTH);
-    expect(edgecaseSequence[9].getNextStep({})).toBe(FIND_ADDRESS);
+    expect(edgecaseSequence[9].url).toBe(USER_ROLE);
+    expect(edgecaseSequence[9].getNextStep({})).toBe(DATE_OF_BIRTH);
 
-    expect(edgecaseSequence[10].url).toBe(FIND_ADDRESS);
-    expect(edgecaseSequence[10].getNextStep({})).toBe(SELECT_ADDRESS);
+    expect(edgecaseSequence[10].url).toBe(DATE_OF_BIRTH);
+    expect(edgecaseSequence[10].getNextStep({})).toBe(FIND_ADDRESS);
 
-    expect(edgecaseSequence[11].url).toBe(SELECT_ADDRESS);
-    expect(edgecaseSequence[11].getNextStep({})).toBe(CONTACT_PREFERENCES);
+    expect(edgecaseSequence[11].url).toBe(FIND_ADDRESS);
+    expect(edgecaseSequence[11].getNextStep({})).toBe(SELECT_ADDRESS);
 
-    expect(edgecaseSequence[12].url).toBe(MANUAL_ADDRESS);
+    expect(edgecaseSequence[12].url).toBe(SELECT_ADDRESS);
     expect(edgecaseSequence[12].getNextStep({})).toBe(CONTACT_PREFERENCES);
 
-    expect(edgecaseSequence[13].url).toBe(CONTACT_PREFERENCES);
-    expect(edgecaseSequence[13].getNextStep({})).toBe(ADDITIONAL_DOCUMENTS_UPLOAD);
+    expect(edgecaseSequence[13].url).toBe(MANUAL_ADDRESS);
+    expect(edgecaseSequence[13].getNextStep({})).toBe(CONTACT_PREFERENCES);
 
-    expect(edgecaseSequence[14].url).toBe(ADDITIONAL_DOCUMENTS_UPLOAD);
-    expect(edgecaseSequence[14].getNextStep({})).toBe(CHECK_YOUR_ANSWERS);
+    expect(edgecaseSequence[14].url).toBe(CONTACT_PREFERENCES);
+    expect(edgecaseSequence[14].getNextStep({})).toBe(ADDITIONAL_DOCUMENTS_UPLOAD);
 
-    expect(edgecaseSequence[15].url).toBe(CHECK_YOUR_ANSWERS);
-    expect(edgecaseSequence[15].getNextStep({})).toBe(STATEMENT_OF_TRUTH);
+    expect(edgecaseSequence[15].url).toBe(ADDITIONAL_DOCUMENTS_UPLOAD);
+    expect(edgecaseSequence[15].getNextStep({})).toBe(CHECK_YOUR_ANSWERS);
 
-    expect(edgecaseSequence[16].url).toBe(STATEMENT_OF_TRUTH);
+    expect(edgecaseSequence[16].url).toBe(CHECK_YOUR_ANSWERS);
     expect(edgecaseSequence[16].getNextStep({})).toBe(APPLICATION_SUBMITTED);
 
     expect(edgecaseSequence[17].url).toBe(APPLICATION_SUBMITTED);

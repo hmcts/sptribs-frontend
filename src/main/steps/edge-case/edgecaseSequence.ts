@@ -12,7 +12,6 @@ import {
   REPRESENTATION_QUALIFIED,
   REPRESENTATIVES_DETAILS,
   SELECT_ADDRESS,
-  STATEMENT_OF_TRUTH,
   SUBJECT_CONTACT_DETAILS,
   SUBJECT_DETAILS,
   UPLOAD_APPEAL_FORM,
@@ -104,11 +103,6 @@ export const edgecaseSequence: Step[] = [
   },
   {
     url: CHECK_YOUR_ANSWERS,
-    showInSection: Sections.AboutEdgeCase,
-    getNextStep: () => STATEMENT_OF_TRUTH,
-  },
-  {
-    url: STATEMENT_OF_TRUTH,
     showInSection: Sections.AboutEdgeCase,
     getNextStep: () => APPLICATION_SUBMITTED,
   },

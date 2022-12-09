@@ -14,7 +14,7 @@ import { FormFields, FormFieldsFn } from '../../../app/form/Form';
 import { ResourceReader } from '../../../modules/resourcereader/ResourceReader';
 import { FIS_COS_API_BASE_URL } from '../../../steps/common/constants/apiConstants';
 const logger = Logger.getLogger('uploadDocumentPostController');
-import { UPLOAD_OTHER_INFORMATION, USER_ROLE } from '../../urls';
+import { CHECK_YOUR_ANSWERS, UPLOAD_OTHER_INFORMATION } from '../../urls';
 //import {mapCaseData} from '../../../app/case/CaseApi';
 
 /**
@@ -208,7 +208,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
         // } catch (error) {
         //   console.log(error);
         // }
-        res.redirect(USER_ROLE);
+        res.redirect(CHECK_YOUR_ANSWERS);
       }
     }
   }
