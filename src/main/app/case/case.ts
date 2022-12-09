@@ -27,18 +27,7 @@ export interface Case {
   /*********All information related to the Case */
   namedApplicant: YesOrNo;
   caseTypeOfApplication: string;
-  applicantFirstName: string;
-  applicantLastName: string;
   applicantDateOfBirth: CaseDate;
-  applicantEmailAddress: string;
-  applicantPhoneNumber: string;
-  applicantHomeNumber: string;
-  applicantAddress1: string;
-  applicantAddress2: string;
-  applicantAddressTown: string;
-  applicantAddressCountry: any;
-  applicantAddressPostcode: any;
-  applicantStatementOfTruth: string;
   subjectFullName: string;
   subjectDateOfBirth: CaseDate;
   subjectEmailAddress: string;
@@ -46,6 +35,10 @@ export interface Case {
   subjectAgreeContact: string;
   representation: YesOrNo;
   representationQualified: YesOrNo;
+  representativeFullName: string;
+  representativeOrganisationName: string;
+  representativeContactNumber: string;
+  representativeEmailAddress: string;
 }
 
 export interface CaseWithId extends Case {
@@ -82,11 +75,5 @@ export interface UploadedFile {
 }
 
 export enum FieldPrefix {
-  APPLICANT1 = 'applicant1',
   APPLICANT = 'applicant',
-  APPLICANT2 = 'applicant2',
-  CHILDREN = 'children',
-  BIRTH_FATHER = 'birthFather',
-  BIRTH_MOTHER = 'birthMother',
-  OTHER_PARENT = 'otherParent',
 }

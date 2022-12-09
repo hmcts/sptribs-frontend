@@ -14,7 +14,7 @@ import { FormFields, FormFieldsFn } from '../../../app/form/Form';
 import { ResourceReader } from '../../../modules/resourcereader/ResourceReader';
 import { FIS_COS_API_BASE_URL } from '../../../steps/common/constants/apiConstants';
 const logger = Logger.getLogger('uploadDocumentPostController');
-import { ADDITIONAL_DOCUMENTS_UPLOAD, UPLOAD_SUPPORTING_DOCUMENTS } from '../../urls';
+import { CHECK_YOUR_ANSWERS, UPLOAD_SUPPORTING_DOCUMENTS } from '../../urls';
 
 /**
  * ****** File Extensions Types are being check
@@ -195,7 +195,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
         // } catch (error) {
         //   console.log(error);
         // }
-        res.redirect(ADDITIONAL_DOCUMENTS_UPLOAD);
+        res.redirect(CHECK_YOUR_ANSWERS);
       }
     }
   }

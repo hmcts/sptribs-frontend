@@ -59,7 +59,7 @@ export const edgecaseSequence: Step[] = [
   {
     url: CHECK_YOUR_ANSWERS,
     showInSection: Sections.AboutEdgeCase,
-    getNextStep: () => STATEMENT_OF_TRUTH,
+    getNextStep: () => APPLICATION_SUBMITTED,
   },
   {
     url: USER_ROLE,

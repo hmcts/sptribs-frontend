@@ -186,6 +186,7 @@ export const UploadAppealFormSummary = (
   { sectionTitles, keys, ...content }: SummaryListContent,
   uploadedDocuments: Partial<any>
 ): SummaryList | undefined => {
+  const sectionTitle = sectionTitles.documents;
   const ListOfUploadedDocuments = uploadedDocuments
     .map((document): string => {
       return document.fileName + '';
@@ -203,17 +204,18 @@ export const UploadAppealFormSummary = (
   ];
 
   return {
-    title: 'List of forms uploaded ',
+    title: sectionTitle,
     rows: getSectionSummaryList(SummaryData, content),
   };
 };
 
 /* eslint-disable import/namespace */
-export const AdditonalFormSummary = (
+export const SupportingDocumentsSummary = (
   { sectionTitles, keys, ...content }: SummaryListContent,
   AddDocuments: Partial<any>
 ): SummaryList | undefined => {
-  const ListOfAdditionalDocuments = AddDocuments.map((document): string => {
+  const sectionTitle = sectionTitles.supportingDocuments;
+  const ListOfSupportingDocuments = AddDocuments.map((document): string => {
     return document.fileName + '';
   })
     .toString()
@@ -222,14 +224,14 @@ export const AdditonalFormSummary = (
 
   const SummaryData = [
     {
-      key: keys.additionalDocuments,
-      value: ListOfAdditionalDocuments,
-      changeUrl: Urls['ADDITIONAL_DOCUMENTS_UPLOAD'],
+      key: keys.supportingDocuments,
+      value: ListOfSupportingDocuments,
+      changeUrl: Urls['UPLOAD_SUPPORTING_DOCUMENTS'],
     },
   ];
 
   return {
-    title: 'List of Documents uploaded  ',
+    title: sectionTitle,
     rows: getSectionSummaryList(SummaryData, content),
   };
 };

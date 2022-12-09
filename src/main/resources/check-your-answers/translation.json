@@ -1,15 +1,17 @@
 {
     "translations": {
         "en": {
-            "serviceName": "Check your answers ",
+            "serviceName": "Check your answers",
             "section": "",
-            "title": "Check your Answers",
+            "title": "Check your Answers before submitting your tribunal form",
             "change": "change",
-            "continue": "Accept and continue",
+            "continue": "Accept and send",
             "sectionTitles": {
               "subjectDetails": "Subject Details",
               "representativeDetails": "Representative's Details",
-              "representation": "Representation"
+              "representation": "Representation",
+              "documents": "Appeal forms",
+              "supportingDocuments": "Supporting documents"
             },
             "keys": {
               "fullName": "Full name",
@@ -23,32 +25,36 @@
               "representativeContactNumber": "Contact number",
               "representativeEmailAddress": "Email address",
               "appealDocuments": "List of forms uploaded (Appeal form)",
-              "additionalDocuments": "List of Documents uploaded (supporting documents)"
+              "supportingDocuments": "List of supporting documents uploaded"
             }
         },
         "cy": {
           "serviceName": "Check your answers - welsh ",
-            "section": "",
-            "title": "Check your Answers -welsh",
-            "change": "change - welsh",
-            "continue": "Accept and continue - welsh",
-            "sectionTitles": {
-              "applicantDetails": "Applicant details -welsh"
-            },
-            "keys": {
-              "phoneNumber": "Phone number -welsh",
-              "emailAddress": "Contact number of the person named on the application - welsh",
-              "user-role": "Are you named as the applicant on the application form you are submitting? - welsh ",
-              "fullName": "Subject’s name - welsh",
-              "dateOfBirth": "Subject’s DoB welsh",
-              "address": "Address - welsh",
-              "recievingEmail": "Who should receive emails about the application - welsh",
-              "namedPersonEmail": "Email address of the person named on the application -welsh",
-              "namedPersonMob": "Enter your mobile phone number - welsh",
-              "namedPersonTel": "Enter your home phone number - welsh",
-              "uploadDocuments": "List of forms uploaded (Application form) - welsh",
-              "additionalDocuments": "List of Documents uploaded (supporting documents) - welsh"
-            }
+          "section": " - welsh ",
+          "title": "Check your Answers before submitting your tribunal form - welsh ",
+          "change": "change - welsh ",
+          "continue": "Accept and send - welsh ",
+          "sectionTitles": {
+            "subjectDetails": "Subject Details - welsh ",
+            "representativeDetails": "Representative's Details - welsh ",
+            "representation": "Representation - welsh ",
+            "documents": "Appeal forms - welsh ",
+            "supportingDocuments": "Supporting documents"
+          },
+          "keys": {
+            "fullName": "Full name - welsh ",
+            "dateOfBirth": "Date of birth - welsh ",
+            "emailAddress": "Email address - welsh ",
+            "contactNumber": "Contact number - welsh ",
+            "representationLabel": "Is there a representative named on completed tribunal form? - welsh ",
+            "representativeQualifiedLabel": "Is the named representative legally qualified? - welsh ",
+            "representativeFullName": "Full name - welsh ",
+            "representativeOrganisationName": "Organisation or business name - welsh ",
+            "representativeContactNumber": "Contact number - welsh ",
+            "representativeEmailAddress": "Email address - welsh ",
+            "appealDocuments": "List of forms uploaded (Appeal form) - welsh ",
+            "supportingDocuments": "List of supporting documents uploaded - welsh "
+          }
         }
     }
 }

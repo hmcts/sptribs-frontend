@@ -5,10 +5,10 @@ import { ResourceReader } from '../../../modules/resourcereader/ResourceReader';
 import { CommonContent } from '../../../steps/common/common.content';
 
 import {
-  AdditonalFormSummary,
   RepresentationSummary,
   RepresentativeSummaryList,
   SubjectSummaryList,
+  SupportingDocumentsSummary,
   UploadAppealFormSummary,
 } from './utils';
 const resourceLoader = new ResourceReader();
@@ -21,8 +21,8 @@ export const enContent = {
 
 const en = (content: any) => {
   const userCase = content.userCase!;
-  const caseDocuments = content.uploadedDocuments;
-  //const AdditionalDocuments = content.AddDocuments;
+  const caseAppealDocuments = content.uploadedDocuments;
+  const supportingDocuments = content.supportingDocuments;
 
   return {
     ...enContent,
@@ -33,13 +33,14 @@ const en = (content: any) => {
             SubjectSummaryList(enContent, userCase),
             RepresentationSummary(enContent, userCase),
             RepresentativeSummaryList(enContent, userCase),
-            UploadAppealFormSummary(enContent, caseDocuments),
-            //AdditonalFormSummary(enContent, AdditionalDocuments),
+            UploadAppealFormSummary(enContent, caseAppealDocuments),
+            SupportingDocumentsSummary(enContent, supportingDocuments),
           ]
         : [
             SubjectSummaryList(enContent, userCase),
             RepresentationSummary(enContent, userCase),
-            UploadAppealFormSummary(enContent, caseDocuments),
+            UploadAppealFormSummary(enContent, caseAppealDocuments),
+            SupportingDocumentsSummary(enContent, supportingDocuments),
           ],
   };
 };
@@ -50,17 +51,27 @@ const cyContent: typeof enContent = {
 
 const cy: typeof en = (content: CommonContent) => {
   const userCase = content.userCase!;
-  const caseDocuments = content.uploadedDocuments;
-  const AdditionalDocuments = content['AddDocuments'];
+  const caseAppealDocuments = content.uploadedDocuments;
+  const supportingDocuments = content.supportingDocuments;
 
   return {
     ...cyContent,
     language: content.language,
-    sections: [
-      SubjectSummaryList(cyContent, userCase),
-      UploadAppealFormSummary(enContent, caseDocuments),
-      AdditonalFormSummary(enContent, AdditionalDocuments),
-    ],
+    sections:
+      userCase['representation'] === YesOrNo.YES
+        ? [
+            SubjectSummaryList(cyContent, userCase),
+            RepresentationSummary(cyContent, userCase),
+            RepresentativeSummaryList(cyContent, userCase),
+            UploadAppealFormSummary(cyContent, caseAppealDocuments),
+            SupportingDocumentsSummary(cyContent, supportingDocuments),
+          ]
+        : [
+            SubjectSummaryList(cyContent, userCase),
+            RepresentationSummary(cyContent, userCase),
+            UploadAppealFormSummary(cyContent, caseAppealDocuments),
+            SupportingDocumentsSummary(cyContent, supportingDocuments),
+          ],
   };
 };
 

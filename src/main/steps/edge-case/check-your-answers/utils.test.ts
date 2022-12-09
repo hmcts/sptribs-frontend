@@ -1,9 +1,7 @@
 import { mockUserCase1, mockUserCase2, mockUserCase3 } from '../../../../test/unit/utils/mockUserCase';
 
-//mockUserCase2, mockUserCase3
-
 import { enContent } from './content';
-import { AdditonalFormSummary, SubjectSummaryList, UploadAppealFormSummary, UserRole } from './utils';
+import { SubjectSummaryList, SupportingDocumentsSummary, UploadAppealFormSummary } from './utils';
 /**AdditonalFormSummary UploadFormSummary   */
 
 describe('upload-addition-documents > check-your-answers', () => {
@@ -329,7 +327,7 @@ describe('Addtional Form Summar> check-your-answers', () => {
         },
       },
     ])('return correct summary list items when %#', ({ userCase, expected }) => {
-      expect(AdditonalFormSummary(enContent, userCase)).not.toBe(expected);
+      expect(SupportingDocumentsSummary(enContent, userCase)).not.toBe(expected);
     });
   });
 });
@@ -364,7 +362,7 @@ describe('Form Summary > check-your-answers', () => {
   });
 });
 
-describe('Form Summary-user-role > check-your-answers', () => {
+/*describe('Form Summary-user-role > check-your-answers', () => {
   describe('User role', () => {
     test.each([
       {
@@ -392,4 +390,4 @@ describe('Form Summary-user-role > check-your-answers', () => {
       expect(UserRole(enContent, userCase)).not.toBe(expected);
     });
   });
-});
+});*/
