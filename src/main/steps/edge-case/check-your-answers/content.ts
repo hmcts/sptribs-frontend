@@ -5,6 +5,7 @@ import { ResourceReader } from '../../../modules/resourcereader/ResourceReader';
 import { CommonContent } from '../../../steps/common/common.content';
 
 import {
+  OtherInformationSummary,
   RepresentationSummary,
   RepresentativeSummaryList,
   SubjectSummaryList,
@@ -23,6 +24,7 @@ const en = (content: any) => {
   const userCase = content.userCase!;
   const caseAppealDocuments = content.uploadedDocuments;
   const supportingDocuments = content.supportingDocuments;
+  const otherInformation = content.otherInformation;
 
   return {
     ...enContent,
@@ -35,12 +37,14 @@ const en = (content: any) => {
             RepresentativeSummaryList(enContent, userCase),
             UploadAppealFormSummary(enContent, caseAppealDocuments),
             SupportingDocumentsSummary(enContent, supportingDocuments),
+            OtherInformationSummary(enContent, otherInformation),
           ]
         : [
             SubjectSummaryList(enContent, userCase),
             RepresentationSummary(enContent, userCase),
             UploadAppealFormSummary(enContent, caseAppealDocuments),
             SupportingDocumentsSummary(enContent, supportingDocuments),
+            OtherInformationSummary(enContent, otherInformation),
           ],
   };
 };
@@ -53,6 +57,7 @@ const cy: typeof en = (content: CommonContent) => {
   const userCase = content.userCase!;
   const caseAppealDocuments = content.uploadedDocuments;
   const supportingDocuments = content.supportingDocuments;
+  const otherInformation = content.otherInformation;
 
   return {
     ...cyContent,
@@ -65,12 +70,14 @@ const cy: typeof en = (content: CommonContent) => {
             RepresentativeSummaryList(cyContent, userCase),
             UploadAppealFormSummary(cyContent, caseAppealDocuments),
             SupportingDocumentsSummary(cyContent, supportingDocuments),
+            OtherInformationSummary(cyContent, otherInformation),
           ]
         : [
             SubjectSummaryList(cyContent, userCase),
             RepresentationSummary(cyContent, userCase),
             UploadAppealFormSummary(cyContent, caseAppealDocuments),
             SupportingDocumentsSummary(cyContent, supportingDocuments),
+            OtherInformationSummary(cyContent, otherInformation),
           ],
   };
 };

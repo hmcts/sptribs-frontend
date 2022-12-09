@@ -235,3 +235,30 @@ export const SupportingDocumentsSummary = (
     rows: getSectionSummaryList(SummaryData, content),
   };
 };
+
+/* eslint-disable import/namespace */
+export const OtherInformationSummary = (
+  { sectionTitles, keys, ...content }: SummaryListContent,
+  AddDocuments: Partial<any>
+): SummaryList | undefined => {
+  const sectionTitle = sectionTitles.otherInformation;
+  const ListOfOtherDocuments = AddDocuments.map((document): string => {
+    return document.fileName + '';
+  })
+    .toString()
+    .split(',')
+    .join('<div class="govuk-!-margin-top-3"></div>');
+
+  const SummaryData = [
+    {
+      key: keys.otherInformation,
+      value: ListOfOtherDocuments,
+      changeUrl: Urls['UPLOAD_OTHER_INFORMATION'],
+    },
+  ];
+
+  return {
+    title: sectionTitle,
+    rows: getSectionSummaryList(SummaryData, content),
+  };
+};
