@@ -12,14 +12,14 @@ export const generateContent: TranslationFn = content => {
     const caseId = content.userCase?.id?.toString().replace(/.{4}/g, '$& - ').substring(0, 25);
     return {
       ...Translations.en,
-      referenceNumber: `<font size="5">Your reference number is:</font><br><strong>${caseId}</strong>`,
+      referenceNumber: `<font size="5">Case Number:</font><br><strong>${caseId}</strong>`,
     };
   };
   const cy = () => {
     const caseId = content.userCase?.id?.toString().replace(/.{4}/g, '$&-').substring(0, 19);
     return {
       ...Translations.cy,
-      referenceNumber: `<font size="5">Your reference number is: (in welsh)</font><br><strong>${caseId}</strong>`,
+      referenceNumber: `<font size="5">Case Number (in welsh):</font><br><strong>${caseId}</strong>`,
     };
   };
 
