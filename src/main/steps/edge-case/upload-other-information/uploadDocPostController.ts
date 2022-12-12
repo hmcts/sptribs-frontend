@@ -103,7 +103,7 @@ export class FileValidations {
     let SystemContent: any | FileUploadErrorTranslatables = {};
     const SystemLangauge = req.session['lang'];
     const resourceLoader = new ResourceReader();
-    resourceLoader.Loader('upload-appeal-form');
+    resourceLoader.Loader('upload-other-information');
     const ErrorInLangauges = resourceLoader.getFileContents().errors;
     switch (SystemLangauge) {
       case 'en':
@@ -154,62 +154,55 @@ export default class UploadDocumentController extends PostController<AnyObject> 
 
   async PostDocumentUploader(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     if (req.session.hasOwnProperty('otherCaseInformation')) {
-      const TotalUploadDocuments = req.session.otherCaseInformation.length;
-
-      if (TotalUploadDocuments === 0) {
-        const errorMessage = FileValidations.ResourceReaderContents(req).CONTINUE_WITHOUT_UPLOAD_ERROR;
-        this.uploadFileError(req, res, errorMessage);
-      } else {
-        // const CaseId = req.session.userCase['id'];
-        // const baseURL = '/case/dss-orchestration/' + CaseId + '/update?event=UPDATE';
-        // const Headers = {
-        //   Authorization: `Bearer ${req.session.user['accessToken']}`,
-        // };
-        // try {
-        //   const MappedRequestCaseDocuments = req.session['caseDocuments'].map(document => {
-        //     const { url, fileName, documentId, binaryUrl } = document;
-        //     return {
-        //       id: documentId,
-        //       value: {
-        //         documentLink: {
-        //           document_url: url,
-        //           document_filename: fileName,
-        //           document_binary_url: binaryUrl,
-        //         },
-        //       },
-        //     };
-        //   });
-        //
-        //   let AdditionalDocuments = [];
-        //   if (req.session.supportingCaseDocuments !== undefined) {
-        //     AdditionalDocuments = req.session['supportingCaseDocuments'].map(document => {
-        //       // eslint-disable-next-line @typescript-eslint/no-shadow
-        //       const { url, fileName, documentId, binaryUrl } = document;
-        //       return {
-        //         id: documentId,
-        //         value: {
-        //           documentLink: {
-        //             document_url: url,
-        //             document_filename: fileName,
-        //             document_binary_url: binaryUrl,
-        //           },
-        //         },
-        //       };
-        //     });
-        //   }
-        //   const CaseData = mapCaseData(req);
-        //   const responseBody = {
-        //     ...CaseData,
-        //     applicantApplicationFormDocuments: MappedRequestCaseDocuments,
-        //     applicantAdditionalDocuments: AdditionalDocuments,
-        //   };
-        //   await this.UploadDocumentInstance(FIS_COS_API_URL, Headers).put(baseURL, responseBody);
-        //   res.redirect(ADDITIONAL_DOCUMENTS_UPLOAD);
-        // } catch (error) {
-        //   console.log(error);
-        // }
-        res.redirect(CHECK_YOUR_ANSWERS);
-      }
+      // const CaseId = req.session.userCase['id'];
+      // const baseURL = '/case/dss-orchestration/' + CaseId + '/update?event=UPDATE';
+      // const Headers = {
+      //   Authorization: `Bearer ${req.session.user['accessToken']}`,
+      // };
+      // try {
+      //   const MappedRequestCaseDocuments = req.session['caseDocuments'].map(document => {
+      //     const { url, fileName, documentId, binaryUrl } = document;
+      //     return {
+      //       id: documentId,
+      //       value: {
+      //         documentLink: {
+      //           document_url: url,
+      //           document_filename: fileName,
+      //           document_binary_url: binaryUrl,
+      //         },
+      //       },
+      //     };
+      //   });
+      //
+      //   let AdditionalDocuments = [];
+      //   if (req.session.supportingCaseDocuments !== undefined) {
+      //     AdditionalDocuments = req.session['supportingCaseDocuments'].map(document => {
+      //       // eslint-disable-next-line @typescript-eslint/no-shadow
+      //       const { url, fileName, documentId, binaryUrl } = document;
+      //       return {
+      //         id: documentId,
+      //         value: {
+      //           documentLink: {
+      //             document_url: url,
+      //             document_filename: fileName,
+      //             document_binary_url: binaryUrl,
+      //           },
+      //         },
+      //       };
+      //     });
+      //   }
+      //   const CaseData = mapCaseData(req);
+      //   const responseBody = {
+      //     ...CaseData,
+      //     applicantApplicationFormDocuments: MappedRequestCaseDocuments,
+      //     applicantAdditionalDocuments: AdditionalDocuments,
+      //   };
+      //   await this.UploadDocumentInstance(FIS_COS_API_URL, Headers).put(baseURL, responseBody);
+      //   res.redirect(ADDITIONAL_DOCUMENTS_UPLOAD);
+      // } catch (error) {
+      //   console.log(error);
+      // }
+      res.redirect(CHECK_YOUR_ANSWERS);
     }
   }
 
