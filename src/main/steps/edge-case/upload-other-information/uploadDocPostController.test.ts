@@ -291,7 +291,7 @@ describe('checking for the redirect of post document upload', () => {
     expect(res.redirect).toHaveBeenCalledWith(CHECK_YOUR_ANSWERS);
   });
 
-  it('should redirect to same page if no documents uploaded', async () => {
+  it('should allow continue if no documents uploaded', async () => {
     req.session.caseDocuments = [];
     req.session.supportingCaseDocuments = [];
     req.session.otherCaseInformation = [];
@@ -299,7 +299,7 @@ describe('checking for the redirect of post document upload', () => {
     req.session.fileErrors = [];
 
     await postingcontroller.post(req, res);
-    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION);
+    expect(res.redirect).toHaveBeenCalledWith(CHECK_YOUR_ANSWERS);
   });
 
   it('should display error if upload clicked with no document', async () => {

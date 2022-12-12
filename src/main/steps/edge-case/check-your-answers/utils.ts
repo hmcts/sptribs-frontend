@@ -242,12 +242,14 @@ export const OtherInformationSummary = (
   AddDocuments: Partial<any>
 ): SummaryList | undefined => {
   const sectionTitle = sectionTitles.otherInformation;
-  const ListOfOtherDocuments = AddDocuments.map((document): string => {
-    return document.fileName + '';
-  })
-    .toString()
-    .split(',')
-    .join('<div class="govuk-!-margin-top-3"></div>');
+  const ListOfOtherDocuments = AddDocuments
+    ? AddDocuments.map((document): string => {
+        return document.fileName + '';
+      })
+        .toString()
+        .split(',')
+        .join('<div class="govuk-!-margin-top-3"></div>')
+    : '';
 
   const SummaryData = [
     {
