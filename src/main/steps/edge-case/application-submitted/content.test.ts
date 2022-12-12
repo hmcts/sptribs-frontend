@@ -1,3 +1,4 @@
+import { mockUserCase1 } from '../../../../test/unit/utils/mockUserCase';
 import { ResourceReader } from '../../../modules/resourcereader/ResourceReader';
 import { CommonContent } from '../../common/common.content';
 import { generateContent } from '../application-submitted/content';
@@ -22,19 +23,16 @@ const cy = {
 };
 
 describe('application-submitted', () => {
-  const commonContent = { language: EN } as CommonContent;
+  const commonContent = { language: EN, userCase: mockUserCase1 } as CommonContent;
 
   let generatedContent;
 
-  beforeEach(() => {
-    generatedContent = generateContent(commonContent);
-  });
-
   test('should return correct english content', () => {
+    generatedContent = generateContent({ ...commonContent });
     expect(generatedContent.serviceName).toEqual(en.serviceName);
     expect(generatedContent.title).toEqual(en.title);
-    expect(generatedContent.emailSentConfirmation).toEqual(en.emailSentConfirmation);
-    expect(generatedContent.line2).toEqual(en.line2);
+    expect(generatedContent.line1).toEqual(en.line1);
+    expect(generatedContent.line2).toEqual('An email will be sent to dummy@bob.com, that explains what happens next.');
     expect(generatedContent.line3).toEqual(en.line3);
     expect(generatedContent.line4).toEqual(en.line4);
   });
@@ -43,8 +41,10 @@ describe('application-submitted', () => {
     generatedContent = generateContent({ ...commonContent, language: CY });
     expect(generatedContent.serviceName).toEqual(cy.serviceName);
     expect(generatedContent.title).toEqual(cy.title);
-    expect(generatedContent.emailSentConfirmation).toEqual(cy.emailSentConfirmation);
-    expect(generatedContent.line2).toEqual(cy.line2);
+    expect(generatedContent.line1).toEqual(cy.line1);
+    expect(generatedContent.line2).toEqual(
+      'An email will be sent to dummy@bob.com, that explains what happens next. (in Welsh)'
+    );
     expect(generatedContent.line3).toEqual(cy.line3);
     expect(generatedContent.line4).toEqual(cy.line4);
   });

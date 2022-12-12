@@ -1,22 +1,18 @@
 {
     "translations": {
-        "en": {
-            "title": "Application submitted",
-            "serviceName": "Thank you",
-            "emailSentConfirmation": "<font size=4><strong>You have been sent a confirmation by email.</strong></font>",
-            "line1": "An email has been sent to the applicant, that explains what happens next.",
-            "line2": "Please contact online_application@justice.gov.uk if you do not receive the email.",
-            "line3": "What did you think of this service?",
-            "line4": "(takes 30 seconds)"
-        },
-        "cy": {
-            "title": "Application submitted (in welsh)",
-            "serviceName": "Thank you (in welsh)",
-            "emailSentConfirmation": "<font size=4><strong>You have been sent a confirmation by email. (in welsh) </strong></font>",
-            "line1": "An email has been sent to the applicant, that explains what happens next. (in welsh)",
-            "line2": "Please contact online_application@justice.gov.uk if you do not receive the email. (in welsh)",
-            "line3": "What did you think of this service? (in welsh)",
-            "line4": "(takes 30 seconds) (in welsh)"
-        }
+      "en": {
+        "title": "Tribunal form sent",
+        "serviceName": "Confirmation",
+        "line1": "Your tribunal form and related documents have been sent.",
+        "line3": "If you do not receive this email, please contact the Tribunal using the details on your completed tribunal form.",
+        "line4": "What did you think of this service?"
+      },
+      "cy": {
+        "title": "Tribunal form sent (in welsh)",
+        "serviceName": "Confirmation (in welsh)",
+        "line1": "Your tribunal form and related documents have been sent. (in welsh)",
+        "line3": "If you do not receive this email, please contact the Tribunal using the details on your completed tribunal form. (in welsh)",
+        "line4": "What did you think of this service? (in welsh)"
+      }
     }
-} 
+}

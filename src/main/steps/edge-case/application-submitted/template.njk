@@ -8,15 +8,12 @@
                 <form action="/version-1/check-pay-and-submit/confirmation" method="post" class="form">
                     {{  govukPanel({
                             titleText: title,
-                            html: referenceNumber +"<br>"+ emailSentConfirmation
+                            html: referenceNumber
                         })
                     }}
                     <p class="govuk-body">{{ line1 }}</p>
                     <p class="govuk-body">{{ line2 }}</p>
-                    <p class="govuk-body">
-                        <a href="https://www.gov.uk" class="govuk-link">{{line3 }}</a>
-                        <a> {{line4}} </a>
-                    </p>
+                    <p class="govuk-body">{{ line3 }}</p>
                 </form>
             </div>
         </div>
