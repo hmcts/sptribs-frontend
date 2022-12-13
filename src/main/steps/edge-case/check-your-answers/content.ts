@@ -18,7 +18,7 @@ const Translations = resourceLoader.getFileContents().translations;
 export const enContent = {
   ...Translations.en,
   nowSubmitHeader: 'Now submit your tribunal form',
-  line1:
+  submissionPledge:
     'By submitting this tribunal form you are confirming that, to the best of your knowledge, the details you are providing are correct.',
 };
 
@@ -54,7 +54,7 @@ const en = (content: any) => {
 const cyContent: typeof enContent = {
   ...Translations.cy,
   nowSubmitHeader: 'Now submit your tribunal form - in welsh',
-  line1:
+  submissionPledge:
     'By submitting this tribunal form you are confirming that, to the best of your knowledge, the details you are providing are correct. - in welsh',
 };
 
