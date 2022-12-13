@@ -36,7 +36,6 @@ type FileType = {
   txt: string;
   rtf: string;
   rtf2: string;
-  gif: string;
   mp4audio: string;
   mp4video: string;
 };
@@ -55,7 +54,6 @@ type FileMimeTypeInfo = {
   'text/plain': string;
   'application/rtf': string;
   'text/rtf': string;
-  'image/gif': string;
   'audio/mp4': string;
   'video/mp4': string;
 };
@@ -87,7 +85,6 @@ export const FileMimeType: Partial<Record<keyof FileType, keyof FileMimeTypeInfo
   txt: 'text/plain',
   rtf: 'application/rtf',
   rtf2: 'text/rtf',
-  gif: 'image/gif',
   mp4audio: 'audio/mp4',
   mp4video: 'video/mp4',
 };
