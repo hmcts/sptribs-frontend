@@ -79,7 +79,6 @@ describe('All of the listed Validation for files should be in place', () => {
     txt: 'text/plain',
     rtf: 'application/rtf',
     rtf2: 'text/rtf',
-    gif: 'image/gif',
   };
 
   it('must match the file validations type', () => {
@@ -91,7 +90,7 @@ describe('All of the listed Validation for files should be in place', () => {
 
 describe('document format validation', () => {
   it('must match valid mimetypes', () => {
-    expect(FileValidations.formatValidation('image/gif')).toBe(true);
+    expect(FileValidations.formatValidation('image/gif')).toBe(false);
   });
 });
 
