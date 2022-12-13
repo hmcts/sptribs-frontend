@@ -35,7 +35,6 @@ type FileType = {
   txt: string;
   rtf: string;
   rtf2: string;
-  gif: string;
 };
 
 /**
@@ -52,7 +51,6 @@ type FileMimeTypeInfo = {
   'text/plain': string;
   'application/rtf': string;
   'text/rtf': string;
-  'image/gif': string;
 };
 /**
  * ****** File Upload validations Message
@@ -81,7 +79,6 @@ export const FileMimeType: Partial<Record<keyof FileType, keyof FileMimeTypeInfo
   txt: 'text/plain',
   rtf: 'application/rtf',
   rtf2: 'text/rtf',
-  gif: 'image/gif',
 };
 
 export class FileValidations {
