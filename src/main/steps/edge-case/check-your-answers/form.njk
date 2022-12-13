@@ -15,8 +15,10 @@
 
       {% endif %}
     {% endfor %}
-      <h1 class="govuk-heading-l">Now submit your tribunal form</h1>
-      <p class="govuk-body-l">By submitting this tribunal form you are confirming that, to the best of your knowledge, the details you are providing are correct</p>
-      <br>
   {% endif %}
+{% endblock %}
+{% block after_fields %}
+  <h1 class="govuk-heading-l">{{ nowSubmitHeader }}</h1>
+  <p class="govuk-body-l">{{ line1 }}</p>
+  <br>
 {% endblock %}
