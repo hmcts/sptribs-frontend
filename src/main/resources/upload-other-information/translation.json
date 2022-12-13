@@ -7,7 +7,7 @@
     "line2": "This will depend on the nature of your appeal, application or claim.  Specific examples can be found in your completed tribunal form.",
     "line3": "These may include:",
     "uploadExamples": "<div class='govuk-body-m'><ul class=‘govuk-list govuk-list--bullet’><li>copies of any relevant correspondence or documentation</li><li>audio or video recordings</li><li>written statements</li><li>related reports</li></ul></div>",
-    "uploadRequirement": "<div class='govuk-body-s'><ul class=‘govuk-list govuk-list--bullet’><li>File formats: MS Word, MS Excel, PDF, JPG, PNG, TXT, RTF, MP4</li><li>File size per document: up to 20 megabytes (MB)</li><li>File size per multimedia file: 500 megabytes (MB)</li><li>Files cannot be password protected</li></ul><p> You can’t upload executable (.exe), .zip or other archive files due to virus risks.</div>",
+    "uploadRequirement": "<div class='govuk-body-s'><ul class=‘govuk-list govuk-list--bullet’><li>File formats: MS Word, MS Excel, PDF, JPG, PNG, TXT, RTF, MP4, MP3, WAV</li><li>File size per document: up to 20 megabytes (MB)</li><li>File size per multimedia file: 500 megabytes (MB)</li><li>Files cannot be password protected</li></ul><p> You can’t upload executable (.exe), .zip or other archive files due to virus risks.</div>",
     "uploadButton": "Upload file"
     },
     "cy": {
@@ -17,20 +17,20 @@
     "line2": "This will depend on the nature of your appeal, application or claim.  Specific examples can be found in your completed tribunal form. - (Welsh)",
     "line3": "These may include: (Welsh)",
     "uploadExamples": "<div class='govuk-body-m'><ul class=‘govuk-list govuk-list--bullet’><li>copies of any relevant correspondence or documentation</li><li>audio or video recordings</li><li>written statements</li><li>related reports</li></ul></div> (Welsh)",
-    "uploadRequirement": "<div class='govuk-body-s'><ul class=‘govuk-list govuk-list--bullet’><li>File formats: MS Word, MS Excel, PDF, JPG, PNG, TXT, RTF, MP4</li><li>File size per document: up to 20 megabytes (MB)</li><li>File size per multimedia file: 500 megabytes (MB)</li><li>Files cannot be password protected</li></ul><p> You can’t upload executable (.exe), .zip or other archive files due to virus risks.</div> (Welsh)",
+    "uploadRequirement": "<div class='govuk-body-s'><ul class=‘govuk-list govuk-list--bullet’><li>File formats: MS Word, MS Excel, PDF, JPG, PNG, TXT, RTF, MP4, MP3, WAV</li><li>File size per document: up to 20 megabytes (MB)</li><li>File size per multimedia file: 500 megabytes (MB)</li><li>Files cannot be password protected</li></ul><p> You can’t upload executable (.exe), .zip or other archive files due to virus risks.</div> (Welsh)",
     "uploadButton": "Upload file (Welsh)"
     }
     },
     "errors": {
     "en": {
     "SIZE_ERROR": "File size exceeds 20Mb. Please upload a file that is less than 20Mb",
-    "FORMAT_ERROR": "This service only accepts files in the formats - Ms Word, MS Excel, PDF, JPG, PNG, TXT, RTF, MP4",
+    "FORMAT_ERROR": "This service only accepts files in the formats - Ms Word, MS Excel, PDF, JPG, PNG, TXT, RTF, MP4, MP3, WAV",
     "TOTAL_FILES_EXCEED_ERROR": "You can upload 5 files only. Please delete one of the uploaded files and retry",
     "NO_FILE_UPLOAD_ERROR": "Please choose a file to upload"
     },
     "cy": {
     "SIZE_ERROR": "File size exceeds 20Mb. Please upload a file that is less than 20Mb - welsh",
-    "FORMAT_ERROR": "This service only accepts files in the formats - Ms Word, MS Excel, PDF, JPG, PNG, TXT, RTF, MP4 - welsh",
+    "FORMAT_ERROR": "This service only accepts files in the formats - Ms Word, MS Excel, PDF, JPG, PNG, TXT, RTF, MP4, MP3, WAV - welsh",
     "TOTAL_FILES_EXCEED_ERROR": "You can upload 5 files only. Please delete one of the uploaded files and retry - welsh",
     "NO_FILE_UPLOAD_ERROR": "Please choose a file to upload (in welsh)"
     }

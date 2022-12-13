@@ -95,6 +95,8 @@ describe('All of the listed Validation for files should be in place', () => {
     rtf2: 'text/rtf',
     mp4audio: 'audio/mp4',
     mp4video: 'video/mp4',
+    mp3: 'audio/mpeg',
+    wav: 'audio/wav',
   };
 
   it('must match the file validations type', () => {
@@ -107,6 +109,7 @@ describe('All of the listed Validation for files should be in place', () => {
 describe('document format validation', () => {
   it('must match valid mimetypes', () => {
     expect(FileValidations.formatValidation('image/gif')).toBe(false);
+    expect(FileValidations.formatValidation('audio/mpeg')).toBe(true);
   });
 });
 

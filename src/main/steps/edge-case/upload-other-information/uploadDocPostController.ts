@@ -38,6 +38,8 @@ type FileType = {
   rtf2: string;
   mp4audio: string;
   mp4video: string;
+  mp3: string;
+  wav: string;
 };
 
 /**
@@ -56,6 +58,8 @@ type FileMimeTypeInfo = {
   'text/rtf': string;
   'audio/mp4': string;
   'video/mp4': string;
+  'audio/mpeg': string;
+  'audio/wav': string;
 };
 
 /**
@@ -87,6 +91,8 @@ export const FileMimeType: Partial<Record<keyof FileType, keyof FileMimeTypeInfo
   rtf2: 'text/rtf',
   mp4audio: 'audio/mp4',
   mp4video: 'video/mp4',
+  mp3: 'audio/mpeg',
+  wav: 'audio/wav',
 };
 
 export class FileValidations {
