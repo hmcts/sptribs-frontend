@@ -1,7 +1,7 @@
 {
     "translations": {
     "en": {
-    "serviceName": "Appeal form",
+    "serviceName": "Appeal to the First-tier Tribunal",
     "title": "Upload tribunal form",
     "line1": "Please upload the First-tier tribunal form that you have already completed.",
     "line2": "If you have other evidence or supporting documents, you can upload these files on the next screen.",
@@ -9,7 +9,7 @@
     "uploadButton": "Upload file"
     },
     "cy": {
-    "serviceName": "Appeal form - (Welsh)",
+    "serviceName": "Appeal to the First-tier Tribunal - (Welsh)",
     "title": "Upload tribunal form - (Welsh)",
     "line1": "Please upload the First-tier tribunal form that you have already completed. - (Welsh)",
     "line2": "If you have other evidence or supporting documents, you can upload these files on the next screen. - (Welsh)",

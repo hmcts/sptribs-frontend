@@ -2,14 +2,14 @@
     "translations": {
       "en": {
         "title": "Tribunal form sent",
-        "serviceName": "Confirmation",
+        "serviceName": "Appeal to the First-tier Tribunal",
         "line1": "Your tribunal form and related documents have been sent.",
         "line3": "If you do not receive this email, please contact the Tribunal using the details on your completed tribunal form.",
         "line4": "What did you think of this service?"
       },
       "cy": {
         "title": "Tribunal form sent (in welsh)",
-        "serviceName": "Confirmation (in welsh)",
+        "serviceName": "Appeal to the First-tier Tribunal (in welsh)",
         "line1": "Your tribunal form and related documents have been sent. (in welsh)",
         "line3": "If you do not receive this email, please contact the Tribunal using the details on your completed tribunal form. (in welsh)",
         "line4": "What did you think of this service? (in welsh)"

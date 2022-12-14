@@ -1,7 +1,7 @@
 {
     "translations": {
         "en": {
-            "serviceName": "Check your answers",
+            "serviceName": "Appeal to the First-tier Tribunal",
             "section": "",
             "title": "Check your answers before submitting your tribunal form",
             "change": "change",
@@ -31,7 +31,7 @@
             }
         },
         "cy": {
-          "serviceName": "Check your answers - welsh ",
+          "serviceName": "Appeal to the First-tier Tribunal - welsh ",
           "section": " - welsh ",
           "title": "Check your answers before submitting your tribunal form - welsh ",
           "change": "change - welsh ",

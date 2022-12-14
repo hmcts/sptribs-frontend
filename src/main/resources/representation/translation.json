@@ -2,14 +2,14 @@
   "translations": {
     "en": {
       "continue": "Continue",
-      "serviceName": "Representation",
+      "serviceName": "Appeal to the First-tier Tribunal",
       "label": "Is there a representative named on completed tribunal form?",
       "one": "Yes",
       "two": "No"
     },
     "cy": {
       "continue": "Continue (Welsh)",
-      "serviceName": "Representation (Welsh)",
+      "serviceName": "Appeal to the First-tier Tribunal (Welsh)",
       "label": "Is there a representative named on completed tribunal form? (Welsh)",
       "one": "Yes (Welsh)",
       "two": "No (Welsh)"

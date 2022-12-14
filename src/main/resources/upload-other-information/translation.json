@@ -1,7 +1,7 @@
 {
     "translations": {
     "en": {
-    "serviceName": "Other information",
+    "serviceName": "Appeal to the First-tier Tribunal",
     "title": "Upload other information",
     "line1": "You may want to submit other documents, files or evidence that provides the Tribunal with more information about your case.",
     "line2": "This will depend on the nature of your appeal, application or claim.  Specific examples can be found in your completed tribunal form.",
@@ -11,7 +11,7 @@
     "uploadButton": "Upload file"
     },
     "cy": {
-    "serviceName": "Other information - (Welsh)",
+    "serviceName": "Appeal to the First-tier Tribunal- (Welsh)",
     "title": "Upload other information - (Welsh)",
     "line1": "You may want to submit other documents, files or evidence that provides the Tribunal with more information about your case. - (Welsh)",
     "line2": "This will depend on the nature of your appeal, application or claim.  Specific examples can be found in your completed tribunal form. - (Welsh)",
