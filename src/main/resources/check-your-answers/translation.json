@@ -3,7 +3,7 @@
         "en": {
             "serviceName": "Check your answers",
             "section": "",
-            "title": "Check your Answers before submitting your tribunal form",
+            "title": "Check your answers before submitting your tribunal form",
             "change": "change",
             "continue": "Accept and send",
             "sectionTitles": {
@@ -33,7 +33,7 @@
         "cy": {
           "serviceName": "Check your answers - welsh ",
           "section": " - welsh ",
-          "title": "Check your Answers before submitting your tribunal form - welsh ",
+          "title": "Check your answers before submitting your tribunal form - welsh ",
           "change": "change - welsh ",
           "continue": "Accept and send - welsh ",
           "sectionTitles": {
