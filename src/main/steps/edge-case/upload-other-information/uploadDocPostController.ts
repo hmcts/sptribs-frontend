@@ -36,9 +36,9 @@ type FileType = {
   txt: string;
   rtf: string;
   rtf2: string;
-  gif: string;
   mp4audio: string;
   mp4video: string;
+  mp3: string;
 };
 
 /**
@@ -55,9 +55,9 @@ type FileMimeTypeInfo = {
   'text/plain': string;
   'application/rtf': string;
   'text/rtf': string;
-  'image/gif': string;
   'audio/mp4': string;
   'video/mp4': string;
+  'audio/mpeg': string;
 };
 
 /**
@@ -87,9 +87,9 @@ export const FileMimeType: Partial<Record<keyof FileType, keyof FileMimeTypeInfo
   txt: 'text/plain',
   rtf: 'application/rtf',
   rtf2: 'text/rtf',
-  gif: 'image/gif',
   mp4audio: 'audio/mp4',
   mp4video: 'video/mp4',
+  mp3: 'audio/mpeg',
 };
 
 export class FileValidations {
@@ -124,9 +124,10 @@ export class FileValidations {
    * @returns
    */
   static sizeValidation = (mimeType: string, fileSize: number): boolean => {
-    const KbsInMBS = mimeType.endsWith('/mp4')
-      ? Number(config.get('documentUpload.validation.multimediaSizeInKB'))
-      : Number(config.get('documentUpload.validation.sizeInKB'));
+    const KbsInMBS =
+      mimeType.startsWith('audio/') || mimeType.startsWith('video/')
+        ? Number(config.get('documentUpload.validation.multimediaSizeInKB'))
+        : Number(config.get('documentUpload.validation.sizeInKB'));
     if (fileSize <= KbsInMBS) {
       return true;
     } else {
@@ -253,7 +254,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
         const errorMessage = FileValidations.ResourceReaderContents(req).NO_FILE_UPLOAD_ERROR;
         this.uploadFileError(req, res, errorMessage);
       } else {
-        if (TotalUploadDocuments < Number(config.get('documentUpload.validation.totaldocuments'))) {
+        if (TotalUploadDocuments < Number(config.get('documentUpload.validation.totalOtherInformation'))) {
           if (!req.session.hasOwnProperty('errors')) {
             req.session['errors'] = [];
           }
