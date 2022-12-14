@@ -2,7 +2,7 @@
     "translations": {
         "en": {
             "continue": "Continue",
-            "serviceName": "Subject details (cont)",
+            "serviceName": "Appeal to the First-tier Tribunal",
             "title": "Enter contact information",
             "line1": "Please enter the most appropriate contact details to use for this case.",
             "emailAddressLabel": "Email address",
@@ -14,7 +14,7 @@
         },
         "cy": {
             "continue": "Continue (Welsh)",
-            "serviceName": "Subject details (cont) (Welsh)",
+            "serviceName": "Appeal to the First-tier Tribunal (Welsh)",
             "title": "Enter contact information (Welsh)",
             "line1": "Please enter the most appropriate contact details to use for this case. (Welsh)",
             "emailAddressLabel": "Email address (Welsh)",

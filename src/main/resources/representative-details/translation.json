@@ -2,7 +2,7 @@
     "translations": {
         "en": {
             "continue": "Continue",
-            "serviceName": "Representative's Details",
+            "serviceName": "Appeal to the First-tier Tribunal",
             "title":"Representative's Details",
             "line1":"Please enter details of the representative as stated on your tribunal form.",
             "line2":"We will only use these details to contact this representative about this case.",
@@ -13,7 +13,7 @@
         },
         "cy": {
           "continue": "Continue (Welsh)",
-          "serviceName": "Representative's Details (Welsh)",
+          "serviceName": "Appeal to the First-tier Tribunal (Welsh)",
           "title":"Representative's Details (Welsh)",
           "line1":"Please enter details of the representative as stated on your tribunal form. (Welsh)",
           "line2":"We will only use these details to contact this representative about this case. (Welsh)",

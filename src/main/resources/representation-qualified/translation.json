@@ -2,7 +2,7 @@
   "translations": {
     "en": {
       "continue": "Continue",
-      "serviceName": "Representation",
+      "serviceName": "Appeal to the First-tier Tribunal",
       "label": "Is the named representative legally qualified?",
       "hint": "A solicitor or a barrister are legally qualified representatives.",
       "one": "Yes",
@@ -10,7 +10,7 @@
     },
     "cy": {
       "continue": "Continue (Welsh)",
-      "serviceName": "Representation (Welsh)",
+      "serviceName": "Appeal to the First-tier Tribunal (Welsh)",
       "label": "Is the named representative legally qualified? (Welsh)",
       "hint": "A solicitor or a barrister are legally qualified representatives. (Welsh)",
       "one": "Yes (Welsh)",
