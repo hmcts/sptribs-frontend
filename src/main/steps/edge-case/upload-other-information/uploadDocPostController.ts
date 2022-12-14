@@ -124,9 +124,10 @@ export class FileValidations {
    * @returns
    */
   static sizeValidation = (mimeType: string, fileSize: number): boolean => {
-    const KbsInMBS = mimeType.endsWith('/mp4')
-      ? Number(config.get('documentUpload.validation.multimediaSizeInKB'))
-      : Number(config.get('documentUpload.validation.sizeInKB'));
+    const KbsInMBS =
+      mimeType.startsWith('audio/') || mimeType.startsWith('video/')
+        ? Number(config.get('documentUpload.validation.multimediaSizeInKB'))
+        : Number(config.get('documentUpload.validation.sizeInKB'));
     if (fileSize <= KbsInMBS) {
       return true;
     } else {
@@ -253,7 +254,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
         const errorMessage = FileValidations.ResourceReaderContents(req).NO_FILE_UPLOAD_ERROR;
         this.uploadFileError(req, res, errorMessage);
       } else {
-        if (TotalUploadDocuments < Number(config.get('documentUpload.validation.totaldocuments'))) {
+        if (TotalUploadDocuments < Number(config.get('documentUpload.validation.totalOtherInformation'))) {
           if (!req.session.hasOwnProperty('errors')) {
             req.session['errors'] = [];
           }

@@ -23,13 +23,13 @@
     },
     "errors": {
     "en": {
-    "SIZE_ERROR": "File size exceeds 20Mb. Please upload a file that is less than 20Mb",
+    "SIZE_ERROR": "File size exceeds the maximum permitted value. Please upload a file that is less than 20 MB (documents) or less than 500 MB (multimedia files)",
     "FORMAT_ERROR": "This service only accepts files in the formats - Ms Word, MS Excel, PDF, JPG, PNG, TXT, RTF, MP4, MP3",
     "TOTAL_FILES_EXCEED_ERROR": "You can upload 5 files only. Please delete one of the uploaded files and retry",
     "NO_FILE_UPLOAD_ERROR": "Please choose a file to upload"
     },
     "cy": {
-    "SIZE_ERROR": "File size exceeds 20Mb. Please upload a file that is less than 20Mb - welsh",
+    "SIZE_ERROR": "File size exceeds the maximum permitted value. Please upload a file that is less than 20 MB (documents) or less than 500 MB (multimedia files) - welsh",
     "FORMAT_ERROR": "This service only accepts files in the formats - Ms Word, MS Excel, PDF, JPG, PNG, TXT, RTF, MP4, MP3 - welsh",
     "TOTAL_FILES_EXCEED_ERROR": "You can upload 5 files only. Please delete one of the uploaded files and retry - welsh",
     "NO_FILE_UPLOAD_ERROR": "Please choose a file to upload (in welsh)"
