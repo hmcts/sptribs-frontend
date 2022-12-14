@@ -39,7 +39,6 @@ type FileType = {
   mp4audio: string;
   mp4video: string;
   mp3: string;
-  wav: string;
 };
 
 /**
@@ -59,7 +58,6 @@ type FileMimeTypeInfo = {
   'audio/mp4': string;
   'video/mp4': string;
   'audio/mpeg': string;
-  'audio/wav': string;
 };
 
 /**
@@ -92,7 +90,6 @@ export const FileMimeType: Partial<Record<keyof FileType, keyof FileMimeTypeInfo
   mp4audio: 'audio/mp4',
   mp4video: 'video/mp4',
   mp3: 'audio/mpeg',
-  wav: 'audio/wav',
 };
 
 export class FileValidations {

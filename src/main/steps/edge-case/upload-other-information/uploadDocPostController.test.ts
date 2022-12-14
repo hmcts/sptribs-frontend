@@ -96,7 +96,6 @@ describe('All of the listed Validation for files should be in place', () => {
     mp4audio: 'audio/mp4',
     mp4video: 'video/mp4',
     mp3: 'audio/mpeg',
-    wav: 'audio/wav',
   };
 
   it('must match the file validations type', () => {
