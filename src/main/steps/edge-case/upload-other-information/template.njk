@@ -52,11 +52,12 @@
   {{ govukFileUpload({
     id: "file-upload-1",
     name: "documents",
-    classes: "govuk-!-margin-bottom-5",
+    classes: "govuk-!-margin-bottom-1",
     label: {
       text: "Upload a file"
     }
   }) }}
+  <p class="govuk-body">{{ uploadGuidance }}</p>
 
   {{ govukButton({
             text: uploadButton,

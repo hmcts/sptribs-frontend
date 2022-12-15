@@ -5,6 +5,7 @@
     "title": "Upload supporting documents",
     "line1": "You must send a copy of the Authority's Review decision letter with the completed tribunal form.",
     "uploadRequirement": "<div class='govuk-body-s'><ul class=‘govuk-list govuk-list--bullet’><li>File formats: MS Word, MS Excel, PDF, JPG, PNG, TXT, RTF</li><li>File size per document: up to 20 megabytes (MB)</li><li>Files cannot be password protected</li></ul><p> You can’t upload executable (.exe), .zip or other archive files due to virus risks.</div>",
+    "uploadGuidance": "Once you have selected the file click \"Upload file\" to upload it.",
     "uploadButton": "Upload file"
     },
     "cy": {
@@ -12,6 +13,7 @@
     "title": "Upload supporting documents - (Welsh)",
     "line1": "You must send a copy of the Authority's Review decision letter with the completed tribunal form. - (Welsh)",
     "uploadRequirement": "<div class='govuk-body-s'><ul class=‘govuk-list govuk-list--bullet’><li>File formats: MS Word, MS Excel, PDF, JPG, PNG, TXT, RTF</li><li>File size per document: up to 20 megabytes (MB)</li><li>Files cannot be password protected</li></ul><p> You can’t upload executable (.exe), .zip or other archive files due to virus risks.</div> (Welsh)",
+    "uploadGuidance": "Once you have selected the file click \"Upload file\" to upload it. (Welsh)",
     "uploadButton": "Upload file (Welsh)"
     }
     },
