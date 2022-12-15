@@ -44,7 +44,7 @@ documentUpload:
     totalAdditionalDocuments: 20
     totalOtherInformation: 20
     sizeInKB: 20000000
-    multimediaSizeInKB: 500000000
+    multimediaSizeInKB: 30000000
 queryParamsforApp:
   query:
     FMP: 'FMPO'
