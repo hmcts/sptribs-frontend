@@ -136,7 +136,7 @@ describe('Checking for file upload size', () => {
   });
 
   it('Checking for file3 multimedia size', () => {
-    expect(FileValidations.sizeValidation('video/mp4', file3Size)).toBe(true);
+    expect(FileValidations.sizeValidation('video/mp4', file3Size)).toBe(false);
   });
 
   it('Checking for file4 multimedia size', () => {
