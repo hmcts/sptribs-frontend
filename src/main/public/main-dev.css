@@ -6805,3 +6805,6 @@ section {
     .summary-list-actions {
       width: 30%; } }
 
+.formRow .govuk-form-group {
+  margin-bottom: 0 !important; }
+

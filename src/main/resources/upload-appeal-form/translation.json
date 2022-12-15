@@ -6,6 +6,7 @@
     "line1": "Please upload the First-tier tribunal form that you have already completed.",
     "line2": "If you have other evidence or supporting documents, you can upload these files on the next screen.",
     "uploadRequirement": "<div class='govuk-body-s'><ul class=‘govuk-list govuk-list--bullet’><li>File formats: MS Word, PDF</li><li>File size per document: up to 20 megabytes (MB)</li><li>Files cannot be password protected</li></ul><p> You can’t upload executable (.exe), .zip or other archive files due to virus risks.</div>",
+    "uploadGuidance": "Once you have selected the file click \"Upload file\" to upload it.",
     "uploadButton": "Upload file"
     },
     "cy": {
@@ -14,6 +15,7 @@
     "line1": "Please upload the First-tier tribunal form that you have already completed. - (Welsh)",
     "line2": "If you have other evidence or supporting documents, you can upload these files on the next screen. - (Welsh)",
     "uploadRequirement": "<div class='govuk-body-s'><ul class=‘govuk-list govuk-list--bullet’><li>File formats: MS Word, PDF</li><li>File size per document: up to 20 megabytes (MB)</li><li>Files cannot be password protected</li></ul><p> You can’t upload executable (.exe), .zip or other archive files due to virus risks.</div> (Welsh)",
+    "uploadGuidance": "Once you have selected the file click \"Upload file\" to upload it. (Welsh)",
     "uploadButton": "Upload file (Welsh)"
     }
     },
