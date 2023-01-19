@@ -61,23 +61,9 @@ export class CaseApi {
     Axios.defaults.headers.put[AUTHORIZATION] = BEARER + SPACE + userDetails.accessToken;
     try {
       if (req.session.userCase.id === EMPTY) {
-        throw new Error('Error in updating case, case id is missing');
+        //throw new Error('Error in updating case, case id is missing');
       }
       const url: string = config.get(FIS_COS_API_BASE_URL);
-      const AdditionalDocuments = req.session['AddtionalCaseDocuments'].map(document => {
-        // eslint-disable-next-line @typescript-eslint/no-shadow
-        const { url, fileName, documentId, binaryUrl } = document;
-        return {
-          id: documentId,
-          value: {
-            documentLink: {
-              document_url: url,
-              document_filename: fileName,
-              document_binary_url: binaryUrl,
-            },
-          },
-        };
-      });
       const CaseDocuments = req.session['caseDocuments'].map(document => {
         const { url, fileName, documentId, binaryUrl } = document;
         return {
@@ -91,14 +77,40 @@ export class CaseApi {
           },
         };
       });
-
+      const SupportingDocuments = req.session['supportingCaseDocuments'].map(document => {
+        const { url, fileName, documentId, binaryUrl } = document;
+        return {
+          id: documentId,
+          value: {
+            documentLink: {
+              document_url: url,
+              document_filename: fileName,
+              document_binary_url: binaryUrl,
+            },
+          },
+        };
+      });
+      const OtherInformation = req.session['otherCaseInformation'].map(document => {
+        const { url, fileName, documentId, binaryUrl } = document;
+        return {
+          id: documentId,
+          value: {
+            documentLink: {
+              document_url: url,
+              document_filename: fileName,
+              document_binary_url: binaryUrl,
+            },
+          },
+        };
+      });
       const data = {
         ...mapCaseData(req),
-        applicantAdditionalDocuments: AdditionalDocuments,
-        applicantApplicationFormDocuments: CaseDocuments,
+        tribunalFormDocuments: CaseDocuments,
+        supportingDocuments: SupportingDocuments,
+        otherInformationDocuments: OtherInformation,
       };
       const res: AxiosResponse<CreateCaseResponse> = await Axios.put(
-        url + CONTEXT_PATH + FORWARD_SLASH + req.session.userCase.id + UPDATE_API_PATH,
+        url + CONTEXT_PATH + FORWARD_SLASH + '1' + UPDATE_API_PATH,
         data,
         {
           params: { event: eventName },
@@ -232,26 +244,18 @@ export const mapCaseData = (req: AppRequest): any => {
     namedApplicant: req.session.userCase.namedApplicant,
     //caseTypeOfApplication: req.session['edgecaseType'],
     // Hardcode for now
-    caseTypeOfApplication: 'CIC',
-    applicantFirstName: req.session.userCase.applicantFirstName,
-    applicantLastName: req.session.userCase.applicantLastName,
-    applicantDateOfBirth: toApiDate(req.session.userCase.applicantDateOfBirth),
-    applicantContactPreference: req.session.userCase['contactPreferenceType'],
-    applicantEmailAddress: req.session.userCase.applicantEmailAddress,
-    applicantPhoneNumber: req.session.userCase.applicantPhoneNumber,
-    applicantHomeNumber: req.session.userCase.applicantHomeNumber,
-    applicantAddress1: req.session.userCase.applicantAddress1,
-    applicantAddress2: req.session.userCase.applicantAddress2,
-    applicantAddressTown: req.session.userCase.applicantAddressTown,
-    applicantAddressCountry: 'United Kingdom',
-    applicantAddressPostCode: req.session.userCase.applicantAddressPostcode,
-    applicantStatementOfTruth: checkboxConverter(req.session.userCase.applicantStatementOfTruth),
+    caseTypeOfApplication: 'MH',
     subjectFullName: req.session.userCase.subjectFullName,
+    subjectDateOfBirth: toApiDate(req.session.userCase.subjectDateOfBirth),
     subjectEmailAddress: req.session.userCase.subjectEmailAddress,
     subjectContactNumber: req.session.userCase.subjectContactNumber,
     subjectAgreeContact: checkboxConverter(req.session.userCase.subjectAgreeContact),
     representation: req.session.userCase.representation,
     representationQualified: req.session.userCase.representationQualified,
+    representativeFullName: req.session.userCase.representativeFullName,
+    representativeOrganisationName: req.session.userCase.representativeOrganisationName,
+    representativeContactNumber: req.session.userCase.representativeContactNumber,
+    representativeEmailAddress: req.session.userCase.representativeEmailAddress,
   };
   return data;
 };
