@@ -103,6 +103,7 @@ export class CaseApi {
           },
         };
       });
+
       const data = {
         ...mapCaseData(req),
         tribunalFormDocuments: CaseDocuments,
@@ -110,7 +111,7 @@ export class CaseApi {
         otherInformationDocuments: OtherInformation,
       };
       const res: AxiosResponse<CreateCaseResponse> = await Axios.put(
-        url + CONTEXT_PATH + FORWARD_SLASH + '1' + UPDATE_API_PATH,
+        url + CONTEXT_PATH + FORWARD_SLASH + req.session.userCase.id + UPDATE_API_PATH,
         data,
         {
           params: { event: eventName },
