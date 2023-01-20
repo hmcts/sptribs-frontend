@@ -15,7 +15,7 @@ services:
     systemUsername: 'dummy_user'
     systemPassword: 'dummy_password'
   sptribs:
-    url: 'https://sptribs-dss-backend-aat.service.core-compute-preview.internal'
+    url: 'https://sptribs-dss-backend-staging.service.core-compute-aat.internal'
   postcodeLookup:
     url: 'https://api.os.uk/search/places/v1'
     token: 'NEED TO INSERT SECRET'
