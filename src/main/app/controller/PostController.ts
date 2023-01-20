@@ -3,7 +3,7 @@ import config from 'config';
 import { Response } from 'express';
 
 import { getNextStepUrl } from '../../steps';
-import { CONTACT_DETAILS, SAVE_AND_SIGN_OUT, STATEMENT_OF_TRUTH } from '../../steps/urls';
+import { CONTACT_DETAILS, SAVE_AND_SIGN_OUT, STATEMENT_OF_TRUTH, SUBJECT_CONTACT_DETAILS } from '../../steps/urls';
 import { Case, CaseWithId } from '../case/case';
 import { CITIZEN_CREATE, CITIZEN_SAVE_AND_CLOSE, CITIZEN_SUBMIT, CITIZEN_UPDATE } from '../case/definition';
 import { Form, FormFields, FormFieldsFn } from '../form/Form';
@@ -155,7 +155,7 @@ export class PostController<T extends AnyObject> {
   //eslint-disable-next-line @typescript-eslint/no-unused-vars
   public getEventName(req: AppRequest): string {
     let eventName;
-    if (req.originalUrl === CONTACT_DETAILS && this.isBlank(req)) {
+    if (req.originalUrl === SUBJECT_CONTACT_DETAILS && this.isBlank(req)) {
       console.log('creating new case event');
       eventName = CITIZEN_CREATE;
     } else if (req.originalUrl === CONTACT_DETAILS) {
