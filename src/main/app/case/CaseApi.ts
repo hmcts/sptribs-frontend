@@ -61,7 +61,7 @@ export class CaseApi {
     Axios.defaults.headers.put[AUTHORIZATION] = BEARER + SPACE + userDetails.accessToken;
     try {
       if (req.session.userCase.id === EMPTY) {
-        //throw new Error('Error in updating case, case id is missing');
+        throw new Error('Error in updating case, case id is missing');
       }
       const url: string = config.get(FIS_COS_API_BASE_URL);
       const CaseDocuments = req.session['caseDocuments'].map(document => {
