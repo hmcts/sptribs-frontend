@@ -2,7 +2,7 @@ import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { FormContent } from '../../app/form/Form';
 import * as steps from '../../steps';
-import { CONTACT_DETAILS } from '../../steps/urls'; //TOOK out CONTACT_DETAILS for EMAIL_ADDRESS RB
+import { SUBJECT_CONTACT_DETAILS } from '../../steps/urls'; //TOOK out CONTACT_DETAILS for EMAIL_ADDRESS RB
 import { isPhoneNoValid } from '../form/validation';
 
 import { PostController } from './PostController';
@@ -39,20 +39,20 @@ describe('PostController', () => {
     controller.checkReturnUrlAndRedirect(redirectRequest, res, []);
 
     const getEventNameRequest = mockRequest({});
-    getEventNameRequest.originalUrl = CONTACT_DETAILS;
+    getEventNameRequest.originalUrl = SUBJECT_CONTACT_DETAILS;
     controller.getEventName(getEventNameRequest);
     controller.redirect(redirectRequest, res, '');
   });
 
   test('Should save the users data, update session case from API response and redirect to the next page if the form is valid', async () => {
     getNextStepUrlMock.mockReturnValue('/next-step-url');
-    const body = { MOCK_KEY: 'MOCK_VALUE', originalUrl: CONTACT_DETAILS };
+    const body = { MOCK_KEY: 'MOCK_VALUE', originalUrl: SUBJECT_CONTACT_DETAILS };
     const controller = new PostController(mockFormContent.fields);
 
     const expectedUserCase = {
       id: '1234',
       MOCK_KEY: 'MOCK_VALUE',
-      originalUrl: CONTACT_DETAILS,
+      originalUrl: SUBJECT_CONTACT_DETAILS,
     };
 
     const req = mockRequest({ body });
@@ -93,33 +93,33 @@ describe('PostController', () => {
   });
 
   it('Case create test', async () => {
-    const body = { MOCK_KEY: 'MOCK_VALUE', originalUrl: CONTACT_DETAILS };
+    const body = { MOCK_KEY: 'MOCK_VALUE', originalUrl: SUBJECT_CONTACT_DETAILS };
     const controller = new PostController(mockFormContent.fields);
     const req = mockRequest({ body });
     req.session.userCase.id = '';
-    req.originalUrl = CONTACT_DETAILS;
+    req.originalUrl = SUBJECT_CONTACT_DETAILS;
     const res = mockResponse();
     await controller.post(req, res);
 
     expect(req.session.userCase).toEqual({
       id: '',
       MOCK_KEY: 'MOCK_VALUE',
-      originalUrl: '/contact-details',
+      originalUrl: '/subject-contact-details',
     });
   });
 
   it('Case update test', async () => {
-    const body = { MOCK_KEY: 'MOCK_VALUE', originalUrl: CONTACT_DETAILS };
+    const body = { MOCK_KEY: 'MOCK_VALUE', originalUrl: SUBJECT_CONTACT_DETAILS };
     const controller = new PostController(mockFormContent.fields);
     const req = mockRequest({ body });
-    req.originalUrl = CONTACT_DETAILS;
+    req.originalUrl = SUBJECT_CONTACT_DETAILS;
     const res = mockResponse();
     await controller.post(req, res);
 
     expect(req.session.userCase).toEqual({
       id: '1234',
       MOCK_KEY: 'MOCK_VALUE',
-      originalUrl: '/contact-details',
+      originalUrl: '/subject-contact-details',
     });
   });
 
