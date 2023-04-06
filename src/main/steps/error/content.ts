@@ -26,8 +26,8 @@ const en = {
   },
   [StatusCodes.INTERNAL_SERVER_ERROR]: {
     ...common.en,
-    title: 'Sorry, we’re having technical problems',
-    info: 'Please try again in a few minutes',
+    title: 'Sorry, an error has occurred',
+    info: 'There was a problem with your last action. Please go back and try again.<br><br>if the problem persist please contact the Tribunal <br><br>Find a court or tribunal - <a href=https://www.gov.uk/criminal-injuries-compensation-tribunal/appeal-to-tribunal>GOV.UK</a><br><br><br>',
   },
 };
 
