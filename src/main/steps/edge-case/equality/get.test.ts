@@ -12,6 +12,7 @@ jest.mock('config');
 
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 const mockedConfig = config as jest.Mocked<typeof config>;
+mockedAxios.create = jest.fn(() => mockedAxios);
 
 describe('PCQGetController', () => {
   const controller = new PCQGetController();
@@ -20,6 +21,7 @@ describe('PCQGetController', () => {
     mockedConfig.get.mockReturnValueOnce('https://pcq.aat.platform.hmcts.net');
     mockedConfig.get.mockReturnValueOnce('true');
     mockedConfig.get.mockReturnValueOnce('SERVICE_TOKEN_KEY');
+    mockedConfig.get.mockReturnValueOnce('https://sptribs');
     mockedConfig.get.mockReturnValueOnce('/service-endpoint');
 
     const req = mockRequest();
@@ -35,6 +37,8 @@ describe('PCQGetController', () => {
       },
     });
 
+    mockedAxios.put.mockResolvedValue({});
+
     await controller.get(req, res);
     expect(redirectMock.mock.calls[0][0]).toContain('/service-endpoint');
     expect(redirectMock.mock.calls[0][0]).toContain('ageCheck=2');
@@ -44,6 +48,7 @@ describe('PCQGetController', () => {
     mockedConfig.get.mockReturnValueOnce('https://pcq.aat.platform.hmcts.net');
     mockedConfig.get.mockReturnValueOnce('true');
     mockedConfig.get.mockReturnValueOnce('SERVICE_TOKEN_KEY');
+    mockedConfig.get.mockReturnValueOnce('https://sptribs');
     mockedConfig.get.mockReturnValueOnce('/service-endpoint');
 
     const req = mockRequest();
@@ -65,6 +70,7 @@ describe('PCQGetController', () => {
     });
 
     await controller.get(req, res);
+    expect(redirectMock.mock.calls[0][0]).toContain('/service-endpoint');
     expect(redirectMock.mock.calls[0][0]).toContain('ageCheck=1');
   });
 
@@ -72,6 +78,7 @@ describe('PCQGetController', () => {
     mockedConfig.get.mockReturnValueOnce('https://pcq.aat.platform.hmcts.net');
     mockedConfig.get.mockReturnValueOnce('true');
     mockedConfig.get.mockReturnValueOnce('SERVICE_TOKEN_KEY');
+    mockedConfig.get.mockReturnValueOnce('https://sptribs');
     mockedConfig.get.mockReturnValueOnce('/service-endpoint');
 
     const req = mockRequest();
@@ -93,6 +100,7 @@ describe('PCQGetController', () => {
     });
 
     await controller.get(req, res);
+    expect(redirectMock.mock.calls[0][0]).toContain('/service-endpoint');
     expect(redirectMock.mock.calls[0][0]).toContain('ageCheck=0');
   });
 

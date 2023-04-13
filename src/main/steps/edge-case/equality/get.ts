@@ -4,8 +4,10 @@ import config from 'config';
 import { Response } from 'express';
 import { v4 as uuid } from 'uuid';
 
+import { mapCaseData } from '../../../app/case/CaseApi';
 import { CaseDate } from '../../../app/case/case';
 import { AppRequest } from '../../../app/controller/AppRequest';
+import { FIS_COS_API_BASE_URL } from '../../common/constants/apiConstants';
 import { CHECK_YOUR_ANSWERS } from '../../urls';
 
 import { createToken } from './createToken';
@@ -20,12 +22,15 @@ export default class PCQGetController {
       const equalityHealth = response.data && response.data.status === 'UP';
       if (equalityHealth) {
         req.session.userCase.pcqId = uuid();
-        const pcqParams = this.gatherPcqParams(req);
-        const path: string = config.get('services.equalityAndDiversity.path');
-        const qs = Object.keys(pcqParams)
-          .map(key => `${key}=${pcqParams[key]}`)
-          .join('&');
-        res.redirect(`${pcqUrl}${path}?${qs}`);
+        const updateCaseResponse: AxiosResponse<StatusResponse> = await this.updateCase(req);
+        if (updateCaseResponse) {
+          const pcqParams = this.gatherPcqParams(req);
+          const path: string = config.get('services.equalityAndDiversity.path');
+          const qs = Object.keys(pcqParams)
+            .map(key => `${key}=${pcqParams[key]}`)
+            .join('&');
+          res.redirect(`${pcqUrl}${path}?${qs}`);
+        }
       } else {
         res.redirect(CHECK_YOUR_ANSWERS);
       }
@@ -66,6 +71,26 @@ export default class PCQGetController {
     } else {
       return 0;
     }
+  }
+
+  private async updateCase(req: AppRequest) {
+    const CaseId = req.session.userCase['id'];
+    const updateUrl = '/case/dss-orchestration/' + CaseId + '/update?event=UPDATE';
+    const Headers = {
+      Authorization: `Bearer ${req.session.user['accessToken']}`,
+    };
+    const CaseData = mapCaseData(req);
+    const requestBody = {
+      ...CaseData,
+    };
+    return axios
+      .create({
+        baseURL: config.get(FIS_COS_API_BASE_URL),
+        headers: Headers,
+        maxContentLength: Infinity,
+        maxBodyLength: Infinity,
+      })
+      .put(updateUrl, requestBody);
   }
 }
 
