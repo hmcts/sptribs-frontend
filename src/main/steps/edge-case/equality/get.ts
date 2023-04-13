@@ -45,10 +45,10 @@ export default class PCQGetController {
       partyId: req.session.userCase.subjectEmailAddress,
       language: req.session.lang ? req.session.lang : 'en',
       returnUrl: `${protocol}${host}${port}${CHECK_YOUR_ANSWERS}`,
+      ageCheck: this.calculateAgeCheckParam(req.session.userCase.subjectDateOfBirth).toString(),
     };
     const tokenKey: string = config.get('services.equalityAndDiversity.tokenKey');
     pcqParams['token'] = createToken(pcqParams, tokenKey);
-    pcqParams['ageCheck'] = this.calculateAgeCheckParam(req.session.userCase.subjectDateOfBirth).toString();
     pcqParams.partyId = encodeURIComponent(pcqParams.partyId);
     return pcqParams;
   }
