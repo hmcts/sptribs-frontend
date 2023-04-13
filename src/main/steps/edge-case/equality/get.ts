@@ -22,14 +22,20 @@ export default class PCQGetController {
       const equalityHealth = response.data && response.data.status === 'UP';
       if (equalityHealth) {
         req.session.userCase.pcqId = uuid();
-        const updateCaseResponse: AxiosResponse<StatusResponse> = await this.updateCase(req);
-        if (updateCaseResponse) {
-          const pcqParams = this.gatherPcqParams(req);
-          const path: string = config.get('services.equalityAndDiversity.path');
-          const qs = Object.keys(pcqParams)
-            .map(key => `${key}=${pcqParams[key]}`)
-            .join('&');
-          res.redirect(`${pcqUrl}${path}?${qs}`);
+        try {
+          const updateCaseResponse: AxiosResponse<StatusResponse> = await this.updateCase(req);
+          if (updateCaseResponse && updateCaseResponse.status === 200) {
+            const pcqParams = this.gatherPcqParams(req);
+            const path: string = config.get('services.equalityAndDiversity.path');
+            const qs = Object.keys(pcqParams)
+              .map(key => `${key}=${pcqParams[key]}`)
+              .join('&');
+            res.redirect(`${pcqUrl}${path}?${qs}`);
+          } else {
+            res.redirect(CHECK_YOUR_ANSWERS);
+          }
+        } catch (err) {
+          res.redirect(CHECK_YOUR_ANSWERS);
         }
       } else {
         res.redirect(CHECK_YOUR_ANSWERS);
@@ -74,8 +80,8 @@ export default class PCQGetController {
   }
 
   private async updateCase(req: AppRequest) {
-    const CaseId = req.session.userCase['id'];
-    const updateUrl = '/case/dss-orchestration/' + CaseId + '/update?event=UPDATE';
+    //const CaseId = req.session.userCase['id'];
+    const updateUrl = '/case/dss-orchestration/' + '1' + '/update?event=UPDATE';
     const Headers = {
       Authorization: `Bearer ${req.session.user['accessToken']}`,
     };

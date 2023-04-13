@@ -37,7 +37,9 @@ describe('PCQGetController', () => {
       },
     });
 
-    mockedAxios.put.mockResolvedValue({});
+    mockedAxios.put.mockResolvedValue({
+      status: 200,
+    });
 
     await controller.get(req, res);
     expect(redirectMock.mock.calls[0][0]).toContain('/service-endpoint');
@@ -68,6 +70,9 @@ describe('PCQGetController', () => {
         status: 'UP',
       },
     });
+    mockedAxios.put.mockResolvedValue({
+      status: 200,
+    });
 
     await controller.get(req, res);
     expect(redirectMock.mock.calls[0][0]).toContain('/service-endpoint');
@@ -97,6 +102,9 @@ describe('PCQGetController', () => {
       data: {
         status: 'UP',
       },
+    });
+    mockedAxios.put.mockResolvedValue({
+      status: 200,
     });
 
     await controller.get(req, res);
