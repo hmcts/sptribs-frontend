@@ -97,6 +97,8 @@ describe('PCQGetController', () => {
   });
 
   test('Should redirect to Check Your Answers if PCQ Health is DOWN', async () => {
+    mockedConfig.get.mockReturnValueOnce('https://pcq.aat.platform.hmcts.net');
+    mockedConfig.get.mockReturnValueOnce('true');
     const req = mockRequest();
     const res = mockResponse();
 
@@ -114,6 +116,8 @@ describe('PCQGetController', () => {
   });
 
   test('Should redirect to Check Your Answers if pcqId is already populated', async () => {
+    mockedConfig.get.mockReturnValueOnce('https://pcq.aat.platform.hmcts.net');
+    mockedConfig.get.mockReturnValueOnce('true');
     const req = mockRequest();
     const res = mockResponse();
     req.session.userCase.pcqId = '1234';
