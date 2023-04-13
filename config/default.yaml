@@ -20,6 +20,7 @@ services:
     url: 'https://pcq.aat.platform.hmcts.net'
     path: '/service-endpoint'
     tokenKey: 'NEED TO INSERT SECRET'
+    enabled: true
   postcodeLookup:
     url: 'https://api.os.uk/search/places/v1'
     token: 'NEED TO INSERT SECRET'

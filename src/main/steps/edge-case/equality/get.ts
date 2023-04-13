@@ -13,11 +13,13 @@ import { createToken } from './createToken';
 @autobind
 export default class PCQGetController {
   public async get(req: AppRequest, res: Response): Promise<void> {
-    if (!req.session.userCase.pcqId) {
-      const pcqUrl: string = config.get('services.equalityAndDiversity.url');
+    const pcqUrl: string = config.get('services.equalityAndDiversity.url');
+    const pcqEnabled: boolean = JSON.parse(config.get('services.equalityAndDiversity.enabled'));
+    if (pcqEnabled && !req.session.userCase.pcqId) {
       const response: AxiosResponse<StatusResponse> = await axios.get(pcqUrl + '/health');
       const equalityHealth = response.data && response.data.status === 'UP';
       if (equalityHealth) {
+        req.session.userCase.pcqId = uuid();
         const pcqParams = this.gatherPcqParams(req);
         const path: string = config.get('services.equalityAndDiversity.path');
         const qs = Object.keys(pcqParams)
@@ -41,7 +43,7 @@ export default class PCQGetController {
       actor: 'APPLICANT',
       serviceId: 'SpecialTribunals_CIC',
       ccdCaseId: req.session.userCase.id,
-      pcqId: uuid(),
+      pcqId: req.session.userCase.pcqId,
       partyId: req.session.userCase.subjectEmailAddress,
       language: req.session.lang ? req.session.lang : 'en',
       returnUrl: `${protocol}${host}${port}${CHECK_YOUR_ANSWERS}`,
