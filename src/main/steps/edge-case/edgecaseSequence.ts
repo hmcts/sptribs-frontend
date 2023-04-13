@@ -6,6 +6,7 @@ import {
   CONTACT_PREFERENCES,
   COOKIES,
   DATE_OF_BIRTH,
+  EQUALITY,
   FIND_ADDRESS,
   MANUAL_ADDRESS,
   REPRESENTATION,
@@ -58,6 +59,11 @@ export const edgecaseSequence: Step[] = [
   },
   {
     url: UPLOAD_OTHER_INFORMATION,
+    showInSection: Sections.AboutEdgeCase,
+    getNextStep: () => EQUALITY,
+  },
+  {
+    url: EQUALITY,
     showInSection: Sections.AboutEdgeCase,
     getNextStep: () => CHECK_YOUR_ANSWERS,
   },

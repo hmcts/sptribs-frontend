@@ -50,6 +50,7 @@ export interface Case {
   representativeOrganisationName: string;
   representativeContactNumber: string;
   representativeEmailAddress: string;
+  pcqId: string;
 }
 
 export interface CaseWithId extends Case {

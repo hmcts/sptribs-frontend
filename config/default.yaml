@@ -16,6 +16,10 @@ services:
     systemPassword: 'dummy_password'
   sptribs:
     url: 'https://sptribs-dss-backend-pr-50.preview.platform.hmcts.net'
+  equalityAndDiversity:
+    url: 'https://pcq.aat.platform.hmcts.net'
+    path: '/service-endpoint'
+    tokenKey: 'NEED TO INSERT SECRET'
   postcodeLookup:
     url: 'https://api.os.uk/search/places/v1'
     token: 'NEED TO INSERT SECRET'
