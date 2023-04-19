@@ -79,12 +79,10 @@ describe('PCQGetController', () => {
     expect(redirectMock.mock.calls[0][0]).toContain('ageCheck=1');
   });
 
-  test('Should set ageCheck value to 0', async () => {
+  test('Should not invoke PCQ if under 16', async () => {
     mockedConfig.get.mockReturnValueOnce('https://pcq.aat.platform.hmcts.net');
     mockedConfig.get.mockReturnValueOnce('true');
     mockedConfig.get.mockReturnValueOnce('SERVICE_TOKEN_KEY');
-    mockedConfig.get.mockReturnValueOnce('https://sptribs');
-    mockedConfig.get.mockReturnValueOnce('/service-endpoint');
 
     const req = mockRequest();
     const res = mockResponse();
@@ -108,8 +106,7 @@ describe('PCQGetController', () => {
     });
 
     await controller.get(req, res);
-    expect(redirectMock.mock.calls[0][0]).toContain('/service-endpoint');
-    expect(redirectMock.mock.calls[0][0]).toContain('ageCheck=0');
+    expect(redirectMock.mock.calls[0][0]).toContain('/check-your-answers');
   });
 
   test('Should redirect to Check Your Answers if PCQ Health is DOWN', async () => {

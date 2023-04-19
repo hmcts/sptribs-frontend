@@ -26,11 +26,16 @@ export default class PCQGetController {
           const updateCaseResponse: AxiosResponse<StatusResponse> = await this.updateCase(req);
           if (updateCaseResponse && updateCaseResponse.status === 200) {
             const pcqParams = this.gatherPcqParams(req);
-            const path: string = config.get('services.equalityAndDiversity.path');
-            const qs = Object.keys(pcqParams)
-              .map(key => `${key}=${pcqParams[key]}`)
-              .join('&');
-            res.redirect(`${pcqUrl}${path}?${qs}`);
+            if (pcqParams.ageCheck === '0') {
+              // Under 16 so do not invoke PCQ
+              res.redirect(CHECK_YOUR_ANSWERS);
+            } else {
+              const path: string = config.get('services.equalityAndDiversity.path');
+              const qs = Object.keys(pcqParams)
+                .map(key => `${key}=${pcqParams[key]}`)
+                .join('&');
+              res.redirect(`${pcqUrl}${path}?${qs}`);
+            }
           } else {
             res.redirect(CHECK_YOUR_ANSWERS);
           }
