@@ -20,8 +20,8 @@ describe('PCQGetController', () => {
   test('Should redirect to PCQ', async () => {
     mockedConfig.get.mockReturnValueOnce('https://pcq.aat.platform.hmcts.net');
     mockedConfig.get.mockReturnValueOnce('true');
-    mockedConfig.get.mockReturnValueOnce('SERVICE_TOKEN_KEY');
     mockedConfig.get.mockReturnValueOnce('https://sptribs');
+    mockedConfig.get.mockReturnValueOnce('SERVICE_TOKEN_KEY');
     mockedConfig.get.mockReturnValueOnce('/service-endpoint');
 
     const req = mockRequest();
@@ -82,6 +82,7 @@ describe('PCQGetController', () => {
   test('Should not invoke PCQ if under 16', async () => {
     mockedConfig.get.mockReturnValueOnce('https://pcq.aat.platform.hmcts.net');
     mockedConfig.get.mockReturnValueOnce('true');
+    mockedConfig.get.mockReturnValueOnce('https://sptribs');
     mockedConfig.get.mockReturnValueOnce('SERVICE_TOKEN_KEY');
 
     const req = mockRequest();
@@ -150,5 +151,29 @@ describe('PCQGetController', () => {
     await controller.get(req, res);
 
     expect(res.redirect).toHaveBeenCalledWith(CHECK_YOUR_ANSWERS);
+  });
+
+  test('Should not invoke PCQ if cannot update case', async () => {
+    mockedConfig.get.mockReturnValueOnce('https://pcq.aat.platform.hmcts.net');
+    mockedConfig.get.mockReturnValueOnce('true');
+    mockedConfig.get.mockReturnValueOnce('https://sptribs');
+
+    const req = mockRequest();
+    const res = mockResponse();
+
+    const redirectMock = jest.fn();
+    res.redirect = redirectMock;
+
+    mockedAxios.get.mockResolvedValue({
+      data: {
+        status: 'UP',
+      },
+    });
+    mockedAxios.put.mockResolvedValue({
+      status: 500,
+    });
+
+    await controller.get(req, res);
+    expect(redirectMock.mock.calls[0][0]).toContain('/check-your-answers');
   });
 });
