@@ -82,8 +82,6 @@ describe('PCQGetController', () => {
   test('Should not invoke PCQ if under 16', async () => {
     mockedConfig.get.mockReturnValueOnce('https://pcq.aat.platform.hmcts.net');
     mockedConfig.get.mockReturnValueOnce('true');
-    mockedConfig.get.mockReturnValueOnce('https://sptribs');
-    mockedConfig.get.mockReturnValueOnce('SERVICE_TOKEN_KEY');
 
     const req = mockRequest();
     const res = mockResponse();
@@ -115,6 +113,7 @@ describe('PCQGetController', () => {
     mockedConfig.get.mockReturnValueOnce('true');
     const req = mockRequest();
     const res = mockResponse();
+    req.session.userCase.subjectDateOfBirth = { day: '01', month: '01', year: '1970' };
 
     mockedAxios.get.mockResolvedValue(
       Promise.resolve({
@@ -134,6 +133,7 @@ describe('PCQGetController', () => {
     mockedConfig.get.mockReturnValueOnce('true');
     const req = mockRequest();
     const res = mockResponse();
+    req.session.userCase.subjectDateOfBirth = { day: '01', month: '01', year: '1970' };
     req.session.userCase.pcqId = '1234';
 
     await controller.get(req, res);
@@ -147,6 +147,7 @@ describe('PCQGetController', () => {
 
     const req = mockRequest();
     const res = mockResponse();
+    req.session.userCase.subjectDateOfBirth = { day: '01', month: '01', year: '1970' };
 
     await controller.get(req, res);
 
@@ -160,6 +161,7 @@ describe('PCQGetController', () => {
 
     const req = mockRequest();
     const res = mockResponse();
+    req.session.userCase.subjectDateOfBirth = { day: '01', month: '01', year: '1970' };
 
     const redirectMock = jest.fn();
     res.redirect = redirectMock;
