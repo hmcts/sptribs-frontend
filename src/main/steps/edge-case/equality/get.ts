@@ -17,7 +17,8 @@ export default class PCQGetController {
   public async get(req: AppRequest, res: Response): Promise<void> {
     const pcqUrl: string = config.get('services.equalityAndDiversity.url');
     const pcqEnabled: boolean = JSON.parse(config.get('services.equalityAndDiversity.enabled'));
-    if (pcqEnabled && !req.session.userCase.pcqId) {
+    const ageCheckValue = this.calculateAgeCheckParam(req.session.userCase.subjectDateOfBirth);
+    if (pcqEnabled && !req.session.userCase.pcqId && ageCheckValue !== 0) {
       const response: AxiosResponse<StatusResponse> = await axios.get(pcqUrl + '/health');
       const equalityHealth = response.data && response.data.status === 'UP';
       if (equalityHealth) {
@@ -25,7 +26,7 @@ export default class PCQGetController {
         try {
           const updateCaseResponse: AxiosResponse<StatusResponse> = await this.updateCase(req);
           if (updateCaseResponse && updateCaseResponse.status === 200) {
-            const pcqParams = this.gatherPcqParams(req);
+            const pcqParams = this.gatherPcqParams(req, ageCheckValue);
             const path: string = config.get('services.equalityAndDiversity.path');
             const qs = Object.keys(pcqParams)
               .map(key => `${key}=${pcqParams[key]}`)
@@ -45,7 +46,7 @@ export default class PCQGetController {
     }
   }
 
-  private gatherPcqParams(req: AppRequest) {
+  private gatherPcqParams(req: AppRequest, ageCheckValue: number) {
     const developmentMode = process.env.NODE_ENV === 'development';
     const protocol = developmentMode ? 'http://' : '';
     const host = req.headers['x-forwarded-host'] || req.hostname;
@@ -58,7 +59,7 @@ export default class PCQGetController {
       partyId: req.session.userCase.subjectEmailAddress,
       language: req.session.lang ? req.session.lang : 'en',
       returnUrl: `${protocol}${host}${port}${CHECK_YOUR_ANSWERS}`,
-      ageCheck: this.calculateAgeCheckParam(req.session.userCase.subjectDateOfBirth).toString(),
+      ageCheck: ageCheckValue.toString(),
     };
     const tokenKey: string = config.get('services.equalityAndDiversity.tokenKey');
     pcqParams['token'] = createToken(pcqParams, tokenKey);
