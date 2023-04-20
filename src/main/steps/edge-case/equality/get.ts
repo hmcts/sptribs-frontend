@@ -18,7 +18,6 @@ export default class PCQGetController {
     const pcqUrl: string = config.get('services.equalityAndDiversity.url');
     const pcqEnabled: boolean = JSON.parse(config.get('services.equalityAndDiversity.enabled'));
     const ageCheckValue = this.calculateAgeCheckParam(req.session.userCase.subjectDateOfBirth);
-    console.log('age ' + ageCheckValue);
     if (pcqEnabled && !req.session.userCase.pcqId && ageCheckValue !== 0) {
       const response: AxiosResponse<StatusResponse> = await axios.get(pcqUrl + '/health');
       const equalityHealth = response.data && response.data.status === 'UP';
@@ -69,7 +68,6 @@ export default class PCQGetController {
   }
 
   private calculateAgeCheckParam(dateOfBirth: CaseDate) {
-    console.log('year ' + dateOfBirth.year + ' month ' + dateOfBirth.month + ' day ' + dateOfBirth.day);
     const dobPlus18 = new Date(Number(dateOfBirth.year) + 18, Number(dateOfBirth.month) - 1, Number(dateOfBirth.day));
     const dobPlus16 = new Date(Number(dateOfBirth.year) + 16, Number(dateOfBirth.month) - 1, Number(dateOfBirth.day));
     const today = new Date();
