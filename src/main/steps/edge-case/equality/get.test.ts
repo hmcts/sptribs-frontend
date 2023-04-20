@@ -58,7 +58,7 @@ describe('PCQGetController', () => {
     const today = new Date();
     req.session.userCase.subjectDateOfBirth = {
       day: today.getDay().toString(),
-      month: today.getMonth().toString(),
+      month: (today.getMonth() + 1).toString(),
       year: (today.getFullYear() - 16).toString(),
     };
 
@@ -88,7 +88,7 @@ describe('PCQGetController', () => {
     const today = new Date();
     req.session.userCase.subjectDateOfBirth = {
       day: today.getDay().toString(),
-      month: today.getMonth().toString(),
+      month: (today.getMonth() + 1).toString(),
       year: (today.getFullYear() - 1).toString(),
     };
 
