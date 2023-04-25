@@ -5,10 +5,10 @@ timeout: 120000
 services:
   authProvider:
     url: 'http://rpe-service-auth-provider-aat.service.core-compute-aat.internal'
-    microservice: 'ds_ui'
+    microservice: 'sptribs_frontend'
     secret: 'NEED TO INSERT SECRET'
   sptribs:
-    url: 'http://localhost:8099'
+    url: 'http://localhost:4013'
   postcodeLookup:
     url: 'https://api.os.uk/search/places/v1'
     token: 'NEED TO INSERT SECRET'

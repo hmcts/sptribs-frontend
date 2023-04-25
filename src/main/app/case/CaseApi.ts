@@ -137,7 +137,11 @@ export class CaseApi {
   public async createCaseNew(req: AppRequest, userDetails: UserDetails): Promise<any> {
     try {
       const url: string = config.get(FIS_COS_API_BASE_URL);
-      const headers = { CONTENT_TYPE: APPLICATION_JSON, Authorization: BEARER + SPACE + userDetails.accessToken };
+      const headers = {
+        CONTENT_TYPE: APPLICATION_JSON,
+        Authorization: BEARER + SPACE + userDetails.accessToken,
+        ServiceAuthorization: getServiceAuthToken(),
+      };
       const res: AxiosResponse<CreateCaseResponse> = await Axios.post(
         url + CONTEXT_PATH + CREATE_API_PATH,
         mapCaseData(req),
@@ -242,22 +246,21 @@ interface CreateCaseResponse {
 
 export const mapCaseData = (req: AppRequest): any => {
   const data = {
-    namedApplicant: req.session.userCase.namedApplicant,
-    //caseTypeOfApplication: req.session['edgecaseType'],
+    //CaseTypeOfApplication: req.session['edgecaseType'],
     // Hardcode for now
-    caseTypeOfApplication: 'MH',
-    subjectFullName: req.session.userCase.subjectFullName,
-    subjectDateOfBirth: toApiDate(req.session.userCase.subjectDateOfBirth),
-    subjectEmailAddress: req.session.userCase.subjectEmailAddress,
-    subjectContactNumber: req.session.userCase.subjectContactNumber,
-    subjectAgreeContact: checkboxConverter(req.session.userCase.subjectAgreeContact),
-    representation: req.session.userCase.representation,
-    representationQualified: req.session.userCase.representationQualified,
-    representativeFullName: req.session.userCase.representativeFullName,
-    representativeOrganisationName: req.session.userCase.representativeOrganisationName,
-    representativeContactNumber: req.session.userCase.representativeContactNumber,
-    representativeEmailAddress: req.session.userCase.representativeEmailAddress,
-    pcqId: req.session.userCase.pcqId,
+    CaseTypeOfApplication: 'CIC',
+    SubjectFullName: req.session.userCase.subjectFullName,
+    SubjectDateOfBirth: toApiDate(req.session.userCase.subjectDateOfBirth),
+    SubjectEmailAddress: req.session.userCase.subjectEmailAddress,
+    SubjectContactNumber: req.session.userCase.subjectContactNumber,
+    SubjectAgreeContact: checkboxConverter(req.session.userCase.subjectAgreeContact),
+    Representation: req.session.userCase.representation,
+    RepresentationQualified: req.session.userCase.representationQualified,
+    RepresentativeFullName: req.session.userCase.representativeFullName,
+    RepresentativeOrganisationName: req.session.userCase.representativeOrganisationName,
+    RepresentativeContactNumber: req.session.userCase.representativeContactNumber,
+    RepresentativeEmailAddress: req.session.userCase.representativeEmailAddress,
+    PcqId: req.session.userCase.pcqId,
   };
   return data;
 };
