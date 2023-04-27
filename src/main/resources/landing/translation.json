@@ -2,14 +2,14 @@
     "translations": {
         "en": {
             "serviceTitle": "Appeal to the First-tier Tribunal",
-            "banner": "<b> Help us improve this service</b><br>This is a new service.Help us for others to improve it by <a  class='govuk-link' href='https://www.smartsurvey.co.uk/s/Specials_Feedback/?pageurl=Specials' target=_blank>giving your feedback</a>",
+            "banner": "<b> Help us improve this service</b><br>This is a new service.Help us for others to improve it by <a  class='govuk-link' href='https://www.smartsurvey.co.uk/s/Specials_Feedback/?pageurl=currentUrl' target=_blank>giving your feedback</a>",
             "heading": "Submit a First-tier Tribunal form",
             "body": "<p class='govuk-body-l'>Use this service to upload and submit a completed First-tier Tribunal form. You'll also be asked to upload any supporting documents separately, so make sure you have everything you need to hand before getting started.<br/></br><span class='govuk-!-font-weight-bold'>Submitting your form</span><br/><p class='govuk-body-l'>As well as uploading a tribunal form, you will also be asked a handful of simple questions. You'll be able to review and change the answers you give to these questions before you submit them.</p><p class='govuk-body-l'>Uploading and submitting a tribunal form should not take longer than 20 minutes.</p>",
             "button": "Start now"
         },
         "cy": {
             "serviceTitle": "Appeal to the First-tier Tribunal(welsh)",
-            "banner": "<b>Help us improve this service</b><br>This is a new service. Help us for others to improve it by <a  class='govuk-link' href='https://www.smartsurvey.co.uk/s/Specials_Feedback/?pageurl=Specials' target=_blank>giving your feedback</a>",
+            "banner": "<b>Help us improve this service</b><br>This is a new service. Help us for others to improve it by <a  class='govuk-link' href='https://www.smartsurvey.co.uk/s/Specials_Feedback/?pageurl=currentUrl' target=_blank>giving your feedback</a>",
             "heading": "Submit a First-tier Tribunal form (welsh)",
             "body": "<p class='govuk-body-l'>Use this service to upload and submit a completed First-tier Tribunal form. You'll also be asked to upload any supporting documents separately, so make sure you have everything you need to hand before getting started.<br/></br><span class='govuk-!-font-weight-bold'>Submitting your form</span><br/><p class='govuk-body-l'>As well as uploading a tribunal form, you will also be asked a handful of simple questions. You'll be able to review and change the answers you give to these questions before you submit them.</p><p class='govuk-body-l'>Uploading and submitting a tribunal form should not take longer than 20 minutes. - Welsh</p>",
             "button": "Start now - welsh"
