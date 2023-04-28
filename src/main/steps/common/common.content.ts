@@ -9,8 +9,8 @@ const en = {
   phase: 'Beta',
   applyForAdoption: 'Apply for a Service',
   applyForDissolution: 'Apply for a Service',
-  feedback:  
-    "<b> Help us improve this service</b><br>This is a new service. Help us for others to improve it by <a  class='govuk-link' href='https://www.smartsurvey.co.uk/s/Specials_Feedback/?pageurl=currentUrl' target=_blank>giving your feedback</a>",
+  feedback:
+    "<b> Help us improve this service</b><br>This is a new service. Help us for others to improve it by <a  class='govuk-link' href='https://www.smartsurvey.co.uk/s/Specials_Feedback/?pageurl=currentUrl'target=_blank>giving your feedback</a>",
   languageToggle: '<a href="?lng=cy" class="govuk-link language">Cymraeg</a>',
   govUk: 'GOV.UK',
   back: 'Back',
