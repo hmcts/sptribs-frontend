@@ -13,6 +13,7 @@ export const getRedirectUrl = (serviceUrl: string, callbackUrlPageLink: PageLink
   return `${loginUrl}?client_id=${id}&response_type=code&redirect_uri=${callbackUrl}`;
 };
 
+
 export const getUserDetails = async (
   serviceUrl: string,
   rawCode: string,
