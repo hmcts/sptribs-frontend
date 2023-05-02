@@ -19,13 +19,12 @@
 {%endif%}
 
 
-
 {% block beforeContent %}
 {{ govukPhaseBanner({
   tag: {
     text: "BETA"
   },
-  html: content.banner +'<span class="float-right"><a href="?lang='+ToggleLanguage+'" class="govuk-link ">'+language+'</a></span>'
+  html: content.banner|replace("currentUrl",currentUrl) +'<span class="float-right"><a href="?lang='+ToggleLanguage+'" class="govuk-link ">'+language+'</a></span>'
 }) }}
 {% endblock %}
 

@@ -8,3 +8,16 @@
   {# Run JavaScript at end of the <body>, to avoid blocking the initial render. #}
   {% include "webpack/js.njk" %}
 {% endblock %}
+
+{% block header %}
+    { { govukHeader({serviceName: content.serviceTitle}) } }
+{% endblock %}
+
+{% block beforeContent %}
+{{ govukPhaseBanner({
+  tag: {
+    text: "BETA"
+  },
+  html: content.banner|replace("currentUrl",currentUrl) +'<span class="float-right"><a href="?lang='+ToggleLanguage+'" class="govuk-link ">'+language+'</a></span>'
+}) }}
+{% endblock %}
