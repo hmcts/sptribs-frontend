@@ -140,7 +140,7 @@ export class CaseApi {
       const headers = {
         CONTENT_TYPE: APPLICATION_JSON,
         Authorization: BEARER + SPACE + userDetails.accessToken,
-        ServiceAuthorization: getServiceAuthToken(),
+        // ServiceAuthorization: getServiceAuthToken(),
       };
       const res: AxiosResponse<CreateCaseResponse> = await Axios.post(
         url + CONTEXT_PATH + CREATE_API_PATH,
