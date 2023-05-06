@@ -74,8 +74,6 @@ export interface CaseDate {
   day: string;
 }
 
-export type Date = string;
-
 export enum LanguagePreference {
   English = 'english',
   Welsh = 'welsh',
