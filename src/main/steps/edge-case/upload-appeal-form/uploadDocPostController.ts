@@ -6,6 +6,7 @@ import { Response } from 'express';
 import FormData from 'form-data';
 import { isNull } from 'lodash';
 
+import { getServiceAuthToken } from '../../../app/auth/service/get-service-auth-token';
 // eslint-disable-next-line import/namespace
 // import { mapCaseData } from '../../../app/case/CaseApi';
 import { AppRequest } from '../../../app/controller/AppRequest';
@@ -261,6 +262,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
                   {
                     headers: {
                       ...formHeaders,
+                      ServiceAuthorization: getServiceAuthToken(),
                     },
                   }
                 );
