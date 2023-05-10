@@ -6,6 +6,7 @@ import { Response } from 'express';
 import FormData from 'form-data';
 import { isNull } from 'lodash';
 
+import { getServiceAuthToken } from '../../../app/auth/service/get-service-auth-token';
 import { mapCaseData } from '../../../app/case/CaseApi';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
@@ -146,6 +147,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
       const baseURL = '/case/dss-orchestration/' + CaseId + '/update?event=UPDATE';
       const Headers = {
         Authorization: `Bearer ${req.session.user['accessToken']}`,
+        ServiceAuthorization: getServiceAuthToken(),
       };
       try {
         const MappedUploadRequestCaseDocuments = req.session['caseDocuments'].map(document => {
@@ -264,6 +266,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
                */
               const Headers = {
                 Authorization: `Bearer ${req.session.user['accessToken']}`,
+                ServiceAuthorization: getServiceAuthToken(),
               };
               try {
                 const RequestDocument = await this.UploadDocumentInstance(FIS_COS_API_URL, Headers).post(
