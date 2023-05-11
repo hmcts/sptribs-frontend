@@ -10,6 +10,7 @@ import { FIS_COS_API_BASE_URL } from '../../steps/common/constants/apiConstants'
 import { TOGGLE_SWITCH } from '../../steps/common/constants/commonConstants';
 import * as Urls from '../../steps/urls';
 import { COOKIES, UPLOAD_APPEAL_FORM, UPLOAD_OTHER_INFORMATION, UPLOAD_SUPPORTING_DOCUMENTS } from '../../steps/urls';
+import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import { Case, CaseWithId } from '../case/case';
 
 import { AppRequest } from './AppRequest';
@@ -261,6 +262,7 @@ export class GetController {
         const { docId } = req.query;
         const Headers = {
           Authorization: `Bearer ${req.session.user['accessToken']}`,
+          ServiceAuthorization: getServiceAuthToken(),
         };
         const DOCUMENT_DELETEMANAGER: AxiosInstance = axios.create({
           baseURL: config.get(FIS_COS_API_BASE_URL),
