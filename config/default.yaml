@@ -15,7 +15,7 @@ services:
     systemUsername: 'dummy_user'
     systemPassword: 'dummy_password'
   sptribs:
-    url: 'https://sptribs-dss-backend-pr-66.preview.platform.hmcts.net'
+    url: 'https://sptribs-case-api-pr-880.preview.platform.hmcts.net'
   equalityAndDiversity:
     url: 'https://pcq.aat.platform.hmcts.net'
     path: '/service-endpoint'

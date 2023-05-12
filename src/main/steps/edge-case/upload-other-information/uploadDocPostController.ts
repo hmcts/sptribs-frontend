@@ -6,17 +6,15 @@ import { Response } from 'express';
 import FormData from 'form-data';
 import { isNull } from 'lodash';
 
-// eslint-disable-next-line import/namespace
-// import { mapCaseData } from '../../../app/case/CaseApi';
 import { getServiceAuthToken } from '../../../app/auth/service/get-service-auth-token';
 import { mapCaseData } from '../../../app/case/CaseApi';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
 import { FormFields, FormFieldsFn } from '../../../app/form/Form';
 import { ResourceReader } from '../../../modules/resourcereader/ResourceReader';
-import { FIS_COS_API_BASE_URL } from '../../../steps/common/constants/apiConstants';
+import { SPTRIBS_CASE_API_BASE_URL } from '../../../steps/common/constants/apiConstants';
 const logger = Logger.getLogger('uploadDocumentPostController');
-import { ADDITIONAL_DOCUMENTS_UPLOAD, EQUALITY, UPLOAD_OTHER_INFORMATION } from '../../urls';
+import { EQUALITY, UPLOAD_OTHER_INFORMATION } from '../../urls';
 //import {mapCaseData} from '../../../app/case/CaseApi';
 
 /**
@@ -73,7 +71,7 @@ type FileUploadErrorTranslatables = {
   NO_FILE_UPLOAD_ERROR?: string;
 };
 
-export const FIS_COS_API_URL: URL_OF_FILE = config.get(FIS_COS_API_BASE_URL);
+export const CASE_API_URL: URL_OF_FILE = config.get(SPTRIBS_CASE_API_BASE_URL);
 
 /**
  * @FileHandler
@@ -164,7 +162,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
         ServiceAuthorization: getServiceAuthToken(),
       };
       try {
-        const MappedRequestCaseDocuments = req.session['caseDocuments'].map(document => {
+        const TribunalFormDocuments = req.session['caseDocuments'].map(document => {
           const { url, fileName, documentId, binaryUrl } = document;
           return {
             id: documentId,
@@ -178,9 +176,26 @@ export default class UploadDocumentController extends PostController<AnyObject> 
           };
         });
 
-        let AdditionalDocuments = [];
+        let SupportingDocuments = [];
         if (req.session.supportingCaseDocuments !== undefined) {
-          AdditionalDocuments = req.session['supportingCaseDocuments'].map(document => {
+          SupportingDocuments = req.session['supportingCaseDocuments'].map(document => {
+            // eslint-disable-next-line @typescript-eslint/no-shadow
+            const { url, fileName, documentId, binaryUrl } = document;
+            return {
+              id: documentId,
+              value: {
+                documentLink: {
+                  document_url: url,
+                  document_filename: fileName,
+                  document_binary_url: binaryUrl,
+                },
+              },
+            };
+          });
+        }
+        let OtherInfoDocuments = [];
+        if (req.session.otherCaseInformation !== undefined) {
+          OtherInfoDocuments = req.session['otherCaseInformation'].map(document => {
             // eslint-disable-next-line @typescript-eslint/no-shadow
             const { url, fileName, documentId, binaryUrl } = document;
             return {
@@ -198,15 +213,15 @@ export default class UploadDocumentController extends PostController<AnyObject> 
         const CaseData = mapCaseData(req);
         const responseBody = {
           ...CaseData,
-          applicantApplicationFormDocuments: MappedRequestCaseDocuments,
-          applicantAdditionalDocuments: AdditionalDocuments,
+          TribunalFormDocuments,
+          SupportingDocuments,
+          OtherInfoDocuments,
         };
-        await this.UploadDocumentInstance(FIS_COS_API_URL, Headers).put(baseURL, responseBody);
-        res.redirect(ADDITIONAL_DOCUMENTS_UPLOAD);
+        await this.UploadDocumentInstance(CASE_API_URL, Headers).put(baseURL, responseBody);
+        res.redirect(EQUALITY);
       } catch (error) {
         console.log(error);
       }
-      res.redirect(EQUALITY);
     }
   }
 
@@ -285,7 +300,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
                 ServiceAuthorization: getServiceAuthToken(),
               };
               try {
-                const RequestDocument = await this.UploadDocumentInstance(FIS_COS_API_URL, Headers).post(
+                const RequestDocument = await this.UploadDocumentInstance(CASE_API_URL, Headers).post(
                   '/doc/dss-orhestration/upload?caseTypeOfApplication=CIC',
                   formData,
                   {
