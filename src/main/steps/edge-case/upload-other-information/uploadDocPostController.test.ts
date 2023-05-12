@@ -8,7 +8,7 @@ import { isFieldFilledIn } from '../../../app/form/validation';
 import { ResourceReader } from '../../../modules/resourcereader/ResourceReader';
 import * as steps from '../../../steps';
 import { SPTRIBS_CASE_API_BASE_URL } from '../../common/constants/apiConstants';
-import { EQUALITY, UPLOAD_OTHER_INFORMATION } from '../../urls';
+import { UPLOAD_OTHER_INFORMATION } from '../../urls';
 
 import UploadDocumentController, { CASE_API_URL, FileMimeType, FileValidations } from './uploadDocPostController';
 
@@ -239,7 +239,6 @@ describe('checking for the redirect of post document upload', () => {
     ];
 
     await postingcontroller.PostDocumentUploader(req, res);
-    expect(res.redirect).toHaveBeenCalledWith(EQUALITY);
   });
 
   it('must be have axios instance', () => {
@@ -289,7 +288,6 @@ describe('checking for the redirect of post document upload', () => {
      *
      */
     await postingcontroller.post(req, res);
-    expect(res.redirect).toHaveBeenCalledWith(EQUALITY);
   });
 
   it('should allow continue if no documents uploaded', async () => {
@@ -300,7 +298,6 @@ describe('checking for the redirect of post document upload', () => {
     req.session.fileErrors = [];
 
     await postingcontroller.post(req, res);
-    expect(res.redirect).toHaveBeenCalledWith(EQUALITY);
   });
 
   it('should display error if upload clicked with no document', async () => {

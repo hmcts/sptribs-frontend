@@ -27,6 +27,7 @@ describe('PCQGetController', () => {
     const req = mockRequest();
     const res = mockResponse();
     req.session.userCase.subjectDateOfBirth = { day: '01', month: '01', year: '1970' };
+    req.session.caseDocuments = [];
 
     const redirectMock = jest.fn();
     res.redirect = redirectMock;
@@ -61,6 +62,7 @@ describe('PCQGetController', () => {
       month: (today.getMonth() + 1).toString(),
       year: (today.getFullYear() - 16).toString(),
     };
+    req.session.caseDocuments = [];
 
     const redirectMock = jest.fn();
     res.redirect = redirectMock;
@@ -91,6 +93,7 @@ describe('PCQGetController', () => {
       month: (today.getMonth() + 1).toString(),
       year: (today.getFullYear() - 1).toString(),
     };
+    req.session.caseDocuments = [];
 
     const redirectMock = jest.fn();
     res.redirect = redirectMock;
@@ -114,6 +117,7 @@ describe('PCQGetController', () => {
     const req = mockRequest();
     const res = mockResponse();
     req.session.userCase.subjectDateOfBirth = { day: '01', month: '01', year: '1970' };
+    req.session.caseDocuments = [];
 
     mockedAxios.get.mockResolvedValue(
       Promise.resolve({
@@ -134,6 +138,7 @@ describe('PCQGetController', () => {
     const req = mockRequest();
     const res = mockResponse();
     req.session.userCase.subjectDateOfBirth = { day: '01', month: '01', year: '1970' };
+    req.session.caseDocuments = [];
     req.session.userCase.pcqId = '1234';
 
     await controller.get(req, res);
@@ -148,6 +153,7 @@ describe('PCQGetController', () => {
     const req = mockRequest();
     const res = mockResponse();
     req.session.userCase.subjectDateOfBirth = { day: '01', month: '01', year: '1970' };
+    req.session.caseDocuments = [];
 
     await controller.get(req, res);
 
@@ -162,6 +168,7 @@ describe('PCQGetController', () => {
     const req = mockRequest();
     const res = mockResponse();
     req.session.userCase.subjectDateOfBirth = { day: '01', month: '01', year: '1970' };
+    req.session.caseDocuments = [];
 
     const redirectMock = jest.fn();
     res.redirect = redirectMock;

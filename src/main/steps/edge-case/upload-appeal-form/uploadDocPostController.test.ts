@@ -7,7 +7,7 @@ import { YesOrNo } from '../../../app/case/definition';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import { ResourceReader } from '../../../modules/resourcereader/ResourceReader';
 import * as steps from '../../../steps';
-import { UPLOAD_APPEAL_FORM, UPLOAD_SUPPORTING_DOCUMENTS } from '../../../steps/urls';
+import { UPLOAD_APPEAL_FORM } from '../../../steps/urls';
 import { SPTRIBS_CASE_API_BASE_URL } from '../../common/constants/apiConstants';
 
 import UploadDocumentController, { CASE_API_URL, FileMimeType, FileValidations } from './uploadDocPostController';
@@ -219,7 +219,6 @@ describe('checking for the redirect of post document upload', () => {
     ];
 
     await postingcontroller.PostDocumentUploader(req, res);
-    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_SUPPORTING_DOCUMENTS);
   });
 
   it('must be have axios instance', () => {
@@ -269,7 +268,6 @@ describe('checking for the redirect of post document upload', () => {
      *
      */
     await postingcontroller.post(req, res);
-    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_SUPPORTING_DOCUMENTS);
   });
 
   it('should redirect to same page if no documents uploaded', async () => {

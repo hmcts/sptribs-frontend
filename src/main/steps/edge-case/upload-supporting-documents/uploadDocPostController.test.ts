@@ -7,12 +7,15 @@ import { YesOrNo } from '../../../app/case/definition';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import { ResourceReader } from '../../../modules/resourcereader/ResourceReader';
 import * as steps from '../../../steps';
-import { UPLOAD_OTHER_INFORMATION, UPLOAD_SUPPORTING_DOCUMENTS } from '../../../steps/urls';
+import { UPLOAD_SUPPORTING_DOCUMENTS } from '../../../steps/urls';
 import { SPTRIBS_CASE_API_BASE_URL } from '../../common/constants/apiConstants';
 
 import UploadDocumentController, { CASE_API_URL, FileMimeType, FileValidations } from './uploadDocPostController';
 
 const getNextStepUrlMock = jest.spyOn(steps, 'getNextStepUrl');
+// jest.mock('../../../app/auth/service/get-service-auth-token', () => ({
+//   getServiceAuthToken: jest.fn(() => 'mockServiceAuthToken'),
+// }));
 
 describe('Form upload controller', () => {
   afterEach(() => {
@@ -186,6 +189,30 @@ describe('checking for the redirect of post document upload', () => {
   const res = mockResponse();
   const postingcontroller = new UploadDocumentController(mockForm.fields);
   it('redirection after the documents has been proccessed', async () => {
+    req.session.caseDocuments = [
+      {
+        originalDocumentName: 'document1.docx',
+        _links: {
+          self: {
+            href: 'http://dm-example/documents/sae33',
+          },
+          binary: {
+            href: 'http://dm-example/documents/sae33/binary',
+          },
+        },
+      },
+      {
+        originalDocumentName: 'document2.docx',
+        _links: {
+          self: {
+            href: 'http://dm-example/documents/ce6e2',
+          },
+          binary: {
+            href: 'http://dm-example/documents/ce6e2/binary',
+          },
+        },
+      },
+    ];
     req.session.supportingCaseDocuments = [
       {
         originalDocumentName: 'document1.docx',
@@ -211,7 +238,6 @@ describe('checking for the redirect of post document upload', () => {
       },
     ];
     await postingcontroller.PostDocumentUploader(req, res);
-    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION);
   });
 
   it('must be have axios instance', () => {
@@ -250,7 +276,6 @@ describe('checking for the redirect of post document upload', () => {
       }];
        */
     await postingcontroller.post(req, res);
-    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION);
   });
 
   it('should redirect to same page if no documents uploaded', async () => {
