@@ -8,14 +8,14 @@ import { isNull } from 'lodash';
 
 import { getServiceAuthToken } from '../../../app/auth/service/get-service-auth-token';
 // eslint-disable-next-line import/namespace
-// import { mapCaseData } from '../../../app/case/CaseApi';
+import { mapCaseData } from '../../../app/case/CaseApi';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
 import { FormFields, FormFieldsFn } from '../../../app/form/Form';
 import { ResourceReader } from '../../../modules/resourcereader/ResourceReader';
 import { FIS_COS_API_BASE_URL } from '../../../steps/common/constants/apiConstants';
 const logger = Logger.getLogger('uploadDocumentPostController');
-import { UPLOAD_APPEAL_FORM, UPLOAD_SUPPORTING_DOCUMENTS } from '../../urls';
+import { ADDITIONAL_DOCUMENTS_UPLOAD, UPLOAD_APPEAL_FORM, UPLOAD_SUPPORTING_DOCUMENTS } from '../../urls';
 //import {mapCaseData} from '../../../app/case/CaseApi';
 
 /**
@@ -129,54 +129,55 @@ export default class UploadDocumentController extends PostController<AnyObject> 
         const errorMessage = FileValidations.ResourceReaderContents(req).CONTINUE_WITHOUT_UPLOAD_ERROR;
         this.uploadFileError(req, res, errorMessage);
       } else {
-        // const CaseId = req.session.userCase['id'];
-        // const baseURL = '/case/dss-orchestration/' + CaseId + '/update?event=UPDATE';
-        // const Headers = {
-        //   Authorization: `Bearer ${req.session.user['accessToken']}`,
-        // };
-        // try {
-        //   const MappedRequestCaseDocuments = req.session['caseDocuments'].map(document => {
-        //     const { url, fileName, documentId, binaryUrl } = document;
-        //     return {
-        //       id: documentId,
-        //       value: {
-        //         documentLink: {
-        //           document_url: url,
-        //           document_filename: fileName,
-        //           document_binary_url: binaryUrl,
-        //         },
-        //       },
-        //     };
-        //   });
-        //
-        //   let AdditionalDocuments = [];
-        //   if (req.session.supportingCaseDocuments !== undefined) {
-        //     AdditionalDocuments = req.session['supportingCaseDocuments'].map(document => {
-        //       // eslint-disable-next-line @typescript-eslint/no-shadow
-        //       const { url, fileName, documentId, binaryUrl } = document;
-        //       return {
-        //         id: documentId,
-        //         value: {
-        //           documentLink: {
-        //             document_url: url,
-        //             document_filename: fileName,
-        //             document_binary_url: binaryUrl,
-        //           },
-        //         },
-        //       };
-        //     });
-        //   }
-        //   const CaseData = mapCaseData(req);
-        //   const responseBody = {
-        //     ...CaseData,
-        //     applicantApplicationFormDocuments: MappedRequestCaseDocuments,
-        //     applicantAdditionalDocuments: AdditionalDocuments,
-        //   };
-        //   await this.UploadDocumentInstance(FIS_COS_API_URL, Headers).put(baseURL, responseBody);
-        //   res.redirect(ADDITIONAL_DOCUMENTS_UPLOAD);
-        // } catch (error) {
-        //   console.log(error);
-        // }
+        const CaseId = req.session.userCase['id'];
+        const baseURL = '/case/dss-orchestration/' + CaseId + '/update?event=UPDATE';
+        const Headers = {
+          Authorization: `Bearer ${req.session.user['accessToken']}`,
+          ServiceAuthorization: getServiceAuthToken(),
+        };
+        try {
+          const MappedRequestCaseDocuments = req.session['caseDocuments'].map(document => {
+            const { url, fileName, documentId, binaryUrl } = document;
+            return {
+              id: documentId,
+              value: {
+                documentLink: {
+                  document_url: url,
+                  document_filename: fileName,
+                  document_binary_url: binaryUrl,
+                },
+              },
+            };
+          });
+
+          let AdditionalDocuments = [];
+          if (req.session.supportingCaseDocuments !== undefined) {
+            AdditionalDocuments = req.session['supportingCaseDocuments'].map(document => {
+              // eslint-disable-next-line @typescript-eslint/no-shadow
+              const { url, fileName, documentId, binaryUrl } = document;
+              return {
+                id: documentId,
+                value: {
+                  documentLink: {
+                    document_url: url,
+                    document_filename: fileName,
+                    document_binary_url: binaryUrl,
+                  },
+                },
+              };
+            });
+          }
+          const CaseData = mapCaseData(req);
+          const responseBody = {
+            ...CaseData,
+            applicantApplicationFormDocuments: MappedRequestCaseDocuments,
+            applicantAdditionalDocuments: AdditionalDocuments,
+          };
+          await this.UploadDocumentInstance(FIS_COS_API_URL, Headers).put(baseURL, responseBody);
+          res.redirect(ADDITIONAL_DOCUMENTS_UPLOAD);
+        } catch (error) {
+          console.log(error);
+        }
         res.redirect(UPLOAD_SUPPORTING_DOCUMENTS);
       }
     }
@@ -254,6 +255,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
                */
               const Headers = {
                 Authorization: `Bearer ${req.session.user['accessToken']}`,
+                ServiceAuthorization: getServiceAuthToken(),
               };
               try {
                 const RequestDocument = await this.UploadDocumentInstance(FIS_COS_API_URL, Headers).post(
