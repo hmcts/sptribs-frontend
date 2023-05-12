@@ -3,8 +3,8 @@ import axios, { AxiosResponse } from 'axios';
 import config from 'config';
 import { Response } from 'express';
 import { v4 as uuid } from 'uuid';
-import { getServiceAuthToken } from '../../../app/auth/service/get-service-auth-token';
 
+import { getServiceAuthToken } from '../../../app/auth/service/get-service-auth-token';
 import { mapCaseData } from '../../../app/case/CaseApi';
 import { CaseDate } from '../../../app/case/case';
 import { AppRequest } from '../../../app/controller/AppRequest';
