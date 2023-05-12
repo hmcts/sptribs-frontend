@@ -6,7 +6,7 @@ import Negotiator from 'negotiator';
 
 import { LanguageToggle } from '../../modules/i18n';
 import { CommonContent, Language, generatePageContent } from '../../steps/common/common.content';
-import { FIS_COS_API_BASE_URL } from '../../steps/common/constants/apiConstants';
+import { SPTRIBS_CASE_API_BASE_URL } from '../../steps/common/constants/apiConstants';
 import { TOGGLE_SWITCH } from '../../steps/common/constants/commonConstants';
 import * as Urls from '../../steps/urls';
 import { COOKIES, UPLOAD_APPEAL_FORM, UPLOAD_OTHER_INFORMATION, UPLOAD_SUPPORTING_DOCUMENTS } from '../../steps/urls';
@@ -265,7 +265,7 @@ export class GetController {
           ServiceAuthorization: getServiceAuthToken(),
         };
         const DOCUMENT_DELETEMANAGER: AxiosInstance = axios.create({
-          baseURL: config.get(FIS_COS_API_BASE_URL),
+          baseURL: config.get(SPTRIBS_CASE_API_BASE_URL),
           headers: { ...Headers },
         });
         /** Switching type of documents */

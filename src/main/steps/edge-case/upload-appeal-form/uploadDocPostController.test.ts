@@ -8,9 +8,9 @@ import { isFieldFilledIn } from '../../../app/form/validation';
 import { ResourceReader } from '../../../modules/resourcereader/ResourceReader';
 import * as steps from '../../../steps';
 import { UPLOAD_APPEAL_FORM, UPLOAD_SUPPORTING_DOCUMENTS } from '../../../steps/urls';
-import { FIS_COS_API_BASE_URL } from '../../common/constants/apiConstants';
+import { SPTRIBS_CASE_API_BASE_URL } from '../../common/constants/apiConstants';
 
-import UploadDocumentController, { FIS_COS_API_URL, FileMimeType, FileValidations } from './uploadDocPostController';
+import UploadDocumentController, { CASE_API_URL, FileMimeType, FileValidations } from './uploadDocPostController';
 
 const getNextStepUrlMock = jest.spyOn(steps, 'getNextStepUrl');
 
@@ -103,7 +103,7 @@ describe('document format validation', () => {
 
 describe('The url must match the config url', () => {
   it('must match baseURl', () => {
-    expect(FIS_COS_API_URL).toBe(config.get(FIS_COS_API_BASE_URL));
+    expect(CASE_API_URL).toBe(config.get(SPTRIBS_CASE_API_BASE_URL));
   });
 });
 

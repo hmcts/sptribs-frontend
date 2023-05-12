@@ -3,11 +3,12 @@ import axios, { AxiosResponse } from 'axios';
 import config from 'config';
 import { Response } from 'express';
 import { v4 as uuid } from 'uuid';
+import { getServiceAuthToken } from '../../../app/auth/service/get-service-auth-token';
 
 import { mapCaseData } from '../../../app/case/CaseApi';
 import { CaseDate } from '../../../app/case/case';
 import { AppRequest } from '../../../app/controller/AppRequest';
-import { FIS_COS_API_BASE_URL } from '../../common/constants/apiConstants';
+import { SPTRIBS_CASE_API_BASE_URL } from '../../common/constants/apiConstants';
 import { CHECK_YOUR_ANSWERS } from '../../urls';
 
 import { createToken } from './createToken';
@@ -81,18 +82,70 @@ export default class PCQGetController {
   }
 
   private async updateCase(req: AppRequest) {
-    //const CaseId = req.session.userCase['id'];
-    const updateUrl = '/case/dss-orchestration/' + '1' + '/update?event=UPDATE';
+    const CaseId = req.session.userCase['id'];
+    const updateUrl = `/case/dss-orchestration/${CaseId}/update?event=UPDATE`;
     const Headers = {
       Authorization: `Bearer ${req.session.user['accessToken']}`,
+      ServiceAuthorization: getServiceAuthToken(),
     };
+    const TribunalFormDocuments = req.session['caseDocuments'].map(document => {
+      const { url, fileName, documentId, binaryUrl } = document;
+      return {
+        id: documentId,
+        value: {
+          documentLink: {
+            document_url: url,
+            document_filename: fileName,
+            document_binary_url: binaryUrl,
+          },
+        },
+      };
+    });
+
+    let SupportingDocuments = [];
+    if (req.session.supportingCaseDocuments !== undefined) {
+      SupportingDocuments = req.session['supportingCaseDocuments'].map(document => {
+        // eslint-disable-next-line @typescript-eslint/no-shadow
+        const { url, fileName, documentId, binaryUrl } = document;
+        return {
+          id: documentId,
+          value: {
+            documentLink: {
+              document_url: url,
+              document_filename: fileName,
+              document_binary_url: binaryUrl,
+            },
+          },
+        };
+      });
+    }
+    let OtherInfoDocuments = [];
+    if (req.session.otherCaseInformation !== undefined) {
+      OtherInfoDocuments = req.session['otherCaseInformation'].map(document => {
+        // eslint-disable-next-line @typescript-eslint/no-shadow
+        const { url, fileName, documentId, binaryUrl } = document;
+        return {
+          id: documentId,
+          value: {
+            documentLink: {
+              document_url: url,
+              document_filename: fileName,
+              document_binary_url: binaryUrl,
+            },
+          },
+        };
+      });
+    }
     const CaseData = mapCaseData(req);
     const requestBody = {
       ...CaseData,
+      TribunalFormDocuments,
+      SupportingDocuments,
+      OtherInfoDocuments,
     };
     return axios
       .create({
-        baseURL: config.get(FIS_COS_API_BASE_URL),
+        baseURL: config.get(SPTRIBS_CASE_API_BASE_URL),
         headers: Headers,
         maxContentLength: Infinity,
         maxBodyLength: Infinity,
