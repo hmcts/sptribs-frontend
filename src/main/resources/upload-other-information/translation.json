@@ -10,6 +10,7 @@
       "uploadExamples": "<div class='govuk-body-m'><ul class=‘govuk-list govuk-list--bullet’><li>copies of any relevant correspondence or documentation</li><li>audio or video recordings</li><li>written statements</li><li>related reports</li></ul></div>",
       "uploadRequirement": "<div class='govuk-body-s'><ul class=‘govuk-list govuk-list--bullet’><li>File formats: MS Word, MS Excel, PDF, JPG, PNG, TXT, RTF, MP4, MP3</li><li>File size per document: up to 20 megabytes (MB)</li><li>File size per multimedia file: 30 megabytes (MB)</li><li>Files cannot be password protected</li></ul><p> You can’t upload executable (.exe), .zip or other archive files due to virus risks.</div>",
       "uploadGuidance": "Once you have selected the file click \"Upload file\" to upload it.",
+      "additionalInfo": "For each piece of additional information or evidence you are submitting, please state why it is relevant to your case.",
       "uploadButton": "Upload file"
     },
     "cy": {
@@ -21,6 +22,7 @@
       "uploadExamples": "<div class='govuk-body-m'><ul class=‘govuk-list govuk-list--bullet’><li>copies of any relevant correspondence or documentation</li><li>audio or video recordings</li><li>written statements</li><li>related reports</li></ul></div> (Welsh)",
       "uploadRequirement": "<div class='govuk-body-s'><ul class=‘govuk-list govuk-list--bullet’><li>File formats: MS Word, MS Excel, PDF, JPG, PNG, TXT, RTF, MP4, MP3</li><li>File size per document: up to 20 megabytes (MB)</li><li>File size per multimedia file: 30 megabytes (MB)</li><li>Files cannot be password protected</li></ul><p> You can’t upload executable (.exe), .zip or other archive files due to virus risks.</div> (Welsh)",
       "uploadGuidance": "Once you have selected the file click \"Upload file\" to upload it. (Welsh)",
+      "additionalInfo": "For each piece of additional information or evidence you are submitting, please state why it is relevant to your case. - (Welsh)",
       "uploadButton": "Upload file (Welsh)"
     }
   },
