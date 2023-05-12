@@ -6,8 +6,6 @@ import { Response } from 'express';
 import FormData from 'form-data';
 import { isNull } from 'lodash';
 
-// eslint-disable-next-line import/namespace
-// import { mapCaseData } from '../../../app/case/CaseApi';
 import { getServiceAuthToken } from '../../../app/auth/service/get-service-auth-token';
 import { mapCaseData } from '../../../app/case/CaseApi';
 import { AppRequest } from '../../../app/controller/AppRequest';
@@ -16,7 +14,7 @@ import { FormFields, FormFieldsFn } from '../../../app/form/Form';
 import { ResourceReader } from '../../../modules/resourcereader/ResourceReader';
 import { FIS_COS_API_BASE_URL } from '../../../steps/common/constants/apiConstants';
 const logger = Logger.getLogger('uploadDocumentPostController');
-import { CHECK_YOUR_ANSWERS, UPLOAD_OTHER_INFORMATION, UPLOAD_SUPPORTING_DOCUMENTS } from '../../urls';
+import { UPLOAD_OTHER_INFORMATION, UPLOAD_SUPPORTING_DOCUMENTS } from '../../urls';
 
 /**
  * ****** File Extensions Types are being check
@@ -191,11 +189,10 @@ export default class UploadDocumentController extends PostController<AnyObject> 
           };
 
           await this.UploadDocumentInstance(FIS_COS_API_URL, Headers).put(baseURL, responseBody);
-          res.redirect(CHECK_YOUR_ANSWERS);
+          res.redirect(UPLOAD_OTHER_INFORMATION);
         } catch (error) {
           console.log(error);
         }
-        res.redirect(UPLOAD_OTHER_INFORMATION);
       }
     }
   }

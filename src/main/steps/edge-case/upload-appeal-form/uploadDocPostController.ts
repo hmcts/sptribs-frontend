@@ -7,7 +7,6 @@ import FormData from 'form-data';
 import { isNull } from 'lodash';
 
 import { getServiceAuthToken } from '../../../app/auth/service/get-service-auth-token';
-// eslint-disable-next-line import/namespace
 import { mapCaseData } from '../../../app/case/CaseApi';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
@@ -15,8 +14,7 @@ import { FormFields, FormFieldsFn } from '../../../app/form/Form';
 import { ResourceReader } from '../../../modules/resourcereader/ResourceReader';
 import { FIS_COS_API_BASE_URL } from '../../../steps/common/constants/apiConstants';
 const logger = Logger.getLogger('uploadDocumentPostController');
-import { ADDITIONAL_DOCUMENTS_UPLOAD, UPLOAD_APPEAL_FORM, UPLOAD_SUPPORTING_DOCUMENTS } from '../../urls';
-//import {mapCaseData} from '../../../app/case/CaseApi';
+import { UPLOAD_APPEAL_FORM, UPLOAD_SUPPORTING_DOCUMENTS } from '../../urls';
 
 /**
  * ****** File Extensions Types are being check
@@ -136,7 +134,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
           ServiceAuthorization: getServiceAuthToken(),
         };
         try {
-          const MappedRequestCaseDocuments = req.session['caseDocuments'].map(document => {
+          const CaseDocuments = req.session['caseDocuments'].map(document => {
             const { url, fileName, documentId, binaryUrl } = document;
             return {
               id: documentId,
@@ -150,9 +148,26 @@ export default class UploadDocumentController extends PostController<AnyObject> 
             };
           });
 
-          let AdditionalDocuments = [];
+          let SupportingDocuments = [];
           if (req.session.supportingCaseDocuments !== undefined) {
-            AdditionalDocuments = req.session['supportingCaseDocuments'].map(document => {
+            SupportingDocuments = req.session['supportingCaseDocuments'].map(document => {
+              // eslint-disable-next-line @typescript-eslint/no-shadow
+              const { url, fileName, documentId, binaryUrl } = document;
+              return {
+                id: documentId,
+                value: {
+                  documentLink: {
+                    document_url: url,
+                    document_filename: fileName,
+                    document_binary_url: binaryUrl,
+                  },
+                },
+              };
+            });
+          }
+          let OtherInformation = [];
+          if (req.session.otherCaseInformation !== undefined) {
+            OtherInformation = req.session['supportingCaseDocuments'].map(document => {
               // eslint-disable-next-line @typescript-eslint/no-shadow
               const { url, fileName, documentId, binaryUrl } = document;
               return {
@@ -170,15 +185,15 @@ export default class UploadDocumentController extends PostController<AnyObject> 
           const CaseData = mapCaseData(req);
           const responseBody = {
             ...CaseData,
-            applicantApplicationFormDocuments: MappedRequestCaseDocuments,
-            applicantAdditionalDocuments: AdditionalDocuments,
+            tribunalFormDocuments: CaseDocuments,
+            supportingDocuments: SupportingDocuments,
+            otherInformationDocuments: OtherInformation,
           };
           await this.UploadDocumentInstance(FIS_COS_API_URL, Headers).put(baseURL, responseBody);
-          res.redirect(ADDITIONAL_DOCUMENTS_UPLOAD);
+          res.redirect(UPLOAD_SUPPORTING_DOCUMENTS);
         } catch (error) {
           console.log(error);
         }
-        res.redirect(UPLOAD_SUPPORTING_DOCUMENTS);
       }
     }
   }

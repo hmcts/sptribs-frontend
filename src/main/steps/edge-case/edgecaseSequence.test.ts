@@ -1,5 +1,4 @@
 import {
-  ADDITIONAL_DOCUMENTS_UPLOAD,
   APPLICATION_SUBMITTED,
   CHECK_YOUR_ANSWERS,
   CONTACT_PREFERENCES,
@@ -24,7 +23,7 @@ import { edgecaseSequence } from './edgecaseSequence';
 
 describe('Sequence must match respective path', () => {
   test('must match the path', () => {
-    expect(edgecaseSequence).toHaveLength(21);
+    expect(edgecaseSequence).toHaveLength(19);
 
     expect(edgecaseSequence[0].url).toBe(SUBJECT_DETAILS);
     expect(edgecaseSequence[0].getNextStep({})).toBe(SUBJECT_CONTACT_DETAILS);
@@ -71,22 +70,16 @@ describe('Sequence must match respective path', () => {
     expect(edgecaseSequence[14].url).toBe(MANUAL_ADDRESS);
     expect(edgecaseSequence[14].getNextStep({})).toBe(CONTACT_PREFERENCES);
 
-    expect(edgecaseSequence[15].url).toBe(CONTACT_PREFERENCES);
-    expect(edgecaseSequence[15].getNextStep({})).toBe(ADDITIONAL_DOCUMENTS_UPLOAD);
+    expect(edgecaseSequence[15].url).toBe(CHECK_YOUR_ANSWERS);
+    expect(edgecaseSequence[15].getNextStep({})).toBe(APPLICATION_SUBMITTED);
 
-    expect(edgecaseSequence[16].url).toBe(ADDITIONAL_DOCUMENTS_UPLOAD);
-    expect(edgecaseSequence[16].getNextStep({})).toBe(CHECK_YOUR_ANSWERS);
+    expect(edgecaseSequence[16].url).toBe(APPLICATION_SUBMITTED);
+    expect(edgecaseSequence[16].getNextStep({})).toBe(SUBJECT_DETAILS);
 
-    expect(edgecaseSequence[17].url).toBe(CHECK_YOUR_ANSWERS);
-    expect(edgecaseSequence[17].getNextStep({})).toBe(APPLICATION_SUBMITTED);
+    expect(edgecaseSequence[17].url).toBe(SUBJECT_DETAILS);
+    expect(edgecaseSequence[17].getNextStep({})).toBe(SUBJECT_CONTACT_DETAILS);
 
-    expect(edgecaseSequence[18].url).toBe(APPLICATION_SUBMITTED);
+    expect(edgecaseSequence[18].url).toBe(COOKIES);
     expect(edgecaseSequence[18].getNextStep({})).toBe(SUBJECT_DETAILS);
-
-    expect(edgecaseSequence[19].url).toBe(SUBJECT_DETAILS);
-    expect(edgecaseSequence[19].getNextStep({})).toBe(SUBJECT_CONTACT_DETAILS);
-
-    expect(edgecaseSequence[20].url).toBe(COOKIES);
-    expect(edgecaseSequence[20].getNextStep({})).toBe(SUBJECT_DETAILS);
   });
 });
