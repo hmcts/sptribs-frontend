@@ -27,8 +27,30 @@ describe('PCQGetController', () => {
     const req = mockRequest();
     const res = mockResponse();
     req.session.userCase.subjectDateOfBirth = { day: '01', month: '01', year: '1970' };
-    req.session.caseDocuments = [];
-
+    req.session.caseDocuments = [
+      {
+        url: 'url',
+        filename: 'fileName',
+        documentId: 'documentId',
+        binaryUrl: 'binaryUrl',
+      },
+    ];
+    req.session.supportingCaseDocuments = [
+      {
+        url: 'url',
+        filename: 'fileName',
+        documentId: 'documentId',
+        binaryUrl: 'binaryUrl',
+      },
+    ];
+    req.session.otherCaseInformation = [
+      {
+        url: 'url',
+        filename: 'fileName',
+        documentId: 'documentId',
+        binaryUrl: 'binaryUrl',
+      },
+    ];
     const redirectMock = jest.fn();
     res.redirect = redirectMock;
 
