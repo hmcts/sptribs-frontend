@@ -33,7 +33,7 @@ data "azurerm_key_vault" "s2s_vault" {
 }
 
 data "azurerm_key_vault_secret" "microservicekey_ds_ui" {
-  name         = "microservicekey-ds-ui"
+  name         = "microservicekey-sptribs-frontend"
   key_vault_id = data.azurerm_key_vault.s2s_vault.id
 }
 

@@ -25,7 +25,7 @@ def secrets = [
     secret('specialTribunals-cic-pcq-token', 'PCQ_TOKEN')
   ],
   's2s-${env}': [
-    secret('microservicekey-ds-ui', 'SERVICE_AUTH_SECRET')
+    secret('microservicekey-sptribs-frontend', 'SERVICE_AUTH_SECRET')
   ]
 ]
 
