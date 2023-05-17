@@ -93,7 +93,7 @@ const setupConfig = {
     I: './src/test/e2e/actors/main.js',
     landingPage: './src/test/e2e/pages/LandingPage.js',
     loginPage: './src/test/e2e/pages/login.page.js',
-    
+
   },
   mocha: {
     reporterOptions: {
@@ -127,7 +127,7 @@ const setupConfig = {
       browsers: getBrowserConfig('firefox'),
     },
   },
-  name: 'DSS FrontEnd Cross-Browser Tests',
+  name: 'Sptribs FrontEnd Cross-Browser Tests',
 };
 
 exports.config = setupConfig;

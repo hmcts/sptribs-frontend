@@ -5,7 +5,7 @@ timeout: 120000
 services:
   authProvider:
     url: 'http://rpe-service-auth-provider-aat.service.core-compute-aat.internal'
-    microservice: 'ds_ui'
+    microservice: 'sptribs_frontend'
     secret: 'NEED TO INSERT SECRET'
   idam:
     authorizationURL: 'https://idam-web-public.aat.platform.hmcts.net/login'
@@ -52,8 +52,6 @@ documentUpload:
     multimediaSizeInKB: 30000000
 queryParamsforApp:
   query:
-    FMP: 'FMPO'
-    RLAD: 'RELADOP'
-    FGM: 'FGM'
+    CIC: 'CIC'
 cookies:
   expiryTime: 365

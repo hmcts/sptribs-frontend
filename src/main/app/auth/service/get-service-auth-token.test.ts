@@ -22,7 +22,7 @@ describe('initAuthToken', () => {
     expect(mockedAxios.post).toHaveBeenCalledWith(
       'http://rpe-service-auth-provider-aat.service.core-compute-aat.internal/lease',
       {
-        microservice: 'ds_ui',
+        microservice: 'sptribs_frontend',
         oneTimePassword: expect.anything(),
       }
     );
