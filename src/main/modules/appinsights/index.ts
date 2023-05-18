@@ -12,7 +12,7 @@ export class AppInsights {
         .setAutoCollectExceptions(true)
         .start();
 
-      appInsights.defaultClient.context.tags[appInsights.defaultClient.context.keys.cloudRole] = 'ds-ui';
+      appInsights.defaultClient.context.tags[appInsights.defaultClient.context.keys.cloudRole] = 'sptribs-frontend';
       appInsights.defaultClient.trackTrace({ message: 'App insights activated' });
     }
   }

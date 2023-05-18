@@ -25,7 +25,7 @@ def secrets = [
     secret('specialTribunals-cic-pcq-token', 'PCQ_TOKEN')
   ],
   's2s-${env}': [
-    secret('microservicekey-ds-ui', 'SERVICE_AUTH_SECRET')
+    secret('microservicekey-sptribs-frontend', 'SERVICE_AUTH_SECRET')
   ]
 ]
 
@@ -47,7 +47,7 @@ withPipeline(type, product, component) {
     yarnBuilder.yarn('build')
   }
   before('functionalTest:preview') {
-    env.DS_UI_URL = "https://sptribs-frontend-pr-${CHANGE_ID}.preview.platform.hmcts.net/?edgecaseType=FMP"
+    env.SPTRIBS_FRONTEND_URL = "https://sptribs-frontend-pr-${CHANGE_ID}.preview.platform.hmcts.net/?edgecaseType=CIC"
   }
 
   afterAlways('functionalTest:preview') {
@@ -55,7 +55,7 @@ withPipeline(type, product, component) {
   }
 
   before('smoketest:preview') {
-    env.DS_UI_URL = "https://sptribs-frontend-pr-${CHANGE_ID}.preview.platform.hmcts.net/?edgecaseType=FMP"
+    env.SPTRIBS_FRONTEND_URL = "https://sptribs-frontend-pr-${CHANGE_ID}.preview.platform.hmcts.net/?edgecaseType=CIC"
   }
 
   afterAlways('smoketest:preview') {
@@ -63,7 +63,7 @@ withPipeline(type, product, component) {
   }
 
   before('smoketest:aat') {
-    env.DS_UI_URL = "https://sptribs-frontend-staging.service.core-compute-aat.internal/?edgecaseType=FMP"
+    env.SPTRIBS_FRONTEND_URL = "https://sptribs-frontend-staging.service.core-compute-aat.internal/?edgecaseType=CIC"
   }
 
   afterAlways('smoketest:aat') {
@@ -71,7 +71,7 @@ withPipeline(type, product, component) {
   }
 
   before('functionalTest:aat') {
-    env.ADOP_WEB_URL = "https://sptribs-frontend-staging.service.core-compute-aat.internal/?edgecaseType=FMP"
+    env.ADOP_WEB_URL = "https://sptribs-frontend-staging.service.core-compute-aat.internal/?edgecaseType=CIC"
   }
 
   afterAlways('functionalTest:aat') {

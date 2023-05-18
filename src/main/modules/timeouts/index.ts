@@ -4,7 +4,7 @@ import { StatusCodes } from 'http-status-codes';
 
 import { AppRequest } from '../../app/controller/AppRequest';
 import { ErrorController, HTTPError } from '../../steps/error/error.controller';
-import { ADDITIONAL_DOCUMENTS_UPLOAD, DOCUMENT_UPLOAD_URL } from '../../steps/urls';
+import { DOCUMENT_UPLOAD_URL, UPLOAD_OTHER_INFORMATION, UPLOAD_SUPPORTING_DOCUMENTS } from '../../steps/urls';
 
 export class LoadTimeouts {
   public enableFor(app: Application): void {
@@ -13,7 +13,9 @@ export class LoadTimeouts {
     app.use((req, res, next) => {
       //not allowing regents for documents upload
       const checkForPaths =
-        req.path.startsWith(DOCUMENT_UPLOAD_URL) || req.path.startsWith(ADDITIONAL_DOCUMENTS_UPLOAD);
+        req.path.startsWith(DOCUMENT_UPLOAD_URL) ||
+        req.path.startsWith(UPLOAD_SUPPORTING_DOCUMENTS) ||
+        req.path.startsWith(UPLOAD_OTHER_INFORMATION);
 
       if (!checkForPaths) {
         const errorController = new ErrorController();

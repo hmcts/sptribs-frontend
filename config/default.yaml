@@ -5,17 +5,17 @@ timeout: 120000
 services:
   authProvider:
     url: 'http://rpe-service-auth-provider-aat.service.core-compute-aat.internal'
-    microservice: 'ds_ui'
+    microservice: 'sptribs_frontend'
     secret: 'NEED TO INSERT SECRET'
   idam:
     authorizationURL: 'https://idam-web-public.aat.platform.hmcts.net/login'
     tokenURL: 'https://idam-api.aat.platform.hmcts.net/o/token'
-    clientID: 'ds-ui'
+    clientID: 'sptribs-frontend'
     clientSecret: 'NEED TO INSERT SECRET'
     systemUsername: 'dummy_user'
     systemPassword: 'dummy_password'
   sptribs:
-    url: 'https://sptribs-dss-backend-pr-66.preview.platform.hmcts.net'
+    url: 'https://sptribs-case-api-pr-880.preview.platform.hmcts.net'
   equalityAndDiversity:
     url: 'https://pcq.aat.platform.hmcts.net'
     path: '/service-endpoint'
@@ -52,8 +52,6 @@ documentUpload:
     multimediaSizeInKB: 30000000
 queryParamsforApp:
   query:
-    FMP: 'FMPO'
-    RLAD: 'RELADOP'
-    FGM: 'FGM'
+    CIC: 'CIC'
 cookies:
   expiryTime: 365

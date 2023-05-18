@@ -23,7 +23,6 @@ export interface AppSession extends Session {
   caseDocuments: any;
   supportingCaseDocuments: any;
   otherCaseInformation: any;
-  AddtionalCaseDocuments: any;
   postDocs: any;
   cookieMessage: boolean;
   user: UserDetails;

@@ -8,7 +8,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
   const result = {};
-  for (const field of Object.keys(data)) {
+  for (const field of Object.keys(data as any)) {
     const value = fields[field];
 
     if (typeof value === 'function') {
@@ -58,11 +58,6 @@ export interface CaseWithId extends Case {
   state: any;
 }
 
-export interface CaseWithDocuments {
-  addtionalDocuments: any;
-  uploadedDocuments: any;
-}
-
 export enum Checkbox {
   Checked = 'checked',
   Unchecked = '',
@@ -73,8 +68,6 @@ export interface CaseDate {
   month: string;
   day: string;
 }
-
-export type Date = string;
 
 export enum LanguagePreference {
   English = 'english',

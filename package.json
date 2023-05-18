@@ -1,5 +1,5 @@
 {
-  "name": "ds-ui",
+  "name": "sptribs-frontend",
   "version": "0.0.1",
   "private": true,
   "engines": {
@@ -21,8 +21,8 @@
     "test:coverage": "jest --coverage",
     "test:a11y": "echo 'nope' && exit 0",
     "sonar-scan": "sonar-scanner",
-    "test:smoke": "MOCHAWESOME_REPORTFILENAME=smoke codeceptjs run --grep \"${SMOKE_TESTS_SELECTOR:=@smoke-tests}\" --reporter mocha-multi",
-    "test:functional": "MOCHAWESOME_REPORTFILENAME=functional codeceptjs run  --grep \"${E2E_TESTS_SELECTOR:=@e2e-tests}\" --reporter mocha-multi",
+    "test:smoke": "MOCHAWESOME_REPORTFILENAME=smoke codeceptjs run --grep '@smoke-tests' --reporter mocha-multi",
+    "test:functional": "MOCHAWESOME_REPORTFILENAME=functional codeceptjs run  --grep '@e2e-tests' --reporter mocha-multi",
     "test:fullfunctional": "run-p test:functional",
     "cichecks": "yarn && run-p build lint test",
     "test:functional:skip": "echo 'Not running functional cases in Master' && exit 0",
@@ -152,5 +152,6 @@
     "webpack-cli": "^4.9.2",
     "webpack-dev-middleware": "^5.3.0",
     "webpack-node-externals": "^3.0.0"
-  }
+  },
+  "packageManager": "yarn@3.5.1"
 }

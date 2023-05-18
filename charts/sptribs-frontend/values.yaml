@@ -26,3 +26,5 @@ nodejs:
         - s2s-secret
         - app-insights-instrumentation-key
         - postcode-lookup-token
+idam-pr:
+  enabled: false

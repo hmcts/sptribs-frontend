@@ -12,7 +12,7 @@ data "azurerm_subnet" "core_infra_redis_subnet" {
   resource_group_name  = "core-infra-${var.env}"
 }
 
-module "sptribs-ds-web-session-storage" {
+module "sptribs-frontend-web-session-storage" {
   source      = "git@github.com:hmcts/cnp-module-redis?ref=master"
   product     = "${var.product}-${var.component}-session-storage"
   location    = var.location
@@ -32,14 +32,14 @@ data "azurerm_key_vault" "s2s_vault" {
   resource_group_name = "rpe-service-auth-provider-${var.env}"
 }
 
-data "azurerm_key_vault_secret" "microservicekey_ds_ui" {
-  name         = "microservicekey-ds-ui"
+data "azurerm_key_vault_secret" "microservicekey_sptribs_frontend" {
+  name         = "microservicekey-sptribs-frontend"
   key_vault_id = data.azurerm_key_vault.s2s_vault.id
 }
 
 resource "azurerm_key_vault_secret" "s2s-secret" {
   name  = "s2s-secret"
-  value = data.azurerm_key_vault_secret.microservicekey_ds_ui.value
+  value = data.azurerm_key_vault_secret.microservicekey_sptribs_frontend.value
 
   content_type = "terraform-managed"
   tags = merge(var.common_tags, {
@@ -67,11 +67,11 @@ data "azurerm_key_vault_secret" "idam-systemupdate-password" {
 
 resource "azurerm_key_vault_secret" "redis_access_key" {
   name  = "redis-access-key"
-  value = module.sptribs-ds-web-session-storage.access_key
+  value = module.sptribs-frontend-web-session-storage.access_key
 
   content_type = "terraform-managed"
   tags = merge(var.common_tags, {
-    "source" : "redis ${module.sptribs-ds-web-session-storage.host_name}"
+    "source" : "redis ${module.sptribs-frontend-web-session-storage.host_name}"
   })
 
   key_vault_id = data.azurerm_key_vault.sptribs_key_vault.id
