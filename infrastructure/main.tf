@@ -21,6 +21,14 @@ module "sptribs-frontend-web-session-storage" {
   common_tags = var.common_tags
 }
 
+module "redis" {
+  source          = "git@github.com:hmcts/cnp-module-redis?ref=master"
+  product         = var.product
+  location        = var.location
+  env             = var.env
+  common_tags     = var.common_tags
+  redis_version   = "6"
+}
 
 data "azurerm_key_vault" "sptribs_key_vault" {
   name                = local.vaultName
@@ -62,7 +70,6 @@ data "azurerm_key_vault_secret" "idam-systemupdate-username" {
 data "azurerm_key_vault_secret" "idam-systemupdate-password" {
   name         = "idam-systemupdate-password"
   key_vault_id = data.azurerm_key_vault.sptribs_key_vault.id
-
 }
 
 resource "azurerm_key_vault_secret" "redis_access_key" {
@@ -74,7 +81,4 @@ resource "azurerm_key_vault_secret" "redis_access_key" {
     "source" : "redis ${module.sptribs-frontend-web-session-storage.host_name}"
   })
 
-  key_vault_id = data.azurerm_key_vault.sptribs_key_vault.id
-}
-
-
+  key_vault_id = data.azurerm_key_v
