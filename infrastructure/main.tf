@@ -17,7 +17,6 @@ module "sptribs-frontend-session-storage" {
   product     = var.product
   location    = var.location
   env         = var.env
-  subnetid    = data.azurerm_subnet.core_infra_redis_subnet.id
   common_tags = var.common_tags
   redis_version            = "6"
   business_area            = "cft"
