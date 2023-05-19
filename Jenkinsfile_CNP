@@ -63,7 +63,7 @@ withPipeline(type, product, component) {
   }
 
   before('smoketest:aat') {
-    env.SPTRIBS_FRONTEND_URL = "https://sptribs-frontend-staging.service.core-compute-aat.internal/?edgecaseType=CIC"
+    env.SPTRIBS_FRONTEND_URL = "https://sptribs-frontend-staging.aat.platform.hmcts.net/?edgecaseType=CIC"
   }
 
   afterAlways('smoketest:aat') {
@@ -71,7 +71,7 @@ withPipeline(type, product, component) {
   }
 
   before('functionalTest:aat') {
-    env.ADOP_WEB_URL = "https://sptribs-frontend-staging.service.core-compute-aat.internal/?edgecaseType=CIC"
+    env.ADOP_WEB_URL = "https://sptribs-frontend-staging.aat.platform.hmcts.net/?edgecaseType=CIC"
   }
 
   afterAlways('functionalTest:aat') {
