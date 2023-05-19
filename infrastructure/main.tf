@@ -14,7 +14,7 @@ data "azurerm_subnet" "core_infra_redis_subnet" {
 
 module "sptribs-frontend-web-session-storage" {
   source      = "git@github.com:hmcts/cnp-module-redis?ref=add-redis-version-flag"
-  product     = var.product
+  product = "${var.product}-${var.component}-session-storage"
   location    = var.location
   env         = var.env
   subnetid    = data.azurerm_subnet.core_infra_redis_subnet.id
