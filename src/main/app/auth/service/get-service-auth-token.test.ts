@@ -15,7 +15,6 @@ import { getServiceAuthToken, initAuthToken } from './get-service-auth-token';
 const mockedAxios = Axios as jest.Mocked<AxiosStatic>;
 
 describe('initAuthToken', () => {
-  process.env.SERVICE_AUTH_SECRET = 'abc';
   test('Should set an interval to start fetching a token', () => {
     mockedAxios.post.mockResolvedValue('token');
 
