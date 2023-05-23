@@ -11,8 +11,8 @@ export const getTokenFromApi = (): void => {
 
   const url: string = config.get('services.authProvider.url') + '/lease';
   const microservice: string = config.get('services.authProvider.microservice');
-  const secret: string | undefined = process.env.SERVICE_AUTH_SECRET;
-  const oneTimePassword = authenticator.generate(secret as string);
+  const secret: string = config.get('services.authProvider.secret');
+  const oneTimePassword = authenticator.generate(secret);
   const body = { microservice, oneTimePassword };
   logger.info('Microservice: ' + microservice);
   logger.info('Secret for OTP: ' + secret);
