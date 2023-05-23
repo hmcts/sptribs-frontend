@@ -22,10 +22,8 @@ def secrets = [
     secret('idam-ui-secret', 'IDAM_SECRET'),
     secret('citizen-user', 'CITIZEN_USERNAME'),
     secret('citizen-password', 'CITIZEN_PASSWORD'),
-    secret('specialTribunals-cic-pcq-token', 'PCQ_TOKEN')
-  ],
-  's2s-${env}': [
-    secret('microservicekey-sptribs-frontend', 'SERVICE_AUTH_SECRET')
+    secret('specialTribunals-cic-pcq-token', 'PCQ_TOKEN'),
+    secret('s2s-secret-sptribs-frontend', 'SERVICE_AUTH_SECRET')
   ]
 ]
 
