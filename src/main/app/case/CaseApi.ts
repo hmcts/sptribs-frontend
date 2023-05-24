@@ -35,7 +35,7 @@ export class CaseApi {
    * @returns
    */
   public async getOrCreateCase(): Promise<any> {
-    return { id: '', state: 'FIS' };
+    return { id: '', state: 'SPTRIBS' };
   }
 
   /**
@@ -151,7 +151,16 @@ export class CaseApi {
         req.session.userCase.id = res.data.id;
         return req.session.userCase;
       } else {
-        throw new Error('Error in creating case');
+        throw new Error(
+          'Error in creating case. URL:' +
+            url +
+            CONTEXT_PATH +
+            CREATE_API_PATH +
+            ' response.status:' +
+            res.status +
+            ' res.data:' +
+            JSON.stringify(res.data, null, 2)
+        );
       }
     } catch (err) {
       this.logError(err);
