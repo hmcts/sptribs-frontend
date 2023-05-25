@@ -1,7 +1,7 @@
 security:
   referrerPolicy: 'origin'
-port: 4000
-timeout: 120000
+port: 4001
+timeout: 200000
 services:
   authProvider:
     url: 'http://rpe-service-auth-provider-aat.service.core-compute-aat.internal'

@@ -30,8 +30,8 @@ const initUploadManager = (): void => {
 
   const uppy = new Uppy({
     restrictions: {
-      maxFileSize: 6097152,
-      maxTotalFileSize: 60485760,
+      maxFileSize: 3197152,
+      maxTotalFileSize: 31485760,
       maxNumberOfFiles: 10,
       allowedFileTypes: [
         'application/msword',
