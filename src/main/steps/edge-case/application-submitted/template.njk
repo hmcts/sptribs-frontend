@@ -1,5 +1,6 @@
 {% from "govuk/components/panel/macro.njk" import govukPanel %}
-
+{% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
 {% extends "common/page.njk" %}
 {% block backLink %}{% endblock %}
 {% block content %}
@@ -11,10 +12,19 @@
                             titleText: title,
                             html: referenceNumber
                         })
-                    }}
+                    }}    
+                                       
                     <p class="govuk-body">{{ line1 }}</p>
-                    <p class="govuk-body">{{ line2 }}</p>
-                    <p class="govuk-body">{{ line3 }}</p>
+                    <p class="govuk-body">{{ line2 }}</p>                  
+                    {{  govukNotificationBanner({   
+                        titleText: "Feedback",                      
+                        html: line3                        })
+                    }} 
+                     {{ govukButton({
+                        text: "Close and return to case details",      
+                        href: "/login",
+                        classes: "govuk-!-margin-bottom-0"
+                    }) }}                
                 </form>
             </div>
         </div>

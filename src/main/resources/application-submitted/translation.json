@@ -4,7 +4,7 @@
         "title": "Tribunal form sent",
         "serviceName": "Appeal to the First-tier Tribunal",
         "line1": "Your tribunal form and related documents have been sent.",
-        "line3": "If you do not receive this email, please contact the Tribunal using the details on your completed tribunal form.",
+        "line3": "<b>We would like to hear your thoughts</b><br>Complete this short 5-minutes survey to help improve our services for you and others <a class='govuk-link' href='https://www.smartsurvey.co.uk/s/SurveyExit/?service=Specials'target=_blank><br>Please leave your your feedback</a>",
         "line4": "What did you think of this service?"
       },
       "cy": {
