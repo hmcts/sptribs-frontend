@@ -32,7 +32,7 @@ describe('application-submitted', () => {
     expect(generatedContent.serviceName).toEqual(en.serviceName);
     expect(generatedContent.title).toEqual(en.title);
     expect(generatedContent.line1).toEqual(en.line1);
-    expect(generatedContent.line2).toEqual('An email will be sent to dummy@bob.com, that explains what happens next.');  
+    expect(generatedContent.line2).toEqual('An email will be sent to dummy@bob.com, that explains what happens next.');
     expect(generatedContent.line3).toEqual(en.line3);
     expect(generatedContent.line4).toEqual(en.line4);
   });

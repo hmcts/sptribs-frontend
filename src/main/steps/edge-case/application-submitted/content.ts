@@ -1,4 +1,3 @@
-//import { HOME_URL } from 'steps/urls';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { ResourceReader } from '../../../modules/resourcereader/ResourceReader';
 
@@ -17,8 +16,8 @@ export const generateContent: TranslationFn = content => {
       ...Translations.en,
       referenceNumber: `<strong>Case Number:</font><br>${caseId}</strong>`,
       line2: 'An email will be sent to ' + subjectEmail + ', that explains what happens next.',
-      line3: '<b>We would like to hear your thoughts</b><br>Complete this short 5-minutes survey to help improve our services for you and others <a class="govuk-link" href="https://www.smartsurvey.co.uk/s/SurveyExit/?service=Specials"target=_blank><br>Please leave your your feedback</a>',
-     // line4: HOME_URL
+      line3:
+        '<b>We would like to hear your thoughts</b><br>Complete this short 5-minutes survey to help improve our services for you and others <a class="govuk-link" href="https://www.smartsurvey.co.uk/s/SurveyExit/?service=Specials"target=_blank><br>Please leave your your feedback</a>',
     };
   };
   const cy = () => {
