@@ -2,6 +2,8 @@ services:
   authProvider:
     url: SERVICE_AUTH_PROVIDER_URL
     secret: SERVICE_AUTH_SECRET
+  sptribs:
+    url: CASE_API_URL
   idam:
     authorizationURL: IDAM_WEB_URL
     tokenURL: IDAM_API_URL
