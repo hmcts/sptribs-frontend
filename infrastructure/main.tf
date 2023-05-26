@@ -12,15 +12,17 @@ data "azurerm_subnet" "core_infra_redis_subnet" {
   resource_group_name  = "core-infra-${var.env}"
 }
 
-module "sptribs-frontend-web-session-storage" {
-  source      = "git@github.com:hmcts/cnp-module-redis?ref=master"
-  product     = "${var.product}-${var.component}-session-storage"
-  location    = var.location
-  env         = var.env
-  subnetid    = data.azurerm_subnet.core_infra_redis_subnet.id
-  common_tags = var.common_tags
+module "sptribs-frontend-session-storage" {
+  source                          = "git@github.com:hmcts/cnp-module-redis?ref=add-redis-version-flag"
+  product                         = var.product
+  location                        = var.location
+  env                             = var.env
+  common_tags                     = var.common_tags
+  redis_version                   = "6"
+  business_area                   = "cft"
+  private_endpoint_enabled        = true
+  public_network_access_enabled   = false
 }
-
 
 data "azurerm_key_vault" "sptribs_key_vault" {
   name                = local.vaultName
@@ -38,10 +40,10 @@ data "azurerm_key_vault_secret" "microservicekey_sptribs_frontend" {
 }
 
 resource "azurerm_key_vault_secret" "s2s-secret" {
-  name  = "s2s-secret"
-  value = data.azurerm_key_vault_secret.microservicekey_sptribs_frontend.value
-
+  name         = "s2s-secret-sptribs-frontend"
+  value        = data.azurerm_key_vault_secret.microservicekey_sptribs_frontend.value
   content_type = "terraform-managed"
+  
   tags = merge(var.common_tags, {
     "source" : "vault ${data.azurerm_key_vault.s2s_vault.name}"
   })
@@ -62,19 +64,16 @@ data "azurerm_key_vault_secret" "idam-systemupdate-username" {
 data "azurerm_key_vault_secret" "idam-systemupdate-password" {
   name         = "idam-systemupdate-password"
   key_vault_id = data.azurerm_key_vault.sptribs_key_vault.id
-
 }
 
 resource "azurerm_key_vault_secret" "redis_access_key" {
-  name  = "redis-access-key"
-  value = module.sptribs-frontend-web-session-storage.access_key
-
+  name         = "redis-access-key"
+  value        = module.sptribs-frontend-session-storage.access_key
   content_type = "terraform-managed"
+  
   tags = merge(var.common_tags, {
-    "source" : "redis ${module.sptribs-frontend-web-session-storage.host_name}"
+    "source" : "redis ${module.sptribs-frontend-session-storage.host_name}"
   })
 
   key_vault_id = data.azurerm_key_vault.sptribs_key_vault.id
 }
-
-
