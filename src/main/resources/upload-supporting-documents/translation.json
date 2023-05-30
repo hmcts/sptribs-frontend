@@ -21,7 +21,7 @@
     "en": {
     "SIZE_ERROR": "File size exceeds 20Mb. Please upload a file that is less than 20Mb",
     "FORMAT_ERROR": "This service only accepts files in the formats - MS Word, MS Excel, PDF, JPG, PNG, TXT, RTF",
-    "TOTAL_FILES_EXCEED_ERROR": "You can upload 5 files only. Please delete one of the uploaded files and retry",
+    "TOTAL_FILES_EXCEED_ERROR": " You can upload 5 files only. Please delete one of the uploaded files and retry",
     "CONTINUE_WITHOUT_UPLOAD_ERROR": "You cannot continue without uploading supporting documentation",
     "NO_FILE_UPLOAD_ERROR": "Please choose a file to upload"
     },
