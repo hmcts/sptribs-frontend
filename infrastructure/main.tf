@@ -40,7 +40,7 @@ data "azurerm_key_vault_secret" "microservicekey_sptribs_frontend" {
 }
 
 resource "azurerm_key_vault_secret" "s2s-secret" {
-  name         = "s2s-secret"
+  name         = "s2s-secret-sptribs-frontend"
   value        = data.azurerm_key_vault_secret.microservicekey_sptribs_frontend.value
   content_type = "terraform-managed"
   

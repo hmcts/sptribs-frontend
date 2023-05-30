@@ -32,7 +32,7 @@ export class HealthCheck {
           }
         : {}),
       buildInfo: {
-        name: 'adoption-web',
+        name: 'sptribs-frontend',
         host: os.hostname(),
         uptime: process.uptime(),
       },
