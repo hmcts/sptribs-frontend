@@ -1,6 +1,6 @@
 security:
   referrerPolicy: 'origin'
-port: 4000
+port: 4001
 timeout: 200000
 services:
   authProvider:
