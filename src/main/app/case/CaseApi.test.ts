@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 jest.mock('axios');
-
 test('Should throw error when case could not be fetched', async () => {
   const mockedAxios = axios as jest.Mocked<typeof axios>;
   mockedAxios.get.mockRejectedValue({
