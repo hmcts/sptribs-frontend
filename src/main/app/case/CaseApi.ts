@@ -191,8 +191,9 @@ export class CaseApi {
    * @param eventName
    * @returns
    */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   private async sendEvent(caseId: string, data: Partial<CaseData>, eventName: string): Promise<CaseWithId> {
-    console.log({ caseId, data, eventName });
+    // console.log({ caseId, data, eventName });
     return new Promise(() => {
       null;
     });
