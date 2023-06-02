@@ -160,12 +160,10 @@ export class PostController<T extends AnyObject> {
     } else if (req.originalUrl === STATEMENT_OF_TRUTH) {
       eventName = CITIZEN_SUBMIT;
     }
-    console.log('event is => ' + eventName);
     return eventName;
   }
 
   private isBlank(req: AppRequest<Partial<Case>>) {
-    console.log('inside isBlank() case id is => ' + req.session.userCase.id);
     if (req.session.userCase.id === null || req.session.userCase.id === undefined || req.session.userCase.id === '') {
       return true;
     }
