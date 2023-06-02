@@ -105,7 +105,6 @@ export class PostController<T extends AnyObject> {
 
   protected async save(req: AppRequest<T>, formData: Partial<Case>, eventName: string): Promise<CaseWithId> {
     try {
-      console.log('Update Existing Case');
       req.session.userCase = await req.locals.api.triggerEvent(req.session.userCase.id, formData, eventName);
     } catch (err) {
       req.locals.logger.error('Error saving', err);
@@ -117,7 +116,6 @@ export class PostController<T extends AnyObject> {
 
   protected async updateCase(req: AppRequest<T>, eventName: string): Promise<CaseWithId> {
     try {
-      console.log('Update Existing Case');
       req.session.userCase = await req.locals.api.updateCase(req, req.session.user, eventName);
     } catch (err) {
       req.locals.logger.error('Error saving', err);
@@ -156,7 +154,6 @@ export class PostController<T extends AnyObject> {
   public getEventName(req: AppRequest): string {
     let eventName;
     if (req.originalUrl === SUBJECT_CONTACT_DETAILS && this.isBlank(req)) {
-      console.log('creating new case event');
       eventName = CITIZEN_CREATE;
     } else if (req.originalUrl === CONTACT_DETAILS) {
       eventName = CITIZEN_UPDATE;
