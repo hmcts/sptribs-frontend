@@ -284,7 +284,7 @@ export class GetController {
                 res.redirect(UPLOAD_APPEAL_FORM);
               });
             } catch (error) {
-              console.error(error);
+              //  console.error(error);
             }
 
             break;
@@ -303,7 +303,7 @@ export class GetController {
                 res.redirect(UPLOAD_SUPPORTING_DOCUMENTS);
               });
             } catch (error) {
-              console.error(error);
+              //  console.error(error);
             }
 
             break;
@@ -322,7 +322,7 @@ export class GetController {
                 res.redirect(UPLOAD_OTHER_INFORMATION);
               });
             } catch (error) {
-              console.error(error);
+              //    console.error(error);
             }
 
             break;

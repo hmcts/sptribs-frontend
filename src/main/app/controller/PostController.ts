@@ -78,7 +78,7 @@ export class PostController<T extends AnyObject> {
   }
   async createCase(req: AppRequest<T>): Promise<CaseWithId | PromiseLike<CaseWithId>> {
     try {
-      console.log('Create Case New');
+      //  console.log('Create Case New');
       req.session.userCase = await req.locals.api.createCaseNew(req, req.session.user);
     } catch (err) {
       req.locals.logger.error('Error saving', err);
