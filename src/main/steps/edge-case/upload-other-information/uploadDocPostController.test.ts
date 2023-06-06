@@ -121,7 +121,7 @@ describe('The url must match the config url', () => {
 describe('Checking for file upload size', () => {
   const file1Size = 10000000;
   const file2Size = 20000000;
-  const file3Size = 50000001;
+  const file3Size = 700000001;
   const file4Size = 1000000001;
   it('Checking for file1 size', () => {
     expect(FileValidations.sizeValidation('text/plain', file1Size)).toBe(true);
