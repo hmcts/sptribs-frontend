@@ -121,8 +121,8 @@ describe('The url must match the config url', () => {
 describe('Checking for file upload size', () => {
   const file1Size = 10000000;
   const file2Size = 20000000;
-  const file3Size = 500000000;
-  const file4Size = 600000000;
+  const file3Size = 50000001;
+  const file4Size = 1000000001;
   it('Checking for file1 size', () => {
     expect(FileValidations.sizeValidation('text/plain', file1Size)).toBe(true);
   });
@@ -136,7 +136,7 @@ describe('Checking for file upload size', () => {
   });
 
   it('Checking for file3 multimedia size', () => {
-    expect(FileValidations.sizeValidation('video/mp4', file3Size)).toBe(false);
+    expect(FileValidations.sizeValidation('video/mp4', file4Size)).toBe(false);
   });
 
   it('Checking for file4 multimedia size', () => {

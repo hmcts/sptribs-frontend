@@ -1,7 +1,7 @@
 security:
   referrerPolicy: 'origin'
 port: 4000
-timeout: 120000
+timeout: 200000
 services:
   authProvider:
     url: 'http://rpe-service-auth-provider-aat.service.core-compute-aat.internal'
@@ -48,8 +48,8 @@ documentUpload:
     totalSupportingDocuments: 5
     totalAdditionalDocuments: 20
     totalOtherInformation: 20
-    sizeInKB: 20000000
-    multimediaSizeInKB: 30000000
+    sizeInKB: 50000000
+    multimediaSizeInKB: 1000000000
 queryParamsforApp:
   query:
     CIC: 'CIC'
