@@ -42,8 +42,6 @@ export class SessionStorage {
         connect_timeout: 15000,
       });
 
-      // console.log('redis connected');
-
       app.locals.redisClient = client;
       return new RedisStore({ client });
     }
