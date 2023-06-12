@@ -192,7 +192,7 @@ export class CaseApi {
    * @returns
    */
   private async sendEvent(caseId: string, data: Partial<CaseData>, eventName: string): Promise<CaseWithId> {
-    // console.log({ caseId, data, eventName });
+    console.log({ caseId, data, eventName });
     return new Promise(() => {
       null;
     });
