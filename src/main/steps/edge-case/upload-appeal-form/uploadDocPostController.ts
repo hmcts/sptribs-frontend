@@ -192,7 +192,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
           await this.UploadDocumentInstance(CASE_API_URL, Headers).put(baseURL, responseBody);
           res.redirect(UPLOAD_SUPPORTING_DOCUMENTS);
         } catch (error) {
-          console.log(error);
+          //console.log(error);
         }
       }
     }
@@ -241,7 +241,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
       const { files }: AppRequest<AnyObject> = req;
 
       if (isNull(files)) {
-        console.log('is null: ' + req.files);
+        //console.log('is null: ' + req.files);
         const errorMessage = FileValidations.ResourceReaderContents(req).NO_FILE_UPLOAD_ERROR;
         this.uploadFileError(req, res, errorMessage);
       } else {

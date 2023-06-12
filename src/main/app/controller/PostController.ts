@@ -78,7 +78,7 @@ export class PostController<T extends AnyObject> {
   }
   async createCase(req: AppRequest<T>): Promise<CaseWithId | PromiseLike<CaseWithId>> {
     try {
-      console.log('Create Case New');
+      //console.log('Create Case New');
       req.session.userCase = await req.locals.api.createCaseNew(req, req.session.user);
     } catch (err) {
       req.locals.logger.error('Error saving', err);
@@ -105,7 +105,7 @@ export class PostController<T extends AnyObject> {
 
   protected async save(req: AppRequest<T>, formData: Partial<Case>, eventName: string): Promise<CaseWithId> {
     try {
-      console.log('Update Existing Case');
+      //console.log('Update Existing Case');
       req.session.userCase = await req.locals.api.triggerEvent(req.session.userCase.id, formData, eventName);
     } catch (err) {
       req.locals.logger.error('Error saving', err);
@@ -117,7 +117,7 @@ export class PostController<T extends AnyObject> {
 
   protected async updateCase(req: AppRequest<T>, eventName: string): Promise<CaseWithId> {
     try {
-      console.log('Update Existing Case');
+      //console.log('Update Existing Case');
       req.session.userCase = await req.locals.api.updateCase(req, req.session.user, eventName);
     } catch (err) {
       req.locals.logger.error('Error saving', err);
@@ -156,19 +156,19 @@ export class PostController<T extends AnyObject> {
   public getEventName(req: AppRequest): string {
     let eventName;
     if (req.originalUrl === SUBJECT_CONTACT_DETAILS && this.isBlank(req)) {
-      console.log('creating new case event');
+      //console.log('creating new case event');
       eventName = CITIZEN_CREATE;
     } else if (req.originalUrl === CONTACT_DETAILS) {
       eventName = CITIZEN_UPDATE;
     } else if (req.originalUrl === STATEMENT_OF_TRUTH) {
       eventName = CITIZEN_SUBMIT;
     }
-    console.log('event is => ' + eventName);
+    //console.log('event is => ' + eventName);
     return eventName;
   }
 
   private isBlank(req: AppRequest<Partial<Case>>) {
-    console.log('inside isBlank() case id is => ' + req.session.userCase.id);
+    //console.log('inside isBlank() case id is => ' + req.session.userCase.id);
     if (req.session.userCase.id === null || req.session.userCase.id === undefined || req.session.userCase.id === '') {
       return true;
     }

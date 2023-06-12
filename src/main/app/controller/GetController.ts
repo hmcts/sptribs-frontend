@@ -23,7 +23,7 @@ export class GetController {
   constructor(protected readonly view: string, protected readonly content: TranslationFn) {}
 
   public async get(req: AppRequest, res: Response): Promise<void> {
-    console.log('usercase session --->', req.session.userCase);
+    //console.log('usercase session --->', req.session.userCase);
 
     this.CookiePrefrencesChanger(req, res);
 
@@ -284,7 +284,7 @@ export class GetController {
                 res.redirect(UPLOAD_APPEAL_FORM);
               });
             } catch (error) {
-              console.log(error);
+              //console.log(error);
             }
 
             break;
@@ -303,7 +303,7 @@ export class GetController {
                 res.redirect(UPLOAD_SUPPORTING_DOCUMENTS);
               });
             } catch (error) {
-              console.log(error);
+              //console.log(error);
             }
 
             break;
@@ -322,7 +322,7 @@ export class GetController {
                 res.redirect(UPLOAD_OTHER_INFORMATION);
               });
             } catch (error) {
-              console.log(error);
+              //console.log(error);
             }
 
             break;
