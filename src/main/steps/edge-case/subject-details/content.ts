@@ -46,7 +46,7 @@ export const form: FormContent = {
       ],
       parser: body => covertToDateObject('subjectDateOfBirth', body as Record<string, unknown>),
       validator: value => {
-        //console.log(value as CaseDate);
+        // console.log(value as CaseDate);
 
         if (isDateInputNotFilled(value as CaseDate)) {
           return 'required';
