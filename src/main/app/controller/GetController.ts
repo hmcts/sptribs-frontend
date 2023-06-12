@@ -23,7 +23,6 @@ export class GetController {
   constructor(protected readonly view: string, protected readonly content: TranslationFn) {}
 
   public async get(req: AppRequest, res: Response): Promise<void> {
-
     this.CookiePrefrencesChanger(req, res);
 
     if (res.locals.isError || res.headersSent) {
