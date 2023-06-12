@@ -130,6 +130,7 @@ Here's an example setup:
 
 Make sure you have those values set correctly for your application. 
 
+
 ### Healthcheck
 
 The application exposes a health endpoint (https://localhost:4000/health), created with the use of
