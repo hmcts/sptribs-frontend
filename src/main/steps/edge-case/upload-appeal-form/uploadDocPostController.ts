@@ -192,7 +192,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
           await this.UploadDocumentInstance(CASE_API_URL, Headers).put(baseURL, responseBody);
           res.redirect(UPLOAD_SUPPORTING_DOCUMENTS);
         } catch (error) {
-           console.log(error);
+          console.log(error);
         }
       }
     }

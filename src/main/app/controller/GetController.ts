@@ -24,7 +24,6 @@ export class GetController {
 
   public async get(req: AppRequest, res: Response): Promise<void> {
     this.CookiePrefrencesChanger(req, res);
-
     if (res.locals.isError || res.headersSent) {
       // If there's an async error, it will have already rendered an error page upstream,
       // so we don't want to call render again
