@@ -270,6 +270,8 @@ export const mapCaseData = (req: AppRequest): any => {
     RepresentativeContactNumber: req.session.userCase.representativeContactNumber,
     RepresentativeEmailAddress: req.session.userCase.representativeEmailAddress,
     PcqId: req.session.userCase.pcqId,
+    documentRelevance: req.session.userCase.documentRelevance,
+    additionalInformation: req.session.userCase.additionalInformation,
   };
   return data;
 };

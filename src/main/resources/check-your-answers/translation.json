@@ -27,7 +27,9 @@
               "representativeEmailAddress": "Email address",
               "appealDocuments": "List of forms uploaded (Appeal form)",
               "supportingDocuments": "List of supporting documents uploaded",
-              "otherInformation": "List of other documents uploaded"
+              "otherInformation": "List of other documents uploaded",
+              "additionalInformation": "Additional information",
+              "documentRelevance": "Document relevance"
             }
         },
         "cy": {
@@ -56,7 +58,9 @@
             "representativeContactNumber": "Contact number - welsh ",
             "representativeEmailAddress": "Email address - welsh ",
             "appealDocuments": "List of forms uploaded (Appeal form) - welsh ",
-            "supportingDocuments": "List of supporting documents uploaded - welsh "
+            "supportingDocuments": "List of supporting documents uploaded - welsh ",
+            "additionalInformation": "Additional information - welsh ",
+            "documentRelevance": "Document relevance - welsh "
           }
         }
     }

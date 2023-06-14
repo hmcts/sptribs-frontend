@@ -22,7 +22,7 @@ export const enContent = {
     'By submitting this tribunal form you are confirming that, to the best of your knowledge, the details you are providing are correct.',
 };
 
-const en = (content: any) => {
+export const en = (content: any) => {
   const userCase = content.userCase!;
   const caseAppealDocuments = content.uploadedDocuments;
   const supportingDocuments = content.supportingDocuments;
@@ -39,14 +39,14 @@ const en = (content: any) => {
             RepresentativeSummaryList(enContent, userCase),
             UploadAppealFormSummary(enContent, caseAppealDocuments),
             SupportingDocumentsSummary(enContent, supportingDocuments),
-            OtherInformationSummary(enContent, otherInformation),
+            OtherInformationSummary(enContent, otherInformation, userCase),
           ]
         : [
             SubjectSummaryList(enContent, userCase),
             RepresentationSummary(enContent, userCase),
             UploadAppealFormSummary(enContent, caseAppealDocuments),
             SupportingDocumentsSummary(enContent, supportingDocuments),
-            OtherInformationSummary(enContent, otherInformation),
+            OtherInformationSummary(enContent, otherInformation, userCase),
           ],
   };
 };
@@ -75,14 +75,14 @@ const cy: typeof en = (content: CommonContent) => {
             RepresentativeSummaryList(cyContent, userCase),
             UploadAppealFormSummary(cyContent, caseAppealDocuments),
             SupportingDocumentsSummary(cyContent, supportingDocuments),
-            OtherInformationSummary(cyContent, otherInformation),
+            OtherInformationSummary(cyContent, otherInformation, userCase),
           ]
         : [
             SubjectSummaryList(cyContent, userCase),
             RepresentationSummary(cyContent, userCase),
             UploadAppealFormSummary(cyContent, caseAppealDocuments),
             SupportingDocumentsSummary(cyContent, supportingDocuments),
-            OtherInformationSummary(cyContent, otherInformation),
+            OtherInformationSummary(cyContent, otherInformation, userCase),
           ],
   };
 };
