@@ -50,7 +50,7 @@ describe('mapSummaryListContent', () => {
               },
             ],
           },
-        }
+        },
       ],
     };
 
