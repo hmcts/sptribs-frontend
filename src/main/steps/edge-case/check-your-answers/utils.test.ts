@@ -397,3 +397,34 @@ describe('Form Summary > check-your-answers', () => {
     });
   });
 });
+
+describe('Other information > check-your-answers no documents', () => {
+  describe('OtherInformationSummary', () => {
+    test.each([
+      {
+        documents: [],
+        userCase: mockUserCase3,
+        expected: {
+          rows: [
+            {
+              actions: {
+                items: [
+                  {
+                    href: '/full-name',
+                    text: 'change',
+                    visuallyHiddenText: 'Subject’s name',
+                  },
+                ],
+              },
+              key: { text: 'Subject’s name' },
+              value: { text: 'FirstName LastName' },
+            },
+          ],
+          title: 'Applicant details',
+        },
+      },
+    ])('return correct summary list items when %#', ({ documents, userCase, expected }) => {
+      expect(OtherInformationSummary(enContent, documents, userCase)).not.toBe(expected);
+    });
+  });
+});

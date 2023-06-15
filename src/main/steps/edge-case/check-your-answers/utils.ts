@@ -188,14 +188,12 @@ export const UploadAppealFormSummary = (
 ): SummaryList | undefined => {
   const sectionTitle = sectionTitles.documents;
   const ListOfUploadedDocuments = uploadedDocuments
-    ? uploadedDocuments
-        .map((document): string => {
-          return document.fileName + '';
-        })
-        .toString()
-        .split(',')
-        .join('<div class="govuk-!-margin-top-3"></div>')
-    : '';
+    .map((document): string => {
+      return document.fileName + '';
+    })
+    .toString()
+    .split(',')
+    .join('<div class="govuk-!-margin-top-3"></div>');
 
   const SummaryData = [
     {
@@ -217,14 +215,12 @@ export const SupportingDocumentsSummary = (
   AddDocuments: Partial<any>
 ): SummaryList | undefined => {
   const sectionTitle = sectionTitles.supportingDocuments;
-  const ListOfSupportingDocuments = AddDocuments
-    ? AddDocuments.map((document): string => {
-        return document.fileName + '';
-      })
-        .toString()
-        .split(',')
-        .join('<div class="govuk-!-margin-top-3"></div>')
-    : '';
+  const ListOfSupportingDocuments = AddDocuments.map((document): string => {
+    return document.fileName + '';
+  })
+    .toString()
+    .split(',')
+    .join('<div class="govuk-!-margin-top-3"></div>');
 
   const SummaryData = [
     {
