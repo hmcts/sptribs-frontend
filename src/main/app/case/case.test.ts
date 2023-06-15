@@ -6,7 +6,7 @@ describe('formatCase', () => {
       applicantFirstName: 'firstName',
       applicantLastName: 'lastName',
       applicantDateOfBirth: (data: any) => ({
-        dateOfBirth: `${data.applicantDateOfBirth.day}/${data.applicantDateOfBirth.month}/${data.applicantDateOfBirth.year}`
+        dateOfBirth: `${data.applicantDateOfBirth.day}/${data.applicantDateOfBirth.month}/${data.applicantDateOfBirth.year}`,
       }),
       applicantEmailAddress: 'email',
       applicantPhoneNumber: 'phone',

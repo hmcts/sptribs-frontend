@@ -23,7 +23,7 @@ describe('getFormattedAddress', () => {
       applicantAddress1: '123 Main Street',
       applicantAddressTown: 'Cityville',
       applicantAddressPostcode: '12345',
-      applicantAddressCountry: 'Countryland'
+      applicantAddressCountry: 'Countryland',
     };
 
     const formattedAddress = getFormattedAddress(data);
