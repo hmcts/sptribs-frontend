@@ -5,7 +5,7 @@ import config from 'config';
  * @RPE_API
  */
 
-type IRPE_TYPE = {
+export type IRPE_TYPE = {
   response: boolean;
   data: [] | any;
 };

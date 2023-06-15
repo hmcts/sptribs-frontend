@@ -241,7 +241,6 @@ export default class UploadDocumentController extends PostController<AnyObject> 
       const { files }: AppRequest<AnyObject> = req;
 
       if (isNull(files)) {
-        console.log('is null: ' + req.files);
         const errorMessage = FileValidations.ResourceReaderContents(req).NO_FILE_UPLOAD_ERROR;
         this.uploadFileError(req, res, errorMessage);
       } else {

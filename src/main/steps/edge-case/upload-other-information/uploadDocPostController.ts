@@ -14,7 +14,7 @@ import { Form, FormFields, FormFieldsFn } from '../../../app/form/Form';
 import { ResourceReader } from '../../../modules/resourcereader/ResourceReader';
 import { SPTRIBS_CASE_API_BASE_URL } from '../../../steps/common/constants/apiConstants';
 const logger = Logger.getLogger('uploadDocumentPostController');
-import { UPLOAD_OTHER_INFORMATION } from '../../urls';
+import { EQUALITY, UPLOAD_OTHER_INFORMATION } from '../../urls';
 
 /**
  * ****** File Extensions Types are being check
@@ -220,7 +220,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
           OtherInfoDocuments,
         };
         await this.UploadDocumentInstance(CASE_API_URL, Headers).put(baseURL, responseBody);
-        this.redirect(req, res);
+        this.redirect(req, res, EQUALITY);
       } catch (error) {
         console.log(error);
       }
@@ -279,7 +279,6 @@ export default class UploadDocumentController extends PostController<AnyObject> 
       const { files }: AppRequest<AnyObject> = req;
 
       if (isNull(files)) {
-        console.log('is null: ' + req.files);
         const errorMessage = FileValidations.ResourceReaderContents(req).NO_FILE_UPLOAD_ERROR;
         this.uploadFileError(req, res, errorMessage);
       } else {
