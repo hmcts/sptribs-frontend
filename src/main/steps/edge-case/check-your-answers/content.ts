@@ -22,6 +22,7 @@ export const enContent = {
     'By submitting this tribunal form you are confirming that, to the best of your knowledge, the details you are providing are correct.',
 };
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = (content: any) => {
   const userCase = content.userCase!;
   const caseAppealDocuments = content.uploadedDocuments;

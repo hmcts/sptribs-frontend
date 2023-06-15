@@ -341,7 +341,8 @@ describe('Other information > check-your-answers', () => {
   describe('OtherInformationSummary', () => {
     test.each([
       {
-        userCase: [{ fileName: 'a.txt' }, { fileName: 'b.txt' }],
+        otherDocument: [{ fileName: 'a.txt' }, { fileName: 'b.txt' }],
+        userCase: mockUserCase3,
         expected: {
           rows: [
             {
@@ -361,8 +362,8 @@ describe('Other information > check-your-answers', () => {
           title: 'Applicant details',
         },
       },
-    ])('return correct summary list items when %#', ({ userCase, expected }) => {
-      expect(OtherInformationSummary(enContent, userCase)).not.toBe(expected);
+    ])('return correct summary list items when %#', ({ otherDocument, userCase, expected }) => {
+      expect(OtherInformationSummary(enContent, otherDocument, userCase)).not.toBe(expected);
     });
   });
 });

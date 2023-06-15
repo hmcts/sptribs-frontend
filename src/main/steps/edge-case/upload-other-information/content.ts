@@ -52,8 +52,6 @@ export const generateContent: TranslationFn = content => {
   };
   const translations = languages[content.language]();
 
-  console.log('2222222222222', content.userCase);
-
   return {
     ...translations,
     form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}) },
