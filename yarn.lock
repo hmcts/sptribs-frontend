@@ -4451,6 +4451,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"ansi-regex@npm:^4.1.1":
+  version: 4.1.1
+  resolution: "ansi-regex@npm:4.1.1"
+  checksum: b1a6ee44cb6ecdabaa770b2ed500542714d4395d71c7e5c25baa631f680fb2ad322eb9ba697548d498a6fd366949fc8b5bfcf48d49a32803611f648005b01888
+  languageName: node
+  linkType: hard
+
 "ansi-regex@npm:^5.0.0, ansi-regex@npm:^5.0.1":
   version: 5.0.1
   resolution: "ansi-regex@npm:5.0.1"
@@ -9401,6 +9408,13 @@ __metadata:
   version: 4.1.0
   resolution: "http-cache-semantics@npm:4.1.0"
   checksum: 974de94a81c5474be07f269f9fd8383e92ebb5a448208223bfb39e172a9dbc26feff250192ecc23b9593b3f92098e010406b0f24bd4d588d631f80214648ed42
+  languageName: node
+  linkType: hard
+
+"http-cache-semantics@npm:^4.1.1":
+  version: 4.1.1
+  resolution: "http-cache-semantics@npm:4.1.1"
+  checksum: 83ac0bc60b17a3a36f9953e7be55e5c8f41acc61b22583060e8dedc9dd5e3607c823a88d0926f9150e571f90946835c7fe150732801010845c72cd8bbff1a236
   languageName: node
   linkType: hard
 
@@ -15871,6 +15885,7 @@ __metadata:
     "@uppy/xhr-upload": ^2.0.7
     "@wdio/sauce-service": ^7.16.13
     allure-commandline: ^2.22.1
+    ansi-regex: ^4.1.1
     applicationinsights: ^2.5.0
     autobind-decorator: ^2.4.0
     axios: ^0.27.1
@@ -15889,7 +15904,6 @@ __metadata:
     csurf: ^1.11.0
     dayjs: ^1.11.1
     decode-uri-component: ^0.2.1
-    dicer: ">=0.3.1"
     email-validator: ^2.0.4
     eslint: ^7.32.0
     eslint-config-prettier: ^8.8.0
@@ -15906,6 +15920,7 @@ __metadata:
     govuk-frontend: ^4.0.0
     helmet: ^4.6.0
     html-webpack-plugin: ^5.5.3
+    http-cache-semantics: ^4.1.1
     http-status-codes: ^2.2.0
     husky: ^7.0.4
     jest: ^26.6.3
