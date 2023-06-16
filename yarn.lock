@@ -4451,13 +4451,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ansi-regex@npm:^4.1.1":
-  version: 4.1.1
-  resolution: "ansi-regex@npm:4.1.1"
-  checksum: b1a6ee44cb6ecdabaa770b2ed500542714d4395d71c7e5c25baa631f680fb2ad322eb9ba697548d498a6fd366949fc8b5bfcf48d49a32803611f648005b01888
-  languageName: node
-  linkType: hard
-
 "ansi-regex@npm:^5.0.0, ansi-regex@npm:^5.0.1":
   version: 5.0.1
   resolution: "ansi-regex@npm:5.0.1"
@@ -6677,13 +6670,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"decode-uri-component@npm:^0.2.1":
-  version: 0.2.2
-  resolution: "decode-uri-component@npm:0.2.2"
-  checksum: 95476a7d28f267292ce745eac3524a9079058bbb35767b76e3ee87d42e34cd0275d2eb19d9d08c3e167f97556e8a2872747f5e65cbebcac8b0c98d83e285f139
-  languageName: node
-  linkType: hard
-
 "decompress-response@npm:^3.3.0":
   version: 3.3.0
   resolution: "decompress-response@npm:3.3.0"
@@ -6981,15 +6967,6 @@ __metadata:
     readable-stream: 1.1.x
     streamsearch: 0.1.2
   checksum: a6f0ce9ac5099c7ffeaec7398d711eea1dd803eb99036d0f05342e9ed46a4235a5ed0ea01ad5d6c785fdb0aae6d61d2722e6e64f9fabdfe39885f7f52eb635ee
-  languageName: node
-  linkType: hard
-
-"dicer@npm:>=0.3.1":
-  version: 0.3.1
-  resolution: "dicer@npm:0.3.1"
-  dependencies:
-    streamsearch: ^1.1.0
-  checksum: 9f3b11f8b7965f47624a9b09f96ba05e3bad2a0f3957a7ede07ae032eda16739ffa665c260e3eba20bd9751abf83202803e29df0f30ef4cbb164eef749a2a84d
   languageName: node
   linkType: hard
 
@@ -9222,13 +9199,6 @@ __metadata:
   version: 4.1.0
   resolution: "http-cache-semantics@npm:4.1.0"
   checksum: 974de94a81c5474be07f269f9fd8383e92ebb5a448208223bfb39e172a9dbc26feff250192ecc23b9593b3f92098e010406b0f24bd4d588d631f80214648ed42
-  languageName: node
-  linkType: hard
-
-"http-cache-semantics@npm:^4.1.1":
-  version: 4.1.1
-  resolution: "http-cache-semantics@npm:4.1.1"
-  checksum: 83ac0bc60b17a3a36f9953e7be55e5c8f41acc61b22583060e8dedc9dd5e3607c823a88d0926f9150e571f90946835c7fe150732801010845c72cd8bbff1a236
   languageName: node
   linkType: hard
 
@@ -15631,7 +15601,6 @@ __metadata:
     "@uppy/xhr-upload": ^2.0.7
     "@wdio/sauce-service": ^7.16.13
     allure-commandline: ^2.22.1
-    ansi-regex: ^4.1.1
     applicationinsights: ^2.5.0
     autobind-decorator: ^2.4.0
     axios: ^0.27.1
@@ -15649,8 +15618,6 @@ __metadata:
     css-loader: ^6.5.1
     csurf: ^1.11.0
     dayjs: ^1.11.1
-    decode-uri-component: ^0.2.1
-    dicer: ">=0.3.1"
     email-validator: ^2.0.4
     eslint: ^7.32.0
     eslint-config-prettier: ^8.8.0
@@ -15667,7 +15634,6 @@ __metadata:
     govuk-frontend: ^4.0.0
     helmet: ^4.6.0
     html-webpack-plugin: ^5.5.1
-    http-cache-semantics: ^4.1.1
     http-status-codes: ^2.2.0
     husky: ^7.0.4
     jest: ^26.6.3
