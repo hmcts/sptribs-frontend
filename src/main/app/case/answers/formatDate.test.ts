@@ -22,6 +22,18 @@ describe('getFormattedDate', () => {
     const formattedDate = getFormattedDate(date, 'cy');
     expect(formattedDate).toEqual('15 Mehefin 2023');
   });
+
+  it('returns formatted date in English for Leap Years (29th February)', () => {
+    const date = {
+      day: '29',
+      month: '02',
+      year: '2024',
+    };
+
+    const formattedDate = getFormattedDate(date);
+    expect(formattedDate).toEqual('29 February 2024');
+  });
+
   it('returns empty string when any date field is empty', () => {
     const date = {
       day: '15',
