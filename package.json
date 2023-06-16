@@ -31,7 +31,6 @@
     "test:local": "codeceptjs run-multiple parallel"
   },
   "dependencies": {
-    "dicer": "<0.0.0",
     "ansi-regex": ">=4.1.1 <4.2.0",
     "decode-uri-component": ">=0.2.1 <0.3.0",
     "http-cache-semantics": ">=4.1.1 <4.2.0",
