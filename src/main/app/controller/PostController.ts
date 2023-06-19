@@ -3,7 +3,7 @@ import config from 'config';
 import { Response } from 'express';
 
 import { getNextStepUrl } from '../../steps';
-import { CONTACT_DETAILS, SAVE_AND_SIGN_OUT, STATEMENT_OF_TRUTH, SUBJECT_CONTACT_DETAILS } from '../../steps/urls';
+import { CHECK_YOUR_ANSWERS, CONTACT_DETAILS, SAVE_AND_SIGN_OUT, SUBJECT_CONTACT_DETAILS } from '../../steps/urls';
 import { Case, CaseWithId } from '../case/case';
 import { CITIZEN_CREATE, CITIZEN_SAVE_AND_CLOSE, CITIZEN_SUBMIT, CITIZEN_UPDATE } from '../case/definition';
 import { Form, FormFields, FormFieldsFn } from '../form/Form';
@@ -27,7 +27,7 @@ export class PostController<T extends AnyObject> {
     const form = new Form(fields);
 
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
-
+    console.log('--------------', req.body);
     if (req.body.saveAndSignOut) {
       await this.saveAndSignOut(req, res, formData);
     } else if (req.body.saveBeforeSessionTimeout) {
@@ -66,6 +66,8 @@ export class PostController<T extends AnyObject> {
     if (req.session?.user && req.session.errors.length === 0) {
       if (!(Object.values(noHitToSaveAndContinue) as string[]).includes(req.originalUrl)) {
         const eventName = this.getEventName(req);
+        req.session.userCase.eventName = eventName;
+        console.log('---------------Event--------', eventName);
         if (eventName === CITIZEN_CREATE) {
           req.session.userCase = await this.createCase(req);
         } else if (eventName === CITIZEN_UPDATE || eventName === CITIZEN_SUBMIT) {
@@ -115,7 +117,24 @@ export class PostController<T extends AnyObject> {
 
   protected async updateCase(req: AppRequest<T>, eventName: string): Promise<CaseWithId> {
     try {
+      // console.log('---------Update-------------------', req.session.userCase.eventName);
       req.session.userCase = await req.locals.api.updateCase(req, req.session.user, eventName);
+      console.log('Sessio------------', req.session.user);
+      console.log('User------------', req.session.userCase);
+    } catch (err) {
+      req.locals.logger.error('Error saving', err);
+      req.session.errors = req.session.errors || [];
+      req.session.errors.push({ errorType: 'errorSaving', propertyName: '*' });
+    }
+    return req.session.userCase;
+  }
+
+  protected async submitCase(req: AppRequest<T>, eventName: string): Promise<CaseWithId> {
+    try {
+      // console.log('---------Update-------------------', req.session.userCase.eventName);
+      req.session.userCase = await req.locals.api.submitCase(req, req.session.user, eventName);
+      console.log('Sessio------------', req.session.user);
+      console.log('User------------', req.session.userCase);
     } catch (err) {
       req.locals.logger.error('Error saving', err);
       req.session.errors = req.session.errors || [];
@@ -152,11 +171,12 @@ export class PostController<T extends AnyObject> {
   //eslint-disable-next-line @typescript-eslint/no-unused-vars
   public getEventName(req: AppRequest): string {
     let eventName;
+    console.log('---reqOrginal-----------', req.originalUrl);
     if (req.originalUrl === SUBJECT_CONTACT_DETAILS && this.isBlank(req)) {
       eventName = CITIZEN_CREATE;
     } else if (req.originalUrl === CONTACT_DETAILS) {
       eventName = CITIZEN_UPDATE;
-    } else if (req.originalUrl === STATEMENT_OF_TRUTH) {
+    } else if (req.originalUrl === CHECK_YOUR_ANSWERS) {
       eventName = CITIZEN_SUBMIT;
     }
     return eventName;

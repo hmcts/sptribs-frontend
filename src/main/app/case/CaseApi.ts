@@ -10,7 +10,7 @@ import {
   CONTENT_TYPE,
   CONTEXT_PATH,
   CREATE_API_PATH,
-  SPTRIBS_CASE_API_BASE_URL,
+  SPTRIBS_CASE_API_BASE_URL, SUBMIT_API_PATH,
   UPDATE_API_PATH,
 } from '../../steps/common/constants/apiConstants';
 import { EMPTY, FORWARD_SLASH, SPACE } from '../../steps/common/constants/commonConstants';
@@ -127,6 +127,33 @@ export class CaseApi {
       throw new Error('Error in updating case');
     }
   }
+
+  public async submitCase(req: AppRequest, userDetails: UserDetails, eventName: string): Promise<any> {
+    Axios.defaults.headers.put[CONTENT_TYPE] = APPLICATION_JSON;
+    Axios.defaults.headers.put[AUTHORIZATION] = BEARER + SPACE + userDetails.accessToken;
+    try {
+      if (req.session.userCase.id === EMPTY) {
+        throw new Error('Error in updating case, case id is missing');
+      }
+      const url: string = config.get(SPTRIBS_CASE_API_BASE_URL);
+
+      const res: AxiosResponse<CreateCaseResponse> = await Axios.put(
+        url + CONTEXT_PATH + FORWARD_SLASH + req.session.userCase.id + SUBMIT_API_PATH,
+        {
+          params: { event: eventName },
+        }
+      );
+      if (res.status === 200) {
+        return req.session.userCase;
+      } else {
+        throw new Error('Error in updating case');
+      }
+    } catch (err) {
+      this.logError(err);
+      throw new Error('Error in updating case');
+    }
+  }
+
   /**
    *
    * @param req
@@ -270,6 +297,7 @@ export const mapCaseData = (req: AppRequest): any => {
     RepresentativeContactNumber: req.session.userCase.representativeContactNumber,
     RepresentativeEmailAddress: req.session.userCase.representativeEmailAddress,
     PcqId: req.session.userCase.pcqId,
+    EventName: req.session.userCase.eventName,
   };
   return data;
 };
