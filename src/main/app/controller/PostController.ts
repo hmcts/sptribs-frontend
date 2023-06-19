@@ -70,8 +70,10 @@ export class PostController<T extends AnyObject> {
         console.log('---------------Event--------', eventName);
         if (eventName === CITIZEN_CREATE) {
           req.session.userCase = await this.createCase(req);
-        } else if (eventName === CITIZEN_UPDATE || eventName === CITIZEN_SUBMIT) {
+        } else if (eventName === CITIZEN_UPDATE) {
           req.session.userCase = await this.updateCase(req, eventName);
+        } else if (eventName === CITIZEN_SUBMIT) {
+          req.session.userCase = await this.submitCase(req, eventName);
         }
       }
     }
@@ -131,7 +133,7 @@ export class PostController<T extends AnyObject> {
 
   protected async submitCase(req: AppRequest<T>, eventName: string): Promise<CaseWithId> {
     try {
-      // console.log('---------Update-------------------', req.session.userCase.eventName);
+      console.log('---------Submit-------------------', req.session.userCase.eventName);
       req.session.userCase = await req.locals.api.submitCase(req, req.session.user, eventName);
       console.log('Sessio------------', req.session.user);
       console.log('User------------', req.session.userCase);
