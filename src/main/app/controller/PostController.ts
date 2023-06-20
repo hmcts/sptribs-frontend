@@ -27,7 +27,6 @@ export class PostController<T extends AnyObject> {
     const form = new Form(fields);
 
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
-    console.log('--------------', req.body);
     if (req.body.saveAndSignOut) {
       await this.saveAndSignOut(req, res, formData);
     } else if (req.body.saveBeforeSessionTimeout) {
@@ -67,7 +66,6 @@ export class PostController<T extends AnyObject> {
       if (!(Object.values(noHitToSaveAndContinue) as string[]).includes(req.originalUrl)) {
         const eventName = this.getEventName(req);
         req.session.userCase.eventName = eventName;
-        console.log('---------------Event--------', eventName);
         if (eventName === CITIZEN_CREATE) {
           req.session.userCase = await this.createCase(req);
         } else if (eventName === CITIZEN_UPDATE) {
@@ -119,10 +117,7 @@ export class PostController<T extends AnyObject> {
 
   protected async updateCase(req: AppRequest<T>, eventName: string): Promise<CaseWithId> {
     try {
-      // console.log('---------Update-------------------', req.session.userCase.eventName);
       req.session.userCase = await req.locals.api.updateCase(req, req.session.user, eventName);
-      console.log('Sessio------------', req.session.user);
-      console.log('User------------', req.session.userCase);
     } catch (err) {
       req.locals.logger.error('Error saving', err);
       req.session.errors = req.session.errors || [];
@@ -133,10 +128,7 @@ export class PostController<T extends AnyObject> {
 
   protected async submitCase(req: AppRequest<T>, eventName: string): Promise<CaseWithId> {
     try {
-      console.log('---------Submit-------------------', req.session.userCase.eventName);
       req.session.userCase = await req.locals.api.submitCase(req, req.session.user, eventName);
-      console.log('Sessio------------', req.session.user);
-      console.log('User------------', req.session.userCase);
     } catch (err) {
       req.locals.logger.error('Error saving', err);
       req.session.errors = req.session.errors || [];
@@ -173,7 +165,6 @@ export class PostController<T extends AnyObject> {
   //eslint-disable-next-line @typescript-eslint/no-unused-vars
   public getEventName(req: AppRequest): string {
     let eventName;
-    console.log('---reqOrginal-----------', req.originalUrl);
     if (req.originalUrl === SUBJECT_CONTACT_DETAILS && this.isBlank(req)) {
       eventName = CITIZEN_CREATE;
     } else if (req.originalUrl === CONTACT_DETAILS) {

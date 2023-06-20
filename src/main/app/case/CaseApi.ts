@@ -130,34 +130,70 @@ export class CaseApi {
   }
 
   public async submitCase(req: AppRequest, userDetails: UserDetails, eventName: string): Promise<any> {
+    Axios.defaults.headers.put[CONTENT_TYPE] = APPLICATION_JSON;
+    Axios.defaults.headers.put[AUTHORIZATION] = BEARER + SPACE + userDetails.accessToken;
     try {
+      if (req.session.userCase.id === EMPTY) {
+        throw new Error('Error in submitting case, case id is missing');
+      }
       const url: string = config.get(SPTRIBS_CASE_API_BASE_URL);
-      const headers = {
-        CONTENT_TYPE: APPLICATION_JSON,
-        Authorization: BEARER + SPACE + userDetails.accessToken,
-        ServiceAuthorization: getServiceAuthToken(),
+      const CaseDocuments = req.session['caseDocuments'].map(document => {
+        const { url, fileName, documentId, binaryUrl } = document;
+        return {
+          id: documentId,
+          value: {
+            documentLink: {
+              document_url: url,
+              document_filename: fileName,
+              document_binary_url: binaryUrl,
+            },
+          },
+        };
+      });
+      const SupportingDocuments = req.session['supportingCaseDocuments'].map(document => {
+        const { url, fileName, documentId, binaryUrl } = document;
+        return {
+          id: documentId,
+          value: {
+            documentLink: {
+              document_url: url,
+              document_filename: fileName,
+              document_binary_url: binaryUrl,
+            },
+          },
+        };
+      });
+      const OtherInformation = req.session['otherCaseInformation'].map(document => {
+        const { url, fileName, documentId, binaryUrl } = document;
+        return {
+          id: documentId,
+          value: {
+            documentLink: {
+              document_url: url,
+              document_filename: fileName,
+              document_binary_url: binaryUrl,
+            },
+          },
+        };
+      });
+
+      const data = {
+        ...mapCaseData(req),
+        tribunalFormDocuments: CaseDocuments,
+        supportingDocuments: SupportingDocuments,
+        otherInformationDocuments: OtherInformation,
       };
-      const res: AxiosResponse<CreateCaseResponse> = await Axios.post(
-        url + CONTEXT_PATH + SUBMIT_API_PATH,
-        mapCaseData(req),
-        { headers }
+      const res: AxiosResponse<CreateCaseResponse> = await Axios.patch(
+        url + CONTEXT_PATH + FORWARD_SLASH + req.session.userCase.id + SUBMIT_API_PATH,
+        data,
+        {
+          params: { event: eventName },
+        }
       );
-      console.log('--------------------------------CaseData', req.body);
       if (res.status === 200) {
-        req.session.userCase.id = res.data.id;
-        req.session.userCase.eventName = eventName;
         return req.session.userCase;
       } else {
-        throw new Error(
-          'Error in submitting case. URL:' +
-            url +
-            CONTEXT_PATH +
-            SUBMIT_API_PATH +
-            ' response.status:' +
-            res.status +
-            ' res.data:' +
-            JSON.stringify(res.data, null, 2)
-        );
+        throw new Error('Error in submitting case');
       }
     } catch (err) {
       this.logError(err);
