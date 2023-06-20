@@ -6,3 +6,4 @@ export const BEARER = 'Bearer';
 export const CONTEXT_PATH = '/case/dss-orchestration';
 export const CREATE_API_PATH = '/create';
 export const UPDATE_API_PATH = '/update';
+export const SUBMIT_API_PATH = '/submit';
