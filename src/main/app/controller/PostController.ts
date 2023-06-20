@@ -65,7 +65,6 @@ export class PostController<T extends AnyObject> {
     if (req.session?.user && req.session.errors.length === 0) {
       if (!(Object.values(noHitToSaveAndContinue) as string[]).includes(req.originalUrl)) {
         const eventName = this.getEventName(req);
-        req.session.userCase.eventName = eventName;
         if (eventName === CITIZEN_CREATE) {
           req.session.userCase = await this.createCase(req);
         }
