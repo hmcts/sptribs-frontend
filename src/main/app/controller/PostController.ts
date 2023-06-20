@@ -68,10 +68,6 @@ export class PostController<T extends AnyObject> {
         req.session.userCase.eventName = eventName;
         if (eventName === CITIZEN_CREATE) {
           req.session.userCase = await this.createCase(req);
-        } else if (eventName === CITIZEN_UPDATE) {
-          req.session.userCase = await this.updateCase(req, eventName);
-        } else if (eventName === CITIZEN_SUBMIT) {
-          req.session.userCase = await this.submitCase(req, eventName);
         }
       }
     }
@@ -118,17 +114,6 @@ export class PostController<T extends AnyObject> {
   protected async updateCase(req: AppRequest<T>, eventName: string): Promise<CaseWithId> {
     try {
       req.session.userCase = await req.locals.api.updateCase(req, req.session.user, eventName);
-    } catch (err) {
-      req.locals.logger.error('Error saving', err);
-      req.session.errors = req.session.errors || [];
-      req.session.errors.push({ errorType: 'errorSaving', propertyName: '*' });
-    }
-    return req.session.userCase;
-  }
-
-  protected async submitCase(req: AppRequest<T>, eventName: string): Promise<CaseWithId> {
-    try {
-      req.session.userCase = await req.locals.api.submitCase(req, req.session.user, eventName);
     } catch (err) {
       req.locals.logger.error('Error saving', err);
       req.session.errors = req.session.errors || [];
