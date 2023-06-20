@@ -2,7 +2,7 @@ import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { FormContent } from '../../app/form/Form';
 import * as steps from '../../steps';
-import { CHECK_YOUR_ANSWERS, SUBJECT_CONTACT_DETAILS } from '../../steps/urls'; //TOOK out CONTACT_DETAILS for EMAIL_ADDRESS RB
+import { SUBJECT_CONTACT_DETAILS } from '../../steps/urls'; //TOOK out CONTACT_DETAILS for EMAIL_ADDRESS RB
 import { isPhoneNoValid } from '../form/validation';
 
 import { PostController } from './PostController';
@@ -103,7 +103,6 @@ describe('PostController', () => {
 
     expect(req.session.userCase).toEqual({
       id: '',
-      eventName: 'CREATE',
       MOCK_KEY: 'MOCK_VALUE',
       originalUrl: '/subject-contact-details',
     });
@@ -124,21 +123,6 @@ describe('PostController', () => {
     });
   });
 
-  it('Submit create test', async () => {
-    const body = { MOCK_KEY: 'MOCK_VALUE', originalUrl: CHECK_YOUR_ANSWERS };
-    const controller = new PostController(mockFormContent.fields);
-    const req = mockRequest({ body });
-    req.originalUrl = CHECK_YOUR_ANSWERS;
-    const res = mockResponse();
-    await controller.post(req, res);
-
-    expect(req.session.userCase).toEqual({
-      id: '1234',
-      eventName: 'SUBMIT',
-      MOCK_KEY: 'MOCK_VALUE',
-      originalUrl: '/check-your-answers',
-    });
-  });
   test('rejects with an error when unable to save session data', async () => {
     getNextStepUrlMock.mockReturnValue('/next-step-url');
     const body = { MOCK_KEY: 'MOCK_VALUE' };
