@@ -3,7 +3,7 @@ import config from 'config';
 import { Response } from 'express';
 
 import { getNextStepUrl } from '../../steps';
-import { CHECK_YOUR_ANSWERS, CONTACT_DETAILS, SAVE_AND_SIGN_OUT, SUBJECT_CONTACT_DETAILS } from '../../steps/urls';
+import { CONTACT_DETAILS, SAVE_AND_SIGN_OUT, STATEMENT_OF_TRUTH, SUBJECT_CONTACT_DETAILS } from '../../steps/urls';
 import { Case, CaseWithId } from '../case/case';
 import { CITIZEN_CREATE, CITIZEN_SAVE_AND_CLOSE, CITIZEN_SUBMIT, CITIZEN_UPDATE } from '../case/definition';
 import { Form, FormFields, FormFieldsFn } from '../form/Form';
@@ -27,6 +27,7 @@ export class PostController<T extends AnyObject> {
     const form = new Form(fields);
 
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
+
     if (req.body.saveAndSignOut) {
       await this.saveAndSignOut(req, res, formData);
     } else if (req.body.saveBeforeSessionTimeout) {
@@ -67,6 +68,8 @@ export class PostController<T extends AnyObject> {
         const eventName = this.getEventName(req);
         if (eventName === CITIZEN_CREATE) {
           req.session.userCase = await this.createCase(req);
+        } else if (eventName === CITIZEN_UPDATE || eventName === CITIZEN_SUBMIT) {
+          req.session.userCase = await this.updateCase(req, eventName);
         }
       }
     }
@@ -153,7 +156,7 @@ export class PostController<T extends AnyObject> {
       eventName = CITIZEN_CREATE;
     } else if (req.originalUrl === CONTACT_DETAILS) {
       eventName = CITIZEN_UPDATE;
-    } else if (req.originalUrl === CHECK_YOUR_ANSWERS) {
+    } else if (req.originalUrl === STATEMENT_OF_TRUTH) {
       eventName = CITIZEN_SUBMIT;
     }
     return eventName;

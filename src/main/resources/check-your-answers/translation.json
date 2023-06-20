@@ -1,71 +1,63 @@
 {
-  "translations": {
-    "en": {
-      "serviceName": "Appeal to the First-tier Tribunal",
-      "section": "",
-      "title": "Check your answers before submitting your tribunal form",
-      "change": "change",
-      "continue": "Accept and send",
-      "sectionTitles": {
-        "subjectDetails": "Subject Details",
-        "representativeDetails": "Representative's Details",
-        "representation": "Representation",
-        "documents": "Appeal forms",
-        "supportingDocuments": "Supporting documents",
-        "otherInformation": "Other Information"
-      },
-      "keys": {
-        "fullName": "Full name",
-        "dateOfBirth": "Date of birth",
-        "emailAddress": "Email address",
-        "contactNumber": "Contact number",
-        "representationLabel": "Is there a representative named on completed tribunal form?",
-        "representativeQualifiedLabel": "Is the named representative legally qualified?",
-        "representativeFullName": "Full name",
-        "representativeOrganisationName": "Organisation or business name",
-        "representativeContactNumber": "Contact number",
-        "representativeEmailAddress": "Email address",
-        "appealDocuments": "List of forms uploaded (Appeal form)",
-        "supportingDocuments": "List of supporting documents uploaded",
-        "otherInformation": "List of other documents uploaded"
-      }
-    },
-    "cy": {
-      "serviceName": "Appeal to the First-tier Tribunal - welsh ",
-      "section": " - welsh ",
-      "title": "Check your answers before submitting your tribunal form - welsh ",
-      "change": "change - welsh ",
-      "continue": "Accept and send - welsh ",
-      "sectionTitles": {
-        "subjectDetails": "Subject Details - welsh ",
-        "representativeDetails": "Representative's Details - welsh ",
-        "representation": "Representation - welsh ",
-        "documents": "Appeal forms - welsh ",
-        "supportingDocuments": "Supporting documents - welsh ",
-        "otherInformation": "Other Information - welsh "
-      },
-      "keys": {
-        "fullName": "Full name - welsh ",
-        "dateOfBirth": "Date of birth - welsh ",
-        "emailAddress": "Email address - welsh ",
-        "contactNumber": "Contact number - welsh ",
-        "representationLabel": "Is there a representative named on completed tribunal form? - welsh ",
-        "representativeQualifiedLabel": "Is the named representative legally qualified? - welsh ",
-        "representativeFullName": "Full name - welsh ",
-        "representativeOrganisationName": "Organisation or business name - welsh ",
-        "representativeContactNumber": "Contact number - welsh ",
-        "representativeEmailAddress": "Email address - welsh ",
-        "appealDocuments": "List of forms uploaded (Appeal form) - welsh ",
-        "supportingDocuments": "List of supporting documents uploaded - welsh "
-      }
+    "translations": {
+        "en": {
+            "serviceName": "Appeal to the First-tier Tribunal",
+            "section": "",
+            "title": "Check your answers before submitting your tribunal form",
+            "change": "change",
+            "continue": "Accept and send",
+            "sectionTitles": {
+              "subjectDetails": "Subject Details",
+              "representativeDetails": "Representative's Details",
+              "representation": "Representation",
+              "documents": "Appeal forms",
+              "supportingDocuments": "Supporting documents",
+              "otherInformation": "Other Information"
+            },
+            "keys": {
+              "fullName": "Full name",
+              "dateOfBirth": "Date of birth",
+              "emailAddress": "Email address",
+              "contactNumber": "Contact number",
+              "representationLabel": "Is there a representative named on completed tribunal form?",
+              "representativeQualifiedLabel": "Is the named representative legally qualified?",
+              "representativeFullName": "Full name",
+              "representativeOrganisationName": "Organisation or business name",
+              "representativeContactNumber": "Contact number",
+              "representativeEmailAddress": "Email address",
+              "appealDocuments": "List of forms uploaded (Appeal form)",
+              "supportingDocuments": "List of supporting documents uploaded",
+              "otherInformation": "List of other documents uploaded"
+            }
+        },
+        "cy": {
+          "serviceName": "Appeal to the First-tier Tribunal - welsh ",
+          "section": " - welsh ",
+          "title": "Check your answers before submitting your tribunal form - welsh ",
+          "change": "change - welsh ",
+          "continue": "Accept and send - welsh ",
+          "sectionTitles": {
+            "subjectDetails": "Subject Details - welsh ",
+            "representativeDetails": "Representative's Details - welsh ",
+            "representation": "Representation - welsh ",
+            "documents": "Appeal forms - welsh ",
+            "supportingDocuments": "Supporting documents - welsh ",
+            "otherInformation": "Other Information - welsh "
+          },
+          "keys": {
+            "fullName": "Full name - welsh ",
+            "dateOfBirth": "Date of birth - welsh ",
+            "emailAddress": "Email address - welsh ",
+            "contactNumber": "Contact number - welsh ",
+            "representationLabel": "Is there a representative named on completed tribunal form? - welsh ",
+            "representativeQualifiedLabel": "Is the named representative legally qualified? - welsh ",
+            "representativeFullName": "Full name - welsh ",
+            "representativeOrganisationName": "Organisation or business name - welsh ",
+            "representativeContactNumber": "Contact number - welsh ",
+            "representativeEmailAddress": "Email address - welsh ",
+            "appealDocuments": "List of forms uploaded (Appeal form) - welsh ",
+            "supportingDocuments": "List of supporting documents uploaded - welsh "
+          }
+        }
     }
-  },
-  "errors": {
-    "en": {
-      "SUBMIT_ERROR": "An error has occurred. Unable to submit your application, we are sorry for the inconvenience. Please try again later. If the problem persists, please contact us."
-    },
-    "cy": {
-      "SUBMIT_ERROR": "An error has occurred. Unable to submit your application, we are sorry for the inconvenience. Please try again later. If the problem persists, please contact us. - welsh "
-    }
-  }
 }
