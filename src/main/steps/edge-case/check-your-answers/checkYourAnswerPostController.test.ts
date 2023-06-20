@@ -150,10 +150,6 @@ describe('checking for the redirect of post check your answers', () => {
   const postingcontroller = new submitCaseController(mockForm.fields);
 
   it('should allow continue if no documents uploaded', async () => {
-    req.session.caseDocuments = [];
-    req.session.supportingCaseDocuments = [];
-    req.session.otherCaseInformation = [];
-    req.files = [];
     req.session.fileErrors = [];
     await postingcontroller.post(req, res);
     expect(res.redirect).toHaveBeenCalledWith(CHECK_YOUR_ANSWERS);
