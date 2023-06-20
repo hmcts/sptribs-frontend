@@ -14,6 +14,7 @@ import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import { Case, CaseWithId } from '../case/case';
 
 import { AppRequest } from './AppRequest';
+import { AnyObject } from './PostController';
 export type PageContent = Record<string, unknown>;
 export type TranslationFn = (content: CommonContent) => PageContent;
 
@@ -254,6 +255,7 @@ export class GetController {
       req.query.hasOwnProperty('documentType')
     ) {
       const checkForDeleteQuery = req.query['query'] === 'delete';
+      const errorMessage = 'Document upload or deletion has failed. Please try again';
       if (checkForDeleteQuery) {
         const { documentType } = req.query;
         const { docId } = req.query;
@@ -281,7 +283,8 @@ export class GetController {
                 res.redirect(UPLOAD_APPEAL_FORM);
               });
             } catch (error) {
-              console.log(error);
+              console.log('tribunalform - document deletion has failed', error);
+              this.deleteFileError(req, UPLOAD_APPEAL_FORM, res, errorMessage);
             }
 
             break;
@@ -300,7 +303,8 @@ export class GetController {
                 res.redirect(UPLOAD_SUPPORTING_DOCUMENTS);
               });
             } catch (error) {
-              console.log(error);
+              console.log('supporting - document deletion has failed', error);
+              this.deleteFileError(req, UPLOAD_APPEAL_FORM, res, errorMessage);
             }
 
             break;
@@ -319,7 +323,8 @@ export class GetController {
                 res.redirect(UPLOAD_OTHER_INFORMATION);
               });
             } catch (error) {
-              console.log(error);
+              console.log('other - document deletion has failed', error);
+              this.deleteFileError(req, UPLOAD_APPEAL_FORM, res, errorMessage);
             }
 
             break;
@@ -327,6 +332,25 @@ export class GetController {
         }
       }
     }
+  }
+
+  private deleteFileError(
+    req: AppRequest<AnyObject>,
+    url: string,
+    res: Response<any, Record<string, any>>,
+    errorMessage?: string
+  ) {
+    req.session.fileErrors.push({
+      text: errorMessage,
+      href: '#',
+    });
+
+    req.session.save(err => {
+      if (err) {
+        throw err;
+      }
+      res.redirect(url!);
+    });
   }
 
   //eslint-disable-next-line @typescript-eslint/no-unused-vars
