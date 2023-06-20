@@ -51,7 +51,6 @@ export interface Case {
   representativeContactNumber: string;
   representativeEmailAddress: string;
   pcqId: string;
-  eventName: string;
 }
 
 export interface CaseWithId extends Case {
