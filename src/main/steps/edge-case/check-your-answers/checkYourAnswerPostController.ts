@@ -54,7 +54,7 @@ export class FileValidations {
 }
 
 @autobind
-export default class UploadDocumentController extends PostController<AnyObject> {
+export default class submitCaseController extends PostController<AnyObject> {
   constructor(protected readonly fields: FormFields | FormFieldsFn) {
     super(fields);
   }
