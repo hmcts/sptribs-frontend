@@ -34,8 +34,6 @@ export const getUserDetails = async (
     email: jwt.sub,
     givenName: jwt.given_name,
     familyName: jwt.family_name,
-    eventName: jwt.eventName,
-    pcqId: jwt.pcqId,
   };
 };
 
@@ -60,8 +58,6 @@ export const getSystemUser = async (): Promise<UserDetails> => {
     email: jwt.sub,
     givenName: jwt.given_name,
     familyName: jwt.family_name,
-    eventName: jwt.eventName,
-    pcqId: jwt.pcqId,
   };
 };
 
@@ -71,8 +67,6 @@ interface IdTokenJwtPayload {
   given_name: string;
   family_name: string;
   roles: string[];
-  eventName: string;
-  pcqId: string;
 }
 
 export interface OidcResponse {

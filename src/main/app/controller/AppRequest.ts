@@ -42,8 +42,6 @@ export interface UserDetails {
   email: string;
   givenName: string;
   familyName: string;
-  eventName: string;
-  pcqId: string;
 }
 
 export interface Namer {

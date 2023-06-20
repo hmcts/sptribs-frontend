@@ -62,10 +62,10 @@
   },
   "errors": {
     "en": {
-      "SUBMIT_ERROR": "Case Can not be uploaded"
+      "SUBMIT_ERROR": "An error has occurred. Unable to submit your application ,we are sorry for the inconvenience. Please try again later. If the problem persists, please contact us."
     },
     "cy": {
-      "SUBMIT_ERROR": "Case Can not be uploaded - welsh "
+      "SUBMIT_ERROR": "An error has occurred. Unable to submit your application ,we are sorry for the inconvenience. Please try again later. If the problem persists, please contact us. - welsh "
     }
   }
 }
