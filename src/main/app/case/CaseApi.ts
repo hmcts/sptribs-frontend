@@ -127,6 +127,7 @@ export class CaseApi {
       throw new Error('Error in updating case');
     }
   }
+
   /**
    *
    * @param req
