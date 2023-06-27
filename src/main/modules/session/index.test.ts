@@ -68,7 +68,6 @@ describe('session', () => {
       cookie: {
         httpOnly: true,
         maxAge: 1260000,
-        sameSite: 'lax', // required for the oauth2 redirect
         secure: true,
       },
       rolling: true,
