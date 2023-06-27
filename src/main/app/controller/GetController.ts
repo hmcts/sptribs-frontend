@@ -241,6 +241,8 @@ export class GetController {
         maxAge: cookieExpiryDuration,
         httpOnly: false,
         encode: String,
+        sameSite: 'lax', // required for the oauth2 redirect
+        secure: true,
       });
       const RedirectURL = COOKIES + '?togglesaveCookie=true';
       res.redirect(RedirectURL);
