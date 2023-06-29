@@ -20,11 +20,11 @@ export default class PCQGetController {
     const pcqEnabled: boolean = JSON.parse(config.get('services.equalityAndDiversity.enabled'));
     const ageCheckValue = this.calculateAgeCheckParam(req.session.userCase.subjectDateOfBirth);
     if (pcqEnabled && !req.session.userCase.pcqId && ageCheckValue !== 0) {
-      const response: AxiosResponse<StatusResponse> = await axios.get(pcqUrl + '/health');
-      const equalityHealth = response.data && response.data.status === 'UP';
-      if (equalityHealth) {
-        req.session.userCase.pcqId = uuid();
-        try {
+      try {
+        const response: AxiosResponse<StatusResponse> = await axios.get(pcqUrl + '/health');
+        const equalityHealth = response.data && response.data.status === 'UP';
+        if (equalityHealth) {
+          req.session.userCase.pcqId = uuid();
           const updateCaseResponse: AxiosResponse<StatusResponse> = await this.updateCase(req);
           if (updateCaseResponse && updateCaseResponse.status === 200) {
             const pcqParams = this.gatherPcqParams(req, ageCheckValue);
@@ -36,10 +36,10 @@ export default class PCQGetController {
           } else {
             res.redirect(CHECK_YOUR_ANSWERS);
           }
-        } catch (err) {
+        } else {
           res.redirect(CHECK_YOUR_ANSWERS);
         }
-      } else {
+      } catch (err) {
         res.redirect(CHECK_YOUR_ANSWERS);
       }
     } else {
