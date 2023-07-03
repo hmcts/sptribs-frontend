@@ -11411,13 +11411,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"klona@npm:^2.0.4":
-  version: 2.0.5
-  resolution: "klona@npm:2.0.5"
-  checksum: 8c976126ea252b766e648a4866e1bccff9d3b08432474ad80c559f6c7265cf7caede2498d463754d8c88c4759895edd8210c85c0d3155e6aae4968362889466f
-  languageName: node
-  linkType: hard
-
 "kruptein@npm:^2.0.4":
   version: 2.2.3
   resolution: "kruptein@npm:2.2.3"
@@ -15089,16 +15082,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sass-loader@npm:^12.4.0":
-  version: 12.4.0
-  resolution: "sass-loader@npm:12.4.0"
+"sass-loader@npm:^13.3.2":
+  version: 13.3.2
+  resolution: "sass-loader@npm:13.3.2"
   dependencies:
-    klona: ^2.0.4
     neo-async: ^2.6.2
   peerDependencies:
     fibers: ">= 3.1.0"
-    node-sass: ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0
+    node-sass: ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0 || ^9.0.0
     sass: ^1.3.0
+    sass-embedded: "*"
     webpack: ^5.0.0
   peerDependenciesMeta:
     fibers:
@@ -15107,7 +15100,9 @@ __metadata:
       optional: true
     sass:
       optional: true
-  checksum: 0f7ca3633e7f61c412b0628766a9b57cb15f68def45e4303e68eb2f3a0722aec231956fbfd118489d93c997ab605470e89de8e3f7d6776830cc6366d9657d618
+    sass-embedded:
+      optional: true
+  checksum: 7394a8d1b818a289b9caabd979543c907b83e28ae08bc80ccb836e0ccabc4ae574c077ab2fa520ba5fb8abb2ec3e7c9822a1cbd8c58a28ff30018be9d1dc6c27
   languageName: node
   linkType: hard
 
@@ -15940,7 +15935,7 @@ __metadata:
     prettier: ^2.5.1
     redis: ^3.1.2
     require-directory: ^2.1.1
-    sass-loader: ^12.4.0
+    sass-loader: ^13.3.2
     serve-favicon: ^2.5.0
     session-file-store: ^1.5.0
     sonar-scanner: ^3.1.0
