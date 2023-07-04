@@ -241,6 +241,7 @@ export class GetController {
         maxAge: cookieExpiryDuration,
         httpOnly: false,
         encode: String,
+        secure: true,
       });
       const RedirectURL = COOKIES + '?togglesaveCookie=true';
       res.redirect(RedirectURL);
