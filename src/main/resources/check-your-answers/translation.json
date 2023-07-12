@@ -63,5 +63,12 @@
             "documentRelevance": "Document relevance - welsh "
           }
         }
+      },
+  "errors": {
+    "en": {
+      "SUBMIT_ERROR": "An error has occurred, unable to submit your application. We are sorry for the inconvenience. Please try again later. If the problem persists, please contact us."
+    },
+    "cy": {
+      "SUBMIT_ERROR": "An error has occurred, unable to submit your application. We are sorry for the inconvenience. Please try again later. If the problem persists, please contact us. - welsh "
     }
 }
