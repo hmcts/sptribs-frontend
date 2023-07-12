@@ -271,7 +271,7 @@ export class GetController {
         switch (documentType) {
           case 'tribunalform': {
             try {
-              const baseURL = `/doc/dss-orhestration/${docId}/delete`;
+              const baseURL = `/doc/dss-orchestration/${docId}/delete`;
               await DOCUMENT_DELETEMANAGER.delete(baseURL);
               const sessionObjectOfApplicationDocuments = req.session['caseDocuments'].filter(document => {
                 const { documentId } = document;
@@ -290,7 +290,7 @@ export class GetController {
 
           case 'supporting': {
             try {
-              const baseURL = `/doc/dss-orhestration/${docId}/delete`;
+              const baseURL = `/doc/dss-orchestration/${docId}/delete`;
               await DOCUMENT_DELETEMANAGER.delete(baseURL);
               const sessionObjectOfSupportingDocuments = req.session['supportingCaseDocuments'].filter(document => {
                 const { documentId } = document;
@@ -309,7 +309,7 @@ export class GetController {
 
           case 'other': {
             try {
-              const baseURL = `/doc/dss-orhestration/${docId}/delete`;
+              const baseURL = `/doc/dss-orchestration/${docId}/delete`;
               await DOCUMENT_DELETEMANAGER.delete(baseURL);
               const sessionObjectOfOtherDocuments = req.session['otherCaseInformation'].filter(document => {
                 const { documentId } = document;
