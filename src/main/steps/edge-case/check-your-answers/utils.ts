@@ -239,11 +239,12 @@ export const SupportingDocumentsSummary = (
 /* eslint-disable import/namespace */
 export const OtherInformationSummary = (
   { sectionTitles, keys, ...content }: SummaryListContent,
-  AddDocuments: Partial<any>
+  OtherDocuments: Partial<any>,
+  userCase: Partial<CaseWithId>
 ): SummaryList | undefined => {
   const sectionTitle = sectionTitles.otherInformation;
-  const ListOfOtherDocuments = AddDocuments
-    ? AddDocuments.map((document): string => {
+  const ListOfOtherDocuments = OtherDocuments
+    ? OtherDocuments.map((document): string => {
         return document.fileName + '';
       })
         .toString()
@@ -255,6 +256,16 @@ export const OtherInformationSummary = (
     {
       key: keys.otherInformation,
       value: ListOfOtherDocuments,
+      changeUrl: Urls['UPLOAD_OTHER_INFORMATION'],
+    },
+    {
+      key: keys.documentRelevance,
+      value: userCase['documentRelevance'],
+      changeUrl: Urls['UPLOAD_OTHER_INFORMATION'],
+    },
+    {
+      key: keys.additionalInformation,
+      value: userCase['additionalInformation'],
       changeUrl: Urls['UPLOAD_OTHER_INFORMATION'],
     },
   ];

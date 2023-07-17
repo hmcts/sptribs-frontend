@@ -57,7 +57,7 @@ describe('Document upload controller', () => {
     expect(req.locals.api.triggerEvent).not.toHaveBeenCalled();
     expect(getNextStepUrlMock).not.toHaveBeenCalled();
     expect(res.redirect).toBeCalledWith('/upload-other-information');
-    expect(req.session.errors).not.toEqual(errors);
+    expect(req.session.errors).toEqual(errors);
   });
 
   describe('when there is an error in saving session', () => {
