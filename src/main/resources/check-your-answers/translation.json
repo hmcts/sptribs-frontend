@@ -12,7 +12,7 @@
         "representation": "Representation",
         "documents": "Appeal forms",
         "supportingDocuments": "Supporting documents",
-        "otherInformation": "Other Information"
+        "otherInformation": "Additional information"
       },
       "keys": {
         "fullName": "Full name",
@@ -44,7 +44,7 @@
         "representation": "Representation - welsh ",
         "documents": "Appeal forms - welsh ",
         "supportingDocuments": "Supporting documents - welsh ",
-        "otherInformation": "Other Information - welsh "
+        "otherInformation": "Additional information - welsh "
       },
       "keys": {
         "fullName": "Full name - welsh ",
