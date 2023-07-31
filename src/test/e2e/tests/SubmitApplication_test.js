@@ -9,6 +9,7 @@ Scenario(
     loginPage,
     subjectDetailsPage,
     subjectContactDetailsPage,
+    representationPage,
     //dateofbirth,
     //addresswithpostcode,
     //uploadfilepage,
@@ -24,9 +25,11 @@ Scenario(
     await landingPage.seeTheLandingPage();
     await loginPage.SignInUser();
     await subjectDetailsPage.checkPageLoads();
-    await subjectDetailsPage.fillInfields();
+    await subjectDetailsPage.fillInFields();
     await subjectContactDetailsPage.checkPageLoads();
-    await subjectContactDetailsPage.fillInfields();
+    await subjectContactDetailsPage.fillInFields();
+    await representationPage.checkPageLoads();
+    await representationPage.fillInFields();
     // await dateofbirth.dateSelection('10', '10', '2020');
     // await addresswithpostcode.PostCodeLookUpAndSelect();
     // await contactpreferencepage.contactPreference();

@@ -72,6 +72,9 @@ exports.config = {
     landingPage: './src/test/e2e/pages/LandingPage.js',
     subjectDetailsPage: './src/test/e2e/pages/SubjectDetails.page.js',
     subjectContactDetailsPage: './src/test/e2e/pages/SubjectContactDetails.page.js',
+    representationPage: './src/test/e2e/pages/Representation.page.js',
+
+
     uploadfilepage: './src/test/e2e/pages/UploadDocuments.page.js',
     statementoftruth: './src/test/e2e/pages/StatementOfTruth.page.js',
     determineapplicantrole:'./src/test/e2e/pages/DetermineApplicantRole.page.js',

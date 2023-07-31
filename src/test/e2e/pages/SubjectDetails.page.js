@@ -22,7 +22,7 @@ module.exports = {
     I.waitForText(subjectDetails.textOnPage3);
     },
 
-  fillInfields() {
+  fillInFields() {
     I.fillField(this.fields.fullName, subjectDetails.name);
     I.fillField(this.fields.dayOfBirth, subjectDetails.dayOfBirth);
     I.fillField(this.fields.monthOfBirth, subjectDetails.monthOfBirth);
