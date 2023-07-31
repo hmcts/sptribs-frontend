@@ -73,6 +73,7 @@ exports.config = {
     subjectDetailsPage: './src/test/e2e/pages/SubjectDetails.page.js',
     subjectContactDetailsPage: './src/test/e2e/pages/SubjectContactDetails.page.js',
     representationPage: './src/test/e2e/pages/Representation.page.js',
+    representationQualifiedPage: './src/test/e2e/pages/RepresentationQualified.page.js',
 
 
     uploadfilepage: './src/test/e2e/pages/UploadDocuments.page.js',
