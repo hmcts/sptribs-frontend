@@ -1,13 +1,14 @@
 const ContactPreferencePage = require("../pages/ContactPreference.page");
 
-Feature('Create application @e2e-tests').retry(1);
+Feature('Create application @e2e-tests');
 
 Scenario(
   'Create full application and submit',
   async ({
-    loginPage,
     landingPage,
-    //applytoapplicantpage,
+    loginPage,
+    subjectDetailsPage,
+    subjectContactDetailsPage,
     //dateofbirth,
     //addresswithpostcode,
     //uploadfilepage,
@@ -22,8 +23,10 @@ Scenario(
   }) => {
     await landingPage.seeTheLandingPage();
     await loginPage.SignInUser();
-    // await determineapplicantrole.DetermineApplicant(true);
-    // await applytoapplicantpage.applicantFullnames();
+    await subjectDetailsPage.checkPageLoads();
+    await subjectDetailsPage.fillInfields();
+    await subjectContactDetailsPage.checkPageLoads();
+    await subjectContactDetailsPage.fillInfields();
     // await dateofbirth.dateSelection('10', '10', '2020');
     // await addresswithpostcode.PostCodeLookUpAndSelect();
     // await contactpreferencepage.contactPreference();
