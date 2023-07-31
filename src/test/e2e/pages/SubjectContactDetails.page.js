@@ -18,7 +18,7 @@ module.exports = {
     I.waitForText(subjectDetails.textOnPage2);
     },
 
-  fillInfields() {
+  fillInFields() {
     I.fillField(this.fields.email, subjectDetails.emailAddress);
     I.fillField(this.fields.mobileNumber, subjectDetails.contactNumber);
     I.click(this.contactAgreeBox);
