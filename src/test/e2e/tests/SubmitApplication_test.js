@@ -1,10 +1,9 @@
-const ContactPreferencePage = require("../pages/ContactPreference.page");
 const { I } = inject();
 
 Feature('Create application @e2e-tests');
 
 Scenario(
-  'Create an application with all details, a representative, additional information, and submit.',
+  'Create an application with all details, a representative, additional information, no PCQ, and submit.',
   async ({
     landingPage,
     loginPage,
@@ -17,18 +16,6 @@ Scenario(
     uploadSupportingDocuments,
     uploadOtherInformation,
     checkYourAnswersPage,
-
-    //dateofbirth,
-    //addresswithpostcode,
-    //uploadfilepage,
-    //determineapplicantrole,
-    //statementoftruth,
-    //contactpreferencepage,
-    //additiondocumentpage,
-    //emailaddresspage,
-    //checkyouranswerspage,
-    //contactnumber,
-    //thankyoupage,
   }) => {
     await landingPage.seeTheLandingPage();
     await loginPage.SignInUser();
@@ -51,17 +38,5 @@ Scenario(
     await I.click('button[name="opt-out-button"]'); // opt out of PCQ
     checkYourAnswersPage.checkPageLoads();
     checkYourAnswersPage.checkValidInfoAllFields();
-
-
-    // await dateofbirth.dateSelection('10', '10', '2020');
-    // await addresswithpostcode.PostCodeLookUpAndSelect();
-    // await contactpreferencepage.contactPreference();
-    // await emailaddresspage.emailAddress();
-    // await contactnumber.EnterHomeAndMobileNo('4423232323232', '4423232323232');
-    //await uploadfilepage.uploadDocumentsSection();
-    //await additiondocumentpage.uploadDocumentsSection();
-    //await checkyouranswerspage.checkyouranswers();
-    //await statementoftruth.statementOfTruth();
-    //await thankyoupage.applicationsubmission();
   }
 );
