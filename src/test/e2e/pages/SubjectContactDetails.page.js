@@ -10,19 +10,18 @@ module.exports = {
   contactAgreeBox: '#subjectAgreeContact',
   continueButton: '#main-form-submit',
 
- checkPageLoads() {
-    I.waitForText(subjectDetails.pageTitle);
-    I.waitForText(subjectDetails.subHeading1);
-    I.waitForText(subjectDetails.subHeading2);
-    I.waitForText(subjectDetails.textOnPage1);
-    I.waitForText(subjectDetails.textOnPage2);
+ async checkPageLoads() {
+    await I.waitForText(subjectDetails.pageTitle, 30);
+    I.see(subjectDetails.subHeading1);
+    I.see(subjectDetails.subHeading2);
+    I.see(subjectDetails.textOnPage1);
+    I.see(subjectDetails.textOnPage2);
     },
 
-  fillInFields() {
+  async fillInFields() {
     I.fillField(this.fields.email, subjectDetails.emailAddress);
     I.fillField(this.fields.mobileNumber, subjectDetails.contactNumber);
     I.click(this.contactAgreeBox);
-    I.click(this.continueButton);
-    I.waitForNavigation();
+    await I.click(this.continueButton);
   },
 };

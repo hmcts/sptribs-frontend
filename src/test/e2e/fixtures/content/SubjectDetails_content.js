@@ -7,7 +7,7 @@ module.exports = {
     textOnPage1:'Day',
     textOnPage2:'Month',
     textOnPage3:'Year',
-    name: 'AutoTesting Tester',
+    name: 'Subject AutoTesting',
     dayOfBirth:'1',
     monthOfBirth:'1',
     yearOfBirth:'2000',

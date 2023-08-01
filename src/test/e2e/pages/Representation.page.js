@@ -7,15 +7,14 @@ module.exports = {
   representationNo: '#representation-2',
   continueButton: '#main-form-submit',
 
- checkPageLoads() {
-    I.waitForText(representation.pageTitle);
-    I.waitForText(representation.textOnPage1);
-    I.waitForText(representation.textOnPage2);
+ async checkPageLoads() {
+    await I.waitForText(representation.pageTitle);
+    I.see(representation.textOnPage1);
+    I.see(representation.textOnPage2);
     },
 
-  fillInFields() {
-    I.click(this.representationYes);
+   async fillInFields() {
+    await I.click(this.representationYes);
     I.click(this.continueButton);
-    I.waitForNavigation();
   },
 };

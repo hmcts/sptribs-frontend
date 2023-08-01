@@ -4,7 +4,7 @@ module.exports = {
     subHeading1:'Email address',
     subHeading2:'Contact number',
     textOnPage2:'I agree to be contacted about this case using the details I have provided',
-    emailAddress: 'AutoTest@mail.com',
+    emailAddress: 'AutoTestSubject@mail.com',
     contactNumber:'01234567891',
     button:'Continue',
  };
