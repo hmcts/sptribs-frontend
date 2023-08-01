@@ -11,23 +11,22 @@ module.exports = {
 
   continueButton: '#main-form-submit',
 
- checkPageLoads() {
-    I.waitForText(subjectDetails.pageTitle);
-    I.waitForText(subjectDetails.hintText1);
-    I.waitForText(subjectDetails.subHeading1);
-    I.waitForText(subjectDetails.subHeading2);
-    I.waitForText(subjectDetails.hintText2);
-    I.waitForText(subjectDetails.textOnPage1);
-    I.waitForText(subjectDetails.textOnPage2);
-    I.waitForText(subjectDetails.textOnPage3);
+ async checkPageLoads() {
+    await I.waitForText(subjectDetails.pageTitle);
+    I.see(subjectDetails.hintText1);
+    I.see(subjectDetails.subHeading1);
+    I.see(subjectDetails.subHeading2);
+    I.see(subjectDetails.hintText2);
+    I.see(subjectDetails.textOnPage1);
+    I.see(subjectDetails.textOnPage2);
+    I.see(subjectDetails.textOnPage3);
     },
 
-  fillInFields() {
+  async fillInFields() {
     I.fillField(this.fields.fullName, subjectDetails.name);
     I.fillField(this.fields.dayOfBirth, subjectDetails.dayOfBirth);
     I.fillField(this.fields.monthOfBirth, subjectDetails.monthOfBirth);
     I.fillField(this.fields.yearOfBirth, subjectDetails.yearOfBirth);
-    I.click(this.continueButton);
-    I.waitForNavigation();
+    await I.click(this.continueButton);
   },
 };

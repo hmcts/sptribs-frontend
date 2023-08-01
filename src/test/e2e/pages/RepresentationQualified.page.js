@@ -8,15 +8,14 @@ module.exports = {
   continueButton: '#main-form-submit',
 
  async checkPageLoads() {
-    await I.waitForText(representation.pageTitle);
+    await I.waitForText(representationQualified.pageTitle);
     I.see(representationQualified.hintMessage);
     I.see(representationQualified.textOnPage1);
     I.see(representationQualified.textOnPage2);
     },
 
-  fillInFields() {
-    I.click(this.qualifiedYes);
+  async fillInFields() {
+    await I.click(this.qualifiedYes);
     I.click(this.continueButton);
-    I.waitForNavigation();
   },
 };
