@@ -52,9 +52,9 @@ module.exports = {
   },
 
   async checkValidInfoAllFields() {
-    const pdfFileName = 'mockFile.pdf';
-    const wordFileName = 'mockFile.docx';
-    const txtFileName = 'mockFile.txt';
+    const pdfFileName = config.testPdfFile.split('/').pop();
+    const wordFileName = config.testWordFile.split('/').pop();
+    const txtFileName = config.testFile.split('/').pop();
     const yesElements = locate('//*[contains(text(), "Yes")]');
 
     I.see(subjectDetails.name);
