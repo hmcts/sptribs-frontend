@@ -16,6 +16,7 @@ Scenario(
     uploadAppealForm,
     uploadSupportingDocuments,
     uploadOtherInformation,
+    checkYourAnswersPage,
 
     //dateofbirth,
     //addresswithpostcode,
@@ -47,7 +48,9 @@ Scenario(
     await uploadSupportingDocuments.uploadDocumentsSection();
     await uploadOtherInformation.checkPageLoads();
     await uploadOtherInformation.uploadDocumentsSection();
-    await I.click('button[name="opt-out-button"]');
+    await I.click('button[name="opt-out-button"]'); // opt out of PCQ
+    checkYourAnswersPage.checkPageLoads();
+    checkYourAnswersPage.checkValidInfoAllFields();
 
 
     // await dateofbirth.dateSelection('10', '10', '2020');
