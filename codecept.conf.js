@@ -39,7 +39,7 @@ exports.config = {
   },
   helpers: {
     Puppeteer: {
-      show: true,
+      show: process.env.SHOW_BROWSER_WINDOW || false,
       waitForTimeout: parseInt(process.env.WAIT_FOR_TIMEOUT || '20000'),
       chrome: {
         ignoreHTTPSErrors: true,
@@ -78,7 +78,7 @@ exports.config = {
     uploadAppealForm: './src/test/e2e/pages/UploadAppealForm.page.js',
     uploadSupportingDocuments: './src/test/e2e/pages/UploadSupportingDocuments.page.js',
     uploadOtherInformation: './src/test/e2e/pages/UploadOtherInformation.page.js',
-
+    checkYourAnswersPage: './src/test/e2e/pages/CheckYourAnswers.page.js',
 
     uploadfilepage: './src/test/e2e/pages/UploadDocuments.page.js',
     statementoftruth: './src/test/e2e/pages/StatementOfTruth.page.js',
