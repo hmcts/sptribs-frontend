@@ -1,4 +1,5 @@
 const ContactPreferencePage = require("../pages/ContactPreference.page");
+const { I } = inject();
 
 Feature('Create application @e2e-tests');
 
@@ -44,6 +45,9 @@ Scenario(
     await uploadAppealForm.uploadDocumentsSection();
     await uploadSupportingDocuments.checkPageLoads();
     await uploadSupportingDocuments.uploadDocumentsSection();
+    await uploadOtherInformation.checkPageLoads();
+    await uploadOtherInformation.uploadDocumentsSection();
+    await I.click('button[name="opt-out-button"]');
 
 
     // await dateofbirth.dateSelection('10', '10', '2020');
