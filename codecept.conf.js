@@ -79,16 +79,6 @@ exports.config = {
     uploadSupportingDocuments: './src/test/e2e/pages/UploadSupportingDocuments.page.js',
     uploadOtherInformation: './src/test/e2e/pages/UploadOtherInformation.page.js',
     checkYourAnswersPage: './src/test/e2e/pages/CheckYourAnswers.page.js',
-
-    uploadfilepage: './src/test/e2e/pages/UploadDocuments.page.js',
-    statementoftruth: './src/test/e2e/pages/StatementOfTruth.page.js',
-    determineapplicantrole:'./src/test/e2e/pages/DetermineApplicantRole.page.js',
-    contactpreferencepage: './src/test/e2e/pages/ContactPreference.page.js',
-    additiondocumentpage: './src/test/e2e/pages/AdditionalDocuments.page.js',
-    emailaddresspage: './src/test/e2e/pages/EmailAddress.page.js',
-    contactnumber: './src/test/e2e/pages/ContactNumbers.page.js',
-    checkyouranswerspage: './src/test/e2e/pages/CheckYourAnswers.page.js',
-    thankyoupage: './src/test/e2e/pages/ThankYou.page.js'
   },
   plugins: {
     retryFailedStep: {
