@@ -12,7 +12,7 @@
         "representation": "Representation",
         "documents": "Appeal forms",
         "supportingDocuments": "Supporting documents",
-        "otherInformation": "Other Information"
+        "otherInformation": "Additional information"
       },
       "keys": {
         "fullName": "Full name",
@@ -27,7 +27,9 @@
         "representativeEmailAddress": "Email address",
         "appealDocuments": "List of forms uploaded (Appeal form)",
         "supportingDocuments": "List of supporting documents uploaded",
-        "otherInformation": "List of other documents uploaded"
+        "otherInformation": "List of other documents uploaded",
+        "additionalInformation": "Additional information",
+        "documentRelevance": "Document relevance"
       }
     },
     "cy": {
@@ -42,7 +44,7 @@
         "representation": "Representation - welsh ",
         "documents": "Appeal forms - welsh ",
         "supportingDocuments": "Supporting documents - welsh ",
-        "otherInformation": "Other Information - welsh "
+        "otherInformation": "Additional information - welsh "
       },
       "keys": {
         "fullName": "Full name - welsh ",
@@ -56,7 +58,9 @@
         "representativeContactNumber": "Contact number - welsh ",
         "representativeEmailAddress": "Email address - welsh ",
         "appealDocuments": "List of forms uploaded (Appeal form) - welsh ",
-        "supportingDocuments": "List of supporting documents uploaded - welsh "
+        "supportingDocuments": "List of supporting documents uploaded - welsh ",
+        "additionalInformation": "Additional information - welsh ",
+        "documentRelevance": "Document relevance - welsh "
       }
     }
   },

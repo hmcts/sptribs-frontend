@@ -341,7 +341,8 @@ describe('Other information > check-your-answers', () => {
   describe('OtherInformationSummary', () => {
     test.each([
       {
-        userCase: [{ fileName: 'a.txt' }, { fileName: 'b.txt' }],
+        otherDocument: [{ fileName: 'a.txt' }, { fileName: 'b.txt' }],
+        userCase: mockUserCase3,
         expected: {
           rows: [
             {
@@ -361,8 +362,8 @@ describe('Other information > check-your-answers', () => {
           title: 'Applicant details',
         },
       },
-    ])('return correct summary list items when %#', ({ userCase, expected }) => {
-      expect(OtherInformationSummary(enContent, userCase)).not.toBe(expected);
+    ])('return correct summary list items when %#', ({ otherDocument, userCase, expected }) => {
+      expect(OtherInformationSummary(enContent, otherDocument, userCase)).not.toBe(expected);
     });
   });
 });
@@ -393,6 +394,37 @@ describe('Form Summary > check-your-answers', () => {
       },
     ])('return correct summary list items when %#', ({ userCase, expected }) => {
       expect(UploadAppealFormSummary(enContent, userCase)).not.toBe(expected);
+    });
+  });
+});
+
+describe('Other information > check-your-answers no documents', () => {
+  describe('OtherInformationSummary', () => {
+    test.each([
+      {
+        documents: [],
+        userCase: mockUserCase3,
+        expected: {
+          rows: [
+            {
+              actions: {
+                items: [
+                  {
+                    href: '/full-name',
+                    text: 'change',
+                    visuallyHiddenText: 'Subject’s name',
+                  },
+                ],
+              },
+              key: { text: 'Subject’s name' },
+              value: { text: 'FirstName LastName' },
+            },
+          ],
+          title: 'Applicant details',
+        },
+      },
+    ])('return correct summary list items when %#', ({ documents, userCase, expected }) => {
+      expect(OtherInformationSummary(enContent, documents, userCase)).not.toBe(expected);
     });
   });
 });

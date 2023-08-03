@@ -273,7 +273,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
               };
               try {
                 const RequestDocument = await this.UploadDocumentInstance(CASE_API_URL, Headers).post(
-                  '/doc/dss-orhestration/upload?caseTypeOfApplication=CIC',
+                  '/doc/dss-orchestration/upload?caseTypeOfApplication=CIC',
                   formData,
                   {
                     headers: {
