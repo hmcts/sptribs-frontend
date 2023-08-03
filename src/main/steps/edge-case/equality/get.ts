@@ -17,7 +17,9 @@ import { createToken } from './createToken';
 export default class PCQGetController {
   public async get(req: AppRequest, res: Response): Promise<void> {
     const pcqUrl: string = config.get('services.equalityAndDiversity.url');
-    const pcqEnabled: boolean = JSON.parse(config.get('services.equalityAndDiversity.enabled'));
+    const pcqEnabledTemp: string = JSON.stringify(config.get('services.equalityAndDiversity.enabled'));
+    const pcqEnabled: boolean = JSON.parse(pcqEnabledTemp);
+
     const ageCheckValue = this.calculateAgeCheckParam(req.session.userCase.subjectDateOfBirth);
     if (pcqEnabled && !req.session.userCase.pcqId && ageCheckValue !== 0) {
       try {
