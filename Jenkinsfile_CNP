@@ -45,7 +45,7 @@ withPipeline(type, product, component) {
     yarnBuilder.yarn('build')
   }
   before('functionalTest:preview') {
-    env.SPTRIBS_FRONTEND_URL = "https://sptribs-frontend.demo.platform.hmcts.net/" // TODO: change back to https://sptribs-frontend-pr-${CHANGE_ID}.preview.platform.hmcts.net/?edgecaseType=CIC when env fixed
+    env.SPTRIBS_FRONTEND_URL = "https://sptribs-frontend-pr-${CHANGE_ID}.preview.platform.hmcts.net/?edgecaseType=CIC"
   }
 
   afterAlways('functionalTest:preview') {
