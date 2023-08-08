@@ -1,6 +1,7 @@
 const { I } = inject();
 
 const config = require('../config.js');
+const pa11yHelper = require('../helpers/pa11y_helper.js');
 const CheckYourAnswers = require('../fixtures/content/CheckYourAnswers_content');
 const subjectDetails = require('../fixtures/content/SubjectDetails_content');
 const subjectContactDetails = require('../fixtures/content/SubjectContactDetails_content');
@@ -49,6 +50,7 @@ module.exports = {
     I.see(CheckYourAnswers.textonpage15);
     I.see(CheckYourAnswers.subtitle7);
     I.see(CheckYourAnswers.textonpage16);
+    pa11yHelper.runPa11yCheck();
   },
 
   async checkValidInfoAllFields() {

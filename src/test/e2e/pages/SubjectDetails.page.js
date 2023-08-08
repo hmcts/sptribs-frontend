@@ -1,5 +1,6 @@
 const { I } = inject();
 const subjectDetails = require('../fixtures/content/SubjectDetails_content');
+const pa11yHelper = require('../helpers/pa11y_helper.js');
 
 module.exports = {
   fields: {
@@ -20,6 +21,7 @@ module.exports = {
     I.see(subjectDetails.textOnPage1);
     I.see(subjectDetails.textOnPage2);
     I.see(subjectDetails.textOnPage3);
+    pa11yHelper.runPa11yCheck();
     },
 
   async fillInFields() {

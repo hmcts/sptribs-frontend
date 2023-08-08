@@ -1,5 +1,6 @@
 const { I } = inject();
 const representativeDetails = require('../fixtures/content/RepresentativeDetails_content');
+const pa11yHelper = require('../helpers/pa11y_helper.js');
 
 module.exports = {
   fields: {
@@ -19,6 +20,7 @@ module.exports = {
     I.see(representativeDetails.subHeading2);
     I.see(representativeDetails.subHeading3);
     I.see(representativeDetails.subHeading4);
+    pa11yHelper.runPa11yCheck();
     },
 
   async fillInFields() {

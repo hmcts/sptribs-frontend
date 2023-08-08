@@ -1,6 +1,7 @@
 const { I } = inject();
 const config = require('../config.js');
 const UploadOtherInfo = require('../fixtures/content/UploadOtherInformation_content');
+const pa11yHelper = require('../helpers/pa11y_helper.js');
 
 module.exports = {
   fields: {
@@ -37,6 +38,7 @@ async checkPageLoads() {
     I.see(UploadOtherInfo.textonpage17);
     I.see(UploadOtherInfo.subTitle3);
     I.see(UploadOtherInfo.textonpage18);
+    pa11yHelper.runPa11yCheck();
     },
 
 async uploadDocumentsSection() {

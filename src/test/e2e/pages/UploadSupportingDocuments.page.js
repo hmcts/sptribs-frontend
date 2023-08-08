@@ -1,6 +1,7 @@
 const { I } = inject();
 const config = require('../config.js');
 const UploadSupportingDocuments = require('../fixtures/content/UploadSupportingDocuments_content');
+const pa11yHelper = require('../helpers/pa11y_helper.js');
 
 module.exports = {
   fields: {
@@ -29,5 +30,6 @@ async uploadDocumentsSection() {
     await I.waitForElement(UploadSupportingDocuments.fileUploadedSuccess, 10);
     I.see(UploadSupportingDocuments.deleteButton);
     I.click(this.continueButton);
+    pa11yHelper.runPa11yCheck();
   },
 };

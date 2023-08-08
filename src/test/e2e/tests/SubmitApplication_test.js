@@ -1,9 +1,9 @@
 const { I } = inject();
 
-Feature('Create application @e2e-tests');
+Feature('Create application @e2e-tests').retry(1);
 
 Scenario(
-  'Create an application with all details, a representative, additional information, no PCQ, and submit.',
+  'Create an application with all details, a representative, additional information, no PCQ, and submit, pa11y test as it goes along.',
   async ({
     landingPage,
     loginPage,
@@ -18,6 +18,7 @@ Scenario(
     checkYourAnswersPage,
   }) => {
     await landingPage.seeTheLandingPage();
+    await landingPage.continueOn();
     await loginPage.SignInUser();
     await subjectDetailsPage.checkPageLoads();
     await subjectDetailsPage.fillInFields();

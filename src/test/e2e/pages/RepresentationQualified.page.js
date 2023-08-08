@@ -1,5 +1,6 @@
 const { I } = inject();
 const representationQualified = require('../fixtures/content/RepresentationQualified_content');
+const pa11yHelper = require('../helpers/pa11y_helper.js');
 
 module.exports = {
 
@@ -17,5 +18,6 @@ module.exports = {
   async fillInFields() {
     await I.click(this.qualifiedYes);
     I.click(this.continueButton);
+    pa11yHelper.runPa11yCheck();
   },
 };

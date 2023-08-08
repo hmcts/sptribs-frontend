@@ -1,6 +1,7 @@
 const { I } = inject();
 const config = require('../config.js');
 const UploadAppealForm = require('../fixtures/content/UploadAppealForm_content');
+const pa11yHelper = require('../helpers/pa11y_helper.js');
 
 module.exports = {
   fields: {
@@ -22,6 +23,7 @@ async checkPageLoads() {
     I.see(UploadAppealForm.textonpage6);
     I.see(UploadAppealForm.textonpage7);
     I.see(UploadAppealForm.textonpage8);
+    pa11yHelper.runPa11yCheck();
     },
 
 async uploadDocumentsSection() {
