@@ -5,5 +5,6 @@ Feature('Smoke tests @smoke-tests @cross-browser ').retry(1);
 Scenario('Sign in as citizen and create a case', async ({ loginPage, landingPage }) => {
 
   await landingPage.seeTheLandingPage();
+  await landingPage.continueOn();
   await loginPage.SignInUser();
 });
