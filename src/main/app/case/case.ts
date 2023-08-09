@@ -51,6 +51,8 @@ export interface Case {
   representativeContactNumber: string;
   representativeEmailAddress: string;
   pcqId: string;
+  documentRelevance: string;
+  additionalInformation: string;
 }
 
 export interface CaseWithId extends Case {

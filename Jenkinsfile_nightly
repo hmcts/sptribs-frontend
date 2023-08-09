@@ -21,7 +21,6 @@ def component = "frontend"
 // SAUCELABS config - configured on Jenkins
 env.SAUCE_USERNAME = 'username'
 env.SAUCE_ACCESS_KEY = 'privatekey'
-//env.SAUCE_TUNNEL_IDENTIFIER = 'reformtunnel'
 
 def yarnBuilder = new uk.gov.hmcts.contino.YarnBuilder(this)
 
@@ -53,11 +52,7 @@ withNightlyPipeline(type, product, component) {
   env.TEST_URL = "https://sptribs-frontend.aat.platform.hmcts.net/?edgecaseType=CIC"
   env.SPTRIBS_FRONTEND_URL = params.FRONTEND_URL
   enableCrossBrowserTest(60)
-  //enableFullFunctionalTest(120)
   loadVaultSecrets(secrets)
-  //  enablePactAs([ AppPipelineDsl.PactRoles.CONSUMER ])
-  //  enableFortifyScan()
-  //  enableSecurityScan()
 
 after('test') {
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'coverage/**/*'
@@ -68,13 +63,5 @@ after('test') {
   }
   after('crossBrowserTest') {
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
-  }
-
-  before('fullFunctionalTest') {
-    env.PARALLEL_CHUNKS = params.FUNCTIONAL_TESTS_WORKERS
-  }
-
-  after('fullFunctionalTest') {
-    archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
   }
 }

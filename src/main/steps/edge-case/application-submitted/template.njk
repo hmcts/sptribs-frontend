@@ -12,19 +12,19 @@
                             titleText: title,
                             html: referenceNumber
                         })
-                    }}    
-                                       
+                    }}
+
                     <p class="govuk-body">{{ line1 }}</p>
-                    <p class="govuk-body">{{ line2 }}</p>                  
-                    {{  govukNotificationBanner({   
-                        titleText: "Feedback",                      
+                    <p class="govuk-body">{{ line2 }}</p>
+                    {{  govukNotificationBanner({
+                        titleText: "Feedback",
                         html: line3                        })
-                    }} 
+                    }}
                      {{ govukButton({
-                        text: "Close and return to case details",      
+                        text: "Close and exit",
                         href: "/login",
                         classes: "govuk-!-margin-bottom-0"
-                    }) }}                
+                    }) }}
                 </form>
             </div>
         </div>
