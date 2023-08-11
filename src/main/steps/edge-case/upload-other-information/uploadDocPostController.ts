@@ -124,11 +124,11 @@ export class FileValidations {
    * @returns
    */
   static sizeValidation = (mimeType: string, fileSize: number): boolean => {
-    const KbsInMBS =
+    const bytesInBytes =
       mimeType.startsWith('audio/') || mimeType.startsWith('video/')
-        ? Number(config.get('documentUpload.validation.multimediaSizeInKB'))
-        : Number(config.get('documentUpload.validation.sizeInKB'));
-    if (fileSize <= KbsInMBS) {
+        ? Number(config.get('documentUpload.validation.multimediaSizeInBytes'))
+        : Number(config.get('documentUpload.validation.sizeInBytes'));
+    if (fileSize <= bytesInBytes) {
       return true;
     } else {
       return false;
