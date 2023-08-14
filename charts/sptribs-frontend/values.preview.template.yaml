@@ -5,6 +5,7 @@ nodejs:
 
   environment:
       CASE_API_URL: 'https://sptribs-case-api-pr-1133.preview.platform.hmcts.net'
+      EQUALITY_URL: 'https://pcq.aat.platform.hmcts.net'
 
 idam-pr:
   enabled: true
