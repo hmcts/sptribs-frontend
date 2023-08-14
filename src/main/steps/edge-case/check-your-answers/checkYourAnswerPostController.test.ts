@@ -74,7 +74,7 @@ describe('Submit case controller', () => {
         await controller.post(req, res);
       } catch (err) {
         //eslint-disable-next-line jest/no-conditional-expect
-        expect(err).not.toBe('MOCK_ERROR');
+        expect(err).toBe('MOCK_ERROR');
       }
     });
   });
