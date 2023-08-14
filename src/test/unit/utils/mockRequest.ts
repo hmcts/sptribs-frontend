@@ -8,6 +8,7 @@ export const mockRequest = ({
   userCase = {},
   appLocals = {},
   query = {},
+  fileErrors = [],
 } = {}): AppRequest =>
   ({
     headers: { 'accept-language': 'en', ...headers },
@@ -39,6 +40,7 @@ export const mockRequest = ({
       },
       save: jest.fn(done => done()),
       destroy: jest.fn(done => done()),
+      fileErrors,
       ...session,
     },
     app: {
