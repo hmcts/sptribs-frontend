@@ -24,6 +24,17 @@ module.exports = {
     pa11yHelper.runPa11yCheck();
     },
 
+  async triggerErrorMessages() {
+    await I.waitForText(subjectDetails.pageTitle);
+    await I.click(this.continueButton);
+    await I.see(subjectDetails.errorBanner);
+    I.see(subjectDetails.fullNameError, { xpath: "//a[contains(text(), '" + subjectDetails.fullNameError + "')]" });
+    I.see(subjectDetails.fullNameError, { xpath: "//p[@id='subjectFullName-error' and contains(., '" + subjectDetails.fullNameError + "')]" });
+    I.see(subjectDetails.dateOfBirthError, { xpath: "//a[contains(text(), '" + subjectDetails.dateOfBirthError + "')]" });
+    I.see(subjectDetails.dateOfBirthError, { xpath: "//p[@id='subjectDateOfBirth-error' and contains(., '" + subjectDetails.dateOfBirthError + "')]" });
+  },
+
+
   async fillInFields() {
     I.fillField(this.fields.fullName, subjectDetails.name);
     I.fillField(this.fields.dayOfBirth, subjectDetails.dayOfBirth);
