@@ -20,9 +20,9 @@ Scenario(
     await landingPage.continueOn();
     await loginPage.SignInUser();
     await subjectDetailsPage.triggerErrorMessages();
-//    await subjectDetailsPage.fillInFields();
-//    await subjectContactDetailsPage.checkPageLoads();
-//    await subjectContactDetailsPage.fillInFields();
+    await subjectDetailsPage.fillInFields();
+    await subjectContactDetailsPage.triggerErrorMessages();
+    await subjectContactDetailsPage.fillInFields();
 //    await representationPage.checkPageLoads();
 //    await representationPage.fillInFields();
 //    await representationQualifiedPage.checkPageLoads();

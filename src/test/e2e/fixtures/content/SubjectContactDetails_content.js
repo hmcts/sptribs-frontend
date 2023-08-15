@@ -7,4 +7,10 @@ module.exports = {
     emailAddress: 'AutoTestSubject@mail.com',
     contactNumber:'01234567891',
     button:'Continue',
+    errorBanner:'There is a problem',
+    validEmailError:'Please enter a valid email address',
+    partEmailEntry:'test@test',
+    partEmailError:'Every email address consists of 3 elements: local-part, @ symbol (pronounced as “at”), and a domain name',
+    validContactNumberError:'Please enter a valid contact number',
+    agreeError:'Please agree to be contacted using the details provided to continue',
  };
