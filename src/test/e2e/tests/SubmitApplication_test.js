@@ -1,38 +1,43 @@
-const ContactPreferencePage = require("../pages/ContactPreference.page");
+const { I } = inject();
 
 Feature('Create application @e2e-tests').retry(1);
 
 Scenario(
-  'Create full application and submit',
+  'Create an application with all details, a representative, additional information, no PCQ, and submit, pa11y test as it goes along.',
   async ({
-    loginPage,
     landingPage,
-    //applytoapplicantpage,
-    //dateofbirth,
-    //addresswithpostcode,
-    //uploadfilepage,
-    //determineapplicantrole,
-    //statementoftruth,
-    //contactpreferencepage,
-    //additiondocumentpage,
-    //emailaddresspage,
-    //checkyouranswerspage,
-    //contactnumber,
-    //thankyoupage,
+    loginPage,
+    subjectDetailsPage,
+    subjectContactDetailsPage,
+    representationPage,
+    representationQualifiedPage,
+    representativeDetailsPage,
+    uploadAppealForm,
+    uploadSupportingDocuments,
+    uploadOtherInformation,
+    checkYourAnswersPage,
   }) => {
     await landingPage.seeTheLandingPage();
+    await landingPage.continueOn();
     await loginPage.SignInUser();
-    // await determineapplicantrole.DetermineApplicant(true);
-    // await applytoapplicantpage.applicantFullnames();
-    // await dateofbirth.dateSelection('10', '10', '2020');
-    // await addresswithpostcode.PostCodeLookUpAndSelect();
-    // await contactpreferencepage.contactPreference();
-    // await emailaddresspage.emailAddress();
-    // await contactnumber.EnterHomeAndMobileNo('4423232323232', '4423232323232');
-    //await uploadfilepage.uploadDocumentsSection();
-    //await additiondocumentpage.uploadDocumentsSection();
-    //await checkyouranswerspage.checkyouranswers();
-    //await statementoftruth.statementOfTruth();
-    //await thankyoupage.applicationsubmission();
+    await subjectDetailsPage.checkPageLoads();
+    await subjectDetailsPage.fillInFields();
+    await subjectContactDetailsPage.checkPageLoads();
+    await subjectContactDetailsPage.fillInFields();
+    await representationPage.checkPageLoads();
+    await representationPage.fillInFields();
+    await representationQualifiedPage.checkPageLoads();
+    await representationQualifiedPage.fillInFields();
+    await representativeDetailsPage.checkPageLoads();
+    await representativeDetailsPage.fillInFields();
+    await uploadAppealForm.checkPageLoads();
+    await uploadAppealForm.uploadDocumentsSection();
+    await uploadSupportingDocuments.checkPageLoads();
+    await uploadSupportingDocuments.uploadDocumentsSection();
+    await uploadOtherInformation.checkPageLoads();
+    await uploadOtherInformation.uploadDocumentsSection();
+    await I.click('button[name="opt-out-button"]'); // opt out of PCQ
+    checkYourAnswersPage.checkPageLoads();
+    checkYourAnswersPage.checkValidInfoAllFields();
   }
 );
