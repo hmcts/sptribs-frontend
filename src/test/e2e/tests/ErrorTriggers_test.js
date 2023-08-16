@@ -1,6 +1,6 @@
 const { I } = inject();
 
-Feature('Trigger errors @e2e-tests');
+Feature('Trigger errors @e2e-tests').retry(1);
 
 Scenario(
   'Run through the entire application and check all error messaging',
@@ -23,8 +23,8 @@ Scenario(
     await subjectDetailsPage.fillInFields();
     await subjectContactDetailsPage.triggerErrorMessages();
     await subjectContactDetailsPage.fillInFields();
-//    await representationPage.checkPageLoads();
-//    await representationPage.fillInFields();
+    await representationPage.triggerErrorMessages();
+    await representationPage.fillInFields();
 //    await representationQualifiedPage.checkPageLoads();
 //    await representationQualifiedPage.fillInFields();
 //    await representativeDetailsPage.checkPageLoads();

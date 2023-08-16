@@ -15,6 +15,14 @@ module.exports = {
     pa11yHelper.runPa11yCheck();
     },
 
+  async triggerErrorMessages() {
+      await I.waitForText(representation.pageTitle);
+      await I.click(this.continueButton);
+      await I.waitForText(representation.errorBanner);
+      I.see(representation.selectionError, { xpath: "//a[contains(text(), '" + representation.selectionError + "')]" });
+      I.see(representation.selectionError, { xpath: "//p[@id='representation-error' and contains(., '" + representation.selectionError + "')]" });
+    },
+
    async fillInFields() {
     await I.click(this.representationYes);
     I.click(this.continueButton);

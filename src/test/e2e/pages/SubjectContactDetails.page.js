@@ -23,7 +23,7 @@ module.exports = {
   async triggerErrorMessages() {
       await I.waitForText(subjectDetails.pageTitle);
       await I.click(this.continueButton);
-      await I.see(subjectDetails.errorBanner);
+      await I.waitForText(subjectDetails.errorBanner);
       I.see(subjectDetails.validEmailError, { xpath: "//a[contains(text(), '" + subjectDetails.validEmailError + "')]" });
       I.see(subjectDetails.validEmailError, { xpath: "//p[@id='subjectEmailAddress-error' and contains(., '" + subjectDetails.validEmailError + "')]" });
       I.see(subjectDetails.validContactNumberError, { xpath: "//a[contains(text(), '" + subjectDetails.validContactNumberError + "')]" });
@@ -31,7 +31,7 @@ module.exports = {
       I.see(subjectDetails.agreeError, { xpath: "//a[contains(text(), '" + subjectDetails.agreeError + "')]" });
       I.fillField(this.fields.email, subjectDetails.partEmailEntry);
       await I.click(this.continueButton);
-      await I.see(subjectDetails.partEmailError, { xpath: "//a[contains(text(), '" + subjectDetails.partEmailError + "')]" });
+      await I.waitForText(subjectDetails.partEmailError, { xpath: "//a[contains(text(), '" + subjectDetails.partEmailError + "')]" });
       I.see(subjectDetails.partEmailError, { xpath: "//p[@id='subjectEmailAddress-error' and contains(., '" + subjectDetails.partEmailError + "')]" });
       await I.clearField(this.fields.email)
     },
