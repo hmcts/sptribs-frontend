@@ -27,6 +27,8 @@ Scenario(
     await representationPage.fillInFields();
     await representationQualifiedPage.triggerErrorMessages();
     await representationQualifiedPage.fillInFields();
+    await representativeDetailsPage.triggerErrorMessages();
+    await representativeDetailsPage.fillInFields();
 //    await representativeDetailsPage.checkPageLoads();
 //    await representativeDetailsPage.fillInFields();
 //    await uploadAppealForm.checkPageLoads();

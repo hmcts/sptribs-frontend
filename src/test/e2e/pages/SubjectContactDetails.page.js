@@ -33,7 +33,7 @@ module.exports = {
       await I.click(this.continueButton);
       await I.waitForText(subjectDetails.partEmailError, { xpath: "//a[contains(text(), '" + subjectDetails.partEmailError + "')]" });
       I.see(subjectDetails.partEmailError, { xpath: "//p[@id='subjectEmailAddress-error' and contains(., '" + subjectDetails.partEmailError + "')]" });
-      await I.clearField(this.fields.email)
+      I.clearField(this.fields.email)
     },
 
   async fillInFields() {

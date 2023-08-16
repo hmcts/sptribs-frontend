@@ -11,4 +11,12 @@ module.exports = {
     contactNumber:'01234567891',
     emailAddress: 'AutoTestRepresentative@mail.com',
     button:'Continue',
+    errorBanner:'There is a problem',
+    fullNameError: 'Please enter full name',
+    organisationNameError: 'Please enter organisation or business name',
+    validEmailError:'Please enter a valid email address',
+    partEmailEntry:'test@test',
+    partEmailError:'Every email address consists of 3 elements: local-part, @ symbol (pronounced as “at”), and a domain name',
+    validContactNumberError:'Please enter a valid contact number',
+    agreeError:'Please agree to be contacted using the details provided to continue',
  };

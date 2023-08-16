@@ -12,7 +12,7 @@ module.exports = {
 
   continueButton: '#main-form-submit',
 
- async checkPageLoads() {
+  async checkPageLoads() {
     await I.waitForText(representativeDetails.pageTitle);
     I.see(representativeDetails.textOnPage1);
     I.see(representativeDetails.textOnPage2);
@@ -21,7 +21,26 @@ module.exports = {
     I.see(representativeDetails.subHeading3);
     I.see(representativeDetails.subHeading4);
     pa11yHelper.runPa11yCheck();
-    },
+  },
+
+  async triggerErrorMessages() {
+    await I.waitForText(representativeDetails.pageTitle);
+    await I.click(this.continueButton);
+    await I.waitForText(representativeDetails.errorBanner, '.govuk-error-summary__title');
+    I.see(representativeDetails.fullNameError, { xpath: "//a[contains(text(), '" + representativeDetails.fullNameError + "')]" });
+    I.see(representativeDetails.fullNameError, { xpath: "//p[@id='representativeFullName-error' and contains(., '" + representativeDetails.fullNameError + "')]" });
+    I.see(representativeDetails.organisationNameError, { xpath: "//a[contains(text(), '" + representativeDetails.organisationNameError + "')]" });
+    I.see(representativeDetails.organisationNameError, { xpath: "//p[@id='representativeOrganisationName-error' and contains(., '" + representativeDetails.organisationNameError + "')]" });
+    I.see(representativeDetails.validContactNumberError, { xpath: "//a[contains(text(), '" + representativeDetails.validContactNumberError + "')]" });
+    I.see(representativeDetails.validContactNumberError, { xpath: "//p[@id='representativeContactNumber-error' and contains(., '" + representativeDetails.validContactNumberError + "')]" });
+    I.see(representativeDetails.validEmailError, { xpath: "//a[contains(text(), '" + representativeDetails.validEmailError + "')]" });
+    I.see(representativeDetails.validEmailError, { xpath: "//p[@id='representativeEmailAddress-error' and contains(., '" + representativeDetails.validEmailError + "')]" });
+    I.fillField(this.fields.representativeEmailAddress, representativeDetails.partEmailEntry);
+    await I.click(this.continueButton);
+    await I.waitForText(representativeDetails.partEmailError, { xpath: "//a[contains(text(), '" + representativeDetails.partEmailError + "')]" });
+    I.see(representativeDetails.partEmailError, { xpath: "//p[@id='representativeEmailAddress-error' and contains(., '" + representativeDetails.partEmailError + "')]" });
+    I.clearField(this.fields.representativeEmailAddress)
+  },
 
   async fillInFields() {
     I.fillField(this.fields.fullName, representativeDetails.fullName);
