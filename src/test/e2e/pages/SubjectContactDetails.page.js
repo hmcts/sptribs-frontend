@@ -23,7 +23,7 @@ module.exports = {
   async triggerErrorMessages() {
       await I.waitForText(subjectDetails.pageTitle);
       await I.click(this.continueButton);
-      await I.waitForText(subjectDetails.errorBanner);
+      await I.waitForText(subjectDetails.errorBanner, '.govuk-error-summary__title');
       I.see(subjectDetails.validEmailError, { xpath: "//a[contains(text(), '" + subjectDetails.validEmailError + "')]" });
       I.see(subjectDetails.validEmailError, { xpath: "//p[@id='subjectEmailAddress-error' and contains(., '" + subjectDetails.validEmailError + "')]" });
       I.see(subjectDetails.validContactNumberError, { xpath: "//a[contains(text(), '" + subjectDetails.validContactNumberError + "')]" });

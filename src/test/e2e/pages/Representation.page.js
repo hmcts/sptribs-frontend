@@ -18,7 +18,7 @@ module.exports = {
   async triggerErrorMessages() {
       await I.waitForText(representation.pageTitle);
       await I.click(this.continueButton);
-      await I.waitForText(representation.errorBanner);
+      await I.waitForText(representation.errorBanner, '.govuk-error-summary__title');
       I.see(representation.selectionError, { xpath: "//a[contains(text(), '" + representation.selectionError + "')]" });
       I.see(representation.selectionError, { xpath: "//p[@id='representation-error' and contains(., '" + representation.selectionError + "')]" });
     },

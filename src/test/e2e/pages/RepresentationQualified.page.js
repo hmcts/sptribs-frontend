@@ -15,6 +15,14 @@ module.exports = {
     I.see(representationQualified.textOnPage2);
     },
 
+  async triggerErrorMessages() {
+    await I.waitForText(representationQualified.pageTitle);
+    await I.click(this.continueButton);
+    await I.waitForText(representationQualified.errorBanner, '.govuk-error-summary__title');
+    I.see(representationQualified.selectionError, { xpath: "//a[contains(text(), '" + representationQualified.selectionError + "')]" });
+    I.see(representationQualified.selectionError, { xpath: "//p[@id='representationQualified-error' and contains(., '" + representationQualified.selectionError + "')]" });
+  },
+
   async fillInFields() {
     await I.click(this.qualifiedYes);
     I.click(this.continueButton);

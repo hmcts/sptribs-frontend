@@ -27,7 +27,7 @@ module.exports = {
   async triggerErrorMessages() {
     await I.waitForText(subjectDetails.pageTitle);
     await I.click(this.continueButton);
-    await I.waitForText(subjectDetails.errorBanner);
+    await I.waitForText(subjectDetails.errorBanner, '.govuk-error-summary__title');
     I.see(subjectDetails.fullNameError, { xpath: "//a[contains(text(), '" + subjectDetails.fullNameError + "')]" });
     I.see(subjectDetails.fullNameError, { xpath: "//p[@id='subjectFullName-error' and contains(., '" + subjectDetails.fullNameError + "')]" });
     I.see(subjectDetails.dateOfBirthError, { xpath: "//a[contains(text(), '" + subjectDetails.dateOfBirthError + "')]" });
