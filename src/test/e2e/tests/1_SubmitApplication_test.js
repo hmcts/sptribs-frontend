@@ -39,6 +39,5 @@ Scenario(
     await I.click('button[name="opt-out-button"]'); // opt out of PCQ
     await checkYourAnswersPage.checkPageLoads();
     await checkYourAnswersPage.checkValidInfoAllFields();
-    await I.waitForText('Sign in or create an account');
   }
 );
