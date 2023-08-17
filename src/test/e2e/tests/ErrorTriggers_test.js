@@ -35,6 +35,6 @@ Scenario(
     await uploadSupportingDocuments.uploadDocumentsSection();
     await uploadOtherInformation.triggerErrorMessages();
     await uploadOtherInformation.uploadDocumentsSection();
-    await I.click('button[name="opt-out-button"]'); // opt out of PCQ
+    await I.click('button[name="opt-out-button"]'); // Just checks that it's got to this page
   }
 );
