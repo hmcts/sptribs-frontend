@@ -11,6 +11,7 @@ module.exports = {
   },
 
   continueButton: '#main-form-submit',
+  backButton: '.govuk-back-link',
 
   async checkPageLoads() {
     await I.waitForText(UploadSupportingDocuments.pageTitle);
@@ -43,5 +44,10 @@ module.exports = {
     I.see(UploadSupportingDocuments.deleteButton);
     I.click(this.continueButton);
     pa11yHelper.runPa11yCheck();
+  },
+
+  async pressBackButton() {
+    await I.waitForText(UploadSupportingDocuments.pageTitle);
+    I.click(this.backButton);
   },
 };

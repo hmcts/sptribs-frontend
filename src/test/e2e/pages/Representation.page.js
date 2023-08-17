@@ -6,6 +6,7 @@ module.exports = {
   representationYes: '#representation',
   representationNo: '#representation-2',
   continueButton: '#main-form-submit',
+  backButton: '.govuk-back-link',
 
   async checkPageLoads() {
     await I.waitForText(representation.pageTitle);
@@ -25,5 +26,10 @@ module.exports = {
   async fillInFields() {
     await I.click(this.representationYes);
     I.click(this.continueButton);
+  },
+
+  async pressBackButton() {
+    await I.waitForText(representation.pageTitle);
+    I.click(this.backButton);
   },
 };

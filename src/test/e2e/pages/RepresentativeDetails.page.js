@@ -11,6 +11,7 @@ module.exports = {
   },
 
   continueButton: '#main-form-submit',
+  backButton: '.govuk-back-link',
 
   async checkPageLoads() {
     await I.waitForText(representativeDetails.pageTitle);
@@ -48,5 +49,10 @@ module.exports = {
     I.fillField(this.fields.representativeContactNumber, representativeDetails.contactNumber);
     I.fillField(this.fields.representativeEmailAddress, representativeDetails.emailAddress);
     await I.click(this.continueButton);
+  },
+
+  async pressBackButton() {
+    await I.waitForText(representativeDetails.pageTitle);
+    I.click(this.backButton);
   },
 };

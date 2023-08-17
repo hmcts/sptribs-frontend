@@ -7,6 +7,7 @@ module.exports = {
   qualifiedYes: '#representationQualified',
   qualifiedNo: '#representationQualified-2',
   continueButton: '#main-form-submit',
+  backButton: '.govuk-back-link',
 
   async checkPageLoads() {
     await I.waitForText(representationQualified.pageTitle);
@@ -27,5 +28,10 @@ module.exports = {
     await I.click(this.qualifiedYes);
     I.click(this.continueButton);
     pa11yHelper.runPa11yCheck();
+  },
+
+  async pressBackButton() {
+    await I.waitForText(representationQualified.pageTitle);
+    I.click(this.backButton);
   },
 };

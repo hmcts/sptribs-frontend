@@ -37,7 +37,8 @@ Scenario(
     await uploadOtherInformation.checkPageLoads();
     await uploadOtherInformation.uploadDocumentsSection();
     await I.click('button[name="opt-out-button"]'); // opt out of PCQ
-    checkYourAnswersPage.checkPageLoads();
-    checkYourAnswersPage.checkValidInfoAllFields();
+    await checkYourAnswersPage.checkPageLoads();
+    await checkYourAnswersPage.checkValidInfoAllFields();
+    await I.waitForText('Sign in or create an account');
   }
 );
