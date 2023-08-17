@@ -33,10 +33,8 @@ Scenario(
     await uploadAppealForm.uploadDocumentsSection();
     await uploadSupportingDocuments.triggerErrorMessages();
     await uploadSupportingDocuments.uploadDocumentsSection();
-//    await uploadOtherInformation.checkPageLoads();
-//    await uploadOtherInformation.uploadDocumentsSection();
-//    await I.click('button[name="opt-out-button"]'); // opt out of PCQ
-//    checkYourAnswersPage.checkPageLoads();
-//    checkYourAnswersPage.checkValidInfoAllFields();
+    await uploadOtherInformation.triggerErrorMessages();
+    await uploadOtherInformation.uploadDocumentsSection();
+    await I.click('button[name="opt-out-button"]'); // opt out of PCQ
   }
 );

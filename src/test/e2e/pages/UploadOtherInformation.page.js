@@ -14,7 +14,7 @@ module.exports = {
 
   continueButton: '#main-form-submit',
 
-async checkPageLoads() {
+  async checkPageLoads() {
     await I.waitForText(UploadOtherInfo.pageTitle);
     await I.click(this.fields.dropDown);
     I.see(UploadOtherInfo.subTitle1);
@@ -39,9 +39,18 @@ async checkPageLoads() {
     I.see(UploadOtherInfo.subTitle3);
     I.see(UploadOtherInfo.textonpage18);
     pa11yHelper.runPa11yCheck();
-    },
+  },
 
-async uploadDocumentsSection() {
+  async triggerErrorMessages() {
+    await I.waitForText(UploadOtherInfo.pageTitle);
+    await I.attachFile(this.fields.uploadFileButton, config.testOdtFile)
+    await I.click(this.fields.fileUploadedOption);
+    await I.waitForText(UploadOtherInfo.errorBanner, '.govuk-error-summary__title');
+    I.see(UploadOtherInfo.fileTypeError, { xpath: "//a[contains(text(), '" + UploadOtherInfo.fileTypeError + "')]" });
+  },
+
+
+  async uploadDocumentsSection() {
     await I.attachFile(this.fields.uploadFileButton, config.testWordFile);
     await I.click(this.fields.fileUploadedOption)
     await I.waitForElement(UploadOtherInfo.fileUploadedSuccess, 10);

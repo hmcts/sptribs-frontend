@@ -12,7 +12,7 @@ module.exports = {
 
   continueButton: '#main-form-submit',
 
-async checkPageLoads() {
+  async checkPageLoads() {
     await I.waitForText(UploadAppealForm.pageTitle);
     await I.click(this.fields.dropDown);
     I.see(UploadAppealForm.textonpage1);
@@ -24,7 +24,7 @@ async checkPageLoads() {
     I.see(UploadAppealForm.textonpage7);
     I.see(UploadAppealForm.textonpage8);
     pa11yHelper.runPa11yCheck();
-    },
+  },
 
   async triggerErrorMessages() {
     await I.waitForText(UploadAppealForm.pageTitle);
@@ -38,7 +38,7 @@ async checkPageLoads() {
     I.see(UploadAppealForm.fileTypeError, { xpath: "//a[contains(text(), '" + UploadAppealForm.fileTypeError + "')]" });
   },
 
-async uploadDocumentsSection() {
+  async uploadDocumentsSection() {
     await I.attachFile(this.fields.uploadFileButton, config.testPdfFile);
     await I.click(this.fields.fileUploadedOption)
     await I.waitForElement(UploadAppealForm.fileUploadedSuccess, 10);
