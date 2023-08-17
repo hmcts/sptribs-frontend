@@ -28,4 +28,6 @@ module.exports = {
     button2:'Continue',
     fileUploadedSuccess:'li[class="uploadedFile govuk-!-padding-top-2 govuk-!-padding-bottom-3 govuk-section-break govuk-section-break--visible"]',
     deleteButton: 'Delete',
+    errorBanner:'There is a problem',
+    fileTypeError:'This service only accepts files in the formats - Ms Word, MS Excel, PDF, JPG, PNG, TXT, RTF, MP4, MP3',
 }

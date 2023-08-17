@@ -16,4 +16,5 @@ module.exports = {
   testFile: './src/test/e2e/fixtures/testFiles/mockFile.txt',
   testPdfFile: './src/test/e2e/fixtures/testFiles/mockFile.pdf',
   testWordFile: './src/test/e2e/fixtures/testFiles/mockFile.docx',
+  testOdtFile: './src/test/e2e/fixtures/testFiles/mockFile.odt',
 };

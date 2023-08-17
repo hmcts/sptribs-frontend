@@ -12,5 +12,8 @@ module.exports = {
     button:'Upload file',
     button2:'Continue',
     fileUploadedSuccess:'li[class="uploadedFile govuk-!-padding-top-2 govuk-!-padding-bottom-3 govuk-section-break govuk-section-break--visible"]',
-    deleteButton: 'Delete',
+    deleteButton:'Delete',
+    errorBanner:'There is a problem',
+    noUploadError:'You cannot continue without uploading the application',
+    fileTypeError:'This service only accepts files in the formats - Ms Word, PDF',
 }

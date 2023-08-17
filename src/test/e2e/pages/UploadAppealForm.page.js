@@ -12,7 +12,7 @@ module.exports = {
 
   continueButton: '#main-form-submit',
 
-async checkPageLoads() {
+  async checkPageLoads() {
     await I.waitForText(UploadAppealForm.pageTitle);
     await I.click(this.fields.dropDown);
     I.see(UploadAppealForm.textonpage1);
@@ -24,9 +24,21 @@ async checkPageLoads() {
     I.see(UploadAppealForm.textonpage7);
     I.see(UploadAppealForm.textonpage8);
     pa11yHelper.runPa11yCheck();
-    },
+  },
 
-async uploadDocumentsSection() {
+  async triggerErrorMessages() {
+    await I.waitForText(UploadAppealForm.pageTitle);
+    await I.click(this.continueButton);
+    await I.waitForText(UploadAppealForm.errorBanner, '.govuk-error-summary__title');
+    I.see(UploadAppealForm.noUploadError, { xpath: "//a[contains(text(), '" + UploadAppealForm.noUploadError + "')]" });
+    await I.refreshPage();
+    await I.attachFile(this.fields.uploadFileButton, config.testFile)
+    await I.click(this.fields.fileUploadedOption);
+    await I.waitForText(UploadAppealForm.errorBanner, '.govuk-error-summary__title');
+    I.see(UploadAppealForm.fileTypeError, { xpath: "//a[contains(text(), '" + UploadAppealForm.fileTypeError + "')]" });
+  },
+
+  async uploadDocumentsSection() {
     await I.attachFile(this.fields.uploadFileButton, config.testPdfFile);
     await I.click(this.fields.fileUploadedOption)
     await I.waitForElement(UploadAppealForm.fileUploadedSuccess, 10);

@@ -12,7 +12,7 @@ module.exports = {
 
   continueButton: '#main-form-submit',
 
-async checkPageLoads() {
+  async checkPageLoads() {
     await I.waitForText(UploadSupportingDocuments.pageTitle);
     await I.click(this.fields.dropDown);
     I.see(UploadSupportingDocuments.textonpage1);
@@ -22,9 +22,21 @@ async checkPageLoads() {
     I.see(UploadSupportingDocuments.textonpage5);
     I.see(UploadSupportingDocuments.textonpage6);
     I.see(UploadSupportingDocuments.textonpage7);
-    },
+  },
 
-async uploadDocumentsSection() {
+  async triggerErrorMessages() {
+    await I.waitForText(UploadSupportingDocuments.pageTitle);
+    await I.click(this.continueButton);
+    await I.waitForText(UploadSupportingDocuments.errorBanner, '.govuk-error-summary__title');
+    I.see(UploadSupportingDocuments.noUploadError, { xpath: "//a[contains(text(), '" + UploadSupportingDocuments.noUploadError + "')]" });
+    await I.refreshPage();
+    await I.attachFile(this.fields.uploadFileButton, config.testOdtFile)
+    await I.click(this.fields.fileUploadedOption);
+    await I.waitForText(UploadSupportingDocuments.errorBanner, '.govuk-error-summary__title');
+    I.see(UploadSupportingDocuments.fileTypeError, { xpath: "//a[contains(text(), '" + UploadSupportingDocuments.fileTypeError + "')]" });
+  },
+
+  async uploadDocumentsSection() {
     await I.attachFile(this.fields.uploadFileButton, config.testFile);
     await I.click(this.fields.fileUploadedOption)
     await I.waitForElement(UploadSupportingDocuments.fileUploadedSuccess, 10);
