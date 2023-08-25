@@ -1,4 +1,5 @@
 import { Application } from 'express';
+
 import { LandingController } from './controllers/landing';
 import { UpdateLandingController } from './controllers/updateLanding';
 import { Path } from './path';
