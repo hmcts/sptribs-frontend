@@ -1,6 +1,7 @@
 import { Application } from 'express';
 
 import { LandingController } from './controllers/landing';
+import { UpdateLandingController } from './controllers/updateLanding';
 import { Path } from './path';
 
 export class PublicRoutes {
@@ -10,5 +11,6 @@ export class PublicRoutes {
      */
     app.get(Path.LANDING, LandingController);
     app.get(Path.CIC_SUBMIT, LandingController);
+    app.get(Path.CIC_UPDATE, UpdateLandingController);
   }
 }
