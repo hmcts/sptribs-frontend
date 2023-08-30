@@ -22,8 +22,9 @@ export class SessionStorage {
         saveUninitialized: false,
         secret: config.get('session.secret'),
         cookie: {
-          httpOnly: true,
+          httpOnly: false,
           maxAge: cookieMaxAge,
+          secure: true,
         },
         rolling: true, // Renew the cookie for another 20 minutes on each request
         store: this.getStore(app),
