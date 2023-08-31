@@ -86,6 +86,7 @@ withPipeline(type, product, component) {
             reportName           : "Smoke Test Report"
     ]
   }
+  
   afterAlways('smoketest:aat') {
     publishHTML target: [
             allowMissing         : true,
