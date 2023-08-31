@@ -25,7 +25,7 @@ module.exports = {
 
   continueButton: '#main-form-submit',
 
-  async checkPageLoads() {
+  async checkPageLoads(pa11y_helper) {
     await I.waitForText(CheckYourAnswers.pagetitle);
     I.see(CheckYourAnswers.subtitle1);
     I.see(CheckYourAnswers.textonpage1);
@@ -50,7 +50,9 @@ module.exports = {
     I.see(CheckYourAnswers.textonpage15);
     I.see(CheckYourAnswers.subtitle7);
     I.see(CheckYourAnswers.textonpage16);
-    pa11yHelper.runPa11yCheck();
+    if (pa11y_helper === true) {
+      pa11yHelper.runPa11yCheck();
+    }
   },
 
   async checkValidInfoAllFields() {
