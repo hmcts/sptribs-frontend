@@ -75,4 +75,15 @@ withPipeline(type, product, component) {
   afterAlways('functionalTest:aat') {
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
   }
+
+  afterAlways('smoketest:preview') {
+    publishHTML target: [
+            allowMissing         : true,
+            alwaysLinkToLastBuild: true,
+            keepAll              : true,
+            reportDir            : "build/reports/tests/smoke",
+            reportFiles          : "index.html",
+            reportName           : "Smoke Test Report"
+    ]
+  }
 }
