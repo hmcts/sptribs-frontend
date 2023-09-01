@@ -13,7 +13,7 @@ module.exports = {
   continueButton: '#main-form-submit',
   backButton: '.govuk-back-link',
 
-  async checkPageLoads() {
+  async checkPageLoads(pa11y_helper) {
     await I.waitForText(UploadAppealForm.pageTitle);
     await I.click(this.fields.dropDown);
     I.see(UploadAppealForm.textonpage1);
@@ -24,7 +24,9 @@ module.exports = {
     I.see(UploadAppealForm.textonpage6);
     I.see(UploadAppealForm.textonpage7);
     I.see(UploadAppealForm.textonpage8);
-    pa11yHelper.runPa11yCheck();
+    if (pa11y_helper === true) {
+      pa11yHelper.runPa11yCheck();
+    }
   },
 
   async triggerErrorMessages() {

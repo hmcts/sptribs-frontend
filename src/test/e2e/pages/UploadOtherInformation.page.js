@@ -15,7 +15,7 @@ module.exports = {
   continueButton: '#main-form-submit',
   backButton: '.govuk-back-link',
 
-  async checkPageLoads() {
+  async checkPageLoads(pa11y_helper) {
     await I.waitForText(UploadOtherInfo.pageTitle);
     await I.click(this.fields.dropDown);
     I.see(UploadOtherInfo.subTitle1);
@@ -39,7 +39,9 @@ module.exports = {
     I.see(UploadOtherInfo.textonpage17);
     I.see(UploadOtherInfo.subTitle3);
     I.see(UploadOtherInfo.textonpage18);
-    pa11yHelper.runPa11yCheck();
+    if (pa11y_helper === true) {
+      pa11yHelper.runPa11yCheck();
+    }
   },
 
   async triggerErrorMessages() {

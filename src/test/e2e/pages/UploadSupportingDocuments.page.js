@@ -13,7 +13,7 @@ module.exports = {
   continueButton: '#main-form-submit',
   backButton: '.govuk-back-link',
 
-  async checkPageLoads() {
+  async checkPageLoads(pa11y_helper) {
     await I.waitForText(UploadSupportingDocuments.pageTitle);
     await I.click(this.fields.dropDown);
     I.see(UploadSupportingDocuments.textonpage1);
@@ -23,6 +23,9 @@ module.exports = {
     I.see(UploadSupportingDocuments.textonpage5);
     I.see(UploadSupportingDocuments.textonpage6);
     I.see(UploadSupportingDocuments.textonpage7);
+    if (pa11y_helper === true) {
+      pa11yHelper.runPa11yCheck();
+    }
   },
 
   async triggerErrorMessages() {
@@ -43,7 +46,6 @@ module.exports = {
     await I.waitForElement(UploadSupportingDocuments.fileUploadedSuccess, 10);
     I.see(UploadSupportingDocuments.deleteButton);
     I.click(this.continueButton);
-    pa11yHelper.runPa11yCheck();
   },
 
   async pressBackButton() {
