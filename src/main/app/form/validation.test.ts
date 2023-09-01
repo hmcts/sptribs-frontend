@@ -275,6 +275,7 @@ describe('Validation', () => {
   describe('isFieldLetters()', () => {
     test.each([
       { input: 'Firstname Lastname', expected: undefined },
+      { input: '<marquee>Firstname Lastname</marquee>', expected: 'invalid' },
       { input: 'Firstname Middle-Double-barrelled Lastname', expected: undefined },
       { input: "O'Firstname O’Lastname", expected: undefined },
       { input: 'Firştnåmé Midğlø Lâßtnámê', expected: undefined },
