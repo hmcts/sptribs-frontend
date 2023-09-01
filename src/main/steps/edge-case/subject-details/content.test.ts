@@ -1,5 +1,4 @@
 import { FormContent, FormFields, FormOptions } from '../../../app/form/Form';
-import { isFieldFilledIn } from '../../../app/form/validation';
 import { ResourceReader } from '../../../modules/resourcereader/ResourceReader';
 import { CommonContent } from '../../common/common.content';
 
@@ -76,7 +75,7 @@ describe('subject-details-content', () => {
     const fields = form.fields as FormFields;
     const subjectFullName = fields.subjectFullName as FormOptions;
     expect((subjectFullName.label as Function)(generatedContent)).toBe(enContent.subjectFullNameLabel);
-    expect(subjectFullName.validator).toBe(isFieldFilledIn);
+    expect((subjectFullName.validator as Function)("Firstname O'Lastname")).toBe(undefined);
   });
 
   test('should contain dateOfBirth field', () => {
@@ -124,7 +123,7 @@ it('should use cy language translation and cover happy path', () => {
   const subjectFullName = fields.subjectFullName as FormOptions;
 
   expect(generatedContent.title).toBe(enContent.title);
-  expect(subjectFullName.validator).toBe(isFieldFilledIn);
+  expect((subjectFullName.validator as Function)('Gŵŷnn Davies')).toBe(undefined);
 });
 
 it('should use en language translation and cover happy path', () => {
@@ -134,7 +133,7 @@ it('should use en language translation and cover happy path', () => {
   const subjectFullName = fields.subjectFullName as FormOptions;
 
   expect(generatedContent.section).not.toBe('Ceisydd');
-  expect(subjectFullName.validator).toBe(isFieldFilledIn);
+  expect((subjectFullName.validator as Function)('Ceisydd')).toBe(undefined);
 });
 
 it('should use en language translation and cover error block', () => {
