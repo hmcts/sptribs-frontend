@@ -97,31 +97,4 @@ withPipeline(type, product, component) {
             reportName           : "Smoke Test Report"
     ]
   }
-
-  afterAlways('checkout') {
-    builder.gradle('generateCCDConfig')
-    generateDefinitions()
-  }
-
-  onPR {
-    env.ENVIRONMENT="preview"
-    env.CASE_API_URL = "http://sptribs-case-api-pr-${CHANGE_ID}-java"
-    env.CCD_DEF_NAME = "preview"
-    env.DEFINITION_STORE_URL_BASE = "https://ccd-definition-store-sptribs-case-api-pr-${CHANGE_ID}.preview.platform.hmcts.net"
-    env.CASE_DATA_STORE_BASEURL = "https://ccd-data-store-api-sptribs-case-api-pr-${CHANGE_ID}.preview.platform.hmcts.net"
-    env.CASE_DOCUMENT_AM_BASEURL= "http://ccd-case-document-am-api-sptribs-case-api-pr-${CHANGE_ID}.preview.platform.hmcts.net"
-    env.TEST_S2S_URL = "http://rpe-service-auth-provider-aat.service.core-compute-aat.internal"
-    env.CITIZEN_UPDATE_CASE_STATE_ENABLED=true
-    env.SERVICE_AUTH_MICROSERVICE = "sptribs_case_api"
-    env.SERVICE_AUTH_PROVIDER_URL = "http://rpe-service-auth-provider-aat.service.core-compute-aat.internal"
-    env.TEST_E2E_URL = "https://xui-sptribs-case-api-pr-${CHANGE_ID}.preview.platform.hmcts.net"
-
-    setCommonEnvVariables()
-    setFeatureFlags(env.ENVIRONMENT)
-
-    def githubApi = new GithubAPI(this)
-    if (!githubApi.getLabelsbyPattern(env.BRANCH_NAME, "keep-helm")) {
-      enableCleanupOfHelmReleaseOnSuccess()
-    }
-  }
 }
