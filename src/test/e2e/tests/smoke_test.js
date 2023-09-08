@@ -2,7 +2,7 @@ const config = require('../config');
 
 Feature('Smoke tests @smoke-tests @cross-browser ').retry(1);
 
-Scenario('Sign in as citizen and create a case', async ({ loginPage, landingPage }) => {
+Scenario('Send a get request to check the service is up.', async ({ loginPage, landingPage }) => {
   try {
       const response = await fetch(config.baseUrl);
       if (response.status === 200) {
