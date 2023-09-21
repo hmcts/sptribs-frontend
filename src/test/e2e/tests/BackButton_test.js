@@ -29,15 +29,21 @@ Scenario(
     await uploadSupportingDocuments.uploadDocumentsSection();
     await uploadOtherInformation.uploadDocumentsSection();
     await I.click('button[name="opt-out-button"]'); // opt out of PCQ
-    await checkYourAnswersPage.checkPageLoads();
+    await checkYourAnswersPage.checkPageLoads(false);
     await checkYourAnswersPage.pressBackButton();
+    await uploadOtherInformation.checkPageLoads(false);
     await uploadOtherInformation.pressBackButton();
     await uploadSupportingDocuments.pressBackButton();
+    await uploadAppealForm.checkPageLoads(false);
     await uploadAppealForm.pressBackButton();
+    await representativeDetailsPage.checkPageLoads(false);
     await representativeDetailsPage.pressBackButton();
+    await representationQualifiedPage.checkPageLoads(false);
     await representationQualifiedPage.pressBackButton();
+    await representationPage.checkPageLoads(false);
     await representationPage.pressBackButton();
+    await subjectContactDetailsPage.checkPageLoads(false);
     await subjectContactDetailsPage.pressBackButton();
-    await subjectDetailsPage.checkPageLoads();
+    await subjectDetailsPage.checkPageLoads(false);
   }
 );
