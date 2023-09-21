@@ -7,12 +7,14 @@ module.exports = {
   representationNo: '#representation-2',
   continueButton: '#main-form-submit',
 
-  async checkPageLoads() {
+  async checkPageLoads(pa11y_helper) {
     await I.waitForText(representation.pageTitle);
     I.see(representation.textOnPage1);
     I.see(representation.textOnPage2);
-    pa11yHelper.runPa11yCheck();
-    },
+    if (pa11y_helper === true) {
+      pa11yHelper.runPa11yCheck();
+    }
+  },
 
   async triggerErrorMessages() {
     await I.waitForText(representation.pageTitle);

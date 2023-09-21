@@ -11,13 +11,15 @@ module.exports = {
   contactAgreeBox: '#subjectAgreeContact',
   continueButton: '#main-form-submit',
 
-  async checkPageLoads() {
+  async checkPageLoads(pa11y_helper) {
     await I.waitForText(subjectDetails.pageTitle, 30);
     I.see(subjectDetails.subHeading1);
     I.see(subjectDetails.subHeading2);
     I.see(subjectDetails.textOnPage1);
     I.see(subjectDetails.textOnPage2);
-    pa11yHelper.runPa11yCheck();
+    if (pa11y_helper === true) {
+      pa11yHelper.runPa11yCheck();
+    }
   },
 
   async triggerErrorMessages() {

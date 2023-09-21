@@ -12,7 +12,7 @@ module.exports = {
 
   continueButton: '#main-form-submit',
 
-  async checkPageLoads() {
+  async checkPageLoads(pa11y_helper) {
     await I.waitForText(representativeDetails.pageTitle);
     I.see(representativeDetails.textOnPage1);
     I.see(representativeDetails.textOnPage2);
@@ -20,7 +20,9 @@ module.exports = {
     I.see(representativeDetails.subHeading2);
     I.see(representativeDetails.subHeading3);
     I.see(representativeDetails.subHeading4);
-    pa11yHelper.runPa11yCheck();
+    if (pa11y_helper === true) {
+      pa11yHelper.runPa11yCheck();
+    }
   },
 
   async triggerErrorMessages() {
