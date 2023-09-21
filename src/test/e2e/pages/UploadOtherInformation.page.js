@@ -13,6 +13,7 @@ module.exports = {
   },
 
   continueButton: '#main-form-submit',
+  backButton: '.govuk-back-link',
 
   async checkPageLoads(pa11y_helper) {
     await I.waitForText(UploadOtherInfo.pageTitle);
@@ -60,5 +61,10 @@ module.exports = {
     await I.fillField(this.fields.documentRelevance, UploadOtherInfo.documentRelevance);
     await I.fillField(this.fields.additionalInfo, UploadOtherInfo.additionalInfo);
     I.click(this.continueButton);
+  },
+
+  async pressBackButton() {
+    await I.waitForText(UploadOtherInfo.pageTitle);
+    I.click(this.backButton);
   },
 };

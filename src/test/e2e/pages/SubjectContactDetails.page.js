@@ -10,6 +10,7 @@ module.exports = {
 
   contactAgreeBox: '#subjectAgreeContact',
   continueButton: '#main-form-submit',
+  backButton: '.govuk-back-link',
 
   async checkPageLoads(pa11y_helper) {
     await I.waitForText(subjectDetails.pageTitle, 30);
@@ -43,5 +44,10 @@ module.exports = {
     I.fillField(this.fields.mobileNumber, subjectDetails.contactNumber);
     I.click(this.contactAgreeBox);
     await I.click(this.continueButton);
+  },
+
+  async pressBackButton() {
+    await I.waitForText(subjectDetails.pageTitle);
+    I.click(this.backButton);
   },
 };

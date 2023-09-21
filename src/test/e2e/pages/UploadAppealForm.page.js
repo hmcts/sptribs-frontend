@@ -11,6 +11,7 @@ module.exports = {
   },
 
   continueButton: '#main-form-submit',
+  backButton: '.govuk-back-link',
 
   async checkPageLoads(pa11y_helper) {
     await I.waitForText(UploadAppealForm.pageTitle);
@@ -46,5 +47,10 @@ module.exports = {
     await I.waitForElement(UploadAppealForm.fileUploadedSuccess, 10);
     I.see(UploadAppealForm.deleteButton);
     I.click(this.continueButton);
+  },
+
+  async pressBackButton() {
+    await I.waitForText(UploadAppealForm.pageTitle);
+    I.click(this.backButton);
   },
 };

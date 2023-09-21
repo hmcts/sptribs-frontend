@@ -24,6 +24,7 @@ function convertDate() {
 module.exports = {
 
   continueButton: '#main-form-submit',
+  backButton: '.govuk-back-link',
 
   async checkPageLoads(pa11y_helper) {
     await I.waitForText(CheckYourAnswers.pagetitle);
@@ -60,7 +61,6 @@ module.exports = {
     const wordFileName = config.testWordFile.split('/').pop();
     const txtFileName = config.testFile.split('/').pop();
     const yesElements = locate('//*[contains(text(), "Yes")]');
-
     I.see(subjectDetails.name);
     I.see(convertDate());
     I.see(subjectContactDetails.emailAddress);
@@ -76,6 +76,10 @@ module.exports = {
     I.see(UploadOtherInfo.documentRelevance);
     I.see(UploadOtherInfo.additionalInfo);
     await I.click(this.continueButton);
+  },
+
+  async pressBackButton() {
+    await I.click(this.backButton);
   },
 
 };
