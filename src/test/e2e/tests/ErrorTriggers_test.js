@@ -5,22 +5,22 @@ Feature('Trigger errors @e2e-tests').retry(1);
 //Scenario(
 //  'Run through the entire application and check all error messaging',
 //  async ({
-////    landingPage,
-////    loginPage,
-////    subjectDetailsPage,
-////    subjectContactDetailsPage,
-////    representationPage,
-////    representationQualifiedPage,
-////    representativeDetailsPage,
-////    uploadAppealForm,
-////    uploadSupportingDocuments,
-////    uploadOtherInformation,
-////  }) => {
-////    await landingPage.seeTheLandingPage();
-////    await landingPage.continueOn();
-////    await loginPage.SignInUser();
-////    await subjectDetailsPage.triggerErrorMessages();
-////    await subjectDetailsPage.fillInFields();
+//    landingPage,
+//    loginPage,
+//    subjectDetailsPage,
+//    subjectContactDetailsPage,
+//    representationPage,
+//    representationQualifiedPage,
+//    representativeDetailsPage,
+//    uploadAppealForm,
+//    uploadSupportingDocuments,
+//    uploadOtherInformation,
+//  }) => {
+//    await landingPage.seeTheLandingPage();
+//    await landingPage.continueOn();
+//    await loginPage.SignInUser();
+//    await subjectDetailsPage.triggerErrorMessages();
+//    await subjectDetailsPage.fillInFields();
 //    await subjectContactDetailsPage.triggerErrorMessages();
 //    await subjectContactDetailsPage.fillInFields();
 //    await representationPage.triggerErrorMessages();
@@ -35,6 +35,6 @@ Feature('Trigger errors @e2e-tests').retry(1);
 //    await uploadSupportingDocuments.uploadDocumentsSection();
 //    await uploadOtherInformation.triggerErrorMessages();
 //    await uploadOtherInformation.uploadDocumentsSection();
-//    await I.click('button[name="opt-out-button"]'); // Just checks that it's got to this page
+//    await I.waitForSelector('button[name="opt-out-button"]'); // Just checks that it's got to this page
 //  }
 //);
