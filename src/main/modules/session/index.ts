@@ -13,7 +13,7 @@ const logger = Logger.getLogger('index');
 
 export const cookieMaxAge = 21 * (60 * 1000); // 21 minutes
 const env = process.env.NODE_ENV || 'development';
-const productionMode = env === 'production' || env === 'dev-aat';
+const productionMode = env === 'production' || env === 'ithc';
 logger.info('Environment is ' + env);
 logger.info('ProductionMode is ' + productionMode);
 
