@@ -66,8 +66,10 @@ describe('session', () => {
       saveUninitialized: false,
       secret: 'MOCK_SECRET',
       cookie: {
+        secure: false,
         httpOnly: false,
         maxAge: 1260000,
+        sameSite: 'lax',
       },
       rolling: true,
       store: mockSessionFileStore,

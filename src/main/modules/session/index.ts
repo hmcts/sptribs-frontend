@@ -8,8 +8,14 @@ import FileStoreFactory from 'session-file-store';
 
 const RedisStore = ConnectRedis(session);
 const FileStore = FileStoreFactory(session);
+const { Logger } = require('@hmcts/nodejs-logging');
+const logger = Logger.getLogger('index');
 
 export const cookieMaxAge = 21 * (60 * 1000); // 21 minutes
+const env = process.env.NODE_ENV || 'development';
+const productionMode = env === 'production' || env === 'dev-aat';
+logger.info('Environment is ' + env);
+logger.info('ProductionMode is ' + productionMode);
 
 export class SessionStorage {
   public enableFor(app: Application): void {
@@ -22,8 +28,10 @@ export class SessionStorage {
         saveUninitialized: false,
         secret: config.get('session.secret'),
         cookie: {
+          secure: productionMode,
           httpOnly: false,
           maxAge: cookieMaxAge,
+          sameSite: 'lax',
         },
         rolling: true, // Renew the cookie for another 20 minutes on each request
         store: this.getStore(app),
