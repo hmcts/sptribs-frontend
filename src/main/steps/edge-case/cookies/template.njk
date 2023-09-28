@@ -20,14 +20,14 @@
 
   <section>
     <h1 class="govuk-heading-l">{{ title }}</h1>
-    <p class="govuk-body">{{ paragraph1 | safe }}</p>
+    <p class="govuk-body">{{ paragraph1 }}</p>
     <p class="govuk-body">{{ howAreCookiesUsedParagraph1 }}</p>
     <ul class="govuk-list govuk-list--bullet">
       <li>{{ howAreCookiesUsedItem1 }}</li>
-      <li>{{ howAreCookiesUsedItem2 | safe }}</li>
+      <li>{{ howAreCookiesUsedItem2 }}</li>
       <li>{{ howAreCookiesUsedItem3 }}</li>
     </ul>
-    <p class="govuk-body">{{ howAreCookiesUsedParagraph2 | safe }}</p>
+    <p class="govuk-body">{{ howAreCookiesUsedParagraph2  }}</p>
   </section>
   <section>
     <h2 class="govuk-heading-m">{{ howAreCookiesUsedHeading2 }}</h2>
@@ -39,10 +39,10 @@
         <li>{{ websiteUsageCookiesItem1 }}</li>
         <li>{{ websiteUsageCookiesItem2 }}</li>
         <li>{{ websiteUsageCookiesItem3 }}</li>
-        <li>{{ websiteUsageCookiesItem4 | safe }}</li>
+        <li>{{ websiteUsageCookiesItem4 }}</li>
       </ul>
-      <p class="govuk-body">{{ websiteUsageCookiesParagraph3 | safe }}</p>
-      <p class="govuk-body">{{ websiteUsageCookiesParagraph4 | safe }}</p>
+      <p class="govuk-body">{{ websiteUsageCookiesParagraph3 }}</p>
+      <p class="govuk-body">{{ websiteUsageCookiesParagraph4 }}</p>
       <p class="govuk-body">{{ websiteUsageCookiesParagraph5 }}</p>
       <table class="govuk-table" aria-describedby="{{ websiteUsageCookiesAriaDescribedby }}">
         <tr class="govuk-table__row">
@@ -52,7 +52,7 @@
         </tr>
         <tr class="govuk-table__row">
           <td class="govuk-table__cell">{{ googleAnalyticsCookieName1 }}</td>
-          <td class="govuk-table__cell">{{ googleAnalyticsCookiePurpose1 | safe }}</td>
+          <td class="govuk-table__cell">{{ googleAnalyticsCookiePurpose1 }}</td>
           <td class="govuk-table__cell">{{ googleAnalyticsCookieExpiry1 }}</td>
         </tr>
         <tr class="govuk-table__row">
@@ -78,14 +78,14 @@
         </tr>
         <tr class="govuk-table__row">
           <td class="govuk-table__cell">{{ introMessageCookieName1 }}</td>
-          <td class="govuk-table__cell">{{ introMessageCookiePurpose1 | safe }}</td>
+          <td class="govuk-table__cell">{{ introMessageCookiePurpose1 }}</td>
           <td class="govuk-table__cell">{{ introMessageCookieExpiry1 }}</td>
         </tr>
       </table>
     </section>
     <section>
-      <h3 class="govuk-heading-s">{{ sessionCookiesHeading1 | safe }}</h3>
-      <p class="govuk-body">{{ sessionCookiesParagraph1 | safe }}</p>
+      <h3 class="govuk-heading-s">{{ sessionCookiesHeading1 }}</h3>
+      <p class="govuk-body">{{ sessionCookiesParagraph1 }}</p>
       <table class="govuk-table" aria-describedby="{{ sessionCookiesAriaDescribedby }}">
         <tr class="govuk-table__row">
           <th class="govuk-table__header" scope="col">{{ cookieNameHeader }}</th>
@@ -189,7 +189,7 @@
     <form class="cookie-preferences-form js-show">
 
       {% set cookiesAnalytics = cookiePrefrences['analytics'] %}
-    
+
 
       {% set AnalyticsData =  []  %}
 
@@ -202,7 +202,7 @@
           {
             value: 'off',
             text: doNotUseAnalyticsCookies
-          }] 
+          }]
       %}
       {%else%}
        {% set AnalyticsData = [{
@@ -245,7 +245,7 @@
               {
                 value: 'off',
                 text: doNotUseApmCookies
-              }] 
+              }]
           %}
           {%else%}
           {% set APMData = [{
