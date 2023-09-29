@@ -29,7 +29,7 @@ export class SessionStorage {
         secret: config.get('session.secret'),
         cookie: {
           secure: productionMode,
-          httpOnly: false,
+          httpOnly: true,
           maxAge: cookieMaxAge,
           sameSite: 'lax',
         },
