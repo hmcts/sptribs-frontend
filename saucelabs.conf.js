@@ -91,9 +91,17 @@ const setupConfig = {
   include: {
     config: './src/test/e2e/config.js',
     I: './src/test/e2e/actors/main.js',
-    landingPage: './src/test/e2e/pages/LandingPage.js',
     loginPage: './src/test/e2e/pages/login.page.js',
-
+    landingPage: './src/test/e2e/pages/LandingPage.js',
+    subjectDetailsPage: './src/test/e2e/pages/SubjectDetails.page.js',
+    subjectContactDetailsPage: './src/test/e2e/pages/SubjectContactDetails.page.js',
+    representationPage: './src/test/e2e/pages/Representation.page.js',
+    representationQualifiedPage: './src/test/e2e/pages/RepresentationQualified.page.js',
+    representativeDetailsPage: './src/test/e2e/pages/RepresentativeDetails.page.js',
+    uploadAppealForm: './src/test/e2e/pages/UploadAppealForm.page.js',
+    uploadSupportingDocuments: './src/test/e2e/pages/UploadSupportingDocuments.page.js',
+    uploadOtherInformation: './src/test/e2e/pages/UploadOtherInformation.page.js',
+    checkYourAnswersPage: './src/test/e2e/pages/CheckYourAnswers.page.js',
   },
   mocha: {
     reporterOptions: {
