@@ -66,7 +66,7 @@ describe('session', () => {
       saveUninitialized: false,
       secret: 'MOCK_SECRET',
       cookie: {
-        httpOnly: false,
+        httpOnly: true,
         maxAge: 1260000,
       },
       rolling: true,
