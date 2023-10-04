@@ -59,7 +59,7 @@ after('test') {
   }
 
   before('crossBrowserTest') {
-
+    env.SPTRIBS_FRONTEND_URL = "https://sptribs-frontend-staging.aat.platform.hmcts.net/?edgecaseType=CIC"
   }
   after('crossBrowserTest') {
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
