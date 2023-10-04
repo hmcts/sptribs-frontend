@@ -1,6 +1,6 @@
 const config = require('../config');
 
-Feature('Smoke tests @smoke-tests @cross-browser').retry(1);
+Feature('Smoke tests @smoke-tests').retry(1);
 
 Scenario('Send a get request to check the service is up.', async () => {
   try {
