@@ -33,6 +33,7 @@ Scenario(
     await checkYourAnswersPage.pressBackButton();
     await uploadOtherInformation.checkPageLoads(false);
     await uploadOtherInformation.pressBackButton();
+    await uploadSupportingDocuments.checkPageLoads(false);
     await uploadSupportingDocuments.pressBackButton();
     await uploadAppealForm.checkPageLoads(false);
     await uploadAppealForm.pressBackButton();
