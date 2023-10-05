@@ -100,6 +100,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.22.11",
+    "@babel/eslint-parser": "^7.11.0",
     "@babel/preset-env": "^7.22.10",
     "@babel/preset-typescript": "^7.22.11",
     "@types/copy-webpack-plugin": "^10.1.0",
