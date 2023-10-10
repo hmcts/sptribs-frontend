@@ -12,7 +12,7 @@
     "start:docker": "NODE_ENV=docker yarn start:watch",
     "start:debug": "nodemon --config nodemon.express.json",
     "start:watch": "concurrently --handle-input \"nodemon --config nodemon.express.json\" \"nodemon --config nodemon.assets.json\"",
-    "lint": "tsc --noEmit -p tsconfig.Yeaheslint.json && eslint . --ext .js,.ts",
+    "lint": "tsc --noEmit -p tsconfig.eslint.json && eslint . --ext .js,.ts",
     "build": "webpack --config webpack.config.js",
     "build:prod": "NODE_ENV=production webpack --mode production --config webpack.config.js",
     "test": "jest",
