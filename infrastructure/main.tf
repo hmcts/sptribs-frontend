@@ -22,6 +22,10 @@ module "sptribs-frontend-session-storage" {
   business_area                   = "cft"
   private_endpoint_enabled        = true
   public_network_access_enabled   = false
+  sku_name                      = var.sku_name
+family                        = var.family
+capacity                      = var.capacity
+
 }
 
 data "azurerm_key_vault" "sptribs_key_vault" {
