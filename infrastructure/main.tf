@@ -13,18 +13,18 @@ data "azurerm_subnet" "core_infra_redis_subnet" {
 }
 
 module "sptribs-frontend-session-storage" {
-  source                          = "git@github.com:hmcts/cnp-module-redis?ref=master"
-  product                         = var.product
-  location                        = var.location
-  env                             = var.env
-  common_tags                     = var.common_tags
-  redis_version                   = "6"
-  business_area                   = "cft"
-  private_endpoint_enabled        = true
-  public_network_access_enabled   = false
+  source                        = "git@github.com:hmcts/cnp-module-redis?ref=master"
+  product                       = var.product
+  location                      = var.location
+  env                           = var.env
+  common_tags                   = var.common_tags
+  redis_version                 = "6"
+  business_area                 = "cft"
+  private_endpoint_enabled      = true
+  public_network_access_enabled = false
   sku_name                      = var.sku_name
-family                        = var.family
-capacity                      = var.capacity
+  family                        = var.family
+  capacity                      = var.capacity
 
 }
 
@@ -47,7 +47,7 @@ resource "azurerm_key_vault_secret" "s2s-secret" {
   name         = "s2s-secret-sptribs-frontend"
   value        = data.azurerm_key_vault_secret.microservicekey_sptribs_frontend.value
   content_type = "terraform-managed"
-  
+
   tags = merge(var.common_tags, {
     "source" : "vault ${data.azurerm_key_vault.s2s_vault.name}"
   })
@@ -74,7 +74,7 @@ resource "azurerm_key_vault_secret" "redis_access_key" {
   name         = "redis-access-key"
   value        = module.sptribs-frontend-session-storage.access_key
   content_type = "terraform-managed"
-  
+
   tags = merge(var.common_tags, {
     "source" : "redis ${module.sptribs-frontend-session-storage.host_name}"
   })
