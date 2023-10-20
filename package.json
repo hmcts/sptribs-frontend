@@ -160,6 +160,7 @@
     "webpack-node-externals": "^3.0.0"
   },
   "resolutions": {
+    "@babel/traverse": "^7.23.2",
     "got": "^11.8.5",
     "postcss": "^8.4.31",
     "semver": "^7.5.2",
