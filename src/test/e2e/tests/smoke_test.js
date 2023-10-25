@@ -7,9 +7,9 @@ Scenario('Send a get request to check the service is up.', async () => {
   try {
     const response = await fetch(config.baseUrl);
     if (response.status === 200) {
-      console.log('Landing page is accessible. Smoke test passed.');
+      console.log('Landing page is accessible. Endpoint is running.');
     } else {
-      console.error('Landing page is not accessible. Smoke test failed. Status code:', response.status);
+      console.error('Landing page is not accessible. Endpoint is not running. Status code:', response.status);
     }
   } catch (error) {
     console.error('Failed to make the GET request:', error.message);
