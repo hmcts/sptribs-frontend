@@ -23,6 +23,7 @@ module.exports = {
     '@typescript-eslint/array-type': 'error',
     '@typescript-eslint/explicit-module-boundary-types': 'error',
     '@typescript-eslint/no-explicit-any': 'off',
+    '@typescript-eslint/no-non-null-assertion': 'off',
     '@typescript-eslint/no-shadow': 'error',
     '@typescript-eslint/no-unused-vars': [
       'error',
@@ -48,7 +49,10 @@ module.exports = {
     'jest/prefer-to-have-length': 'error',
     'jest/valid-expect': 'off',
     'linebreak-style': ['error', 'unix'],
-    'no-console': 'warn',
+    'no-console':  [
+      "warn",
+        { "allow": ["log", "error", "info"] }
+    ],
     'no-prototype-builtins': 'off',
     'no-return-await': 'error',
     'no-unneeded-ternary': [
