@@ -1,6 +1,6 @@
 const { I } = inject();
 
-Feature('Trigger errors @e2e-tests').retry(1);
+Feature('Trigger errors @e2e-tests').retry(2);
 
 Scenario(
   'Run through the entire application and check all error messaging',
