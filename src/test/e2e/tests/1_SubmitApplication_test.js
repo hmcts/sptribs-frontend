@@ -37,7 +37,8 @@ Scenario(
     await uploadSupportingDocuments.uploadDocumentsSection();
     await uploadOtherInformation.checkPageLoads(true);
     await uploadOtherInformation.uploadDocumentsSection();
-    await I.waitForElement('button[name="opt-out-button"]').click(); // opt out of PCQ
+    await I.waitForSelector('button[name="opt-out-button"]');
+    await I.click('button[name="opt-out-button"]'); // opt out of PCQ
     await checkYourAnswersPage.checkPageLoads(true);
     await checkYourAnswersPage.checkValidInfoAllFields();
     await checkYourAnswersPage.continueOn()
