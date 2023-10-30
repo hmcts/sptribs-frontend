@@ -30,6 +30,7 @@ export class Helmet {
       googleAnalyticsDomain,
       googleTagManagerDomain,
       "'sha256-+6WnXIl4mbFTCARd8N3COQmT3bJJmo32N8q8ZSQAIcU='",
+      "'sha256-XbrIe2Mu+2yK4boWprqdknTXJvaHzNkq5hBOh5NMUwE='",
     ];
 
     if (app.locals.developmentMode) {
