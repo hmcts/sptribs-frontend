@@ -24,6 +24,8 @@ services:
   postcodeLookup:
     url: 'https://api.os.uk/search/places/v1'
     token: 'NEED TO INSERT SECRET'
+  fisDssUpdate:
+    url: 'https://dss-update-case.aat.platform.hmcts.net/dss-update/start'
   hmctsHomePage:
     url: 'https://www.gov.uk/government/organisations/hm-courts-and-tribunals-service'
   documentManagement:
