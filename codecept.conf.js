@@ -40,7 +40,7 @@ exports.config = {
   helpers: {
     Puppeteer: {
       show: process.env.SHOW_BROWSER_WINDOW || false,
-      waitForTimeout: parseInt(process.env.WAIT_FOR_TIMEOUT || '20000'),
+      waitForTimeout: parseInt(process.env.WAIT_FOR_TIMEOUT || '30000'),
       chrome: {
         ignoreHTTPSErrors: true,
         args: process.env.DISABLE_WEB_SECURITY === 'true' ? ['--disable-web-security'] : [],
@@ -70,18 +70,15 @@ exports.config = {
     I: './src/test/e2e/actors/main.js',
     loginPage: './src/test/e2e/pages/login.page.js',
     landingPage: './src/test/e2e/pages/LandingPage.js',
-    applytoapplicantpage: './src/test/e2e/pages/ApplytoApplicant.page.js',
-    addresswithpostcode: './src/test/e2e/pages/AddressWithPostCode.page.js',
-    dateofbirth: './src/test/e2e/pages/DateOfBirth.page.js',
-    uploadfilepage: './src/test/e2e/pages/UploadDocuments.page.js',
-    statementoftruth: './src/test/e2e/pages/StatementOfTruth.page.js',
-    determineapplicantrole:'./src/test/e2e/pages/DetermineApplicantRole.page.js',
-    contactpreferencepage: './src/test/e2e/pages/ContactPreference.page.js',
-    additiondocumentpage: './src/test/e2e/pages/AdditionalDocuments.page.js',
-    emailaddresspage: './src/test/e2e/pages/EmailAddress.page.js',
-    contactnumber: './src/test/e2e/pages/ContactNumbers.page.js',
-    checkyouranswerspage: './src/test/e2e/pages/CheckYourAnswers.page.js',
-    thankyoupage: './src/test/e2e/pages/ThankYou.page.js'
+    subjectDetailsPage: './src/test/e2e/pages/SubjectDetails.page.js',
+    subjectContactDetailsPage: './src/test/e2e/pages/SubjectContactDetails.page.js',
+    representationPage: './src/test/e2e/pages/Representation.page.js',
+    representationQualifiedPage: './src/test/e2e/pages/RepresentationQualified.page.js',
+    representativeDetailsPage: './src/test/e2e/pages/RepresentativeDetails.page.js',
+    uploadAppealForm: './src/test/e2e/pages/UploadAppealForm.page.js',
+    uploadSupportingDocuments: './src/test/e2e/pages/UploadSupportingDocuments.page.js',
+    uploadOtherInformation: './src/test/e2e/pages/UploadOtherInformation.page.js',
+    checkYourAnswersPage: './src/test/e2e/pages/CheckYourAnswers.page.js',
   },
   plugins: {
     retryFailedStep: {

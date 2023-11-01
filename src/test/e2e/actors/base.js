@@ -69,7 +69,7 @@ module.exports = {
       await eventSummaryPage.submit(button, selector);
     } else {
       await eventSummaryPage.submit(button, '#confirmation-body');
-      await this.retryUntilExists(() => this.click('Close and Return to case details'), '.hmcts-banner--success');
+      await this.retryUntilExists(() => this.click('Close and exit'), '.hmcts-banner--success');
     }
   },
 

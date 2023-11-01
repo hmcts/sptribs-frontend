@@ -61,6 +61,7 @@ type FileUploadErrorTranslatables = {
   TOTAL_FILES_EXCEED_ERROR?: string;
   CONTINUE_WITHOUT_UPLOAD_ERROR?: string;
   NO_FILE_UPLOAD_ERROR?: string;
+  UPLOAD_DELETE_FAIL_ERROR?: string;
 };
 
 export const CASE_API_URL: URL_OF_FILE = config.get(SPTRIBS_CASE_API_BASE_URL);
@@ -113,8 +114,8 @@ export class FileValidations {
    * @returns
    */
   static sizeValidation = (fileSize: number): boolean => {
-    const KbsInMBS = Number(config.get('documentUpload.validation.sizeInKB'));
-    if (fileSize <= KbsInMBS) {
+    const bytesInMBS = Number(config.get('documentUpload.validation.sizeInBytes'));
+    if (fileSize <= bytesInMBS) {
       return true;
     } else {
       return false;
@@ -213,6 +214,8 @@ export default class UploadDocumentController extends PostController<AnyObject> 
           res.redirect(UPLOAD_OTHER_INFORMATION);
         } catch (error) {
           console.log(error);
+          const errorMessage = FileValidations.ResourceReaderContents(req).UPLOAD_DELETE_FAIL_ERROR;
+          this.uploadFileError(req, res, errorMessage);
         }
       }
     }
@@ -293,7 +296,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
               };
               try {
                 const RequestDocument = await this.UploadDocumentInstance(CASE_API_URL, Headers).post(
-                  '/doc/dss-orhestration/upload?caseTypeOfApplication=CIC',
+                  '/doc/dss-orchestration/upload?caseTypeOfApplication=CIC',
                   formData,
                   {
                     headers: {
@@ -308,6 +311,8 @@ export default class UploadDocumentController extends PostController<AnyObject> 
                 this.redirect(req, res, UPLOAD_SUPPORTING_DOCUMENTS);
               } catch (error) {
                 logger.error(error);
+                const errorMessage = FileValidations.ResourceReaderContents(req).UPLOAD_DELETE_FAIL_ERROR;
+                this.uploadFileError(req, res, errorMessage);
               }
             } else {
               const FormattedError: any[] = [];

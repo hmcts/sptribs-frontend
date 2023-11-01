@@ -10,12 +10,11 @@ import { getServiceAuthToken } from '../../../app/auth/service/get-service-auth-
 import { mapCaseData } from '../../../app/case/CaseApi';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
-import { FormFields, FormFieldsFn } from '../../../app/form/Form';
+import { Form, FormFields, FormFieldsFn } from '../../../app/form/Form';
 import { ResourceReader } from '../../../modules/resourcereader/ResourceReader';
 import { SPTRIBS_CASE_API_BASE_URL } from '../../../steps/common/constants/apiConstants';
 const logger = Logger.getLogger('uploadDocumentPostController');
 import { EQUALITY, UPLOAD_OTHER_INFORMATION } from '../../urls';
-//import {mapCaseData} from '../../../app/case/CaseApi';
 
 /**
  * ****** File Extensions Types are being check
@@ -69,6 +68,7 @@ type FileUploadErrorTranslatables = {
   TOTAL_FILES_EXCEED_ERROR?: string;
   CONTINUE_WITHOUT_UPLOAD_ERROR?: string;
   NO_FILE_UPLOAD_ERROR?: string;
+  UPLOAD_DELETE_FAIL_ERROR?: string;
 };
 
 export const CASE_API_URL: URL_OF_FILE = config.get(SPTRIBS_CASE_API_BASE_URL);
@@ -124,11 +124,11 @@ export class FileValidations {
    * @returns
    */
   static sizeValidation = (mimeType: string, fileSize: number): boolean => {
-    const KbsInMBS =
+    const bytesInBytes =
       mimeType.startsWith('audio/') || mimeType.startsWith('video/')
-        ? Number(config.get('documentUpload.validation.multimediaSizeInKB'))
-        : Number(config.get('documentUpload.validation.sizeInKB'));
-    if (fileSize <= KbsInMBS) {
+        ? Number(config.get('documentUpload.validation.multimediaSizeInBytes'))
+        : Number(config.get('documentUpload.validation.sizeInBytes'));
+    if (fileSize <= bytesInBytes) {
       return true;
     } else {
       return false;
@@ -162,19 +162,22 @@ export default class UploadDocumentController extends PostController<AnyObject> 
         ServiceAuthorization: getServiceAuthToken(),
       };
       try {
-        const TribunalFormDocuments = req.session['caseDocuments'].map(document => {
-          const { url, fileName, documentId, binaryUrl } = document;
-          return {
-            id: documentId,
-            value: {
-              documentLink: {
-                document_url: url,
-                document_filename: fileName,
-                document_binary_url: binaryUrl,
+        let TribunalFormDocuments = [];
+        if (req.session.caseDocuments !== undefined) {
+          TribunalFormDocuments = req.session['caseDocuments'].map(document => {
+            const { url, fileName, documentId, binaryUrl } = document;
+            return {
+              id: documentId,
+              value: {
+                documentLink: {
+                  document_url: url,
+                  document_filename: fileName,
+                  document_binary_url: binaryUrl,
+                },
               },
-            },
-          };
-        });
+            };
+          });
+        }
 
         let SupportingDocuments = [];
         if (req.session.supportingCaseDocuments !== undefined) {
@@ -218,9 +221,11 @@ export default class UploadDocumentController extends PostController<AnyObject> 
           OtherInfoDocuments,
         };
         await this.UploadDocumentInstance(CASE_API_URL, Headers).put(baseURL, responseBody);
-        res.redirect(EQUALITY);
+        this.redirect(req, res, EQUALITY);
       } catch (error) {
         console.log(error);
+        const errorMessage = FileValidations.ResourceReaderContents(req).UPLOAD_DELETE_FAIL_ERROR;
+        this.uploadFileError(req, res, errorMessage);
       }
     }
   }
@@ -249,6 +254,15 @@ export default class UploadDocumentController extends PostController<AnyObject> 
    * @param res
    */
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
+    const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase) : this.fields;
+    const form = new Form(fields);
+
+    const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
+
+    req.session.errors = form.getErrors(formData);
+
+    Object.assign(req.session.userCase, formData);
+
     const { documentUploadProceed } = req.body;
 
     let TotalUploadDocuments = 0;
@@ -263,7 +277,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
       /**
        * @PostDocumentUploader
        */
-      this.PostDocumentUploader(req, res);
+      await this.PostDocumentUploader(req, res);
     } else {
       const { files }: AppRequest<AnyObject> = req;
 
@@ -284,13 +298,13 @@ export default class UploadDocumentController extends PostController<AnyObject> 
           if (!checkIfMultipleFiles) {
             const validateMimeType: boolean = FileValidations.formatValidation(documents.mimetype);
             const validateFileSize: boolean = FileValidations.sizeValidation(documents.mimetype, documents.size);
-            const formData: FormData = new FormData();
+            const formDataLocal: FormData = new FormData();
             if (validateMimeType && validateFileSize) {
-              formData.append('file', documents.data, {
+              formDataLocal.append('file', documents.data, {
                 contentType: documents.mimetype,
                 filename: documents.name,
               });
-              const formHeaders = formData.getHeaders();
+              const formHeaders = formDataLocal.getHeaders();
               /**
                * @RequestHeaders
                */
@@ -300,8 +314,8 @@ export default class UploadDocumentController extends PostController<AnyObject> 
               };
               try {
                 const RequestDocument = await this.UploadDocumentInstance(CASE_API_URL, Headers).post(
-                  '/doc/dss-orhestration/upload?caseTypeOfApplication=CIC',
-                  formData,
+                  '/doc/dss-orchestration/upload?caseTypeOfApplication=CIC',
+                  formDataLocal,
                   {
                     headers: {
                       ...formHeaders,
@@ -315,6 +329,8 @@ export default class UploadDocumentController extends PostController<AnyObject> 
                 this.redirect(req, res, UPLOAD_OTHER_INFORMATION);
               } catch (error) {
                 logger.error(error);
+                const errorMessage = FileValidations.ResourceReaderContents(req).UPLOAD_DELETE_FAIL_ERROR;
+                this.uploadFileError(req, res, errorMessage);
               }
             } else {
               const FormattedError: any[] = [];

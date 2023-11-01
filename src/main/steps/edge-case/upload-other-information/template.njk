@@ -19,22 +19,7 @@
 {%endif%}
 
 
-
-{{ govukTextarea({
-  name: "more-detail",
-  id: "more-detail",
-  label: {
-    text: "Add information to a case",
-    classes: "govuk-label--l",
-    isPageHeading: true
-  },
-  hint: {
-    text: "Please provide any additional relevant information that you would like to add to this case.
-     Don't include personal financial information, such as your bank details."
-  }
-}) }}
-
-
+<h1 class="govuk-heading-l govuk-!-margin-bottom-2">{{ title }}</h1>
 <h2 class="govuk-heading-m">{{ title1 }}</h2>
 <p class="govuk-body">{{ line1 }}</p>
 <p class="govuk-body">{{ line2 }}</p>
@@ -84,16 +69,6 @@
             text: uploadButton,
             type: "upload document",
             classes: "govuk-!-margin-bottom-1"
-  }) }}
-
-
-  {{ govukInput({
-    label: {
-      text: "Please explain why you feel this document is relevant to your case",
-       classes: "govuk-!-margin-top-1"
-    },
-    id: "event-name",
-    name: "event-name"
   }) }}
 
 </form>

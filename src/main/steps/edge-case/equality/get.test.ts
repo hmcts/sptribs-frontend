@@ -72,15 +72,15 @@ describe('PCQGetController', () => {
   test('Should set ageCheck value to 1', async () => {
     mockedConfig.get.mockReturnValueOnce('https://pcq.aat.platform.hmcts.net');
     mockedConfig.get.mockReturnValueOnce('true');
-    mockedConfig.get.mockReturnValueOnce('SERVICE_TOKEN_KEY');
     mockedConfig.get.mockReturnValueOnce('https://sptribs');
+    mockedConfig.get.mockReturnValueOnce('SERVICE_TOKEN_KEY');
     mockedConfig.get.mockReturnValueOnce('/service-endpoint');
 
     const req = mockRequest();
     const res = mockResponse();
     const today = new Date();
     req.session.userCase.subjectDateOfBirth = {
-      day: today.getDay().toString(),
+      day: today.getDate().toString(),
       month: (today.getMonth() + 1).toString(),
       year: (today.getFullYear() - 16).toString(),
     };
