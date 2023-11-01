@@ -13,15 +13,15 @@
             "agreeContactLabel": "I agree to be contacted about this case using the details I have provided"
         },
         "cy": {
-            "continue": "Continue (Welsh)",
+            "continue": "Parhau",
             "serviceName": "Appeal to the First-tier Tribunal (Welsh)",
-            "title": "Enter contact information (Welsh)",
-            "line1": "Please enter your contact details to use for this case. (Welsh)",
-            "emailAddressLabel": "Email address (Welsh)",
-            "emailAddressHint": "(Welsh)",
+            "title": "Rhowch fanylion cyswllt",
+            "line1": "Rhowch y manylion cyswllt sydd fwyaf addas ar gyfer yr achos hwn.",
+            "emailAddressLabel": "Cyfeiriad e-bost",
+            "emailAddressHint": "",
             "emailAddress": "Insert email address (Welsh)",
-            "contactNumberLabel": "Contact number (Welsh)",
-            "contactNumberHint": "(Welsh)",
+            "contactNumberLabel": "Rhif cyswllt",
+            "contactNumberHint": "",
             "agreeContactLabel": "I agree to be contacted about this case using the details I have provided (Welsh)"
         }
     },

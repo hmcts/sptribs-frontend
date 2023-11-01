@@ -19,20 +19,20 @@
     },
     "cy": {
       "serviceName": "Appeal to the First-tier Tribunal- (Welsh)",
-      "title":"Add information to a case (Welsh)",
-      "title1": "Additional documents (Welsh)",
+      "title": "Ychwanegu gwybodaeth at achos",
+      "title1": "Dogfennau ychwanegol",
       "title2": "Additional information (Welsh)",
       "title3": "Document relevance (Welsh)",
-      "hint": "Please provide any additional relevant information that you would like to add to this case. Don't include personal financial information, such as your bank details. (Welsh)",
-      "line1": "You may want to submit other documents, files or evidence that provides the Tribunal with more information about your case. - (Welsh)",
-      "line2": "This will depend on the nature of your appeal, application or claim.  Specific examples can be found in your completed tribunal form. - (Welsh)",
-      "line3": "These may include: (Welsh)",
+      "hint": "Darparwch unrhyw wybodaeth berthnasol ychwanegol yr hoffech ei hychwanegu at yr achos hwn. Peidiwch â chynnwys unrhyw wybodaeth ariannol bersonol, megis eich manylion banc.",
+      "line1": "Efallai y byddwch eisiau cyflwyno dogfennau, ffeiliau neu dystiolaeth arall sy’n rhoi mwy o wybodaeth i’r Tribiwnlys am eich achos.",
+      "line2": "Bydd hyn yn dibynnu ar natur eich apêl, cais neu hawliad. Gellir dod o hyd i enghreifftiau penodol yn y ffurflen tribiwnlys rydych wedi’i llenwi.",
+      "line3": "Gallai'r rhain gynnwys:",
       "line4": "Please explain why you feel this document is relevant to your case (Welsh)",
-      "uploadExamples": "<div class='govuk-body-m'><ul class=‘govuk-list govuk-list--bullet’><li>copies of any relevant correspondence or documentation</li><li>audio or video recordings</li><li>written statements</li><li>related reports</li></ul></div> (Welsh)",
-      "uploadRequirement": "<div class='govuk-body-s'><ul class=‘govuk-list govuk-list--bullet’><li>File formats: MS Word, MS Excel, PDF, JPG, PNG, TXT, RTF, MP4, MP3</li><li>File size per document: up to 20 megabytes (MB)</li><li>File size per multimedia file: 30 megabytes (MB)</li><li>Files cannot be password protected</li></ul><p> You can’t upload executable (.exe), .zip or other archive files due to virus risks.</div> (Welsh)",
+      "uploadExamples": "<div class='govuk-body-m'><ul class=‘govuk-list govuk-list--bullet’><li>copïau o unrhyw ohebiaeth neu ddogfennau perthnasol</li><li>recordiadau sain neu fideo</li><li>datganiadau ysgrifenedig</li><li>adroddiadau perthnasol</li></ul></div>",
+      "uploadRequirement": "<div class='govuk-body-s'><ul class=‘govuk-list govuk-list--bullet’><li>Fformatau ffeiliau: MS Word, MS Excel, PDF, JPG, GIF, PNG, TXT, RTF, MP4, MP3</li><li>Maint ffeil pob dogfen: hyd at 20 megabeit (MB)</li><li>Maint pob ffeil amlgyfrwng: 30 megabeit (MB)</li><li>Ni ellir llwytho ffeiliau sydd wedi’u diogelu â chyfrinair</li></ul><p> Ni allwch lwytho ffeiliau gweithredu (.exe), ffeiliau zip neu ffeiliau eraill oherwydd y risg o firws.</div>",
       "uploadGuidance": "Once you have selected the file click \"Upload file\" to upload it. (Welsh)",
-      "additionalInfo": "For each piece of additional information or evidence you are submitting, please state why it is relevant to your case. - (Welsh)",
-      "uploadButton": "Upload file (Welsh)"
+      "additionalInfo": "Ar gyfer pob darn o dystiolaeth ychwanegol rydych yn ei chyflwyno, nodwch pam ei bod yn berthnasol i’ch achos.",
+      "uploadButton": "Llwytho ffeil"
     }
   },
   "errors": {

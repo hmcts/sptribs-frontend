@@ -8,11 +8,11 @@
       "two": "No"
     },
     "cy": {
-      "continue": "Continue (Welsh)",
+      "continue": "Parhau",
       "serviceName": "Appeal to the First-tier Tribunal (Welsh)",
-      "label": "Is there a representative named on completed tribunal form? (Welsh)",
-      "one": "Yes (Welsh)",
-      "two": "No (Welsh)"
+      "label": "A oes cynrychiolydd wedi’i enwi ar y ffurflen tribiwnlys sydd wedi’i llenwi?",
+      "one": "Oes",
+      "two": "Nac oes"
     }
   },
   "errors":{

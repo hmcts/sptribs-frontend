@@ -10,13 +10,13 @@
             "hint": "For example, 31 3 1980"
         },
         "cy": {
-            "continue": "Continue (Welsh)",
+            "continue": "Parhau",
             "serviceName": "Appeal to the First-tier Tribunal (Welsh)",
-            "title":"ho is the subject of this case? (Welsh)",
-            "line1":"The subject of a case may be you, or the person who you are submitting this tribunal form on behalf of. (Welsh)",
-            "subjectFullNameLabel": "Home Phone (Welsh)",
-            "subjectDateOfBirthLabel": "Mobile Phone (Welsh)",
-            "hint": "For example, 31 3 1980 (Welsh)"
+            "title":"Pwy yw testun yr achos hwn?",
+            "line1":"Gall testun yr achos fod yn chi, neu’r unigolyn rydych yn cyflwyno’r ffurflen tribiwnlys hon ar ei ran.",
+            "subjectFullNameLabel": "Enw llawn",
+            "subjectDateOfBirthLabel": "Dyddiad geni",
+            "hint": "Er enghraifft, 31 3 1980"
         }
     },
     "errors":{
