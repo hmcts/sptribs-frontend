@@ -112,7 +112,7 @@
     "@wdio/sauce-service": "^8.15.9",
     "allure-commandline": "^2.24.0",
     "ansi-regex": "^4.1.1",
-    "axios-debug-log": "^0.8.4",
+    "axios-debug-log": "^1.0.0",
     "@babel/eslint-parser": "^7.11.0",
     "babel-loader": "^8.2.2",
     "chai": "^4.3.5",
