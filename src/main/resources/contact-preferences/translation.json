@@ -10,7 +10,7 @@
             "bothReceiveEmail": "Both the account owner and the person named on this application"
         },
         "cy": {
-            "continue": "Continue (in welsh)",
+            "continue": "Parhau",
             "serviceName": "Contact preferences (in Welsh)",
             "label": "Where should we send emails about this application? (in Welsh)",
             "hint": "We will only email important updates. (in Welsh)",
@@ -31,4 +31,4 @@
             }
         }
     }
-} 
+}

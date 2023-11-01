@@ -7,10 +7,10 @@
             "hint": "For example, 27 3 2007"
         },
         "cy": {
-            "continue": "Continue",
+            "continue": "Parhau",
             "serviceName": "Enter subject's DOB (in welsh)",
             "title": "What is the date of birth of the person named on this application? (in welsh)",
-            "hint": "For example, 27 3 2007 (in welsh)"
+            "hint": "Er enghraifft, 27 3 2007 (in welsh)"
         }
     },
     "errors":{

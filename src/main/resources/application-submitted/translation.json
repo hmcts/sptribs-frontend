@@ -8,11 +8,11 @@
         "line4": "What did you think of this service?"
       },
       "cy": {
-        "title": "Tribunal form sent (in welsh)",
+        "title": "Ffurflen y tribiwnlys wedi’i hanfon",
         "serviceName": "Appeal to the First-tier Tribunal (in welsh)",
-        "line1": "Your tribunal form and related documents have been sent. (in welsh)",
+        "line1": "Mae ffurflenni’r tribiwnlys a’ch dogfennau perthnasol wedi’u hanfon.",
         "line3": "If you do not receive this email, please contact the Tribunal using the details on your completed tribunal form. (in welsh)",
-        "line4": "What did you think of this service? (in welsh)"
+        "line4": "Beth yw eich barn am y gwasanaeth hwn?"
       }
     }
 }

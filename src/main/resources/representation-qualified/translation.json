@@ -9,12 +9,12 @@
       "two": "No"
     },
     "cy": {
-      "continue": "Continue (Welsh)",
+      "continue": "Parhau",
       "serviceName": "Appeal to the First-tier Tribunal (Welsh)",
-      "label": "Is the named representative legally qualified? (Welsh)",
-      "hint": "A solicitor or a barrister are legally qualified representatives. (Welsh)",
-      "one": "Yes (Welsh)",
-      "two": "No (Welsh)"
+      "label": "A yw’r cynrychiolydd a enwyd wedi cymhwyso yn y gyfraith?",
+      "hint": "Mae cyfreithwyr neu fargyfreithwyr yn gynrychiolwyr sydd wedi cymhwyso yn y gyfraith.",
+      "one": "Ydy",
+      "two": "Nac ydy"
     }
   },
   "errors":{

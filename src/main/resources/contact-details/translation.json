@@ -11,8 +11,8 @@
             "mobilePhone": "Enter mobile phone number"
         },
         "cy": {
-            "continue": "Continue (Welsh)",
-            "serviceName": "Contact Number (Welsh)",
+            "continue": "Parhau",
+            "serviceName": "Rhif cyswllt",
             "title":"What is the contact number of the named applicant? (Welsh)",
             "line1":"This can be the number of a trusted friend if the applicant does not have a private number. (Welsh)",
             "homePhoneLabel": "Home Phone (Welsh)",

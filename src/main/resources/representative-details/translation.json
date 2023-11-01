@@ -12,15 +12,15 @@
             "emailAddressLabel": "Email address"
         },
         "cy": {
-          "continue": "Continue (Welsh)",
+          "continue": "Parhau",
           "serviceName": "Appeal to the First-tier Tribunal (Welsh)",
-          "title":"Representative's Details (Welsh)",
-          "line1":"Please enter details of the representative as stated on your tribunal form. (Welsh)",
-          "line2":"We will only use these details to contact this representative about this case. (Welsh)",
-          "fullNameLabel": "Full name (Welsh)",
-          "organisationNameLabel": "Organisation or business name (Welsh)",
-          "contactNumberLabel": "Contact number (Welsh)",
-          "emailAddressLabel": "Email address (Welsh)"
+          "title":"Manylion y cynrychiolydd",
+          "line1":"Rhowch fanylion y cynrychiolydd fel y’u nodir ar eich ffurflen tribiwnlys.",
+          "line2":"Byddwn ond yn defnyddio’r manylion hyn i gysylltu â’r cynrychiolydd ynghylch yr achos hwn.",
+          "fullNameLabel": "Enw llawn",
+          "organisationNameLabel": "Enw’r sefydliad neu’r busnes",
+          "contactNumberLabel": "Rhif cyswllt",
+          "emailAddressLabel": "Cyfeiriad e-bost"
         }
     },
     "errors":{

@@ -1,38 +1,38 @@
 {
-    "translations": {
+  "translations": {
     "en": {
-    "serviceName": "Appeal to the First-tier Tribunal",
-    "title": "Upload supporting documents",
-    "line1": "You must send a copy of the Authority's Review decision letter with the completed tribunal form.",
-    "uploadRequirement": "<div class='govuk-body-s'><ul class=‘govuk-list govuk-list--bullet’><li>File formats: MS Word, MS Excel, PDF, JPG, PNG, TXT, RTF</li><li>File size per document: up to 20 megabytes (MB)</li><li>Files cannot be password protected</li></ul><p> You can’t upload executable (.exe), .zip or other archive files due to virus risks.</div>",
-    "uploadGuidance": "Once you have selected the file click \"Upload file\" to upload it.",
-    "uploadButton": "Upload file"
+      "serviceName": "Appeal to the First-tier Tribunal",
+      "title": "Upload supporting documents",
+      "line1": "You must send a copy of the Authority's Review decision letter with the completed tribunal form.",
+      "uploadRequirement": "<div class='govuk-body-s'><ul class=‘govuk-list govuk-list--bullet’><li>File formats: MS Word, MS Excel, PDF, JPG, PNG, TXT, RTF</li><li>File size per document: up to 20 megabytes (MB)</li><li>Files cannot be password protected</li></ul><p> You can’t upload executable (.exe), .zip or other archive files due to virus risks.</div>",
+      "uploadGuidance": "Once you have selected the file click \"Upload file\" to upload it.",
+      "uploadButton": "Upload file"
     },
     "cy": {
-    "serviceName": "Appeal to the First-tier Tribunal - (Welsh)",
-    "title": "Upload supporting documents - (Welsh)",
-    "line1": "You must send a copy of the Authority's Review decision letter with the completed tribunal form. - (Welsh)",
-    "uploadRequirement": "<div class='govuk-body-s'><ul class=‘govuk-list govuk-list--bullet’><li>File formats: MS Word, MS Excel, PDF, JPG, PNG, TXT, RTF</li><li>File size per document: up to 20 megabytes (MB)</li><li>Files cannot be password protected</li></ul><p> You can’t upload executable (.exe), .zip or other archive files due to virus risks.</div> (Welsh)",
-    "uploadGuidance": "Once you have selected the file click \"Upload file\" to upload it. (Welsh)",
-    "uploadButton": "Upload file (Welsh)"
+      "serviceName": "Appeal to the First-tier Tribunal - (Welsh)",
+      "title": "Llwytho dogfennau ategol",
+      "line1": "Mae’n rhaid i chi anfon copi o lythyr penderfyniad adolygiad yr Awdurdod gyda ffurflen y tribiwnlys wedi’i llenwi.",
+      "uploadRequirement": "<div class='govuk-body-s'><ul class=‘govuk-list govuk-list--bullet’><li>Fformatau ffeiliau: MS Word, MS Excel, PDF, JPG, GIF, PNG, TXT, RTF</li><li>Maint ffeil pob dogfen: hyd at 20 megabeit (MB)</li><li>Ni ellir llwytho ffeiliau sydd wedi’u diogelu â chyfrinair</li></ul><p> Ni allwch lwytho ffeiliau gweithredu (.exe), ffeiliau zip neu ffeiliau eraill oherwydd y risg o firws.</div> (Welsh)",
+      "uploadGuidance": "Once you have selected the file click \"Upload file\" to upload it. (Welsh)",
+      "uploadButton": "Llwytho ffeil"
     }
-    },
-    "errors": {
+  },
+  "errors": {
     "en": {
-    "SIZE_ERROR": "File size exceeds 20Mb. Please upload a file that is less than 20Mb",
-    "FORMAT_ERROR": "This service only accepts files in the formats - MS Word, MS Excel, PDF, JPG, PNG, TXT, RTF",
-    "TOTAL_FILES_EXCEED_ERROR": "You can upload 5 files only. Please delete one of the uploaded files and retry",
-    "CONTINUE_WITHOUT_UPLOAD_ERROR": "You cannot continue without uploading supporting documentation",
-    "NO_FILE_UPLOAD_ERROR": "Please choose a file to upload",
-    "UPLOAD_DELETE_FAIL_ERROR": "Document upload or deletion has failed. Please try again"
+      "SIZE_ERROR": "File size exceeds 20Mb. Please upload a file that is less than 20Mb",
+      "FORMAT_ERROR": "This service only accepts files in the formats - MS Word, MS Excel, PDF, JPG, PNG, TXT, RTF",
+      "TOTAL_FILES_EXCEED_ERROR": "You can upload 5 files only. Please delete one of the uploaded files and retry",
+      "CONTINUE_WITHOUT_UPLOAD_ERROR": "You cannot continue without uploading supporting documentation",
+      "NO_FILE_UPLOAD_ERROR": "Please choose a file to upload",
+      "UPLOAD_DELETE_FAIL_ERROR": "Document upload or deletion has failed. Please try again"
     },
     "cy": {
-    "SIZE_ERROR": "File size exceeds 20Mb. Please upload a file that is less than 20Mb (Welsh)",
-    "FORMAT_ERROR": "This service only accepts files in the formats - MS Word, MS Excel, PDF, JPG, PNG, TXT, RTF (Welsh)",
-    "TOTAL_FILES_EXCEED_ERROR": "You can upload 5 files only. Please delete one of the uploaded files and retry (Welsh)",
-    "CONTINUE_WITHOUT_UPLOAD_ERROR": "You cannot continue without uploading supporting documentation (Welsh)",
-    "NO_FILE_UPLOAD_ERROR": "Please choose a file to upload (Welsh)",
-    "UPLOAD_DELETE_FAIL_ERROR": "Document upload or deletion has failed. Please try again (in welsh)"
+      "SIZE_ERROR": "File size exceeds 20Mb. Please upload a file that is less than 20Mb (Welsh)",
+      "FORMAT_ERROR": "This service only accepts files in the formats - MS Word, MS Excel, PDF, JPG, PNG, TXT, RTF (Welsh)",
+      "TOTAL_FILES_EXCEED_ERROR": "You can upload 5 files only. Please delete one of the uploaded files and retry (Welsh)",
+      "CONTINUE_WITHOUT_UPLOAD_ERROR": "You cannot continue without uploading supporting documentation (Welsh)",
+      "NO_FILE_UPLOAD_ERROR": "Please choose a file to upload (Welsh)",
+      "UPLOAD_DELETE_FAIL_ERROR": "Document upload or deletion has failed. Please try again (in welsh)"
     }
-    }
-    }
+  }
+}

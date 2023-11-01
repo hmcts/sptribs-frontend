@@ -25,7 +25,7 @@ export const generateContent: TranslationFn = content => {
     return {
       ...Translations.cy,
       referenceNumber: `<strong>Case Number (in welsh):</font><br>${caseId}</strong>`,
-      line2: 'An email will be sent to ' + subjectEmail + ', that explains what happens next. (in Welsh)',
+      line2: 'Fe anfonir neges e-bost i ' + subjectEmail + ', i esbonio beth fydd yn digwydd nesaf.',
     };
   };
 
