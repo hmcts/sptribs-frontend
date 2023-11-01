@@ -78,6 +78,10 @@ module.exports = {
     await I.click(this.continueButton);
   },
 
+  async continueSmoke() {
+    await I.click(this.continueButton);
+  },
+
   async pressBackButton() {
     await I.click(this.backButton);
   },
