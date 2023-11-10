@@ -92,11 +92,13 @@ describe('session', () => {
 
     test('should create redis client', () => {
       expect(mockCreateClient).toHaveBeenCalledWith({
-        host: 'MOCK_REDIS_HOST',
+        socket: {
+          host: 'MOCK_REDIS_HOST',
+          port: 6380,
+          tls: true,
+          connectTimeout: 15000,
+        },
         password: 'MOCK_REDIS_KEY',
-        port: 6380,
-        tls: true,
-        connect_timeout: 15000,
       });
     });
 
