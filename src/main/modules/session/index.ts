@@ -1,10 +1,10 @@
 import config from 'config';
+import RedisStore from 'connect-redis';
 import cookieParser from 'cookie-parser';
 import { Application } from 'express';
 import session from 'express-session';
 import * as redis from 'redis';
 import FileStoreFactory from 'session-file-store';
-import RedisStore from "connect-redis";
 
 const FileStore = FileStoreFactory(session);
 
@@ -38,7 +38,7 @@ export class SessionStorage {
           host: redisHost as string,
           port: 6380,
           tls: true,
-          connectTimeout: 15000
+          connectTimeout: 15000,
         },
         password: config.get('session.redis.key') as string,
       });
