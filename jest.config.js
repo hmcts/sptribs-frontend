@@ -9,6 +9,7 @@ module.exports = {
   setupFilesAfterEnv: ['jest-extended'],
   moduleNameMapper: {
     '@hmcts/nodejs-logging': '<rootDir>/src/test/unit/mocks/hmcts/nodejs-logging',
+    'connect-redis': '<rootDir>/node_modules/connect-redis/dist/cjs'
   },
   coverageThreshold: {
     global: {
