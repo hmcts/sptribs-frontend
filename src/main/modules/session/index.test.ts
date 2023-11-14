@@ -90,21 +90,21 @@ describe('session', () => {
       new SessionStorage().enableFor(mockApp);
     });
 
-//     test('should create redis client', () => {
-//       expect(mockCreateClient).toHaveBeenCalledWith({
-//         socket: {
-//           host: 'MOCK_REDIS_HOST',
-//           port: 6380,
-//           tls: true,
-//           connectTimeout: 15000,
-//         },
-//         password: 'MOCK_REDIS_KEY',
-//       });
-//     });
+    //     test('should create redis client', () => {
+    //       expect(mockCreateClient).toHaveBeenCalledWith({
+    //         socket: {
+    //           host: 'MOCK_REDIS_HOST',
+    //           port: 6380,
+    //           tls: true,
+    //           connectTimeout: 15000,
+    //         },
+    //         password: 'MOCK_REDIS_KEY',
+    //       });
+    //     });
 
-//     test('should use session middleware with SessionStore', () => {
-//       expect(mockApp.locals.redisClient).toEqual('MOCK redis client');
-//       expect(mockApp.use).toHaveBeenNthCalledWith(2, 'MOCK session');
-//     });
+    //     test('should use session middleware with SessionStore', () => {
+    //       expect(mockApp.locals.redisClient).toEqual('MOCK redis client');
+    //       expect(mockApp.use).toHaveBeenNthCalledWith(2, 'MOCK session');
+    //     });
   });
 });
