@@ -43,5 +43,6 @@ Scenario(
     await checkYourAnswersPage.checkValidInfoAllFields();
     await checkYourAnswersPage.continueOn()
     await applicationSubmittedPage.checkPageLoads(true);
+    await applicationSubmittedPage.checkCICCaseNumber();
   }
 );

@@ -23,4 +23,11 @@ module.exports = {
     }
   },
 
+  async checkCICCaseNumber() {
+    const cicCaseData = await I.grabTextFrom('.govuk-panel__body');
+    const caseNumber = await cicCaseData.replace(/\D/g, '');
+    if (caseNumber.length !== 16) {
+      throw new Error(`String length should be 16, but it is ${caseNumber.length}`);
+    }
+  }
 };
