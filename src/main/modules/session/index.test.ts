@@ -1,5 +1,11 @@
 jest.mock('config');
-const mockCreateClient = jest.fn(() => 'MOCK redis client');
+const mockRedisClient = {
+  connect: () => new Promise(resolve => resolve({
+    test: () => jest.fn(),
+  }))
+}
+
+const mockCreateClient = jest.fn(() => mockRedisClient);
 jest.mock('redis', () => {
   return {
     __esModule: true,
@@ -98,21 +104,21 @@ describe('session', () => {
       new SessionStorage().enableFor(mockApp, mockLogger);
     });
 
-    //     test('should create redis client', () => {
-    //       expect(mockCreateClient).toHaveBeenCalledWith({
-    //         socket: {
-    //           host: 'MOCK_REDIS_HOST',
-    //           port: 6380,
-    //           tls: true,
-    //           connectTimeout: 15000,
-    //         },
-    //         password: 'MOCK_REDIS_KEY',
-    //       });
-    //     });
-    //
-    //     test('should use session middleware with SessionStore', () => {
-    //       expect(mockApp.locals.redisClient).toEqual('MOCK redis client');
-    //       expect(mockApp.use).toHaveBeenNthCalledWith(2, 'MOCK session');
-    //     });
+        test('should create redis client', () => {
+          expect(mockCreateClient).toHaveBeenCalledWith({
+            socket: {
+              host: 'MOCK_REDIS_HOST',
+              port: 6380,
+              tls: true,
+              connectTimeout: 15000,
+            },
+            password: 'MOCK_REDIS_KEY',
+          });
+        });
+
+        test('should use session middleware with SessionStore', () => {
+          expect(mockApp.locals.redisClient).toEqual(mockRedisClient);
+          expect(mockApp.use).toHaveBeenNthCalledWith(2, 'MOCK session');
+        });
   });
 });
