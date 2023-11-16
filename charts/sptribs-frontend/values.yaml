@@ -24,8 +24,7 @@ nodejs:
         - idam-ui-secret
         - idam-systemupdate-username
         - idam-systemupdate-password
-        - name: redis6-access-key
-          alias: redis-access-key
+        - redis-access-key
         - s2s-secret-sptribs-frontend
         - app-insights-instrumentation-key
         - postcode-lookup-token
