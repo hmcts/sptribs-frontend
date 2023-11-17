@@ -100,7 +100,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.23.2",
-    "@babel/eslint-parser": "^7.22.15",
+    "@babel/eslint-parser": "^7.11.0",
     "@babel/preset-env": "^7.23.2",
     "@babel/preset-typescript": "^7.23.2",
     "@types/copy-webpack-plugin": "^10.1.0",
@@ -113,7 +113,6 @@
     "allure-commandline": "^2.24.0",
     "ansi-regex": "^4.1.1",
     "axios-debug-log": "^0.8.4",
-    "@babel/eslint-parser": "^7.11.0",
     "babel-loader": "^8.2.2",
     "chai": "^4.3.5",
     "chai-as-promised": "^7.1.1",
