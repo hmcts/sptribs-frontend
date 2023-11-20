@@ -1819,10 +1819,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@hmcts/cookie-manager@npm:^0.0.5":
-  version: 0.0.5
-  resolution: "@hmcts/cookie-manager@npm:0.0.5"
-  checksum: 475dbc36a0d4b0a7b14ce87b715bdbe87c60724969a41d5b43e8a9ae024cbf92696706031c0a5d37455adbf35431cb8c7315f78264151a533ac0868bcaf6c440
+"@hmcts/cookie-manager@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "@hmcts/cookie-manager@npm:1.0.0"
+  checksum: 7b9aacd5510f296fad664cbce2ad3bde1dfbe6276f79e05ecd7f3a437fd6b5415b95a202354a4ad2d2bb41ad4ddda436202e757eca8d106ddf1d28d801169657
   languageName: node
   linkType: hard
 
@@ -9455,12 +9455,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"husky@npm:^7.0.4":
-  version: 7.0.4
-  resolution: "husky@npm:7.0.4"
+"husky@npm:^8.0.0":
+  version: 8.0.3
+  resolution: "husky@npm:8.0.3"
   bin:
     husky: lib/bin.js
-  checksum: c6ec4af63da2c9522da8674a20ad9b48362cc92704896cc8a58c6a2a39d797feb2b806f93fbd83a6d653fbdceb2c3b6e0b602c6b2e8565206ffc2882ef7db9e9
+  checksum: 837bc7e4413e58c1f2946d38fb050f5d7324c6f16b0fd66411ffce5703b294bd21429e8ba58711cd331951ee86ed529c5be4f76805959ff668a337dbfa82a1b0
   languageName: node
   linkType: hard
 
@@ -11135,7 +11135,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"json5@npm:2.x, json5@npm:^2.2.3":
+"json5@npm:2.x, json5@npm:^2.2.2, json5@npm:^2.2.3":
   version: 2.2.3
   resolution: "json5@npm:2.2.3"
   bin:
@@ -12859,23 +12859,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nodemon@npm:^2.0.22":
-  version: 2.0.22
-  resolution: "nodemon@npm:2.0.22"
+"nodemon@npm:^3.0.0":
+  version: 3.0.1
+  resolution: "nodemon@npm:3.0.1"
   dependencies:
     chokidar: ^3.5.2
     debug: ^3.2.7
     ignore-by-default: ^1.0.1
     minimatch: ^3.1.2
     pstree.remy: ^1.1.8
-    semver: ^5.7.1
-    simple-update-notifier: ^1.0.7
+    semver: ^7.5.3
+    simple-update-notifier: ^2.0.0
     supports-color: ^5.5.0
     touch: ^3.1.0
     undefsafe: ^2.0.5
   bin:
     nodemon: bin/nodemon.js
-  checksum: 9c987e139748f5b5c480c6c9080bdc97304ee7d29172b7b3da1a7db590b1323ad57b96346304e9b522b0e445c336dc393ccd3f9f45c73b20d476d2347890dcd0
+  checksum: 6a5d81855760d6617049eccce10ccf02bddb482dab13ceea5280ae595ec7004eee13e7b934368e3f46c37fe4d970342a8c38c99cae7e93e4d7a3ed1c1ecb6acf
   languageName: node
   linkType: hard
 
@@ -15376,12 +15376,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"simple-update-notifier@npm:^1.0.7":
-  version: 1.1.0
-  resolution: "simple-update-notifier@npm:1.1.0"
+"simple-update-notifier@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "simple-update-notifier@npm:2.0.0"
   dependencies:
-    semver: ~7.0.0
-  checksum: 1012e9b6c504e559a948078177b3eedbb9d7e4d15878e2bda56314d08db609ca5da485be4ac9f838759faae8057935ee0246fcdf63f1233c86bd9fecb2a5544b
+    semver: ^7.5.3
+  checksum: 9ba00d38ce6a29682f64a46213834e4eb01634c2f52c813a9a7b8873ca49cdbb703696f3290f3b27dc067de6d9418b0b84bef22c3eb074acf352529b2d6c27fd
   languageName: node
   linkType: hard
 
@@ -15672,7 +15672,7 @@ __metadata:
     "@babel/eslint-parser": ^7.22.15
     "@babel/preset-env": ^7.23.2
     "@babel/preset-typescript": ^7.23.2
-    "@hmcts/cookie-manager": ^0.0.5
+    "@hmcts/cookie-manager": ^1.0.0
     "@hmcts/frontend": ^0.0.50-alpha
     "@hmcts/nodejs-healthcheck": ^1.8.0
     "@hmcts/nodejs-logging": ^4.0.4
@@ -15744,7 +15744,7 @@ __metadata:
     html-webpack-plugin: ^5.5.3
     http-cache-semantics: ^4.1.1
     http-status-codes: ^2.2.0
-    husky: ^7.0.4
+    husky: ^8.0.0
     jest: ^26.6.3
     jest-circus: ^29.5.0
     jest-extended: ^4.0.1
@@ -15761,7 +15761,7 @@ __metadata:
     moment: ^2.29.3
     negotiator: ^0.6.3
     node-sass: ^9.0.0
-    nodemon: ^2.0.22
+    nodemon: ^3.0.0
     npm-run-all: ^4.1.5
     nunjucks: ^3.2.4
     otplib: ^12.0.1
@@ -15781,7 +15781,7 @@ __metadata:
     ts-jest: ^26.5.6
     ts-loader: ^9.2.6
     ts-node: ^10.4.0
-    tsconfig-paths: ^3.11.0
+    tsconfig-paths: ^4.0.0
     typescript: ^4.6.3
     uglifyjs-webpack-plugin: ^2.2.0
     uuid: ^9.0.1
@@ -16655,7 +16655,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tsconfig-paths@npm:^3.11.0, tsconfig-paths@npm:^3.14.2":
+"tsconfig-paths@npm:^3.14.2":
   version: 3.14.2
   resolution: "tsconfig-paths@npm:3.14.2"
   dependencies:
@@ -16664,6 +16664,17 @@ __metadata:
     minimist: ^1.2.6
     strip-bom: ^3.0.0
   checksum: a6162eaa1aed680537f93621b82399c7856afd10ec299867b13a0675e981acac4e0ec00896860480efc59fc10fd0b16fdc928c0b885865b52be62cadac692447
+  languageName: node
+  linkType: hard
+
+"tsconfig-paths@npm:^4.0.0":
+  version: 4.2.0
+  resolution: "tsconfig-paths@npm:4.2.0"
+  dependencies:
+    json5: ^2.2.2
+    minimist: ^1.2.6
+    strip-bom: ^3.0.0
+  checksum: 28c5f7bbbcabc9dabd4117e8fdc61483f6872a1c6b02a4b1c4d68c5b79d06896c3cc9547610c4c3ba64658531caa2de13ead1ea1bf321c7b53e969c4752b98c7
   languageName: node
   linkType: hard
 
