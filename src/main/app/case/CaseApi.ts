@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-shadow */
-import Axios, { AxiosError, AxiosInstance, AxiosResponse } from 'axios';
+import axios, { AxiosError, AxiosInstance, AxiosResponse } from 'axios';
 import config from 'config';
 import { LoggerInstance } from 'winston';
 
@@ -57,8 +57,8 @@ export class CaseApi {
    * @returns
    */
   public async updateCase(req: AppRequest, userDetails: UserDetails, eventName: string): Promise<any> {
-    Axios.defaults.headers.put[CONTENT_TYPE] = APPLICATION_JSON;
-    Axios.defaults.headers.put[AUTHORIZATION] = BEARER + SPACE + userDetails.accessToken;
+    axios.defaults.headers.put[CONTENT_TYPE] = APPLICATION_JSON;
+    axios.defaults.headers.put[AUTHORIZATION] = BEARER + SPACE + userDetails.accessToken;
     try {
       if (req.session.userCase.id === EMPTY) {
         throw new Error('Error in updating case, case id is missing');
@@ -110,7 +110,7 @@ export class CaseApi {
         supportingDocuments: SupportingDocuments,
         otherInformationDocuments: OtherInformation,
       };
-      const res: AxiosResponse<CreateCaseResponse> = await Axios.put(
+      const res: AxiosResponse<CreateCaseResponse> = await axios.put(
         url + CONTEXT_PATH + FORWARD_SLASH + req.session.userCase.id + UPDATE_API_PATH,
         data,
         {
@@ -143,7 +143,7 @@ export class CaseApi {
         Authorization: BEARER + SPACE + userDetails.accessToken,
         ServiceAuthorization: getServiceAuthToken(),
       };
-      const res: AxiosResponse<CreateCaseResponse> = await Axios.post(
+      const res: AxiosResponse<CreateCaseResponse> = await axios.post(
         url + CONTEXT_PATH + CREATE_API_PATH,
         mapCaseData(req),
         { headers }
@@ -217,10 +217,10 @@ export class CaseApi {
    */
   private logError(error: AxiosError) {
     if (error.response) {
-      this.logger.error(`API Error ${error.config.method} ${error.config.url} ${error.response.status}`);
-      this.logger.info('Response: ', error.response.data);
+      this.logger.error(`API Error ${error.config?.method} ${error.config?.url} ${error.response?.status}`);
+      this.logger.info('Response: ', error.response?.data);
     } else if (error.request) {
-      this.logger.error(`API Error ${error.config.method} ${error.config.url}`);
+      this.logger.error(`API Error ${error.config?.method} ${error.config?.url}`);
     } else {
       this.logger.error('API Error', error.message);
     }
@@ -235,7 +235,7 @@ export class CaseApi {
  */
 export const getCaseApi = (userDetails: UserDetails, logger: LoggerInstance): CaseApi => {
   return new CaseApi(
-    Axios.create({
+    axios.create({
       baseURL: config.get('services.sptribs.url'),
       headers: {
         Authorization: 'Bearer ' + userDetails.accessToken,
