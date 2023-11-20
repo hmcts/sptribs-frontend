@@ -15639,7 +15639,7 @@ __metadata:
     ansi-regex: ^6.0.0
     applicationinsights: ^2.5.0
     autobind-decorator: ^2.4.0
-    axios: ^1.6.1
+    axios: ^1.6.2
     axios-debug-log: ^1.0.0
     babel-loader: ^9.0.0
     chai: ^4.3.5
