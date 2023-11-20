@@ -15,7 +15,7 @@ services:
     systemUsername: 'dummy_user'
     systemPassword: 'dummy_password'
   sptribs:
-    url: 'https://sptribs-case-api-pr-1133.preview.platform.hmcts.net'
+    url: 'http://sptribs-case-api-aat.service.core-compute-aat.internal'
   equalityAndDiversity:
     url: 'https://pcq.aat.platform.hmcts.net'
     path: '/service-endpoint'
