@@ -7,7 +7,7 @@ Feature: Start now  button
     Given I am authenticated as a valid appellant
     And I load the application
 
-    Then I see "Submit a first-tier tribunal form" in title
+    Then I see "this hsould fail" in title
     And I click on the "Start now" button
 
     Then I should be taken to the Log in page
