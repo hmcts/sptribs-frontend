@@ -1,5 +1,14 @@
 jest.mock('config');
-const mockCreateClient = jest.fn(() => 'MOCK redis client');
+const mockRedisClient = {
+  connect: () =>
+    new Promise(resolve =>
+      resolve({
+        test: () => jest.fn(),
+      })
+    ),
+};
+
+const mockCreateClient = jest.fn(() => mockRedisClient);
 jest.mock('redis', () => {
   return {
     __esModule: true,
@@ -40,19 +49,24 @@ jest.mock('cookie-parser', () => {
 
 import config from 'config';
 import { Application } from 'express';
+import { LoggerInstance } from 'winston';
 
 import { SessionStorage } from '.';
 
 describe('session', () => {
   let mockApp;
+  let mockLogger: LoggerInstance;
 
   beforeEach(() => {
     config.get = jest.fn().mockImplementationOnce(() => 'MOCK_SECRET');
     mockApp = {
       use: jest.fn(callback => callback),
     } as unknown as Application;
+    mockLogger = {
+      error: jest.fn().mockImplementation((message: string) => message),
+    } as unknown as LoggerInstance;
 
-    new SessionStorage().enableFor(mockApp);
+    new SessionStorage().enableFor(mockApp, mockLogger);
   });
 
   test('should use cookieParser middleware', () => {
@@ -66,9 +80,8 @@ describe('session', () => {
       saveUninitialized: false,
       secret: 'MOCK_SECRET',
       cookie: {
-        httpOnly: false,
+        httpOnly: true,
         maxAge: 1260000,
-        secure: true,
       },
       rolling: true,
       store: mockSessionFileStore,
@@ -87,22 +100,27 @@ describe('session', () => {
         use: jest.fn(callback => callback),
         locals: {},
       } as unknown as Application;
+      mockLogger = {
+        error: jest.fn().mockImplementation((message: string) => message),
+      } as unknown as LoggerInstance;
 
-      new SessionStorage().enableFor(mockApp);
+      new SessionStorage().enableFor(mockApp, mockLogger);
     });
 
     test('should create redis client', () => {
       expect(mockCreateClient).toHaveBeenCalledWith({
-        host: 'MOCK_REDIS_HOST',
+        socket: {
+          host: 'MOCK_REDIS_HOST',
+          port: 6380,
+          tls: true,
+          connectTimeout: 15000,
+        },
         password: 'MOCK_REDIS_KEY',
-        port: 6380,
-        tls: true,
-        connect_timeout: 15000,
       });
     });
 
     test('should use session middleware with SessionStore', () => {
-      expect(mockApp.locals.redisClient).toEqual('MOCK redis client');
+      expect(mockApp.locals.redisClient).toEqual(mockRedisClient);
       expect(mockApp.use).toHaveBeenNthCalledWith(2, 'MOCK session');
     });
   });

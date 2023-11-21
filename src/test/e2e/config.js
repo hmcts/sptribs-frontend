@@ -4,7 +4,7 @@ module.exports = {
     password: process.env.CITIZEN_PASSWORD,
   },
 
-  baseUrl: process.env.SPTRIBS_FRONTEND_URL || 'https://sptribs-frontend-staging.service.core-compute-aat.internal',
+  baseUrl: process.env.SPTRIBS_FRONTEND_URL || 'https://sptribs-frontend.aat.platform.hmcts.net',
 
   definition: {
     jurisdiction: 'PUBLICLAW',

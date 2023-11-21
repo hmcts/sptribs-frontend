@@ -15,7 +15,7 @@ services:
     systemUsername: 'dummy_user'
     systemPassword: 'dummy_password'
   sptribs:
-    url: 'https://sptribs-case-api-pr-1133.preview.platform.hmcts.net'
+    url: 'http://sptribs-case-api-aat.service.core-compute-aat.internal'
   equalityAndDiversity:
     url: 'https://pcq.aat.platform.hmcts.net'
     path: '/service-endpoint'
@@ -24,6 +24,8 @@ services:
   postcodeLookup:
     url: 'https://api.os.uk/search/places/v1'
     token: 'NEED TO INSERT SECRET'
+  fisDssUpdate:
+    url: 'https://dss-update-case.aat.platform.hmcts.net/dss-update/start'
   hmctsHomePage:
     url: 'https://www.gov.uk/government/organisations/hm-courts-and-tribunals-service'
   documentManagement:

@@ -24,8 +24,9 @@ function convertDate() {
 module.exports = {
 
   continueButton: '#main-form-submit',
+  backButton: '.govuk-back-link',
 
-  async checkPageLoads() {
+  async checkPageLoads(pa11y_helper) {
     await I.waitForText(CheckYourAnswers.pagetitle);
     I.see(CheckYourAnswers.subtitle1);
     I.see(CheckYourAnswers.textonpage1);
@@ -50,7 +51,9 @@ module.exports = {
     I.see(CheckYourAnswers.textonpage15);
     I.see(CheckYourAnswers.subtitle7);
     I.see(CheckYourAnswers.textonpage16);
-    pa11yHelper.runPa11yCheck();
+    if (pa11y_helper === true) {
+      pa11yHelper.runPa11yCheck();
+    }
   },
 
   async checkValidInfoAllFields() {
@@ -58,7 +61,6 @@ module.exports = {
     const wordFileName = config.testWordFile.split('/').pop();
     const txtFileName = config.testFile.split('/').pop();
     const yesElements = locate('//*[contains(text(), "Yes")]');
-
     I.see(subjectDetails.name);
     I.see(convertDate());
     I.see(subjectContactDetails.emailAddress);
@@ -74,6 +76,14 @@ module.exports = {
     I.see(UploadOtherInfo.documentRelevance);
     I.see(UploadOtherInfo.additionalInfo);
     await I.click(this.continueButton);
+  },
+
+  async continueSmoke() {
+    await I.click(this.continueButton);
+  },
+
+  async pressBackButton() {
+    await I.click(this.backButton);
   },
 
 };

@@ -7,13 +7,13 @@ services:
     url: 'http://rpe-service-auth-provider-aat.service.core-compute-aat.internal'
     microservice: 'sptribs_frontend'
     secret: 'NEED TO INSERT SECRET'
-  sptribs:
-    url: 'http://localhost:4013'
   postcodeLookup:
     url: 'https://api.os.uk/search/places/v1'
     token: 'NEED TO INSERT SECRET'
   feeLookup:
     url: 'http://fees-register-api-aat.service.core-compute-aat.internal/fees-register/fees/lookup'
+  fisDssUpdate:
+    url: 'http://localhost:3100/dss-update/start'
   hmctsHomePage:
     url: 'https://www.gov.uk/government/organisations/hm-courts-and-tribunals-service'
   documentManagement:

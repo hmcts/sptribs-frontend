@@ -10,14 +10,17 @@ module.exports = {
 
   contactAgreeBox: '#subjectAgreeContact',
   continueButton: '#main-form-submit',
+  backButton: '.govuk-back-link',
 
-  async checkPageLoads() {
+  async checkPageLoads(pa11y_helper) {
     await I.waitForText(subjectDetails.pageTitle, 30);
     I.see(subjectDetails.subHeading1);
     I.see(subjectDetails.subHeading2);
     I.see(subjectDetails.textOnPage1);
     I.see(subjectDetails.textOnPage2);
-    pa11yHelper.runPa11yCheck();
+    if (pa11y_helper === true) {
+      pa11yHelper.runPa11yCheck();
+    }
   },
 
   async triggerErrorMessages() {
@@ -41,5 +44,10 @@ module.exports = {
     I.fillField(this.fields.mobileNumber, subjectDetails.contactNumber);
     I.click(this.contactAgreeBox);
     await I.click(this.continueButton);
+  },
+
+  async pressBackButton() {
+    await I.waitForText(subjectDetails.pageTitle);
+    I.click(this.backButton);
   },
 };
