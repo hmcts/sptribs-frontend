@@ -16,7 +16,7 @@ Scenario(
     uploadSupportingDocuments,
     uploadOtherInformation,
   }) => {
-    await landingPage.seeTheLandingPage();
+    await lanedingPage.seeTheLandingPage();
     await landingPage.continueOn();
     await loginPage.SignInUser();
     await subjectDetailsPage.checkPageLoads(false);

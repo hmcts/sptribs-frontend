@@ -68,9 +68,11 @@ withPipeline(type, product, component) {
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
   }
 
-  before('functionalTest:aat') {
-   // env.ADOP_WEB_URL = "https://sptribs-frontend.aat.platform.hmcts.net/"
-    env.IDAM_API_URL = "https://sptribs-frontend.aat.platform.hmcts.net/"
+//  before('functionalTest:aat') {
+//    env.ADOP_WEB_URL = "https://sptribs-frontend.aat.platform.hmcts.net/"
+//  }
+  before("functionalTest") {
+    env.IDAM_API_URL = 'https://idam-api.aat.platform.hmcts.net'
   }
 
   afterAlways('functionalTest:aat') {
