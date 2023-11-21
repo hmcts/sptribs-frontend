@@ -3624,15 +3624,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/progress-bar@npm:^2.0.4":
-  version: 2.1.2
-  resolution: "@uppy/progress-bar@npm:2.1.2"
+"@uppy/progress-bar@npm:^3.0.4":
+  version: 3.0.4
+  resolution: "@uppy/progress-bar@npm:3.0.4"
   dependencies:
-    "@uppy/utils": ^4.1.2
+    "@uppy/utils": ^5.5.2
     preact: ^10.5.13
   peerDependencies:
-    "@uppy/core": ^2.3.3
-  checksum: 88551d3b31865eb48806e23b46fef5aac03cc22d18e263dc75c66617e52a04b932a60a8417ab3917fb8fe92d26c28ac1faea17b630e3beae31d033fac5f57e43
+    "@uppy/core": ^3.6.0
+  checksum: 18cd69471946c11a1575ba760dc7c92cb17c4a72599b2377833ec0d76876e54dc2fdbf38d1fd35404f4b2031e4024c30fe0ad8ff7b91ce4028e9f8cf3334357d
   languageName: node
   linkType: hard
 
@@ -15432,7 +15432,7 @@ __metadata:
     "@uppy/core": ^2.1.4
     "@uppy/drop-target": ^2.0.2
     "@uppy/file-input": ^2.0.5
-    "@uppy/progress-bar": ^2.0.4
+    "@uppy/progress-bar": ^3.0.4
     "@uppy/xhr-upload": ^2.0.7
     "@wdio/sauce-service": ^8.15.9
     allure-commandline: ^2.24.0
