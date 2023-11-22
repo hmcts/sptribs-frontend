@@ -1,6 +1,6 @@
 import { CaseDate } from '../../../app/case/case';
 import { TranslationFn } from '../../../app/controller/GetController';
-import { FormContent } from '../../../app/form/Form';
+import { FormContent, FormFieldsFn } from '../../../app/form/Form';
 import { covertToDateObject } from '../../../app/form/parser';
 import {
   isDateInputInvalid,
@@ -11,12 +11,17 @@ import {
 } from '../../../app/form/validation';
 import { ResourceReader } from '../../../modules/resourcereader/ResourceReader';
 
+export enum SupportedLanguages {
+  En = 'en',
+  Cy = 'cy',
+}
+
 export const form: FormContent = {
-  fields: {
+    fields: (userCase, language) => ({
     subjectFullName: {
       type: 'text',
       classes: 'govuk-input',
-      label: l2 => l2.subjectFullNameLabel,
+      label: l => l.subjectFullNameLabel,
       validator: isFieldFilledIn,
     },
     subjectDateOfBirth: {
@@ -26,19 +31,19 @@ export const form: FormContent = {
       hint: l => l.hint,
       values: [
         {
-          label: l => l.dateFormat['day'],
+          label: language === SupportedLanguages.Cy ? 'Diwrnod' : 'Day',
           name: 'day',
           classes: 'govuk-input--width-2',
           attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
         },
         {
-          label: l => l.dateFormat['month'],
+          label: language === SupportedLanguages.Cy ? 'Mis' : 'Month',
           name: 'month',
           classes: 'govuk-input--width-2',
           attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
         },
         {
-          label: l => l.dateFormat['year'],
+          label: language === SupportedLanguages.Cy ? 'Blwyddyn' : 'Year',
           name: 'year',
           classes: 'govuk-input--width-4',
           attributes: { maxLength: 4, pattern: '[0-9]*', inputMode: 'numeric' },
@@ -58,7 +63,7 @@ export const form: FormContent = {
         }
       },
     },
-  },
+  }),
   submit: {
     text: l => l.continue,
   },
@@ -94,6 +99,6 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   return {
     ...translations,
-    form,
+    form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}, content.language) },
   };
 };

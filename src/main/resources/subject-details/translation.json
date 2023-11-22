@@ -7,16 +7,22 @@
             "line1":"The subject of a case may be you, or the person who you are submitting this tribunal form on behalf of.",
             "subjectFullNameLabel": "Full name",
             "subjectDateOfBirthLabel": "Date of birth",
-            "hint": "For example, 31 3 1980"
+            "hint": "For example, 31 3 1980",
+            "day": "Day",
+            "month": "Month",
+            "year": "Year"
         },
         "cy": {
             "continue": "Parhau",
-            "serviceName": "Appeal to the First-tier Tribunal (Welsh)",
+            "serviceName": "Apelio i’r Tribiwnlys Haen Gyntaf",
             "title":"Pwy yw testun yr achos hwn?",
             "line1":"Gall testun yr achos fod yn chi, neu’r unigolyn rydych yn cyflwyno’r ffurflen tribiwnlys hon ar ei ran.",
             "subjectFullNameLabel": "Enw llawn",
             "subjectDateOfBirthLabel": "Dyddiad geni",
-            "hint": "Er enghraifft, 31 3 1980"
+            "hint": "Er enghraifft, 31 3 1980",
+            "day": "Diwrnod",
+            "month": "Mis",
+            "year": "Blwyddyn"
         }
     },
     "errors":{
@@ -31,11 +37,11 @@
         },
         "cy": {
             "subjectFullName": {
-                "required": "Please enter full name (Welsh)"
+                "required": "Nodwch enw llawn"
             },
             "subjectDateOfBirth": {
-                "required": "Please enter date of birth (Welsh)",
-                "invalid": "Please enter valid date of birth (Welsh)"
+                "required": "Nodwch ddyddiad geni",
+                "invalid": "Nodwch ddyddiad geni dilys"
             }
         }
     }

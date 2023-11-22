@@ -10,7 +10,7 @@
     },
     "cy": {
       "continue": "Parhau",
-      "serviceName": "Appeal to the First-tier Tribunal (Welsh)",
+      "serviceName": "Apelio i’r Tribiwnlys Haen Gyntaf",
       "label": "A yw’r cynrychiolydd a enwyd wedi cymhwyso yn y gyfraith?",
       "hint": "Mae cyfreithwyr neu fargyfreithwyr yn gynrychiolwyr sydd wedi cymhwyso yn y gyfraith.",
       "one": "Ydy",
@@ -25,7 +25,7 @@
     },
     "cy": {
       "representationQualified": {
-        "required": "Please select an answer before you can proceed further (Welsh)"
+        "required": "Rhaid i chi ddewis ateb cyn y gallwch symud ymlaen"
       }
     }
   }

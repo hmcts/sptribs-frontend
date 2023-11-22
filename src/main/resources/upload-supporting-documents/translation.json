@@ -9,11 +9,11 @@
       "uploadButton": "Upload file"
     },
     "cy": {
-      "serviceName": "Appeal to the First-tier Tribunal - (Welsh)",
+      "serviceName": "Apelio i’r Tribiwnlys Haen Gyntaf",
       "title": "Llwytho dogfennau ategol",
       "line1": "Mae’n rhaid i chi anfon copi o lythyr penderfyniad adolygiad yr Awdurdod gyda ffurflen y tribiwnlys wedi’i llenwi.",
       "uploadRequirement": "<div class='govuk-body-s'><ul class=‘govuk-list govuk-list--bullet’><li>Fformatau ffeiliau: MS Word, MS Excel, PDF, JPG, GIF, PNG, TXT, RTF</li><li>Maint ffeil pob dogfen: hyd at 20 megabeit (MB)</li><li>Ni ellir llwytho ffeiliau sydd wedi’u diogelu â chyfrinair</li></ul><p> Ni allwch lwytho ffeiliau gweithredu (.exe), ffeiliau zip neu ffeiliau eraill oherwydd y risg o firws.</div> (Welsh)",
-      "uploadGuidance": "Once you have selected the file click \"Upload file\" to upload it. (Welsh)",
+      "uploadGuidance": "Unwaith y byddwch wedi dewis y ffeil, cliciwch ar \"Llwytho ffeil\" i’w llwytho.",
       "uploadButton": "Llwytho ffeil"
     }
   },
@@ -27,12 +27,12 @@
       "UPLOAD_DELETE_FAIL_ERROR": "Document upload or deletion has failed. Please try again"
     },
     "cy": {
-      "SIZE_ERROR": "File size exceeds 20Mb. Please upload a file that is less than 20Mb (Welsh)",
-      "FORMAT_ERROR": "This service only accepts files in the formats - MS Word, MS Excel, PDF, JPG, PNG, TXT, RTF (Welsh)",
-      "TOTAL_FILES_EXCEED_ERROR": "You can upload 5 files only. Please delete one of the uploaded files and retry (Welsh)",
-      "CONTINUE_WITHOUT_UPLOAD_ERROR": "You cannot continue without uploading supporting documentation (Welsh)",
-      "NO_FILE_UPLOAD_ERROR": "Please choose a file to upload (Welsh)",
-      "UPLOAD_DELETE_FAIL_ERROR": "Document upload or deletion has failed. Please try again (in welsh)"
+      "SIZE_ERROR": "Mae’r ffeil yn fwy na 20Mb. Llwythwch ffeil sy’n llai na 20Mb",
+      "FORMAT_ERROR": "Dim ond ffeiliau yn y fformatau canlynol y gall y gwasanaeth hwn dderbyn - MS Word, MS Excel, PDF, JPG, PNG, TXT, RTF",
+      "TOTAL_FILES_EXCEED_ERROR": "Gallwch lwytho hyd at 5 ffeil yn unig. Dylech ddileu un o’r ffeiliau a lwythwyd a rhoi cynnig arall arni",
+      "CONTINUE_WITHOUT_UPLOAD_ERROR": "Ni allwch barhau heb lwytho’r dogfennau ategol",
+      "NO_FILE_UPLOAD_ERROR": "Dewiswch ffeil i’w llwytho",
+      "UPLOAD_DELETE_FAIL_ERROR": "Mae llwytho neu ddileu’r ffeil wedi methu. Rhowch gynnig arall arni"
     }
   }
 }

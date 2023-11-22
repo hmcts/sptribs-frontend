@@ -8,8 +8,8 @@
             "button": "Start now"
         },
         "cy": {
-            "serviceTitle": "Appeal to the First-tier Tribunal (welsh)",
-            "banner": "<b>Help us improve this service</b><br>This is a new service. Help us for others to improve it by <a  class='govuk-link' href='https://www.smartsurvey.co.uk/s/Specials_Feedback/?pageurl=currentUrl' target=_blank>giving your feedback (Welsh)</a>",
+            "serviceTitle": "Apelio i’r Tribiwnlys Haen Gyntaf",
+            "banner": "<b>Helpwch ni i wella’r gwasanaeth hwn</b><br> Mae hwn yn wasanaeth newydd. Helpwch ni ei wella i bobl eraill trwy <a class='govuk-link href='https://www.smartsurvey.co.uk/s/Specials_Feedback/?pageurl=currentUrl' target=_blank>roi eich adborth</a>",
             "heading": "Cyflwyno ffurflen Tribiwnlys Haen Gyntaf",
             "body": "<p class='govuk-body-l'>Defnyddiwch y gwasanaeth hwn i lwytho a chyflwyno ffurflen Tribiwnlys Haen Gyntaf sydd wedi’i llenwiFe ofynnir i chi lwytho unrhyw ddogfennau ategol ar wahân, felly gwnewch yn siŵr bod popeth sydd ei angen arnoch gennych wrth law cyn dechrau.<br/></br><span class='govuk-!-font-weight-bold'>Cyflwyno eich ffurflen</span><br/><p class='govuk-body-l'>Yn ogystal â llwytho ffurflen y tribiwnlys, fe ofynnir ychydig o gwestiynau syml i chi hefyd. Byddwch yn gallu adolygu a newid yr atebion i’r cwestiynau hyn cyn i chi eu cyflwyno.</p><p class='govuk-body-l'>Ni ddylai gymryd mwy nag 20 munud i chi lwytho a chyflwyno ffurflen tribiwnlys.</p>",
             "button": "Dechrau nawr"

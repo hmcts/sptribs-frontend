@@ -11,12 +11,12 @@
         },
         "cy": {
             "continue": "Parhau",
-            "serviceName": "Contact preferences (in Welsh)",
-            "label": "Where should we send emails about this application? (in Welsh)",
-            "hint": "We will only email important updates. (in Welsh)",
-            "accountOwner": "The account owner (in Welsh)",
-            "namedPerson": "The person named on this application (in Welsh)",
-            "bothReceiveEmail": "Both the account owner and the person named on this application (in Welsh)"
+            "serviceName": "Dewisiadau cyswllt",
+            "label": "I ble dylwn ni anfon negeseuon e-bost am y cais hwn?",
+            "hint": "Byddwn ond yn anfon negeseuon e-bost gyda diweddariadau pwysig.",
+            "accountOwner": "Perchennog y cyfrif",
+            "namedPerson": "Yr unigolyn a enwir yn y cais hwn",
+            "bothReceiveEmail": "Perchennog y cyfrif a’r unigolyn a enwir yn y cais hwn"
         }
     },
     "errors":{
@@ -27,7 +27,7 @@
         },
         "cy": {
             "contactPreferenceType": {
-                "required": "Select an option (in Welsh)"
+                "required": "Dewiswch opsiwn"
             }
         }
     }

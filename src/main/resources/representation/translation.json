@@ -9,7 +9,7 @@
     },
     "cy": {
       "continue": "Parhau",
-      "serviceName": "Appeal to the First-tier Tribunal (Welsh)",
+      "serviceName": "Apelio i’r Tribiwnlys Haen Gyntaf",
       "label": "A oes cynrychiolydd wedi’i enwi ar y ffurflen tribiwnlys sydd wedi’i llenwi?",
       "one": "Oes",
       "two": "Nac oes"
@@ -23,7 +23,7 @@
     },
     "cy": {
       "representation": {
-        "required": "Please select an answer before you can proceed further (Welsh)"
+        "required": "Rhaid i chi ddewis ateb cyn y gallwch symud ymlaen"
       }
     }
   }
