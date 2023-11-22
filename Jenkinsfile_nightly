@@ -53,6 +53,7 @@ withNightlyPipeline(type, product, component) {
   env.SPTRIBS_FRONTEND_URL = params.FRONTEND_URL
   enableCrossBrowserTest(60)
   loadVaultSecrets(secrets)
+  enableFullFunctionalTest(120)
 
 after('test') {
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'coverage/**/*'
@@ -64,4 +65,14 @@ after('test') {
   after('crossBrowserTest') {
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
   }
+}
+afterAlways('fullFunctionalTest') {
+  publishHTML([
+          allowMissing         : true,
+          alwaysLinkToLastBuild: true,
+          keepAll              : true,
+          reportDir            : "functional-output/e2e/reports/",
+          reportFiles          : 'report.html',
+          reportName           : 'Sptribs Frontend Functional Test'
+  ])
 }
