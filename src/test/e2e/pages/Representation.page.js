@@ -25,8 +25,12 @@ module.exports = {
     I.see(representation.selectionError, { xpath: "//p[@id='representation-error' and contains(., '" + representation.selectionError + "')]" });
   },
 
-  async fillInFields() {
-    await I.click(this.representationYes);
+  async fillInFields(representationPresent) {
+    if (representationPresent === true) {
+      await I.click(this.representationYes);
+    } else {
+      await I.click(this.representationNo);
+    }
     I.click(this.continueButton);
   },
 

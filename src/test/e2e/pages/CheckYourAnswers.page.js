@@ -56,7 +56,7 @@ module.exports = {
     }
   },
 
-  async checkValidInfoAllFields() {
+  async checkValidInfoAllFields(representationPresent) {
     const pdfFileName = config.testPdfFile.split('/').pop();
     const wordFileName = config.testWordFile.split('/').pop();
     const txtFileName = config.testFile.split('/').pop();
@@ -65,11 +65,13 @@ module.exports = {
     I.see(convertDate());
     I.see(subjectContactDetails.emailAddress);
     I.see(subjectContactDetails.contactNumber);
-    I.seeNumberOfElements(yesElements, 2);
-    I.see(representativeDetails.fullName);
-    I.see(representativeDetails.Organisation);
-    I.see(representativeDetails.contactNumber);
-    I.see(representativeDetails.emailAddress);
+    if (representationPresent === true) {
+      I.seeNumberOfElements(yesElements, 2);
+      I.see(representativeDetails.fullName);
+      I.see(representativeDetails.Organisation);
+      I.see(representativeDetails.contactNumber);
+      I.see(representativeDetails.emailAddress);
+    }
     I.see(pdfFileName);
     I.see(wordFileName);
     I.see(txtFileName);
