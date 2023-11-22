@@ -154,6 +154,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
   }
 
   async PostDocumentUploader(req: AppRequest<AnyObject>, res: Response): Promise<void> {
+    const chooseFileLink = '#file-upload-1';
     if (req.session.hasOwnProperty('otherCaseInformation')) {
       const CaseId = req.session.userCase['id'];
       const baseURL = '/case/dss-orchestration/' + CaseId + '/update?event=UPDATE';
@@ -225,7 +226,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
       } catch (error) {
         console.log(error);
         const errorMessage = FileValidations.ResourceReaderContents(req).UPLOAD_DELETE_FAIL_ERROR;
-        this.uploadFileError(req, res, errorMessage);
+        this.uploadFileError(req, res, errorMessage, chooseFileLink);
       }
     }
   }
@@ -239,10 +240,10 @@ export default class UploadDocumentController extends PostController<AnyObject> 
     });
   };
 
-  private uploadFileError(req: AppRequest<AnyObject>, res: Response<any, Record<string, any>>, errorMessage?: string) {
+  private uploadFileError(req: AppRequest<AnyObject>, res: Response<any, Record<string, any>>, errorMessage?: string, link?: string) {
     req.session.fileErrors.push({
       text: errorMessage,
-      href: '#',
+      href: link,
     });
 
     this.redirect(req, res, UPLOAD_OTHER_INFORMATION);
@@ -254,6 +255,8 @@ export default class UploadDocumentController extends PostController<AnyObject> 
    * @param res
    */
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
+    const chooseFileLink = '#file-upload-1';
+    const filesUploadedLink = '#filesUploaded';
     const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase) : this.fields;
     const form = new Form(fields);
 
@@ -283,7 +286,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
 
       if (isNull(files)) {
         const errorMessage = FileValidations.ResourceReaderContents(req).NO_FILE_UPLOAD_ERROR;
-        this.uploadFileError(req, res, errorMessage);
+        this.uploadFileError(req, res, errorMessage, chooseFileLink);
       } else {
         if (TotalUploadDocuments < Number(config.get('documentUpload.validation.totalOtherInformation'))) {
           if (!req.session.hasOwnProperty('errors')) {
@@ -330,34 +333,25 @@ export default class UploadDocumentController extends PostController<AnyObject> 
               } catch (error) {
                 logger.error(error);
                 const errorMessage = FileValidations.ResourceReaderContents(req).UPLOAD_DELETE_FAIL_ERROR;
-                this.uploadFileError(req, res, errorMessage);
+                this.uploadFileError(req, res, errorMessage, chooseFileLink);
               }
             } else {
-              const FormattedError: any[] = [];
               if (!validateFileSize) {
-                FormattedError.push({
-                  text: FileValidations.ResourceReaderContents(req).SIZE_ERROR,
-                  href: '#',
-                });
+                const errorMessage = FileValidations.ResourceReaderContents(req).SIZE_ERROR;
+                this.uploadFileError(req, res, errorMessage, chooseFileLink);
               }
 
               if (!validateMimeType) {
-                FormattedError.push({
-                  text: FileValidations.ResourceReaderContents(req).FORMAT_ERROR,
-                  href: '#',
-                });
+                const errorMessage = FileValidations.ResourceReaderContents(req).FORMAT_ERROR;
+                this.uploadFileError(req, res, errorMessage, chooseFileLink);
               }
-
-              req.session.fileErrors.push(...FormattedError);
 
               this.redirect(req, res, UPLOAD_OTHER_INFORMATION);
             }
           }
         } else {
-          req.session.fileErrors.push({
-            text: FileValidations.ResourceReaderContents(req).TOTAL_FILES_EXCEED_ERROR,
-            href: '#',
-          });
+          const errorMessage = FileValidations.ResourceReaderContents(req).TOTAL_FILES_EXCEED_ERROR;
+          this.uploadFileError(req, res, errorMessage, filesUploadedLink);
 
           this.redirect(req, res, UPLOAD_OTHER_INFORMATION);
         }
