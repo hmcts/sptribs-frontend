@@ -79,6 +79,7 @@ exports.config = {
     uploadSupportingDocuments: './src/test/e2e/pages/UploadSupportingDocuments.page.js',
     uploadOtherInformation: './src/test/e2e/pages/UploadOtherInformation.page.js',
     checkYourAnswersPage: './src/test/e2e/pages/CheckYourAnswers.page.js',
+    applicationSubmittedPage: './src/test/e2e/pages/applicationSubmitted.page.js',
   },
   plugins: {
     retryFailedStep: {
