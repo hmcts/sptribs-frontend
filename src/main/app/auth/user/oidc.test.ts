@@ -1,4 +1,4 @@
-import Axios, { AxiosStatic } from 'axios';
+import axios, { AxiosStatic } from 'axios';
 
 import { CALLBACK_URL } from '../../../steps/urls';
 
@@ -6,7 +6,7 @@ import { getRedirectUrl, getSystemUser, getUserDetails } from './oidc';
 
 jest.mock('axios');
 
-const mockedAxios = Axios as jest.Mocked<AxiosStatic>;
+const mockedAxios = axios as jest.Mocked<AxiosStatic>;
 
 const token =
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0QHRlc3QuY29tIiwiZ2l2ZW5fbmFtZSI6IkpvaG4iLCJmYW1pbHlfbmFtZSI6IkRvcmlhbiIsInVpZCI6IjEyMyJ9.KaDIFSDdD3ZIYCl_qavvYbQ3a4abk47iBOZhB1-9mUQ';

@@ -77,10 +77,9 @@ module.exports = {
     I.see(txtFileName);
     I.see(UploadOtherInfo.documentRelevance);
     I.see(UploadOtherInfo.additionalInfo);
-    await I.click(this.continueButton);
   },
 
-  async continueSmoke() {
+  async continueOn() {
     await I.click(this.continueButton);
   },
 

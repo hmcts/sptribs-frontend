@@ -44,6 +44,6 @@ Scenario(
     await uploadSupportingDocuments.uploadDocumentsSection();
     await uploadOtherInformation.skipDocumentsSection(); // optional uploads
     await I.click('button[name="opt-out-button"]'); // opt out of PCQ
-    await checkYourAnswersPage.continueSmoke();
+    await checkYourAnswersPage.continueOn();
   }
 );
