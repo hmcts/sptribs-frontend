@@ -4,17 +4,21 @@
       "serviceName": "Appeal to the First-tier Tribunal",
       "title": "Upload supporting documents",
       "line1": "You must send a copy of the Authority's Review decision letter with the completed tribunal form.",
+      "uploadRequirementHeader": "File uploads requirements",
       "uploadRequirement": "<div class='govuk-body-s'><ul class=‘govuk-list govuk-list--bullet’><li>File formats: MS Word, MS Excel, PDF, JPG, PNG, TXT, RTF</li><li>File size per document: up to 20 megabytes (MB)</li><li>Files cannot be password protected</li></ul><p> You can’t upload executable (.exe), .zip or other archive files due to virus risks.</div>",
       "uploadGuidance": "Once you have selected the file click \"Upload file\" to upload it.",
-      "uploadButton": "Upload file"
+      "uploadButton": "Upload file",
+      "uploadAFile": "Upload a file"
     },
     "cy": {
       "serviceName": "Apelio i’r Tribiwnlys Haen Gyntaf",
       "title": "Llwytho dogfennau ategol",
       "line1": "Mae’n rhaid i chi anfon copi o lythyr penderfyniad adolygiad yr Awdurdod gyda ffurflen y tribiwnlys wedi’i llenwi.",
-      "uploadRequirement": "<div class='govuk-body-s'><ul class=‘govuk-list govuk-list--bullet’><li>Fformatau ffeiliau: MS Word, MS Excel, PDF, JPG, GIF, PNG, TXT, RTF</li><li>Maint ffeil pob dogfen: hyd at 20 megabeit (MB)</li><li>Ni ellir llwytho ffeiliau sydd wedi’u diogelu â chyfrinair</li></ul><p> Ni allwch lwytho ffeiliau gweithredu (.exe), ffeiliau zip neu ffeiliau eraill oherwydd y risg o firws.</div> (Welsh)",
+      "uploadRequirementHeader": "Gofynion uwchlwytho ffeiliau",
+      "uploadRequirement": "<div class='govuk-body-s'><ul class=‘govuk-list govuk-list--bullet’><li>Fformatau ffeiliau: MS Word, MS Excel, PDF, JPG, GIF, PNG, TXT, RTF</li><li>Maint ffeil pob dogfen: hyd at 20 megabeit (MB)</li><li>Ni ellir llwytho ffeiliau sydd wedi’u diogelu â chyfrinair</li></ul><p> Ni allwch lwytho ffeiliau gweithredu (.exe), ffeiliau zip neu ffeiliau eraill oherwydd y risg o firws.</div>",
       "uploadGuidance": "Unwaith y byddwch wedi dewis y ffeil, cliciwch ar \"Llwytho ffeil\" i’w llwytho.",
-      "uploadButton": "Llwytho ffeil"
+      "uploadButton": "Llwytho ffeil",
+      "uploadAFile": "Llwythwch ffeil i fyny"
     }
   },
   "errors": {

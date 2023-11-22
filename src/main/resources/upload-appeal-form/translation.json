@@ -5,18 +5,23 @@
       "title": "Upload tribunal form",
       "line1": "Please upload the First-tier tribunal form that you have already completed.",
       "line2": "If you have other evidence or supporting documents, you can upload these files on the next screen.",
+      "uploadRequirementHeader": "File uploads requirements",
       "uploadRequirement": "<div class='govuk-body-s'><ul class=‘govuk-list govuk-list--bullet’><li>File formats: MS Word, PDF</li><li>File size per document: up to 20 megabytes (MB)</li><li>Files cannot be password protected</li></ul><p> You can’t upload executable (.exe), .zip or other archive files due to virus risks.</div>",
       "uploadGuidance": "Once you have selected the file click \"Upload file\" to upload it.",
-      "uploadButton": "Upload file"
+      "uploadButton": "Upload file",
+      "uploadAFile": "Upload a file"
+
     },
     "cy": {
       "serviceName": "Apelio i’r Tribiwnlys Haen Gyntaf",
       "title": "Llwytho ffurflen y tribiwnlys",
       "line1": "Llwythwch ffurflen y Tribiwnlys Haen Gyntaf rydych wedi’i llenwi’n barod.",
       "line2": "Os oes gennych dystiolaeth arall neu ddogfennau ategol, gallwch lwytho’r ffeiliau hyn ar y sgrin nesaf.",
+      "uploadRequirementHeader": "Gofynion uwchlwytho ffeiliau",
       "uploadRequirement": "<div class='govuk-body-s'><ul class=‘govuk-list govuk-list--bullet’><li>Fformatau ffeiliau: MS Word, PDF</li><li>Maint ffeil pob dogfen: hyd at 20 megabeit (MB)</li><li>Ni ellir llwytho ffeiliau sydd wedi’u diogelu â chyfrinair</li></ul><p> Ni allwch lwytho ffeiliau gweithredu (.exe), ffeiliau zip neu ffeiliau eraill oherwydd y risg o firws.</div>",
       "uploadGuidance": "Unwaith y byddwch wedi dewis y ffeil, cliciwch ar \"Llwytho ffeil\" i’w llwytho.",
-      "uploadButton": "Llwytho ffeil"
+      "uploadButton": "Llwytho ffeil",
+      "uploadAFile": "Llwythwch ffeil i fyny"
     }
   },
   "errors": {

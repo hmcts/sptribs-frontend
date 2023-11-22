@@ -12,10 +12,12 @@
       "line3": "These may include:",
       "line4": "Please explain why you feel this document is relevant to your case",
       "uploadExamples": "<div class='govuk-body-m'><ul class=‘govuk-list govuk-list--bullet’><li>copies of any relevant correspondence or documentation</li><li>audio or video recordings</li><li>written statements</li><li>related reports</li></ul></div>",
+      "uploadRequirementHeader": "File uploads requirements",
       "uploadRequirement": "<div class='govuk-body-s'><ul class=‘govuk-list govuk-list--bullet’><li>File formats: MS Word, MS Excel, PDF, JPG, PNG, TXT, RTF, MP4, MP3</li><li>File size per document: up to 20 megabytes (MB)</li><li>File size per multimedia file: 30 megabytes (MB)</li><li>Files cannot be password protected</li></ul><p> You can’t upload executable (.exe), .zip or other archive files due to virus risks.</div>",
       "uploadGuidance": "Once you have selected the file click \"Upload file\" to upload it.",
       "additionalInfo": "For each piece of additional information or evidence you are submitting, please state why it is relevant to your case.",
-      "uploadButton": "Upload file"
+      "uploadButton": "Upload file",
+      "uploadAFile": "Upload a file"
     },
     "cy": {
       "serviceName": "Apelio i’r Tribiwnlys Haen Gyntaf",
@@ -29,10 +31,12 @@
       "line3": "Gallai'r rhain gynnwys:",
       "line4": "Eglurwch pam eich bod yn teimlo bod y ddogfen hon yn berthnasol i’ch achos",
       "uploadExamples": "<div class='govuk-body-m'><ul class=‘govuk-list govuk-list--bullet’><li>copïau o unrhyw ohebiaeth neu ddogfennau perthnasol</li><li>recordiadau sain neu fideo</li><li>datganiadau ysgrifenedig</li><li>adroddiadau perthnasol</li></ul></div>",
+      "uploadRequirementHeader": "Gofynion uwchlwytho ffeiliau",
       "uploadRequirement": "<div class='govuk-body-s'><ul class=‘govuk-list govuk-list--bullet’><li>Fformatau ffeiliau: MS Word, MS Excel, PDF, JPG, GIF, PNG, TXT, RTF, MP4, MP3</li><li>Maint ffeil pob dogfen: hyd at 20 megabeit (MB)</li><li>Maint pob ffeil amlgyfrwng: 30 megabeit (MB)</li><li>Ni ellir llwytho ffeiliau sydd wedi’u diogelu â chyfrinair</li></ul><p> Ni allwch lwytho ffeiliau gweithredu (.exe), ffeiliau zip neu ffeiliau eraill oherwydd y risg o firws.</div>",
       "uploadGuidance": "Unwaith y byddwch wedi dewis y ffeil, cliciwch ar \"Llwytho ffeil\" i’w llwytho.",
       "additionalInfo": "Ar gyfer pob darn o dystiolaeth ychwanegol rydych yn ei chyflwyno, nodwch pam ei bod yn berthnasol i’ch achos.",
-      "uploadButton": "Llwytho ffeil"
+      "uploadButton": "Llwytho ffeil",
+      "uploadAFile": "Llwythwch ffeil i fyny"
     }
   },
   "errors": {
