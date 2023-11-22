@@ -17,12 +17,14 @@ Scenario(
     uploadOtherInformation,
     checkYourAnswersPage,
   }) => {
+    let representationPresent = true;
+    let pa11yTests = false;
     await landingPage.seeTheLandingPage();
     await landingPage.continueOn();
     await loginPage.SignInUser();
     await subjectDetailsPage.fillInFields();
     await subjectContactDetailsPage.fillInFields();
-    await representationPage.fillInFields();
+    await representationPage.fillInFields(representationPresent);
     await representationQualifiedPage.fillInFields();
     await representativeDetailsPage.fillInFields();
     await uploadAppealForm.uploadDocumentsSection();
@@ -30,22 +32,22 @@ Scenario(
     await uploadOtherInformation.uploadDocumentsSection();
     await I.waitForSelector('button[name="opt-out-button"]');
     await I.click('button[name="opt-out-button"]'); // opt out of PCQ
-    await checkYourAnswersPage.checkPageLoads(false);
+    await checkYourAnswersPage.checkPageLoads(pa11yTests, representationPresent);
     await checkYourAnswersPage.pressBackButton();
-    await uploadOtherInformation.checkPageLoads(false);
+    await uploadOtherInformation.checkPageLoads(pa11yTests);
     await uploadOtherInformation.pressBackButton();
-    await uploadSupportingDocuments.checkPageLoads(false);
+    await uploadSupportingDocuments.checkPageLoads(pa11yTests);
     await uploadSupportingDocuments.pressBackButton();
-    await uploadAppealForm.checkPageLoads(false);
+    await uploadAppealForm.checkPageLoads(pa11yTests);
     await uploadAppealForm.pressBackButton();
-    await representativeDetailsPage.checkPageLoads(false);
+    await representativeDetailsPage.checkPageLoads(pa11yTests);
     await representativeDetailsPage.pressBackButton();
-    await representationQualifiedPage.checkPageLoads(false);
+    await representationQualifiedPage.checkPageLoads(pa11yTests);
     await representationQualifiedPage.pressBackButton();
-    await representationPage.checkPageLoads(false);
+    await representationPage.checkPageLoads(pa11yTests);
     await representationPage.pressBackButton();
-    await subjectContactDetailsPage.checkPageLoads(false);
+    await subjectContactDetailsPage.checkPageLoads(pa11yTests);
     await subjectContactDetailsPage.pressBackButton();
-    await subjectDetailsPage.checkPageLoads(false);
+    await subjectDetailsPage.checkPageLoads(pa11yTests);
   }
 );
