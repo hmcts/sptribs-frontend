@@ -32,7 +32,7 @@ Scenario(
     await uploadOtherInformation.uploadDocumentsSection();
     await I.waitForSelector('button[name="opt-out-button"]');
     await I.click('button[name="opt-out-button"]'); // opt out of PCQ
-    await checkYourAnswersPage.checkPageLoads(pa11yTests);
+    await checkYourAnswersPage.checkPageLoads(pa11yTests, representationPresent);
     await checkYourAnswersPage.pressBackButton();
     await uploadOtherInformation.checkPageLoads(pa11yTests);
     await uploadOtherInformation.pressBackButton();

@@ -31,7 +31,7 @@ module.exports = {
     } else {
       await I.click(this.representationNo);
     }
-    I.click(this.continueButton);
+    await I.click(this.continueButton);
   },
 
   async pressBackButton() {
