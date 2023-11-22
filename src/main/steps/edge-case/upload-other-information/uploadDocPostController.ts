@@ -1,6 +1,6 @@
 import { Logger } from '@hmcts/nodejs-logging';
 import autobind from 'autobind-decorator';
-import axios, { AxiosInstance, AxiosRequestHeaders } from 'axios';
+import axios, { AxiosInstance, RawAxiosRequestHeaders } from 'axios';
 import config from 'config';
 import { Response } from 'express';
 import FormData from 'form-data';
@@ -231,7 +231,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
     }
   }
 
-  public UploadDocumentInstance = (BASEURL: string, header: AxiosRequestHeaders): AxiosInstance => {
+  public UploadDocumentInstance = (BASEURL: string, header: RawAxiosRequestHeaders): AxiosInstance => {
     return axios.create({
       baseURL: BASEURL,
       headers: header,
