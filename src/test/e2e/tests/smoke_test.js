@@ -31,12 +31,13 @@ Scenario(
     uploadOtherInformation,
     checkYourAnswersPage,
   }) => {
+    let representationPresent = true;
     await landingPage.seeTheLandingPage();
     await landingPage.continueOn();
     await loginPage.SignInUser();
     await subjectDetailsPage.fillInFields();
     await subjectContactDetailsPage.fillInFields();
-    await representationPage.fillInFields();
+    await representationPage.fillInFields(representationPresent);
     await representationQualifiedPage.fillInFields();
     await representativeDetailsPage.fillInFields();
     await uploadAppealForm.uploadDocumentsSection();

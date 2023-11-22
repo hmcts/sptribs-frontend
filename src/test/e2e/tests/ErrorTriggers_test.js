@@ -16,31 +16,33 @@ Scenario(
     uploadSupportingDocuments,
     uploadOtherInformation,
   }) => {
+    let representationPresent = true;
+    let pa11yTests = false;
     await landingPage.seeTheLandingPage();
     await landingPage.continueOn();
     await loginPage.SignInUser();
-    await subjectDetailsPage.checkPageLoads(false);
+    await subjectDetailsPage.checkPageLoads(pa11yTests);
     await subjectDetailsPage.triggerErrorMessages();
     await subjectDetailsPage.fillInFields();
-    await subjectContactDetailsPage.checkPageLoads(false);
+    await subjectContactDetailsPage.checkPageLoads(pa11yTests);
     await subjectContactDetailsPage.triggerErrorMessages();
     await subjectContactDetailsPage.fillInFields();
-    await representationPage.checkPageLoads(false);
+    await representationPage.checkPageLoads(pa11yTests);
     await representationPage.triggerErrorMessages();
-    await representationPage.fillInFields();
-    await representationQualifiedPage.checkPageLoads(false);
+    await representationPage.fillInFields(representationPresent);
+    await representationQualifiedPage.checkPageLoads(pa11yTests);
     await representationQualifiedPage.triggerErrorMessages();
     await representationQualifiedPage.fillInFields();
-    await representativeDetailsPage.checkPageLoads(false);
+    await representativeDetailsPage.checkPageLoads(pa11yTests);
     await representativeDetailsPage.triggerErrorMessages();
     await representativeDetailsPage.fillInFields();
-    await uploadAppealForm.checkPageLoads(false);
+    await uploadAppealForm.checkPageLoads(pa11yTests);
     await uploadAppealForm.triggerErrorMessages();
     await uploadAppealForm.uploadDocumentsSection();
-    await uploadSupportingDocuments.checkPageLoads(false);
+    await uploadSupportingDocuments.checkPageLoads(pa11yTests);
     await uploadSupportingDocuments.triggerErrorMessages();
     await uploadSupportingDocuments.uploadDocumentsSection();
-    await uploadOtherInformation.checkPageLoads(false);
+    await uploadOtherInformation.checkPageLoads(pa11yTests);
     await uploadOtherInformation.triggerErrorMessages();
     await uploadOtherInformation.uploadDocumentsSection();
     await I.waitForSelector('button[name="opt-out-button"]'); // Just checks that it's got to this page
