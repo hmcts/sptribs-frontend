@@ -297,7 +297,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
               } catch (error) {
                 logger.error(error);
                 const errorMessage = FileValidations.ResourceReaderContents(req).UPLOAD_DELETE_FAIL_ERROR;
-                this.uploadFileError(req, res, errorMessage, filesUploadedLink);
+                this.uploadFileError(req, res, errorMessage, chooseFileLink);
               }
             } else {
               if (!validateFileSize) {
