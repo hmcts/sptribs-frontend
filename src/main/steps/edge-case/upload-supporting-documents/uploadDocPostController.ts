@@ -231,7 +231,12 @@ export default class UploadDocumentController extends PostController<AnyObject> 
     });
   };
 
-  private uploadFileError(req: AppRequest<AnyObject>, res: Response<any, Record<string, any>>, errorMessage?: string, link?: string) {
+  private uploadFileError(
+    req: AppRequest<AnyObject>,
+    res: Response<any, Record<string, any>>,
+    errorMessage?: string,
+    link?: string
+  ) {
     req.session.fileErrors.push({
       text: errorMessage,
       href: link,
