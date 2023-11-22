@@ -31,18 +31,19 @@ Scenario(
     uploadOtherInformation,
     checkYourAnswersPage,
   }) => {
+    let representationPresent = true;
     await landingPage.seeTheLandingPage();
     await landingPage.continueOn();
     await loginPage.SignInUser();
     await subjectDetailsPage.fillInFields();
     await subjectContactDetailsPage.fillInFields();
-    await representationPage.fillInFields();
+    await representationPage.fillInFields(representationPresent);
     await representationQualifiedPage.fillInFields();
     await representativeDetailsPage.fillInFields();
     await uploadAppealForm.uploadDocumentsSection();
     await uploadSupportingDocuments.uploadDocumentsSection();
     await uploadOtherInformation.skipDocumentsSection(); // optional uploads
     await I.click('button[name="opt-out-button"]'); // opt out of PCQ
-    await checkYourAnswersPage.continueSmoke();
+    await checkYourAnswersPage.continueOn();
   }
 );
