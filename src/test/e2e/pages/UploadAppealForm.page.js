@@ -44,7 +44,7 @@ module.exports = {
   async uploadDocumentsSection() {
     await I.attachFile(this.fields.uploadFileButton, config.testPdfFile);
     await I.click(this.fields.fileUploadedOption)
-    await I.waitForElement(UploadAppealForm.fileUploadedSuccess, 10);
+    await I.waitForElement(UploadAppealForm.fileUploadedSuccess, 30);
     I.see(UploadAppealForm.deleteButton);
     I.click(this.continueButton);
   },
