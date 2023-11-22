@@ -5,14 +5,16 @@
         "serviceName": "Appeal to the First-tier Tribunal",
         "line1": "Your tribunal form and related documents have been sent.",
         "line3": "<b>We would like to hear your thoughts</b><br>Complete this short 5-minutes survey to help improve our services for you and others <a class='govuk-link' href='https://www.smartsurvey.co.uk/s/SurveyExit/?service=Specials'target=_blank><br>Please leave your your feedback</a>",
-        "line4": "What did you think of this service?"
+        "line4": "What did you think of this service?",
+        "closeAndExit": "Close and exit"
       },
       "cy": {
         "title": "Ffurflen y tribiwnlys wedi’i hanfon",
         "serviceName": "Apelio i’r Tribiwnlys Haen Gyntaf",
         "line1": "Mae ffurflenni’r tribiwnlys a’ch dogfennau perthnasol wedi’u hanfon.",
         "line3": "<b>Hoffwn glywed eich barn</b><br>Llenwch yr arolwg byr hwn, sy’n cymryd 5 munud i’w lenwi, i’n helpu i wella ein gwasanaethau i chi a phobl eraill <a class=’govuk-link’ href=’https://www.smartsurvey.co.uk/s/SurveyExit/?service=Specials’target=_blank><br>Rhowch eich adborth os gwelwch yn dda</a>",
-        "line4": "Beth yw eich barn am y gwasanaeth hwn?"
+        "line4": "Beth yw eich barn am y gwasanaeth hwn?",
+        "closeAndExit": "Cau ac ymadael"
       }
     }
 }

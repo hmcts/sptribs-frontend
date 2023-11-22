@@ -7,8 +7,7 @@ import { PageContent, TranslationFn } from '../../app/controller/GetController';
 
 const en = {
   phase: 'Beta',
-  applyForAdoption: 'Apply for a Service',
-  applyForDissolution: 'Apply for a Service',
+  serviceName: 'Appeal to the First-tier Tribunal',
   feedback:
     "<b> Help us improve this service </b><br>This is a new service. Help us for others to improve it by <a  class='govuk-link' href='https://www.smartsurvey.co.uk/s/Specials_Feedback?pageurl=currentUrl'target=_blank>giving your feedback</a>",
   languageToggle: '<a href="?lng=cy" class="govuk-link language">Cymraeg</a>',
@@ -112,15 +111,14 @@ const en = {
 const cy: typeof en = {
   ...en, // @TODO delete me to get a list of missing translations
   phase: 'Beta',
-  applyForAdoption: 'Apply for a service" (in welsh)',
-  applyForDissolution: 'Apply for a service"(in welsh)',
+  serviceName: 'Apelio i’r Tribiwnlys Haen Gyntaf',
   feedback:
     "<b>Helpwch ni i wella’r gwasanaeth hwn</b><br> Mae hwn yn wasanaeth newydd. Helpwch ni ei wella i bobl eraill trwy <a class='govuk-link' href='https://www.smartsurvey.co.uk/s/Specials_Feedback/?pageurl=currentUrl' target=_blank>roi eich adborth</a>",
   languageToggle: '<a href="?lng=en" class="govuk-link language">English</a>',
   govUk: 'GOV.UK',
-  back: 'Back (in welsh)',
-  continue: 'Continue (in welsh)',
-  change: 'Change  (in welsh)',
+  back: 'Yn ôl',
+  continue: 'Parhau',
+  change: 'Newid',
   upload: 'Uwchlwytho',
   download: 'Llwytho i lawr',
   delete: 'Dileu',
@@ -130,15 +128,15 @@ const cy: typeof en = {
   errorSaving:
     "Mae'n ddrwg gennym, rydym yn cael problemau technegol wrth geisio cadw eich cais. Rhowch gynnig arall arni mewn ychydig funudau.",
   ogl: 'Mae’r holl gynnwys ar gael o dan <a class="govuk-link" href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license" >Drwydded Agored y Llywodraeth f3.0</a>, oni nodir fel arall',
-  errorSummaryHeading: 'There is a problem (in welsh)',
+  errorSummaryHeading: 'Mae yna broblem',
   saveAndSignOut: 'Cadw ac allgofnodi',
-  saveAsDraft: 'Save as draft (in welsh)',
-  signOut: 'Sign out (in welsh)',
-  signIn: 'Sign in (in welsh)',
-  accessibility: 'Accessibility statement(in welsh)',
-  cookies: 'Cookies (in welsh)',
-  privacyPolicy: 'Privacy policy (in welsh)',
-  termsAndConditions: 'Terms and conditions (in welsh)',
+  saveAsDraft: 'Cadw fel drafft',
+  signOut: 'Allgofnodi',
+  signIn: 'Mewngofnodi',
+  accessibility: 'Datganiad Hygyrchedd',
+  cookies: 'Cwcis',
+  privacyPolicy: 'Polisi Preifatrwydd',
+  termsAndConditions: 'Telerau ac Amodau',
   marriage: 'priodas',
   divorce: 'ysgariad',
   endingCivilPartnership: 'dod â phartneriaeth sifil i ben',
@@ -168,9 +166,9 @@ const cy: typeof en = {
     month: 'Mis',
     year: 'Blwyddyn',
   },
-  yes: 'Yes (in welsh)',
-  no: 'No (in welsh)',
-  notSure: 'Not sure (in welsh)',
+  yes: 'Do',
+  no: 'Naddo',
+  notSure: 'Ddim yn siŵr',
   english: 'Saesneg',
   welsh: 'Cymraeg',
   contactUsForHelp: 'Cysylltwch â ni am gymorth',
@@ -182,6 +180,20 @@ const cy: typeof en = {
   telephone: 'Ffoniwch',
   telephoneNumber: '0300 303 5171',
   telephoneDetails: 'Dydd Llun i Ddydd Gwener, 8.30am - 5pm.',
+  cookiesHeading: 'Cwcis ar',
+  cookiesLine1: 'Rydym yn defnyddio cwcis hanfodol i wneud i\'r gwasanaeth hwn weithio.',
+  cookiesLine2:
+    'Rydym hefyd yn defnyddio cwcis dadansoddol fel y gallwn ddeall sut rydych yn defnyddio\'r gwasanaeth a pha welliannau y gallwn eu gwneud.',
+  acceptAnalyticsCookies: 'Derbyn cwcis ychwanegol',
+  rejectAnalyticsCookies: 'Gwrthod cwcis ychwanegol',
+  viewCookies: 'Gweld cwcis',
+  hideMessage: 'Cuddio\'r neges cwcihon',
+  cookiesConfirmationMessage:
+    '<p class="govuk-body">Gallwch <a class="govuk-link" href="/cookies">newid gosodiadau eich cwcis ar</a> unrhyw adeg.</p>',
+  changeCookiesHeading: 'Newid eich gosodiadau cwcis',
+  allowAnalyticsCookies: 'Caniatáu cwcis sy’n mesur defnydd o’r wefan?',
+  useAnalyticsCookies: 'Defnyddio cwcis sy’n mesur fy nefnydd o’r wefan',
+  doNotUseAnalyticsCookies: 'Peidio â defnyddio cwcis sy’n mesur fy nefnydd o’r wefan',
 };
 
 export const generatePageContent = ({
@@ -223,7 +235,6 @@ export const generatePageContent = ({
     userEmail,
     contactEmail,
     addresses,
-    // eligibility,
     fee,
   };
 
@@ -235,7 +246,7 @@ export const generatePageContent = ({
 };
 
 const getServiceName = (translations: typeof en): string => {
-  return capitalize(translations.applyForAdoption);
+  return capitalize(translations.serviceName);
 };
 
 export type CommonContent = typeof en & {
@@ -250,7 +261,6 @@ export type CommonContent = typeof en & {
   userEmail?: string;
   contactEmail?: string;
   referenceNumber?: string;
-  //eslint-disable-next-line @typescript-eslint/no-explicit-any
   addresses?: any[];
   eligibility?: Eligibility;
   fee?: Fee;

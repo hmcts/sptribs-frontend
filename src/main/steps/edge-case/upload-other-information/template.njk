@@ -29,7 +29,7 @@
 <p class="govuk-body">{{ additionalInfo }}</p>
 
 {{ govukDetails({
-  summaryText: "File uploads requirements",
+  summaryText: uploadRequirementHeader,
   text: uploadRequirement | safe
 }) }}
 
@@ -60,7 +60,7 @@
     name: "documents",
     classes: "govuk-!-margin-bottom-1",
     label: {
-      text: "Upload a file"
+      text: uploadAFile
     }
   }) }}
   <p class="govuk-body">{{ uploadGuidance }}</p>
