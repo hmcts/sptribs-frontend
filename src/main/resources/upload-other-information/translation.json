@@ -18,19 +18,19 @@
       "uploadButton": "Upload file"
     },
     "cy": {
-      "serviceName": "Appeal to the First-tier Tribunal- (Welsh)",
+      "serviceName": "Apelio i’r Tribiwnlys Haen Gyntaf",
       "title": "Ychwanegu gwybodaeth at achos",
       "title1": "Dogfennau ychwanegol",
-      "title2": "Additional information (Welsh)",
-      "title3": "Document relevance (Welsh)",
+      "title2": "Gwybodaeth ychwanegol",
+      "title3": "Perthnasedd dogfennau",
       "hint": "Darparwch unrhyw wybodaeth berthnasol ychwanegol yr hoffech ei hychwanegu at yr achos hwn. Peidiwch â chynnwys unrhyw wybodaeth ariannol bersonol, megis eich manylion banc.",
       "line1": "Efallai y byddwch eisiau cyflwyno dogfennau, ffeiliau neu dystiolaeth arall sy’n rhoi mwy o wybodaeth i’r Tribiwnlys am eich achos.",
       "line2": "Bydd hyn yn dibynnu ar natur eich apêl, cais neu hawliad. Gellir dod o hyd i enghreifftiau penodol yn y ffurflen tribiwnlys rydych wedi’i llenwi.",
       "line3": "Gallai'r rhain gynnwys:",
-      "line4": "Please explain why you feel this document is relevant to your case (Welsh)",
+      "line4": "Eglurwch pam eich bod yn teimlo bod y ddogfen hon yn berthnasol i’ch achos",
       "uploadExamples": "<div class='govuk-body-m'><ul class=‘govuk-list govuk-list--bullet’><li>copïau o unrhyw ohebiaeth neu ddogfennau perthnasol</li><li>recordiadau sain neu fideo</li><li>datganiadau ysgrifenedig</li><li>adroddiadau perthnasol</li></ul></div>",
       "uploadRequirement": "<div class='govuk-body-s'><ul class=‘govuk-list govuk-list--bullet’><li>Fformatau ffeiliau: MS Word, MS Excel, PDF, JPG, GIF, PNG, TXT, RTF, MP4, MP3</li><li>Maint ffeil pob dogfen: hyd at 20 megabeit (MB)</li><li>Maint pob ffeil amlgyfrwng: 30 megabeit (MB)</li><li>Ni ellir llwytho ffeiliau sydd wedi’u diogelu â chyfrinair</li></ul><p> Ni allwch lwytho ffeiliau gweithredu (.exe), ffeiliau zip neu ffeiliau eraill oherwydd y risg o firws.</div>",
-      "uploadGuidance": "Once you have selected the file click \"Upload file\" to upload it. (Welsh)",
+      "uploadGuidance": "Unwaith y byddwch wedi dewis y ffeil, cliciwch ar \"Llwytho ffeil\" i’w llwytho.",
       "additionalInfo": "Ar gyfer pob darn o dystiolaeth ychwanegol rydych yn ei chyflwyno, nodwch pam ei bod yn berthnasol i’ch achos.",
       "uploadButton": "Llwytho ffeil"
     }
@@ -44,11 +44,11 @@
       "UPLOAD_DELETE_FAIL_ERROR": "Document upload or deletion has failed. Please try again"
     },
     "cy": {
-      "SIZE_ERROR": "File size exceeds the maximum permitted value. Please upload a file that is less than 50 MB (documents) or less than 100 MB (multimedia files) - welsh",
-      "FORMAT_ERROR": "This service only accepts files in the formats - Ms Word, MS Excel, PDF, JPG, PNG, TXT, RTF, MP4, MP3 - welsh",
-      "TOTAL_FILES_EXCEED_ERROR": "You can upload 20 files only. Please delete one of the uploaded files and retry - welsh",
-      "NO_FILE_UPLOAD_ERROR": "Please choose a file to upload (in welsh)",
-      "UPLOAD_DELETE_FAIL_ERROR": "Document upload or deletion has failed. Please try again (in welsh)"
+      "SIZE_ERROR": "Mae’r ffeil yn fwy na’r maint mwyaf a ganiateir. Llwythwch ffeil sy’n llai na 50Mb (dogfennau) neu’n llai na 100Mb (ffeiliau amlgyfrwng)",
+      "FORMAT_ERROR": "Dim ond ffeiliau yn y fformatau canlynol y gall y gwasanaeth hwn dderbyn - MS Word, MS Excel, PDF, JPG, PNG, TXT, RTF, MP4, MP3",
+      "TOTAL_FILES_EXCEED_ERROR": "Gallwch lwytho hyd at 20 ffeil yn unig. Dylech ddileu un o’r ffeiliau a llwythwyd a rhoi cynnig arall arni",
+      "NO_FILE_UPLOAD_ERROR": "Dewiswch ffeil i’w llwytho",
+      "UPLOAD_DELETE_FAIL_ERROR": "Mae llwytho neu ddileu’r ffeil wedi methu. Rhowch gynnig arall arni"
     }
   }
 }
