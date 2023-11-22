@@ -28,6 +28,7 @@ Scenario(
     await uploadAppealForm.uploadDocumentsSection();
     await uploadSupportingDocuments.uploadDocumentsSection();
     await uploadOtherInformation.uploadDocumentsSection();
+    await I.waitForSelector('button[name="opt-out-button"]');
     await I.click('button[name="opt-out-button"]'); // opt out of PCQ
     await checkYourAnswersPage.checkPageLoads(false);
     await checkYourAnswersPage.pressBackButton();

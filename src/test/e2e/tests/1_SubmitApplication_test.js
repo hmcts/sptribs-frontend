@@ -16,6 +16,7 @@ Scenario(
     uploadSupportingDocuments,
     uploadOtherInformation,
     checkYourAnswersPage,
+    applicationSubmittedPage,
   }) => {
     await landingPage.seeTheLandingPage();
     await landingPage.continueOn();
@@ -36,8 +37,12 @@ Scenario(
     await uploadSupportingDocuments.uploadDocumentsSection();
     await uploadOtherInformation.checkPageLoads(true);
     await uploadOtherInformation.uploadDocumentsSection();
+    await I.waitForSelector('button[name="opt-out-button"]');
     await I.click('button[name="opt-out-button"]'); // opt out of PCQ
-    checkYourAnswersPage.checkPageLoads(true);
-    checkYourAnswersPage.checkValidInfoAllFields();
+    await checkYourAnswersPage.checkPageLoads(true);
+    await checkYourAnswersPage.checkValidInfoAllFields();
+    await checkYourAnswersPage.continueOn()
+    await applicationSubmittedPage.checkPageLoads(true);
+    await applicationSubmittedPage.checkCICCaseNumber();
   }
 );
