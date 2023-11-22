@@ -1,5 +1,5 @@
 import autobind from 'autobind-decorator';
-import axios, { AxiosInstance, AxiosRequestHeaders } from 'axios';
+import axios, { AxiosInstance, RawAxiosRequestHeaders } from 'axios';
 import config from 'config';
 import { Response } from 'express';
 
@@ -59,7 +59,7 @@ export default class submitCaseController extends PostController<AnyObject> {
     super(fields);
   }
 
-  public caseSubmit = (BASEURL: string, header: AxiosRequestHeaders): AxiosInstance => {
+  public caseSubmit = (BASEURL: string, header: RawAxiosRequestHeaders): AxiosInstance => {
     return axios.create({
       baseURL: BASEURL,
       headers: header,
