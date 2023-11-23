@@ -18,7 +18,7 @@ module.exports = {
     I.see(applicationSubmittedDetails.textonpage4, '.govuk-notification-banner__content');
     I.see(applicationSubmittedDetails.textonpage5, '.govuk-notification-banner__content');
     I.see(applicationSubmittedDetails.button, 'a[role=\'button\']');
-    if (pa11y_helper === true) {
+    if (pa11y_helper) {
       pa11yHelper.runPa11yCheck();
     }
   },

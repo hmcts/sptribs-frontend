@@ -22,7 +22,7 @@ Scenario(
     const representationPresent = true;
     const representationQualified = true;
     const uploadOtherInfo = true;
-    await landingPage.seeTheLandingPage();
+    await landingPage.seeTheLandingPage(pa11yTests);
     await landingPage.continueOn();
     await loginPage.SignInUser();
     await subjectDetailsPage.checkPageLoads(pa11yTests);
@@ -69,7 +69,7 @@ Scenario(
     const representationPresent = false;
     const representationQualified = null;
     const uploadOtherInfo = true;
-    await landingPage.seeTheLandingPage();
+    await landingPage.seeTheLandingPage(pa11yTests);
     await landingPage.continueOn();
     await loginPage.SignInUser();
     await subjectDetailsPage.checkPageLoads(pa11yTests);
@@ -114,7 +114,7 @@ Scenario(
     const representationPresent = true;
     const representationQualified = true;
     const uploadOtherInfo = false;
-    await landingPage.seeTheLandingPage();
+    await landingPage.seeTheLandingPage(pa11yTests);
     await landingPage.continueOn();
     await loginPage.SignInUser();
     await subjectDetailsPage.checkPageLoads(pa11yTests);
@@ -163,7 +163,7 @@ Scenario(
     const representationPresent = true;
     const representationQualified = false;
     const uploadOtherInfo = false;
-    await landingPage.seeTheLandingPage();
+    await landingPage.seeTheLandingPage(pa11yTests);
     await landingPage.continueOn();
     await loginPage.SignInUser();
     await subjectDetailsPage.checkPageLoads(pa11yTests);

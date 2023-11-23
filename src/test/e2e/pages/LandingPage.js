@@ -7,7 +7,7 @@ module.exports = {
 
   startButton: 'a[role="button"]',
 
-  async seeTheLandingPage() {
+  async seeTheLandingPage(pa11y_helper) {
     console.log('User using the URL= ' + config.baseUrl);
     await I.amOnPage(config.baseUrl)
     I.see(LandingpageDetails.pageTitle);
@@ -15,7 +15,9 @@ module.exports = {
     I.see(LandingpageDetails.hintMessage);
     I.see(LandingpageDetails.descriptionL1);
     I.see(LandingpageDetails.descriptionL2);
-    pa11yHelper.runPa11yCheck();
+    if (pa11y_helper) {
+      pa11yHelper.runPa11yCheck();
+    }
   },
 
   async continueOn() {

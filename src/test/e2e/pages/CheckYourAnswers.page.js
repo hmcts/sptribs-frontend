@@ -68,8 +68,8 @@ module.exports = {
     I.see(convertDate());
     I.see(subjectContactDetails.emailAddress);
     I.see(subjectContactDetails.contactNumber);
-    if (representationPresent === true) {
-      if (representationQualified === true) {
+    if (representationPresent) {
+      if (representationQualified) {
         I.seeNumberOfElements(yesElements, 2);
       } else if (representationQualified === false) {
         I.seeNumberOfElements(yesElements, 1);
@@ -81,7 +81,7 @@ module.exports = {
       I.see(representativeDetails.emailAddress);
     }
     I.see(pdfFileName);
-    if (uploadOtherInfo === true) {
+    if (uploadOtherInfo) {
       I.see(wordFileName);
       I.see(UploadOtherInfo.documentRelevance);
       I.see(UploadOtherInfo.additionalInfo);

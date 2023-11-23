@@ -21,7 +21,7 @@ module.exports = {
     I.see(subjectDetails.textOnPage1);
     I.see(subjectDetails.textOnPage2);
     I.see(subjectDetails.textOnPage3);
-    if (pa11y_helper === true) {
+    if (pa11y_helper) {
       pa11yHelper.runPa11yCheck();
     }
   },
