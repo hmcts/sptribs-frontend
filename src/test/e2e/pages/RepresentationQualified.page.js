@@ -30,7 +30,8 @@ module.exports = {
   async fillInFields(representationQualified) {
     if (representationQualified === true) {
       await I.click(this.qualifiedYes);
-    } else {
+    }
+    if (representationQualified === false) {
       await I.click(this.qualifiedNo);
     }
     await I.click(this.continueButton);
