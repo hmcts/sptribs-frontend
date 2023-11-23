@@ -71,8 +71,7 @@ module.exports = {
     if (representationPresent === true) {
       if (representationQualified === true) {
         I.seeNumberOfElements(yesElements, 2);
-      }
-      if (representationQualified === false) {
+      } else if (representationQualified === false) {
         I.seeNumberOfElements(yesElements, 1);
         I.seeNumberOfElements(noElements, 3); // there will be two additional no's on the page, and the one for not qualified
       }
