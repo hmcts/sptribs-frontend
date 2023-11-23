@@ -81,7 +81,6 @@ module.exports = {
       I.see(UploadOtherInfo.additionalInfo);
     }
     I.see(txtFileName);
-
   },
 
   async continueOn() {
