@@ -58,7 +58,7 @@ module.exports = {
     }
   },
 
-  async checkValidInfoAllFields(representationPresent) {
+  async checkValidInfoAllFields(representationPresent, uploadOtherInfo) {
     const pdfFileName = config.testPdfFile.split('/').pop();
     const wordFileName = config.testWordFile.split('/').pop();
     const txtFileName = config.testFile.split('/').pop();
@@ -75,10 +75,12 @@ module.exports = {
       I.see(representativeDetails.emailAddress);
     }
     I.see(pdfFileName);
-    I.see(wordFileName);
+    if (uploadOtherInfo === true) {
+      I.see(wordFileName);
+      I.see(UploadOtherInfo.documentRelevance);
+      I.see(UploadOtherInfo.additionalInfo);
+    }
     I.see(txtFileName);
-    I.see(UploadOtherInfo.documentRelevance);
-    I.see(UploadOtherInfo.additionalInfo);
   },
 
   async continueOn() {

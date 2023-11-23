@@ -53,13 +53,15 @@ module.exports = {
   },
 
 
-  async uploadDocumentsSection() {
-    await I.attachFile(this.fields.uploadFileButton, config.testWordFile);
-    await I.click(this.fields.fileUploadedOption)
-    await I.waitForElement(UploadOtherInfo.fileUploadedSuccess, 10);
-    I.see(UploadOtherInfo.deleteButton);
-    await I.fillField(this.fields.documentRelevance, UploadOtherInfo.documentRelevance);
-    await I.fillField(this.fields.additionalInfo, UploadOtherInfo.additionalInfo);
+  async uploadDocumentsSection(uploadInformation) {
+    if (uploadInformation === true) {
+      await I.attachFile(this.fields.uploadFileButton, config.testWordFile);
+      await I.click(this.fields.fileUploadedOption)
+      await I.waitForElement(UploadOtherInfo.fileUploadedSuccess, 10);
+      I.see(UploadOtherInfo.deleteButton);
+      await I.fillField(this.fields.documentRelevance, UploadOtherInfo.documentRelevance);
+      await I.fillField(this.fields.additionalInfo, UploadOtherInfo.additionalInfo);
+    }
     I.click(this.continueButton);
   },
 
