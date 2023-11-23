@@ -51,7 +51,7 @@ pipelineConf.vaultSecrets = secrets
 
 withNightlyPipeline(type, product, component) {
   env.TEST_URL = "https://sptribs-frontend.aat.platform.hmcts.net/?edgecaseType=CIC"
-  env.SPTRIBS_FRONTEND_URL = params.FRONTEND_URL
+  env.SPTRIBS_FRONTEND_URL = "https://sptribs-frontend.aat.platform.hmcts.net/"
   enableCrossBrowserTest(60)
   loadVaultSecrets(secrets)
 
