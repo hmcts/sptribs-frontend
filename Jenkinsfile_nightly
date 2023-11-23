@@ -50,22 +50,21 @@ pipelineConf.vaultSecrets = secrets
 
 
 withNightlyPipeline(type, product, component) {
-
   env.TEST_URL = "https://sptribs-frontend.aat.platform.hmcts.net/?edgecaseType=CIC"
   env.SPTRIBS_FRONTEND_URL = "https://sptribs-frontend.aat.platform.hmcts.net/"
-  enableCrossBrowserTest()
-  enableFullFunctionalTest()
+  enableCrossBrowserTest(60)
   loadVaultSecrets(secrets)
+
+after('test') {
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'coverage/**/*'
+  }
+
   before('crossBrowserTest') {
-    yarnBuilder.smokeTest()
-  }
 
+  }
   afterAlways('crossBrowserTest') {
-    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/crossbrowser/reports/**/*'
-  }
-
-  afterAlways('fullFunctionalTest') {
-    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/functional/reports/**/*'
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
   }
 }
+
 
