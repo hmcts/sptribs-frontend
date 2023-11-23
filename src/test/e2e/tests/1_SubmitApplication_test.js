@@ -18,8 +18,9 @@ Scenario(
     checkYourAnswersPage,
     applicationSubmittedPage,
   }) => {
-    let representationPresent = true;
-    let pa11yTests = true;
+    const pa11yTests = true;
+    const representationPresent = true;
+    const uploadOtherInfo = true;
     await landingPage.seeTheLandingPage();
     await landingPage.continueOn();
     await loginPage.SignInUser();
@@ -38,11 +39,11 @@ Scenario(
     await uploadSupportingDocuments.checkPageLoads(pa11yTests);
     await uploadSupportingDocuments.uploadDocumentsSection();
     await uploadOtherInformation.checkPageLoads(pa11yTests);
-    await uploadOtherInformation.uploadDocumentsSection();
+    await uploadOtherInformation.uploadDocumentsSection(uploadOtherInfo);
     await I.waitForSelector('button[name="opt-out-button"]');
     await I.click('button[name="opt-out-button"]'); // opt out of PCQ
     await checkYourAnswersPage.checkPageLoads(pa11yTests, representationPresent);
-    await checkYourAnswersPage.checkValidInfoAllFields(representationPresent);
+    await checkYourAnswersPage.checkValidInfoAllFields(representationPresent, uploadOtherInfo);
     await checkYourAnswersPage.continueOn()
     await applicationSubmittedPage.checkPageLoads(pa11yTests);
     await applicationSubmittedPage.checkCICCaseNumber();
@@ -63,8 +64,9 @@ Scenario(
     checkYourAnswersPage,
     applicationSubmittedPage,
   }) => {
-    let representationPresent = false;
-    let pa11yTests = false;
+    const pa11yTests = false;
+    const representationPresent = false;
+    const uploadOtherInfo = true;
     await landingPage.seeTheLandingPage();
     await landingPage.continueOn();
     await loginPage.SignInUser();
@@ -79,11 +81,59 @@ Scenario(
     await uploadSupportingDocuments.checkPageLoads(pa11yTests);
     await uploadSupportingDocuments.uploadDocumentsSection();
     await uploadOtherInformation.checkPageLoads(pa11yTests);
-    await uploadOtherInformation.uploadDocumentsSection();
+    await uploadOtherInformation.uploadDocumentsSection(uploadOtherInfo);
     await I.waitForSelector('button[name="opt-out-button"]');
     await I.click('button[name="opt-out-button"]'); // opt out of PCQ
     await checkYourAnswersPage.checkPageLoads(pa11yTests, representationPresent);
-    await checkYourAnswersPage.checkValidInfoAllFields(representationPresent);
+    await checkYourAnswersPage.checkValidInfoAllFields(representationPresent, uploadOtherInfo);
+    await checkYourAnswersPage.continueOn()
+    await applicationSubmittedPage.checkPageLoads(pa11yTests);
+    await applicationSubmittedPage.checkCICCaseNumber();
+  }
+);
+
+Scenario(
+  'Create an application with all details, a representative, no additional information, no PCQ, and submit.',
+  async ({
+    landingPage,
+    loginPage,
+    subjectDetailsPage,
+    subjectContactDetailsPage,
+    representationPage,
+    representationQualifiedPage,
+    representativeDetailsPage,
+    uploadAppealForm,
+    uploadSupportingDocuments,
+    uploadOtherInformation,
+    checkYourAnswersPage,
+    applicationSubmittedPage,
+  }) => {
+    const pa11yTests = false;
+    const representationPresent = true;
+    const uploadOtherInfo = false;
+    await landingPage.seeTheLandingPage();
+    await landingPage.continueOn();
+    await loginPage.SignInUser();
+    await subjectDetailsPage.checkPageLoads(pa11yTests);
+    await subjectDetailsPage.fillInFields();
+    await subjectContactDetailsPage.checkPageLoads(pa11yTests);
+    await subjectContactDetailsPage.fillInFields();
+    await representationPage.checkPageLoads(pa11yTests);
+    await representationPage.fillInFields(representationPresent);
+    await representationQualifiedPage.checkPageLoads(pa11yTests);
+    await representationQualifiedPage.fillInFields();
+    await representativeDetailsPage.checkPageLoads(pa11yTests);
+    await representativeDetailsPage.fillInFields();
+    await uploadAppealForm.checkPageLoads(pa11yTests);
+    await uploadAppealForm.uploadDocumentsSection();
+    await uploadSupportingDocuments.checkPageLoads(pa11yTests);
+    await uploadSupportingDocuments.uploadDocumentsSection();
+    await uploadOtherInformation.checkPageLoads(pa11yTests);
+    await uploadOtherInformation.uploadDocumentsSection(uploadOtherInfo);
+    await I.waitForSelector('button[name="opt-out-button"]');
+    await I.click('button[name="opt-out-button"]'); // opt out of PCQ
+    await checkYourAnswersPage.checkPageLoads(pa11yTests, representationPresent);
+    await checkYourAnswersPage.checkValidInfoAllFields(representationPresent, uploadOtherInfo);
     await checkYourAnswersPage.continueOn()
     await applicationSubmittedPage.checkPageLoads(pa11yTests);
     await applicationSubmittedPage.checkCICCaseNumber();
