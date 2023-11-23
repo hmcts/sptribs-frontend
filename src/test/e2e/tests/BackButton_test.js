@@ -17,8 +17,9 @@ Scenario(
     uploadOtherInformation,
     checkYourAnswersPage,
   }) => {
-    let representationPresent = true;
-    let pa11yTests = false;
+    const pa11yTests = false;
+    const representationPresent = true;
+    const uploadOtherInfo = true;
     await landingPage.seeTheLandingPage();
     await landingPage.continueOn();
     await loginPage.SignInUser();

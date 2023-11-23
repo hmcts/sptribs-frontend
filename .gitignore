@@ -19,9 +19,8 @@ node_modules/
 .DS_Store
 
 .vscode
-src/main/public/img/lib/*
-src/main/public/js/lib/**/*.js
-src/main/public/stylesheets/lib/*
+src/main/public/*
+
 src/main/resources/localhost-ssl
 
 node-rpm-packaging/
