@@ -18,6 +18,7 @@ Scenario(
   }) => {
     const pa11yTests = false;
     const representationPresent = true;
+    const representationQualified = true;
     const uploadOtherInfo = true;
     await landingPage.seeTheLandingPage();
     await landingPage.continueOn();
@@ -33,7 +34,7 @@ Scenario(
     await representationPage.fillInFields(representationPresent);
     await representationQualifiedPage.checkPageLoads(pa11yTests);
     await representationQualifiedPage.triggerErrorMessages();
-    await representationQualifiedPage.fillInFields();
+    await representationQualifiedPage.fillInFields(representationQualified);
     await representativeDetailsPage.checkPageLoads(pa11yTests);
     await representativeDetailsPage.triggerErrorMessages();
     await representativeDetailsPage.fillInFields();

@@ -24,25 +24,22 @@ Scenario(
     subjectDetailsPage,
     subjectContactDetailsPage,
     representationPage,
-    representationQualifiedPage,
-    representativeDetailsPage,
     uploadAppealForm,
     uploadSupportingDocuments,
     uploadOtherInformation,
     checkYourAnswersPage,
   }) => {
-    let representationPresent = true;
+    let representationPresent = false;
+    const uploadOtherInfo = false;
     await landingPage.seeTheLandingPage();
     await landingPage.continueOn();
     await loginPage.SignInUser();
     await subjectDetailsPage.fillInFields();
     await subjectContactDetailsPage.fillInFields();
     await representationPage.fillInFields(representationPresent);
-    await representationQualifiedPage.fillInFields();
-    await representativeDetailsPage.fillInFields();
     await uploadAppealForm.uploadDocumentsSection();
     await uploadSupportingDocuments.uploadDocumentsSection();
-    await uploadOtherInformation.skipDocumentsSection(); // optional uploads
+    await uploadOtherInformation.uploadDocumentsSection(uploadOtherInfo);
     await I.click('button[name="opt-out-button"]'); // opt out of PCQ
     await checkYourAnswersPage.continueOn();
   }
