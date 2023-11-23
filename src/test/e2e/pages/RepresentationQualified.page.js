@@ -27,9 +27,13 @@ module.exports = {
     I.see(representationQualified.selectionError, { xpath: "//p[@id='representationQualified-error' and contains(., '" + representationQualified.selectionError + "')]" });
   },
 
-  async fillInFields() {
-    await I.click(this.qualifiedYes);
-    I.click(this.continueButton);
+  async fillInFields(representationQualified) {
+    if (representationQualified) {
+      await I.click(this.qualifiedYes);
+    } else {
+      await I.click(this.qualifiedNo);
+    }
+    await I.click(this.continueButton);
   },
 
   async pressBackButton() {

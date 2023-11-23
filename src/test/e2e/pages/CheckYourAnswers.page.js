@@ -58,17 +58,23 @@ module.exports = {
     }
   },
 
-  async checkValidInfoAllFields(representationPresent, uploadOtherInfo) {
+  async checkValidInfoAllFields(representationPresent, representationQualified, uploadOtherInfo) {
     const pdfFileName = config.testPdfFile.split('/').pop();
     const wordFileName = config.testWordFile.split('/').pop();
     const txtFileName = config.testFile.split('/').pop();
     const yesElements = locate('//*[contains(text(), "Yes")]');
+    const noElements = locate('//*[contains(text(), "No")]');
     I.see(subjectDetails.name);
     I.see(convertDate());
     I.see(subjectContactDetails.emailAddress);
     I.see(subjectContactDetails.contactNumber);
     if (representationPresent === true) {
-      I.seeNumberOfElements(yesElements, 2);
+      if (representationQualified === true) {
+        I.seeNumberOfElements(yesElements, 2);
+      } else if (representationQualified === false) {
+        I.seeNumberOfElements(yesElements, 1);
+        I.seeNumberOfElements(noElements, 3); // there will be two additional no's on the page, and the one for not qualified
+      }
       I.see(representativeDetails.fullName);
       I.see(representativeDetails.Organisation);
       I.see(representativeDetails.contactNumber);
