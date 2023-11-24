@@ -14,7 +14,7 @@ module.exports = {
     I.see(representationQualified.hintMessage);
     I.see(representationQualified.textOnPage1);
     I.see(representationQualified.textOnPage2);
-    if (pa11y_helper === true) {
+    if (pa11y_helper) {
       pa11yHelper.runPa11yCheck();
     }
   },

@@ -21,7 +21,7 @@ module.exports = {
     I.see(representativeDetails.subHeading2);
     I.see(representativeDetails.subHeading3);
     I.see(representativeDetails.subHeading4);
-    if (pa11y_helper === true) {
+    if (pa11y_helper) {
       pa11yHelper.runPa11yCheck();
     }
   },
