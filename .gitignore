@@ -39,3 +39,7 @@ coverage
 # Terraform
 .terraform.lock.hcl
 .terraform
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/

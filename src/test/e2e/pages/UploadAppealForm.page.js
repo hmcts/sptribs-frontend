@@ -14,7 +14,7 @@ module.exports = {
   backButton: '.govuk-back-link',
 
   async checkPageLoads(pa11y_helper) {
-    await I.waitForText(UploadAppealForm.pageTitle);
+    await I.see(UploadAppealForm.pageTitle);
     await I.click(this.fields.dropDown);
     I.see(UploadAppealForm.textonpage1);
     I.see(UploadAppealForm.textonpage2);
@@ -30,14 +30,14 @@ module.exports = {
   },
 
   async triggerErrorMessages() {
-    await I.waitForText(UploadAppealForm.pageTitle);
+    await I.see(UploadAppealForm.pageTitle);
     await I.click(this.continueButton);
-    await I.waitForText(UploadAppealForm.errorBanner, '.govuk-error-summary__title');
+    await I.see(UploadAppealForm.errorBanner, '.govuk-error-summary__title');
     I.see(UploadAppealForm.noUploadError, { xpath: "//a[contains(text(), '" + UploadAppealForm.noUploadError + "')]" });
     await I.refreshPage();
     await I.attachFile(this.fields.uploadFileButton, config.testFile)
     await I.click(this.fields.fileUploadedOption);
-    await I.waitForText(UploadAppealForm.errorBanner, '.govuk-error-summary__title');
+    await I.see(UploadAppealForm.errorBanner, '.govuk-error-summary__title');
     I.see(UploadAppealForm.fileTypeError, { xpath: "//a[contains(text(), '" + UploadAppealForm.fileTypeError + "')]" });
   },
 
@@ -50,7 +50,7 @@ module.exports = {
   },
 
   async pressBackButton() {
-    await I.waitForText(UploadAppealForm.pageTitle);
+    await I.see(UploadAppealForm.pageTitle);
     I.click(this.backButton);
   },
 };
