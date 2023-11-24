@@ -91,8 +91,8 @@ const setupConfig = {
   include: {
     config: './src/test/e2e/config.js',
     I: './src/test/e2e/actors/main.js',
-    loginPage: './src/test/e2e/pages/login.page.js',
     landingPage: './src/test/e2e/pages/LandingPage.js',
+    loginPage: './src/test/e2e/pages/login.page.js',
     subjectDetailsPage: './src/test/e2e/pages/SubjectDetails.page.js',
     subjectContactDetailsPage: './src/test/e2e/pages/SubjectContactDetails.page.js',
     representationPage: './src/test/e2e/pages/Representation.page.js',
