@@ -22,11 +22,11 @@
     "test:a11y": "echo 'nope' && exit 0",
     "sonar-scan": "sonar-scanner",
     "test:smoke": "MOCHAWESOME_REPORTFILENAME=smoke codeceptjs run --grep '@smoke-tests' --reporter mocha-multi",
-    "test:functional": "MOCHAWESOME_REPORTFILENAME=functional codeceptjs run  --grep '@e2e-tests' --reporter mocha-multi",
+    "test:functional": "yarn playwright install && MOCHAWESOME_REPORTFILENAME=functional codeceptjs run  --grep '@e2e-tests' --reporter mocha-multi",
     "test:fullfunctional": "run-p test:functional",
     "cichecks": "yarn && run-p build lint test",
     "test:functional:skip": "echo 'Not running functional cases in Master' && exit 0",
-    "test:crossbrowser-e2e": "yarn install playwright chromium MOCHAWESOME_REPORTFILENAME=crossbrowser codeceptjs run-multiple --grep \"@cross-browser\" ${BROWSER_GROUP:-'--all'} -c saucelabs.conf.js --reporter mocha-multi",
+    "test:crossbrowser-e2e": "MOCHAWESOME_REPORTFILENAME=crossbrowser codeceptjs run-multiple --grep \"@cross-browser\" ${BROWSER_GROUP:-'--all'} -c saucelabs.conf.js --reporter mocha-multi",
     "test:crossbrowser": "./bin/run-crossbrowser-tests.sh",
     "test:local": "codeceptjs run-multiple parallel",
     "test:single": "MOCHAWESOME_REPORTFILENAME=functional codeceptjs run  --grep '@single' --reporter mocha-multi"
