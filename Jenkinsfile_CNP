@@ -41,14 +41,6 @@ withPipeline(type, product, component) {
   syncBranchesWithMaster(branchesToSync)
   loadVaultSecrets(secrets)
 
-  stage('Install Playwright') {
-    steps {
-      script {
-        sh 'yarn add --dev playwright'
-      }
-    }
-  }
-
   afterSuccess('build') {
     yarnBuilder.yarn('build')
   }
