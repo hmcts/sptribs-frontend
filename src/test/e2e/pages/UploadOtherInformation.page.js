@@ -65,10 +65,6 @@ module.exports = {
     I.click(this.continueButton);
   },
 
-  async skipDocumentsSection() {
-    I.click(this.continueButton);
-  },
-
   async pressBackButton() {
     await I.waitForText(UploadOtherInfo.pageTitle);
     I.click(this.backButton);
