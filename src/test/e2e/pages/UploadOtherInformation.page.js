@@ -39,7 +39,7 @@ module.exports = {
     I.see(UploadOtherInfo.textonpage17);
     I.see(UploadOtherInfo.subTitle3);
     I.see(UploadOtherInfo.textonpage18);
-    if (pa11y_helper === true) {
+    if (pa11y_helper) {
       pa11yHelper.runPa11yCheck();
     }
   },
@@ -54,7 +54,7 @@ module.exports = {
 
 
   async uploadDocumentsSection(uploadInformation) {
-    if (uploadInformation === true) {
+    if (uploadInformation) {
       await I.attachFile(this.fields.uploadFileButton, config.testWordFile);
       await I.click(this.fields.fileUploadedOption)
       await I.waitForElement(UploadOtherInfo.fileUploadedSuccess, 10);

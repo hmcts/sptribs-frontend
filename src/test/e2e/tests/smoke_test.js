@@ -29,9 +29,10 @@ Scenario(
     uploadOtherInformation,
     checkYourAnswersPage,
   }) => {
-    let representationPresent = false;
+    const pa11yTests = false;
+    const representationPresent = false;
     const uploadOtherInfo = false;
-    await landingPage.seeTheLandingPage();
+    await landingPage.seeTheLandingPage(pa11yTests);
     await landingPage.continueOn();
     await loginPage.SignInUser();
     await subjectDetailsPage.fillInFields();

@@ -26,7 +26,7 @@ module.exports = {
   },
 
   async fillInFields(representationPresent) {
-    if (representationPresent === true) {
+    if (representationPresent) {
       await I.click(this.representationYes);
     } else {
       await I.click(this.representationNo);

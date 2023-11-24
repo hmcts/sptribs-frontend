@@ -21,7 +21,7 @@ Scenario(
     const representationPresent = true;
     const representationQualified = true;
     const uploadOtherInfo = true;
-    await landingPage.seeTheLandingPage();
+    await landingPage.seeTheLandingPage(pa11yTests);
     await landingPage.continueOn();
     await loginPage.SignInUser();
     await subjectDetailsPage.fillInFields();
