@@ -32,9 +32,9 @@
     {%if uploadedDocuments.length >0 %}
     {% for file in uploadedDocuments %}
       <li class="uploadedFile govuk-!-padding-top-2 govuk-!-padding-bottom-3 govuk-section-break govuk-section-break--visible">
-        {{ file.fileName }}
+        <p class="govuk-body" id="Document{{ loop.index0 }}">{{ file.fileName }}</p>
         {% set documentId = file.documentId%}
-        <a href="/upload-appeal-form?query=delete&docId={{documentId}}&documentType=tribunalform" class="govuk-link--no-visited-state float-right ">{{ delete }}</a>
+        <a href="/upload-appeal-form?query=delete&docId={{documentId}}&documentType=tribunalform" class="govuk-link--no-visited-state float-right " aria-labelledby="Delete{{ loop.index0 }} Document{{ loop.index0 }}">{{ delete }}</a>
       </li>
     {% endfor %}
     {%endif%}
