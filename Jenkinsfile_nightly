@@ -48,9 +48,10 @@ def secrets = [
 def pipelineConf = new AppPipelineConfig()
 pipelineConf.vaultSecrets = secrets
 
+
 withNightlyPipeline(type, product, component) {
   env.TEST_URL = "https://sptribs-frontend.aat.platform.hmcts.net/?edgecaseType=CIC"
-  env.SPTRIBS_FRONTEND_URL = params.FRONTEND_URL
+  env.SPTRIBS_FRONTEND_URL = "https://sptribs-frontend.aat.platform.hmcts.net/"
   enableCrossBrowserTest(60)
   loadVaultSecrets(secrets)
 
@@ -61,7 +62,9 @@ after('test') {
   before('crossBrowserTest') {
 
   }
-  after('crossBrowserTest') {
+  afterAlways('crossBrowserTest') {
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
   }
 }
+
+

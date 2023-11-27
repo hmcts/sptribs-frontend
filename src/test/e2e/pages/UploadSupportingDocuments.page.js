@@ -23,7 +23,7 @@ module.exports = {
     I.see(UploadSupportingDocuments.textonpage5);
     I.see(UploadSupportingDocuments.textonpage6);
     I.see(UploadSupportingDocuments.textonpage7);
-    if (pa11y_helper === true) {
+    if (pa11y_helper) {
       pa11yHelper.runPa11yCheck();
     }
   },

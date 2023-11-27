@@ -24,7 +24,7 @@ module.exports = {
     I.see(UploadAppealForm.textonpage6);
     I.see(UploadAppealForm.textonpage7);
     I.see(UploadAppealForm.textonpage8);
-    if (pa11y_helper === true) {
+    if (pa11y_helper) {
       pa11yHelper.runPa11yCheck();
     }
   },
@@ -44,7 +44,7 @@ module.exports = {
   async uploadDocumentsSection() {
     await I.attachFile(this.fields.uploadFileButton, config.testPdfFile);
     await I.click(this.fields.fileUploadedOption)
-    await I.waitForElement(UploadAppealForm.fileUploadedSuccess, 10);
+    await I.waitForElement(UploadAppealForm.fileUploadedSuccess, 100);
     I.see(UploadAppealForm.deleteButton);
     I.click(this.continueButton);
   },

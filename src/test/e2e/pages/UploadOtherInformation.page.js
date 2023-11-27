@@ -39,7 +39,7 @@ module.exports = {
     I.see(UploadOtherInfo.textonpage17);
     I.see(UploadOtherInfo.subTitle3);
     I.see(UploadOtherInfo.textonpage18);
-    if (pa11y_helper === true) {
+    if (pa11y_helper) {
       pa11yHelper.runPa11yCheck();
     }
   },
@@ -53,17 +53,15 @@ module.exports = {
   },
 
 
-  async uploadDocumentsSection() {
-    await I.attachFile(this.fields.uploadFileButton, config.testWordFile);
-    await I.click(this.fields.fileUploadedOption)
-    await I.waitForElement(UploadOtherInfo.fileUploadedSuccess, 10);
-    I.see(UploadOtherInfo.deleteButton);
-    await I.fillField(this.fields.documentRelevance, UploadOtherInfo.documentRelevance);
-    await I.fillField(this.fields.additionalInfo, UploadOtherInfo.additionalInfo);
-    I.click(this.continueButton);
-  },
-
-  async skipDocumentsSection() {
+  async uploadDocumentsSection(uploadInformation) {
+    if (uploadInformation) {
+      await I.attachFile(this.fields.uploadFileButton, config.testWordFile);
+      await I.click(this.fields.fileUploadedOption)
+      await I.waitForElement(UploadOtherInfo.fileUploadedSuccess, 10);
+      I.see(UploadOtherInfo.deleteButton);
+      await I.fillField(this.fields.documentRelevance, UploadOtherInfo.documentRelevance);
+      await I.fillField(this.fields.additionalInfo, UploadOtherInfo.additionalInfo);
+    }
     I.click(this.continueButton);
   },
 

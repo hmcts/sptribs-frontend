@@ -14,7 +14,7 @@ module.exports = {
     I.see(representationQualified.hintMessage);
     I.see(representationQualified.textOnPage1);
     I.see(representationQualified.textOnPage2);
-    if (pa11y_helper === true) {
+    if (pa11y_helper) {
       pa11yHelper.runPa11yCheck();
     }
   },
@@ -27,9 +27,13 @@ module.exports = {
     I.see(representationQualified.selectionError, { xpath: "//p[@id='representationQualified-error' and contains(., '" + representationQualified.selectionError + "')]" });
   },
 
-  async fillInFields() {
-    await I.click(this.qualifiedYes);
-    I.click(this.continueButton);
+  async fillInFields(representationQualified) {
+    if (representationQualified) {
+      await I.click(this.qualifiedYes);
+    } else {
+      await I.click(this.qualifiedNo);
+    }
+    await I.click(this.continueButton);
   },
 
   async pressBackButton() {
