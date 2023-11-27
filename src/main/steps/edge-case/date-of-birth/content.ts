@@ -8,7 +8,7 @@ import { ResourceReader } from '../../../modules/resourcereader/ResourceReader';
 const DATE_OF_BIRTH = 'date-of-birth';
 
 export const form: FormContent = {
-  fields: () => {
+  fields: (userCase, language) => {
     return {
       applicantDateOfBirth: {
         type: 'date',
@@ -18,19 +18,19 @@ export const form: FormContent = {
         hint: l => l.hint,
         values: [
           {
-            label: l => l.dateFormat['day'],
+            label: l => language == 'cy' ? 'Diwrnod' : 'Diwrnod',
             name: 'day',
             classes: 'govuk-input--width-2',
             attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
           },
           {
-            label: l => l.dateFormat['month'],
+            label: l => language == 'cy' ? 'Mis' : 'Month',
             name: 'month',
             classes: 'govuk-input--width-2',
             attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
           },
           {
-            label: l => l.dateFormat['year'],
+            label: l => language == 'cy' ? 'Blwyddyn' : 'Year',
             name: 'year',
             classes: 'govuk-input--width-4',
             attributes: { maxLength: 4, pattern: '[0-9]*', inputMode: 'numeric' },

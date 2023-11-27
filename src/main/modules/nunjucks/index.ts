@@ -45,6 +45,7 @@ export class Nunjucks {
     env.addGlobal('formItems', function (items: FormInput[], userAnswer: string | Record<string, string>) {
       return items.map(i => ({
         id: i.id,
+        label: this.env.globals.getContent.call(this, i.label),
         text: this.env.globals.getContent.call(this, i.label),
         name: i.name,
         classes: i.classes,

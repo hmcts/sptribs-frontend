@@ -30,6 +30,10 @@
         "otherInformation": "List of other documents uploaded",
         "additionalInformation": "Additional information",
         "documentRelevance": "Document relevance"
+      },
+      "values": {
+        "yes": "Yes",
+        "no": "No"
       }
     },
     "cy": {
@@ -61,6 +65,10 @@
         "supportingDocuments": "Rhestr o ddogfennau ategol sydd wedi’u llwytho  ",
         "additionalInformation": "Gwybodaeth ychwanegol",
         "documentRelevance": "Perthnasedd dogfennau"
+      },
+      "values": {
+        "yes": "Ydy",
+        "no": "Nac ydy"
       }
     }
   },
