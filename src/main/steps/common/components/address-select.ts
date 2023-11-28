@@ -51,10 +51,10 @@ const cy = content => {
 
   return {
     line1:
-      "Byddwn yn anfon holl bapurau’r llys i’r cyfeiriad hwn oni bai eich bod yn rhoi gwybod i ni eich bod yn hapus i dderbyn gorchmynion llys trwy e-bost.",
+      'Byddwn yn anfon holl bapurau’r llys i’r cyfeiriad hwn oni bai eich bod yn rhoi gwybod i ni eich bod yn hapus i dderbyn gorchmynion llys trwy e-bost.',
     postcode: 'God post',
     selectAddress: 'Dewiswch gyfeiriad',
-    cannotFindAddress: 'Ni allaf ddod o hyd i\'r cyfeiriad yn y rhestr',
+    cannotFindAddress: "Ni allaf ddod o hyd i'r cyfeiriad yn y rhestr",
     errors: {
       selectAddress: {
         notSelected: 'Dewiswch gyfeiriad',

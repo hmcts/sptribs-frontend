@@ -12,7 +12,7 @@ import {
 import { ResourceReader } from '../../../modules/resourcereader/ResourceReader';
 
 export const form: FormContent = {
-    fields: {
+  fields: {
     subjectFullName: {
       type: 'text',
       classes: 'govuk-input',
