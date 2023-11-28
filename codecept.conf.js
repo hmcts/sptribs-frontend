@@ -38,10 +38,11 @@ exports.config = {
     },
   },
   helpers: {
-    Puppeteer: {
+    Playwright: {
       show: process.env.SHOW_BROWSER_WINDOW || false,
       waitForTimeout: parseInt(process.env.WAIT_FOR_TIMEOUT || '30000'),
-      chrome: {
+      browser: 'chromium',
+      chromium: {
         ignoreHTTPSErrors: true,
         args: process.env.DISABLE_WEB_SECURITY === 'true' ? ['--disable-web-security'] : [],
         devtools: process.env.SHOW_BROWSER_WINDOW || false,
@@ -63,6 +64,16 @@ exports.config = {
     Mochawesome: {
       uniqueScreenshotNames: true,
     },
+  },
+  multiple: {
+    crossBrowser: {
+      browsers: [
+        { browser: 'firefox'},
+        { browser: 'webkit'},
+        { browser: 'chromium'},
+        { browser: 'webkit', device: 'iPhone 13'}
+      ]
+    }
   },
 
   include: {

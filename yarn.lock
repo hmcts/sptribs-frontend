@@ -2596,6 +2596,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@playwright/test@npm:^1.40.0":
+  version: 1.40.0
+  resolution: "@playwright/test@npm:1.40.0"
+  dependencies:
+    playwright: 1.40.0
+  bin:
+    playwright: cli.js
+  checksum: 128f05978f9f5a557f0b7924ec134d43cb70c78d74bc3bf7b18576f00e72399100ddf1f4a139e05ea8275407d8e27be0203ac34f514319a2cbeb01eaf0be5be4
+  languageName: node
+  linkType: hard
+
 "@puppeteer/browsers@npm:1.4.6":
   version: 1.4.6
   resolution: "@puppeteer/browsers@npm:1.4.6"
@@ -13582,6 +13593,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"playwright-chromium@npm:^1.40.0":
+  version: 1.40.0
+  resolution: "playwright-chromium@npm:1.40.0"
+  dependencies:
+    playwright-core: 1.40.0
+  bin:
+    playwright: cli.js
+  checksum: 6372501ae64a55b1a7328c34d8f4fb40bbdc11f6d9eefcb972e654f48b4595f3cb167e1b7887759bdb539e6c9d3a701c4a6a1f7ce6c840321566fac790d82106
+  languageName: node
+  linkType: hard
+
 "playwright-core@npm:1.40.0":
   version: 1.40.0
   resolution: "playwright-core@npm:1.40.0"
@@ -13591,7 +13613,29 @@ __metadata:
   languageName: node
   linkType: hard
 
-"playwright@npm:^1.21.1":
+"playwright-firefox@npm:^1.40.0":
+  version: 1.40.0
+  resolution: "playwright-firefox@npm:1.40.0"
+  dependencies:
+    playwright-core: 1.40.0
+  bin:
+    playwright: cli.js
+  checksum: e82e1cc69e5c2be33393fef218c9bf5ba20a68eea5232dedd673d0c15363aeb2f9e87585fb7be5dad763409634a59c30063614a4b41fce371c163d865ab410bb
+  languageName: node
+  linkType: hard
+
+"playwright-webkit@npm:^1.40.0":
+  version: 1.40.0
+  resolution: "playwright-webkit@npm:1.40.0"
+  dependencies:
+    playwright-core: 1.40.0
+  bin:
+    playwright: cli.js
+  checksum: 40f323c77cfee37723aac7a4f86d3534e7885ab271727403c5929ba88af2efa4ab470b52136ddae0551b8c4e86fbb16ae35ef06962b6e91e80dc5a15dc843cb3
+  languageName: node
+  linkType: hard
+
+"playwright@npm:1.40.0, playwright@npm:^1.21.1":
   version: 1.40.0
   resolution: "playwright@npm:1.40.0"
   dependencies:
@@ -15405,6 +15449,7 @@ __metadata:
     "@hmcts/nodejs-healthcheck": ^1.8.0
     "@hmcts/nodejs-logging": ^4.0.4
     "@hmcts/properties-volume": ^1.0.0
+    "@playwright/test": ^1.40.0
     "@types/autobind-decorator": ^2.1.0
     "@types/config": ^3.0.0
     "@types/cookie-parser": ^1.4.2
@@ -15495,6 +15540,9 @@ __metadata:
     otplib: ^12.0.1
     pa11y: ^6.1.0
     playwright: ^1.21.1
+    playwright-chromium: ^1.40.0
+    playwright-firefox: ^1.40.0
+    playwright-webkit: ^1.40.0
     postcss: ^8.4.31
     prettier: ^2.5.1
     redis: ^4.6.10
