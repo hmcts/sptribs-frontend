@@ -1,6 +1,6 @@
 const { I } = inject();
 
-Feature('Create application @e2e-tests').retry(2);
+Feature('Create application @e2e-tests @single');
 
 Scenario(
   'Create an application with all details, a qualified representative, additional information, no PCQ, and submit, pa11y test as it goes along.',

@@ -9,7 +9,7 @@ module.exports = {
   submitButton: 'input[value="Sign in"]',
 
     async SignInUser() {
-    await I.waitForText('Sign in or create an account');
+    await I.see('Sign in or create an account');
     await I.waitForElement(this.fields.username);
     await I.fillField(this.fields.username, 'st-citizen1@mailinator.com');
     await I.waitForElement(this.fields.password);

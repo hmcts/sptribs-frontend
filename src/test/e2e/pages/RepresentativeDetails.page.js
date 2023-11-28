@@ -14,7 +14,7 @@ module.exports = {
   backButton: '.govuk-back-link',
 
   async checkPageLoads(pa11y_helper) {
-    await I.waitForText(representativeDetails.pageTitle);
+    await I.see(representativeDetails.pageTitle);
     I.see(representativeDetails.textOnPage1);
     I.see(representativeDetails.textOnPage2);
     I.see(representativeDetails.subHeading1);
@@ -27,9 +27,9 @@ module.exports = {
   },
 
   async triggerErrorMessages() {
-    await I.waitForText(representativeDetails.pageTitle);
+    await I.see(representativeDetails.pageTitle);
     await I.click(this.continueButton);
-    await I.waitForText(representativeDetails.errorBanner, '.govuk-error-summary__title');
+    await I.see(representativeDetails.errorBanner, '.govuk-error-summary__title');
     I.see(representativeDetails.fullNameError, { xpath: "//a[contains(text(), '" + representativeDetails.fullNameError + "')]" });
     I.see(representativeDetails.fullNameError, { xpath: "//p[@id='representativeFullName-error' and contains(., '" + representativeDetails.fullNameError + "')]" });
     I.see(representativeDetails.organisationNameError, { xpath: "//a[contains(text(), '" + representativeDetails.organisationNameError + "')]" });
@@ -40,7 +40,7 @@ module.exports = {
     I.see(representativeDetails.validEmailError, { xpath: "//p[@id='representativeEmailAddress-error' and contains(., '" + representativeDetails.validEmailError + "')]" });
     I.fillField(this.fields.representativeEmailAddress, representativeDetails.partEmailEntry);
     await I.click(this.continueButton);
-    await I.waitForText(representativeDetails.partEmailError, { xpath: "//a[contains(text(), '" + representativeDetails.partEmailError + "')]" });
+    await I.see(representativeDetails.partEmailError, { xpath: "//a[contains(text(), '" + representativeDetails.partEmailError + "')]" });
     I.see(representativeDetails.partEmailError, { xpath: "//p[@id='representativeEmailAddress-error' and contains(., '" + representativeDetails.partEmailError + "')]" });
     I.clearField(this.fields.representativeEmailAddress)
   },
@@ -54,7 +54,7 @@ module.exports = {
   },
 
   async pressBackButton() {
-    await I.waitForText(representativeDetails.pageTitle);
+    await I.see(representativeDetails.pageTitle);
     I.click(this.backButton);
   },
 };

@@ -10,7 +10,7 @@ module.exports = {
   backButton: '.govuk-back-link',
 
   async checkPageLoads(pa11y_helper) {
-    await I.waitForText(representationQualified.pageTitle);
+    await I.see(representationQualified.pageTitle);
     I.see(representationQualified.hintMessage);
     I.see(representationQualified.textOnPage1);
     I.see(representationQualified.textOnPage2);
@@ -20,9 +20,9 @@ module.exports = {
   },
 
   async triggerErrorMessages() {
-    await I.waitForText(representationQualified.pageTitle);
+    await I.see(representationQualified.pageTitle);
     await I.click(this.continueButton);
-    await I.waitForText(representationQualified.errorBanner, '.govuk-error-summary__title');
+    await I.see(representationQualified.errorBanner, '.govuk-error-summary__title');
     I.see(representationQualified.selectionError, { xpath: "//a[contains(text(), '" + representationQualified.selectionError + "')]" });
     I.see(representationQualified.selectionError, { xpath: "//p[@id='representationQualified-error' and contains(., '" + representationQualified.selectionError + "')]" });
   },
@@ -37,7 +37,7 @@ module.exports = {
   },
 
   async pressBackButton() {
-    await I.waitForText(representationQualified.pageTitle);
+    await I.see(representationQualified.pageTitle);
     I.click(this.backButton);
   },
 };
