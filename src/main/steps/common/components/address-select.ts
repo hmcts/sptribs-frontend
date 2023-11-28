@@ -42,7 +42,7 @@ const cy = content => {
     {
       attributes: { id: 'totalAddressesFound' },
       value: -1,
-      text: `${addresses.length} address${addresses?.length !== 1 ? 'es' : ''} found (in welsh)`,
+      text: `Wedi canfod ${addresses?.length} ${addresses?.length !== 1 ? 'gyfeiriad' : 'cyfeiriad'}`,
       selected: true,
     },
   ];
@@ -51,13 +51,13 @@ const cy = content => {
 
   return {
     line1:
-      "We'll send all court papers to this address unless you advise us that you are happy to be served court orders by email.",
-    postcode: 'Postcode (in welsh)',
-    selectAddress: 'Select an address (in welsh)',
-    cannotFindAddress: 'I cannot find the address in the list (in welsh)',
+      "Byddwn yn anfon holl bapurau’r llys i’r cyfeiriad hwn oni bai eich bod yn rhoi gwybod i ni eich bod yn hapus i dderbyn gorchmynion llys trwy e-bost.",
+    postcode: 'God post',
+    selectAddress: 'Dewiswch gyfeiriad',
+    cannotFindAddress: 'Ni allaf ddod o hyd i\'r cyfeiriad yn y rhestr',
     errors: {
       selectAddress: {
-        notSelected: 'Select an address (in welsh)',
+        notSelected: 'Dewiswch gyfeiriad',
       },
     },
     options,
