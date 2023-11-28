@@ -26,8 +26,8 @@ module.exports = {
   continueButton: '#main-form-submit',
   backButton: '.govuk-back-link',
 
-  async checkPageLoads(pa11y_helper) {
-    await I.waitForText(CheckYourAnswers.pagetitle);
+  async checkPageLoads(pa11y_helper, representationPresent) {
+    await I.see(CheckYourAnswers.pagetitle);
     I.see(CheckYourAnswers.subtitle1);
     I.see(CheckYourAnswers.textonpage1);
     I.see(CheckYourAnswers.textonpage2);
@@ -35,12 +35,14 @@ module.exports = {
     I.see(CheckYourAnswers.textonpage4);
     I.see(CheckYourAnswers.subtitle2);
     I.see(CheckYourAnswers.textonpage5);
-    I.see(CheckYourAnswers.textonpage6);
-    I.see(CheckYourAnswers.subtitle3);
-    I.see(CheckYourAnswers.textonpage7);
-    I.see(CheckYourAnswers.textonpage8);
-    I.see(CheckYourAnswers.textonpage9);
-    I.see(CheckYourAnswers.textonpage10);
+    if (representationPresent === true) { // Representation information in this if statement, will not be visible if false
+      I.see(CheckYourAnswers.textonpage6);
+      I.see(CheckYourAnswers.subtitle3);
+      I.see(CheckYourAnswers.textonpage7);
+      I.see(CheckYourAnswers.textonpage8);
+      I.see(CheckYourAnswers.textonpage9);
+      I.see(CheckYourAnswers.textonpage10);
+    }
     I.see(CheckYourAnswers.subtitle4);
     I.see(CheckYourAnswers.textonpage11);
     I.see(CheckYourAnswers.subtitle5);
@@ -56,29 +58,38 @@ module.exports = {
     }
   },
 
-  async checkValidInfoAllFields() {
+  async checkValidInfoAllFields(representationPresent, representationQualified, uploadOtherInfo) {
     const pdfFileName = config.testPdfFile.split('/').pop();
     const wordFileName = config.testWordFile.split('/').pop();
     const txtFileName = config.testFile.split('/').pop();
     const yesElements = locate('//*[contains(text(), "Yes")]');
+    const noElements = locate('//*[contains(text(), "No")]');
     I.see(subjectDetails.name);
     I.see(convertDate());
     I.see(subjectContactDetails.emailAddress);
     I.see(subjectContactDetails.contactNumber);
-    I.seeNumberOfElements(yesElements, 2);
-    I.see(representativeDetails.fullName);
-    I.see(representativeDetails.Organisation);
-    I.see(representativeDetails.contactNumber);
-    I.see(representativeDetails.emailAddress);
+    if (representationPresent) {
+      if (representationQualified) {
+        I.seeNumberOfElements(yesElements, 2);
+      } else if (representationQualified === false) {
+        I.seeNumberOfElements(yesElements, 1);
+        I.seeNumberOfElements(noElements, 3); // there will be two additional no's on the page, and the one for not qualified
+      }
+      I.see(representativeDetails.fullName);
+      I.see(representativeDetails.Organisation);
+      I.see(representativeDetails.contactNumber);
+      I.see(representativeDetails.emailAddress);
+    }
     I.see(pdfFileName);
-    I.see(wordFileName);
+    if (uploadOtherInfo) {
+      I.see(wordFileName);
+      I.see(UploadOtherInfo.documentRelevance);
+      I.see(UploadOtherInfo.additionalInfo);
+    }
     I.see(txtFileName);
-    I.see(UploadOtherInfo.documentRelevance);
-    I.see(UploadOtherInfo.additionalInfo);
-    await I.click(this.continueButton);
   },
 
-  async continueSmoke() {
+  async continueOn() {
     await I.click(this.continueButton);
   },
 

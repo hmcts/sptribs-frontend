@@ -1,22 +1,20 @@
 {% extends "authless-templates.njk" %}
 {% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
-{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
-
 
 {% block header %}
-      {{ govukHeader({serviceName: content.serviceTitle}) }}
+  {{ govukHeader({serviceName: content.serviceTitle}) }}
 {% endblock %}
 
 
-{%set language = "Cyramaeg"%}
+{%set language = "Cymraeg"%}
 
-{%if ToggleLanguage == "cy" %}
-{%set language = "Cyramaeg"%}
-{%elif ToggleLanguage == "en"%}
-{%set language = "English"%}
-{%else%}
-{%set language = "Cyramaeg"%}
-{%endif%}
+{% if ToggleLanguage == "cy" %}
+{% set language = "Cymraeg" %}
+{% elif ToggleLanguage == "en" %}
+{% set language = "English" %}
+{% else %}
+{% set language = "Cymraeg" %}
+{% endif %}
 
 
 {% block beforeContent %}
@@ -24,24 +22,20 @@
   tag: {
     text: "BETA"
   },
-  html: content.banner|replace("currentUrl",currentUrl) +'<span class="float-right"><a href="?lang='+ToggleLanguage+'" class="govuk-link ">'+language+'</a></span>'
+  html: content.banner|replace("currentUrl",currentUrl)
 }) }}
 {% endblock %}
 
 
 {% block content %}
+  <h1 class="govuk-heading-l">{{content['heading']}}</h1>
+  <p class="govuk-body-l">{{content['body'] | safe}}</p>
 
-{{languagetext}}
+  <br/>
 
-<h1 class="govuk-heading-l">{{content['heading']}}</h1>
-<p class="govuk-body-l">{{content['body'] | safe}}</p>
-
-<br/>
-
-{{ govukButton({
-  text: content.button,
-  href: loginURL,
-  isStartButton: true
-}) }}
-
+  {{ govukButton({
+    text: content.button,
+    href: loginURL,
+    isStartButton: true
+  }) }}
 {% endblock %}

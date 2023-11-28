@@ -10,30 +10,34 @@ module.exports = {
   backButton: '.govuk-back-link',
 
   async checkPageLoads(pa11y_helper) {
-    await I.waitForText(representationQualified.pageTitle);
+    await I.see(representationQualified.pageTitle);
     I.see(representationQualified.hintMessage);
     I.see(representationQualified.textOnPage1);
     I.see(representationQualified.textOnPage2);
-    if (pa11y_helper === true) {
+    if (pa11y_helper) {
       pa11yHelper.runPa11yCheck();
     }
   },
 
   async triggerErrorMessages() {
-    await I.waitForText(representationQualified.pageTitle);
+    await I.see(representationQualified.pageTitle);
     await I.click(this.continueButton);
-    await I.waitForText(representationQualified.errorBanner, '.govuk-error-summary__title');
+    await I.see(representationQualified.errorBanner, '.govuk-error-summary__title');
     I.see(representationQualified.selectionError, { xpath: "//a[contains(text(), '" + representationQualified.selectionError + "')]" });
     I.see(representationQualified.selectionError, { xpath: "//p[@id='representationQualified-error' and contains(., '" + representationQualified.selectionError + "')]" });
   },
 
-  async fillInFields() {
-    await I.click(this.qualifiedYes);
-    I.click(this.continueButton);
+  async fillInFields(representationQualified) {
+    if (representationQualified) {
+      await I.click(this.qualifiedYes);
+    } else {
+      await I.click(this.qualifiedNo);
+    }
+    await I.click(this.continueButton);
   },
 
   async pressBackButton() {
-    await I.waitForText(representationQualified.pageTitle);
+    await I.see(representationQualified.pageTitle);
     I.click(this.backButton);
   },
 };

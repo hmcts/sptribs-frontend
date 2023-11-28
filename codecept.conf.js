@@ -38,10 +38,11 @@ exports.config = {
     },
   },
   helpers: {
-    Puppeteer: {
+    Playwright: {
       show: process.env.SHOW_BROWSER_WINDOW || false,
       waitForTimeout: parseInt(process.env.WAIT_FOR_TIMEOUT || '30000'),
-      chrome: {
+      browser: 'chromium',
+      chromium: {
         ignoreHTTPSErrors: true,
         args: process.env.DISABLE_WEB_SECURITY === 'true' ? ['--disable-web-security'] : [],
         devtools: process.env.SHOW_BROWSER_WINDOW || false,
@@ -79,6 +80,7 @@ exports.config = {
     uploadSupportingDocuments: './src/test/e2e/pages/UploadSupportingDocuments.page.js',
     uploadOtherInformation: './src/test/e2e/pages/UploadOtherInformation.page.js',
     checkYourAnswersPage: './src/test/e2e/pages/CheckYourAnswers.page.js',
+    applicationSubmittedPage: './src/test/e2e/pages/applicationSubmitted.page.js',
   },
   plugins: {
     retryFailedStep: {
