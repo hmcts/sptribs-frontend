@@ -70,7 +70,8 @@ exports.config = {
       browsers: [
         { browser: 'firefox'},
         { browser: 'webkit'},
-        { browser: 'chromium'}
+        { browser: 'chromium'},
+        { browser: 'webkit', device: 'iPhone 13'}
       ]
     }
   },
