@@ -16,7 +16,7 @@ module.exports = {
   backButton: '.govuk-back-link',
 
   async checkPageLoads(pa11y_helper) {
-    await I.waitForText(UploadOtherInfo.pageTitle);
+    await I.see(UploadOtherInfo.pageTitle);
     await I.click(this.fields.dropDown);
     I.see(UploadOtherInfo.subTitle1);
     I.see(UploadOtherInfo.textonpage1);
@@ -39,36 +39,34 @@ module.exports = {
     I.see(UploadOtherInfo.textonpage17);
     I.see(UploadOtherInfo.subTitle3);
     I.see(UploadOtherInfo.textonpage18);
-    if (pa11y_helper === true) {
+    if (pa11y_helper) {
       pa11yHelper.runPa11yCheck();
     }
   },
 
   async triggerErrorMessages() {
-    await I.waitForText(UploadOtherInfo.pageTitle);
+    await I.see(UploadOtherInfo.pageTitle);
     await I.attachFile(this.fields.uploadFileButton, config.testOdtFile)
     await I.click(this.fields.fileUploadedOption);
-    await I.waitForText(UploadOtherInfo.errorBanner, '.govuk-error-summary__title');
+    await I.see(UploadOtherInfo.errorBanner, '.govuk-error-summary__title');
     I.see(UploadOtherInfo.fileTypeError, { xpath: "//a[contains(text(), '" + UploadOtherInfo.fileTypeError + "')]" });
   },
 
 
-  async uploadDocumentsSection() {
-    await I.attachFile(this.fields.uploadFileButton, config.testWordFile);
-    await I.click(this.fields.fileUploadedOption)
-    await I.waitForElement(UploadOtherInfo.fileUploadedSuccess, 10);
-    I.see(UploadOtherInfo.deleteButton);
-    await I.fillField(this.fields.documentRelevance, UploadOtherInfo.documentRelevance);
-    await I.fillField(this.fields.additionalInfo, UploadOtherInfo.additionalInfo);
-    I.click(this.continueButton);
-  },
-
-  async skipDocumentsSection() {
+  async uploadDocumentsSection(uploadInformation) {
+    if (uploadInformation) {
+      await I.attachFile(this.fields.uploadFileButton, config.testWordFile);
+      await I.click(this.fields.fileUploadedOption)
+      await I.waitForElement(UploadOtherInfo.fileUploadedSuccess, 10);
+      I.see(UploadOtherInfo.deleteButton);
+      await I.fillField(this.fields.documentRelevance, UploadOtherInfo.documentRelevance);
+      await I.fillField(this.fields.additionalInfo, UploadOtherInfo.additionalInfo);
+    }
     I.click(this.continueButton);
   },
 
   async pressBackButton() {
-    await I.waitForText(UploadOtherInfo.pageTitle);
+    await I.see(UploadOtherInfo.pageTitle);
     I.click(this.backButton);
   },
 };

@@ -21,14 +21,15 @@
     "test:coverage": "jest --coverage",
     "test:a11y": "echo 'nope' && exit 0",
     "sonar-scan": "sonar-scanner",
-    "test:smoke": "MOCHAWESOME_REPORTFILENAME=smoke codeceptjs run --grep '@smoke-tests' --reporter mocha-multi",
-    "test:functional": "MOCHAWESOME_REPORTFILENAME=functional codeceptjs run  --grep '@e2e-tests' --reporter mocha-multi",
+    "test:smoke": "yarn playwright install && MOCHAWESOME_REPORTFILENAME=smoke codeceptjs run --grep '@smoke-tests' --reporter mocha-multi",
+    "test:functional": "yarn playwright install && MOCHAWESOME_REPORTFILENAME=functional codeceptjs run  --grep '@e2e-tests' --reporter mocha-multi",
     "test:fullfunctional": "run-p test:functional",
     "cichecks": "yarn && run-p build lint test",
     "test:functional:skip": "echo 'Not running functional cases in Master' && exit 0",
     "test:crossbrowser-e2e": "MOCHAWESOME_REPORTFILENAME=crossbrowser codeceptjs run-multiple --grep \"@cross-browser\" ${BROWSER_GROUP:-'--all'} -c saucelabs.conf.js --reporter mocha-multi",
     "test:crossbrowser": "./bin/run-crossbrowser-tests.sh",
-    "test:local": "codeceptjs run-multiple parallel"
+    "test:local": "codeceptjs run-multiple parallel",
+    "test:single": "MOCHAWESOME_REPORTFILENAME=functional codeceptjs run  --grep '@single' --reporter mocha-multi"
   },
   "dependencies": {
     "@hmcts/cookie-manager": "^1.0.0",
@@ -101,6 +102,7 @@
     "@babel/eslint-parser": "^7.22.15",
     "@babel/preset-env": "^7.23.2",
     "@babel/preset-typescript": "^7.23.2",
+    "@playwright/test": "^1.40.0",
     "@types/copy-webpack-plugin": "^10.1.0",
     "@types/jest": "^29.5.4",
     "@types/mini-css-extract-plugin": "^2.5.1",

@@ -9,7 +9,7 @@ module.exports = {
   backButton: '.govuk-back-link',
 
   async checkPageLoads(pa11y_helper) {
-    await I.waitForText(representation.pageTitle);
+    await I.see(representation.pageTitle);
     I.see(representation.textOnPage1);
     I.see(representation.textOnPage2);
     if (pa11y_helper === true) {
@@ -18,20 +18,24 @@ module.exports = {
   },
 
   async triggerErrorMessages() {
-    await I.waitForText(representation.pageTitle);
+    await I.see(representation.pageTitle);
     await I.click(this.continueButton);
-    await I.waitForText(representation.errorBanner, '.govuk-error-summary__title');
+    await I.see(representation.errorBanner, '.govuk-error-summary__title');
     I.see(representation.selectionError, { xpath: "//a[contains(text(), '" + representation.selectionError + "')]" });
     I.see(representation.selectionError, { xpath: "//p[@id='representation-error' and contains(., '" + representation.selectionError + "')]" });
   },
 
-  async fillInFields() {
-    await I.click(this.representationYes);
-    I.click(this.continueButton);
+  async fillInFields(representationPresent) {
+    if (representationPresent) {
+      await I.click(this.representationYes);
+    } else {
+      await I.click(this.representationNo);
+    }
+    await I.click(this.continueButton);
   },
 
   async pressBackButton() {
-    await I.waitForText(representation.pageTitle);
+    await I.see(representation.pageTitle);
     I.click(this.backButton);
   },
 };

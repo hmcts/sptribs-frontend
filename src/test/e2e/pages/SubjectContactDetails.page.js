@@ -13,20 +13,20 @@ module.exports = {
   backButton: '.govuk-back-link',
 
   async checkPageLoads(pa11y_helper) {
-    await I.waitForText(subjectDetails.pageTitle, 30);
+    await I.see(subjectDetails.pageTitle);
     I.see(subjectDetails.subHeading1);
     I.see(subjectDetails.subHeading2);
     I.see(subjectDetails.textOnPage1);
     I.see(subjectDetails.textOnPage2);
-    if (pa11y_helper === true) {
+    if (pa11y_helper) {
       pa11yHelper.runPa11yCheck();
     }
   },
 
   async triggerErrorMessages() {
-    await I.waitForText(subjectDetails.pageTitle);
+    await I.see(subjectDetails.pageTitle);
     await I.click(this.continueButton);
-    await I.waitForText(subjectDetails.errorBanner, '.govuk-error-summary__title');
+    await I.see(subjectDetails.errorBanner, '.govuk-error-summary__title');
     I.see(subjectDetails.validEmailError, { xpath: "//a[contains(text(), '" + subjectDetails.validEmailError + "')]" });
     I.see(subjectDetails.validEmailError, { xpath: "//p[@id='subjectEmailAddress-error' and contains(., '" + subjectDetails.validEmailError + "')]" });
     I.see(subjectDetails.validContactNumberError, { xpath: "//a[contains(text(), '" + subjectDetails.validContactNumberError + "')]" });
@@ -34,7 +34,7 @@ module.exports = {
     I.see(subjectDetails.agreeError, { xpath: "//a[contains(text(), '" + subjectDetails.agreeError + "')]" });
     I.fillField(this.fields.email, subjectDetails.partEmailEntry);
     await I.click(this.continueButton);
-    await I.waitForText(subjectDetails.partEmailError, { xpath: "//a[contains(text(), '" + subjectDetails.partEmailError + "')]" });
+    await I.see(subjectDetails.partEmailError, { xpath: "//a[contains(text(), '" + subjectDetails.partEmailError + "')]" });
     I.see(subjectDetails.partEmailError, { xpath: "//p[@id='subjectEmailAddress-error' and contains(., '" + subjectDetails.partEmailError + "')]" });
     I.clearField(this.fields.email)
   },
@@ -47,7 +47,7 @@ module.exports = {
   },
 
   async pressBackButton() {
-    await I.waitForText(subjectDetails.pageTitle);
+    await I.see(subjectDetails.pageTitle);
     I.click(this.backButton);
   },
 };
