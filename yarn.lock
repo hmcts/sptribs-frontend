@@ -13593,12 +13593,45 @@ __metadata:
   languageName: node
   linkType: hard
 
+"playwright-chromium@npm:^1.40.0":
+  version: 1.40.0
+  resolution: "playwright-chromium@npm:1.40.0"
+  dependencies:
+    playwright-core: 1.40.0
+  bin:
+    playwright: cli.js
+  checksum: 6372501ae64a55b1a7328c34d8f4fb40bbdc11f6d9eefcb972e654f48b4595f3cb167e1b7887759bdb539e6c9d3a701c4a6a1f7ce6c840321566fac790d82106
+  languageName: node
+  linkType: hard
+
 "playwright-core@npm:1.40.0":
   version: 1.40.0
   resolution: "playwright-core@npm:1.40.0"
   bin:
     playwright-core: cli.js
   checksum: 57de5c91a4c404b120ed2af8541b21cdedcbc4f27477341157666d356bbee3b3fab8e61d020f0f450708fa2e8f6dc244b9224cb1985d5426e609cebed15af095
+  languageName: node
+  linkType: hard
+
+"playwright-firefox@npm:^1.40.0":
+  version: 1.40.0
+  resolution: "playwright-firefox@npm:1.40.0"
+  dependencies:
+    playwright-core: 1.40.0
+  bin:
+    playwright: cli.js
+  checksum: e82e1cc69e5c2be33393fef218c9bf5ba20a68eea5232dedd673d0c15363aeb2f9e87585fb7be5dad763409634a59c30063614a4b41fce371c163d865ab410bb
+  languageName: node
+  linkType: hard
+
+"playwright-webkit@npm:^1.40.0":
+  version: 1.40.0
+  resolution: "playwright-webkit@npm:1.40.0"
+  dependencies:
+    playwright-core: 1.40.0
+  bin:
+    playwright: cli.js
+  checksum: 40f323c77cfee37723aac7a4f86d3534e7885ab271727403c5929ba88af2efa4ab470b52136ddae0551b8c4e86fbb16ae35ef06962b6e91e80dc5a15dc843cb3
   languageName: node
   linkType: hard
 
@@ -15507,6 +15540,9 @@ __metadata:
     otplib: ^12.0.1
     pa11y: ^6.1.0
     playwright: ^1.21.1
+    playwright-chromium: ^1.40.0
+    playwright-firefox: ^1.40.0
+    playwright-webkit: ^1.40.0
     postcss: ^8.4.31
     prettier: ^2.5.1
     redis: ^4.6.10

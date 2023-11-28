@@ -65,6 +65,15 @@ exports.config = {
       uniqueScreenshotNames: true,
     },
   },
+  multiple: {
+    crossBrowser: {
+      browsers: [
+        { browser: 'firefox'},
+        { browser: 'webkit'},
+        { browser: 'chromium'}
+      ]
+    }
+  },
 
   include: {
     config: './src/test/e2e/config.js',
