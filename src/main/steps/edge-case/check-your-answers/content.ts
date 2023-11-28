@@ -56,7 +56,7 @@ const cyContent: typeof enContent = {
   ...Translations.cy,
   nowSubmitHeader: 'Nawr cyflwynwch eich ffurflen tribiwnlys',
   submissionPledge:
-    'Trwy gyflwyno\'r ffurflen dribiwnlys hon rydych yn cadarnhau, hyd eithaf eich gwybodaeth, fod y manylion a roddwch yn gywir',
+    "Trwy gyflwyno'r ffurflen dribiwnlys hon rydych yn cadarnhau, hyd eithaf eich gwybodaeth, fod y manylion a roddwch yn gywir",
 };
 
 const cy: typeof en = (content: CommonContent) => {

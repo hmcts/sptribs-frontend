@@ -181,13 +181,13 @@ const cy: typeof en = {
   telephoneNumber: '0300 303 5171',
   telephoneDetails: 'Dydd Llun i Ddydd Gwener, 8.30am - 5pm.',
   cookiesHeading: 'Cwcis ar',
-  cookiesLine1: 'Rydym yn defnyddio cwcis hanfodol i wneud i\'r gwasanaeth hwn weithio.',
+  cookiesLine1: "Rydym yn defnyddio cwcis hanfodol i wneud i'r gwasanaeth hwn weithio.",
   cookiesLine2:
-    'Rydym hefyd yn defnyddio cwcis dadansoddol fel y gallwn ddeall sut rydych yn defnyddio\'r gwasanaeth a pha welliannau y gallwn eu gwneud.',
+    "Rydym hefyd yn defnyddio cwcis dadansoddol fel y gallwn ddeall sut rydych yn defnyddio'r gwasanaeth a pha welliannau y gallwn eu gwneud.",
   acceptAnalyticsCookies: 'Derbyn cwcis ychwanegol',
   rejectAnalyticsCookies: 'Gwrthod cwcis ychwanegol',
   viewCookies: 'Gweld cwcis',
-  hideMessage: 'Cuddio\'r neges cwcihon',
+  hideMessage: "Cuddio'r neges cwcihon",
   cookiesConfirmationMessage:
     '<p class="govuk-body">Gallwch <a class="govuk-link" href="/cookies">newid gosodiadau eich cwcis ar</a> unrhyw adeg.</p>',
   changeCookiesHeading: 'Newid eich gosodiadau cwcis',
