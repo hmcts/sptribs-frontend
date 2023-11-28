@@ -1,6 +1,6 @@
 const { I } = inject();
 
-Feature('Back button journey @e2e-tests').retry(2);
+Feature('Back button journey @e2e-tests @cross-browser').retry(2);
 
 Scenario(
   'Create an application with all details and test all back buttons.',
