@@ -27,7 +27,7 @@ module.exports = {
   backButton: '.govuk-back-link',
 
   async checkPageLoads(pa11y_helper, representationPresent) {
-    await I.waitForText(CheckYourAnswers.pagetitle);
+    await I.see(CheckYourAnswers.pagetitle);
     I.see(CheckYourAnswers.subtitle1);
     I.see(CheckYourAnswers.textonpage1);
     I.see(CheckYourAnswers.textonpage2);

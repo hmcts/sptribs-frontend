@@ -9,7 +9,7 @@ module.exports = {
   closeAndExitButton: 'a[role=\'button\']',
 
   async checkPageLoads(pa11y_helper) {
-    await I.waitForText(applicationSubmittedDetails.pagetitle, '.govuk-panel__title');
+    await I.see(applicationSubmittedDetails.pagetitle, '.govuk-panel__title');
     I.see(applicationSubmittedDetails.subtitle1, 'div[class=\'govuk-panel__body\'] strong');
     I.see(applicationSubmittedDetails.textonpage1, '.govuk-body');
     I.see(applicationSubmittedDetails.textonpage2, '.govuk-body');

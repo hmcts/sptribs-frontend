@@ -38,10 +38,11 @@ exports.config = {
     },
   },
   helpers: {
-    Puppeteer: {
+    Playwright: {
       show: process.env.SHOW_BROWSER_WINDOW || false,
       waitForTimeout: parseInt(process.env.WAIT_FOR_TIMEOUT || '30000'),
-      chrome: {
+      browser: 'chromium',
+      chromium: {
         ignoreHTTPSErrors: true,
         args: process.env.DISABLE_WEB_SECURITY === 'true' ? ['--disable-web-security'] : [],
         devtools: process.env.SHOW_BROWSER_WINDOW || false,

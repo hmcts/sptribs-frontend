@@ -14,7 +14,7 @@ module.exports = {
   backButton: '.govuk-back-link',
 
   async checkPageLoads(pa11y_helper) {
-    await I.waitForText(UploadSupportingDocuments.pageTitle);
+    await I.see(UploadSupportingDocuments.pageTitle);
     await I.click(this.fields.dropDown);
     I.see(UploadSupportingDocuments.textonpage1);
     I.see(UploadSupportingDocuments.textonpage2);
@@ -29,14 +29,14 @@ module.exports = {
   },
 
   async triggerErrorMessages() {
-    await I.waitForText(UploadSupportingDocuments.pageTitle);
+    await I.see(UploadSupportingDocuments.pageTitle);
     await I.click(this.continueButton);
-    await I.waitForText(UploadSupportingDocuments.errorBanner, '.govuk-error-summary__title');
+    await I.see(UploadSupportingDocuments.errorBanner, '.govuk-error-summary__title');
     I.see(UploadSupportingDocuments.noUploadError, { xpath: "//a[contains(text(), '" + UploadSupportingDocuments.noUploadError + "')]" });
     await I.refreshPage();
     await I.attachFile(this.fields.uploadFileButton, config.testOdtFile)
     await I.click(this.fields.fileUploadedOption);
-    await I.waitForText(UploadSupportingDocuments.errorBanner, '.govuk-error-summary__title');
+    await I.see(UploadSupportingDocuments.errorBanner, '.govuk-error-summary__title');
     I.see(UploadSupportingDocuments.fileTypeError, { xpath: "//a[contains(text(), '" + UploadSupportingDocuments.fileTypeError + "')]" });
   },
 
@@ -49,7 +49,7 @@ module.exports = {
   },
 
   async pressBackButton() {
-    await I.waitForText(UploadSupportingDocuments.pageTitle);
+    await I.see(UploadSupportingDocuments.pageTitle);
     I.click(this.backButton);
   },
 };

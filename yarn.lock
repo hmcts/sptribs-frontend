@@ -2596,6 +2596,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@playwright/test@npm:^1.40.0":
+  version: 1.40.0
+  resolution: "@playwright/test@npm:1.40.0"
+  dependencies:
+    playwright: 1.40.0
+  bin:
+    playwright: cli.js
+  checksum: 128f05978f9f5a557f0b7924ec134d43cb70c78d74bc3bf7b18576f00e72399100ddf1f4a139e05ea8275407d8e27be0203ac34f514319a2cbeb01eaf0be5be4
+  languageName: node
+  linkType: hard
+
 "@puppeteer/browsers@npm:1.4.6":
   version: 1.4.6
   resolution: "@puppeteer/browsers@npm:1.4.6"
@@ -13591,7 +13602,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"playwright@npm:^1.21.1":
+"playwright@npm:1.40.0, playwright@npm:^1.21.1":
   version: 1.40.0
   resolution: "playwright@npm:1.40.0"
   dependencies:
@@ -15405,6 +15416,7 @@ __metadata:
     "@hmcts/nodejs-healthcheck": ^1.8.0
     "@hmcts/nodejs-logging": ^4.0.4
     "@hmcts/properties-volume": ^1.0.0
+    "@playwright/test": ^1.40.0
     "@types/autobind-decorator": ^2.1.0
     "@types/config": ^3.0.0
     "@types/cookie-parser": ^1.4.2
