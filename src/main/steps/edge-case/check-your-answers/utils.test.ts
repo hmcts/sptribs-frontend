@@ -2,7 +2,8 @@ import { mockUserCase1, mockUserCase2, mockUserCase3 } from '../../../../test/un
 
 import { enContent } from './content';
 import {
-  OtherInformationSummary, RepresentationSummary,
+  OtherInformationSummary,
+  RepresentationSummary,
   SubjectSummaryList,
   SupportingDocumentsSummary,
   UploadAppealFormSummary,
@@ -437,7 +438,7 @@ describe('Representation Summary > check-your-answers', () => {
         userCase: {
           ...mockUserCase3,
           representation: 'Yes',
-          representationQualified: 'Yes'
+          representationQualified: 'Yes',
         },
         expected: {
           rows: [
@@ -447,12 +448,12 @@ describe('Representation Summary > check-your-answers', () => {
                   {
                     href: '/representation',
                     text: 'change',
-                    visuallyHiddenText: 'Is there a representative named on completed tribunal form?'
-                  }
-                ]
+                    visuallyHiddenText: 'Is there a representative named on completed tribunal form?',
+                  },
+                ],
               },
               key: { text: 'Is there a representative named on completed tribunal form?' },
-              value: { text: 'Yes' }
+              value: { text: 'Yes' },
             },
             {
               actions: {
@@ -460,15 +461,15 @@ describe('Representation Summary > check-your-answers', () => {
                   {
                     href: '/representation-qualified',
                     text: 'change',
-                    visuallyHiddenText: 'Is the named representative legally qualified?'
-                  }
-                ]
+                    visuallyHiddenText: 'Is the named representative legally qualified?',
+                  },
+                ],
               },
               key: { text: 'Is the named representative legally qualified?' },
-              value: { text: 'Yes' }
-            }
+              value: { text: 'Yes' },
+            },
           ],
-          title: 'Representation'
+          title: 'Representation',
         },
       },
     ])('return correct summary list items when %#', ({ userCase, expected }) => {
@@ -483,7 +484,7 @@ describe('Representation Summary > check-your-answers', () => {
         userCase: {
           ...mockUserCase3,
           representation: 'No',
-          representationQualified: 'No'
+          representationQualified: 'No',
         },
         expected: {
           rows: [
@@ -493,15 +494,15 @@ describe('Representation Summary > check-your-answers', () => {
                   {
                     href: '/representation',
                     text: 'change',
-                    visuallyHiddenText: 'Is there a representative named on completed tribunal form?'
-                  }
-                ]
+                    visuallyHiddenText: 'Is there a representative named on completed tribunal form?',
+                  },
+                ],
               },
               key: { text: 'Is there a representative named on completed tribunal form?' },
-              value: { text: 'No' }
-            }
+              value: { text: 'No' },
+            },
           ],
-          title: 'Representation'
+          title: 'Representation',
         },
       },
     ])('return correct summary list items when %#', ({ userCase, expected }) => {
