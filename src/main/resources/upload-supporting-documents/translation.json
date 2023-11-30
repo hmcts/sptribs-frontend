@@ -15,7 +15,7 @@
       "title": "Llwytho dogfennau ategol",
       "line1": "Mae’n rhaid i chi anfon copi o lythyr penderfyniad adolygiad yr Awdurdod gyda ffurflen y tribiwnlys wedi’i llenwi.",
       "uploadRequirementHeader": "Gofynion uwchlwytho ffeiliau",
-      "uploadRequirement": "<div class='govuk-body-s'><ul class=‘govuk-list govuk-list--bullet’><li>Fformatau ffeiliau: MS Word, MS Excel, PDF, JPG, GIF, PNG, TXT, RTF</li><li>Maint ffeil pob dogfen: hyd at 20 megabeit (MB)</li><li>Ni ellir llwytho ffeiliau sydd wedi’u diogelu â chyfrinair</li></ul><p> Ni allwch lwytho ffeiliau gweithredu (.exe), ffeiliau zip neu ffeiliau eraill oherwydd y risg o firws.</div>",
+      "uploadRequirement": "<div class='govuk-body-s'><ul class=‘govuk-list govuk-list--bullet’><li>Fformatau ffeiliau: MS Word, MS Excel, PDF, JPG, GIF, PNG, TXT, RTF</li><li>Maint ffeil pob dogfen: hyd at 20 megabeit (MB)</li><li>Ni ellir llwytho ffeiliau sydd wedi’u diogelu â chyfrinair</li></ul><p> Ni allwch lwytho ffeiliau gweithredu (.exe), ffeiliau .zip neu ffeiliau eraill oherwydd y risg o firws.</div>",
       "uploadGuidance": "Unwaith y byddwch wedi dewis y ffeil, cliciwch ar \"Llwytho ffeil\" i’w llwytho.",
       "uploadButton": "Llwytho ffeil",
       "uploadAFile": "Llwythwch ffeil i fyny"
