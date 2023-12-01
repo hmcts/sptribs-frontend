@@ -63,6 +63,7 @@ describe('session', () => {
       locals: {
         developmentMode: false,
       },
+      set: jest.fn(),
       use: jest.fn(callback => callback),
     } as unknown as Application;
     mockLogger = {
@@ -102,6 +103,7 @@ describe('session', () => {
         .mockImplementationOnce(() => 'MOCK_REDIS_KEY');
       mockApp = {
         use: jest.fn(callback => callback),
+        set: jest.fn(),
         locals: {},
       } as unknown as Application;
       mockLogger = {
