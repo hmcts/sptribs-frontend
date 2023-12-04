@@ -280,6 +280,7 @@ describe('Validation', () => {
       { input: 'Firştnåmé Midğlø Lâßtnámê', expected: undefined },
       { input: '1stname Lastname', expected: 'invalid' },
       { input: 'Firstname! La$tname', expected: 'invalid' },
+      { input: 'Firstname1 La5tname', expected: 'invalid' },
       { input: 'имя Фамилия', expected: 'invalid' },
       { input: 'όνομα επίθετο', expected: 'invalid' },
       { input: '名姓', expected: 'invalid' },
