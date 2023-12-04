@@ -287,6 +287,7 @@ describe('Validation', () => {
       { input: '이름 성', expected: 'invalid' },
       { input: 'họ và tên', expected: undefined },
       { input: '💔', expected: 'invalid' },
+      { input: '<marquee>John Doe</marquee>', expected: 'invalid' },
     ])('validates only latin based letters, spaces, hyphens %s', ({ input, expected }) => {
       const isValid = isFieldLetters(input);
 
