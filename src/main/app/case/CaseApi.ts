@@ -23,39 +23,12 @@ import { CaseData, YesOrNo } from './definition';
 import { toApiDate, toApiFormat } from './to-api-format';
 
 export class CaseApi {
-  /**
-   *
-   * @param axios
-   * @param logger
-   */
   constructor(private readonly axios: AxiosInstance, private readonly logger: LoggerInstance) {}
 
-  /**
-   *
-   * @returns
-   */
   public async getOrCreateCase(): Promise<any> {
     return { id: '', state: 'SPTRIBS' };
   }
 
-  /**
-   *
-   * @param caseId
-   * @returns
-   */
-  public async getCaseById(): Promise<CaseWithId> {
-    return new Promise(() => {
-      null;
-    });
-  }
-
-  /**
-   *
-   * @param req
-   * @param userDetails
-   * @param  formData
-   * @returns
-   */
   public async updateCase(req: AppRequest, userDetails: UserDetails, eventName: string): Promise<any> {
     axios.defaults.headers.put[CONTENT_TYPE] = APPLICATION_JSON;
     axios.defaults.headers.put[AUTHORIZATION] = BEARER + SPACE + userDetails.accessToken;
@@ -128,13 +101,6 @@ export class CaseApi {
     }
   }
 
-  /**
-   *
-   * @param req
-   * @param userDetails
-   * @param  formData
-   * @returns
-   */
   public async createCaseNew(req: AppRequest, userDetails: UserDetails): Promise<any> {
     try {
       const url: string = config.get(SPTRIBS_CASE_API_BASE_URL);
@@ -169,12 +135,6 @@ export class CaseApi {
     }
   }
 
-  /**
-   *
-   * @param caseId
-   * @param userId
-   * @returns
-   */
   public async getCaseUserRoles(caseId: string, userId: string): Promise<CaseAssignedUserRoles> {
     try {
       const response = await this.axios.get<CaseAssignedUserRoles>(`case-users?case_ids=${caseId}&user_ids=${userId}`);
@@ -185,13 +145,6 @@ export class CaseApi {
     }
   }
 
-  /**
-   *
-   * @param caseId
-   * @param data
-   * @param eventName
-   * @returns
-   */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   private async sendEvent(caseId: string, data: Partial<CaseData>, eventName: string): Promise<CaseWithId> {
     return new Promise(() => {
@@ -199,22 +152,11 @@ export class CaseApi {
     });
   }
 
-  /**
-   *
-   * @param caseId
-   * @param userData
-   * @param eventName
-   * @returns
-   */
   public async triggerEvent(caseId: string, userData: Partial<Case>, eventName: string): Promise<CaseWithId> {
     const data = toApiFormat(userData);
     return this.sendEvent(caseId, data, eventName);
   }
 
-  /**
-   *
-   * @param error
-   */
   private logError(error: AxiosError) {
     if (error.response) {
       this.logger.error(`API Error ${error.config?.method} ${error.config?.url} ${error.response?.status}`);
@@ -227,12 +169,6 @@ export class CaseApi {
   }
 }
 
-/**
- *
- * @param userDetails
- * @param logger
- * @returns
- */
 export const getCaseApi = (userDetails: UserDetails, logger: LoggerInstance): CaseApi => {
   return new CaseApi(
     axios.create({
