@@ -21,7 +21,7 @@
     "test:coverage": "jest --coverage",
     "test:a11y": "echo 'nope' && exit 0",
     "sonar-scan": "sonar-scanner",
-    "test:smoke": "yarn playwright install && MOCHAWESOME_REPORTFILENAME=smoke codeceptjs run --grep '@smoke-tests' --reporter mocha-multi",
+    "test:smoke": "yarn playwright install && MOCHAWESOME_REPORTFILENAME=smoke TS_NODE_PROJECT='./src/test/tsconfig.json' codeceptjs run --grep '@smoke-tests' --reporter mocha-multi --config ./src/test/codecept.conf.ts",
     "test:functional": "yarn playwright install && MOCHAWESOME_REPORTFILENAME=functional codeceptjs run --grep '@e2e-tests' --reporter mocha-multi --steps",
     "test:fullfunctional": "run-p test:functional",
     "cichecks": "yarn && run-p build lint test",

@@ -1,4 +1,4 @@
-require('./src/test/e2e/helpers/event_listener');
+require('./e2e/helpers/event_listener');
 import lodash from 'lodash';
 
 export const config: CodeceptJS.Config = {
@@ -58,16 +58,16 @@ export const config: CodeceptJS.Config = {
       windowSize: '1280x960',
     },
     HooksHelper: {
-      require: './src/test/e2e/helpers/hooks_helper.js',
+      require: './e2e/helpers/hooks_helper.js',
     },
     BrowserHelpers: {
-      require: './src/test/e2e/helpers/browser_helper.js',
+      require: './e2e/helpers/browser_helper.js',
     },
     DumpBrowserLogsHelper: {
-      require: './src/test/e2e/helpers/dump_browser_logs_helper.js',
+      require: './e2e/helpers/dump_browser_logs_helper.js',
     },
     StepListener: {
-      require: './src/test/e2e/helpers/stepListener.js',
+      require: './e2e/helpers/stepListener.js',
     },
     Mochawesome: {
       uniqueScreenshotNames: true,
@@ -75,20 +75,20 @@ export const config: CodeceptJS.Config = {
   },
 
   include: {
-    config: './src/test/e2e/config.js',
-    I: './src/test/e2e/actors/main.js',
-    loginPage: './src/test/e2e/pages/login.page.js',
-    landingPage: './src/test/e2e/pages/LandingPage.js',
-    subjectDetailsPage: './src/test/e2e/pages/SubjectDetails.page.js',
-    subjectContactDetailsPage: './src/test/e2e/pages/SubjectContactDetails.page.js',
-    representationPage: './src/test/e2e/pages/Representation.page.js',
-    representationQualifiedPage: './src/test/e2e/pages/RepresentationQualified.page.js',
-    representativeDetailsPage: './src/test/e2e/pages/RepresentativeDetails.page.js',
-    uploadAppealForm: './src/test/e2e/pages/UploadAppealForm.page.js',
-    uploadSupportingDocuments: './src/test/e2e/pages/UploadSupportingDocuments.page.js',
-    uploadOtherInformation: './src/test/e2e/pages/UploadOtherInformation.page.js',
-    checkYourAnswersPage: './src/test/e2e/pages/CheckYourAnswers.page.js',
-    applicationSubmittedPage: './src/test/e2e/pages/applicationSubmitted.page.js',
+    config: './e2e/config.js',
+    I: './e2e/actors/main.js',
+    loginPage: './e2e/pages/login.page.js',
+    landingPage: './e2e/pages/LandingPage.js',
+    subjectDetailsPage: './e2e/pages/SubjectDetails.page.js',
+    subjectContactDetailsPage: './e2e/pages/SubjectContactDetails.page.js',
+    representationPage: './e2e/pages/Representation.page.js',
+    representationQualifiedPage: './e2e/pages/RepresentationQualified.page.js',
+    representativeDetailsPage: '.t/e2e/pages/RepresentativeDetails.page.js',
+    uploadAppealForm: './e2e/pages/UploadAppealForm.page.js',
+    uploadSupportingDocuments: './e2e/pages/UploadSupportingDocuments.page.js',
+    uploadOtherInformation: './e2e/pages/UploadOtherInformation.page.js',
+    checkYourAnswersPage: './e2e/pages/CheckYourAnswers.page.js',
+    applicationSubmittedPage: './e2e/pages/applicationSubmitted.page.js',
   },
   plugins: {
     retryFailedStep: {
@@ -99,8 +99,8 @@ export const config: CodeceptJS.Config = {
       fullPageScreenshots: true,
     },
   },
-  tests: './src/test/e2e/tests/*_test.*',
-  teardownAll: require('./src/test/e2e/hooks/aggregate-metrics'),
+  tests: './e2e/tests/*_test.*',
+  teardownAll: require('./e2e/hooks/aggregate-metrics'),
   mocha: {
     reporterOptions: {
       'codeceptjs-cli-reporter': {
