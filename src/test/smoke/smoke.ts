@@ -10,13 +10,11 @@ const servicesToCheck = [
   { name: 'IDAM Web', url: config.get('services.idam.authorizationURL') },
   { name: 'IDAM API', url: config.get('services.idam.tokenURL') },
   { name: 'Auth Provider', url: config.get('services.authProvider.url') },
-  { name: 'CCD Data Store', url: config.get('services.case.url') },
-  { name: 'Payment API', url: config.get('services.payments.url') },
-  { name: 'Equality and Diversity', url: config.get('equalityAndDiversity.url') },
-  { name: 'Postcode Lookup', url: config.get('postcodeLookup.url') },
-  { name: 'Fis DSS Update', url: config.get('fisDssUpdate.url') },
-  { name: 'HMCTS Homepage', url: config.get('hmctsHomePage.url') },
-  { name: 'RPE TOKEN', url: config.get('RPE_TOKEN.url') },
+  { name: 'Equality and Diversity', url: config.get('services.equalityAndDiversity.url') },
+  { name: 'Postcode Lookup', url: config.get('services.postcodeLookup.url') },
+  { name: 'Fis DSS Update', url: config.get('services.fisDssUpdate.url') },
+  { name: 'HMCTS Homepage', url: config.get('services.hmctsHomePage.url') },
+  { name: 'RPE TOKEN', url: config.get('services.RPE_TOKEN.url') },
 ];
 
 const checkService = async (url: string) => {
