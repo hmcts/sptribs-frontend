@@ -83,7 +83,7 @@ export const config: CodeceptJS.Config = {
     subjectContactDetailsPage: './e2e/pages/SubjectContactDetails.page.js',
     representationPage: './e2e/pages/Representation.page.js',
     representationQualifiedPage: './e2e/pages/RepresentationQualified.page.js',
-    representativeDetailsPage: '.t/e2e/pages/RepresentativeDetails.page.js',
+    representativeDetailsPage: './e2e/pages/RepresentativeDetails.page.js',
     uploadAppealForm: './e2e/pages/UploadAppealForm.page.js',
     uploadSupportingDocuments: './e2e/pages/UploadSupportingDocuments.page.js',
     uploadOtherInformation: './e2e/pages/UploadOtherInformation.page.js',
