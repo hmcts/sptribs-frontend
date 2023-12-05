@@ -1,15 +1,17 @@
-require('./src/test/e2e/helpers/event_listener');
-const lodash = require('lodash');
+/// <reference path="steps.d.ts" />
 
-exports.config = {
+require('./src/test/e2e/helpers/event_listener');
+import lodash from 'lodash';
+
+export const config: CodeceptJS.Config = {
   output: './output',
   multiple: {
     parallel: {
       chunks: files => {
         const splitFiles = (list, size) => {
-          const sets = [];
-          const chunks = list.length / size;
-          let i = 0;
+          const sets: any[] = [];
+          const chunks: number = list.length / size;
+          let i: number = 0;
 
           while (i < chunks) {
             sets[i] = list.splice(0, size);
@@ -18,14 +20,14 @@ exports.config = {
           return sets;
         };
 
-        const buckets = parseInt(process.env.PARALLEL_CHUNKS || '1');
-        const slowTests = lodash.filter(files, file => file.includes('@slow'));
-        const otherTests = lodash.difference(files, slowTests);
+        const buckets: number = parseInt(process.env.PARALLEL_CHUNKS || '1');
+        const slowTests: any[] = lodash.filter(files, file => file.includes('@slow'));
+        const otherTests: any[] = lodash.difference(files, slowTests);
 
-        let chunks = [];
+        let chunks: any[] = [];
         if (buckets > slowTests.length + 1) {
-          const slowTestChunkSize = 1;
-          const regularChunkSize = Math.ceil((files.length - slowTests.length) / (buckets - slowTests.length));
+          const slowTestChunkSize: number = 1;
+          const regularChunkSize: number = Math.ceil((files.length - slowTests.length) / (buckets - slowTests.length));
           chunks = lodash.union(splitFiles(slowTests, slowTestChunkSize), splitFiles(otherTests, regularChunkSize));
         } else {
           chunks = splitFiles(files, Math.ceil(files.length / buckets));
@@ -36,6 +38,14 @@ exports.config = {
         return chunks;
       },
     },
+    crossBrowser: {
+        browsers: [
+          { browser: 'firefox'},
+          { browser: 'webkit'},
+          { browser: 'chromium'},
+          { browser: 'webkit', device: 'iPhone 13'}
+        ]
+      }
   },
   helpers: {
     Playwright: {
@@ -65,16 +75,6 @@ exports.config = {
       uniqueScreenshotNames: true,
     },
   },
-  multiple: {
-    crossBrowser: {
-      browsers: [
-        { browser: 'firefox'},
-        { browser: 'webkit'},
-        { browser: 'chromium'},
-        { browser: 'webkit', device: 'iPhone 13'}
-      ]
-    }
-  },
 
   include: {
     config: './src/test/e2e/config.js',
@@ -101,7 +101,7 @@ exports.config = {
       fullPageScreenshots: true,
     },
   },
-  tests: './src/test/e2e/tests/*_test.js',
+  tests: './src/test/e2e/tests/*_test.*',
   teardownAll: require('./src/test/e2e/hooks/aggregate-metrics'),
   mocha: {
     reporterOptions: {

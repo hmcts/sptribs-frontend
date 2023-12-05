@@ -1,16 +1,5 @@
 import axios from 'axios';
 import config from 'config';
-// import * as landingPage from '../e2e/pages/LandingPage';
-// import * as loginPage from '../e2e/pages/login.page';
-// import * as subjectDetailsPage from '../e2e/pages/SubjectDetails.page';
-// import * as subjectContactDetailsPage from '../e2e/pages/SubjectContactDetails.page';
-// import * as representationPage from '../e2e/pages/Representation.page';
-// import * as uploadAppealForm from '../e2e/pages/UploadAppealForm.page';
-// import * as uploadSupportingDocuments from '../e2e/pages/UploadSupportingDocuments.page';
-// import * as uploadOtherInformation from '../e2e/pages/UploadOtherInformation.page';
-// import * as checkYourAnswersPage from '../e2e/pages/CheckYourAnswers.page';
-
-// const { I } = inject();
 
 jest.retryTimes(20);
 jest.setTimeout(5000);
@@ -55,32 +44,3 @@ describe('Homepage should redirect to IDAM', () => {
     await expect(checkHomepage()).resolves.not.toThrow();
   });
 });
-
-// describe('Create an application with minimal details.', () => {
-//   test('Run application', async (
-//     landingPage,
-//     loginPage,
-//     subjectDetailsPage,
-//     subjectContactDetailsPage,
-//     representationPage,
-//     uploadAppealForm,
-//     uploadSupportingDocuments,
-//     uploadOtherInformation,
-//     checkYourAnswersPage,
-//     ) => {
-//       const pa11yTests = false;
-//       const representationPresent = false;
-//       const uploadOtherInfo = false;
-//       await landingPage.seeTheLandingPage(pa11yTests);
-//       await landingPage.continueOn();
-//       await loginPage.SignInUser();
-//       await subjectDetailsPage.fillInFields();
-//       await subjectContactDetailsPage.fillInFields();
-//       await representationPage.fillInFields(representationPresent);
-//       await uploadAppealForm.uploadDocumentsSection();
-//       await uploadSupportingDocuments.uploadDocumentsSection();
-//       await uploadOtherInformation.uploadDocumentsSection(uploadOtherInfo);
-//       await I.click('button[name="opt-out-button"]'); // opt out of PCQ
-//       await checkYourAnswersPage.continueOn();
-//   });
-// });

@@ -21,7 +21,7 @@
     "test:coverage": "jest --coverage",
     "test:a11y": "echo 'nope' && exit 0",
     "sonar-scan": "sonar-scanner",
-    "test:smoke": "jest -c jest.smoke.config.js",
+    "test:smoke": "yarn playwright install && MOCHAWESOME_REPORTFILENAME=smoke codeceptjs run --grep '@smoke-tests' --reporter mocha-multi",
     "test:functional": "yarn playwright install && MOCHAWESOME_REPORTFILENAME=functional codeceptjs run --grep '@e2e-tests' --reporter mocha-multi --steps",
     "test:fullfunctional": "run-p test:functional",
     "cichecks": "yarn && run-p build lint test",
