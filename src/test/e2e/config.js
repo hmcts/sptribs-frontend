@@ -13,8 +13,8 @@ module.exports = {
     caseTypeFullDesc: 'Care, supervision and EPOs',
   },
   // files
-  testFile: './src/test/e2e/fixtures/testFiles/mockFile.txt',
-  testPdfFile: './src/test/e2e/fixtures/testFiles/mockFile.pdf',
-  testWordFile: './src/test/e2e/fixtures/testFiles/mockFile.docx',
-  testOdtFile: './src/test/e2e/fixtures/testFiles/mockFile.odt',
+  testFile: './e2e/fixtures/testFiles/mockFile.txt',
+  testPdfFile: './e2e/fixtures/testFiles/mockFile.pdf',
+  testWordFile: './e2e/fixtures/testFiles/mockFile.docx',
+  testOdtFile: './e2e/fixtures/testFiles/mockFile.odt',
 };
