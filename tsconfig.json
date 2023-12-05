@@ -23,5 +23,5 @@
     "typeRoots": ["./node_modules/@types"],
   },
   "exclude": ["**/*.test.ts", "**/codecept.conf.ts", "**/__mocks__/*"],
-  "files": ["steps.d.ts"]
+  "files": ["*.ts"]
 }
