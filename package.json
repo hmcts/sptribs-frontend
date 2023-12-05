@@ -22,14 +22,14 @@
     "test:a11y": "echo 'nope' && exit 0",
     "sonar-scan": "sonar-scanner",
     "test:smoke": "yarn playwright install && MOCHAWESOME_REPORTFILENAME=smoke TS_NODE_PROJECT='./src/test/tsconfig.json' codeceptjs run --grep '@smoke-tests' --reporter mocha-multi --config ./src/test/codecept.conf.ts",
-    "test:functional": "yarn playwright install && MOCHAWESOME_REPORTFILENAME=functional codeceptjs run --grep '@e2e-tests' --reporter mocha-multi --steps",
+    "test:functional": "yarn playwright install && MOCHAWESOME_REPORTFILENAME=functional TS_NODE_PROJECT='./src/test/tsconfig.json' codeceptjs run --grep '@e2e-tests' --reporter mocha-multi --steps --config ./src/test/codecept.conf.ts",
     "test:fullfunctional": "run-p test:functional",
     "cichecks": "yarn && run-p build lint test",
     "test:functional:skip": "echo 'Not running functional cases in Master' && exit 0",
-    "test:crossbrowser-e2e": "yarn playwright install && MOCHAWESOME_REPORTFILENAME=crossbrowser codeceptjs run-multiple crossBrowser --grep \"@cross-browser\" --reporter mocha-multi",
+    "test:crossbrowser-e2e": "yarn playwright install && MOCHAWESOME_REPORTFILENAME=crossbrowser TS_NODE_PROJECT='./src/test/tsconfig.json' codeceptjs run-multiple crossBrowser --grep \"@cross-browser\" --reporter mocha-multi --config ./src/test/codecept.conf.ts",
     "test:crossbrowser": "./bin/run-crossbrowser-tests.sh",
-    "test:local": "codeceptjs run-multiple parallel",
-    "test:single": "MOCHAWESOME_REPORTFILENAME=functional codeceptjs run  --grep '@single' --reporter mocha-multi"
+    "test:local": "TS_NODE_PROJECT='./src/test/tsconfig.json' codeceptjs run-multiple parallel --config ./src/test/codecept.conf.ts",
+    "test:single": "MOCHAWESOME_REPORTFILENAME=functional TS_NODE_PROJECT='./src/test/tsconfig.json' codeceptjs run  --grep '@single' --reporter mocha-multi --config ./src/test/codecept.conf.ts"
   },
   "dependencies": {
     "@hmcts/cookie-manager": "^1.0.0",
