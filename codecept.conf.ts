@@ -1,5 +1,3 @@
-/// <reference path="steps.d.ts" />
-
 require('./src/test/e2e/helpers/event_listener');
 import lodash from 'lodash';
 
@@ -39,13 +37,13 @@ export const config: CodeceptJS.Config = {
       },
     },
     crossBrowser: {
-        browsers: [
-          { browser: 'firefox'},
-          { browser: 'webkit'},
-          { browser: 'chromium'},
-          { browser: 'webkit', device: 'iPhone 13'}
-        ]
-      }
+      browsers: [
+        { browser: 'firefox' },
+        { browser: 'webkit' },
+        { browser: 'chromium' },
+        { browser: 'webkit', device: 'iPhone 13' },
+      ],
+    },
   },
   helpers: {
     Playwright: {
