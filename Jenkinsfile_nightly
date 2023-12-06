@@ -52,10 +52,12 @@ pipelineConf.vaultSecrets = secrets
 withNightlyPipeline(type, product, component) {
   env.TEST_URL = "https://sptribs-frontend.aat.platform.hmcts.net/?edgecaseType=CIC"
   env.SPTRIBS_FRONTEND_URL = "https://sptribs-frontend.aat.platform.hmcts.net/"
-  enableCrossBrowserTest(60)
   loadVaultSecrets(secrets)
 
-after('test') {
+  enableCrossBrowserTest(60)
+  enableFortifyScan()
+
+  after('test') {
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'coverage/**/*'
   }
 
@@ -65,6 +67,11 @@ after('test') {
   afterAlways('crossBrowserTest') {
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
   }
+
+  afterAlways('fortify-scan') {
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/Fortify Scan/**/*'
+  }
+
 }
 
 
