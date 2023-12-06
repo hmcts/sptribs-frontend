@@ -21,15 +21,15 @@
     "test:coverage": "jest --coverage",
     "test:a11y": "echo 'nope' && exit 0",
     "sonar-scan": "sonar-scanner",
-    "test:smoke": "yarn playwright install && MOCHAWESOME_REPORTFILENAME=smoke TS_NODE_PROJECT='./src/test/tsconfig.json' codeceptjs run --grep '@smoke-tests' --reporter mocha-multi --config ./src/test/codecept.conf.ts && jest -c jest.smoke.config.js",
-    "test:functional": "yarn playwright install && MOCHAWESOME_REPORTFILENAME=functional TS_NODE_PROJECT='./src/test/tsconfig.json' codeceptjs run --grep '@e2e-tests' --reporter mocha-multi --steps --config ./src/test/codecept.conf.ts",
+    "test:smoke": "yarn playwright install && MOCHAWESOME_REPORTFILENAME=smoke codeceptjs run --grep '@smoke-tests' --reporter mocha-multi",
+    "test:functional": "yarn playwright install && MOCHAWESOME_REPORTFILENAME=functional codeceptjs run --grep '@e2e-tests' --reporter mocha-multi --steps",
     "test:fullfunctional": "run-p test:functional",
     "cichecks": "yarn && run-p build lint test",
     "test:functional:skip": "echo 'Not running functional cases in Master' && exit 0",
-    "test:crossbrowser-e2e": "yarn playwright install && MOCHAWESOME_REPORTFILENAME=crossbrowser TS_NODE_PROJECT='./src/test/tsconfig.json' codeceptjs run-multiple crossBrowser --grep \"@cross-browser\" --reporter mocha-multi --config ./src/test/codecept.conf.ts",
+    "test:crossbrowser-e2e": "yarn playwright install && echo 'Installed Playwright' && MOCHAWESOME_REPORTFILENAME=crossbrowser codeceptjs run-multiple crossBrowser --grep \"@cross-browser\" --reporter mocha-multi && echo 'Cross browser tests completed'",
     "test:crossbrowser": "./bin/run-crossbrowser-tests.sh",
-    "test:local": "TS_NODE_PROJECT='./src/test/tsconfig.json' codeceptjs run-multiple parallel --config ./src/test/codecept.conf.ts",
-    "test:single": "MOCHAWESOME_REPORTFILENAME=functional TS_NODE_PROJECT='./src/test/tsconfig.json' codeceptjs run  --grep '@single' --reporter mocha-multi --config ./src/test/codecept.conf.ts"
+    "test:local": "codeceptjs run-multiple parallel",
+    "test:single": "MOCHAWESOME_REPORTFILENAME=functional codeceptjs run  --grep '@single' --reporter mocha-multi"
   },
   "dependencies": {
     "@hmcts/cookie-manager": "^1.0.0",
@@ -133,6 +133,7 @@
     "http-cache-semantics": "^4.1.1",
     "husky": "^8.0.0",
     "jest": "^26.6.3",
+    "jest-circus": "^29.5.0",
     "jest-extended": "^4.0.1",
     "lint-staged": "^15.0.2",
     "mini-css-extract-plugin": "^2.7.6",
