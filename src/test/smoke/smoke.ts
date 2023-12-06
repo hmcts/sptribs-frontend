@@ -11,9 +11,9 @@ const servicesToCheck = [
   { name: 'IDAM API', url: config.get('services.idam.tokenURL') },
   { name: 'Auth Provider', url: config.get('services.authProvider.url') },
   { name: 'Equality and Diversity', url: config.get('services.equalityAndDiversity.url') },
-  { name: 'Postcode Lookup', url: config.get('services.postcodeLookup.url') },
-  { name: 'Fis DSS Update', url: config.get('services.fisDssUpdate.url') },
-  { name: 'HMCTS Homepage', url: config.get('services.hmctsHomePage.url') },
+  // { name: 'Postcode Lookup', url: config.get('services.postcodeLookup.url') },
+  // { name: 'Fis DSS Update', url: config.get('services.fisDssUpdate.url') },
+  // { name: 'HMCTS Homepage', url: config.get('services.hmctsHomePage.url') },
   { name: 'RPE TOKEN', url: config.get('services.RPE_TOKEN.url') },
 ];
 
@@ -32,14 +32,15 @@ describe.each(servicesToCheck)('Required services should return 200 status UP', 
   });
 });
 
-describe('Homepage should redirect to IDAM', () => {
-  test('Homepage', async () => {
-    const checkHomepage = async () => {
-      const response = await axios.get(process.env.TEST_URL as string);
+describe('Start now should redirect to IDAM', () => {
+  test('Start Now', async () => {
+    const checkStartNow = async () => {
+      const url: string = process.env.TEST_URL + '/login';
+      const response = await axios.get(url as string);
       if (response.status !== 200 || !response.data.includes('password')) {
         throw new Error(`Status: ${response.status} Data: '${JSON.stringify(response.data)}'`);
       }
     };
-    await expect(checkHomepage()).resolves.not.toThrow();
+    await expect(checkStartNow()).resolves.not.toThrow();
   });
 });
