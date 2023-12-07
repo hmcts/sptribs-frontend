@@ -31,6 +31,15 @@
     "test:local": "codeceptjs run-multiple parallel",
     "test:single": "MOCHAWESOME_REPORTFILENAME=functional codeceptjs run  --grep '@single' --reporter mocha-multi"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown",
+    "**/*.{js,ts}": "eslint --fix"
+  },
   "dependencies": {
     "@hmcts/cookie-manager": "^1.0.0",
     "@hmcts/frontend": "^0.0.50-alpha",
