@@ -17,7 +17,7 @@
     "build:prod": "NODE_ENV=production webpack --mode production --config webpack.config.js",
     "test": "jest",
     "check": "concurrently npm run lint -- --fix \"npm run test:coverage\" ",
-    "fortifyScan": "./test/java/gradlew -p test/java fortifyScan",
+    "fortifyScan": "./src/test/java/gradlew -p src/test/java fortifyScan",
     "test:coverage": "jest --coverage",
     "test:a11y": "echo 'nope' && exit 0",
     "sonar-scan": "sonar-scanner",
