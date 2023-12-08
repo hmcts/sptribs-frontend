@@ -1,8 +1,8 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
-
+import { en } from './content';
 import { AccessibilityStatementGetController } from './get';
-import { en } from "./content";
+
 
 describe('AccessibilityStatementGetController', () => {
   const controller = new AccessibilityStatementGetController();
@@ -13,7 +13,7 @@ describe('AccessibilityStatementGetController', () => {
     await controller.get(req, res);
 
     expect(res.render).toHaveBeenCalledWith(
-      expect.stringContaining(__dirname+'/template'),
+      expect.stringContaining(__dirname + '/template'),
       expect.objectContaining(en)
     );
   });
