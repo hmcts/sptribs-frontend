@@ -1,7 +1,7 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
-import { en } from './content';
 
+import { en } from './content';
 import { TimedOutGetController } from './get';
 
 describe('TimedOutGetController', () => {
