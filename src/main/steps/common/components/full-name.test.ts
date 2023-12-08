@@ -64,7 +64,7 @@ describe('common > components > full-name', () => {
     expect((lastNamesField.label as Function)(generatedContent)).toBe(enContent.lastNames);
     expect(((lastNamesField as FormInput).hint as Function)(generatedContent)).toBe(enContent.lastNamesHint);
     expect(lastNamesField.labelSize).toBe(null);
-    // expect(lastNamesField.validator).toBe(isFieldFilledIn);
+     expect(lastNamesField.validator).toBe(isFieldFilledIn);
   });
 
   test('should contain submit button', () => {
