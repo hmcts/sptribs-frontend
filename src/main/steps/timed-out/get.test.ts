@@ -13,7 +13,7 @@ describe('TimedOutGetController', () => {
     await controller.get(req, res);
 
     expect(res.render).toHaveBeenCalledWith(
-      expect.stringContaining(__dirname+'/template'),
+      expect.stringContaining(__dirname + '/template'),
       expect.objectContaining(en)
     );
   });
