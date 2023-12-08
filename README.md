@@ -65,6 +65,12 @@ Running the linting with auto fix: (Prettier)
 $ yarn lint --fix
 ```
 
+To enable this to run automatically when commiting to git:
+
+```bash
+$ yarn prepare
+```
+
 ### Running the tests
 
 This template app uses [Jest](https://jestjs.io//) as the test engine. You can run unit tests by executing
