@@ -1,7 +1,7 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
-import { en } from './content';
 
+import { en } from './content';
 import { TermsAndConditionsGetController } from './get';
 
 describe('TermsAndConditionsGetController', () => {
@@ -13,7 +13,7 @@ describe('TermsAndConditionsGetController', () => {
     await controller.get(req, res);
 
     expect(res.render).toHaveBeenCalledWith(
-      expect.stringContaining(__dirname+'/template'),
+      expect.stringContaining(__dirname + '/template'),
       expect.objectContaining(en)
     );
   });
