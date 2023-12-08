@@ -7,7 +7,7 @@ import { YesOrNo } from '../../../app/case/definition';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import { ResourceReader } from '../../../modules/resourcereader/ResourceReader';
 import * as steps from '../../../steps';
-import { UPLOAD_APPEAL_FORM } from '../../../steps/urls';
+import { UPLOAD_APPEAL_FORM } from '../../urls';
 import { SPTRIBS_CASE_API_BASE_URL } from '../../common/constants/apiConstants';
 
 import UploadDocumentController, { CASE_API_URL, FileMimeType, FileValidations } from './uploadDocPostController';
