@@ -223,17 +223,17 @@ describe('Form', () => {
     };
     mockFieldFnForm.fields = mockFieldFnForm.fields as FormFieldsFn;
 
-    //const mockUserCase = {};
-    //const fieldFnForm = new Form(mockFieldFnForm.fields(mockUserCase));
+    const mockUserCase = {};
+    const fieldFnForm = new Form(mockFieldFnForm.fields(mockUserCase));
 
-    /*expect(fieldFnForm).toEqual({
+    expect(fieldFnForm).toEqual({
       fields: {
         customQuestion: {
           label: 'custom',
           type: 'text',
         },
       },
-    });*/
-    expect(1).toEqual(1);
+    });
+//    expect(1).toEqual(1);
   });
 });

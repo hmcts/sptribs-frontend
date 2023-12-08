@@ -1,6 +1,6 @@
 import { TranslationFn } from '../../app/controller/GetController';
 
-const en = {
+export const en = {
   title: 'The Adoption Service Privacy policy',
   info1: 'The Ministry of Justice (MoJ) is committed to the protection and security of your personal information.',
   info2:

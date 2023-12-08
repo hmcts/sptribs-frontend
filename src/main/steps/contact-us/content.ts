@@ -1,6 +1,6 @@
 import { TranslationFn } from '../../app/controller/GetController';
 
-const en = {
+export const en = {
   title: 'document submission service',
   email: 'Email',
   emailAddress:
