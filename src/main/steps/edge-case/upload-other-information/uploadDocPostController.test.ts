@@ -239,6 +239,7 @@ describe('checking for the redirect of post document upload', () => {
     ];
 
     await postingcontroller.PostDocumentUploader(req, res);
+    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION);
   });
 
   it('must be have axios instance', () => {

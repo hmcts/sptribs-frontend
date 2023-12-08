@@ -101,7 +101,7 @@ describe('common > components > manual-address > content', () => {
     expect(addressTownField.classes).toBe('govuk-label govuk-!-width-two-thirds');
     expect((addressTownField.label as Function)(generatedContent)).toBe(enContent.town);
     expect(addressTownField.labelSize).toBe(null);
-    // expect(addressTownField.validator).toBe(isFieldFilledIn);
+    expect(addressTownField.validator).toBe(isFieldFilledIn);
   });
 
   test('should contain addressCounty field', () => {

@@ -2,6 +2,7 @@ import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 
 import { ContactUsGetController } from './get';
+import {en} from "./content";
 
 describe('ContactUsGetController', () => {
   const controller = new ContactUsGetController();
@@ -10,5 +11,10 @@ describe('ContactUsGetController', () => {
     const req = mockRequest();
     const res = mockResponse();
     await controller.get(req, res);
+
+    expect(res.render).toHaveBeenCalledWith(
+      expect.stringContaining(__dirname+'/template'),
+      expect.objectContaining(en)
+    );
   });
 });

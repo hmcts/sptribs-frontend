@@ -1,6 +1,6 @@
 import { TranslationFn } from '../../app/controller/GetController';
 
-const en = {
+export const en = {
   title: 'Terms and conditions',
   thisPage:
     'By using this service you’re agreeing to these terms of use. This includes the <a class="govuk-link" href="/privacy-policy">privacy policy</a>.',
