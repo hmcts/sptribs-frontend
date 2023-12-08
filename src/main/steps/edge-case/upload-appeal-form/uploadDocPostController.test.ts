@@ -269,6 +269,7 @@ describe('checking for the redirect of post document upload', () => {
      *
      */
     await postingcontroller.post(req, res);
+    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_APPEAL_FORM);
   });
 
   it('should redirect to same page if no documents uploaded', async () => {
