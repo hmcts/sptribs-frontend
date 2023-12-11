@@ -54,8 +54,8 @@ test('Should throw error when case roles could not be fetched', async () => {
     request: 'mock request',
   });
 
-  const case_id = '12345'
-  const user_id = '123'
+  const case_id = '12345';
+  const user_id = '123';
   const caseApiInstance: CaseApi = new CaseApi(mockedAxios, logger);
   const expectedError = 'Case roles could not be fetched.';
 

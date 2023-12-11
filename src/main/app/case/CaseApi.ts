@@ -47,7 +47,7 @@ export class CaseApi {
     return new Promise(() => {
       null;
     });
-  }//TODO - Remove?
+  } //TODO - Remove?
 
   /**
    *
