@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { UserDetails } from "../controller/AppRequest";
-import { CaseApi, getCaseApi } from "./CaseApi";
+import { CaseApi } from "./CaseApi";
 import { LoggerInstance } from 'winston';
 const { Logger } = require('@hmcts/nodejs-logging');
 const logger: LoggerInstance = Logger.getLogger('app');
@@ -36,8 +36,9 @@ test('Should return case roles for userId and caseId passed', async () => {
     familyName: "potter"
   };
 
+  const case_id = '1624351572550045'
   const caseApiInstance: CaseApi = new CaseApi(mockedAxios, logger);
-  const result = await caseApiInstance.getCaseUserRoles('1624351572550045', userDetails.id);
+  const result = await caseApiInstance.getCaseUserRoles(case_id, userDetails.id);
   expect(result).toEqual(
     {
       case_users: [
@@ -57,19 +58,13 @@ test('Should throw error when case roles could not be fetched', async () => {
       request: 'mock request',
     });
 
-    const userDetails: UserDetails = {
-      accessToken: "string",
-      id: "372ff9c1-9930-46d9-8bd2-88dd26ba2475",
-      email: "harry@hog.com",
-      givenName: "harry",
-      familyName: "potter"
-    };
-
-    const caseApiInstance: CaseApi = getCaseApi(userDetails, logger);
+    const case_id = '12345'
+    const user_id = '123'
+    const caseApiInstance: CaseApi = new CaseApi(mockedAxios, logger);
     const expectedError = "Case roles could not be fetched.";
 
-    try {
-      await caseApiInstance.getCaseUserRoles("512", "123");
+  try {
+      await caseApiInstance.getCaseUserRoles(case_id, user_id);
     } catch (error) {
       expect(error.message).toEqual(expectedError);
     }
