@@ -28,7 +28,33 @@ test('Should return case roles for userId and caseId passed', async () => {
       ],
     },
   });
+
+  const userDetails: UserDetails = {
+    accessToken: "string",
+    id: "372ff9c1-9930-46d9-8bd2-88dd26ba2475",
+    email: "harry@hog.com",
+    givenName: "harry",
+    familyName: "potter"
+  };
+
+  const caseApiInstance: CaseApi = new CaseApi(mockedAxios, logger);
+
+
+  // Assume a function getCaseRoles in your CaseApi instance
+  const result = await caseApiInstance.getCaseUserRoles('1624351572550045', userDetails.id);
+
+  // Your assertions based on the expected API response
+  expect(result).toEqual(
+    {
+      case_users: [
+        {
+          case_id: '1624351572550045',
+          user_id: '372ff9c1-9930-46d9-8bd2-88dd26ba2475',
+          case_role: '[APPLICANTTWO]',
+        }]
+    });
 });
+
 test('Should throw error when case roles could not be fetched', async () => {
     const mockedAxios = axios as jest.Mocked<typeof axios>;
     mockedAxios.get.mockRejectedValue({
@@ -38,7 +64,7 @@ test('Should throw error when case roles could not be fetched', async () => {
 
     const userDetails: UserDetails = {
       accessToken: "string",
-      id: "123",
+      id: "372ff9c1-9930-46d9-8bd2-88dd26ba2475",
       email: "harry@hog.com",
       givenName: "harry",
       familyName: "potter"
