@@ -1,13 +1,12 @@
 import axios from 'axios';
 
-const {Logger} = require('@hmcts/nodejs-logging');
-const logger: LoggerInstance = Logger.getLogger('app');
-
 import {UserDetails} from '../controller/AppRequest';
 import {CaseApi} from './CaseApi';
+
 import {LoggerInstance} from 'winston';
 
-
+const {Logger} = require('@hmcts/nodejs-logging');
+const logger: LoggerInstance = Logger.getLogger('app');
 jest.mock('axios');
 
 test('Should return case roles for userId and caseId passed', async () => {
@@ -31,7 +30,7 @@ test('Should return case roles for userId and caseId passed', async () => {
     familyName: 'potter'
   };
 
-  const case_id = '1624351572550045'
+  const case_id = '1624351572550045';
   const caseApiInstance: CaseApi = new CaseApi(mockedAxios, logger);
   const result = await caseApiInstance.getCaseUserRoles(case_id, userDetails.id);
   expect(result).toEqual(
