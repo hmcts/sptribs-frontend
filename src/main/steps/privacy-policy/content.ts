@@ -110,7 +110,7 @@ export const en = {
   icoWebsite: "ICO website: <a class='govuk-link' href='https://ico.org.uk'>https://www.ico.org.uk</a>",
 };
 
-const cy: typeof en = {
+export const cy: typeof en = {
   title: 'Polisi Preifatrwydd y Gwasanaeth Mabwysiadu',
   info1: 'Mae’r Weinyddiaeth Gyfiawnder (MoJ) wedi ymrwymo i ddiogelu ac amddiffyn eich gwybodaeth bersonol.',
   info2:

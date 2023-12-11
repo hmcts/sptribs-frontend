@@ -80,7 +80,7 @@ export const en = {
   contactUsFurtherInfo: '<a class="govuk-link" href="/contact-us">Contact us</a> for further information.',
 };
 
-const cy: typeof en = {
+export const cy: typeof en = {
   title: 'Telerau ac amodau',
   thisPage:
     'Trwy ddefnyddio’r gwasanaeth hwn rydych yn cytuno telerau defnyddio’r gwasanaeth hwn. Ar y wefan hon maent yn cynnwys <a class="govuk-link" href="/privacy-policy">polisi preifatrwydd</a>',
