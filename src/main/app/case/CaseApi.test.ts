@@ -1,11 +1,10 @@
 import axios from 'axios';
+import { LoggerInstance } from 'winston';
 
-import {UserDetails} from '../controller/AppRequest';
-import {CaseApi} from './CaseApi';
+import { UserDetails } from '../controller/AppRequest';
+import { CaseApi } from './CaseApi';
 
-import {LoggerInstance} from 'winston';
-
-const {Logger} = require('@hmcts/nodejs-logging');
+const { Logger } = require('@hmcts/nodejs-logging');
 const logger: LoggerInstance = Logger.getLogger('app');
 jest.mock('axios');
 
