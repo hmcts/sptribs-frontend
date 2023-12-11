@@ -15,9 +15,9 @@ test('Should return case roles for userId and caseId passed', async () => {
     data: {
       case_users: [
         {
-        case_id: '1624351572550045',
-        user_id: '372ff9c1-9930-46d9-8bd2-88dd26ba2475',
-        case_role: '[APPLICANTTWO]',
+          case_id: '1624351572550045',
+          user_id: '372ff9c1-9930-46d9-8bd2-88dd26ba2475',
+          case_role: '[APPLICANTTWO]',
         },
       ],
     },
@@ -33,22 +33,24 @@ test('Should return case roles for userId and caseId passed', async () => {
   const case_id = '1624351572550045';
   const caseApiInstance: CaseApi = new CaseApi(mockedAxios, logger);
   const result = await caseApiInstance.getCaseUserRoles(case_id, userDetails.id);
-  expect(result).toEqual(
-    {
+  expect(result).toEqual({
     case_users: [
       {
         case_id: '1624351572550045',
         user_id: '372ff9c1-9930-46d9-8bd2-88dd26ba2475',
         case_role: '[APPLICANTTWO]',
-      }]
-    });
-expect(mockedAxios.get).toHaveBeenCalledWith('case-users?case_ids=1624351572550045&user_ids=372ff9c1-9930-46d9-8bd2-88dd26ba2475');
+      },
+    ],
+  });
+  expect(mockedAxios.get).toHaveBeenCalledWith(
+    'case-users?case_ids=1624351572550045&user_ids=372ff9c1-9930-46d9-8bd2-88dd26ba2475'
+  );
 });
 
 test('Should throw error when case roles could not be fetched', async () => {
   const mockedAxios = axios as jest.Mocked<typeof axios>;
   mockedAxios.get.mockRejectedValue({
-    config: {method: 'GET', url: 'https://example.com/case-users'},
+    config: { method: 'GET', url: 'https://example.com/case-users' },
     request: 'mock request',
   });
 
