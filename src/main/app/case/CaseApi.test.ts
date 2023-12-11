@@ -1,12 +1,11 @@
 import axios from 'axios';
-const { Logger } = require('@hmcts/nodejs-logging');
+
+const {Logger} = require('@hmcts/nodejs-logging');
 const logger: LoggerInstance = Logger.getLogger('app');
 
-import { UserDetails } from '../controller/AppRequest';
-import { CaseApi } from './CaseApi';
-import { LoggerInstance } from 'winston';
-
-
+import {UserDetails} from '../controller/AppRequest';
+import {CaseApi} from './CaseApi';
+import {LoggerInstance} from 'winston';
 
 
 jest.mock('axios');
@@ -28,7 +27,7 @@ test('Should return case roles for userId and caseId passed', async () => {
     accessToken: 'string',
     id: '372ff9c1-9930-46d9-8bd2-88dd26ba2475',
     email: 'harry@hog.com',
-    givenName:'harry',
+    givenName: 'harry',
     familyName: 'potter'
   };
 
@@ -48,20 +47,20 @@ test('Should return case roles for userId and caseId passed', async () => {
 });
 
 test('Should throw error when case roles could not be fetched', async () => {
-    const mockedAxios = axios as jest.Mocked<typeof axios>;
-    mockedAxios.get.mockRejectedValue({
-      config: {method: 'GET', url: 'https://example.com/case-users'},
-      request: 'mock request',
-    });
+  const mockedAxios = axios as jest.Mocked<typeof axios>;
+  mockedAxios.get.mockRejectedValue({
+    config: {method: 'GET', url: 'https://example.com/case-users'},
+    request: 'mock request',
+  });
 
-    const case_id = '12345'
-    const user_id = '123'
-    const caseApiInstance: CaseApi = new CaseApi(mockedAxios, logger);
-    const expectedError = 'Case roles could not be fetched.';
+  const case_id = '12345'
+  const user_id = '123'
+  const caseApiInstance: CaseApi = new CaseApi(mockedAxios, logger);
+  const expectedError = 'Case roles could not be fetched.';
 
   try {
-      await caseApiInstance.getCaseUserRoles(case_id, user_id);
-    } catch (error) {
-      expect(error.message).toEqual(expectedError);
-    }
-  });
+    await caseApiInstance.getCaseUserRoles(case_id, user_id);
+  } catch (error) {
+    expect(error.message).toEqual(expectedError);
+  }
+});
