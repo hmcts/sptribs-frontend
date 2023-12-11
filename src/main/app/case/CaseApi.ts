@@ -43,11 +43,11 @@ export class CaseApi {
    * @param caseId
    * @returns
    */
-  public async getCaseById(): Promise<CaseWithId> {
+  public async getId(): Promise<CaseWithId> {
     return new Promise(() => {
       null;
     });
-  }
+  }//TODO - Remove?
 
   /**
    *
