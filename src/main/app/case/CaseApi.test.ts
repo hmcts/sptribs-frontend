@@ -59,9 +59,5 @@ test('Should throw error when case roles could not be fetched', async () => {
   const caseApiInstance: CaseApi = new CaseApi(mockedAxios, logger);
   const expectedError = 'Case roles could not be fetched.';
 
-  try {
-    await caseApiInstance.getCaseUserRoles(case_id, user_id);
-  } catch (error) {
-    expect(error.message).toEqual(expectedError);
-  }
+  await expect(caseApiInstance.getCaseUserRoles(case_id, user_id)).rejects.toThrowError(expectedError);
 });
