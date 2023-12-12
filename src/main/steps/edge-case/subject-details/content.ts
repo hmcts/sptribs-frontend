@@ -6,6 +6,7 @@ import {
   isDateInputInvalid,
   isDateInputNotFilled,
   isFieldFilledIn,
+  isFieldLetters,
   isFutureDate,
   isObsoleteDate,
 } from '../../../app/form/validation';
@@ -17,7 +18,7 @@ export const form: FormContent = {
       type: 'text',
       classes: 'govuk-input',
       label: l2 => l2.subjectFullNameLabel,
-      validator: isFieldFilledIn,
+      validator: input => isFieldFilledIn(input) || isFieldLetters(input),
     },
     subjectDateOfBirth: {
       type: 'date',
