@@ -16,32 +16,20 @@ import { SPTRIBS_CASE_API_BASE_URL } from '../../../steps/common/constants/apiCo
 const logger = Logger.getLogger('uploadDocumentPostController');
 import { UPLOAD_APPEAL_FORM, UPLOAD_SUPPORTING_DOCUMENTS } from '../../urls';
 
-/**
- * ****** File Extensions Types are being check
- */
 type URL_OF_FILE = string;
 
-/**
- * ****** File Extensions Types are being check
- */
 type FileType = {
   doc: string;
   docx: string;
   pdf: string;
 };
 
-/**
- * ****** File MimeTypes are being check
- */
 type FileMimeTypeInfo = {
   'application/msword': string;
   'application/vnd.openxmlformats-officedocument.wordprocessingml.document': string;
   'application/pdf': string;
 };
 
-/**
- * ****** File Upload validations Message
- */
 type FileUploadErrorTranslatables = {
   FORMAT_ERROR?: string;
   SIZE_ERROR?: string;
@@ -53,9 +41,6 @@ type FileUploadErrorTranslatables = {
 
 export const CASE_API_URL: URL_OF_FILE = config.get(SPTRIBS_CASE_API_BASE_URL);
 
-/**
- * @FileHandler
- */
 export const FileMimeType: Partial<Record<keyof FileType, keyof FileMimeTypeInfo>> = {
   doc: 'application/msword',
   docx: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
@@ -63,12 +48,6 @@ export const FileMimeType: Partial<Record<keyof FileType, keyof FileMimeTypeInfo
 };
 
 export class FileValidations {
-  /**
-   *
-   * @param req
-   * @returns
-   */
-
   static ResourceReaderContents = (req: AppRequest<AnyObject>): FileUploadErrorTranslatables => {
     let SystemContent: any | FileUploadErrorTranslatables = {};
     const SystemLangauge = req.session['lang'];
@@ -88,11 +67,6 @@ export class FileValidations {
     return SystemContent;
   };
 
-  /**
-   *
-   * @param fileSize
-   * @returns
-   */
   static sizeValidation = (fileSize: number): boolean => {
     const bytesInMBS = Number(config.get('documentUpload.validation.sizeInBytes'));
     if (fileSize <= bytesInMBS) {
@@ -102,11 +76,6 @@ export class FileValidations {
     }
   };
 
-  /**
-   *
-   * @param mimeType
-   * @returns
-   */
   static formatValidation = (mimeType: string): boolean => {
     const allMimeTypes = Object.values(FileMimeType);
     const checkForFileMimeType = allMimeTypes.filter(aMimeType => aMimeType === mimeType);
@@ -226,11 +195,6 @@ export default class UploadDocumentController extends PostController<AnyObject> 
     this.redirect(req, res, UPLOAD_APPEAL_FORM);
   }
 
-  /**
-   *
-   * @param req
-   * @param res
-   */
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const { documentUploadProceed } = req.body;
     const filesUploadedLink = '#filesUploaded';
