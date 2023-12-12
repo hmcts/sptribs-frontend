@@ -7,7 +7,7 @@ export const en = {
     'Email us at <a href="mailto:adoptionproject@justice.gov.uk" class="govuk-link">adoptionproject@justice.gov.uk.</a>',
 };
 
-const cy: typeof en = {
+export const cy: typeof en = {
   title: 'Mabwysiadu',
   email: 'E-bost',
   emailAddress:

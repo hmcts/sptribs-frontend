@@ -88,7 +88,7 @@ export const en = {
   contactHelp: 'Contact us for help:',
 };
 
-const cy = {
+export const cy = {
   title: 'Datganiad hygyrchedd ar gyfer y gwasanaeth mabwysiadu',
   websiteRanBy: 'Mae’r gwasanaeth hwn yn caniatáu i ddarpar rieni wneud cais i fabwysiadu plentyn ar-lein.',
   asManyAsPossible:
