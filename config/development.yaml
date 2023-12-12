@@ -7,6 +7,8 @@ services:
     url: 'http://localhost:3100/dss-update/start'
   documentManagement:
     uploadSizeinMB: 100
+  equalityAndDiversity:
+    enabled: false
 queryParamsforApp:
   query:
     FMP: 'FMPO'

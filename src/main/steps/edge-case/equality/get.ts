@@ -18,18 +18,11 @@ export default class PCQGetController {
   public async get(req: AppRequest, res: Response): Promise<void> {
     const pcqUrl: string = config.get('services.equalityAndDiversity.url');
     const pcqEnabled: boolean = config.get('services.equalityAndDiversity.enabled');
-
-    // TODO: remove below logging after testing completed
-    console.log(`PCQ Enabled is set to: ${pcqEnabled}`);
     if (!pcqEnabled) {
-      res.redirect(CHECK_YOUR_ANSWERS);
+      return res.redirect(CHECK_YOUR_ANSWERS);
     }
 
     const ageCheckValue = this.calculateAgeCheckParam(req.session.userCase.subjectDateOfBirth);
-    // TODO: remove below logging after testing completed
-    console.log(`!req.session.userCase.pcqId is: ${!req.session.userCase.pcqId}`);
-    console.log(`ageCheckValue is: ${ageCheckValue}`);
-    console.log(`PCQ check is: ${!req.session.userCase.pcqId && ageCheckValue !== 0}`);
     if (!req.session.userCase.pcqId && ageCheckValue !== 0) {
       try {
         const response: AxiosResponse<StatusResponse> = await axios.get(pcqUrl + '/health');
@@ -45,10 +38,10 @@ export default class PCQGetController {
               .join('&');
             res.redirect(`${pcqUrl}${path}?${qs}`);
           } else {
-            res.redirect(CHECK_YOUR_ANSWERS);
+            return res.redirect(CHECK_YOUR_ANSWERS);
           }
         } else {
-          res.redirect(CHECK_YOUR_ANSWERS);
+          return res.redirect(CHECK_YOUR_ANSWERS);
         }
       } catch (err) {
         res.redirect(CHECK_YOUR_ANSWERS);
