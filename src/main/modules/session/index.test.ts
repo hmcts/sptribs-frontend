@@ -60,6 +60,10 @@ describe('session', () => {
   beforeEach(() => {
     config.get = jest.fn().mockImplementationOnce(() => 'MOCK_SECRET');
     mockApp = {
+      locals: {
+        developmentMode: false,
+      },
+      set: jest.fn(),
       use: jest.fn(callback => callback),
     } as unknown as Application;
     mockLogger = {
@@ -82,6 +86,7 @@ describe('session', () => {
       cookie: {
         httpOnly: true,
         maxAge: 1260000,
+        secure: true,
       },
       rolling: true,
       store: mockSessionFileStore,
@@ -98,6 +103,7 @@ describe('session', () => {
         .mockImplementationOnce(() => 'MOCK_REDIS_KEY');
       mockApp = {
         use: jest.fn(callback => callback),
+        set: jest.fn(),
         locals: {},
       } as unknown as Application;
       mockLogger = {
