@@ -18,10 +18,14 @@ export default class PCQGetController {
   public async get(req: AppRequest, res: Response): Promise<void> {
     const pcqUrl: string = config.get('services.equalityAndDiversity.url');
     const pcqEnabled: boolean = config.get('services.equalityAndDiversity.enabled');
-    // TODO: remove below logging after testing completed
-    console.log(`PCQ Enabled is set to: ${pcqEnabled}`);
 
     const ageCheckValue = this.calculateAgeCheckParam(req.session.userCase.subjectDateOfBirth);
+
+    // TODO: remove below logging after testing completed
+    console.log(`PCQ Enabled is set to: ${pcqEnabled}`);
+    console.log(`!req.session.userCase.pcqId is: ${!req.session.userCase.pcqId}`);
+    console.log(`ageCheckValue is: ${ageCheckValue}`);
+    console.log(`PCQ check is: ${pcqEnabled && !req.session.userCase.pcqId && ageCheckValue !== 0}`);
     if (pcqEnabled && !req.session.userCase.pcqId && ageCheckValue !== 0) {
       try {
         const response: AxiosResponse<StatusResponse> = await axios.get(pcqUrl + '/health');
