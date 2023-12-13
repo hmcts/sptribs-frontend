@@ -18,7 +18,9 @@ export default class PCQGetController {
   public async get(req: AppRequest, res: Response): Promise<void> {
     const pcqUrl: string = config.get('services.equalityAndDiversity.url');
     const pcqEnabled: boolean = config.get('services.equalityAndDiversity.enabled');
+    console.log(`PCQ enabled? - ${pcqEnabled}`);
     if (!pcqEnabled) {
+      console.log('PCQ disabled - here');
       return res.redirect(CHECK_YOUR_ANSWERS);
     }
 

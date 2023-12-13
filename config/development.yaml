@@ -8,7 +8,7 @@ services:
   documentManagement:
     uploadSizeinMB: 100
   equalityAndDiversity:
-    enabled: false
+    enabled: true
 queryParamsforApp:
   query:
     FMP: 'FMPO'
