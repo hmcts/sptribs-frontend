@@ -19,9 +19,7 @@ export default class PCQGetController {
     const pcqUrl: string = config.get('services.equalityAndDiversity.url');
     const pcqEnabled: boolean = String(config.get('services.equalityAndDiversity.enabled')) === 'true';
 
-    console.log(`PCQ enabled? - ${pcqEnabled}`);
     if (!pcqEnabled) {
-      console.log('PCQ disabled - redirecting to CYA page');
       return res.redirect(CHECK_YOUR_ANSWERS);
     }
 
