@@ -17,11 +17,16 @@ import { createToken } from './createToken';
 export default class PCQGetController {
   public async get(req: AppRequest, res: Response): Promise<void> {
     const pcqUrl: string = config.get('services.equalityAndDiversity.url');
-    const pcqEnabledTemp: string = JSON.stringify(config.get('services.equalityAndDiversity.enabled'));
-    const pcqEnabled: boolean = JSON.parse(pcqEnabledTemp);
+    const pcqEnabled: boolean = String(config.get('services.equalityAndDiversity.enabled')) === 'true';
+
+    console.log(`PCQ enabled? - ${pcqEnabled}`);
+    if (!pcqEnabled) {
+      console.log('PCQ disabled - redirecting to CYA page');
+      return res.redirect(CHECK_YOUR_ANSWERS);
+    }
 
     const ageCheckValue = this.calculateAgeCheckParam(req.session.userCase.subjectDateOfBirth);
-    if (pcqEnabled && !req.session.userCase.pcqId && ageCheckValue !== 0) {
+    if (!req.session.userCase.pcqId && ageCheckValue !== 0) {
       try {
         const response: AxiosResponse<StatusResponse> = await axios.get(pcqUrl + '/health');
         const equalityHealth = response.data && response.data.status === 'UP';
