@@ -1,5 +1,4 @@
 import { FormContent, FormFields, FormOptions } from '../../../app/form/Form';
-import { isFieldFilledIn } from '../../../app/form/validation';
 import { ResourceReader } from '../../../modules/resourcereader/ResourceReader';
 import { CommonContent } from '../../common/common.content';
 
@@ -76,7 +75,34 @@ describe('subject-details-content', () => {
     const fields = form.fields as FormFields;
     const subjectFullName = fields.subjectFullName as FormOptions;
     expect((subjectFullName.label as Function)(generatedContent)).toBe(enContent.subjectFullNameLabel);
-    expect(subjectFullName.validator).toBe(isFieldFilledIn);
+    expect((subjectFullName.validator as Function)("Dermot O'Leary")).toBe(undefined);
+  });
+
+  test('should fail validation when subject full name contains number', () => {
+    const generatedContent = generateContent(commonContent);
+    const form = generatedContent.form as FormContent;
+    const fields = form.fields as FormFields;
+    const subjectFullName = fields.subjectFullName as FormOptions;
+
+    expect((subjectFullName.validator as Function)('FirstName 1Surname')).toBe('invalid');
+  });
+
+  test('should fail validation when subject full name contains invalid punctuation', () => {
+    const generatedContent = generateContent(commonContent);
+    const form = generatedContent.form as FormContent;
+    const fields = form.fields as FormFields;
+    const subjectFullName = fields.subjectFullName as FormOptions;
+
+    expect((subjectFullName.validator as Function)('FirstName Surname!')).toBe('invalid');
+  });
+
+  test('should fail validation when subject full name contains invalid text (eg. html)', () => {
+    const generatedContent = generateContent(commonContent);
+    const form = generatedContent.form as FormContent;
+    const fields = form.fields as FormFields;
+    const subjectFullName = fields.subjectFullName as FormOptions;
+
+    expect((subjectFullName.validator as Function)('<marquee>John Doe</marquee>')).toBe('invalid');
   });
 
   test('should contain dateOfBirth field', () => {
@@ -124,7 +150,7 @@ it('should use cy language translation and cover happy path', () => {
   const subjectFullName = fields.subjectFullName as FormOptions;
 
   expect(generatedContent.title).toBe(enContent.title);
-  expect(subjectFullName.validator).toBe(isFieldFilledIn);
+  expect((subjectFullName.validator as Function)('Firştnåmé Midğlø Lâßtnámê')).toBe(undefined);
 });
 
 it('should use en language translation and cover happy path', () => {
@@ -134,7 +160,7 @@ it('should use en language translation and cover happy path', () => {
   const subjectFullName = fields.subjectFullName as FormOptions;
 
   expect(generatedContent.section).not.toBe('Ceisydd');
-  expect(subjectFullName.validator).toBe(isFieldFilledIn);
+  expect((subjectFullName.validator as Function)('Ceisydd')).toBe(undefined);
 });
 
 it('should use en language translation and cover error block', () => {
