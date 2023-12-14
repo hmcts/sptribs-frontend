@@ -28,7 +28,8 @@
     "errors":{
         "en": {
             "subjectFullName": {
-                "required": "Please enter full name"
+                "required": "Please enter full name",
+                "invalid": "Please enter a valid name"
             },
             "subjectDateOfBirth": {
                 "required": "Please enter date of birth",
@@ -38,6 +39,7 @@
         "cy": {
             "subjectFullName": {
                 "required": "Nodwch enw llawn"
+                "invalid": "Rhowch enw dilys"
             },
             "subjectDateOfBirth": {
                 "required": "Nodwch ddyddiad geni",
