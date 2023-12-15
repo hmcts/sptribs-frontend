@@ -1,50 +1,50 @@
 {
-    "translations": {
-        "en": {
-            "continue": "Continue",
-            "serviceName": "Appeal to the First-tier Tribunal",
-            "title":"Who is the subject of this case?",
-            "line1":"The subject of a case may be you, or the person who you are submitting this tribunal form on behalf of.",
-            "subjectFullNameLabel": "Full name",
-            "subjectDateOfBirthLabel": "Date of birth",
-            "hint": "For example, 31 3 1980",
-            "day": "Day",
-            "month": "Month",
-            "year": "Year"
-        },
-        "cy": {
-            "continue": "Parhau",
-            "serviceName": "Apelio i’r Tribiwnlys Haen Gyntaf",
-            "title":"Pwy yw testun yr achos hwn?",
-            "line1":"Gall testun yr achos fod yn chi, neu’r unigolyn rydych yn cyflwyno’r ffurflen tribiwnlys hon ar ei ran.",
-            "subjectFullNameLabel": "Enw llawn",
-            "subjectDateOfBirthLabel": "Dyddiad geni",
-            "hint": "Er enghraifft, 31 3 1980",
-            "day": "Diwrnod",
-            "month": "Mis",
-            "year": "Blwyddyn"
-        }
+  "translations": {
+    "en": {
+      "continue": "Continue",
+      "serviceName": "Appeal to the First-tier Tribunal",
+      "title": "Who is the subject of this case?",
+      "line1": "The subject of a case may be you, or the person who you are submitting this tribunal form on behalf of.",
+      "subjectFullNameLabel": "Full name",
+      "subjectDateOfBirthLabel": "Date of birth",
+      "hint": "For example, 31 3 1980",
+      "day": "Day",
+      "month": "Month",
+      "year": "Year"
     },
-    "errors":{
-        "en": {
-            "subjectFullName": {
-                "required": "Please enter full name",
-                "invalid": "Please enter a valid name"
-            },
-            "subjectDateOfBirth": {
-                "required": "Please enter date of birth",
-                "invalid": "Please enter valid date of birth"
-            }
-        },
-        "cy": {
-            "subjectFullName": {
-                "required": "Nodwch enw llawn"
-                "invalid": "Rhowch enw dilys"
-            },
-            "subjectDateOfBirth": {
-                "required": "Nodwch ddyddiad geni",
-                "invalid": "Nodwch ddyddiad geni dilys"
-            }
-        }
+    "cy": {
+      "continue": "Parhau",
+      "serviceName": "Apelio i’r Tribiwnlys Haen Gyntaf",
+      "title": "Pwy yw testun yr achos hwn?",
+      "line1": "Gall testun yr achos fod yn chi, neu’r unigolyn rydych yn cyflwyno’r ffurflen tribiwnlys hon ar ei ran.",
+      "subjectFullNameLabel": "Enw llawn",
+      "subjectDateOfBirthLabel": "Dyddiad geni",
+      "hint": "Er enghraifft, 31 3 1980",
+      "day": "Diwrnod",
+      "month": "Mis",
+      "year": "Blwyddyn"
     }
+  },
+  "errors": {
+    "en": {
+      "subjectFullName": {
+        "required": "Please enter full name",
+        "invalid": "Please enter a valid name"
+      },
+      "subjectDateOfBirth": {
+        "required": "Please enter date of birth",
+        "invalid": "Please enter valid date of birth"
+      }
+    },
+    "cy": {
+      "subjectFullName": {
+        "required": "Nodwch enw llawn",
+        "invalid": "Rhowch enw dilys"
+      },
+      "subjectDateOfBirth": {
+        "required": "Nodwch ddyddiad geni",
+        "invalid": "Nodwch ddyddiad geni dilys"
+      }
+    }
+  }
 }
