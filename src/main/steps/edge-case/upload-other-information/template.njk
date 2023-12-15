@@ -12,7 +12,7 @@
 
 {% if FileErrors.length > 0 %}
 {{ govukErrorSummary({
-  titleText: "There is a problem",
+  titleText: errorSummaryHeading,
   errorList: FileErrors
 }) }}
 
