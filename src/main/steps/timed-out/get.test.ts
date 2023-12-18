@@ -2,12 +2,12 @@ import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 
 import { cy, en } from './content';
-import { TermsAndConditionsGetController } from './get';
+import { TimedOutGetController } from './get';
 
-describe('TermsAndConditionsGetController', () => {
-  const controller = new TermsAndConditionsGetController();
+describe('TimedOutGetController', () => {
+  const controller = new TimedOutGetController();
 
-  test('Should render the accessibility statement page', async () => {
+  test('Should render the time out page', async () => {
     const req = mockRequest();
     const res = mockResponse();
     await controller.get(req, res);
@@ -18,7 +18,7 @@ describe('TermsAndConditionsGetController', () => {
     );
   });
 
-  test('Should render the accessibility statement page for Welsh', async () => {
+  test('Should render the time out page for Welsh', async () => {
     const req = mockRequest();
     const res = mockResponse();
     req.session.lang = 'cy';

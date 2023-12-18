@@ -1,6 +1,6 @@
 import { TranslationFn } from '../../app/controller/GetController';
 
-const en = {
+export const en = {
   title: 'The Adoption Service Privacy policy',
   info1: 'The Ministry of Justice (MoJ) is committed to the protection and security of your personal information.',
   info2:
@@ -110,7 +110,7 @@ const en = {
   icoWebsite: "ICO website: <a class='govuk-link' href='https://ico.org.uk'>https://www.ico.org.uk</a>",
 };
 
-const cy: typeof en = {
+export const cy: typeof en = {
   title: 'Polisi Preifatrwydd y Gwasanaeth Mabwysiadu',
   info1: 'Mae’r Weinyddiaeth Gyfiawnder (MoJ) wedi ymrwymo i ddiogelu ac amddiffyn eich gwybodaeth bersonol.',
   info2:
