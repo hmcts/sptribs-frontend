@@ -239,6 +239,7 @@ describe('checking for the redirect of post document upload', () => {
     ];
 
     await postingcontroller.PostDocumentUploader(req, res);
+    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION);
   });
 
   it('must be have axios instance', () => {
@@ -288,6 +289,7 @@ describe('checking for the redirect of post document upload', () => {
      *
      */
     await postingcontroller.post(req, res);
+    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION);
   });
 
   it('should allow continue if no documents uploaded', async () => {
@@ -298,6 +300,7 @@ describe('checking for the redirect of post document upload', () => {
     req.session.fileErrors = [];
 
     await postingcontroller.post(req, res);
+    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION);
   });
 
   it('should display error if upload clicked with no document', async () => {

@@ -1,13 +1,13 @@
 import { TranslationFn } from '../../app/controller/GetController';
 
-const en = {
+export const en = {
   title: 'document submission service',
   email: 'Email',
   emailAddress:
     'Email us at <a href="mailto:CIC.enquiries@justice.gov.uk" class="govuk-link">CIC.enquiries@justice.gov.uk.</a>',
 };
 
-const cy: typeof en = {
+export const cy: typeof en = {
   title: 'Mabwysiadu',
   email: 'E-bost',
   emailAddress:

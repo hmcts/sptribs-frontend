@@ -1,6 +1,6 @@
 import { TranslationFn } from '../../app/controller/GetController';
 
-const en = {
+export const en = {
   title: 'Accessibility statement for the adoption service',
   websiteRanBy: 'This service allows prospective parents to apply to adopt a child online.',
   asManyAsPossible:
@@ -88,7 +88,7 @@ const en = {
   contactHelp: 'Contact us for help:',
 };
 
-const cy = {
+export const cy = {
   title: 'Datganiad hygyrchedd ar gyfer y gwasanaeth mabwysiadu',
   websiteRanBy: 'Mae’r gwasanaeth hwn yn caniatáu i ddarpar rieni wneud cais i fabwysiadu plentyn ar-lein.',
   asManyAsPossible:
