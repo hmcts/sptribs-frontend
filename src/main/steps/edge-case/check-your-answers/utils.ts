@@ -194,7 +194,7 @@ export const UploadAppealFormSummary = (
     })
     .toString()
     .split(',')
-    .join('<div class="govuk-!-margin-top-3"></div>');
+    .join('\n');
 
   const SummaryData = [
     {
@@ -221,7 +221,7 @@ export const SupportingDocumentsSummary = (
   })
     .toString()
     .split(',')
-    .join('<div class="govuk-!-margin-top-3"></div>');
+    .join('\n');
 
   const SummaryData = [
     {
@@ -250,7 +250,7 @@ export const OtherInformationSummary = (
       })
         .toString()
         .split(',')
-        .join('<div class="govuk-!-margin-top-3"></div>')
+        .join('\n')
     : '';
 
   const SummaryData = [
