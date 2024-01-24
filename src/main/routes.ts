@@ -1,5 +1,4 @@
 import fs from 'fs';
-import multer from 'multer';
 
 import { Application, RequestHandler } from 'express';
 
@@ -15,7 +14,6 @@ import { PrivacyPolicyGetController } from './steps/privacy-policy/get';
 import { SaveSignOutGetController } from './steps/save-sign-out/get';
 import { TermsAndConditionsGetController } from './steps/terms-and-conditions/get';
 import { TimedOutGetController } from './steps/timed-out/get';
-import UploadDocumentController from "./steps/edge-case/upload-appeal-form/uploadDocPostController";
 import {
   ACCESSIBILITY_STATEMENT,
   CONTACT_US,
@@ -26,10 +24,8 @@ import {
   SAVE_AND_SIGN_OUT,
   TERMS_AND_CONDITIONS,
   TIMED_OUT_URL,
-  DOCUMENT_UPLOAD_URL
 } from './steps/urls';
 
-const handleUploads = multer();
 export class Routes {
   /**
    *
@@ -56,9 +52,6 @@ export class Routes {
         ? require(`${step.stepDir}/${getControllerFileName}`).default
         : GetController;
 
-      const documentManagerController = new UploadDocumentController(step.form.fields);
-      app.post(DOCUMENT_UPLOAD_URL, handleUploads.array('files[]', 5), errorHandler(documentManagerController.post));
-      //app.get(`${DOCUMENT_UPLOAD_URL}/delete/:index`, errorHandler(documentManagerController.delete));  
       app.get(step.url, errorHandler(new getController(step.view, step.generateContent).get));
 
       if (step.form) {
