@@ -88,19 +88,19 @@ export const FileMimeType: Partial<Record<keyof FileType, keyof FileMimeTypeInfo
   export class FileValidations {
     static ResourceReaderContents = (req: AppRequest<AnyObject>, page: string): FileUploadErrorTranslatables => {
       let SystemContent: any | FileUploadErrorTranslatables = {};
-      const SystemLangauge = req.session['lang'];
+      const SystemLanguage = req.session['lang'];
       const resourceLoader = new ResourceReader();
-      resourceLoader.Loader(page); //this needs to get string based on page
-      const ErrorInLangauges = resourceLoader.getFileContents().errors;
-      switch (SystemLangauge) {
+      resourceLoader.Loader(page);
+      const ErrorInLanguages = resourceLoader.getFileContents().errors;
+      switch (SystemLanguage) {
         case 'en':
-          SystemContent = ErrorInLangauges.en;
+          SystemContent = ErrorInLanguages.en;
           break;
         case 'cy':
-          SystemContent = ErrorInLangauges.cy;
+          SystemContent = ErrorInLanguages.cy;
           break;
         default:
-          SystemContent = ErrorInLangauges.en;
+          SystemContent = ErrorInLanguages.en;
       }
       return SystemContent;
     };
@@ -146,8 +146,7 @@ export class UploadController extends PostController<AnyObject> {
     if (req.session.hasOwnProperty(this.getPropertyName())) {
       TotalUploadDocuments = req.session[this.getPropertyName()].length;
     if (TotalUploadDocuments === 0) {
-      const errorMessage = FileValidations.ResourceReaderContents(req, this.getCurrentPageRedirectUrl()).CONTINUE_WITHOUT_UPLOAD_ERROR;
-      this.uploadFileError(req, res, this.getCurrentPageRedirectUrl(), errorMessage, chooseFileLink);
+      this.createUploadedFileError(req, res, chooseFileLink, 'CONTINUE_WITHOUT_UPLOAD_ERROR');
     } else {
       const CaseId = req.session.userCase['id'];
       const baseURL = '/case/dss-orchestration/' + CaseId + '/update?event=UPDATE';
@@ -156,9 +155,12 @@ export class UploadController extends PostController<AnyObject> {
         ServiceAuthorization: getServiceAuthToken(),
       };
       try {
-        const TribunalFormDocuments = this.getTribunalFormDocuments(req);  
+        let TribunalFormDocuments = [];
         let SupportingDocuments = [];
         let OtherInfoDocuments = [];
+        if (req.session.caseDocuments !== undefined) {
+          TribunalFormDocuments = this.getTribunalFormDocuments(req);  
+        }
         if (req.session.supportingCaseDocuments !== undefined) {
           SupportingDocuments = this.getSupportingDocuments(req);
         }   
@@ -276,7 +278,6 @@ export class UploadController extends PostController<AnyObject> {
 
     let TotalUploadDocuments = 0;
     TotalUploadDocuments = this.getTotalUploadDocumentsFromSessionProperty(req, TotalUploadDocuments);
-    console.log('submit total upload docs is ' + TotalUploadDocuments);
 
     if (documentUploadProceed) {
       /**
@@ -287,11 +288,9 @@ export class UploadController extends PostController<AnyObject> {
       const { files }: AppRequest<AnyObject> = req;
 
       if (isNull(files)) {
-        console.log('creating uploaded file error');
         this.createUploadedFileError(req, res, chooseFileLink, 'NO_FILE_UPLOAD_ERROR');
       } else {
         if (TotalUploadDocuments < Number(config.get(this.getValidationTotal()))) {
-          console.log(this.getValidationTotal() + " is the validation total");
           if (!req.session.hasOwnProperty('errors')) {
             req.session['errors'] = [];
           }
@@ -384,6 +383,9 @@ export class UploadController extends PostController<AnyObject> {
     }
     else if (errorType == 'TOTAL_FILES_EXCEED_ERROR') {
       errorMessage = fileValidation.TOTAL_FILES_EXCEED_ERROR;
+    }
+    else if (errorType == 'CONTINUE_WITHOUT_UPLOAD_ERROR') {
+      errorMessage = fileValidation.CONTINUE_WITHOUT_UPLOAD_ERROR;
     }
     else {
       errorMessage = fileValidation.UPLOAD_DELETE_FAIL_ERROR;

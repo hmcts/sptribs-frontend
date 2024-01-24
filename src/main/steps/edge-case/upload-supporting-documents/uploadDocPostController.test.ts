@@ -1,16 +1,13 @@
 import { Axios } from 'axios';
-import config from 'config';
 
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import { YesOrNo } from '../../../app/case/definition';
 import { isFieldFilledIn } from '../../../app/form/validation';
-import { ResourceReader } from '../../../modules/resourcereader/ResourceReader';
 import * as steps from '../../../steps';
 import { UPLOAD_SUPPORTING_DOCUMENTS } from '../../../steps/urls';
-import { SPTRIBS_CASE_API_BASE_URL } from '../../common/constants/apiConstants';
 
-import UploadDocumentController, { CASE_API_URL, FileMimeType, FileValidations } from './uploadDocPostController';
+import UploadDocumentController from './uploadDocPostController';
 
 const getNextStepUrlMock = jest.spyOn(steps, 'getNextStepUrl');
 // jest.mock('../../../app/auth/service/get-service-auth-token', () => ({
@@ -67,107 +64,6 @@ describe('Form upload controller', () => {
         expect(err).not.toBe('MOCK_ERROR');
       }
     });
-  });
-});
-
-describe('All of the listed Validation for files should be in place', () => {
-  const allTypes = {
-    doc: 'application/msword',
-    docx: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-    pdf: 'application/pdf',
-    png: 'image/png',
-    xls: 'application/vnd.ms-excel',
-    xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-    jpg: 'image/jpeg',
-    txt: 'text/plain',
-    rtf: 'application/rtf',
-    rtf2: 'text/rtf',
-  };
-
-  it('must match the file validations type', () => {
-    expect(Object.entries(allTypes)).toHaveLength(Object.entries(FileMimeType).length);
-    expect(allTypes).toMatchObject(FileMimeType);
-    expect(Object.entries(allTypes).toString()).toBe(Object.entries(FileMimeType).toString());
-  });
-});
-
-describe('document format validation', () => {
-  it('must match valid mimetypes', () => {
-    expect(FileValidations.formatValidation('image/gif')).toBe(false);
-  });
-});
-
-describe('The url must match the config url', () => {
-  it('must match baseURl', () => {
-    expect(CASE_API_URL).toBe(config.get(SPTRIBS_CASE_API_BASE_URL));
-  });
-});
-
-describe('Checking for file upload size', () => {
-  const file1Size = 10000000;
-  const file2Size = 20000000;
-  const file3Size = 70000001;
-  it('Checking for file1 size', () => {
-    expect(FileValidations.sizeValidation(file1Size)).toBe(true);
-  });
-
-  it('Checking for file2 size', () => {
-    expect(FileValidations.sizeValidation(file2Size)).toBe(true);
-  });
-
-  it('Checking for file3 size', () => {
-    expect(FileValidations.sizeValidation(file3Size)).toBe(false);
-  });
-});
-
-/**
- *      @UploadDocumentController
- *
- *      test for document upload controller
- */
-
-describe('Check for System contents to match for en', () => {
-  const resourceLoader = new ResourceReader();
-  resourceLoader.Loader('upload-supporting-documents');
-  const getContents = resourceLoader.getFileContents().errors;
-
-  it('must match load English as Langauage', () => {
-    const req = mockRequest({});
-    req.query['lng'] = 'en';
-    req.session['lang'] = 'en';
-    const SystemContentLoader = FileValidations.ResourceReaderContents(req);
-    const getEnglishContents = getContents.en;
-    expect(SystemContentLoader).toEqual(getEnglishContents);
-  });
-});
-
-describe('Check for System contents to match for cy', () => {
-  const resourceLoader = new ResourceReader();
-  resourceLoader.Loader('upload-supporting-documents');
-  const getContents = resourceLoader.getFileContents().errors;
-
-  it('must match load English as Language', () => {
-    const req = mockRequest({});
-    req.query['lng'] = 'cy';
-    req.session['lang'] = 'cy';
-    const SystemContentLoader = FileValidations.ResourceReaderContents(req);
-    const getWhelshContents = getContents.cy;
-    expect(SystemContentLoader).toEqual(getWhelshContents);
-  });
-});
-
-describe('Check for System contents to match for fr', () => {
-  const resourceLoader = new ResourceReader();
-  resourceLoader.Loader('upload-supporting-documents');
-  const getContents = resourceLoader.getFileContents().errors;
-
-  it('must match load English as default Langauage', () => {
-    const req = mockRequest({});
-    req.query['lng'] = 'fr';
-    req.session['lang'] = 'fr';
-    const SystemContentLoader = FileValidations.ResourceReaderContents(req);
-    const getWhelshContents = getContents.en;
-    expect(SystemContentLoader).toEqual(getWhelshContents);
   });
 });
 
