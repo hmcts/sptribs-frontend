@@ -10,27 +10,27 @@ export default class UploadDocumentController extends UploadController {
     super(fields);
   }
 
-  protected getPropertyName() {
+  protected getPropertyName(): string {
     return 'otherCaseInformation';
   }
 
-  protected getNextPageRedirectUrl() {
+  protected getNextPageRedirectUrl(): `/${string}` {
     return EQUALITY;
   }
 
-  protected getCurrentPageRedirectUrl() {
+  protected getCurrentPageRedirectUrl(): `/${string}` {
     return UPLOAD_OTHER_INFORMATION;
   }
 
-  protected getValidationTotal() {
+  protected getValidationTotal(): string {
     return 'documentUpload.validation.totalOtherInformation';
   }
 
-  protected checkIfNoFilesUploaded() {
+  protected checkIfNoFilesUploaded(): boolean {
     return false;
   }
 
-  protected shouldSetUpFormData() {
+  protected shouldSetUpFormData(): boolean {
     return true;
   }
 }
