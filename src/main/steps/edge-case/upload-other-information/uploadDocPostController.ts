@@ -1,7 +1,8 @@
 import autobind from 'autobind-decorator';
+
+import { UploadController } from '../../../app/controller/UploadController';
 import { FormFields, FormFieldsFn } from '../../../app/form/Form';
 import { EQUALITY, UPLOAD_OTHER_INFORMATION } from '../../urls';
-import { UploadController } from '../../../app/controller/UploadController';
 
 @autobind
 export default class UploadDocumentController extends UploadController {
