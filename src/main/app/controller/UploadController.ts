@@ -145,7 +145,7 @@ export class UploadController extends PostController<AnyObject> {
     let TotalUploadDocuments;
     if (req.session.hasOwnProperty(this.getPropertyName())) {
       TotalUploadDocuments = req.session[this.getPropertyName()].length;
-    if (TotalUploadDocuments === 0) {
+    if (TotalUploadDocuments === 0 && this.checkIfNoFilesUploaded()) {
       this.createUploadedFileError(req, res, chooseFileLink, 'CONTINUE_WITHOUT_UPLOAD_ERROR');
     } else {
       const CaseId = req.session.userCase['id'];
@@ -360,6 +360,10 @@ export class UploadController extends PostController<AnyObject> {
 
   protected getValidationTotal() {
     return '';
+  }
+
+  protected checkIfNoFilesUploaded() {
+    return true;
   }
 
   private async addUploadedFileToData(Headers: { Authorization: string; ServiceAuthorization: string; }, formData: FormData, formHeaders: FormData.Headers, req: AppRequest<AnyObject>) {

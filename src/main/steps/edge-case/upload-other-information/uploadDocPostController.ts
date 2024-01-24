@@ -28,6 +28,10 @@ export default class UploadDocumentController extends UploadController {
     return "documentUpload.validation.totalOtherInformation";
   }
 
+  protected checkIfNoFilesUploaded() {
+    return false;
+  }
+
   /**
    *
    * @param req
