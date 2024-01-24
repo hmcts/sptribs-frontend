@@ -46,35 +46,22 @@
   {{ fileSize }}
 </p>
 
-<div class="govuk-form-group">
-  <div class="govuk-panel upload">
-    <span class="upload-arrow-icon govuk-!-margin-bottom-5"></span>
-    <div class="govuk-form-group">
-      <p class="govuk-body govuk-!-margin-bottom-5">
-        <span id="upload"></span>
-        <strong>{{ orStr }}</strong><br>
-        {{ dragDropHere }}
-      </p>
-      <div id="uploadProgressBar"></div>
-    </div>
-  </div>
+<form class="formRow" action="/upload-appeal-form?_csrf={{ csrfToken }}" method="post" enctype="multipart/form-data">
+  {{ govukFileUpload({
+    id: "file-upload-1",
+    name: "documents",
+    classes: "govuk-!-margin-bottom-1",
+    label: {
+      text: "Upload a file"
+    }
+  }) }}
+  <p class="govuk-body">{{ uploadGuidance }}</p>
 
-  <noscript>
-    <form action="/upload-appeal-form?_csrf={{ csrfToken }}" method="post" enctype="multipart/form-data">
-      {{ govukFileUpload({
-        id: "file-upload-1",
-        name: "documents",
-        label: {
-          text: chooseFilePhoto
-        },
-        classes: "govuk-!-margin-bottom-1"
-      }) }}
-      {{ govukButton({
-        text: uploadButton,
-        type: "submit",
-        classes: "govuk-button--secondary govuk-!-margin-bottom-0"
-      }) }}
-    </form>
-  </noscript>
-</div>
+  {{ govukButton({
+            text: uploadButton,
+            type: "upload document",
+            classes: "govuk-!-margin-bottom-0"
+  }) }}
+</form>
+
 {% endblock %}
