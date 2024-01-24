@@ -53,7 +53,7 @@ describe('Document upload controller', () => {
 
     expect(req.locals.api.triggerEvent).not.toHaveBeenCalled();
     expect(getNextStepUrlMock).not.toHaveBeenCalled();
-    expect(res.redirect).toBeCalledWith('/upload-appeal-form');
+    expect(res.redirect).toBeCalledWith(UPLOAD_APPEAL_FORM);
     expect(req.session.errors).not.toEqual(errors);
   });
 

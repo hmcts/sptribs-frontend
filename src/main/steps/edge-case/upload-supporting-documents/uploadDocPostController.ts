@@ -22,10 +22,6 @@ export default class UploadDocumentController extends UploadController {
   }
 
   protected getValidationTotal() {
-    return "documentUpload.validation.totalSupportingDocuments";
-  }
-
-  protected checkIfNoFilesUploaded() {
-    return true;
+    return 'documentUpload.validation.totalSupportingDocuments';
   }
 }

@@ -10,9 +10,10 @@ import { getServiceAuthToken } from '../../app/auth/service/get-service-auth-tok
 import { mapCaseData } from '../../app/case/CaseApi';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../app/controller/PostController';
-import { FormFields, FormFieldsFn } from '../../app/form/Form';
+import { Form, FormFields, FormFieldsFn } from '../../app/form/Form';
 import { ResourceReader } from '../../modules/resourcereader/ResourceReader';
 import { SPTRIBS_CASE_API_BASE_URL } from '../../steps/common/constants/apiConstants';
+import { UPLOAD_APPEAL_FORM, UPLOAD_SUPPORTING_DOCUMENTS } from '../../steps/urls';
 const logger = Logger.getLogger('uploadDocumentPostController');
 
 type URL_OF_FILE = string;
@@ -156,17 +157,17 @@ export class UploadController extends PostController<AnyObject> {
       };
       try {
         let TribunalFormDocuments = [];
-        let SupportingDocuments = [];
-        let OtherInfoDocuments = [];
         if (req.session.caseDocuments !== undefined) {
           TribunalFormDocuments = this.getTribunalFormDocuments(req);  
         }
+        let SupportingDocuments = [];
         if (req.session.supportingCaseDocuments !== undefined) {
           SupportingDocuments = this.getSupportingDocuments(req);
         }   
+        let OtherInfoDocuments = [];
         if (req.session.otherCaseInformation !== undefined) {
           OtherInfoDocuments = this.getOtherInfoDocuments(req);
-        }  
+        }
         const CaseData = mapCaseData(req);
           const responseBody = {
             ...CaseData,
@@ -276,6 +277,10 @@ export class UploadController extends PostController<AnyObject> {
     const filesUploadedLink = '#filesUploaded';
     const { documentUploadProceed } = req.body;
 
+    if (this.shouldSetUpFormData()) {
+      this.setUpForm(req);
+    }
+
     let TotalUploadDocuments = 0;
     TotalUploadDocuments = this.getTotalUploadDocumentsFromSessionProperty(req, TotalUploadDocuments);
 
@@ -345,25 +350,29 @@ export class UploadController extends PostController<AnyObject> {
     }
   }
 
-  //get methods overridden in subclasses
+  //methods overridden in subclasses
   protected getPropertyName() {
-    return '';
+    return 'caseDocuments';
   }
 
   protected getNextPageRedirectUrl() {
-    return '';
+    return UPLOAD_SUPPORTING_DOCUMENTS;
   }
 
   protected getCurrentPageRedirectUrl() {
-    return '';
+    return UPLOAD_APPEAL_FORM;
   }
 
   protected getValidationTotal() {
-    return '';
+    return 'documentUpload.validation.totaldocuments';
   }
 
   protected checkIfNoFilesUploaded() {
     return true;
+  }
+
+  protected shouldSetUpFormData() {
+    return false;
   }
 
   private async addUploadedFileToData(Headers: { Authorization: string; ServiceAuthorization: string; }, formData: FormData, formHeaders: FormData.Headers, req: AppRequest<AnyObject>) {
@@ -395,6 +404,14 @@ export class UploadController extends PostController<AnyObject> {
       errorMessage = fileValidation.UPLOAD_DELETE_FAIL_ERROR;
     }
     this.uploadFileError(req, res, this.getCurrentPageRedirectUrl(), errorMessage, fileLink);
+  }
+
+  private setUpForm(req: AppRequest<AnyObject>) {
+    const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase) : this.fields;
+    const form = new Form(fields);
+    const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
+    req.session.errors = form.getErrors(formData);
+    Object.assign(req.session.userCase, formData);
   }
 
   private async getRequestDocument(Headers: { Authorization: string; ServiceAuthorization: string; }, formData: FormData, formHeaders: FormData.Headers) {
