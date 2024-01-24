@@ -10,19 +10,19 @@ export default class UploadDocumentController extends UploadController {
     super(fields);
   }
 
-  protected getPropertyName() {
+  protected getPropertyName(): string {
     return 'supportingCaseDocuments';
   }
 
-  protected getNextPageRedirectUrl() {
+  protected getNextPageRedirectUrl(): `/${string}` {
     return UPLOAD_OTHER_INFORMATION;
   }
 
-  protected getCurrentPageRedirectUrl() {
+  protected getCurrentPageRedirectUrl(): `/${string}` {
     return UPLOAD_SUPPORTING_DOCUMENTS;
   }
 
-  protected getValidationTotal() {
+  protected getValidationTotal(): string {
     return 'documentUpload.validation.totalSupportingDocuments';
   }
 }
