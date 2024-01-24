@@ -1,7 +1,8 @@
 import autobind from 'autobind-decorator';
+
+import { UploadController } from '../../../app/controller/UploadController';
 import { FormFields, FormFieldsFn } from '../../../app/form/Form';
 import { UPLOAD_OTHER_INFORMATION, UPLOAD_SUPPORTING_DOCUMENTS } from '../../urls';
-import { UploadController } from '../../../app/controller/UploadController';
 
 @autobind
 export default class UploadDocumentController extends UploadController {
@@ -18,7 +19,7 @@ export default class UploadDocumentController extends UploadController {
   }
 
   protected getCurrentPageRedirectUrl() {
-    return UPLOAD_SUPPORTING_DOCUMENTS
+    return UPLOAD_SUPPORTING_DOCUMENTS;
   }
 
   protected getValidationTotal() {

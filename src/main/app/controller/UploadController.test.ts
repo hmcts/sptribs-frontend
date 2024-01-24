@@ -1,10 +1,11 @@
+import config from 'config';
+
+import { ResourceReader } from '../../../main/modules/resourcereader/ResourceReader';
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import * as steps from '../../steps';
 import { SPTRIBS_CASE_API_BASE_URL } from '../../steps/common/constants/apiConstants';
-import { ResourceReader } from '../../../main/modules/resourcereader/ResourceReader';
 
-import { FileMimeType, FileValidations, CASE_API_URL } from './UploadController';
-import config from 'config';
+import { CASE_API_URL, FileMimeType, FileValidations } from './UploadController';
 
 const getNextStepUrlMock = jest.spyOn(steps, 'getNextStepUrl');
 
@@ -127,5 +128,5 @@ describe('PostController', () => {
         expect(SystemContentLoader).toEqual(getWelshContents);
       });
     });
-  })
-})
+  });
+});
