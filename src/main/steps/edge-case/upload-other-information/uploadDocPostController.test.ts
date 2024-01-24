@@ -53,7 +53,7 @@ describe('Document upload controller', () => {
 
     expect(req.locals.api.triggerEvent).not.toHaveBeenCalled();
     expect(getNextStepUrlMock).not.toHaveBeenCalled();
-    expect(res.redirect).toBeCalledWith('/upload-other-information');
+    expect(res.redirect).toBeCalledWith(UPLOAD_OTHER_INFORMATION);
     expect(req.session.errors).toEqual(errors);
   });
 
