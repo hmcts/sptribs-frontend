@@ -19,10 +19,14 @@
     "check": "concurrently npm run lint -- --fix \"npm run test:coverage\" ",
     "fortifyScan": "./src/test/java/gradlew -p src/test/java fortifyScan",
     "test:coverage": "jest --coverage",
-    "test:a11y": "echo 'nope' && exit 0",
+    "test:a11y": "echo 'covered in nightly E2E' && exit 0",
     "sonar-scan": "sonar-scanner",
     "test:smoke": "jest -c jest.smoke.config.js",
-    "cichecks": "yarn && run-p build lint test"
+    "test:functional": "echo 'covered in nightly E2E' && exit 0",
+    "test:fullfunctional": "echo 'covered in nightly E2E' && exit 0",
+    "cichecks": "yarn && run-p build lint test",
+    "test:crossbrowser-e2e": "echo 'covered in nightly E2E' && exit 0",
+    "test:crossbrowser": "echo 'covered in nightly E2E' && exit 0"
   },
   "dependencies": {
     "@hmcts/cookie-manager": "^1.0.0",
