@@ -7615,13 +7615,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fn-args@npm:4.0.0":
-  version: 4.0.0
-  resolution: "fn-args@npm:4.0.0"
-  checksum: 22cc41e5de4e1feb27ab6848197c01cf59daac40cdd6976dd5de6c57d7d5a3a861c6eec58f037709e0fe8e63e8b783e744b15b4076059c8effeca3c472e90a2e
-  languageName: node
-  linkType: hard
-
 "follow-redirects@npm:^1.15.5":
   version: 1.15.5
   resolution: "follow-redirects@npm:1.15.5"
