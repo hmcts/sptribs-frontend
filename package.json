@@ -67,6 +67,7 @@
     "express-http-proxy": "^2.0.0",
     "express-nunjucks": "^3.0.0",
     "express-session": "^1.17.2",
+    "follow-redirects": "^1.15.5",
     "form-data": "^4.0.0",
     "glob": "^10.0.0",
     "govuk-frontend": "^4.0.0",
@@ -149,11 +150,12 @@
   },
   "resolutions": {
     "@babel/traverse": "^7.23.2",
+    "axios": "^1.6.1",
+    "follow-redirects": "^1.15.5",
     "got": "^13.0.0",
     "postcss": "^8.4.31",
     "semver": "^7.5.2",
-    "serialize-javascript": "^6.0.1",
-    "axios": "^1.6.1"
+    "serialize-javascript": "^6.0.1"
   },
   "packageManager": "yarn@3.7.0"
 }
