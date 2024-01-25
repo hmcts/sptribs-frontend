@@ -88,22 +88,22 @@ export const FileMimeType: Partial<Record<keyof FileType, keyof FileMimeTypeInfo
 
 export class FileValidations {
   static ResourceReaderContents(req: AppRequest<AnyObject>, page: string): FileUploadErrorTranslatables {
-    let SystemContent: any | FileUploadErrorTranslatables = {};
-    const SystemLanguage = req.session['lang'];
+    let systemContent: any | FileUploadErrorTranslatables = {};
+    const systemLanguage = req.session['lang'];
     const resourceLoader = new ResourceReader();
     resourceLoader.Loader(page);
-    const ErrorInLanguages = resourceLoader.getFileContents().errors;
-    switch (SystemLanguage) {
+    const errorInLanguages = resourceLoader.getFileContents().errors;
+    switch (systemLanguage) {
       case 'en':
-        SystemContent = ErrorInLanguages.en;
+        systemContent = errorInLanguages.en;
         break;
       case 'cy':
-        SystemContent = ErrorInLanguages.cy;
+        systemContent = errorInLanguages.cy;
         break;
       default:
-        SystemContent = ErrorInLanguages.en;
+        systemContent = errorInLanguages.en;
     }
-    return SystemContent;
+    return systemContent;
   }
 
   /**
@@ -141,41 +141,41 @@ export class UploadController extends PostController<AnyObject> {
     super(fields);
   }
 
-  async PostDocumentUploader(req: AppRequest<AnyObject>, res: Response): Promise<void> {
+  async postDocumentUploader(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const chooseFileLink = '#file-upload-1';
-    let TotalUploadDocuments;
+    let totalUploadDocuments;
     if (req.session.hasOwnProperty(this.getPropertyName())) {
-      TotalUploadDocuments = req.session[this.getPropertyName()].length;
-      if (TotalUploadDocuments === 0 && this.checkIfNoFilesUploaded()) {
+      totalUploadDocuments = req.session[this.getPropertyName()].length;
+      if (totalUploadDocuments === 0 && this.checkIfNoFilesUploaded()) {
         this.createUploadedFileError(req, res, chooseFileLink, 'CONTINUE_WITHOUT_UPLOAD_ERROR');
       } else {
-        const CaseId = req.session.userCase['id'];
-        const baseURL = '/case/dss-orchestration/' + CaseId + '/update?event=UPDATE';
-        const Headers = {
-          Authorization: `Bearer ${req.session.user['accessToken']}`,
-          ServiceAuthorization: getServiceAuthToken(),
+        const caseId = req.session.userCase['id'];
+        const baseUrl = '/case/dss-orchestration/' + caseId + '/update?event=UPDATE';
+        const headers = {
+          authorization: `Bearer ${req.session.user['accessToken']}`,
+          serviceAuthorization: getServiceAuthToken(),
         };
         try {
-          let TribunalFormDocuments: Document[] = [];
+          let tribunalFormDocuments: Document[] = [];
           if (req.session.caseDocuments !== undefined) {
-            TribunalFormDocuments = this.getTribunalFormDocuments(req);
+            tribunalFormDocuments = this.getTribunalFormDocuments(req);
           }
-          let SupportingDocuments: Document[] = [];
+          let supportingDocuments: Document[] = [];
           if (req.session.supportingCaseDocuments !== undefined) {
-            SupportingDocuments = this.getSupportingDocuments(req);
+            supportingDocuments = this.getSupportingDocuments(req);
           }
-          let OtherInfoDocuments: Document[] = [];
+          let otherInfoDocuments: Document[] = [];
           if (req.session.otherCaseInformation !== undefined) {
-            OtherInfoDocuments = this.getOtherInfoDocuments(req);
+            otherInfoDocuments = this.getOtherInfoDocuments(req);
           }
-          const CaseData = mapCaseData(req);
+          const caseData = mapCaseData(req);
           const responseBody = {
-            ...CaseData,
-            TribunalFormDocuments,
-            SupportingDocuments,
-            OtherInfoDocuments,
+            ...caseData,
+            tribunalFormDocuments,
+            supportingDocuments,
+            otherInfoDocuments,
           };
-          await this.UploadDocumentInstance(CASE_API_URL, Headers).put(baseURL, responseBody);
+          await this.uploadDocumentInstance(CASE_API_URL, headers).put(baseUrl, responseBody);
           res.redirect(this.getNextPageRedirectUrl());
         } catch (error) {
           this.createUploadedFileError(req, res, chooseFileLink, 'UPLOAD_DELETE_FAIL_ERROR');
@@ -184,9 +184,9 @@ export class UploadController extends PostController<AnyObject> {
     }
   }
 
-  public UploadDocumentInstance(BASEURL: string, header: RawAxiosRequestHeaders): AxiosInstance {
+  public uploadDocumentInstance(baseUrl: string, header: RawAxiosRequestHeaders): AxiosInstance {
     return axios.create({
-      baseURL: BASEURL,
+      baseURL: baseUrl,
       headers: header,
       maxContentLength: Infinity,
       maxBodyLength: Infinity,
@@ -281,21 +281,21 @@ export class UploadController extends PostController<AnyObject> {
       this.setUpForm(req);
     }
 
-    let TotalUploadDocuments = 0;
-    TotalUploadDocuments = this.getTotalUploadDocumentsFromSessionProperty(req, TotalUploadDocuments);
+    let totalUploadDocuments = 0;
+    totalUploadDocuments = this.getTotalUploadDocumentsFromSessionProperty(req, totalUploadDocuments);
 
     if (documentUploadProceed) {
       /**
        * @PostDocumentUploader
        */
-      this.PostDocumentUploader(req, res);
+      this.postDocumentUploader(req, res);
     } else {
       const { files }: AppRequest<AnyObject> = req;
 
       if (isNull(files)) {
         this.createUploadedFileError(req, res, chooseFileLink, 'NO_FILE_UPLOAD_ERROR');
       } else {
-        if (TotalUploadDocuments < Number(config.get(this.getValidationTotal()))) {
+        if (totalUploadDocuments < Number(config.get(this.getValidationTotal()))) {
           if (!req.session.hasOwnProperty('errors')) {
             req.session['errors'] = [];
           }
@@ -318,12 +318,12 @@ export class UploadController extends PostController<AnyObject> {
               /**
                * @RequestHeaders
                */
-              const Headers = {
-                Authorization: `Bearer ${req.session.user['accessToken']}`,
-                ServiceAuthorization: getServiceAuthToken(),
+              const headers = {
+                authorization: `Bearer ${req.session.user['accessToken']}`,
+                serviceAuthorization: getServiceAuthToken(),
               };
               try {
-                await this.addUploadedFileToData(Headers, formData, formHeaders, req);
+                await this.addUploadedFileToData(headers, formData, formHeaders, req);
                 this.redirect(req, res, this.getCurrentPageRedirectUrl());
               } catch (error) {
                 logger.error(error);
@@ -376,13 +376,13 @@ export class UploadController extends PostController<AnyObject> {
   }
 
   private async addUploadedFileToData(
-    Headers: { Authorization: string; ServiceAuthorization: string },
+    headers: { authorization: string; serviceAuthorization: string },
     formData: FormData,
     formHeaders: FormData.Headers,
     req: AppRequest<AnyObject>
   ): Promise<void> {
-    const RequestDocument = await this.getRequestDocument(Headers, formData, formHeaders);
-    const uploadedDocument = RequestDocument.data.document;
+    const requestDocument = await this.getRequestDocument(headers, formData, formHeaders);
+    const uploadedDocument = requestDocument.data.document;
     req.session[this.getPropertyName()].push(uploadedDocument);
     req.session['errors'] = undefined;
   }
@@ -420,29 +420,29 @@ export class UploadController extends PostController<AnyObject> {
   }
 
   private async getRequestDocument(
-    Headers: { Authorization: string; ServiceAuthorization: string },
+    headers: { authorization: string; serviceAuthorization: string },
     formData: FormData,
     formHeaders: FormData.Headers
   ): Promise<any> {
-    return this.UploadDocumentInstance(CASE_API_URL, Headers).post(
+    return this.uploadDocumentInstance(CASE_API_URL, headers).post(
       '/doc/dss-orchestration/upload?caseTypeOfApplication=CIC',
       formData,
       {
         headers: {
           ...formHeaders,
-          ServiceAuthorization: getServiceAuthToken(),
+          serviceAuthorization: getServiceAuthToken(),
         },
       }
     );
   }
 
-  private getTotalUploadDocumentsFromSessionProperty(req: AppRequest<AnyObject>, TotalUploadDocuments: number): number {
+  private getTotalUploadDocumentsFromSessionProperty(req: AppRequest<AnyObject>, totalUploadDocuments: number): number {
     if (!req.session.hasOwnProperty(this.getPropertyName())) {
       req.session[this.getPropertyName()] = [];
     } else {
-      TotalUploadDocuments = req.session[this.getPropertyName()].length;
+      totalUploadDocuments = req.session[this.getPropertyName()].length;
       req.session['errors'] = [];
     }
-    return TotalUploadDocuments;
+    return totalUploadDocuments;
   }
 }
