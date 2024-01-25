@@ -94,7 +94,7 @@ describe('checking for the redirect of post document upload', () => {
 
   const req = mockRequest({});
   const res = mockResponse();
-  const postingcontroller = new UploadDocumentController(mockForm.fields);
+  const postingController = new UploadDocumentController(mockForm.fields);
   it('redirection after the documents has been proccessed', async () => {
     req.session.caseDocuments = [
       {
@@ -121,18 +121,18 @@ describe('checking for the redirect of post document upload', () => {
       },
     ];
 
-    await postingcontroller.PostDocumentUploader(req, res);
+    await postingController.postDocumentUploader(req, res);
     expect(res.redirect).toHaveBeenCalledWith(UPLOAD_APPEAL_FORM);
   });
 
   it('must be have axios instance', () => {
-    const SystemInstance = postingcontroller.UploadDocumentInstance('/', {});
-    expect(SystemInstance instanceof Axios);
+    const systemInstance = postingController.uploadDocumentInstance('/', {});
+    expect(systemInstance instanceof Axios);
   });
 
   it('procceding the document upload', () => {
-    const SystemInstance = postingcontroller.UploadDocumentInstance('/', {});
-    expect(SystemInstance instanceof Axios);
+    const systemInstance = postingController.uploadDocumentInstance('/', {});
+    expect(systemInstance instanceof Axios);
   });
 
   req.body['documentUploadProceed'] = true;
@@ -171,7 +171,7 @@ describe('checking for the redirect of post document upload', () => {
     /**
      *
      */
-    await postingcontroller.post(req, res);
+    await postingController.post(req, res);
     expect(res.redirect).toHaveBeenCalledWith(UPLOAD_APPEAL_FORM);
   });
 
@@ -181,7 +181,7 @@ describe('checking for the redirect of post document upload', () => {
     req.files = [];
     req.session.fileErrors = [];
 
-    await postingcontroller.post(req, res);
+    await postingController.post(req, res);
     expect(res.redirect).toHaveBeenCalledWith(UPLOAD_APPEAL_FORM);
   });
 
@@ -192,7 +192,7 @@ describe('checking for the redirect of post document upload', () => {
     req.session.fileErrors = [];
     req.body['documentUploadProceed'] = false;
 
-    await postingcontroller.post(req, res);
+    await postingController.post(req, res);
     expect(res.redirect).toHaveBeenCalledWith(UPLOAD_APPEAL_FORM);
   });
 });
