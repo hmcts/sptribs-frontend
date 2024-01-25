@@ -44,13 +44,6 @@ withPipeline(type, product, component) {
   afterSuccess('build') {
     yarnBuilder.yarn('build')
   }
-  before('functionalTest:preview') {
-    env.SPTRIBS_FRONTEND_URL = "https://sptribs-frontend-pr-${CHANGE_ID}.preview.platform.hmcts.net/?edgecaseType=CIC"
-  }
-
-  afterAlways('functionalTest:preview') {
-    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
-  }
 
   before('smoketest:preview') {
     env.SPTRIBS_FRONTEND_URL = "https://sptribs-frontend-pr-${CHANGE_ID}.preview.platform.hmcts.net/?edgecaseType=CIC"
@@ -65,14 +58,6 @@ withPipeline(type, product, component) {
   }
 
   afterAlways('smoketest:aat') {
-    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
-  }
-
-  before('functionalTest:aat') {
-    env.ADOP_WEB_URL = "https://sptribs-frontend.aat.platform.hmcts.net/"
-  }
-
-  afterAlways('functionalTest:aat') {
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
   }
 
