@@ -1,5 +1,6 @@
 {% extends "authless-templates.njk" %}
 {% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
+{% from "govuk/components/footer/macro.njk" import govukFooter %}
 
 {% block header %}
   {{ govukHeader({serviceName: content.serviceTitle}) }}
@@ -37,5 +38,40 @@
     text: content.button,
     href: loginURL,
     isStartButton: true
+  }) }}
+{% endblock %}
+
+{% block footer %}
+  {{ govukFooter({
+    copyright: {
+      text: content.copyright | safe
+    },
+    contentLicence: {
+      text: content.ogl | safe
+    },
+    meta: {
+      items: [
+        {
+          href: "/cookies",
+          text: content.cookies
+        },
+        {
+          href: "/privacy-policy",
+          text: content.privacyPolicy
+        },
+        {
+          href: "/accessibility-statement",
+          text: content.accessibility
+        },
+        {
+          href: "/terms-and-conditions",
+          text: content.termsAndConditions
+        },
+        {
+          href: "/contact-us",
+          text: content.contactUs
+        }
+      ]
+    }
   }) }}
 {% endblock %}

@@ -17,8 +17,9 @@
                     <p class="govuk-body">{{ line1 }}</p>
                     <p class="govuk-body">{{ line2 }}</p>
                     {{  govukNotificationBanner({
-                        titleText: "Feedback",
-                        html: line3                        })
+                          titleText: feedback,
+                          html: line3
+                        })
                     }}
                      {{ govukButton({
                         text: closeAndExit,
