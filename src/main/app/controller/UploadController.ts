@@ -302,33 +302,13 @@ export class UploadController extends PostController<AnyObject> {
       }
 
       const { documents }: any = files;
+      console.log('OBJECT: ' + typeof files + ' ' + typeof documents);
 
       const validateMimeType: boolean = FileValidations.formatValidation(documents.mimetype);
       const validateFileSize: boolean = FileValidations.sizeValidation(documents.mimetype, documents.size);
-      const formData: FormData = new FormData();
 
       if (validateMimeType && validateFileSize) {
-        formData.append('file', documents.data, {
-          contentType: documents.mimetype,
-          filename: documents.name,
-        });
-        const formHeaders = formData.getHeaders();
-
-        /**
-         * @RequestHeaders
-         */
-        const headers = {
-          authorization: `Bearer ${req.session.user['accessToken']}`,
-          serviceAuthorization: getServiceAuthToken(),
-        };
-
-        try {
-          await this.addUploadedFileToData(headers, formData, formHeaders, req);
-          this.redirect(req, res, this.getCurrentPageRedirectUrl());
-        } catch (error) {
-          logger.error(error);
-          this.createUploadedFileError(req, res, chooseFileLink, 'UPDATE_DELETE_FAIL_ERROR');
-        }
+        this.uploadFile(documents, req, res, chooseFileLink);
       } else {
         if (!validateFileSize) {
           this.createUploadedFileError(req, res, chooseFileLink, 'SIZE_ERROR');
@@ -441,5 +421,35 @@ export class UploadController extends PostController<AnyObject> {
       req.session['errors'] = [];
     }
     return totalUploadDocuments;
+  }
+
+  private async uploadFile(
+    documents: any,
+    req: AppRequest<AnyObject>,
+    res: Response<any, Record<string, any>>,
+    chooseFileLink: string
+  ) {
+    const formData: FormData = new FormData();
+    formData.append('file', documents.data, {
+      contentType: documents.mimetype,
+      filename: documents.name,
+    });
+    const formHeaders = formData.getHeaders();
+
+    /**
+     * @RequestHeaders
+     */
+    const headers = {
+      authorization: `Bearer ${req.session.user['accessToken']}`,
+      serviceAuthorization: getServiceAuthToken(),
+    };
+
+    try {
+      await this.addUploadedFileToData(headers, formData, formHeaders, req);
+      this.redirect(req, res, this.getCurrentPageRedirectUrl());
+    } catch (error) {
+      logger.error(error);
+      this.createUploadedFileError(req, res, chooseFileLink, 'UPDATE_DELETE_FAIL_ERROR');
+    }
   }
 }
