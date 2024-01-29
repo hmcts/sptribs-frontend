@@ -293,62 +293,59 @@ export class UploadController extends PostController<AnyObject> {
        * @PostDocumentUploader
        */
       this.postDocumentUploader(req, res);
-    } else {
-      const { files }: AppRequest<AnyObject> = req;
-
-      if (isNull(files)) {
-        this.createUploadedFileError(req, res, chooseFileLink, 'NO_FILE_UPLOAD_ERROR');
-      } else if (totalUploadDocuments < Number(config.get(this.getValidationTotal()))) {
-        if (!req.session.hasOwnProperty('errors')) {
-          req.session['errors'] = [];
-        }
-
-        const { documents }: any = files;
-
-        const checkIfMultipleFiles: boolean = Array.isArray(documents);
-
-        // making sure single file is uploaded
-        if (!checkIfMultipleFiles) {
-          const validateMimeType: boolean = FileValidations.formatValidation(documents.mimetype);
-          const validateFileSize: boolean = FileValidations.sizeValidation(documents.mimetype, documents.size);
-          const formData: FormData = new FormData();
-          if (validateMimeType && validateFileSize) {
-            formData.append('file', documents.data, {
-              contentType: documents.mimetype,
-              filename: documents.name,
-            });
-            const formHeaders = formData.getHeaders();
-            /**
-             * @RequestHeaders
-             */
-            const headers = {
-              authorization: `Bearer ${req.session.user['accessToken']}`,
-              serviceAuthorization: getServiceAuthToken(),
-            };
-            try {
-              await this.addUploadedFileToData(headers, formData, formHeaders, req);
-              this.redirect(req, res, this.getCurrentPageRedirectUrl());
-            } catch (error) {
-              logger.error(error);
-              this.createUploadedFileError(req, res, chooseFileLink, 'UPDATE_DELETE_FAIL_ERROR');
-            }
-          } else {
-            if (!validateFileSize) {
-              this.createUploadedFileError(req, res, chooseFileLink, 'SIZE_ERROR');
-            }
-
-            if (!validateMimeType) {
-              this.createUploadedFileError(req, res, chooseFileLink, 'FORMAT_ERROR');
-            }
-
-            this.redirect(req, res, this.getCurrentPageRedirectUrl());
-          }
-        }
-      } else {
-        this.createUploadedFileError(req, res, filesUploadedLink, 'TOTAL_FILES_EXCEED_ERROR');
-
-        this.redirect(req, res, this.getCurrentPageRedirectUrl());
+    } else if (isNull(req)) {
+      this.createUploadedFileError(req, res, chooseFileLink, 'NO_FILE_UPLOAD_ERROR');
+    } else if (totalUploadDocuments < Number(config.get(this.getValidationTotal()))) {
+      if (!req.session.hasOwnProperty('errors')) {
+        req.session['errors'] = [];
       }
+
+      const checkIfMultipleFiles: boolean = Array.isArray(req);
+
+      // making sure single file is uploaded
+      if (!checkIfMultipleFiles) {
+        const validateMimeType: boolean = FileValidations.formatValidation(req.mimetype);
+        const validateFileSize: boolean = FileValidations.sizeValidation(req.mimetype, req.size);
+        const formData: FormData = new FormData();
+
+        if (validateMimeType && validateFileSize) {
+          formData.append('file', req.data, {
+            contentType: req.mimetype,
+            filename: req.name,
+          });
+          const formHeaders = formData.getHeaders();
+
+          /**
+           * @RequestHeaders
+           */
+          const headers = {
+            authorization: `Bearer ${req.session.user['accessToken']}`,
+            serviceAuthorization: getServiceAuthToken(),
+          };
+
+          try {
+            await this.addUploadedFileToData(headers, formData, formHeaders, req);
+            this.redirect(req, res, this.getCurrentPageRedirectUrl());
+          } catch (error) {
+            logger.error(error);
+            this.createUploadedFileError(req, res, chooseFileLink, 'UPDATE_DELETE_FAIL_ERROR');
+          }
+        } else {
+          if (!validateFileSize) {
+            this.createUploadedFileError(req, res, chooseFileLink, 'SIZE_ERROR');
+          }
+
+          if (!validateMimeType) {
+            this.createUploadedFileError(req, res, chooseFileLink, 'FORMAT_ERROR');
+          }
+
+          this.redirect(req, res, this.getCurrentPageRedirectUrl());
+        }
+      }
+    } else {
+      this.createUploadedFileError(req, res, filesUploadedLink, 'TOTAL_FILES_EXCEED_ERROR');
+
+      this.redirect(req, res, this.getCurrentPageRedirectUrl());
     }
   }
 
