@@ -140,44 +140,50 @@ export class UploadController extends PostController<AnyObject> {
   }
 
   async postDocumentUploader(req: AppRequest<AnyObject>, res: Response): Promise<void> {
-    const chooseFileLink = '#file-upload-1';
-    let totalUploadDocuments;
-    if (req.session.hasOwnProperty(this.getPropertyName())) {
-      totalUploadDocuments = req.session[this.getPropertyName()].length;
-      if (totalUploadDocuments === 0 && this.checkIfNoFilesUploaded()) {
-        this.createUploadedFileError(req, res, chooseFileLink, 'CONTINUE_WITHOUT_UPLOAD_ERROR');
-      } else {
-        const caseId = req.session.userCase['id'];
-        const baseUrl = '/case/dss-orchestration/' + caseId + '/update?event=UPDATE';
-        const headers = {
-          authorization: `Bearer ${req.session.user['accessToken']}`,
-          serviceAuthorization: getServiceAuthToken(),
-        };
-        try {
-          let tribunalFormDocuments: Document[] = [];
-          if (req.session.caseDocuments !== undefined) {
-            tribunalFormDocuments = this.getTribunalFormDocuments(req);
-          }
-          let supportingDocuments: Document[] = [];
-          if (req.session.supportingCaseDocuments !== undefined) {
-            supportingDocuments = this.getSupportingDocuments(req);
-          }
-          let otherInfoDocuments: Document[] = [];
-          if (req.session.otherCaseInformation !== undefined) {
-            otherInfoDocuments = this.getOtherInfoDocuments(req);
-          }
-          const caseData = mapCaseData(req);
-          const responseBody = {
-            ...caseData,
-            tribunalFormDocuments,
-            supportingDocuments,
-            otherInfoDocuments,
-          };
-          await this.uploadDocumentInstance(CASE_API_URL, headers).put(baseUrl, responseBody);
-          res.redirect(this.getNextPageRedirectUrl());
-        } catch (error) {
-          this.createUploadedFileError(req, res, chooseFileLink, 'UPLOAD_DELETE_FAIL_ERROR');
+    const chooseFileLink: string = '#file-upload-1';
+
+    const totalUploadDocuments: number = req.session.hasOwnProperty(this.getPropertyName())
+      ? req.session[this.getPropertyName()].length
+      : 0;
+
+    if (totalUploadDocuments === 0 && this.checkIfNoFilesUploaded()) {
+      this.createUploadedFileError(req, res, chooseFileLink, 'CONTINUE_WITHOUT_UPLOAD_ERROR');
+    } else {
+      const caseId = req.session.userCase['id'];
+      const baseUrl = '/case/dss-orchestration/' + caseId + '/update?event=UPDATE';
+      const headers = {
+        authorization: `Bearer ${req.session.user['accessToken']}`,
+        serviceAuthorization: getServiceAuthToken(),
+      };
+
+      try {
+        let tribunalFormDocuments: Document[] = [];
+        if (req.session.caseDocuments !== undefined) {
+          tribunalFormDocuments = this.getTribunalFormDocuments(req);
         }
+
+        let supportingDocuments: Document[] = [];
+        if (req.session.supportingCaseDocuments !== undefined) {
+          supportingDocuments = this.getSupportingDocuments(req);
+        }
+
+        let otherInfoDocuments: Document[] = [];
+        if (req.session.otherCaseInformation !== undefined) {
+          otherInfoDocuments = this.getOtherInfoDocuments(req);
+        }
+
+        const caseData = mapCaseData(req);
+        const responseBody = {
+          ...caseData,
+          tribunalFormDocuments,
+          supportingDocuments,
+          otherInfoDocuments,
+        };
+
+        await this.uploadDocumentInstance(CASE_API_URL, headers).put(baseUrl, responseBody);
+        res.redirect(this.getNextPageRedirectUrl());
+      } catch (error) {
+        this.createUploadedFileError(req, res, chooseFileLink, 'UPLOAD_DELETE_FAIL_ERROR');
       }
     }
   }
