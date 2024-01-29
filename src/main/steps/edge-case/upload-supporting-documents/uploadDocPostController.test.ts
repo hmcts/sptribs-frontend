@@ -37,13 +37,13 @@ describe('Form upload controller', () => {
 
     const req = mockRequest({});
     const res = mockResponse();
-    req.files = { documents: [] };
+    (req.files as any) = { documents: { mimetype: 'text/plain' } };
     req.session.caseDocuments = [];
     await controller.post(req, res);
 
     expect(req.locals.api.triggerEvent).not.toHaveBeenCalled();
     expect(getNextStepUrlMock).not.toHaveBeenCalled();
-    expect(res.redirect).not.toBeCalledWith(UPLOAD_SUPPORTING_DOCUMENTS);
+    expect(res.redirect).toBeCalledWith(UPLOAD_SUPPORTING_DOCUMENTS);
     expect(req.session.errors).not.toEqual(errors);
   });
 
