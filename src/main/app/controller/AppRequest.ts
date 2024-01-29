@@ -15,6 +15,10 @@ export interface AppRequest<T = Partial<Case>> extends Request {
     api: CaseApi;
   };
   body: T;
+  mimetype: string;
+  size: number;
+  data: FormData;
+  name: string;
 }
 
 export interface AppSession extends Session {
