@@ -16,8 +16,6 @@ import { SPTRIBS_CASE_API_BASE_URL } from '../../steps/common/constants/apiConst
 import { UPLOAD_APPEAL_FORM, UPLOAD_SUPPORTING_DOCUMENTS } from '../../steps/urls';
 const logger = Logger.getLogger('uploadDocumentPostController');
 
-type URL_OF_FILE = string;
-
 /**
  * ****** File Extensions Types are being checked
  */
@@ -65,7 +63,7 @@ type FileUploadErrorTranslatables = {
   UPLOAD_DELETE_FAIL_ERROR?: string;
 };
 
-export const CASE_API_URL: URL_OF_FILE = config.get(SPTRIBS_CASE_API_BASE_URL);
+export const CASE_API_URL: string = config.get(SPTRIBS_CASE_API_BASE_URL);
 
 /**
  * @FileHandler

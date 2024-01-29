@@ -12,12 +12,7 @@ import { ResourceReader } from '../../../modules/resourcereader/ResourceReader';
 import { SPTRIBS_CASE_API_BASE_URL } from '../../../steps/common/constants/apiConstants';
 import { APPLICATION_SUBMITTED, CHECK_YOUR_ANSWERS } from '../../urls';
 
-/**
- * ****** File Extensions Types are being check
- */
-type URL_OF_FILE = string;
-
-export const CASE_API_URL: URL_OF_FILE = config.get(SPTRIBS_CASE_API_BASE_URL);
+export const CASE_API_URL: string = config.get(SPTRIBS_CASE_API_BASE_URL);
 
 /**
  * ****** File Upload validations Message
