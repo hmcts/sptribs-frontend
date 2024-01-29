@@ -28,7 +28,7 @@ export class FileValidations {
    * @returns
    */
 
-  static ResourceReaderContents = (req: AppRequest<AnyObject>): CaseSubmitErrorTranslatables => {
+  static readonly ResourceReaderContents = (req: AppRequest<AnyObject>): CaseSubmitErrorTranslatables => {
     let SystemContent: any | CaseSubmitErrorTranslatables = {};
     const SystemLangauge = req.session['lang'];
     const resourceLoader = new ResourceReader();
