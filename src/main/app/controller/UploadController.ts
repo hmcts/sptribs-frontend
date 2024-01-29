@@ -303,47 +303,42 @@ export class UploadController extends PostController<AnyObject> {
 
       const { documents }: any = files;
 
-      const checkIfMultipleFiles: boolean = Array.isArray(documents);
+      const validateMimeType: boolean = FileValidations.formatValidation(documents.mimetype);
+      const validateFileSize: boolean = FileValidations.sizeValidation(documents.mimetype, documents.size);
+      const formData: FormData = new FormData();
 
-      // making sure single file is uploaded
-      if (!checkIfMultipleFiles) {
-        const validateMimeType: boolean = FileValidations.formatValidation(documents.mimetype);
-        const validateFileSize: boolean = FileValidations.sizeValidation(documents.mimetype, documents.size);
-        const formData: FormData = new FormData();
+      if (validateMimeType && validateFileSize) {
+        formData.append('file', documents.data, {
+          contentType: documents.mimetype,
+          filename: documents.name,
+        });
+        const formHeaders = formData.getHeaders();
 
-        if (validateMimeType && validateFileSize) {
-          formData.append('file', documents.data, {
-            contentType: documents.mimetype,
-            filename: documents.name,
-          });
-          const formHeaders = formData.getHeaders();
+        /**
+         * @RequestHeaders
+         */
+        const headers = {
+          authorization: `Bearer ${req.session.user['accessToken']}`,
+          serviceAuthorization: getServiceAuthToken(),
+        };
 
-          /**
-           * @RequestHeaders
-           */
-          const headers = {
-            authorization: `Bearer ${req.session.user['accessToken']}`,
-            serviceAuthorization: getServiceAuthToken(),
-          };
-
-          try {
-            await this.addUploadedFileToData(headers, formData, formHeaders, req);
-            this.redirect(req, res, this.getCurrentPageRedirectUrl());
-          } catch (error) {
-            logger.error(error);
-            this.createUploadedFileError(req, res, chooseFileLink, 'UPDATE_DELETE_FAIL_ERROR');
-          }
-        } else {
-          if (!validateFileSize) {
-            this.createUploadedFileError(req, res, chooseFileLink, 'SIZE_ERROR');
-          }
-
-          if (!validateMimeType) {
-            this.createUploadedFileError(req, res, chooseFileLink, 'FORMAT_ERROR');
-          }
-
+        try {
+          await this.addUploadedFileToData(headers, formData, formHeaders, req);
           this.redirect(req, res, this.getCurrentPageRedirectUrl());
+        } catch (error) {
+          logger.error(error);
+          this.createUploadedFileError(req, res, chooseFileLink, 'UPDATE_DELETE_FAIL_ERROR');
         }
+      } else {
+        if (!validateFileSize) {
+          this.createUploadedFileError(req, res, chooseFileLink, 'SIZE_ERROR');
+        }
+
+        if (!validateMimeType) {
+          this.createUploadedFileError(req, res, chooseFileLink, 'FORMAT_ERROR');
+        }
+
+        this.redirect(req, res, this.getCurrentPageRedirectUrl());
       }
     } else {
       this.createUploadedFileError(req, res, filesUploadedLink, 'TOTAL_FILES_EXCEED_ERROR');
