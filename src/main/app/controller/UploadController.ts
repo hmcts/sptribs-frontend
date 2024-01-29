@@ -86,7 +86,7 @@ export const FileMimeType: Partial<Record<keyof FileType, keyof FileMimeTypeInfo
 
 export class FileValidations {
   static ResourceReaderContents(req: AppRequest<AnyObject>, page: string): FileUploadErrorTranslatables {
-    let systemContent: any | FileUploadErrorTranslatables = {};
+    let systemContent: FileUploadErrorTranslatables = {};
     const systemLanguage = req.session['lang'];
     const resourceLoader = new ResourceReader();
     resourceLoader.Loader(page);
