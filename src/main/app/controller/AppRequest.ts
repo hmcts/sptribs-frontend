@@ -17,7 +17,7 @@ export interface AppRequest<T = Partial<Case>> extends Request {
   body: T;
   mimetype: string;
   size: number;
-  data: FormData;
+  data: object;
   name: string;
 }
 
