@@ -287,31 +287,34 @@ export class UploadController extends PostController<AnyObject> {
 
     let totalUploadDocuments = 0;
     totalUploadDocuments = this.getTotalUploadDocumentsFromSessionProperty(req, totalUploadDocuments);
+    const { files }: AppRequest<AnyObject> = req;
 
     if (documentUploadProceed) {
       /**
        * @PostDocumentUploader
        */
       this.postDocumentUploader(req, res);
-    } else if (isNull(req)) {
+    } else if (isNull(files)) {
       this.createUploadedFileError(req, res, chooseFileLink, 'NO_FILE_UPLOAD_ERROR');
     } else if (totalUploadDocuments < Number(config.get(this.getValidationTotal()))) {
       if (!req.session.hasOwnProperty('errors')) {
         req.session['errors'] = [];
       }
 
-      const checkIfMultipleFiles: boolean = Array.isArray(req);
+      const { documents }: any = files;
+
+      const checkIfMultipleFiles: boolean = Array.isArray(documents);
 
       // making sure single file is uploaded
       if (!checkIfMultipleFiles) {
-        const validateMimeType: boolean = FileValidations.formatValidation(req.mimetype);
-        const validateFileSize: boolean = FileValidations.sizeValidation(req.mimetype, req.size);
+        const validateMimeType: boolean = FileValidations.formatValidation(documents.mimetype);
+        const validateFileSize: boolean = FileValidations.sizeValidation(documents.mimetype, documents.size);
         const formData: FormData = new FormData();
 
         if (validateMimeType && validateFileSize) {
-          formData.append('file', req.data, {
-            contentType: req.mimetype,
-            filename: req.name,
+          formData.append('file', documents.data, {
+            contentType: documents.mimetype,
+            filename: documents.name,
           });
           const formHeaders = formData.getHeaders();
 
