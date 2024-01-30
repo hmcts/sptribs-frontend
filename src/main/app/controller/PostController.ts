@@ -149,7 +149,7 @@ export class PostController<T extends AnyObject> {
   //eslint-disable-next-line @typescript-eslint/no-unused-vars
   public getEventName(req: AppRequest): string {
     let eventName;
-    if (req.originalUrl === SUBJECT_CONTACT_DETAILS && this.isBlank(req)) {
+    if (req.originalUrl.startsWith(SUBJECT_CONTACT_DETAILS) && this.isBlank(req)) {
       eventName = CITIZEN_CREATE;
     } else if (req.originalUrl === CONTACT_DETAILS) {
       eventName = CITIZEN_UPDATE;
