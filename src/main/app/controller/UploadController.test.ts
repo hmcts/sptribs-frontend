@@ -4,8 +4,10 @@ import { ResourceReader } from '../../../main/modules/resourcereader/ResourceRea
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import * as steps from '../../steps';
 import { SPTRIBS_CASE_API_BASE_URL } from '../../steps/common/constants/apiConstants';
+import { YesOrNo } from '../case/definition';
+import { isFieldFilledIn } from '../form/validation';
 
-import { CASE_API_URL, FileMimeType, FileValidations } from './UploadController';
+import { CASE_API_URL, FileValidations, UploadController } from './UploadController';
 
 const getNextStepUrlMock = jest.spyOn(steps, 'getNextStepUrl');
 
@@ -34,15 +36,43 @@ describe('PostController', () => {
     };
 
     it('must match the file validations type', () => {
-      expect(Object.entries(allTypes)).toHaveLength(Object.entries(FileMimeType).length);
-      expect(allTypes).toMatchObject(FileMimeType);
-      expect(Object.entries(allTypes).toString()).toBe(Object.entries(FileMimeType).toString());
+      const mockForm = {
+        fields: {
+          field: {
+            type: 'file',
+            values: [{ label: l => l.no, value: YesOrNo.YES }],
+            validator: isFieldFilledIn,
+          },
+        },
+        submit: {
+          text: l => l.continue,
+        },
+      };
+      const controller = new UploadController(mockForm.fields);
+
+      expect(Object.entries(allTypes)).toHaveLength(Object.entries(controller.getAcceptedFileMimeType()).length);
+      expect(allTypes).toMatchObject(controller.getAcceptedFileMimeType());
+      expect(Object.entries(allTypes).toString()).toBe(Object.entries(controller.getAcceptedFileMimeType()).toString());
     });
 
     describe('document format validation', () => {
       it('must match valid mimetypes', () => {
-        expect(FileValidations.formatValidation('image/gif')).toBe(false);
-        expect(FileValidations.formatValidation('audio/mpeg')).toBe(true);
+        const mockForm = {
+          fields: {
+            field: {
+              type: 'file',
+              values: [{ label: l => l.no, value: YesOrNo.YES }],
+              validator: isFieldFilledIn,
+            },
+          },
+          submit: {
+            text: l => l.continue,
+          },
+        };
+        const controller = new UploadController(mockForm.fields);
+
+        expect(FileValidations.formatValidation('image/gif', controller.getAcceptedFileMimeType())).toBe(false);
+        expect(FileValidations.formatValidation('audio/mpeg', controller.getAcceptedFileMimeType())).toBe(true);
       });
     });
 
