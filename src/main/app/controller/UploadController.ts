@@ -92,12 +92,10 @@ export class FileValidations {
     resourceLoader.Loader(page);
     const errorInLanguages = resourceLoader.getFileContents().errors;
     switch (systemLanguage) {
-      case 'en':
-        systemContent = errorInLanguages.en;
-        break;
       case 'cy':
         systemContent = errorInLanguages.cy;
         break;
+      case 'en':
       default:
         systemContent = errorInLanguages.en;
     }
