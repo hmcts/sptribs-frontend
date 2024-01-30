@@ -304,20 +304,20 @@ export class UploadController extends PostController<AnyObject> {
       const { documents }: any = files;
       console.log('OBJECT: ' + typeof files + ' ' + typeof documents);
 
-      const validateMimeType: boolean = FileValidations.formatValidation(documents.mimetype);
-      const validateFileSize: boolean = FileValidations.sizeValidation(documents.mimetype, documents.size);
+      const isValidMimeType: boolean = FileValidations.formatValidation(documents.mimetype);
+      const isValidFileSize: boolean = FileValidations.sizeValidation(documents.mimetype, documents.size);
 
-      if (validateMimeType && validateFileSize) {
-        this.uploadFile(documents, req, res, chooseFileLink);
+      if (!isValidFileSize) {
+        this.createUploadedFileError(req, res, chooseFileLink, 'SIZE_ERROR');
+      }
+
+      if (!isValidMimeType) {
+        this.createUploadedFileError(req, res, chooseFileLink, 'FORMAT_ERROR');
+      }
+
+      if (isValidMimeType && isValidFileSize) {
+        this.uploadDocument(documents, req, res, chooseFileLink);
       } else {
-        if (!validateFileSize) {
-          this.createUploadedFileError(req, res, chooseFileLink, 'SIZE_ERROR');
-        }
-
-        if (!validateMimeType) {
-          this.createUploadedFileError(req, res, chooseFileLink, 'FORMAT_ERROR');
-        }
-
         this.redirect(req, res, this.getCurrentPageRedirectUrl());
       }
     } else {
@@ -423,7 +423,7 @@ export class UploadController extends PostController<AnyObject> {
     return totalUploadDocuments;
   }
 
-  private async uploadFile(
+  private async uploadDocument(
     documents: any,
     req: AppRequest<AnyObject>,
     res: Response<any, Record<string, any>>,
