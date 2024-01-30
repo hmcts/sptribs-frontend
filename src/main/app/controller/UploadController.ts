@@ -371,19 +371,27 @@ export class UploadController extends PostController<AnyObject> {
   ): void {
     let errorMessage;
     const fileValidation = FileValidations.ResourceReaderContents(req, this.getCurrentPageRedirectUrl());
-    if (errorType === 'NO_FILE_UPLOAD_ERROR') {
-      errorMessage = fileValidation.NO_FILE_UPLOAD_ERROR;
-    } else if (errorType === 'SIZE_ERROR') {
-      errorMessage = fileValidation.SIZE_ERROR;
-    } else if (errorType === 'FORMAT_ERROR') {
-      errorMessage = fileValidation.FORMAT_ERROR;
-    } else if (errorType === 'TOTAL_FILES_EXCEED_ERROR') {
-      errorMessage = fileValidation.TOTAL_FILES_EXCEED_ERROR;
-    } else if (errorType === 'CONTINUE_WITHOUT_UPLOAD_ERROR') {
-      errorMessage = fileValidation.CONTINUE_WITHOUT_UPLOAD_ERROR;
-    } else {
-      errorMessage = fileValidation.UPLOAD_DELETE_FAIL_ERROR;
+    switch (errorType) {
+      case 'NO_FILE_UPLOAD_ERROR':
+        errorMessage = fileValidation.NO_FILE_UPLOAD_ERROR;
+        break;
+      case 'SIZE_ERROR':
+        errorMessage = fileValidation.SIZE_ERROR;
+        break;
+      case 'FORMAT_ERROR':
+        errorMessage = fileValidation.FORMAT_ERROR;
+        break;
+      case 'TOTAL_FILES_EXCEED_ERROR':
+        errorMessage = fileValidation.TOTAL_FILES_EXCEED_ERROR;
+        break;
+      case 'CONTINUE_WITHOUT_UPLOAD_ERROR':
+        errorMessage = fileValidation.CONTINUE_WITHOUT_UPLOAD_ERROR;
+        break;
+      case 'UPLOAD_DELETE_FAIL_ERROR':
+      default:
+        errorMessage = fileValidation.UPLOAD_DELETE_FAIL_ERROR;
     }
+
     this.uploadFileError(req, res, this.getCurrentPageRedirectUrl(), errorMessage, fileLink);
   }
 
