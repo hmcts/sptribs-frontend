@@ -19,7 +19,7 @@ const logger = Logger.getLogger('uploadDocumentPostController');
 /**
  * ****** File Extensions Types are being checked
  */
-type FileType = {
+export type FileType = {
   doc: string;
   docx: string;
   pdf: string;
@@ -38,7 +38,7 @@ type FileType = {
 /**
  * ****** File MimeTypes are being check
  */
-type FileMimeTypeInfo = {
+export type FileMimeTypeInfo = {
   'application/msword': string;
   'application/vnd.openxmlformats-officedocument.wordprocessingml.document': string;
   'application/pdf': string;
@@ -64,25 +64,6 @@ type FileUploadErrorTranslatables = {
 };
 
 export const CASE_API_URL: string = config.get(SPTRIBS_CASE_API_BASE_URL);
-
-/**
- * @FileHandler
- */
-export const FileMimeType: Partial<Record<keyof FileType, keyof FileMimeTypeInfo>> = {
-  doc: 'application/msword',
-  docx: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-  pdf: 'application/pdf',
-  png: 'image/png',
-  xls: 'application/vnd.ms-excel',
-  xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-  jpg: 'image/jpeg',
-  txt: 'text/plain',
-  rtf: 'application/rtf',
-  rtf2: 'text/rtf',
-  mp4audio: 'audio/mp4',
-  mp4video: 'video/mp4',
-  mp3: 'audio/mpeg',
-};
 
 export class FileValidations {
   static ResourceReaderContents(req: AppRequest<AnyObject>, page: string): FileUploadErrorTranslatables {
@@ -124,8 +105,11 @@ export class FileValidations {
    * @param mimeType
    * @returns
    */
-  static formatValidation(mimeType: string): boolean {
-    const allMimeTypes = Object.values(FileMimeType);
+  static formatValidation(
+    mimeType: string,
+    acceptedFileMimeType: Partial<Record<keyof FileType, keyof FileMimeTypeInfo>>
+  ): boolean {
+    const allMimeTypes = Object.values(acceptedFileMimeType);
     const checkForFileMimeType = allMimeTypes.filter(aMimeType => aMimeType === mimeType);
     return checkForFileMimeType.length > 0;
   }
@@ -301,7 +285,10 @@ export class UploadController extends PostController<AnyObject> {
 
       const { documents }: any = files;
 
-      const isValidMimeType: boolean = FileValidations.formatValidation(documents.mimetype);
+      const isValidMimeType: boolean = FileValidations.formatValidation(
+        documents.mimetype,
+        this.getAcceptedFileMimeType()
+      );
       const isValidFileSize: boolean = FileValidations.sizeValidation(documents.mimetype, documents.size);
 
       if (!isValidFileSize) {
@@ -347,6 +334,24 @@ export class UploadController extends PostController<AnyObject> {
 
   protected shouldSetUpFormData(): boolean {
     return false;
+  }
+
+  protected getAcceptedFileMimeType(): Partial<Record<keyof FileType, keyof FileMimeTypeInfo>> {
+    return {
+      doc: 'application/msword',
+      docx: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+      pdf: 'application/pdf',
+      png: 'image/png',
+      xls: 'application/vnd.ms-excel',
+      xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      jpg: 'image/jpeg',
+      txt: 'text/plain',
+      rtf: 'application/rtf',
+      rtf2: 'text/rtf',
+      mp4audio: 'audio/mp4',
+      mp4video: 'video/mp4',
+      mp3: 'audio/mpeg',
+    };
   }
 
   private async addUploadedFileToData(
