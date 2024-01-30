@@ -302,7 +302,6 @@ export class UploadController extends PostController<AnyObject> {
       }
 
       const { documents }: any = files;
-      console.log('OBJECT: ' + typeof files + ' ' + typeof documents);
 
       const isValidMimeType: boolean = FileValidations.formatValidation(documents.mimetype);
       const isValidFileSize: boolean = FileValidations.sizeValidation(documents.mimetype, documents.size);
