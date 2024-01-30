@@ -3,6 +3,7 @@ import { Axios } from 'axios';
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import { YesOrNo } from '../../../app/case/definition';
+import { FileValidations } from '../../../app/controller/UploadController';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import * as steps from '../../../steps';
 import { UPLOAD_OTHER_INFORMATION } from '../../urls';
@@ -10,6 +11,51 @@ import { UPLOAD_OTHER_INFORMATION } from '../../urls';
 import UploadDocumentController from './uploadDocPostController';
 
 const getNextStepUrlMock = jest.spyOn(steps, 'getNextStepUrl');
+
+describe('Document format validation', () => {
+  it('must match valid mimetypes', () => {
+    const mockForm = {
+      fields: {
+        field: {
+          type: 'file',
+          values: [{ label: l => l.no, value: YesOrNo.YES }],
+          validator: isFieldFilledIn,
+        },
+      },
+      submit: {
+        text: l => l.continue,
+      },
+    };
+    const controller = new UploadDocumentController(mockForm.fields);
+
+    expect(FileValidations.formatValidation('image/gif', controller.getAcceptedFileMimeType())).toBe(false);
+    expect(FileValidations.formatValidation('application/msword', controller.getAcceptedFileMimeType())).toBe(true);
+    expect(
+      FileValidations.formatValidation(
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        controller.getAcceptedFileMimeType()
+      )
+    ).toBe(true);
+    expect(FileValidations.formatValidation('application/pdf', controller.getAcceptedFileMimeType())).toBe(true);
+    expect(FileValidations.formatValidation('image/png', controller.getAcceptedFileMimeType())).toBe(true);
+    expect(FileValidations.formatValidation('application/vnd.ms-excel', controller.getAcceptedFileMimeType())).toBe(
+      true
+    );
+    expect(
+      FileValidations.formatValidation(
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        controller.getAcceptedFileMimeType()
+      )
+    ).toBe(true);
+    expect(FileValidations.formatValidation('image/jpeg', controller.getAcceptedFileMimeType())).toBe(true);
+    expect(FileValidations.formatValidation('text/plain', controller.getAcceptedFileMimeType())).toBe(true);
+    expect(FileValidations.formatValidation('application/rtf', controller.getAcceptedFileMimeType())).toBe(true);
+    expect(FileValidations.formatValidation('text/rtf', controller.getAcceptedFileMimeType())).toBe(true);
+    expect(FileValidations.formatValidation('audio/mp4', controller.getAcceptedFileMimeType())).toBe(true);
+    expect(FileValidations.formatValidation('video/mp4', controller.getAcceptedFileMimeType())).toBe(true);
+    expect(FileValidations.formatValidation('audio/mpeg', controller.getAcceptedFileMimeType())).toBe(true);
+  });
+});
 
 describe('Document upload controller', () => {
   afterEach(() => {

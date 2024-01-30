@@ -72,6 +72,30 @@ describe('PostController', () => {
         const controller = new UploadController(mockForm.fields);
 
         expect(FileValidations.formatValidation('image/gif', controller.getAcceptedFileMimeType())).toBe(false);
+        expect(FileValidations.formatValidation('application/msword', controller.getAcceptedFileMimeType())).toBe(true);
+        expect(
+          FileValidations.formatValidation(
+            'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            controller.getAcceptedFileMimeType()
+          )
+        ).toBe(true);
+        expect(FileValidations.formatValidation('application/pdf', controller.getAcceptedFileMimeType())).toBe(true);
+        expect(FileValidations.formatValidation('image/png', controller.getAcceptedFileMimeType())).toBe(true);
+        expect(FileValidations.formatValidation('application/vnd.ms-excel', controller.getAcceptedFileMimeType())).toBe(
+          true
+        );
+        expect(
+          FileValidations.formatValidation(
+            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            controller.getAcceptedFileMimeType()
+          )
+        ).toBe(true);
+        expect(FileValidations.formatValidation('image/jpeg', controller.getAcceptedFileMimeType())).toBe(true);
+        expect(FileValidations.formatValidation('text/plain', controller.getAcceptedFileMimeType())).toBe(true);
+        expect(FileValidations.formatValidation('application/rtf', controller.getAcceptedFileMimeType())).toBe(true);
+        expect(FileValidations.formatValidation('text/rtf', controller.getAcceptedFileMimeType())).toBe(true);
+        expect(FileValidations.formatValidation('audio/mp4', controller.getAcceptedFileMimeType())).toBe(true);
+        expect(FileValidations.formatValidation('video/mp4', controller.getAcceptedFileMimeType())).toBe(true);
         expect(FileValidations.formatValidation('audio/mpeg', controller.getAcceptedFileMimeType())).toBe(true);
       });
     });
