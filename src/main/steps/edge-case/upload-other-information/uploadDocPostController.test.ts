@@ -230,6 +230,7 @@ describe('checking for the redirect of post document upload', () => {
 
     await postingController.post(req, res);
     expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION);
+    expect(req.session.fileErrors).toHaveLength(0);
   });
 
   it('should display error if upload clicked with no document', async () => {
@@ -242,6 +243,7 @@ describe('checking for the redirect of post document upload', () => {
 
     await postingController.post(req, res);
     expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION);
+    expect(req.session.fileErrors[0].text).toEqual('Please choose a file to upload');
   });
 
   it('should redirect to same page if max documents have been uploaded', async () => {
@@ -473,5 +475,8 @@ describe('checking for the redirect of post document upload', () => {
 
     await postingController.post(req, res);
     expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION);
+    expect(req.session.fileErrors[0].text).toEqual(
+      'You can upload 20 files only. Please delete one of the uploaded files and retry'
+    );
   });
 });
