@@ -210,7 +210,7 @@ describe('checking for the redirect of post document upload', () => {
     expect(res.redirect).toHaveBeenCalledWith(UPLOAD_SUPPORTING_DOCUMENTS);
   });
 
-  it('should redirect to same page if no documents uploaded', async () => {
+  it('should redirect to same page if user continues with no documents uploaded', async () => {
     req.session.caseDocuments = [];
     req.session.supportingCaseDocuments = [];
     req.files = [];
@@ -218,6 +218,7 @@ describe('checking for the redirect of post document upload', () => {
 
     await postingController.post(req, res);
     expect(res.redirect).toHaveBeenCalledWith(UPLOAD_SUPPORTING_DOCUMENTS);
+    expect(req.session.fileErrors[0].text).toEqual('You cannot continue without uploading supporting documentation');
   });
 
   it('should display error if upload clicked with no document', async () => {
@@ -229,6 +230,7 @@ describe('checking for the redirect of post document upload', () => {
 
     await postingController.post(req, res);
     expect(res.redirect).toHaveBeenCalledWith(UPLOAD_SUPPORTING_DOCUMENTS);
+    expect(req.session.fileErrors[0].text).toEqual('Please choose a file to upload');
   });
 
   it('should redirect to same page if max documents have been uploaded', async () => {
@@ -294,5 +296,8 @@ describe('checking for the redirect of post document upload', () => {
 
     await postingController.post(req, res);
     expect(res.redirect).toHaveBeenCalledWith(UPLOAD_SUPPORTING_DOCUMENTS);
+    expect(req.session.fileErrors[0].text).toEqual(
+      'You can upload 5 files only. Please delete one of the uploaded files and retry'
+    );
   });
 });
