@@ -158,7 +158,7 @@ describe('PostController', () => {
       resourceLoader.Loader(testCurrentPageRedirectUrl);
       const getContents = resourceLoader.getFileContents().errors;
 
-      it('must match load English as Language', () => {
+      it('must match load Welsh as Language', () => {
         const req = mockRequest({});
         req.query['lng'] = 'cy';
         req.session['lang'] = 'cy';
@@ -178,8 +178,8 @@ describe('PostController', () => {
         req.query['lng'] = 'fr';
         req.session['lang'] = 'fr';
         const SystemContentLoader = FileValidations.ResourceReaderContents(req, testCurrentPageRedirectUrl);
-        const getWelshContents = getContents.en;
-        expect(SystemContentLoader).toEqual(getWelshContents);
+        const getEnglishContents = getContents.en;
+        expect(SystemContentLoader).toEqual(getEnglishContents);
       });
     });
   });
