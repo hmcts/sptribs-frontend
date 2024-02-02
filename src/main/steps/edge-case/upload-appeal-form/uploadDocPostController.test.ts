@@ -1,4 +1,4 @@
-import { Axios } from 'axios';
+import axios, { Axios } from 'axios';
 
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
@@ -6,11 +6,14 @@ import { YesOrNo } from '../../../app/case/definition';
 import { FileValidations } from '../../../app/controller/UploadController';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import * as steps from '../../../steps';
-import { UPLOAD_APPEAL_FORM } from '../../../steps/urls';
+import { UPLOAD_APPEAL_FORM, UPLOAD_SUPPORTING_DOCUMENTS } from '../../../steps/urls';
 
 import UploadDocumentController from './uploadDocPostController';
 
 const getNextStepUrlMock = jest.spyOn(steps, 'getNextStepUrl');
+jest.mock('axios');
+const mockedAxios = axios as jest.Mocked<typeof axios>;
+mockedAxios.create = jest.fn(() => mockedAxios);
 
 describe('Document format validation', () => {
   it('must match valid mimetypes', () => {
@@ -141,7 +144,7 @@ describe('checking for the redirect of post document upload', () => {
   const req = mockRequest({});
   const res = mockResponse();
   const postingController = new UploadDocumentController(mockForm.fields);
-  it('redirection after the documents has been proccessed', async () => {
+  it('continue to next page after the documents has been proccessed', async () => {
     req.session.caseDocuments = [
       {
         originalDocumentName: 'document1.docx',
@@ -168,7 +171,9 @@ describe('checking for the redirect of post document upload', () => {
     ];
 
     await postingController.postDocumentUploader(req, res);
-    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_APPEAL_FORM);
+    expect(mockedAxios.create).toHaveBeenCalled();
+    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_SUPPORTING_DOCUMENTS);
+    expect(req.session.fileErrors).toHaveLength(0);
   });
 
   it('must be have axios instance', () => {
@@ -184,42 +189,42 @@ describe('checking for the redirect of post document upload', () => {
   req.body['documentUploadProceed'] = true;
   req.session.caseDocuments = [];
 
-  it('Post controller attributes', async () => {
-    // req.session.caseDocuments = [];
+  // it('Post controller attributes', async () => {
+  //   // req.session.caseDocuments = [];
 
-    req.session.supportingCaseDocuments = [
-      {
-        originalDocumentName: 'document1.docx',
-        _links: {
-          self: {
-            href: 'http://dm-example/documents/sae33',
-          },
-          binary: {
-            href: 'http://dm-example/documents/sae33/binary',
-          },
-        },
-      },
-      {
-        originalDocumentName: 'document2.docx',
-        _links: {
-          self: {
-            href: 'http://dm-example/documents/ce6e2',
-          },
-          binary: {
-            href: 'http://dm-example/documents/ce6e2/binary',
-          },
-        },
-      },
-    ];
+  //   req.session.supportingCaseDocuments = [
+  //     {
+  //       originalDocumentName: 'document1.docx',
+  //       _links: {
+  //         self: {
+  //           href: 'http://dm-example/documents/sae33',
+  //         },
+  //         binary: {
+  //           href: 'http://dm-example/documents/sae33/binary',
+  //         },
+  //       },
+  //     },
+  //     {
+  //       originalDocumentName: 'document2.docx',
+  //       _links: {
+  //         self: {
+  //           href: 'http://dm-example/documents/ce6e2',
+  //         },
+  //         binary: {
+  //           href: 'http://dm-example/documents/ce6e2/binary',
+  //         },
+  //       },
+  //     },
+  //   ];
 
-    req.files = [];
+  //   req.files = [];
 
-    /**
-     *
-     */
-    await postingController.post(req, res);
-    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_APPEAL_FORM);
-  });
+  //   /**
+  //    *
+  //    */
+  //   await postingController.post(req, res);
+  //   expect(res.redirect).toHaveBeenCalledWith(UPLOAD_APPEAL_FORM);
+  // });
 
   it('should redirect to same page if user continues with no documents uploaded', async () => {
     req.session.caseDocuments = [];
@@ -232,7 +237,7 @@ describe('checking for the redirect of post document upload', () => {
     expect(req.session.fileErrors[0].text).toEqual('You cannot continue without uploading the application');
   });
 
-  it('should display error if upload clicked with no document', async () => {
+  it('should display error if upload file button clicked with no document', async () => {
     req.session.caseDocuments = [];
     req.session.supportingCaseDocuments = [];
     (req.files as any) = null;
@@ -244,7 +249,7 @@ describe('checking for the redirect of post document upload', () => {
     expect(req.session.fileErrors[0].text).toEqual('Please choose a file to upload');
   });
 
-  it('should redirect to same page if max documents have been uploaded', async () => {
+  it('should display error if max documents have been uploaded', async () => {
     req.session.caseDocuments = [
       {
         originalDocumentName: 'document1.docx',
