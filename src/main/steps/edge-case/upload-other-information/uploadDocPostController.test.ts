@@ -65,8 +65,7 @@ describe('Document upload controller', () => {
     getNextStepUrlMock.mockClear();
   });
 
-  test('Should redirect back to the current page with the form data on errors', async () => {
-    const errors = [{ errorType: 'required', propertyName: 'field' }];
+  test('Should display error if incorrect file type document upload', async () => {
     const mockForm = {
       fields: {
         field: {
@@ -80,30 +79,86 @@ describe('Document upload controller', () => {
       },
     };
     const controller = new UploadDocumentController(mockForm.fields);
-    const QUERY = {
-      query: 'delete',
-      documentId: 'xyz',
-      documentType: 'other',
-    };
 
     const req = mockRequest({});
     const res = mockResponse();
-    (req.files as any) = { documents: { mimetype: 'text/plain' } };
+    (req.files as any) = { documents: { mimetype: 'image/gif', size: 20480000 } };
     req.session.caseDocuments = [];
     req.session.fileErrors = [];
-    req.query = QUERY;
     await controller.post(req, res);
-
-    expect(req.query).toEqual({
-      query: 'delete',
-      documentId: 'xyz',
-      documentType: 'other',
-    });
 
     expect(req.locals.api.triggerEvent).not.toHaveBeenCalled();
     expect(getNextStepUrlMock).not.toHaveBeenCalled();
-    expect(res.redirect).toBeCalledWith(UPLOAD_OTHER_INFORMATION);
-    expect(req.session.errors).toEqual(errors);
+    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION);
+    expect(req.session.fileErrors).toHaveLength(1);
+    expect(req.session.fileErrors[0].text).toEqual(
+      'This service only accepts files in the formats - Ms Word, MS Excel, PDF, JPG, PNG, TXT, RTF, MP4, MP3'
+    );
+  });
+
+  test('Should display error if incorrect file size document upload', async () => {
+    const mockForm = {
+      fields: {
+        field: {
+          type: 'file',
+          values: [{ label: l => l.no, value: YesOrNo.YES }],
+          validator: isFieldFilledIn,
+        },
+      },
+      submit: {
+        text: l => l.continue,
+      },
+    };
+    const controller = new UploadDocumentController(mockForm.fields);
+
+    const req = mockRequest({});
+    const res = mockResponse();
+    (req.files as any) = { documents: { mimetype: 'text/plain', size: 20480001 } };
+    req.session.caseDocuments = [];
+    req.session.fileErrors = [];
+    await controller.post(req, res);
+
+    expect(req.locals.api.triggerEvent).not.toHaveBeenCalled();
+    expect(getNextStepUrlMock).not.toHaveBeenCalled();
+    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION);
+    expect(req.session.fileErrors).toHaveLength(1);
+    expect(req.session.fileErrors[0].text).toEqual(
+      'File size exceeds the maximum permitted value. Please upload a file that is less than 50 MB (documents) or less than 100 MB (multimedia files)'
+    );
+  });
+
+  test('Should display error if incorrect file type and file size document upload', async () => {
+    const mockForm = {
+      fields: {
+        field: {
+          type: 'file',
+          values: [{ label: l => l.no, value: YesOrNo.YES }],
+          validator: isFieldFilledIn,
+        },
+      },
+      submit: {
+        text: l => l.continue,
+      },
+    };
+    const controller = new UploadDocumentController(mockForm.fields);
+
+    const req = mockRequest({});
+    const res = mockResponse();
+    (req.files as any) = { documents: { mimetype: 'image/gif', size: 20480001 } };
+    req.session.caseDocuments = [];
+    req.session.fileErrors = [];
+    await controller.post(req, res);
+
+    expect(req.locals.api.triggerEvent).not.toHaveBeenCalled();
+    expect(getNextStepUrlMock).not.toHaveBeenCalled();
+    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION);
+    expect(req.session.fileErrors).toHaveLength(2);
+    expect(req.session.fileErrors[0].text).toEqual(
+      'File size exceeds the maximum permitted value. Please upload a file that is less than 50 MB (documents) or less than 100 MB (multimedia files)'
+    );
+    expect(req.session.fileErrors[1].text).toEqual(
+      'This service only accepts files in the formats - Ms Word, MS Excel, PDF, JPG, PNG, TXT, RTF, MP4, MP3'
+    );
   });
 
   describe('when there is an error in saving session', () => {

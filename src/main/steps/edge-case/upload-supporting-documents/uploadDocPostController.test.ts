@@ -70,8 +70,7 @@ describe('Form upload controller', () => {
     mockCreate.mockClear();
   });
 
-  test('Should redirect back to the current page with the form data on errors', async () => {
-    const errors = [{ errorType: 'required', propertyName: 'field' }];
+  test('Should display error if incorrect file type document upload', async () => {
     const mockForm = {
       fields: {
         field: {
@@ -88,16 +87,76 @@ describe('Form upload controller', () => {
 
     const req = mockRequest({});
     const res = mockResponse();
-    (req.files as any) = { documents: { mimetype: 'text/plain' } };
+    (req.files as any) = { documents: { mimetype: 'audio/mp4', size: 104857600 } };
     req.session.caseDocuments = [];
     await controller.post(req, res);
 
-    expect(req.locals.api.triggerEvent).not.toHaveBeenCalled();
     expect(getNextStepUrlMock).not.toHaveBeenCalled();
     expect(res.redirect).toHaveBeenCalledWith(UPLOAD_SUPPORTING_DOCUMENTS);
-    expect(req.session.errors).not.toEqual(errors);
+    expect(req.session.fileErrors).toHaveLength(1);
+    expect(req.session.fileErrors[0].text).toEqual(
+      'This service only accepts files in the formats - MS Word, MS Excel, PDF, JPG, PNG, TXT, RTF'
+    );
+  });
+
+  test('Should display error if incorrect file size document upload', async () => {
+    const mockForm = {
+      fields: {
+        field: {
+          type: 'file',
+          values: [{ label: l => l.no, value: YesOrNo.YES }],
+          validator: isFieldFilledIn,
+        },
+      },
+      submit: {
+        text: l => l.continue,
+      },
+    };
+    const controller = new UploadDocumentController(mockForm.fields);
+
+    const req = mockRequest({});
+    const res = mockResponse();
+    (req.files as any) = { documents: { mimetype: 'application/pdf', size: 20480001 } };
+    req.session.caseDocuments = [];
+    await controller.post(req, res);
+
+    expect(getNextStepUrlMock).not.toHaveBeenCalled();
+    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_SUPPORTING_DOCUMENTS);
+    expect(req.session.fileErrors).toHaveLength(1);
     expect(req.session.fileErrors[0].text).toEqual(
       'File size exceeds 20Mb. Please upload a file that is less than 20Mb'
+    );
+  });
+
+  test('Should display error if incorrect file type and file size document upload', async () => {
+    const mockForm = {
+      fields: {
+        field: {
+          type: 'file',
+          values: [{ label: l => l.no, value: YesOrNo.YES }],
+          validator: isFieldFilledIn,
+        },
+      },
+      submit: {
+        text: l => l.continue,
+      },
+    };
+    const controller = new UploadDocumentController(mockForm.fields);
+
+    const req = mockRequest({});
+    const res = mockResponse();
+    (req.files as any) = { documents: { mimetype: 'audio/mp4', size: 104857601 } };
+    req.session.caseDocuments = [];
+    await controller.post(req, res);
+
+    expect(getNextStepUrlMock).not.toHaveBeenCalled();
+    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_SUPPORTING_DOCUMENTS);
+    expect(req.session.fileErrors).toHaveLength(2);
+    expect(req.session.fileErrors[0].text).toEqual(
+      'File size exceeds 20Mb. Please upload a file that is less than 20Mb'
+    );
+    expect(req.session.fileErrors[1].text).toEqual(
+      'This service only accepts files in the formats - MS Word, MS Excel, PDF, JPG, PNG, TXT, RTF'
     );
   });
 
