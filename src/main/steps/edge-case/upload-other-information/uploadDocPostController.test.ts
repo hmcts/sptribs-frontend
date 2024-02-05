@@ -161,6 +161,36 @@ describe('Document upload controller', () => {
     );
   });
 
+  test('Should display error if upload file fails', async () => {
+    const mockForm = {
+      fields: {
+        field: {
+          type: 'file',
+          values: [{ label: l => l.no, value: YesOrNo.YES }],
+          validator: isFieldFilledIn,
+        },
+      },
+      submit: {
+        text: l => l.continue,
+      },
+    };
+    const req = mockRequest({});
+    const res = mockResponse();
+    const controller = new UploadDocumentController(mockForm.fields);
+    jest.spyOn(controller, 'uploadDocumentInstance').mockImplementation(() => {
+      throw new Error();
+    });
+    req.session.caseDocuments = [];
+    req.session.supportingCaseDocuments = [];
+    (req.files as any) = { documents: { name: 'test', mimetype: 'application/pdf', size: 20480000, data: 'data' } };
+    req.session.fileErrors = [];
+    req.body['documentUploadProceed'] = false;
+
+    await controller.post(req, res);
+    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION);
+    expect(req.session.fileErrors[0].text).toEqual('Document upload or deletion has failed. Please try again');
+  });
+
   describe('when there is an error in saving session', () => {
     test('should throw an error', async () => {
       const controller = new UploadDocumentController({});
