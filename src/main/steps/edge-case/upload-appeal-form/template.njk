@@ -10,7 +10,7 @@
 
 {% if FileErrors.length > 0 %}
 {{ govukErrorSummary({
-  titleText: "There is a problem",
+  titleText: errorSummaryHeading,
   errorList: FileErrors
 }) }}
 
@@ -21,7 +21,7 @@
 <p class="govuk-body">{{ line2 }}</p>
 
 {{ govukDetails({
-  summaryText: "File uploads requirements",
+  summaryText: uploadRequirementHeader,
   text: uploadRequirement | safe
 }) }}
 
@@ -52,10 +52,10 @@
     name: "documents",
     classes: "govuk-!-margin-bottom-1",
     label: {
-      text: "Upload a file"
+      text: uploadAFile
     }
   }) }}
-  <p class="govuk-body">{{ uploadGuidance }}</p>
+    <p class="govuk-body">{{ uploadGuidance }}</p>
 
   {{ govukButton({
             text: uploadButton,

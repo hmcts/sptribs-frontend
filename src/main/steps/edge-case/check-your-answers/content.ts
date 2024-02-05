@@ -54,9 +54,9 @@ export const en = (content: any) => {
 
 const cyContent: typeof enContent = {
   ...Translations.cy,
-  nowSubmitHeader: 'Now submit your tribunal form - in welsh',
+  nowSubmitHeader: 'Nawr cyflwynwch eich ffurflen tribiwnlys',
   submissionPledge:
-    'By submitting this tribunal form you are confirming that, to the best of your knowledge, the details you are providing are correct. - in welsh',
+    "Trwy gyflwyno'r ffurflen dribiwnlys hon rydych yn cadarnhau, hyd eithaf eich gwybodaeth, fod y manylion a roddwch yn gywir.",
 };
 
 const cy: typeof en = (content: CommonContent) => {

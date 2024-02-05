@@ -30,37 +30,46 @@
         "otherInformation": "List of other documents uploaded",
         "additionalInformation": "Additional information",
         "documentRelevance": "Document relevance"
+      },
+      "values": {
+        "yes": "Yes",
+        "no": "No"
       }
     },
     "cy": {
-      "serviceName": "Appeal to the First-tier Tribunal - welsh ",
-      "section": " - welsh ",
-      "title": "Check your answers before submitting your tribunal form - welsh ",
-      "change": "change - welsh ",
-      "continue": "Accept and send - welsh ",
+      "serviceName": "Apelio i’r Tribiwnlys Haen Gyntaf",
+      "section": "",
+      "title": "Gwiriwch eich atebion cyn cyflwyno eich ffurflen tribiwnlys",
+      "change": "newid",
+      "continue": "Derbyn ac anfon",
       "sectionTitles": {
-        "subjectDetails": "Subject Details - welsh ",
-        "representativeDetails": "Representative's Details - welsh ",
-        "representation": "Representation - welsh ",
-        "documents": "Appeal forms - welsh ",
-        "supportingDocuments": "Supporting documents - welsh ",
-        "otherInformation": "Additional information - welsh "
+        "subjectDetails": "Manylion yr Unigolyn Perthnasol",
+        "representativeDetails": "Manylion y cynrychiolydd",
+        "representation": "Cynrychiolaeth",
+        "documents": "Ffurflenni apelio",
+        "supportingDocuments": "Dogfennau ategol",
+        "otherInformation": "Gwybodaeth ychwanegol"
       },
       "keys": {
-        "fullName": "Full name - welsh ",
-        "dateOfBirth": "Date of birth - welsh ",
-        "emailAddress": "Email address - welsh ",
-        "contactNumber": "Contact number - welsh ",
-        "representationLabel": "Is there a representative named on completed tribunal form? - welsh ",
-        "representativeQualifiedLabel": "Is the named representative legally qualified? - welsh ",
-        "representativeFullName": "Full name - welsh ",
-        "representativeOrganisationName": "Organisation or business name - welsh ",
-        "representativeContactNumber": "Contact number - welsh ",
-        "representativeEmailAddress": "Email address - welsh ",
-        "appealDocuments": "List of forms uploaded (Appeal form) - welsh ",
-        "supportingDocuments": "List of supporting documents uploaded - welsh ",
-        "additionalInformation": "Additional information - welsh ",
-        "documentRelevance": "Document relevance - welsh "
+        "fullName": "Enw llawn",
+        "dateOfBirth": "Dyddiad geni",
+        "emailAddress": "Cyfeiriad e-bost",
+        "contactNumber": "Rhif cyswllt",
+        "representationLabel": "A oes cynrychiolydd wedi’i enwi ar y ffurflen tribiwnlys sydd wedi’i llenwi?",
+        "representativeQualifiedLabel": "A yw’r cynrychiolydd a enwyd wedi cymhwyso yn y gyfraith?",
+        "representativeFullName": "Enw llawn",
+        "representativeOrganisationName": "Enw’r sefydliad neu’r busnes",
+        "representativeContactNumber": "Rhif cyswllt",
+        "representativeEmailAddress": "Cyfeiriad e-bost",
+        "appealDocuments": "Rhestr o ffurflenni sydd wedi’u llwytho (Ffurflen apelio)",
+        "supportingDocuments": "Rhestr o ddogfennau ategol sydd wedi’u llwytho",
+        "otherInformation": "Rhestr o ddogfennau eraill a uwchlwythwyd",
+        "additionalInformation": "Gwybodaeth ychwanegol",
+        "documentRelevance": "Perthnasedd dogfennau"
+      },
+      "values": {
+        "yes": "Ydy",
+        "no": "Nac ydy"
       }
     }
   },
@@ -69,7 +78,7 @@
       "SUBMIT_ERROR": "An error has occurred, unable to submit your application. We are sorry for the inconvenience. Please try again later. If the problem persists, please contact us."
     },
     "cy": {
-      "SUBMIT_ERROR": "An error has occurred, unable to submit your application. We are sorry for the inconvenience. Please try again later. If the problem persists, please contact us. - welsh "
+      "SUBMIT_ERROR": "Mae gwall wedi digwydd, nid oes modd cyflwyno’ch cais. Ymddiheurwn am yr anghyfleustra. Rhowch gynnig arall arni nes ymlaen. Os bydd y broblem yn parhau, cysylltwch â ni."
     }
   }
 }
