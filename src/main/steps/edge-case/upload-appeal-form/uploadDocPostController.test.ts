@@ -14,6 +14,7 @@ const getNextStepUrlMock = jest.spyOn(steps, 'getNextStepUrl');
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 mockedAxios.create = jest.fn(() => mockedAxios);
+const mockCreate = jest.fn();
 
 describe('Document format validation', () => {
   it('must match valid mimetypes', () => {
@@ -65,8 +66,7 @@ describe('Document upload controller', () => {
     getNextStepUrlMock.mockClear();
   });
 
-  test('Should redirect back to the current page with the form data on errors', async () => {
-    const errors = [{ errorType: 'required', propertyName: 'field' }];
+  test('Should display error if incorrect file type document upload', async () => {
     const mockForm = {
       fields: {
         field: {
@@ -80,31 +80,111 @@ describe('Document upload controller', () => {
       },
     };
     const controller = new UploadDocumentController(mockForm.fields);
-    const QUERY = {
-      query: 'delete',
-      documentId: 'xyz',
-      documentType: 'tribunalform',
-    };
 
     const req = mockRequest({});
     const res = mockResponse();
-    (req.files as any) = { documents: { mimetype: 'text/plain' } };
+    (req.files as any) = { documents: { mimetype: 'text/plain', size: 20480000 } };
     req.session.caseDocuments = [];
     req.session.fileErrors = [];
-    req.query = QUERY;
     await controller.post(req, res);
 
-    expect(req.query).toEqual({
-      query: 'delete',
-      documentId: 'xyz',
-      documentType: 'tribunalform',
-    });
+    expect(getNextStepUrlMock).not.toHaveBeenCalled();
+    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_APPEAL_FORM);
+    expect(req.session.fileErrors).toHaveLength(1);
+    expect(req.session.fileErrors[0].text).toEqual('This service only accepts files in the formats - Ms Word, PDF');
+  });
+
+  test('Should display error if incorrect file size document upload', async () => {
+    const mockForm = {
+      fields: {
+        field: {
+          type: 'file',
+          values: [{ label: l => l.no, value: YesOrNo.YES }],
+          validator: isFieldFilledIn,
+        },
+      },
+      submit: {
+        text: l => l.continue,
+      },
+    };
+    const controller = new UploadDocumentController(mockForm.fields);
+
+    const req = mockRequest({});
+    const res = mockResponse();
+    (req.files as any) = { documents: { mimetype: 'application/pdf', size: 20480001 } };
+    req.session.caseDocuments = [];
+    req.session.fileErrors = [];
+    await controller.post(req, res);
 
     expect(req.locals.api.triggerEvent).not.toHaveBeenCalled();
     expect(getNextStepUrlMock).not.toHaveBeenCalled();
-    expect(res.redirect).toBeCalledWith(UPLOAD_APPEAL_FORM);
-    expect(req.session.errors).not.toEqual(errors);
+    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_APPEAL_FORM);
+    expect(req.session.fileErrors).toHaveLength(1);
+    expect(req.session.fileErrors[0].text).toEqual(
+      'File size exceeds 20Mb. Please upload a file that is less than 20Mb'
+    );
   });
+
+  test('Should display error if incorrect file type and file size document upload', async () => {
+    const mockForm = {
+      fields: {
+        field: {
+          type: 'file',
+          values: [{ label: l => l.no, value: YesOrNo.YES }],
+          validator: isFieldFilledIn,
+        },
+      },
+      submit: {
+        text: l => l.continue,
+      },
+    };
+    const controller = new UploadDocumentController(mockForm.fields);
+
+    const req = mockRequest({});
+    const res = mockResponse();
+    (req.files as any) = { documents: { mimetype: 'text/plain', size: 20480001 } };
+    req.session.caseDocuments = [];
+    req.session.fileErrors = [];
+    await controller.post(req, res);
+
+    expect(req.locals.api.triggerEvent).not.toHaveBeenCalled();
+    expect(getNextStepUrlMock).not.toHaveBeenCalled();
+    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_APPEAL_FORM);
+    expect(req.session.fileErrors).toHaveLength(2);
+    expect(req.session.fileErrors[0].text).toEqual(
+      'File size exceeds 20Mb. Please upload a file that is less than 20Mb'
+    );
+    expect(req.session.fileErrors[1].text).toEqual('This service only accepts files in the formats - Ms Word, PDF');
+  });
+
+  // test('Should document upload with correct file type and file size', async () => {
+  //   const mockForm = {
+  //     fields: {
+  //       field: {
+  //         type: 'file',
+  //         values: [{ label: l => l.no, value: YesOrNo.YES }],
+  //         validator: isFieldFilledIn,
+  //       },
+  //     },
+  //     submit: {
+  //       text: l => l.continue,
+  //     },
+  //   };
+  //   const controller = new UploadDocumentController(mockForm.fields);
+
+  //   const req = mockRequest({});
+  //   const res = mockResponse();
+  //   (req.files as any) = { documents: { mimetype: 'application/pdf', size: 20480000 } };
+  //   req.session.caseDocuments = [];
+  //   req.session.fileErrors = [];
+  //   await controller.post(req, res);
+
+  //   expect(req.locals.api.triggerEvent).not.toHaveBeenCalled();
+  //   expect(getNextStepUrlMock).not.toHaveBeenCalled();
+  //   expect(res.redirect).toHaveBeenCalledWith(UPLOAD_APPEAL_FORM);
+  //   expect(req.session.fileErrors.length).toEqual(0);
+  //   // expect(req.session.fileErrors[0].text).toEqual('File size exceeds 20Mb. Please upload a file that is less than 20Mb');
+  // });
 
   describe('when there is an error in saving session', () => {
     test('should throw an error', async () => {
@@ -128,6 +208,10 @@ describe('Document upload controller', () => {
 });
 
 describe('checking for the redirect of post document upload', () => {
+  beforeEach(() => {
+    mockCreate.mockClear();
+  });
+
   const mockForm = {
     fields: {
       field: {
@@ -186,45 +270,8 @@ describe('checking for the redirect of post document upload', () => {
     expect(systemInstance instanceof Axios);
   });
 
-  req.body['documentUploadProceed'] = true;
   req.session.caseDocuments = [];
-
-  // it('Post controller attributes', async () => {
-  //   // req.session.caseDocuments = [];
-
-  //   req.session.supportingCaseDocuments = [
-  //     {
-  //       originalDocumentName: 'document1.docx',
-  //       _links: {
-  //         self: {
-  //           href: 'http://dm-example/documents/sae33',
-  //         },
-  //         binary: {
-  //           href: 'http://dm-example/documents/sae33/binary',
-  //         },
-  //       },
-  //     },
-  //     {
-  //       originalDocumentName: 'document2.docx',
-  //       _links: {
-  //         self: {
-  //           href: 'http://dm-example/documents/ce6e2',
-  //         },
-  //         binary: {
-  //           href: 'http://dm-example/documents/ce6e2/binary',
-  //         },
-  //       },
-  //     },
-  //   ];
-
-  //   req.files = [];
-
-  //   /**
-  //    *
-  //    */
-  //   await postingController.post(req, res);
-  //   expect(res.redirect).toHaveBeenCalledWith(UPLOAD_APPEAL_FORM);
-  // });
+  req.body['documentUploadProceed'] = true;
 
   it('should redirect to same page if user continues with no documents uploaded', async () => {
     req.session.caseDocuments = [];
@@ -248,6 +295,16 @@ describe('checking for the redirect of post document upload', () => {
     expect(res.redirect).toHaveBeenCalledWith(UPLOAD_APPEAL_FORM);
     expect(req.session.fileErrors[0].text).toEqual('Please choose a file to upload');
   });
+
+  // it('should successfuly upload document and redirect to same page after document upload', async () => {
+  //   req.session.supportingCaseDocuments = [];
+  //   req.files = {documents:{ name: 'uploaded-file.pdf', mimetype: "application/pdf", size: 10 }} as unknown as Express.Multer.File[];
+  //   jest.spyOn(FileValidations, 'sizeValidation').mockImplementation(() => true);
+  //   await postingController.post(req, res);
+  //   expect(res.redirect).toHaveBeenCalledWith(UPLOAD_APPEAL_FORM);
+  //   // expect(req.session.fileErrors.length).toEqual(0);
+  //   expect(req.session.fileErrors[1].text).toEqual('');
+  // });
 
   it('should display error if max documents have been uploaded', async () => {
     req.session.caseDocuments = [
