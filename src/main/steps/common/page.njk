@@ -73,6 +73,12 @@
 
 {% block footer %}
   {{ govukFooter({
+    copyright: {
+      text: copyright | safe
+    },
+    contentLicence: {
+      text: ogl | safe
+    },
     meta: {
       items: [
         {
