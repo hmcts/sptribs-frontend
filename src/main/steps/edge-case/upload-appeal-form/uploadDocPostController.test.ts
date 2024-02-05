@@ -157,34 +157,35 @@ describe('Document upload controller', () => {
     expect(req.session.fileErrors[1].text).toEqual('This service only accepts files in the formats - Ms Word, PDF');
   });
 
-  // test('Should document upload with correct file type and file size', async () => {
-  //   const mockForm = {
-  //     fields: {
-  //       field: {
-  //         type: 'file',
-  //         values: [{ label: l => l.no, value: YesOrNo.YES }],
-  //         validator: isFieldFilledIn,
-  //       },
-  //     },
-  //     submit: {
-  //       text: l => l.continue,
-  //     },
-  //   };
-  //   const controller = new UploadDocumentController(mockForm.fields);
+  test('Should display error if upload file fails', async () => {
+    const mockForm = {
+      fields: {
+        field: {
+          type: 'file',
+          values: [{ label: l => l.no, value: YesOrNo.YES }],
+          validator: isFieldFilledIn,
+        },
+      },
+      submit: {
+        text: l => l.continue,
+      },
+    };
+    const req = mockRequest({});
+    const res = mockResponse();
+    const controller = new UploadDocumentController(mockForm.fields);
+    jest.spyOn(controller, 'uploadDocumentInstance').mockImplementation(() => {
+      throw new Error();
+    });
+    req.session.caseDocuments = [];
+    req.session.supportingCaseDocuments = [];
+    (req.files as any) = { documents: { name: 'test', mimetype: 'application/pdf', size: 20480000, data: 'data' } };
+    req.session.fileErrors = [];
+    req.body['documentUploadProceed'] = false;
 
-  //   const req = mockRequest({});
-  //   const res = mockResponse();
-  //   (req.files as any) = { documents: { mimetype: 'application/pdf', size: 20480000 } };
-  //   req.session.caseDocuments = [];
-  //   req.session.fileErrors = [];
-  //   await controller.post(req, res);
-
-  //   expect(req.locals.api.triggerEvent).not.toHaveBeenCalled();
-  //   expect(getNextStepUrlMock).not.toHaveBeenCalled();
-  //   expect(res.redirect).toHaveBeenCalledWith(UPLOAD_APPEAL_FORM);
-  //   expect(req.session.fileErrors.length).toEqual(0);
-  //   // expect(req.session.fileErrors[0].text).toEqual('File size exceeds 20Mb. Please upload a file that is less than 20Mb');
-  // });
+    await controller.post(req, res);
+    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_APPEAL_FORM);
+    expect(req.session.fileErrors[0].text).toEqual('Document upload or deletion has failed. Please try again');
+  });
 
   describe('when there is an error in saving session', () => {
     test('should throw an error', async () => {
