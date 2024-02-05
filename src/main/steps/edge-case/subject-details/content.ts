@@ -17,7 +17,7 @@ export const form: FormContent = {
     subjectFullName: {
       type: 'text',
       classes: 'govuk-input',
-      label: l2 => l2.subjectFullNameLabel,
+      label: l => l.subjectFullNameLabel,
       validator: input => isFieldFilledIn(input) || isFieldLetters(input),
     },
     subjectDateOfBirth: {
@@ -27,19 +27,19 @@ export const form: FormContent = {
       hint: l => l.hint,
       values: [
         {
-          label: l => l.dateFormat['day'],
+          label: l => l.day,
           name: 'day',
           classes: 'govuk-input--width-2',
           attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
         },
         {
-          label: l => l.dateFormat['month'],
+          label: l => l.month,
           name: 'month',
           classes: 'govuk-input--width-2',
           attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
         },
         {
-          label: l => l.dateFormat['year'],
+          label: l => l.year,
           name: 'year',
           classes: 'govuk-input--width-4',
           attributes: { maxLength: 4, pattern: '[0-9]*', inputMode: 'numeric' },

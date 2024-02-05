@@ -7,10 +7,10 @@
         "continue": "Submit"
       },
       "cy": {
-        "serviceName": "Statement of truth (in Welsh)",
-        "statementOfTruthLabel": "I believe that the facts stated in this application are true (in Welsh)",
-        "confirmStatement": "This confirms that the information you are submitting is true and accurate to the best of your knowledge. It's known as your 'statement of truth'. (in Welsh)",
-        "continue": "Submit (in Welsh)"
+        "serviceName": "Datganiad Gwirionedd",
+        "statementOfTruthLabel": "Credaf fod y ffeithiau a nodir yn y cais hwn yn wir",
+        "confirmStatement": "Mae hyn yn cadarnhau bod yr wybodaeth yr ydych yn ei chyflwyno yn wir ac yn gywir hyd eithaf eich gwybodaeth. Gelwir hwn yn eich ‘datganiad gwirionedd’.",
+        "continue": "Cyflwyno"
       }
     },
     "errors": {
@@ -21,9 +21,8 @@
       },
       "cy": {
         "applicantStatementOfTruth": {
-          "required" : "Please accept the Statement of Truth to continue (in Welsh)"
+          "required" : "Dylech dderbyn y Datganiad Gwirionedd i barhau"
         }
       }
     }
   }
-  

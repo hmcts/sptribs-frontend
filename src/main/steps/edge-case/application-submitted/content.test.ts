@@ -43,7 +43,7 @@ describe('application-submitted', () => {
     expect(generatedContent.title).toEqual(cy.title);
     expect(generatedContent.line1).toEqual(cy.line1);
     expect(generatedContent.line2).toEqual(
-      'An email will be sent to dummy@bob.com, that explains what happens next. (in Welsh)'
+      'Fe anfonir neges e-bost i dummy@bob.com, i esbonio beth fydd yn digwydd nesaf.'
     );
     expect(generatedContent.line3).toEqual(cy.line3);
     expect(generatedContent.line4).toEqual(cy.line4);

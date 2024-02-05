@@ -23,13 +23,13 @@ const enContent = {
 
 const cyContent = {
   line1:
-    "We'll send all court papers to this address unless you advise us that you are happy to be served court orders by email.",
-  postcode: 'Postcode (in welsh)',
-  selectAddress: 'Select an address (in welsh)',
-  cannotFindAddress: 'I cannot find the address in the list (in welsh)',
+    'Byddwn yn anfon holl bapurau’r llys i’r cyfeiriad hwn oni bai eich bod yn rhoi gwybod i ni eich bod yn hapus i dderbyn gorchmynion llys trwy e-bost.',
+  postcode: 'God post',
+  selectAddress: 'Dewiswch gyfeiriad',
+  cannotFindAddress: "Ni allaf ddod o hyd i'r cyfeiriad yn y rhestr",
   errors: {
     selectAddress: {
-      notSelected: 'Select an address (in welsh)',
+      notSelected: 'Dewiswch gyfeiriad',
     },
   },
   changePostCodeUrl: '#',
@@ -74,12 +74,12 @@ describe('common > components > address-select', () => {
 
     expect(generatedContent.errors).toEqual({
       selectAddress: {
-        notSelected: 'Select an address (in welsh)',
+        notSelected: 'Dewiswch gyfeiriad',
       },
     });
 
     expect(generatedContent.options).toEqual([
-      { attributes: { id: 'totalAddressesFound' }, selected: true, text: '0 addresses found (in welsh)', value: -1 },
+      { attributes: { id: 'totalAddressesFound' }, selected: true, text: 'Wedi canfod 0 gyfeiriad', value: -1 },
     ]);
 
     expect(generatedContent.changePostCodeUrl).toEqual('#');
@@ -102,7 +102,7 @@ describe('common > components > address-select', () => {
         addresses: [{ fullAddress: 'MOCK_FULL_ADDRESS_1' }],
       });
       expect(generatedContent.options).toEqual([
-        { attributes: { id: 'totalAddressesFound' }, selected: true, text: '1 address found (in welsh)', value: -1 },
+        { attributes: { id: 'totalAddressesFound' }, selected: true, text: 'Wedi canfod 1 cyfeiriad', value: -1 },
         { text: 'MOCK_FULL_ADDRESS_1', value: 0 },
       ]);
     });
@@ -119,7 +119,7 @@ describe('common > components > address-select', () => {
     test('should create correct options for selectAddress field (welsh)', () => {
       generatedContent = generateContent({ ...commonContent, language: 'cy', addresses: undefined });
       expect(generatedContent.options).toEqual([
-        { attributes: { id: 'totalAddressesFound' }, selected: true, text: '0 addresses found (in welsh)', value: -1 },
+        { attributes: { id: 'totalAddressesFound' }, selected: true, text: 'Wedi canfod 0 gyfeiriad', value: -1 },
       ]);
     });
   });
