@@ -244,43 +244,6 @@ describe('checking for the redirect of post document upload', () => {
   req.body['documentUploadProceed'] = true;
   req.session.otherCaseInformation = [];
 
-  // it('Post controller attributes', async () => {
-  //   // req.session.otherCaseInformation = [];
-
-  //   req.session.otherCaseInformation = [
-  //     {
-  //       originalDocumentName: 'document1.docx',
-  //       _links: {
-  //         self: {
-  //           href: 'http://dm-example/documents/sae33',
-  //         },
-  //         binary: {
-  //           href: 'http://dm-example/documents/sae33/binary',
-  //         },
-  //       },
-  //     },
-  //     {
-  //       originalDocumentName: 'document2.docx',
-  //       _links: {
-  //         self: {
-  //           href: 'http://dm-example/documents/ce6e2',
-  //         },
-  //         binary: {
-  //           href: 'http://dm-example/documents/ce6e2/binary',
-  //         },
-  //       },
-  //     },
-  //   ];
-
-  //   req.files = [];
-
-  //   /**
-  //    *
-  //    */
-  //   await postingController.post(req, res);
-  //   expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION);
-  // });
-
   it('should allow continue if no documents uploaded', async () => {
     req.session.caseDocuments = [];
     req.session.supportingCaseDocuments = [];
@@ -291,6 +254,42 @@ describe('checking for the redirect of post document upload', () => {
     await postingController.post(req, res);
     expect(res.redirect).toHaveBeenCalledWith(EQUALITY);
     expect(req.session.fileErrors).toHaveLength(0);
+  });
+
+  it('Should return error after the documents proccess has failed', async () => {
+    jest.spyOn(postingController, 'uploadDocumentInstance').mockImplementation(() => {
+      throw new Error();
+    });
+    req.session.supportingCaseDocuments = [
+      {
+        originalDocumentName: 'document1.docx',
+        _links: {
+          self: {
+            href: 'http://dm-example/documents/sae33',
+          },
+          binary: {
+            href: 'http://dm-example/documents/sae33/binary',
+          },
+        },
+      },
+      {
+        originalDocumentName: 'document2.docx',
+        _links: {
+          self: {
+            href: 'http://dm-example/documents/ce6e2',
+          },
+          binary: {
+            href: 'http://dm-example/documents/ce6e2/binary',
+          },
+        },
+      },
+    ];
+
+    await postingController.postDocumentUploader(req, res);
+    expect(mockedAxios.create).toHaveBeenCalled();
+    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION);
+    expect(req.session.fileErrors).toHaveLength(1);
+    expect(req.session.fileErrors[0].text).toEqual('Document upload or deletion has failed. Please try again');
   });
 
   it('should display error if upload file button clicked with no document', async () => {

@@ -270,6 +270,42 @@ describe('checking for the redirect of post document upload', () => {
     expect(systemInstance instanceof Axios);
   });
 
+  it('Should return error after the documents proccess has failed', async () => {
+    jest.spyOn(postingController, 'uploadDocumentInstance').mockImplementation(() => {
+      throw new Error();
+    });
+    req.session.caseDocuments = [
+      {
+        originalDocumentName: 'document1.docx',
+        _links: {
+          self: {
+            href: 'http://dm-example/documents/sae33',
+          },
+          binary: {
+            href: 'http://dm-example/documents/sae33/binary',
+          },
+        },
+      },
+      {
+        originalDocumentName: 'document2.docx',
+        _links: {
+          self: {
+            href: 'http://dm-example/documents/ce6e2',
+          },
+          binary: {
+            href: 'http://dm-example/documents/ce6e2/binary',
+          },
+        },
+      },
+    ];
+
+    await postingController.postDocumentUploader(req, res);
+    expect(mockedAxios.create).toHaveBeenCalled();
+    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_APPEAL_FORM);
+    expect(req.session.fileErrors).toHaveLength(1);
+    expect(req.session.fileErrors[0].text).toEqual('Document upload or deletion has failed. Please try again');
+  });
+
   req.session.caseDocuments = [];
   req.body['documentUploadProceed'] = true;
 
