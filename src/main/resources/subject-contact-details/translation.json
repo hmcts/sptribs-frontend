@@ -13,16 +13,16 @@
             "agreeContactLabel": "I agree to be contacted about this case using the details I have provided"
         },
         "cy": {
-            "continue": "Continue (Welsh)",
-            "serviceName": "Appeal to the First-tier Tribunal (Welsh)",
-            "title": "Enter contact information (Welsh)",
-            "line1": "Please enter your contact details to use for this case. (Welsh)",
-            "emailAddressLabel": "Email address (Welsh)",
-            "emailAddressHint": "(Welsh)",
-            "emailAddress": "Insert email address (Welsh)",
-            "contactNumberLabel": "Contact number (Welsh)",
-            "contactNumberHint": "(Welsh)",
-            "agreeContactLabel": "I agree to be contacted about this case using the details I have provided (Welsh)"
+            "continue": "Parhau",
+            "serviceName": "Apelio i’r Tribiwnlys Haen Gyntaf",
+            "title": "Rhowch fanylion cyswllt",
+            "line1": "Rhowch y manylion cyswllt sydd fwyaf addas ar gyfer yr achos hwn.",
+            "emailAddressLabel": "Cyfeiriad e-bost",
+            "emailAddressHint": "",
+            "emailAddress": "Nodwch gyfeiriad e-bost",
+            "contactNumberLabel": "Rhif cyswllt",
+            "contactNumberHint": "",
+            "agreeContactLabel": "Rwy’n cytuno i’r llys gysylltu â mi am yr achos hwn gan ddefnyddio’r manylion rwyf wedi’u darparu"
         }
     },
     "errors":{
@@ -41,15 +41,15 @@
         },
         "cy": {
             "subjectEmailAddress": {
-                "required": "Please enter a valid email address",
-                "invalid": "Every email address consists of 3 elements: local-part, @ symbol (pronounced as “at”), and a domain name (Welsh)"
+                "required": "Nodwch gyfeiriad e-bost dilys",
+                "invalid": "Mae pob cyfeiriad e-bost yn cynnwys tair elfen: rhan lleol, symbol @ (a ynganir fel “at”), ac enw parth"
             },
             "subjectContactNumber": {
-                "required": "Please enter a valid contact number (Welsh)",
-                "invalid": "Please enter a valid contact number (Welsh)"
+                "required": "Nodwch rif cyswllt dilys",
+                "invalid": "Nodwch rif cyswllt dilys"
             },
             "subjectAgreeContact": {
-                "required" : "Please agree to be contacted using the details provided to continue (Welsh)"
+                "required" : "Dylech gytuno i’r llys gysylltu â chi gan ddefnyddio’r manylion a ddarparwyd cyn y gallwch barhau"
             }
         }
     }

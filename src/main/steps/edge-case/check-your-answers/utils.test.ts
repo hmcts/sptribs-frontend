@@ -3,6 +3,7 @@ import { mockUserCase1, mockUserCase2, mockUserCase3 } from '../../../../test/un
 import { enContent } from './content';
 import {
   OtherInformationSummary,
+  RepresentationSummary,
   SubjectSummaryList,
   SupportingDocumentsSummary,
   UploadAppealFormSummary,
@@ -307,7 +308,7 @@ describe('upload-addition-documents > named owner and both > named owner > check
   });
 });
 
-describe('Addtional Form Summar> check-your-answers', () => {
+describe('Additional Form Summary > check-your-answers', () => {
   describe('applicationSummaryList', () => {
     test.each([
       {
@@ -425,6 +426,87 @@ describe('Other information > check-your-answers no documents', () => {
       },
     ])('return correct summary list items when %#', ({ documents, userCase, expected }) => {
       expect(OtherInformationSummary(enContent, documents, userCase)).not.toBe(expected);
+    });
+  });
+});
+
+describe('Representation Summary > check-your-answers', () => {
+  describe('RepresentationSummary Yes Radio Button', () => {
+    test.each([
+      {
+        documents: [],
+        userCase: {
+          ...mockUserCase3,
+          representation: 'Yes',
+          representationQualified: 'Yes',
+        },
+        expected: {
+          rows: [
+            {
+              actions: {
+                items: [
+                  {
+                    href: '/representation',
+                    text: 'change',
+                    visuallyHiddenText: 'Is there a representative named on completed tribunal form?',
+                  },
+                ],
+              },
+              key: { text: 'Is there a representative named on completed tribunal form?' },
+              value: { text: 'Yes' },
+            },
+            {
+              actions: {
+                items: [
+                  {
+                    href: '/representation-qualified',
+                    text: 'change',
+                    visuallyHiddenText: 'Is the named representative legally qualified?',
+                  },
+                ],
+              },
+              key: { text: 'Is the named representative legally qualified?' },
+              value: { text: 'Yes' },
+            },
+          ],
+          title: 'Representation',
+        },
+      },
+    ])('return correct summary list items when %#', ({ userCase, expected }) => {
+      expect(RepresentationSummary(enContent, userCase)).toStrictEqual(expected);
+    });
+  });
+
+  describe('RepresentationSummary No Radio Button', () => {
+    test.each([
+      {
+        documents: [],
+        userCase: {
+          ...mockUserCase3,
+          representation: 'No',
+          representationQualified: 'No',
+        },
+        expected: {
+          rows: [
+            {
+              actions: {
+                items: [
+                  {
+                    href: '/representation',
+                    text: 'change',
+                    visuallyHiddenText: 'Is there a representative named on completed tribunal form?',
+                  },
+                ],
+              },
+              key: { text: 'Is there a representative named on completed tribunal form?' },
+              value: { text: 'No' },
+            },
+          ],
+          title: 'Representation',
+        },
+      },
+    ])('return correct summary list items when %#', ({ userCase, expected }) => {
+      expect(RepresentationSummary(enContent, userCase)).toStrictEqual(expected);
     });
   });
 });

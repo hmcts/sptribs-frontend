@@ -8,11 +8,11 @@
             "two": " I am applying for someone else"
         },
         "cy": {
-            "continue": "Continue",
-            "serviceName": "Determine user's role (in welsh)",
-            "label": "Are you applying for yourself or someone else? (in welsh)",
-            "one": "I am applying for myself (in welsh)",
-            "two": "I am applying for someone else (in welsh)"
+            "continue": "Parhau",
+            "serviceName": "Pennu rôl y defnyddiwr",
+            "label": "Ydych chi’n gwneud cais dros eich hun neu ar ran rhywun arall?",
+            "one": "Rwy’n gwneud cais dros fy hun",
+            "two": "Rwy’n gwneud cais ar ran rhywun arall"
         }
     },
     "errors":{
@@ -23,7 +23,7 @@
         },
         "cy": {
             "namedApplicant": {
-                "required": "Please select an answer before you can proceed further (in welsh)"
+                "required": "Rhaid i chi ddewis ateb cyn y gallwch symud ymlaen"
             }
         }
     }
