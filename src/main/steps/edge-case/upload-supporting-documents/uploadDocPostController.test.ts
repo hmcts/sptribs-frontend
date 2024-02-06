@@ -160,6 +160,37 @@ describe('Form upload controller', () => {
     );
   });
 
+  test('Should upload file successfully', async () => {
+    const mockForm = {
+      fields: {
+        field: {
+          type: 'file',
+          values: [{ label: l => l.no, value: YesOrNo.YES }],
+          validator: isFieldFilledIn,
+        },
+      },
+      submit: {
+        text: l => l.continue,
+      },
+    };
+    const req = mockRequest({});
+    const res = mockResponse();
+    mockedAxios.post.mockReturnValueOnce(Promise.resolve({ data: { document: 'test' } }));
+    mockedAxios.post.mockResolvedValueOnce({ data: { document: 'test' } });
+    const controller = new UploadDocumentController(mockForm.fields);
+    req.session.supportingCaseDocuments = [];
+    (req.files as any) = { documents: { name: 'test', mimetype: 'application/pdf', size: 20480000, data: 'data' } };
+    req.session.fileErrors = [];
+    req.body['documentUploadProceed'] = false;
+
+    await controller.post(req, res);
+    expect(mockedAxios.create).toHaveBeenCalled();
+    expect(mockedAxios.post).toHaveBeenCalled();
+    expect(req.session.fileErrors).toHaveLength(0);
+    // expect(req.session.supportingCaseDocuments).toHaveLength(1);
+    // expect(res.redirect).toHaveBeenCalledWith(UPLOAD_SUPPORTING_DOCUMENTS);
+  });
+
   test('Should display error if upload file fails', async () => {
     const mockForm = {
       fields: {
