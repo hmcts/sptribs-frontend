@@ -14,7 +14,6 @@ const getNextStepUrlMock = jest.spyOn(steps, 'getNextStepUrl');
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 mockedAxios.create = jest.fn(() => mockedAxios);
-const mockCreate = jest.fn();
 
 describe('Document format validation', () => {
   it('must match valid mimetypes', () => {
@@ -209,10 +208,6 @@ describe('Document upload controller', () => {
 });
 
 describe('checking for the redirect of post document upload', () => {
-  beforeEach(() => {
-    mockCreate.mockClear();
-  });
-
   const mockForm = {
     fields: {
       field: {
