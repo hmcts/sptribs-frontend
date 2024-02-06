@@ -11,7 +11,6 @@ import { UPLOAD_OTHER_INFORMATION, UPLOAD_SUPPORTING_DOCUMENTS } from '../../../
 import UploadDocumentController from './uploadDocPostController';
 
 const getNextStepUrlMock = jest.spyOn(steps, 'getNextStepUrl');
-const mockCreate = jest.fn();
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 mockedAxios.create = jest.fn(() => mockedAxios);
@@ -67,7 +66,6 @@ describe('Document format validation', () => {
 describe('Form upload controller', () => {
   afterEach(() => {
     getNextStepUrlMock.mockClear();
-    mockCreate.mockClear();
   });
 
   test('Should display error if incorrect file type document upload', async () => {
