@@ -173,7 +173,6 @@ describe('Form upload controller', () => {
     };
     const req = mockRequest({});
     const res = mockResponse();
-    mockedAxios.post.mockReturnValueOnce(Promise.resolve({ data: { document: 'test' } }));
     mockedAxios.post.mockResolvedValueOnce({ data: { document: 'test' } });
     const controller = new UploadDocumentController(mockForm.fields);
     req.session.supportingCaseDocuments = [];
