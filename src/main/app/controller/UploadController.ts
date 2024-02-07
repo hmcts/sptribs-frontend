@@ -300,7 +300,7 @@ export class UploadController extends PostController<AnyObject> {
       }
 
       if (isValidMimeType && isValidFileSize) {
-        this.uploadDocument(documents, req, res, chooseFileLink);
+        await this.uploadDocument(documents, req, res, chooseFileLink);
       } else {
         this.redirect(req, res, this.getCurrentPageRedirectUrl());
       }
