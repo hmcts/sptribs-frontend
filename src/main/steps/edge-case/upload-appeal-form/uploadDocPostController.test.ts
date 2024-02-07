@@ -359,16 +359,6 @@ describe('checking for the redirect of post document upload', () => {
     expect(req.session.fileErrors[0].text).toEqual('Please choose a file to upload');
   });
 
-  // it('should successfuly upload document and redirect to same page after document upload', async () => {
-  //   req.session.supportingCaseDocuments = [];
-  //   req.files = {documents:{ name: 'uploaded-file.pdf', mimetype: "application/pdf", size: 10 }} as unknown as Express.Multer.File[];
-  //   jest.spyOn(FileValidations, 'sizeValidation').mockImplementation(() => true);
-  //   await postingController.post(req, res);
-  //   expect(res.redirect).toHaveBeenCalledWith(UPLOAD_APPEAL_FORM);
-  //   // expect(req.session.fileErrors.length).toEqual(0);
-  //   expect(req.session.fileErrors[1].text).toEqual('');
-  // });
-
   it('should display error if max documents have been uploaded', async () => {
     req.session.caseDocuments = [
       {
