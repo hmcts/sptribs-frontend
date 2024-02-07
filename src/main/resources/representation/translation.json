@@ -8,11 +8,11 @@
       "two": "No"
     },
     "cy": {
-      "continue": "Continue (Welsh)",
-      "serviceName": "Appeal to the First-tier Tribunal (Welsh)",
-      "label": "Is there a representative named on completed tribunal form? (Welsh)",
-      "one": "Yes (Welsh)",
-      "two": "No (Welsh)"
+      "continue": "Parhau",
+      "serviceName": "Apelio i’r Tribiwnlys Haen Gyntaf",
+      "label": "A oes cynrychiolydd wedi’i enwi ar y ffurflen tribiwnlys sydd wedi’i llenwi?",
+      "one": "Oes",
+      "two": "Nac oes"
     }
   },
   "errors":{
@@ -23,7 +23,7 @@
     },
     "cy": {
       "representation": {
-        "required": "Please select an answer before you can proceed further (Welsh)"
+        "required": "Rhaid i chi ddewis ateb cyn y gallwch symud ymlaen"
       }
     }
   }

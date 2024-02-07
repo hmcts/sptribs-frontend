@@ -116,17 +116,17 @@ describe('subject-details-content', () => {
     expect((dobField.label as Function)(generatedContent)).toBe(enContent.subjectDateOfBirthLabel);
     expect((dobField.hint as Function)(generatedContent)).toBe(enContent.hint);
 
-    expect((dobField.values[0].label as Function)(commonContent)).toBe('Day');
+    expect((dobField.values[0].label as Function)(generatedContent)).toBe('Day');
     expect(dobField.values[0].name).toBe('day');
     expect(dobField.values[0].classes).toBe('govuk-input--width-2');
     expect(dobField.values[0].attributes?.maxLength).toBe(2);
 
-    expect((dobField.values[1].label as Function)(commonContent)).toBe('Month');
+    expect((dobField.values[1].label as Function)(generatedContent)).toBe('Month');
     expect(dobField.values[1].name).toBe('month');
     expect(dobField.values[1].classes).toBe('govuk-input--width-2');
     expect(dobField.values[1].attributes?.maxLength).toBe(2);
 
-    expect((dobField.values[2].label as Function)(commonContent)).toBe('Year');
+    expect((dobField.values[2].label as Function)(generatedContent)).toBe('Year');
     expect(dobField.values[2].name).toBe('year');
     expect(dobField.values[2].classes).toBe('govuk-input--width-4');
     expect(dobField.values[2].attributes?.maxLength).toBe(4);
