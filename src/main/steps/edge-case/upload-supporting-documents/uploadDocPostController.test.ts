@@ -184,8 +184,9 @@ describe('Form upload controller', () => {
     expect(mockedAxios.create).toHaveBeenCalled();
     expect(mockedAxios.post).toHaveBeenCalled();
     expect(req.session.fileErrors).toHaveLength(0);
-    // expect(req.session.supportingCaseDocuments).toHaveLength(1);
-    // expect(res.redirect).toHaveBeenCalledWith(UPLOAD_SUPPORTING_DOCUMENTS);
+    expect(req.session.supportingCaseDocuments).toHaveLength(1);
+    expect(req.session.supportingCaseDocuments[0]).toEqual('test');
+    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_SUPPORTING_DOCUMENTS);
   });
 
   test('Should display error if upload file fails', async () => {
@@ -207,8 +208,6 @@ describe('Form upload controller', () => {
     jest.spyOn(controller, 'uploadDocumentInstance').mockImplementation(() => {
       throw new Error();
     });
-    req.session.caseDocuments = [];
-    req.session.supportingCaseDocuments = [];
     (req.files as any) = { documents: { name: 'test', mimetype: 'application/pdf', size: 20480000, data: 'data' } };
     req.session.fileErrors = [];
     req.body['documentUploadProceed'] = false;
