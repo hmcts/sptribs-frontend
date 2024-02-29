@@ -6,7 +6,7 @@ services:
   fisDssUpdate:
     url: 'http://localhost:3100/dss-update/start'
   documentManagement:
-    uploadSizeinMB: 100
+    uploadSizeLimitMB: 500
   equalityAndDiversity:
     enabled: true
 queryParamsforApp:

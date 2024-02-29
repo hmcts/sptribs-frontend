@@ -28,7 +28,7 @@ services:
   hmctsHomePage:
     url: 'https://www.gov.uk/government/organisations/hm-courts-and-tribunals-service'
   documentManagement:
-    uploadSizeinMB: 30
+    uploadSizeLimitMB: 500
   RPE_TOKEN:
     url: 'http://rpe-service-auth-provider-aat.service.core-compute-aat.internal'
 health:
