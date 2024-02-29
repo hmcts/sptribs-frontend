@@ -114,7 +114,7 @@ describe('Form upload controller', () => {
 
     const req = mockRequest({});
     const res = mockResponse();
-    (req.files as any) = { documents: { mimetype: 'application/pdf', size: 20480001 } };
+    (req.files as any) = { documents: { mimetype: 'application/pdf', size: 524288001 } };
     req.session.caseDocuments = [];
     await controller.post(req, res);
 
@@ -143,7 +143,7 @@ describe('Form upload controller', () => {
 
     const req = mockRequest({});
     const res = mockResponse();
-    (req.files as any) = { documents: { mimetype: 'audio/mp4', size: 104857601 } };
+    (req.files as any) = { documents: { mimetype: 'audio/mp4', size: 524288001 } };
     req.session.caseDocuments = [];
     await controller.post(req, res);
 
