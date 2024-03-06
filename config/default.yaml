@@ -48,7 +48,6 @@ documentUpload:
     totalAdditionalDocuments: 20
     totalOtherInformation: 20
     sizeInBytes: 524288000
-    multimediaSizeInBytes: 524288000
 queryParamsforApp:
   query:
     CIC: 'CIC'
