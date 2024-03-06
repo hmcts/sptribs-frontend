@@ -110,7 +110,7 @@ describe('Document upload controller', () => {
 
     const req = mockRequest({});
     const res = mockResponse();
-    (req.files as any) = { documents: { mimetype: 'application/pdf', size: 20480001 } };
+    (req.files as any) = { documents: { mimetype: 'application/pdf', size: 524288001 } };
     req.session.caseDocuments = [];
     req.session.fileErrors = [];
     await controller.post(req, res);
@@ -141,7 +141,7 @@ describe('Document upload controller', () => {
 
     const req = mockRequest({});
     const res = mockResponse();
-    (req.files as any) = { documents: { mimetype: 'text/plain', size: 20480001 } };
+    (req.files as any) = { documents: { mimetype: 'text/plain', size: 524288001 } };
     req.session.caseDocuments = [];
     req.session.fileErrors = [];
     await controller.post(req, res);

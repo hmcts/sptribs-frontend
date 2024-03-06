@@ -27,8 +27,6 @@ services:
     url: 'https://dss-update-case.aat.platform.hmcts.net/dss-update/start'
   hmctsHomePage:
     url: 'https://www.gov.uk/government/organisations/hm-courts-and-tribunals-service'
-  documentManagement:
-    uploadSizeinMB: 30
   RPE_TOKEN:
     url: 'http://rpe-service-auth-provider-aat.service.core-compute-aat.internal'
 health:
@@ -49,8 +47,8 @@ documentUpload:
     totalSupportingDocuments: 5
     totalAdditionalDocuments: 20
     totalOtherInformation: 20
-    sizeInBytes: 20480000
-    multimediaSizeInBytes: 104857600
+    sizeInBytes: 524288000
+    multimediaSizeInBytes: 524288000
 queryParamsforApp:
   query:
     CIC: 'CIC'
