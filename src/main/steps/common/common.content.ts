@@ -133,6 +133,7 @@ const cy: typeof en = {
   errorSummaryHeading: 'Mae yna broblem',
   saveAndSignOut: 'Cadw ac allgofnodi',
   saveAsDraft: 'Cadw fel drafft',
+  save: 'Cadw',
   signOut: 'Allgofnodi',
   signIn: 'Mewngofnodi',
   accessibility: 'Datganiad Hygyrchedd',
