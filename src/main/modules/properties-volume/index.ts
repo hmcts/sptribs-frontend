@@ -18,6 +18,7 @@ export class PropertiesVolume {
       this.setSecret('secrets.sptribs.s2s-secret-sptribs-frontend', 'services.authProvider.secret');
       this.setSecret('secrets.sptribs.postcode-lookup-token', 'services.postcodeLookup.token');
       this.setSecret('secrets.sptribs.specialTribunals-cic-pcq-token', 'services.equalityAndDiversity.tokenKey');
+      this.setSecret('secrets.sptribs.sptribs-frontend-dynatrace-url', 'dynatrace.dynatraceUrl');
     } else {
       this.setLocalSecret('idam-ui-secret', 'services.idam.clientSecret');
       this.setLocalSecret('s2s-secret-sptribs-frontend', 'services.authProvider.secret');
