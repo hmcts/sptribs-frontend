@@ -133,6 +133,7 @@ const cy: typeof en = {
   errorSummaryHeading: 'Mae yna broblem',
   saveAndSignOut: 'Cadw ac allgofnodi',
   saveAsDraft: 'Cadw fel drafft',
+  save: 'Cadw',
   signOut: 'Allgofnodi',
   signIn: 'Mewngofnodi',
   accessibility: 'Datganiad Hygyrchedd',
@@ -197,6 +198,9 @@ const cy: typeof en = {
   allowAnalyticsCookies: 'Caniatáu cwcis sy’n mesur defnydd o’r wefan?',
   useAnalyticsCookies: 'Defnyddio cwcis sy’n mesur fy nefnydd o’r wefan',
   doNotUseAnalyticsCookies: 'Peidio â defnyddio cwcis sy’n mesur fy nefnydd o’r wefan',
+  apmCookiesHeadings: 'Caniatáu cwcis sy’n mesur y broses o fonitro perfformiad gwefannau?',
+  useApmCookies: 'Defnyddio cwcis sy’n mesur y broses o fonitro perfformiad gwefannau',
+  doNotUseApmCookies: 'Peidio â defnyddio cwcis sy’n mesur y broses o fonitro perfformiad gwefannau',
 };
 
 export const generatePageContent = ({
