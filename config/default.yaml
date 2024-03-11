@@ -53,3 +53,5 @@ queryParamsforApp:
     CIC: 'CIC'
 cookies:
   expiryTime: 365
+dynatrace:
+  dynatraceUrl: 'https://js-cdn.dynatrace.com/jstag/17177a07246/bf24054dsx/eaee1077d24f66ab_complete.js'
