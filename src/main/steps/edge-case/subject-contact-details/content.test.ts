@@ -33,11 +33,13 @@ const CommonContent = { language: EN } as CommonContent;
 /* eslint-disable @typescript-eslint/ban-types, @typescript-eslint/no-explicit-any */
 describe('Email Address', () => {
   it('should return the correct content for language = en', () => {
+    expect.hasAssertions();
     languageAssertions('en', enContent, () => generateContent(CommonContent));
   });
 
   //const commonContent = { language: CY } as CommonContent;
   it('should return the correct content for language = cy', () => {
+    expect.hasAssertions();
     languageAssertions('cy', cyContent, () => generateContent({ ...CommonContent, language: 'cy' }));
   });
 

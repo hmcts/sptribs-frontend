@@ -25,10 +25,12 @@ const commonContent = { language: EN } as CommonContent;
 /* eslint-disable @typescript-eslint/ban-types, @typescript-eslint/no-explicit-any */
 describe('Upload content', () => {
   it('should return the correct content for language = en', () => {
+    expect.hasAssertions();
     languageAssertions('en', enContent, () => generateContent(commonContent));
   });
 
   it('should return the correct content for language = cy', () => {
+    expect.hasAssertions();
     languageAssertions('cy', cyContent, () => generateContent({ ...commonContent, language: 'cy' }));
   });
 
