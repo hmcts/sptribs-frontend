@@ -1,5 +1,6 @@
 import path from 'path';
 
+import config from 'config';
 import express from 'express';
 import nunjucks from 'nunjucks';
 
@@ -83,6 +84,14 @@ export class Nunjucks {
         })(),
       }));
     });
+
+    const globals = {
+      dynatrace: {
+        dynatraceUrl: config.get('dynatrace.dynatraceUrl'),
+      },
+    };
+
+    env.addGlobal('globals', globals);
 
     env.addGlobal('summaryDetailsHtml', function (subFields: FormInput) {
       return env.render(`${__dirname}/../../steps/common/form/fields.njk`, {
