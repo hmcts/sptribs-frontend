@@ -1,4 +1,3 @@
-/* eslint-disable jest/expect-expect */
 import { TranslationFn } from '../../../app/controller/GetController';
 import { CommonContent } from '../common.content';
 

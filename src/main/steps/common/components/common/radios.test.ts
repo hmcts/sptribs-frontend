@@ -1,11 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-types */
-/* eslint-disable jest/expect-expect */
 import { YesNoNotsure } from '../../../../app/case/definition';
-//import { isFieldFilledIn } from '../../../../app/form/validation';
 
 import { Radios } from './radios';
-
-//jest.mock('../../../app/form/validation');
 
 const fieldName = 'birthFatherNameOnCertificate';
 
