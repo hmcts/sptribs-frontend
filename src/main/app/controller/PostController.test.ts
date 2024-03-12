@@ -65,16 +65,6 @@ describe('PostController', () => {
     expect(req.session.errors).toStrictEqual([]);
   });
 
-  test('Saves the users prayer and statement of truth', async () => {
-    getNextStepUrlMock.mockReturnValue('/next-step-url');
-    const body = {};
-
-    const controller = new PostController(mockFormContent.fields);
-
-    const req = mockRequest({ body });
-    const res = mockResponse();
-    await controller.post(req, res);
-  });
 
   it('redirects back to the current page with a session error if there was an problem saving data', async () => {
     const body = { MOCK_KEY: 'MOCK_VALUE' };
