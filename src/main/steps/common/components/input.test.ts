@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/ban-types */
-/* eslint-disable jest/expect-expect */
 import { isFieldFilledIn } from '../../../app/form/validation';
 
 import { Input } from './input';
@@ -33,16 +32,12 @@ const { form } = new Input({
 describe('input class', () => {
   it('should render the input field with the correct data', () => {
     const field = form.fields[fieldName];
-    // const fieldInputValue = 'test';
     const { label, hint } = enContent;
 
     expect(field.type).toBe('input');
     expect((field.label as Function)(enContent)).toBe(label);
     expect((field.hint as Function)(enContent)).toBe(hint);
     expect(field.labelSize).toBe('l');
-
-    // (field.validator as Function)(fieldInputValue);
-    // expect(isFieldFilledIn).toHaveBeenCalledWith(fieldInputValue);
   });
 
   it('should contain submit button', () => {
