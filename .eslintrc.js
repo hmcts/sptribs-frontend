@@ -81,5 +81,24 @@ module.exports = {
         ignoreMemberSort: false,
       },
     ],
-  },
+  },  
+  overrides: [
+    {
+      files: [
+        'src/main/steps/contact-us/content.test.ts',
+        'src/main/steps/common/components/common/component.test.ts',
+        'src/main/steps/accessibility-statement/content.test.ts',
+        'src/main/steps/edge-case/cookies/content.test.ts',
+        'src/main/steps/edge-case/subject-contact-details/content.test.ts',
+        'src/main/steps/edge-case/upload-appeal-form/content.test.ts',
+        'src/main/steps/edge-case/upload-other-information/content.test.ts',
+        'src/main/steps/edge-case/upload-supporting-documents/content.test.ts',
+        'src/main/steps/privacy-policy/content.test.ts',
+        'src/main/steps/terms-and-conditions/content.test.ts',
+      ],
+      rules: {
+        'jest/expect-expect': 'off',
+      },
+    },
+  ],
 };
