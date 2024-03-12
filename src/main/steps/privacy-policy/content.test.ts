@@ -13,12 +13,10 @@ describe('privacy-policy > content', () => {
   }) as CommonContent;
 
   test('should return correct english content', () => {
-    expect.hasAssertions();
     languageAssertions('en', en, () => generateContent(commonContent));
   });
 
   test('should return correct welsh content', () => {
-    expect.hasAssertions();
     languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy' }));
   });
 });
