@@ -65,7 +65,6 @@ describe('PostController', () => {
     expect(req.session.errors).toStrictEqual([]);
   });
 
-
   it('redirects back to the current page with a session error if there was an problem saving data', async () => {
     const body = { MOCK_KEY: 'MOCK_VALUE' };
     const controller = new PostController(mockFormContent.fields);
