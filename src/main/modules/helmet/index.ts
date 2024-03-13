@@ -6,6 +6,7 @@ export interface HelmetConfig {
   referrerPolicy: string;
 }
 
+const dynatraceDomain = '*.dynatrace.com';
 const googleAnalyticsDomain = '*.google-analytics.com';
 const googleTagManagerDomain = '*.googletagmanager.com';
 const self = "'self'";
@@ -29,6 +30,7 @@ export class Helmet {
       self,
       googleAnalyticsDomain,
       googleTagManagerDomain,
+      dynatraceDomain,
       "'sha256-+6WnXIl4mbFTCARd8N3COQmT3bJJmo32N8q8ZSQAIcU='",
       "'sha256-XbrIe2Mu+2yK4boWprqdknTXJvaHzNkq5hBOh5NMUwE='",
     ];
@@ -40,7 +42,7 @@ export class Helmet {
     app.use(
       helmet.contentSecurityPolicy({
         directives: {
-          connectSrc: [self],
+          connectSrc: [self, dynatraceDomain],
           defaultSrc: ["'none'"],
           fontSrc: [self, 'data:'],
           imgSrc: [self, googleAnalyticsDomain],

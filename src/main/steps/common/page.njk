@@ -7,6 +7,9 @@
 {% include "./webpack/gtm-script.njk" %}
 {% include "./webpack/css.njk" %}
 <!-- {{ userCase.id }} -->
+<!-- Dynatrace -->
+  <script type="text/javascript" src="{{ globals.dynatrace.dynatraceUrl }}" crossorigin="anonymous"></script>
+<!-- End Dynatrace -->
 {% endblock %}
 
 {% block header %}
@@ -37,7 +40,7 @@
     tag: {
       text: phase
     },
-    html: feedback |replace("currentUrl",currentUrl)
+    html: feedback |replace("currentUrl",currentUrl)  + languageToggle
   }) }}
   {% block backLink %}
     <a href="#" class="govuk-back-link">{{ back }}</a>
@@ -73,6 +76,12 @@
 
 {% block footer %}
   {{ govukFooter({
+    copyright: {
+      text: copyright | safe
+    },
+    contentLicence: {
+      text: ogl | safe
+    },
     meta: {
       items: [
         {

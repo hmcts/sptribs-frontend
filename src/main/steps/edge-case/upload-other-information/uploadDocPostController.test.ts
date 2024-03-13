@@ -1,26 +1,22 @@
-import { Axios } from 'axios';
-import config from 'config';
+import axios, { Axios } from 'axios';
 
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import { YesOrNo } from '../../../app/case/definition';
+import { FileValidations } from '../../../app/controller/UploadController';
 import { isFieldFilledIn } from '../../../app/form/validation';
-import { ResourceReader } from '../../../modules/resourcereader/ResourceReader';
 import * as steps from '../../../steps';
-import { SPTRIBS_CASE_API_BASE_URL } from '../../common/constants/apiConstants';
-import { UPLOAD_OTHER_INFORMATION } from '../../urls';
+import { EQUALITY, UPLOAD_OTHER_INFORMATION } from '../../urls';
 
-import UploadDocumentController, { CASE_API_URL, FileMimeType, FileValidations } from './uploadDocPostController';
+import UploadDocumentController from './uploadDocPostController';
 
 const getNextStepUrlMock = jest.spyOn(steps, 'getNextStepUrl');
+jest.mock('axios');
+const mockedAxios = axios as jest.Mocked<typeof axios>;
+mockedAxios.create = jest.fn(() => mockedAxios);
 
-describe('Document upload controller', () => {
-  afterEach(() => {
-    getNextStepUrlMock.mockClear();
-  });
-
-  test('Should redirect back to the current page with the form data on errors', async () => {
-    const errors = [{ errorType: 'required', propertyName: 'field' }];
+describe('Document format validation', () => {
+  it('must match valid mimetypes', () => {
     const mockForm = {
       fields: {
         field: {
@@ -34,30 +30,194 @@ describe('Document upload controller', () => {
       },
     };
     const controller = new UploadDocumentController(mockForm.fields);
-    const QUERY = {
-      query: 'delete',
-      documentId: 'xyz',
-      documentType: 'other',
+
+    expect(FileValidations.formatValidation('image/gif', controller.getAcceptedFileMimeType())).toBe(false);
+    expect(FileValidations.formatValidation('application/msword', controller.getAcceptedFileMimeType())).toBe(true);
+    expect(
+      FileValidations.formatValidation(
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        controller.getAcceptedFileMimeType()
+      )
+    ).toBe(true);
+    expect(FileValidations.formatValidation('application/pdf', controller.getAcceptedFileMimeType())).toBe(true);
+    expect(FileValidations.formatValidation('image/png', controller.getAcceptedFileMimeType())).toBe(true);
+    expect(FileValidations.formatValidation('application/vnd.ms-excel', controller.getAcceptedFileMimeType())).toBe(
+      true
+    );
+    expect(
+      FileValidations.formatValidation(
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        controller.getAcceptedFileMimeType()
+      )
+    ).toBe(true);
+    expect(FileValidations.formatValidation('image/jpeg', controller.getAcceptedFileMimeType())).toBe(true);
+    expect(FileValidations.formatValidation('text/plain', controller.getAcceptedFileMimeType())).toBe(true);
+    expect(FileValidations.formatValidation('application/rtf', controller.getAcceptedFileMimeType())).toBe(true);
+    expect(FileValidations.formatValidation('text/rtf', controller.getAcceptedFileMimeType())).toBe(true);
+    expect(FileValidations.formatValidation('audio/mp4', controller.getAcceptedFileMimeType())).toBe(true);
+    expect(FileValidations.formatValidation('video/mp4', controller.getAcceptedFileMimeType())).toBe(true);
+    expect(FileValidations.formatValidation('audio/mpeg', controller.getAcceptedFileMimeType())).toBe(true);
+  });
+});
+
+describe('Document upload controller', () => {
+  afterEach(() => {
+    getNextStepUrlMock.mockClear();
+  });
+
+  test('Should display error if incorrect file type document upload', async () => {
+    const mockForm = {
+      fields: {
+        field: {
+          type: 'file',
+          values: [{ label: l => l.no, value: YesOrNo.YES }],
+          validator: isFieldFilledIn,
+        },
+      },
+      submit: {
+        text: l => l.continue,
+      },
     };
+    const controller = new UploadDocumentController(mockForm.fields);
 
     const req = mockRequest({});
     const res = mockResponse();
-    (req.files as any) = { documents: { mimetype: 'text/plain' } };
+    (req.files as any) = { documents: { mimetype: 'image/gif', size: 20480000 } };
     req.session.caseDocuments = [];
     req.session.fileErrors = [];
-    req.query = QUERY;
     await controller.post(req, res);
-
-    expect(req.query).toEqual({
-      query: 'delete',
-      documentId: 'xyz',
-      documentType: 'other',
-    });
 
     expect(req.locals.api.triggerEvent).not.toHaveBeenCalled();
     expect(getNextStepUrlMock).not.toHaveBeenCalled();
-    expect(res.redirect).toBeCalledWith('/upload-other-information');
-    expect(req.session.errors).toEqual(errors);
+    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION);
+    expect(req.session.fileErrors).toHaveLength(1);
+    expect(req.session.fileErrors[0].text).toEqual(
+      'This service only accepts files in the formats - Ms Word, MS Excel, PDF, JPG, PNG, TXT, RTF, MP4, MP3'
+    );
+  });
+
+  test('Should display error if incorrect file size document upload', async () => {
+    const mockForm = {
+      fields: {
+        field: {
+          type: 'file',
+          values: [{ label: l => l.no, value: YesOrNo.YES }],
+          validator: isFieldFilledIn,
+        },
+      },
+      submit: {
+        text: l => l.continue,
+      },
+    };
+    const controller = new UploadDocumentController(mockForm.fields);
+
+    const req = mockRequest({});
+    const res = mockResponse();
+    (req.files as any) = { documents: { mimetype: 'text/plain', size: 20480001 } };
+    req.session.caseDocuments = [];
+    req.session.fileErrors = [];
+    await controller.post(req, res);
+
+    expect(req.locals.api.triggerEvent).not.toHaveBeenCalled();
+    expect(getNextStepUrlMock).not.toHaveBeenCalled();
+    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION);
+    expect(req.session.fileErrors).toHaveLength(1);
+    expect(req.session.fileErrors[0].text).toEqual(
+      'File size exceeds the maximum permitted value. Please upload a file that is less than 50 MB (documents) or less than 100 MB (multimedia files)'
+    );
+  });
+
+  test('Should display error if incorrect file type and file size document upload', async () => {
+    const mockForm = {
+      fields: {
+        field: {
+          type: 'file',
+          values: [{ label: l => l.no, value: YesOrNo.YES }],
+          validator: isFieldFilledIn,
+        },
+      },
+      submit: {
+        text: l => l.continue,
+      },
+    };
+    const controller = new UploadDocumentController(mockForm.fields);
+
+    const req = mockRequest({});
+    const res = mockResponse();
+    (req.files as any) = { documents: { mimetype: 'image/gif', size: 20480001 } };
+    req.session.caseDocuments = [];
+    req.session.fileErrors = [];
+    await controller.post(req, res);
+
+    expect(req.locals.api.triggerEvent).not.toHaveBeenCalled();
+    expect(getNextStepUrlMock).not.toHaveBeenCalled();
+    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION);
+    expect(req.session.fileErrors).toHaveLength(2);
+    expect(req.session.fileErrors[0].text).toEqual(
+      'File size exceeds the maximum permitted value. Please upload a file that is less than 50 MB (documents) or less than 100 MB (multimedia files)'
+    );
+    expect(req.session.fileErrors[1].text).toEqual(
+      'This service only accepts files in the formats - Ms Word, MS Excel, PDF, JPG, PNG, TXT, RTF, MP4, MP3'
+    );
+  });
+
+  test('Should upload file successfully', async () => {
+    const mockForm = {
+      fields: {
+        field: {
+          type: 'file',
+          values: [{ label: l => l.no, value: YesOrNo.YES }],
+          validator: isFieldFilledIn,
+        },
+      },
+      submit: {
+        text: l => l.continue,
+      },
+    };
+    const req = mockRequest({});
+    const res = mockResponse();
+    mockedAxios.post.mockResolvedValueOnce({ data: { document: 'test' } });
+    const controller = new UploadDocumentController(mockForm.fields);
+    req.session.otherCaseInformation = [];
+    (req.files as any) = { documents: { name: 'test', mimetype: 'application/pdf', size: 20480000, data: 'data' } };
+    req.session.fileErrors = [];
+    req.body['documentUploadProceed'] = false;
+
+    await controller.post(req, res);
+    expect(mockedAxios.create).toHaveBeenCalled();
+    expect(mockedAxios.post).toHaveBeenCalled();
+    expect(req.session.fileErrors).toHaveLength(0);
+    expect(req.session.otherCaseInformation).toHaveLength(1);
+    expect(req.session.otherCaseInformation[0]).toEqual('test');
+    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION);
+  });
+
+  test('Should display error if upload file fails', async () => {
+    const mockForm = {
+      fields: {
+        field: {
+          type: 'file',
+          values: [{ label: l => l.no, value: YesOrNo.YES }],
+          validator: isFieldFilledIn,
+        },
+      },
+      submit: {
+        text: l => l.continue,
+      },
+    };
+    const req = mockRequest({});
+    const res = mockResponse();
+    const controller = new UploadDocumentController(mockForm.fields);
+    jest.spyOn(controller, 'uploadDocumentInstance').mockImplementation(() => {
+      throw new Error();
+    });
+    (req.files as any) = { documents: { name: 'test', mimetype: 'application/pdf', size: 20480000, data: 'data' } };
+    req.session.fileErrors = [];
+    req.body['documentUploadProceed'] = false;
+
+    await controller.post(req, res);
+    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION);
+    expect(req.session.fileErrors[0].text).toEqual('Document upload or deletion has failed. Please try again');
   });
 
   describe('when there is an error in saving session', () => {
@@ -81,120 +241,6 @@ describe('Document upload controller', () => {
   });
 });
 
-describe('All of the listed Validation for files should be in place', () => {
-  const allTypes = {
-    doc: 'application/msword',
-    docx: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-    pdf: 'application/pdf',
-    png: 'image/png',
-    xls: 'application/vnd.ms-excel',
-    xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-    jpg: 'image/jpeg',
-    txt: 'text/plain',
-    rtf: 'application/rtf',
-    rtf2: 'text/rtf',
-    mp4audio: 'audio/mp4',
-    mp4video: 'video/mp4',
-    mp3: 'audio/mpeg',
-  };
-
-  it('must match the file validations type', () => {
-    expect(Object.entries(allTypes)).toHaveLength(Object.entries(FileMimeType).length);
-    expect(allTypes).toMatchObject(FileMimeType);
-    expect(Object.entries(allTypes).toString()).toBe(Object.entries(FileMimeType).toString());
-  });
-});
-
-describe('document format validation', () => {
-  it('must match valid mimetypes', () => {
-    expect(FileValidations.formatValidation('image/gif')).toBe(false);
-    expect(FileValidations.formatValidation('audio/mpeg')).toBe(true);
-  });
-});
-
-describe('The url must match the config url', () => {
-  it('must match baseURl', () => {
-    expect(CASE_API_URL).toBe(config.get(SPTRIBS_CASE_API_BASE_URL));
-  });
-});
-
-describe('Checking for file upload size', () => {
-  const file1Size = 10000000;
-  const file2Size = 20000000;
-  const file3Size = 700000001;
-  const file4Size = 1000000001;
-  it('Checking for file1 size', () => {
-    expect(FileValidations.sizeValidation('text/plain', file1Size)).toBe(true);
-  });
-
-  it('Checking for file2 size', () => {
-    expect(FileValidations.sizeValidation('text/plain', file2Size)).toBe(true);
-  });
-
-  it('Checking for file3 size', () => {
-    expect(FileValidations.sizeValidation('text/plain', file3Size)).toBe(false);
-  });
-
-  it('Checking for file3 multimedia size', () => {
-    expect(FileValidations.sizeValidation('video/mp4', file4Size)).toBe(false);
-  });
-
-  it('Checking for file4 multimedia size', () => {
-    expect(FileValidations.sizeValidation('video/mp4', file4Size)).toBe(false);
-  });
-});
-
-/**
- *      @UploadDocumentController
- *
- *      test for document upload controller
- */
-
-describe('Check for System contents to match for en', () => {
-  const resourceLoader = new ResourceReader();
-  resourceLoader.Loader('upload-other-information');
-  const getContents = resourceLoader.getFileContents().errors;
-
-  it('must match load English as Langauage', () => {
-    const req = mockRequest({});
-    req.query['lng'] = 'en';
-    req.session['lang'] = 'en';
-    const SystemContentLoader = FileValidations.ResourceReaderContents(req);
-    const getEnglishContents = getContents.en;
-    expect(SystemContentLoader).toEqual(getEnglishContents);
-  });
-});
-
-describe('Check for System contents to match for cy', () => {
-  const resourceLoader = new ResourceReader();
-  resourceLoader.Loader('upload-other-information');
-  const getContents = resourceLoader.getFileContents().errors;
-
-  it('must match load English as Language', () => {
-    const req = mockRequest({});
-    req.query['lng'] = 'cy';
-    req.session['lang'] = 'cy';
-    const SystemContentLoader = FileValidations.ResourceReaderContents(req);
-    const getWhelshContents = getContents.cy;
-    expect(SystemContentLoader).toEqual(getWhelshContents);
-  });
-});
-
-describe('Check for System contents to match for fr', () => {
-  const resourceLoader = new ResourceReader();
-  resourceLoader.Loader('upload-other-information');
-  const getContents = resourceLoader.getFileContents().errors;
-
-  it('must match load English as default Langauage', () => {
-    const req = mockRequest({});
-    req.query['lng'] = 'fr';
-    req.session['lang'] = 'fr';
-    const SystemContentLoader = FileValidations.ResourceReaderContents(req);
-    const getWhelshContents = getContents.en;
-    expect(SystemContentLoader).toEqual(getWhelshContents);
-  });
-});
-
 describe('checking for the redirect of post document upload', () => {
   const mockForm = {
     fields: {
@@ -211,8 +257,8 @@ describe('checking for the redirect of post document upload', () => {
 
   const req = mockRequest({});
   const res = mockResponse();
-  const postingcontroller = new UploadDocumentController(mockForm.fields);
-  it('redirection after the documents has been proccessed', async () => {
+  const postingController = new UploadDocumentController(mockForm.fields);
+  it('continue to next page after the documents has been proccessed', async () => {
     req.session.otherCaseInformation = [
       {
         originalDocumentName: 'document1.docx',
@@ -238,57 +284,24 @@ describe('checking for the redirect of post document upload', () => {
       },
     ];
 
-    await postingcontroller.PostDocumentUploader(req, res);
+    await postingController.postDocumentUploader(req, res);
+    expect(mockedAxios.create).toHaveBeenCalled();
+    expect(res.redirect).toHaveBeenCalledWith(EQUALITY);
+    expect(req.session.fileErrors).toHaveLength(0);
   });
 
   it('must be have axios instance', () => {
-    const SystemInstance = postingcontroller.UploadDocumentInstance('/', {});
-    expect(SystemInstance instanceof Axios);
+    const systemInstance = postingController.uploadDocumentInstance('/', {});
+    expect(systemInstance instanceof Axios);
   });
 
   it('procceding the document upload', () => {
-    const SystemInstance = postingcontroller.UploadDocumentInstance('/', {});
-    expect(SystemInstance instanceof Axios);
+    const systemInstance = postingController.uploadDocumentInstance('/', {});
+    expect(systemInstance instanceof Axios);
   });
 
   req.body['documentUploadProceed'] = true;
   req.session.otherCaseInformation = [];
-
-  it('Post controller attributes', async () => {
-    // req.session.otherCaseInformation = [];
-
-    req.session.otherCaseInformation = [
-      {
-        originalDocumentName: 'document1.docx',
-        _links: {
-          self: {
-            href: 'http://dm-example/documents/sae33',
-          },
-          binary: {
-            href: 'http://dm-example/documents/sae33/binary',
-          },
-        },
-      },
-      {
-        originalDocumentName: 'document2.docx',
-        _links: {
-          self: {
-            href: 'http://dm-example/documents/ce6e2',
-          },
-          binary: {
-            href: 'http://dm-example/documents/ce6e2/binary',
-          },
-        },
-      },
-    ];
-
-    req.files = [];
-
-    /**
-     *
-     */
-    await postingcontroller.post(req, res);
-  });
 
   it('should allow continue if no documents uploaded', async () => {
     req.session.caseDocuments = [];
@@ -297,10 +310,48 @@ describe('checking for the redirect of post document upload', () => {
     req.files = [];
     req.session.fileErrors = [];
 
-    await postingcontroller.post(req, res);
+    await postingController.post(req, res);
+    expect(res.redirect).toHaveBeenCalledWith(EQUALITY);
+    expect(req.session.fileErrors).toHaveLength(0);
   });
 
-  it('should display error if upload clicked with no document', async () => {
+  it('Should return error after the documents proccess has failed', async () => {
+    jest.spyOn(postingController, 'uploadDocumentInstance').mockImplementation(() => {
+      throw new Error();
+    });
+    req.session.supportingCaseDocuments = [
+      {
+        originalDocumentName: 'document1.docx',
+        _links: {
+          self: {
+            href: 'http://dm-example/documents/sae33',
+          },
+          binary: {
+            href: 'http://dm-example/documents/sae33/binary',
+          },
+        },
+      },
+      {
+        originalDocumentName: 'document2.docx',
+        _links: {
+          self: {
+            href: 'http://dm-example/documents/ce6e2',
+          },
+          binary: {
+            href: 'http://dm-example/documents/ce6e2/binary',
+          },
+        },
+      },
+    ];
+
+    await postingController.postDocumentUploader(req, res);
+    expect(mockedAxios.create).toHaveBeenCalled();
+    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION);
+    expect(req.session.fileErrors).toHaveLength(1);
+    expect(req.session.fileErrors[0].text).toEqual('Document upload or deletion has failed. Please try again');
+  });
+
+  it('should display error if upload file button clicked with no document', async () => {
     req.session.caseDocuments = [];
     req.session.supportingCaseDocuments = [];
     req.session.otherCaseInformation = [];
@@ -308,7 +359,242 @@ describe('checking for the redirect of post document upload', () => {
     req.session.fileErrors = [];
     req.body['documentUploadProceed'] = false;
 
-    await postingcontroller.post(req, res);
+    await postingController.post(req, res);
     expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION);
+    expect(req.session.fileErrors[0].text).toEqual('Please choose a file to upload');
+  });
+
+  it('should display error if max documents have been uploaded', async () => {
+    req.session.otherCaseInformation = [
+      {
+        originalDocumentName: 'document1.docx',
+        _links: {
+          self: {
+            href: 'http://dm-example/documents/sae33',
+          },
+          binary: {
+            href: 'http://dm-example/documents/sae33/binary',
+          },
+        },
+      },
+      {
+        originalDocumentName: 'document2.docx',
+        _links: {
+          self: {
+            href: 'http://dm-example/documents/ce6e2',
+          },
+          binary: {
+            href: 'http://dm-example/documents/ce6e2/binary',
+          },
+        },
+      },
+      {
+        originalDocumentName: 'document3.docx',
+        _links: {
+          self: {
+            href: 'http://dm-example/documents/ce6e2',
+          },
+          binary: {
+            href: 'http://dm-example/documents/ce6e2/binary',
+          },
+        },
+      },
+      {
+        originalDocumentName: 'document4.docx',
+        _links: {
+          self: {
+            href: 'http://dm-example/documents/ce6e2',
+          },
+          binary: {
+            href: 'http://dm-example/documents/ce6e2/binary',
+          },
+        },
+      },
+      {
+        originalDocumentName: 'document5.docx',
+        _links: {
+          self: {
+            href: 'http://dm-example/documents/ce6e2',
+          },
+          binary: {
+            href: 'http://dm-example/documents/ce6e2/binary',
+          },
+        },
+      },
+      {
+        originalDocumentName: 'document6.docx',
+        _links: {
+          self: {
+            href: 'http://dm-example/documents/ce6e2',
+          },
+          binary: {
+            href: 'http://dm-example/documents/ce6e2/binary',
+          },
+        },
+      },
+      {
+        originalDocumentName: 'document7.docx',
+        _links: {
+          self: {
+            href: 'http://dm-example/documents/ce6e2',
+          },
+          binary: {
+            href: 'http://dm-example/documents/ce6e2/binary',
+          },
+        },
+      },
+      {
+        originalDocumentName: 'document8.docx',
+        _links: {
+          self: {
+            href: 'http://dm-example/documents/ce6e2',
+          },
+          binary: {
+            href: 'http://dm-example/documents/ce6e2/binary',
+          },
+        },
+      },
+      {
+        originalDocumentName: 'document9.docx',
+        _links: {
+          self: {
+            href: 'http://dm-example/documents/ce6e2',
+          },
+          binary: {
+            href: 'http://dm-example/documents/ce6e2/binary',
+          },
+        },
+      },
+      {
+        originalDocumentName: 'document10.docx',
+        _links: {
+          self: {
+            href: 'http://dm-example/documents/ce6e2',
+          },
+          binary: {
+            href: 'http://dm-example/documents/ce6e2/binary',
+          },
+        },
+      },
+      {
+        originalDocumentName: 'document11.docx',
+        _links: {
+          self: {
+            href: 'http://dm-example/documents/ce6e2',
+          },
+          binary: {
+            href: 'http://dm-example/documents/ce6e2/binary',
+          },
+        },
+      },
+      {
+        originalDocumentName: 'document12.docx',
+        _links: {
+          self: {
+            href: 'http://dm-example/documents/ce6e2',
+          },
+          binary: {
+            href: 'http://dm-example/documents/ce6e2/binary',
+          },
+        },
+      },
+      {
+        originalDocumentName: 'document13.docx',
+        _links: {
+          self: {
+            href: 'http://dm-example/documents/ce6e2',
+          },
+          binary: {
+            href: 'http://dm-example/documents/ce6e2/binary',
+          },
+        },
+      },
+      {
+        originalDocumentName: 'document14.docx',
+        _links: {
+          self: {
+            href: 'http://dm-example/documents/ce6e2',
+          },
+          binary: {
+            href: 'http://dm-example/documents/ce6e2/binary',
+          },
+        },
+      },
+      {
+        originalDocumentName: 'document15.docx',
+        _links: {
+          self: {
+            href: 'http://dm-example/documents/ce6e2',
+          },
+          binary: {
+            href: 'http://dm-example/documents/ce6e2/binary',
+          },
+        },
+      },
+      {
+        originalDocumentName: 'document16.docx',
+        _links: {
+          self: {
+            href: 'http://dm-example/documents/ce6e2',
+          },
+          binary: {
+            href: 'http://dm-example/documents/ce6e2/binary',
+          },
+        },
+      },
+      {
+        originalDocumentName: 'document17.docx',
+        _links: {
+          self: {
+            href: 'http://dm-example/documents/ce6e2',
+          },
+          binary: {
+            href: 'http://dm-example/documents/ce6e2/binary',
+          },
+        },
+      },
+      {
+        originalDocumentName: 'document18.docx',
+        _links: {
+          self: {
+            href: 'http://dm-example/documents/ce6e2',
+          },
+          binary: {
+            href: 'http://dm-example/documents/ce6e2/binary',
+          },
+        },
+      },
+      {
+        originalDocumentName: 'document19.docx',
+        _links: {
+          self: {
+            href: 'http://dm-example/documents/ce6e2',
+          },
+          binary: {
+            href: 'http://dm-example/documents/ce6e2/binary',
+          },
+        },
+      },
+      {
+        originalDocumentName: 'document20.docx',
+        _links: {
+          self: {
+            href: 'http://dm-example/documents/ce6e2',
+          },
+          binary: {
+            href: 'http://dm-example/documents/ce6e2/binary',
+          },
+        },
+      },
+    ];
+    req.session.supportingCaseDocuments = [];
+    req.files = [{ originalname: 'uploaded-file.pdf' }] as unknown as Express.Multer.File[];
+    req.session.fileErrors = [];
+
+    await postingController.post(req, res);
+    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION);
+    expect(req.session.fileErrors[0].text).toEqual(
+      'You can upload 20 files only. Please delete one of the uploaded files and retry'
+    );
   });
 });

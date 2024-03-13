@@ -1,5 +1,6 @@
 import path from 'path';
 
+import config from 'config';
 import express from 'express';
 import nunjucks from 'nunjucks';
 
@@ -17,7 +18,7 @@ export class Nunjucks {
     const env = nunjucks.configure(
       [path.join(__dirname, '..', '..', 'steps'), govUkFrontendPath, GeneralViewPath, hmctsFrontendPath, authLessPath],
       {
-        autoescape: false,
+        autoescape: true,
         watch: app.locals.developmentMode,
         express: app,
       }
@@ -45,6 +46,7 @@ export class Nunjucks {
     env.addGlobal('formItems', function (items: FormInput[], userAnswer: string | Record<string, string>) {
       return items.map(i => ({
         id: i.id,
+        label: this.env.globals.getContent.call(this, i.label),
         text: this.env.globals.getContent.call(this, i.label),
         name: i.name,
         classes: i.classes,
@@ -82,6 +84,14 @@ export class Nunjucks {
         })(),
       }));
     });
+
+    const globals = {
+      dynatrace: {
+        dynatraceUrl: config.get('dynatrace.dynatraceUrl'),
+      },
+    };
+
+    env.addGlobal('globals', globals);
 
     env.addGlobal('summaryDetailsHtml', function (subFields: FormInput) {
       return env.render(`${__dirname}/../../steps/common/form/fields.njk`, {

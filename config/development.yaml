@@ -1,41 +1,16 @@
-security:
-  referrerPolicy: 'origin'
 port: 3001
 timeout: 120000
 services:
-  authProvider:
-    url: 'http://rpe-service-auth-provider-aat.service.core-compute-aat.internal'
-    microservice: 'sptribs_frontend'
-    secret: 'NEED TO INSERT SECRET'
-  postcodeLookup:
-    url: 'https://api.os.uk/search/places/v1'
-    token: 'NEED TO INSERT SECRET'
   feeLookup:
     url: 'http://fees-register-api-aat.service.core-compute-aat.internal/fees-register/fees/lookup'
   fisDssUpdate:
     url: 'http://localhost:3100/dss-update/start'
-  hmctsHomePage:
-    url: 'https://www.gov.uk/government/organisations/hm-courts-and-tribunals-service'
   documentManagement:
     uploadSizeinMB: 100
-  RPE_TOKEN:
-    url: 'http://rpe-service-auth-provider-aat.service.core-compute-aat.internal'
-health:
-  timeout: 5000
-  deadline: 15000
-session:
-  secret: 'local'
-  redis:
-    host:
-    key:
-e2e:
-  userTestPassword: ''
-appInsights:
-  instrumentationKey:
+  equalityAndDiversity:
+    enabled: true
 queryParamsforApp:
   query:
     FMP: 'FMPO'
     RLAD: 'RELADOP'
     FGM: 'FGM'
-cookies:
-  expiryTime: 365

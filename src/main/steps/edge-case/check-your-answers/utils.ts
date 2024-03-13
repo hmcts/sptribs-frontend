@@ -43,6 +43,7 @@ interface SummaryList {
 type SummaryListContent = PageContent & {
   sectionTitles: Record<string, string>;
   keys: Record<string, string>;
+  values: Record<string, string>;
   language?: string;
 };
 
@@ -108,12 +109,12 @@ export const SubjectSummaryList = (
 
 /* eslint-disable import/namespace */
 export const RepresentationSummary = (
-  { sectionTitles, keys, ...content }: SummaryListContent,
+  { sectionTitles, keys, values, ...content }: SummaryListContent,
   userCase: Partial<CaseWithId>
 ): SummaryList | undefined => {
   const sectionTitle = sectionTitles.representation;
-  const isRepresentation = userCase['representation'] === YesOrNo.YES ? 'Yes' : 'No';
-  const isRepresentationQualified = userCase['representationQualified'] === YesOrNo.YES ? 'Yes' : 'No';
+  const isRepresentation = userCase['representation'] === YesOrNo.YES ? values.yes : values.no;
+  const isRepresentationQualified = userCase['representationQualified'] === YesOrNo.YES ? values.yes : values.no;
 
   const SummaryData =
     userCase['representation'] === YesOrNo.YES
@@ -193,7 +194,7 @@ export const UploadAppealFormSummary = (
     })
     .toString()
     .split(',')
-    .join('<div class="govuk-!-margin-top-3"></div>');
+    .join('\n');
 
   const SummaryData = [
     {
@@ -220,7 +221,7 @@ export const SupportingDocumentsSummary = (
   })
     .toString()
     .split(',')
-    .join('<div class="govuk-!-margin-top-3"></div>');
+    .join('\n');
 
   const SummaryData = [
     {
@@ -249,7 +250,7 @@ export const OtherInformationSummary = (
       })
         .toString()
         .split(',')
-        .join('<div class="govuk-!-margin-top-3"></div>')
+        .join('\n')
     : '';
 
   const SummaryData = [

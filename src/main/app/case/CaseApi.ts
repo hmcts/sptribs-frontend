@@ -23,39 +23,12 @@ import { CaseData, YesOrNo } from './definition';
 import { toApiDate, toApiFormat } from './to-api-format';
 
 export class CaseApi {
-  /**
-   *
-   * @param axios
-   * @param logger
-   */
   constructor(private readonly axios: AxiosInstance, private readonly logger: LoggerInstance) {}
 
-  /**
-   *
-   * @returns
-   */
   public async getOrCreateCase(): Promise<any> {
     return { id: '', state: 'SPTRIBS' };
   }
 
-  /**
-   *
-   * @param caseId
-   * @returns
-   */
-  public async getCaseById(): Promise<CaseWithId> {
-    return new Promise(() => {
-      null;
-    });
-  }
-
-  /**
-   *
-   * @param req
-   * @param userDetails
-   * @param  formData
-   * @returns
-   */
   public async updateCase(req: AppRequest, userDetails: UserDetails, eventName: string): Promise<any> {
     axios.defaults.headers.put[CONTENT_TYPE] = APPLICATION_JSON;
     axios.defaults.headers.put[AUTHORIZATION] = BEARER + SPACE + userDetails.accessToken;

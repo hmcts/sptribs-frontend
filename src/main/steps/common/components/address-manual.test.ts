@@ -27,21 +27,21 @@ const enContent = {
 };
 
 const cyContent = {
-  addressLine1: 'Building and street (in welsh)',
-  town: 'Town or city (in welsh)',
-  county: 'County (in welsh)',
-  postcode: 'Postcode (in welsh)',
-  enterInternationalAddress: 'Enter an international address (in welsh)',
+  addressLine1: 'Adeilad a stryd',
+  town: 'Tref neu ddinas',
+  county: 'Sir',
+  postcode: 'God post',
+  enterInternationalAddress: 'Rhowch gyfeiriad rhyngwladol',
   errors: {
     address1: {
-      required: 'Enter the first line of the address (in welsh)',
+      required: 'Nodwch linell gyntaf y cyfeiriad',
     },
     addressTown: {
-      required: 'Enter the town or city (in welsh)',
+      required: 'Nodwch y dref neu ddinas',
     },
     addressPostcode: {
-      required: 'Enter a real postcode (in welsh)',
-      invalid: 'Enter a real postcode (in welsh)',
+      required: 'Nodwch god post dilys',
+      invalid: 'Nodwch god post dilys',
     },
   },
 };
@@ -101,7 +101,7 @@ describe('common > components > manual-address > content', () => {
     expect(addressTownField.classes).toBe('govuk-label govuk-!-width-two-thirds');
     expect((addressTownField.label as Function)(generatedContent)).toBe(enContent.town);
     expect(addressTownField.labelSize).toBe(null);
-    // expect(addressTownField.validator).toBe(isFieldFilledIn);
+    expect(addressTownField.validator).toBe(isFieldFilledIn);
   });
 
   test('should contain addressCounty field', () => {

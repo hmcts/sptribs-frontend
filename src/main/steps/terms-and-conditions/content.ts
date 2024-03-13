@@ -1,6 +1,6 @@
 import { TranslationFn } from '../../app/controller/GetController';
 
-const en = {
+export const en = {
   title: 'Terms and conditions',
   thisPage:
     'By using this service you’re agreeing to these terms of use. This includes the <a class="govuk-link" href="/privacy-policy">privacy policy</a>.',
@@ -80,7 +80,7 @@ const en = {
   contactUsFurtherInfo: '<a class="govuk-link" href="/contact-us">Contact us</a> for further information.',
 };
 
-const cy: typeof en = {
+export const cy: typeof en = {
   title: 'Telerau ac amodau',
   thisPage:
     'Trwy ddefnyddio’r gwasanaeth hwn rydych yn cytuno telerau defnyddio’r gwasanaeth hwn. Ar y wefan hon maent yn cynnwys <a class="govuk-link" href="/privacy-policy">polisi preifatrwydd</a>',

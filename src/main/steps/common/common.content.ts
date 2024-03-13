@@ -7,8 +7,7 @@ import { PageContent, TranslationFn } from '../../app/controller/GetController';
 
 const en = {
   phase: 'Beta',
-  applyForAdoption: 'Apply for a Service',
-  applyForDissolution: 'Apply for a Service',
+  serviceName: 'Appeal to the First-tier Tribunal',
   feedback:
     "<b> Help us improve this service </b><br>This is a new service. Help us for others to improve it by <a  class='govuk-link' href='https://www.smartsurvey.co.uk/s/Specials_Feedback?pageurl=currentUrl'target=_blank>giving your feedback</a>",
   languageToggle: '<a href="?lng=cy" class="govuk-link language">Cymraeg</a>',
@@ -26,7 +25,8 @@ const en = {
   errorSaving: 'Sorry, we’re having technical problems saving your application. Please try again in a few minutes.',
   errorSendingInvite:
     'Sorry, we’re having technical problems sending your application for review. Please try again in a few minutes.',
-  ogl: 'All content is available under the <a class="govuk-link" href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license">Open Government Licence v3.0</a>, except where otherwise stated',
+  ogl: 'All content is available under the <a class="govuk-footer__link" href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license">Open Government Licence v3.0</a>, except where otherwise stated',
+  copyright: '© Crown copyright',
   errorSummaryHeading: 'There is a problem',
   saveAndSignOut: 'Save and sign out',
   saveAsDraft: 'Save as draft',
@@ -112,15 +112,14 @@ const en = {
 const cy: typeof en = {
   ...en, // @TODO delete me to get a list of missing translations
   phase: 'Beta',
-  applyForAdoption: 'Apply for a service" (in welsh)',
-  applyForDissolution: 'Apply for a service"(in welsh)',
+  serviceName: 'Apelio i’r Tribiwnlys Haen Gyntaf',
   feedback:
-    'This is a new service – your <a class="govuk-link" aria-label="Feedback link, This will open a new tab. You’ll need to return to this tab and continue with your application within 60 mins so you don’t lose your progress." href="currentUrl" target="_blank">feedback</a> will help us to improve it.(in welsh)',
+    "<b>Helpwch ni i wella’r gwasanaeth hwn</b><br> Mae hwn yn wasanaeth newydd. Helpwch ni ei wella i bobl eraill trwy <a class='govuk-link' href='https://www.smartsurvey.co.uk/s/Specials_Feedback/?pageurl=currentUrl' target=_blank>roi eich adborth</a>",
   languageToggle: '<a href="?lng=en" class="govuk-link language">English</a>',
   govUk: 'GOV.UK',
-  back: 'Back (in welsh)',
-  continue: 'Continue (in welsh)',
-  change: 'Change  (in welsh)',
+  back: 'Yn ôl',
+  continue: 'Parhau',
+  change: 'Newid',
   upload: 'Uwchlwytho',
   download: 'Llwytho i lawr',
   delete: 'Dileu',
@@ -129,16 +128,19 @@ const cy: typeof en = {
   notAnswered: 'Nid ydych wedi ateb y cwestiwn.',
   errorSaving:
     "Mae'n ddrwg gennym, rydym yn cael problemau technegol wrth geisio cadw eich cais. Rhowch gynnig arall arni mewn ychydig funudau.",
-  ogl: 'Mae’r holl gynnwys ar gael o dan <a class="govuk-link" href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license" >Drwydded Agored y Llywodraeth f3.0</a>, oni nodir fel arall',
-  errorSummaryHeading: 'There is a problem (in welsh)',
+  ogl: 'Mae’r holl gynnwys ar gael o dan <a class="govuk-footer__link" href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license" >Drwydded Agored y Llywodraeth f3.0</a>, oni nodir fel arall',
+  copyright: '© Hawlfraint y Goron',
+  errorSummaryHeading: 'Mae yna broblem',
   saveAndSignOut: 'Cadw ac allgofnodi',
-  saveAsDraft: 'Save as draft (in welsh)',
-  signOut: 'Sign out (in welsh)',
-  signIn: 'Sign in (in welsh)',
-  accessibility: 'Accessibility statement(in welsh)',
-  cookies: 'Cookies (in welsh)',
-  privacyPolicy: 'Privacy policy (in welsh)',
-  termsAndConditions: 'Terms and conditions (in welsh)',
+  saveAsDraft: 'Cadw fel drafft',
+  save: 'Cadw',
+  signOut: 'Allgofnodi',
+  signIn: 'Mewngofnodi',
+  accessibility: 'Datganiad Hygyrchedd',
+  cookies: 'Cwcis',
+  privacyPolicy: 'Polisi Preifatrwydd',
+  termsAndConditions: 'Telerau ac Amodau',
+  contactUs: 'Cysylltu â ni',
   marriage: 'priodas',
   divorce: 'ysgariad',
   endingCivilPartnership: 'dod â phartneriaeth sifil i ben',
@@ -168,9 +170,9 @@ const cy: typeof en = {
     month: 'Mis',
     year: 'Blwyddyn',
   },
-  yes: 'Yes (in welsh)',
-  no: 'No (in welsh)',
-  notSure: 'Not sure (in welsh)',
+  yes: 'Do',
+  no: 'Naddo',
+  notSure: 'Ddim yn siŵr',
   english: 'Saesneg',
   welsh: 'Cymraeg',
   contactUsForHelp: 'Cysylltwch â ni am gymorth',
@@ -182,6 +184,23 @@ const cy: typeof en = {
   telephone: 'Ffoniwch',
   telephoneNumber: '0300 303 5171',
   telephoneDetails: 'Dydd Llun i Ddydd Gwener, 8.30am - 5pm.',
+  cookiesHeading: 'Cwcis ar',
+  cookiesLine1: "Rydym yn defnyddio cwcis hanfodol i wneud i'r gwasanaeth hwn weithio.",
+  cookiesLine2:
+    "Rydym hefyd yn defnyddio cwcis dadansoddol fel y gallwn ddeall sut rydych yn defnyddio'r gwasanaeth a pha welliannau y gallwn eu gwneud.",
+  acceptAnalyticsCookies: 'Derbyn cwcis ychwanegol',
+  rejectAnalyticsCookies: 'Gwrthod cwcis ychwanegol',
+  viewCookies: 'Gweld cwcis',
+  hideMessage: "Cuddio'r neges cwcihon",
+  cookiesConfirmationMessage:
+    '<p class="govuk-body">Gallwch <a class="govuk-link" href="/cookies">newid gosodiadau eich cwcis ar</a> unrhyw adeg.</p>',
+  changeCookiesHeading: 'Newid eich gosodiadau cwcis',
+  allowAnalyticsCookies: 'Caniatáu cwcis sy’n mesur defnydd o’r wefan?',
+  useAnalyticsCookies: 'Defnyddio cwcis sy’n mesur fy nefnydd o’r wefan',
+  doNotUseAnalyticsCookies: 'Peidio â defnyddio cwcis sy’n mesur fy nefnydd o’r wefan',
+  apmCookiesHeadings: 'Caniatáu cwcis sy’n mesur y broses o fonitro perfformiad gwefannau?',
+  useApmCookies: 'Defnyddio cwcis sy’n mesur y broses o fonitro perfformiad gwefannau',
+  doNotUseApmCookies: 'Peidio â defnyddio cwcis sy’n mesur y broses o fonitro perfformiad gwefannau',
 };
 
 export const generatePageContent = ({
@@ -223,7 +242,6 @@ export const generatePageContent = ({
     userEmail,
     contactEmail,
     addresses,
-    // eligibility,
     fee,
   };
 
@@ -235,7 +253,7 @@ export const generatePageContent = ({
 };
 
 const getServiceName = (translations: typeof en): string => {
-  return capitalize(translations.applyForAdoption);
+  return capitalize(translations.serviceName);
 };
 
 export type CommonContent = typeof en & {
@@ -250,7 +268,6 @@ export type CommonContent = typeof en & {
   userEmail?: string;
   contactEmail?: string;
   referenceNumber?: string;
-  //eslint-disable-next-line @typescript-eslint/no-explicit-any
   addresses?: any[];
   eligibility?: Eligibility;
   fee?: Fee;
