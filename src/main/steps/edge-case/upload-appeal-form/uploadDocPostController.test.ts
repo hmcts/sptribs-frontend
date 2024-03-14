@@ -120,7 +120,7 @@ describe('Document upload controller', () => {
     expect(res.redirect).toHaveBeenCalledWith(UPLOAD_APPEAL_FORM);
     expect(req.session.fileErrors).toHaveLength(1);
     expect(req.session.fileErrors[0].text).toEqual(
-      'File size exceeds 20Mb. Please upload a file that is less than 20Mb'
+      'File size exceeds 500Mb. Please upload a file that is less than 500Mb'
     );
   });
 
@@ -151,7 +151,7 @@ describe('Document upload controller', () => {
     expect(res.redirect).toHaveBeenCalledWith(UPLOAD_APPEAL_FORM);
     expect(req.session.fileErrors).toHaveLength(2);
     expect(req.session.fileErrors[0].text).toEqual(
-      'File size exceeds 20Mb. Please upload a file that is less than 20Mb'
+      'File size exceeds 500Mb. Please upload a file that is less than 500Mb'
     );
     expect(req.session.fileErrors[1].text).toEqual('This service only accepts files in the formats - Ms Word, PDF');
   });
