@@ -381,5 +381,6 @@ describe('checking for documents Delete manager', () => {
       documentType: 'applicationform',
     };
     await controller.get(req, res);
+    expect(req.session.caseDocuments.some(doc => doc.id === '10')).toBe(false);
   });
 });
