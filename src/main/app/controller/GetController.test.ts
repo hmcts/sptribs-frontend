@@ -14,7 +14,6 @@ describe('GetController', () => {
     },
   };
 
-  // const userEmail = 'test@example.com'
   const generateContent = content => languages[content.language];
   test('Should render the page', async () => {
     const controller = new GetController('page', generateContent);
@@ -121,7 +120,6 @@ describe('GetController', () => {
     test('Language via browser settings fallback to en', async () => {
       const controller = new GetController('page', generateContent);
 
-      //const language = 'en';
       const req = mockRequest({ headers: { 'accept-language': 'unknown' } });
       const res = mockResponse();
       await controller.get(req, res);
