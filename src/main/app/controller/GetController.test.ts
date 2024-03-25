@@ -1,9 +1,8 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
-
-import { GetController } from './GetController';
 import { SIGN_IN_URL } from '../../steps/urls';
 
+import { GetController } from './GetController';
 
 describe('GetController', () => {
   const languages = {
@@ -30,10 +29,7 @@ describe('GetController', () => {
       apm: 'off',
     };
 
-    expect(res.render).toHaveBeenCalledWith(
-      expect.stringContaining('page'),
-      expect.anything()
-    );
+    expect(res.render).toHaveBeenCalledWith(expect.stringContaining('page'), expect.anything());
   });
 
   test('Detects when application is not in a draft state', async () => {
@@ -43,10 +39,7 @@ describe('GetController', () => {
     const res = mockResponse();
     await controller.get(req, res);
 
-    expect(res.render).toHaveBeenCalledWith(
-      expect.stringContaining('page'),
-      expect.anything()
-    );
+    expect(res.render).toHaveBeenCalledWith(expect.stringContaining('page'), expect.anything());
   });
 
   describe('Getting the users preferred language', () => {
@@ -100,10 +93,7 @@ describe('GetController', () => {
       };
       await controller.get(documentManagerRequest, res);
 
-      expect(res.render).toHaveBeenCalledWith(
-        expect.stringContaining('page'),
-        expect.anything()
-      );
+      expect(res.render).toHaveBeenCalledWith(expect.stringContaining('page'), expect.anything());
     });
 
     test('Language via session', async () => {
@@ -115,9 +105,7 @@ describe('GetController', () => {
       req.session.lang = language;
       await controller.get(req, res);
 
-      expect(res.render).toHaveBeenCalledWith(
-        expect.stringContaining('page'),
-        expect.anything());
+      expect(res.render).toHaveBeenCalledWith(expect.stringContaining('page'), expect.anything());
     });
 
     test('Language via browser settings', async () => {
@@ -127,9 +115,7 @@ describe('GetController', () => {
       const res = mockResponse();
       await controller.get(req, res);
 
-      expect(res.render).toHaveBeenCalledWith(
-        expect.stringContaining('page'),
-        expect.anything());
+      expect(res.render).toHaveBeenCalledWith(expect.stringContaining('page'), expect.anything());
     });
 
     test('Language via browser settings fallback to en', async () => {
@@ -140,9 +126,7 @@ describe('GetController', () => {
       const res = mockResponse();
       await controller.get(req, res);
 
-      expect(res.render).toHaveBeenCalledWith(
-        expect.stringContaining('page'),
-        expect.anything());
+      expect(res.render).toHaveBeenCalledWith(expect.stringContaining('page'), expect.anything());
     });
   });
 
@@ -174,9 +158,7 @@ describe('GetController', () => {
     const req = mockRequest();
     const res = mockResponse();
     await controller.get(req, res);
-    expect(res.render).toHaveBeenCalledWith(
-      expect.stringContaining('page'),
-      expect.anything());
+    expect(res.render).toHaveBeenCalledWith(expect.stringContaining('page'), expect.anything());
   });
 
   describe('generatePageContent()', () => {
@@ -189,9 +171,7 @@ describe('GetController', () => {
       await controller.get(req, res);
 
       expect(getContentMock).toHaveBeenCalledTimes(1);
-      expect(res.render).toHaveBeenCalledWith(
-        expect.stringContaining('page'),
-        expect.anything());
+      expect(res.render).toHaveBeenCalledWith(expect.stringContaining('page'), expect.anything());
     });
   });
 
@@ -199,15 +179,15 @@ describe('GetController', () => {
     test('Should save the users data, and return the updated userCase', async () => {
       const controller = new GetController('page', () => ({}));
 
-      const req = mockRequest(); 
-      const res = mockResponse(); 
-      req.url ='/next-page'
-      
-      controller.saveSessionAndRedirect(req,res); 
+      const req = mockRequest();
+      const res = mockResponse();
+      req.url = '/next-page';
+
+      controller.saveSessionAndRedirect(req, res);
 
       expect(res.redirect).toHaveBeenCalledWith('/next-page');
-      });
     });
+  });
 
   describe('saveSessionAndRedirect', () => {
     test('should save session and redirect to req.url', () => {
@@ -239,17 +219,17 @@ describe('GetController', () => {
     });
   });
 
-    test('should trigger callback if callback passed', () => {
-      const controller = new GetController('page', () => ({}));
-      const req = mockRequest();
-      const res = mockResponse();
-      const callback = jest.fn();
+  test('should trigger callback if callback passed', () => {
+    const controller = new GetController('page', () => ({}));
+    const req = mockRequest();
+    const res = mockResponse();
+    const callback = jest.fn();
 
-      controller.saveSessionAndRedirect(req, res, callback);
+    controller.saveSessionAndRedirect(req, res, callback);
 
-      expect(callback).toHaveBeenCalled();
-    });
+    expect(callback).toHaveBeenCalled();
   });
+});
 
 describe('checking for documents Delete manager', () => {
   it('should delete additional documents', async () => {
@@ -301,7 +281,6 @@ describe('checking for documents Delete manager', () => {
   });
 
   describe('parseAndSetReturnUrl', () => {
-
     test('req.session.returnUrl populated', async () => {
       const controller = new GetController('page', () => ({}));
       const req = mockRequest();

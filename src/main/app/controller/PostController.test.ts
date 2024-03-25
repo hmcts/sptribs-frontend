@@ -4,8 +4,8 @@ import { FormContent } from '../../app/form/Form';
 import * as steps from '../../steps';
 import { SUBJECT_CONTACT_DETAILS } from '../../steps/urls'; //TOOK out CONTACT_DETAILS for EMAIL_ADDRESS RB
 import { isPhoneNoValid } from '../form/validation';
-import { AppRequest } from './AppRequest';
 
+import { AppRequest } from './AppRequest';
 import { PostController } from './PostController';
 
 const getNextStepUrlMock = jest.spyOn(steps, 'getNextStepUrl');
@@ -287,16 +287,16 @@ describe('PostController', () => {
     expect(req.session.userCase.id).toEqual('');
     expect(req.session.userCase.state).toEqual('Holding');
   });
-  
+
   describe('getEventName', () => {
     const subjectContactDetailsUrl = '/subject-contact-details';
     const contactDetailsUrl = '/contact-details';
     const checkYourAnswersUrl = '/check-your-answers';
 
     test('should return CITIZEN_CREATE when originalUrl starts with SUBJECT_CONTACT_DETAILS and isBlank returns true', () => {
-      const userCase = {id: ''}; 
-      const req = { originalUrl: subjectContactDetailsUrl , session: {userCase: userCase} } as AppRequest;
-      const controller = new PostController(mockFormContent.fields); 
+      const userCase = { id: '' };
+      const req = { originalUrl: subjectContactDetailsUrl, session: { userCase } } as AppRequest;
+      const controller = new PostController(mockFormContent.fields);
       const eventName = controller.getEventName(req);
 
       expect(eventName).toEqual('CREATE');
@@ -313,7 +313,7 @@ describe('PostController', () => {
 
     test('should return CITIZEN_SUBMIT when originalUrl is CHECK_YOUR_ANSWERS', () => {
       const req = { originalUrl: checkYourAnswersUrl } as AppRequest;
-      const controller = new PostController(mockFormContent.fields); 
+      const controller = new PostController(mockFormContent.fields);
 
       const eventName = controller.getEventName(req);
 
