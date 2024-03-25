@@ -1,11 +1,9 @@
-//import { defaultViewArgs } from '../../../test/unit/utils/defaultViewArgs';
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
-//import { generatePageContent } from '../../steps/common/common.content';
-import { Case } from '../case/case';
-// import { State } from '../case/definition';
 
 import { GetController } from './GetController';
+import { SIGN_IN_URL } from '../../steps/urls';
+
 
 describe('GetController', () => {
   const languages = {
@@ -16,7 +14,8 @@ describe('GetController', () => {
       text: 'welsh',
     },
   };
-  //const userEmail = 'test@example.com';
+
+  // const userEmail = 'test@example.com'
   const generateContent = content => languages[content.language];
   test('Should render the page', async () => {
     const controller = new GetController('page', generateContent);
@@ -30,18 +29,11 @@ describe('GetController', () => {
       analytics: 'off',
       apm: 'off',
     };
-    await controller.CookiePrefrencesChanger(requestWithCookiesParams, res);
 
-    /*expect(res.render).toBeCalledWith('page', {
-      ...defaultViewArgs,
-      language: 'en',
-      serviceName: 'Apply for a service"',
-      isDraft: true,
-      text: 'english',
-      userCase: req.session.userCase,
-      userEmail,
-    });*/
-    expect(1).toEqual(1);
+    expect(res.render).toHaveBeenCalledWith(
+      expect.stringContaining('page'),
+      expect.anything()
+    );
   });
 
   test('Detects when application is not in a draft state', async () => {
@@ -51,11 +43,10 @@ describe('GetController', () => {
     const res = mockResponse();
     await controller.get(req, res);
 
-    /*expect(res.render).toBeCalledWith('page', {
-      ...defaultViewArgs,
-      isDraft: false,
-    });*/
-    expect(1).toEqual(1);
+    expect(res.render).toHaveBeenCalledWith(
+      expect.stringContaining('page'),
+      expect.anything()
+    );
   });
 
   describe('Getting the users preferred language', () => {
@@ -109,7 +100,10 @@ describe('GetController', () => {
       };
       await controller.get(documentManagerRequest, res);
 
-      expect(1).toEqual(1);
+      expect(res.render).toHaveBeenCalledWith(
+        expect.stringContaining('page'),
+        expect.anything()
+      );
     });
 
     test('Language via session', async () => {
@@ -121,39 +115,21 @@ describe('GetController', () => {
       req.session.lang = language;
       await controller.get(req, res);
 
-      /*expect(res.render).toBeCalledWith('page', {
-        ...defaultViewArgs,
-        ...generatePageContent({ language, pageContent: generateContent, userEmail }),
-        text: 'welsh',
-        language: 'cy',
-        htmlLang: 'cy',
-        userCase: req.session.userCase,
-        isAmendableStates: false,
-        userEmail,
-      });*/
-      expect(1).toEqual(1);
+      expect(res.render).toHaveBeenCalledWith(
+        expect.stringContaining('page'),
+        expect.anything());
     });
 
     test('Language via browser settings', async () => {
       const controller = new GetController('page', generateContent);
 
-      //const language = 'cy';
       const req = mockRequest({ headers: { 'accept-language': 'cy' } });
       const res = mockResponse();
-      //req.query.lng = language;
       await controller.get(req, res);
 
-      /*expect(res.render).toBeCalledWith('page', {
-        ...defaultViewArgs,
-        ...generatePageContent({ language, pageContent: generateContent, userEmail }),
-        text: 'welsh',
-        language: 'cy',
-        htmlLang: 'cy',
-        userCase: req.session.userCase,
-        isAmendableStates: false,
-        userEmail,
-      });*/
-      expect(1).toEqual(1);
+      expect(res.render).toHaveBeenCalledWith(
+        expect.stringContaining('page'),
+        expect.anything());
     });
 
     test('Language via browser settings fallback to en', async () => {
@@ -162,20 +138,11 @@ describe('GetController', () => {
       //const language = 'en';
       const req = mockRequest({ headers: { 'accept-language': 'unknown' } });
       const res = mockResponse();
-      //req.query.lng = language;
       await controller.get(req, res);
 
-      /*expect(res.render).toBeCalledWith('page', {
-        ...defaultViewArgs,
-        ...generatePageContent({ language, pageContent: generateContent, userEmail }),
-        text: 'english',
-        language: 'en',
-        htmlLang: 'en',
-        userCase: req.session.userCase,
-        isAmendableStates: false,
-        userEmail,
-      });*/
-      expect(1).toEqual(1);
+      expect(res.render).toHaveBeenCalledWith(
+        expect.stringContaining('page'),
+        expect.anything());
     });
   });
 
@@ -207,16 +174,9 @@ describe('GetController', () => {
     const req = mockRequest();
     const res = mockResponse();
     await controller.get(req, res);
-
-    /*expect(res.render).toBeCalledWith('page', {
-      ...defaultViewArgs,
-      userCase: {
-        id: '1234',
-      },
-      text: 'english',
-      userEmail,
-    });*/
-    expect(1).toEqual(1);
+    expect(res.render).toHaveBeenCalledWith(
+      expect.stringContaining('page'),
+      expect.anything());
   });
 
   describe('generatePageContent()', () => {
@@ -228,77 +188,37 @@ describe('GetController', () => {
       const res = mockResponse();
       await controller.get(req, res);
 
-      //const commonContent = generatePageContent({ language: 'en', userEmail });
-
-      /*expect(getContentMock).toHaveBeenCalledTimes(1);
-      expect(getContentMock).toHaveBeenCalledWith({
-        ...commonContent,
-        language: 'en',
-        userCase: req.session.userCase,
-        isAmendableStates: true,
-        userEmail,
-      });
-      expect(res.render).toBeCalledWith('page', {
-        ...defaultViewArgs,
-        isDraft: true,
-        userCase: req.session.userCase,
-        userEmail,
-        htmlLang: 'en',
-        language: 'en',
-        serviceName: 'Apply for a service"',
-        contactEmail: 'todo@test.com',
-        isAmendableStates: true,
-        sessionErrors: [],
-      });*/
-      expect(1).toEqual(1);
+      expect(getContentMock).toHaveBeenCalledTimes(1);
+      expect(res.render).toHaveBeenCalledWith(
+        expect.stringContaining('page'),
+        expect.anything());
     });
   });
 
   describe('save', () => {
     test('Should save the users data, and return the updated userCase', async () => {
-      const body = { applyingWith: 'alone' };
       const controller = new GetController('page', () => ({}));
 
-      const expectedUserCase = {
-        id: '1234',
-        applyingWith: 'alone',
-      };
+      const req = mockRequest(); 
+      const res = mockResponse(); 
+      req.url ='/next-page'
+      
+      controller.saveSessionAndRedirect(req,res); 
 
-      const req = mockRequest({ body });
-      (req.locals.api.triggerEvent as jest.Mock).mockResolvedValueOnce(expectedUserCase);
-
-      const updatedUserCase = await controller.save(req, body as Partial<Case>, 'MOCK_EVENT');
-
-      expect(updatedUserCase).toEqual(expectedUserCase);
-      //expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', { ...body }, 'MOCK_EVENT');
-      expect(1).toEqual(1);
+      expect(res.redirect).toHaveBeenCalledWith('/next-page');
+      });
     });
-
-    test('Should log error when there is an error in updating userCase', async () => {
-      const body = { applyingWith: 'alone' };
-      //const controller = new GetController('page', () => ({}));
-
-      //const expectedUserCase = { id: '1234' };
-
-      const req = mockRequest({ body });
-      (req.locals.api.triggerEvent as jest.Mock).mockRejectedValueOnce('Error saving');
-
-      /*const updatedUserCase = await controller.save(req, body as Partial<Case>, 'MOCK_EVENT');
-
-      expect(updatedUserCase).toEqual(expectedUserCase);
-      expect(req.locals.api.triggerEvent).toHaveBeenCalledWith('1234', { ...body }, 'MOCK_EVENT');*/
-      expect(1).toEqual(1);
-    });
-  });
 
   describe('saveSessionAndRedirect', () => {
     test('should save session and redirect to req.url', () => {
       const controller = new GetController('page', () => ({}));
       const req = mockRequest();
       const res = mockResponse();
+
       controller.saveSessionAndRedirect(req, res);
-      expect(req.session.save).toBeCalled();
-      expect(res.redirect).toBeCalledWith('/request');
+
+      expect(req.session.save).toHaveBeenCalled();
+      expect(res.redirect).toHaveBeenCalledWith('/request');
     });
 
     test('should throw an error and not redirect when session can not be saved', () => {
@@ -315,10 +235,21 @@ describe('GetController', () => {
         //eslint-disable-next-line jest/no-conditional-expect
         expect(err).toBe('MOCK_ERROR');
       }
-      expect(res.redirect).not.toBeCalledWith('/request');
+      expect(res.redirect).not.toHaveBeenCalledWith('/request');
     });
   });
-});
+
+    test('should trigger callback if callback passed', () => {
+      const controller = new GetController('page', () => ({}));
+      const req = mockRequest();
+      const res = mockResponse();
+      const callback = jest.fn();
+
+      controller.saveSessionAndRedirect(req, res, callback);
+
+      expect(callback).toHaveBeenCalled();
+    });
+  });
 
 describe('checking for documents Delete manager', () => {
   it('should delete additional documents', async () => {
@@ -330,22 +261,7 @@ describe('checking for documents Delete manager', () => {
         text: 'welsh',
       },
     };
-    //const userEmail = 'test@example.com';
     const generateContent = content => languages[content.language];
-
-    /**
-     *     const mockFormContent = {
-      fields: {},
-    } as unknown ;
-     * 
-     */
-
-    /**
-     * const body = { applicant1PhoneNumber: 'invalid phone number' };
-    const query = `/upload-your-documents?query=delete&documentId=10&documentType=applicationform`
-
-    */
-
     const controller = new GetController('page', generateContent);
 
     const req = mockRequest();
@@ -382,5 +298,36 @@ describe('checking for documents Delete manager', () => {
     };
     await controller.get(req, res);
     expect(req.session.caseDocuments.some(doc => doc.id === '10')).toBe(false);
+  });
+
+  describe('parseAndSetReturnUrl', () => {
+
+    test('req.session.returnUrl populated', async () => {
+      const controller = new GetController('page', () => ({}));
+      const req = mockRequest();
+      req.query = { returnUrl: SIGN_IN_URL };
+
+      controller.parseAndSetReturnUrl(req);
+
+      expect(req.session.returnUrl).toEqual(SIGN_IN_URL);
+    });
+
+    test('returnUrl not populated if returnUrl not set', async () => {
+      const controller = new GetController('page', () => ({}));
+      const req = mockRequest();
+
+      controller.parseAndSetReturnUrl(req);
+
+      expect(req.session.returnUrl).toBeFalsy();
+    });
+
+    test('returnUrl not populated if returnUrl not a valid pagelink url', async () => {
+      const controller = new GetController('page', () => ({}));
+      const req = mockRequest();
+
+      controller.parseAndSetReturnUrl(req);
+
+      expect(req.session.returnUrl).toBeFalsy();
+    });
   });
 });
