@@ -10909,6 +10909,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"memfs@npm:^4.6.0":
+  version: 4.8.0
+  resolution: "memfs@npm:4.8.0"
+  dependencies:
+    tslib: ^2.0.0
+  checksum: ac371aad4eb51d1ffaec497e9557d8892cfc910a5bc4fd3e32749c002dca71665e8cf5fe91cc381fff4f38df1df53750ea446cb522eff39f2c59dc5d7fafb14d
+  languageName: node
+  linkType: hard
+
 "memorystream@npm:^0.3.1":
   version: 0.3.1
   resolution: "memorystream@npm:0.3.1"
@@ -12014,7 +12023,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"on-finished@npm:2.4.1, on-finished@npm:^2.3.0":
+"on-finished@npm:2.4.1, on-finished@npm:^2.3.0, on-finished@npm:^2.4.1":
   version: 2.4.1
   resolution: "on-finished@npm:2.4.1"
   dependencies:
@@ -15190,7 +15199,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:^2.0.1, tslib@npm:^2.0.3, tslib@npm:^2.1.0, tslib@npm:^2.2.0":
+"tslib@npm:^2.0.0, tslib@npm:^2.0.1, tslib@npm:^2.0.3, tslib@npm:^2.1.0, tslib@npm:^2.2.0":
   version: 2.6.2
   resolution: "tslib@npm:2.6.2"
   checksum: 329ea56123005922f39642318e3d1f0f8265d1e7fcb92c633e0809521da75eeaca28d2cf96d7248229deb40e5c19adf408259f4b9640afd20d13aecc1430f3ad
@@ -15932,9 +15941,28 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webpack-dev-middleware@npm:*, webpack-dev-middleware@npm:^6.1.1":
-  version: 6.1.1
-  resolution: "webpack-dev-middleware@npm:6.1.1"
+"webpack-dev-middleware@npm:*":
+  version: 7.1.1
+  resolution: "webpack-dev-middleware@npm:7.1.1"
+  dependencies:
+    colorette: ^2.0.10
+    memfs: ^4.6.0
+    mime-types: ^2.1.31
+    on-finished: ^2.4.1
+    range-parser: ^1.2.1
+    schema-utils: ^4.0.0
+  peerDependencies:
+    webpack: ^5.0.0
+  peerDependenciesMeta:
+    webpack:
+      optional: true
+  checksum: 54b748ba354649bb5d80862f8828a05e75c0037a64ef3228722ebff1a6a9d5498467edc1a9fe210ed0ff8f37b2d32d2271273d8b6576f8249371881f14a309ad
+  languageName: node
+  linkType: hard
+
+"webpack-dev-middleware@npm:^6.1.1":
+  version: 6.1.2
+  resolution: "webpack-dev-middleware@npm:6.1.2"
   dependencies:
     colorette: ^2.0.10
     memfs: ^3.4.12
@@ -15946,7 +15974,7 @@ __metadata:
   peerDependenciesMeta:
     webpack:
       optional: true
-  checksum: 3bced6ef644b20f2e76df9db1c5209f4a73761d7d307fe29ae20bc00397d4f9727af2607f98794c6c7c57d5c1a48bfa12690168b08f5d46820b07aab2c63640c
+  checksum: 6e962341db5b3ac8526cd678fc6b128adcb92c288aab767948ab7d01591d7837d2d97cf9329d307831b1d51c831fcea4d8f2eb514efe8c8654ae2a4ae9d9f1fb
   languageName: node
   linkType: hard
 
