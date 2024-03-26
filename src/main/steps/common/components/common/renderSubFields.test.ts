@@ -1,36 +1,22 @@
 import { isFieldFilledIn } from '../../../../app/form/validation';
 
 import { renderSubFields } from './renderSubFields';
-import { InputValues, RadiosValues } from './types';
+import { InputValues } from './types';
 
 describe('steps > common > components > common > renderSubFields', () => {
   it('should render multiple fields if multiple values provided', () => {
     const inputFieldName = 'inputField';
+    const fieldName = 'field';
     const inputType = 'input';
     const validator = isFieldFilledIn;
 
-    const radiosFieldName = 'radiosField';
-    const radiosType = 'radios';
-    const values = [];
-
     const subFields = renderSubFields([
       { fieldName: inputFieldName, type: inputType, validator } as InputValues,
-      { fieldName: radiosFieldName, type: radiosType, values } as RadiosValues,
+      { fieldName, type: inputType, validator } as InputValues,
     ]);
 
     expect(subFields[inputFieldName].type).toBe(inputType);
-    //expect(subFields[radiosFieldName].type).toBe(radiosType);
-  });
-
-  it('should correctly render all radios subfields', () => {
-    //const fieldName = 'field';
-    //const type = 'radios';
-    //const values = [];
-
-    //const subFields = renderSubFields([{ fieldName, type, values } as RadiosValues]);
-
-    //expect(subFields[fieldName].type).toBe(type);
-    expect(1).toEqual(1);
+    expect(subFields[fieldName].type).toBe(inputType);
   });
 
   it('should correctly render all input subfields', () => {
