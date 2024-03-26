@@ -12,7 +12,7 @@ describe('steps > common > components > common > renderSubFields', () => {
 
     const subFields = renderSubFields([
       { fieldName: inputFieldName, type: inputType, validator } as InputValues,
-      { fieldName: fieldName, type: inputType, validator } as InputValues,
+      { fieldName, type: inputType, validator } as InputValues,
     ]);
 
     expect(subFields[inputFieldName].type).toBe(inputType);
