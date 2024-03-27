@@ -83,28 +83,11 @@ export class FileValidations {
     return systemContent;
   }
 
-  /**
-   *
-   * @param fileSize
-   * @returns
-   */
   static sizeValidation(mimeType: string, fileSize: number): boolean {
-    const bytes =
-      mimeType.startsWith('audio/') || mimeType.startsWith('video/')
-        ? Number(config.get('documentUpload.validation.multimediaSizeInBytes'))
-        : Number(config.get('documentUpload.validation.sizeInBytes')); //careful mb and b difference
-    if (fileSize <= bytes) {
-      return true;
-    } else {
-      return false;
-    }
+    const bytes = Number(config.get('documentUpload.validation.sizeInBytes'));
+    return fileSize <= bytes;
   }
 
-  /**
-   *
-   * @param mimeType
-   * @returns
-   */
   static formatValidation(
     mimeType: string,
     acceptedFileMimeType: Partial<Record<keyof FileType, keyof FileMimeTypeInfo>>
