@@ -188,8 +188,8 @@
     <h2 class="govuk-heading-m">{{ changeCookiesHeading }}</h2>
     <form class="cookie-preferences-form js-show">
 
-      {% set cookiesAnalytics = cookiePrefrences['analytics'] %}
-    
+      {% set cookiesAnalytics = cookiePreferences['analytics'] %}
+
 
       {% set AnalyticsData =  []  %}
 
@@ -202,7 +202,7 @@
           {
             value: 'off',
             text: doNotUseAnalyticsCookies
-          }] 
+          }]
       %}
       {%else%}
        {% set AnalyticsData = [{
@@ -232,7 +232,7 @@
 
 
 
-    {% set cookiesApm = cookiePrefrences['apm'] %}
+    {% set cookiesApm = cookiePreferences['apm'] %}
 
       {% set APMData =  []%}
 
@@ -245,7 +245,7 @@
               {
                 value: 'off',
                 text: doNotUseApmCookies
-              }] 
+              }]
           %}
           {%else%}
           {% set APMData = [{
