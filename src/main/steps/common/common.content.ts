@@ -210,7 +210,6 @@ export const generatePageContent = ({
   uploadedDocuments,
   supportingDocuments,
   otherInformation,
-  AddDocuments,
   userEmail,
   addresses = [],
   fee,
@@ -221,7 +220,6 @@ export const generatePageContent = ({
   uploadedDocuments?: any;
   supportingDocuments?: any;
   otherInformation?: any;
-  AddDocuments?: any;
   userEmail?: string;
   addresses?: [];
   fee?: Fee;
@@ -238,7 +236,6 @@ export const generatePageContent = ({
     uploadedDocuments,
     supportingDocuments,
     otherInformation,
-    AddDocuments,
     userEmail,
     contactEmail,
     addresses,
@@ -264,7 +261,6 @@ export type CommonContent = typeof en & {
   uploadedDocuments?: any;
   supportingDocuments?: any;
   otherInformation?: any;
-  AddDocuments?: any;
   userEmail?: string;
   contactEmail?: string;
   referenceNumber?: string;

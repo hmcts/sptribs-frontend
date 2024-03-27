@@ -13,12 +13,8 @@ export class TimedOutGetController extends GetController {
   }
 
   public async get(req: AppRequest, res: Response): Promise<void> {
-    req.session.destroy(err => {
-      if (err) {
-        throw err;
-      }
+    res.locals['lang'] = req.session.lang;
 
-      super.get(req, res);
-    });
+    req.session.destroy(() => super.get(req, res));
   }
 }

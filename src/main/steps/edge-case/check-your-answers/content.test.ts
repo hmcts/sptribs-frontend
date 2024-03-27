@@ -25,7 +25,6 @@ describe('check-your-answer > content', () => {
     uploadedDocuments: [],
     supportingDocuments: [],
     otherInformation: [],
-    AddDocuments: [],
   } as unknown as CommonContent;
 
   // eslint-disable-next-line jest/expect-expect
