@@ -3,7 +3,7 @@ nodejs:
   image: ${IMAGE_NAME}
   ingressHost: ${SERVICE_FQDN}
   environment:
-    PCQ_ENABLED: true
+    PCQ_ENABLED: false
 
 idam-pr:
   enabled: true
