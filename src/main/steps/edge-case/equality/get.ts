@@ -17,7 +17,7 @@ import { createToken } from './createToken';
 export default class PCQGetController {
   public async get(req: AppRequest, res: Response): Promise<void> {
     const pcqUrl: string = config.get('services.equalityAndDiversity.url');
-    const pcqEnabled: boolean = false;
+    const pcqEnabled: boolean = String(config.get('services.equalityAndDiversity.enabled')) === 'true';
 
     if (!pcqEnabled) {
       return res.redirect(CHECK_YOUR_ANSWERS);
