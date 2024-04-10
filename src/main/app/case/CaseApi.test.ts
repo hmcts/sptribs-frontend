@@ -28,6 +28,7 @@ test('Should return case roles for userId and caseId passed', async () => {
     email: 'harry@hog.com',
     givenName: 'harry',
     familyName: 'potter',
+    roles: ['citizen'],
   };
 
   const case_id = '1624351572550045';
