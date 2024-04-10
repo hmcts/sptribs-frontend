@@ -83,7 +83,6 @@ export default class submitCaseController extends PostController<AnyObject> {
       await this.caseSubmit(CASE_API_URL, Headers).put(baseURL, responseBody);
       res.redirect(APPLICATION_SUBMITTED);
     } catch (error) {
-      console.log(error);
       const errorMessage = FileValidations.ResourceReaderContents(req).SUBMIT_ERROR;
       this.caseSubmitError(req, res, errorMessage);
     }
