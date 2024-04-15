@@ -446,9 +446,6 @@ export class UploadController extends PostController<AnyObject> {
     });
     const formHeaders = formData.getHeaders();
 
-    /**
-     * @RequestHeaders
-     */
     const headers = {
       authorization: `Bearer ${req.session.user['accessToken']}`,
       serviceAuthorization: getServiceAuthToken(),
