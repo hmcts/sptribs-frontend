@@ -283,7 +283,6 @@ export class GetController {
                 res.redirect(UPLOAD_APPEAL_FORM);
               });
             } catch (error) {
-              console.log('tribunalform - document deletion has failed', error);
               this.deleteFileError(req, UPLOAD_APPEAL_FORM, res, errorMessage);
             }
 
@@ -303,7 +302,6 @@ export class GetController {
                 res.redirect(UPLOAD_SUPPORTING_DOCUMENTS);
               });
             } catch (error) {
-              console.log('supporting - document deletion has failed', error);
               this.deleteFileError(req, UPLOAD_APPEAL_FORM, res, errorMessage);
             }
 
@@ -323,7 +321,6 @@ export class GetController {
                 res.redirect(UPLOAD_OTHER_INFORMATION);
               });
             } catch (error) {
-              console.log('other - document deletion has failed', error);
               this.deleteFileError(req, UPLOAD_APPEAL_FORM, res, errorMessage);
             }
 
@@ -351,10 +348,5 @@ export class GetController {
       }
       res.redirect(url!);
     });
-  }
-
-  //eslint-disable-next-line @typescript-eslint/no-unused-vars
-  protected getEventName(req: AppRequest): string {
-    return '';
   }
 }
