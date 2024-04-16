@@ -14228,6 +14228,7 @@ __metadata:
     session-file-store: ^1.5.0
     sonar-scanner: ^3.1.0
     style-loader: ^3.3.1
+    terser-webpack-plugin: ^5.3.10
     toobusy-js: ^0.5.1
     ts-jest: ^26.5.6
     ts-loader: ^9.2.6
