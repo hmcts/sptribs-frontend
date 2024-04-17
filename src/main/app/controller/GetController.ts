@@ -24,7 +24,7 @@ export class GetController {
   constructor(protected readonly view: string, protected readonly content: TranslationFn) {}
 
   public async get(req: AppRequest, res: Response): Promise<void> {
-    this.CookiePrefrencesChanger(req, res);
+    this.CookiePreferencesChanger(req, res);
     if (res.locals.isError || res.headersSent) {
       // If there's an async error, it will have already rendered an error page upstream,
       // so we don't want to call render again
@@ -35,8 +35,8 @@ export class GetController {
     const addresses = req.session?.addresses;
 
     const sessionErrors = req.session?.errors || [];
-    const FileErrors = req.session.fileErrors || [];
-    if (req.session?.errors || req.session.fileErrors) {
+    const FileErrors = req.session?.fileErrors || [];
+    if (req.session?.errors || req.session?.fileErrors) {
       req.session.errors = undefined;
       req.session.fileErrors = [];
     }
@@ -54,12 +54,11 @@ export class GetController {
     const content = generatePageContent({
       language,
       pageContent: this.content,
-      userCase: req.session.userCase,
+      userCase: req.session?.userCase,
       userEmail: req.session?.user?.email,
-      uploadedDocuments: req.session['caseDocuments'],
-      supportingDocuments: req.session['supportingCaseDocuments'],
-      otherInformation: req.session['otherCaseInformation'],
-      AddDocuments: req.session['AddtionalCaseDocuments'],
+      uploadedDocuments: req.session?.caseDocuments,
+      supportingDocuments: req.session?.supportingCaseDocuments,
+      otherInformation: req.session?.otherCaseInformation,
       addresses,
     });
 
@@ -113,10 +112,10 @@ export class GetController {
      */
     let pageRenderableContents = {
       ...content,
-      uploadedDocuments: req.session['caseDocuments'],
-      supportingDocuments: req.session['supportingCaseDocuments'],
-      otherInformation: req.session['otherCaseInformation'],
-      cookiePrefrences: cookiesForPrefrences,
+      uploadedDocuments: req.session?.caseDocuments,
+      supportingDocuments: req.session?.supportingCaseDocuments,
+      otherInformation: req.session?.otherCaseInformation,
+      cookiePreferences: cookiesForPrefrences,
       sessionErrors,
       cookieMessage: false,
       FileErrors,
@@ -197,7 +196,7 @@ export class GetController {
 
   /**Cookies prefrences saver */
 
-  public CookiePrefrencesChanger = (req: AppRequest, res: Response): void => {
+  public CookiePreferencesChanger = (req: AppRequest, res: Response): void => {
     //?analytics=off&apm=off
     if (req.query.hasOwnProperty('analytics') && req.query.hasOwnProperty('apm')) {
       let cookieExpiryDuration = Number(config.get('cookies.expiryTime'));
@@ -284,7 +283,6 @@ export class GetController {
                 res.redirect(UPLOAD_APPEAL_FORM);
               });
             } catch (error) {
-              console.log('tribunalform - document deletion has failed', error);
               this.deleteFileError(req, UPLOAD_APPEAL_FORM, res, errorMessage);
             }
 
@@ -304,7 +302,6 @@ export class GetController {
                 res.redirect(UPLOAD_SUPPORTING_DOCUMENTS);
               });
             } catch (error) {
-              console.log('supporting - document deletion has failed', error);
               this.deleteFileError(req, UPLOAD_APPEAL_FORM, res, errorMessage);
             }
 
@@ -324,7 +321,6 @@ export class GetController {
                 res.redirect(UPLOAD_OTHER_INFORMATION);
               });
             } catch (error) {
-              console.log('other - document deletion has failed', error);
               this.deleteFileError(req, UPLOAD_APPEAL_FORM, res, errorMessage);
             }
 
@@ -352,10 +348,5 @@ export class GetController {
       }
       res.redirect(url!);
     });
-  }
-
-  //eslint-disable-next-line @typescript-eslint/no-unused-vars
-  protected getEventName(req: AppRequest): string {
-    return '';
   }
 }

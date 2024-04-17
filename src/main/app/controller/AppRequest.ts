@@ -42,10 +42,7 @@ export interface UserDetails {
   email: string;
   givenName: string;
   familyName: string;
-}
-
-export interface Namer {
-  name: string;
+  roles: string[];
 }
 
 export interface Eligibility {

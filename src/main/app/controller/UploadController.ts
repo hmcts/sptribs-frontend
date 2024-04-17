@@ -122,27 +122,27 @@ export class UploadController extends PostController<AnyObject> {
       };
 
       try {
-        let tribunalFormDocuments: Document[] = [];
+        let TribunalFormDocuments: Document[] = [];
         if (req.session.caseDocuments !== undefined) {
-          tribunalFormDocuments = this.getTribunalFormDocuments(req);
+          TribunalFormDocuments = this.getTribunalFormDocuments(req);
         }
 
-        let supportingDocuments: Document[] = [];
+        let SupportingDocuments: Document[] = [];
         if (req.session.supportingCaseDocuments !== undefined) {
-          supportingDocuments = this.getSupportingDocuments(req);
+          SupportingDocuments = this.getSupportingDocuments(req);
         }
 
-        let otherInfoDocuments: Document[] = [];
+        let OtherInfoDocuments: Document[] = [];
         if (req.session.otherCaseInformation !== undefined) {
-          otherInfoDocuments = this.getOtherInfoDocuments(req);
+          OtherInfoDocuments = this.getOtherInfoDocuments(req);
         }
 
         const caseData = mapCaseData(req);
         const responseBody = {
           ...caseData,
-          tribunalFormDocuments,
-          supportingDocuments,
-          otherInfoDocuments,
+          TribunalFormDocuments,
+          SupportingDocuments,
+          OtherInfoDocuments,
         };
 
         await this.uploadDocumentInstance(CASE_API_URL, headers).put(baseUrl, responseBody);
@@ -429,9 +429,6 @@ export class UploadController extends PostController<AnyObject> {
     });
     const formHeaders = formData.getHeaders();
 
-    /**
-     * @RequestHeaders
-     */
     const headers = {
       authorization: `Bearer ${req.session.user['accessToken']}`,
       serviceAuthorization: getServiceAuthToken(),
