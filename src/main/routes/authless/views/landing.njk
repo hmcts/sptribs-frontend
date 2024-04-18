@@ -31,7 +31,9 @@
 {% block content %}
   <h1 class="govuk-heading-l">{{ content['heading'] }}</h1>
   <p class="govuk-body-l">{{ content['body'] | safe }}</p>
-
+  <h2 class="govuk-heading-m"><span class="govuk-!-font-weight-bold">{{ content['subheading'] }}</span></h2>
+  <p class="govuk-body-l">{{ content['subbody'] | safe }}</p>
+  
   <br/>
 
   {{ govukButton({
