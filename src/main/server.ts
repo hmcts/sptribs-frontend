@@ -3,6 +3,7 @@ import * as path from 'path';
 import * as bodyParser from 'body-parser';
 import config from 'config';
 import express, { RequestHandler } from 'express';
+import rateLimit from 'express-rate-limit';
 import favicon from 'serve-favicon';
 import toobusy from 'toobusy-js';
 import type { LoggerInstance } from 'winston';
@@ -30,6 +31,12 @@ import { PublicRoutes } from './routes/authless/routes';
 const { Logger } = require('@hmcts/nodejs-logging');
 const logger: LoggerInstance = Logger.getLogger('server');
 const app = express();
+
+const limiter = rateLimit({
+  windowMs: config.get('rateLimit.time'),
+  limit: config.get('rateLimit.limit'),
+});
+app.use(limiter);
 
 app.locals.developmentMode = process.env.NODE_ENV !== 'production';
 app.use(favicon(path.join(__dirname, '/public/assets/images/favicon.ico')));
