@@ -158,6 +158,7 @@
     "@babel/traverse": "^7.23.2",
     "axios": "^1.6.1",
     "follow-redirects": "^1.15.6",
+    "formidable": "^3.2.4",
     "got": "^13.0.0",
     "ip": "^2.0.1",
     "postcss": "^8.4.31",
