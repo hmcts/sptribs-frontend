@@ -24,10 +24,10 @@
   text: uploadRequirement | safe
 }) }}
 
-<div id="uploadGroup" tabindex="0" class="uploadGroup">
-  <h2 class="govuk-heading-s">{{ uploadFiles }}</h2>
+<div id="uploadGroup" tabindex="-1" class="uploadGroup">
+  <h2 class="govuk-heading-s" style="display:none;">{{ uploadFiles }}</h2>
   <p class="govuk-body govuk-section-break govuk-section-break--visible govuk-!-padding-bottom-3{% if supportingDocuments|length %} hidden{% endif %}" id="noFilesUploaded">{{ noFilesUploaded }}</p>
-  <ul id="filesUploaded" class="govuk-list">
+  <ul id="filesUploaded" class="govuk-list" style="display:none;">
     {%if supportingDocuments.length >0 %}
     {% for file in supportingDocuments %}
       <li class="uploadedFile govuk-!-padding-top-2 govuk-!-padding-bottom-3 govuk-section-break govuk-section-break--visible">
