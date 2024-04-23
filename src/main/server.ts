@@ -33,8 +33,8 @@ const logger: LoggerInstance = Logger.getLogger('server');
 const app = express();
 
 const limiter = rateLimit({
-  windowMs: config.get('rateLimit.time'),
-  limit: config.get('rateLimit.limit'),
+  windowMs: 15000,
+  limit: 30,
 });
 app.use(limiter);
 
