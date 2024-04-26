@@ -27,7 +27,7 @@ describe('FileUpload', () => {
     fileUploadInstance.enableFor(mockApp);
 
     expect(fileUploadMock).toHaveBeenCalledWith({
-      limits: { fileSize: 1024 * 1024 * 30 }, // Assuming DefaultFileUploadSize is 30
+      limits: { fileSize: 1024 * 1024 * 100 }, // Assuming DefaultFileUploadSize is 100MB
     });
     expect(mockApp.use).toHaveBeenCalledWith(mockFileUploadMiddleware);
   });
