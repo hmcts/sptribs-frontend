@@ -112,23 +112,23 @@ describe('PostController', () => {
       const file3Size = 700000001;
       const file4Size = 1000000001;
       it('Checking for file1 size', () => {
-        expect(FileValidations.sizeValidation('text/plain', file1Size)).toBe(true);
+        expect(FileValidations.sizeValidation(file1Size)).toBe(true);
       });
 
       it('Checking for file2 size', () => {
-        expect(FileValidations.sizeValidation('text/plain', file2Size)).toBe(true);
+        expect(FileValidations.sizeValidation(file2Size)).toBe(true);
       });
 
       it('Checking for file3 size', () => {
-        expect(FileValidations.sizeValidation('text/plain', file3Size)).toBe(false);
+        expect(FileValidations.sizeValidation(file3Size)).toBe(false);
       });
 
       it('Checking for file3 multimedia size', () => {
-        expect(FileValidations.sizeValidation('video/mp4', file4Size)).toBe(false);
+        expect(FileValidations.sizeValidation(file4Size)).toBe(false);
       });
 
       it('Checking for file4 multimedia size', () => {
-        expect(FileValidations.sizeValidation('video/mp4', file4Size)).toBe(false);
+        expect(FileValidations.sizeValidation(file4Size)).toBe(false);
       });
     });
 
