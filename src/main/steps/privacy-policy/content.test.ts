@@ -5,7 +5,6 @@ import { cy, en, generateContent } from './content';
 
 jest.mock('../../app/form/validation');
 
-/* eslint-disable @typescript-eslint/ban-types, @typescript-eslint/no-explicit-any */
 describe('privacy-policy > content', () => {
   const commonContent = generatePageContent({
     language: 'en',
