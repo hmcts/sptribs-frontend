@@ -3,7 +3,7 @@
     "en": {
       "continue": "Continue",
       "serviceName": "Appeal to the First-tier Tribunal",
-      "label": "Is there a representative named on completed tribunal form?",
+      "title": "Is there a representative named on completed tribunal form?",
       "one": "Yes",
       "two": "No"
     },

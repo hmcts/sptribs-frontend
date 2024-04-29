@@ -1885,13 +1885,13 @@ __metadata:
   linkType: hard
 
 "@hmcts/nodejs-healthcheck@npm:^1.8.0":
-  version: 1.8.4
-  resolution: "@hmcts/nodejs-healthcheck@npm:1.8.4"
+  version: 1.8.5
+  resolution: "@hmcts/nodejs-healthcheck@npm:1.8.5"
   dependencies:
     "@hmcts/nodejs-logging": ^4.0.4
-    js-yaml: ^3.8.4
-    superagent: 8
-  checksum: 8b2a6d1745fc2b63bd933a4034b92e9b144c385e8e57a9c9cde454ef2dff19467911aa1c5ade2ece54fff10868c07b966814c31fe1d743c59ab10d5706db898e
+    js-yaml: ^4.0.0
+    superagent: 9
+  checksum: 2e3201c1f95cb69aa7e43f72cfa03cea5246e14b18cd52a759968bca126e05fc214ac1269fd706b4d845f4f00abc645e064750e4b4a13b4616345ec168a1a561
   languageName: node
   linkType: hard
 
@@ -6236,9 +6236,9 @@ __metadata:
   linkType: hard
 
 "dayjs@npm:^1.11.1":
-  version: 1.11.10
-  resolution: "dayjs@npm:1.11.10"
-  checksum: a6b5a3813b8884f5cd557e2e6b7fa569f4c5d0c97aca9558e38534af4f2d60daafd3ff8c2000fed3435cfcec9e805bcebd99f90130c6d1c5ef524084ced588c4
+  version: 1.11.11
+  resolution: "dayjs@npm:1.11.11"
+  checksum: 84788275aad8a87fee4f1ce4be08861df29687aae6b7b43dd65350118a37dda56772a3902f802cb2dc651dfed447a5a8df62d88f0fb900dba8333e411190a5d5
   languageName: node
   linkType: hard
 
@@ -7426,6 +7426,15 @@ __metadata:
     es6-promise: ^4.1.1
     raw-body: ^2.3.0
   checksum: 7d96105bd570d2231a435fd2b8476613b8680300f0d8ab0723268eb4f0da5f988ae7addb832a213234f6f28a6ca5632cec3e5554bf1cb8151195c22707aa9a56
+  languageName: node
+  linkType: hard
+
+"express-rate-limit@npm:^7.0.0":
+  version: 7.2.0
+  resolution: "express-rate-limit@npm:7.2.0"
+  peerDependencies:
+    express: 4 || 5 || ^5.0.0-beta.1
+  checksum: 6adc3e06d430e91cf8ef8da23107466ffd9193b5680b03bc12702894cab0adcbb980634602b839b3a1444620f2379707098af3a4dcc38c909e89214abaf6c1bf
   languageName: node
   linkType: hard
 
@@ -10132,7 +10141,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"js-yaml@npm:^3.13.1, js-yaml@npm:^3.8.4":
+"js-yaml@npm:^3.13.1":
   version: 3.14.1
   resolution: "js-yaml@npm:3.14.1"
   dependencies:
@@ -10144,7 +10153,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"js-yaml@npm:^4.1.0":
+"js-yaml@npm:^4.0.0, js-yaml@npm:^4.1.0":
   version: 4.1.0
   resolution: "js-yaml@npm:4.1.0"
   dependencies:
@@ -14307,6 +14316,7 @@ __metadata:
     express: ^4.19.2
     express-fileupload: ^1.3.1
     express-http-proxy: ^2.0.0
+    express-rate-limit: ^7.0.0
     express-session: ^1.17.2
     follow-redirects: ^1.15.6
     form-data: ^4.0.0
@@ -14691,21 +14701,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"superagent@npm:8":
-  version: 8.1.2
-  resolution: "superagent@npm:8.1.2"
+"superagent@npm:9":
+  version: 9.0.1
+  resolution: "superagent@npm:9.0.1"
   dependencies:
     component-emitter: ^1.3.0
     cookiejar: ^2.1.4
     debug: ^4.3.4
     fast-safe-stringify: ^2.1.1
     form-data: ^4.0.0
-    formidable: ^2.1.2
+    formidable: ^3.5.1
     methods: ^1.1.2
     mime: 2.6.0
     qs: ^6.11.0
     semver: ^7.3.8
-  checksum: f3601c5ccae34d5ba684a03703394b5d25931f4ae2e1e31a1de809f88a9400e997ece037f9accf148a21c408f950dc829db1e4e23576a7f9fe0efa79fd5c9d2f
+  checksum: c332ef5609349fe76a26de26bb13bf62399ae26d18f533ce829c88cbe9c30763a0ef1b50a4e7f7eba7a5c00a46fba8337491169103521bed1d5b7036496bdb9f
   languageName: node
   linkType: hard
 
