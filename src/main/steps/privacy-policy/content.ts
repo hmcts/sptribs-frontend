@@ -1,7 +1,7 @@
 import { TranslationFn } from '../../app/controller/GetController';
 
 export const en = {
-  title: 'The Adoption Service Privacy policy',
+  title: 'The  Criminal Injuries Compensation Tribunal Privacy policy',
   info1: 'The Ministry of Justice (MoJ) is committed to the protection and security of your personal information.',
   info2:
     'This privacy policy explains why we collect your personal data and what we do with it. It also explains your rights and how to enforce them.',
@@ -17,7 +17,7 @@ export const en = {
     "More information about using this service is in the <a class='govuk-link' href='/terms-and-conditions'>terms and conditions</a>.",
   thePersonal: 'Why we collect your personal data',
   personalInformation:
-    'Most of the personal information we process is provided to us directly by you for one the purposes of applying to adopt a child.',
+    'Most of the personal information we process is provided to us directly by you for the purposes of appealing a criminal injuries compensation authority review decision.',
   whenYouUseAdoptionService: 'We collect your personal data to:',
   applicationProcess: 'process your application',
   legalRequirements: 'meet legal requirements',
@@ -25,13 +25,13 @@ export const en = {
   personalDataProcessApplication:
     'Our staff use your personal data to process your application. They work in the UK and your data is stored in the UK.',
   collectPersonalData: 'The personal data we collect',
-  onlineAdoptionServiceUse: 'When you use the online adoption service we ask for your:',
-  nameAndOthers: 'name, and any other names you are known as',
-  emailAddress: 'email address',
-  phoneNumber: 'phone number',
-  homeAddress: 'home address',
-  dateOfBirth: 'date of birth',
-  occupation: 'occupation',
+  onlineAdoptionServiceUse: 'When you use the online document submission service we ask for your:',
+  fullName: 'Full name',
+  dateOfBirth: 'Date of birth',
+  emailAddress: 'Email address',
+  phoneNumber: 'Contact number',
+  representativeDetails: 'Representative details (if applicable)',
+  otherPersonalInfo: 'Other personal information you provide in your application',
   specialCategoriesInformation:
     'We also collect special categories of information via protected characteristic questions which are optional, such as:',
   race: 'race or ethnicity',
@@ -50,10 +50,8 @@ export const en = {
   theRegion: 'the region or town where you’re using your computer, phone or tablet',
   theWeb: 'the web browser you use',
   storingYourData: 'Storing your data',
-  savedInformation:
-    'Information you enter in the online adoption service is saved until you decide to submit it. This allows you to save what you are doing and continue later. Saved information that you do not submit will be deleted after 180 days.',
   postSubmissionData:
-    'After you submit your application, the information you entered will be stored for 100 years and then deleted.',
+    'After you submit your application, the information you entered will be stored for 50 years after the last update on your appeal and then deleted.',
   sharingYourData: 'Sharing your data',
   ifAnother:
     'While processing your application, another government department, agency or organisation might be involved and we may share your data with them.',
@@ -136,12 +134,12 @@ export const cy: typeof en = {
     'Mae ein staff yn defnyddio eich data personol i brosesu eich cais. Maent yn gweithio yn y DU ac mae eich data yn cael ei storio yn y DU.',
   collectPersonalData: 'Y data personol rydym ni’n casglu',
   onlineAdoptionServiceUse: 'Pan fyddwch yn defnyddio’r gwasanaeth mabwysiadu ar-lein hwn, byddwn yn gofyn am eich:',
-  nameAndOthers: 'enw, ac unrhyw enwau eraill yr ydych yn cael eich adnabod wrthynt',
+  fullName: 'enw, ac unrhyw enwau eraill yr ydych yn cael eich adnabod wrthynt',
+  dateOfBirth: 'dyddiad geni',
   emailAddress: 'cyfeiriad e-bost',
   phoneNumber: 'rhif ffôn',
-  homeAddress: 'cyfeiriad cartref',
-  dateOfBirth: 'dyddiad geni',
-  occupation: 'galwedigaeth',
+  representativeDetails: 'cyfeiriad cartref',
+  otherPersonalInfo: 'galwedigaeth',
   specialCategoriesInformation:
     "Rydym hefyd yn casglu gwybodaeth drwy ofyn cwestiynau am nodweddion gwarchodedig sy'n ddewisol, megis:",
   race: 'hil neu ethnigrwydd',
@@ -160,8 +158,6 @@ export const cy: typeof en = {
   theRegion: 'yr ardal neu’r dref lle rydych yn defnyddio’ch cyfrifiadur, eich ffôn symudol neu’ch tabled',
   theWeb: 'y porwr gwe rydych yn ei ddefnyddio',
   storingYourData: 'Storio eich data',
-  savedInformation:
-    "Caiff yr wybodaeth rydych yn ei rhoi yn eich cais i fabwysiadu ar-lein ei storio hyd nes y byddwch yn penderfynu cyflwyno’ch cais. Bydd hyn yn eich galluogi i arbed beth ydych yn ei wneud a pharhau â'ch cais yn hwyrach ymlaen. Bydd gwybodaeth sydd wedi cael ei storio nad ydych yn ei chyflwyno yn cael ei dileu ar ôl 180 diwrnod.",
   postSubmissionData:
     "Ar ôl i chi gyflwyno’ch cais, bydd yr wybodaeth a roesoch yn cael ei storio am 100 mlynedd ac yna'n cael ei dileu.",
   sharingYourData: 'Rhannu eich data',
