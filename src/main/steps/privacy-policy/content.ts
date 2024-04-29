@@ -1,7 +1,7 @@
 import { TranslationFn } from '../../app/controller/GetController';
 
 export const en = {
-  title: 'The  Criminal Injuries Compensation Tribunal Privacy policy',
+  title: 'The Criminal Injuries Compensation Tribunal Privacy policy',
   info1: 'The Ministry of Justice (MoJ) is committed to the protection and security of your personal information.',
   info2:
     'This privacy policy explains why we collect your personal data and what we do with it. It also explains your rights and how to enforce them.',
