@@ -83,28 +83,11 @@ export class FileValidations {
     return systemContent;
   }
 
-  /**
-   *
-   * @param fileSize
-   * @returns
-   */
-  static sizeValidation(mimeType: string, fileSize: number): boolean {
-    const bytes =
-      mimeType.startsWith('audio/') || mimeType.startsWith('video/')
-        ? Number(config.get('documentUpload.validation.multimediaSizeInBytes'))
-        : Number(config.get('documentUpload.validation.sizeInBytes')); //careful mb and b difference
-    if (fileSize <= bytes) {
-      return true;
-    } else {
-      return false;
-    }
+  static sizeValidation(fileSize: number): boolean {
+    const bytes: number = Number(config.get('documentUpload.validation.sizeInBytes'));
+    return fileSize <= bytes;
   }
 
-  /**
-   *
-   * @param mimeType
-   * @returns
-   */
   static formatValidation(
     mimeType: string,
     acceptedFileMimeType: Partial<Record<keyof FileType, keyof FileMimeTypeInfo>>
@@ -244,21 +227,11 @@ export class UploadController extends PostController<AnyObject> {
     this.redirect(req, res, redirectUrlIfError);
   }
 
-  /**
-   *
-   * @param req
-   * @param res
-   */
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     await this.submit(req, res);
   }
 
-  /**
-   *
-   * @param req
-   * @param res
-   */
-  public async submit(req: AppRequest<AnyObject>, res: Response<any, Record<string, any>>): Promise<void> {
+  public async submit(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const chooseFileLink = '#file-upload-1';
     const filesUploadedLink = '#filesUploaded';
     const { documentUploadProceed } = req.body;
@@ -272,10 +245,7 @@ export class UploadController extends PostController<AnyObject> {
     const { files }: AppRequest<AnyObject> = req;
 
     if (documentUploadProceed) {
-      /**
-       * @PostDocumentUploader
-       */
-      this.postDocumentUploader(req, res);
+      await this.postDocumentUploader(req, res);
     } else if (isNull(files)) {
       this.createUploadedFileError(req, res, chooseFileLink, 'NO_FILE_UPLOAD_ERROR');
     } else if (totalUploadDocuments < Number(config.get(this.getValidationTotal()))) {
@@ -289,7 +259,7 @@ export class UploadController extends PostController<AnyObject> {
         documents.mimetype,
         this.getAcceptedFileMimeType()
       );
-      const isValidFileSize: boolean = FileValidations.sizeValidation(documents.mimetype, documents.size);
+      const isValidFileSize: boolean = FileValidations.sizeValidation(documents.size);
 
       if (!isValidFileSize) {
         this.createUploadedFileError(req, res, chooseFileLink, 'SIZE_ERROR');
