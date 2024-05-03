@@ -32,11 +32,14 @@ const { Logger } = require('@hmcts/nodejs-logging');
 const logger: LoggerInstance = Logger.getLogger('server');
 const app = express();
 
-const limiter = rateLimit({
-  windowMs: 15000,
-  limit: 30,
-});
-app.use(limiter);
+const rateLimiterDisabled = process.env.RATE_LIMITER_DISABLED;
+if (!rateLimiterDisabled) {
+  const limiter = rateLimit({
+    windowMs: 15000,
+    limit: 30,
+  });
+  app.use(limiter);
+}
 
 app.locals.developmentMode = process.env.NODE_ENV !== 'production';
 app.use(favicon(path.join(__dirname, '/public/assets/images/favicon.ico')));
