@@ -63,13 +63,7 @@ export const isDateInputNotFilled: DateValidator = date => {
     return invalid;
   }
 
-  for (const value in date) {
-    if (isNaN(+date[value])) {
-      return invalid;
-    }
-  }
-
-  if (isEmpty(date.day || date.month || date.year)) {
+  if (isEmpty(date.day) || isEmpty(date.month) || isEmpty(date.year)) {
     return invalid;
   } else {
     return;
@@ -92,7 +86,7 @@ export const isDateInputInvalid: DateValidator = date => {
   const month = parseInt(date.month, 10) || 0;
   const day = parseInt(date.day, 10) || 0;
   if (year === 0 && month === 0 && day === 0) {
-    return;
+    return invalid;
   }
   if (!dayjs(`${year}-${month}-${day}`, 'YYYY-M-D', true).isValid()) {
     return invalid;
