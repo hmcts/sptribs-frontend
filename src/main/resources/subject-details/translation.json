@@ -32,8 +32,8 @@
         "invalid": "Please enter a valid name"
       },
       "subjectDateOfBirth": {
-        "required": "Please enter date of birth",
-        "invalid": "Please enter valid date of birth"
+        "required": "Please enter date of birth. For example, 31 3 1980",
+        "invalid": "Please enter valid date of birth. For example, 31 3 1980"
       }
     },
     "cy": {
@@ -42,8 +42,8 @@
         "invalid": "Rhowch enw dilys"
       },
       "subjectDateOfBirth": {
-        "required": "Nodwch ddyddiad geni",
-        "invalid": "Nodwch ddyddiad geni dilys"
+        "required": "Nodwch ddyddiad geni. Er enghraifft, 31 3 1980",
+        "invalid": "Nodwch ddyddiad geni dilys. Er enghraifft, 31 3 1980"
       }
     }
   }
