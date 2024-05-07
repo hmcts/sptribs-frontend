@@ -41,11 +41,11 @@
     },
     "cy": {
       "subjectEmailAddress": {
-        "required": "Nodwch gyfeiriad e-bost dilys",
+        "required": "Rhowch gyfeiriad e-bost",
         "invalid": "Nodwch gyfeiriad e-bost dilys. Mae pob cyfeiriad e-bost yn cynnwys tair elfen: rhan lleol, symbol @ (a ynganir fel “at”), ac enw parth"
       },
       "subjectContactNumber": {
-        "required": "Nodwch rif cyswllt dilys",
+        "required": "Rhowch rif cyswllt",
         "invalid": "Nodwch rif cyswllt dilys"
       },
       "subjectAgreeContact": {
