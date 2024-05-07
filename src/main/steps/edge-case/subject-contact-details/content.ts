@@ -21,13 +21,7 @@ export const form: FormContent = {
       label: l => l.contactNumberLabel,
       hint: h => h.contactNumberHint,
 
-      validator: value => {
-        if (isFieldFilledIn(value)) {
-          return isFieldFilledIn(value);
-        } else if (isPhoneNoValid(value)) {
-          return isPhoneNoValid(value);
-        }
-      },
+      validator: value => isFieldFilledIn(value) || isPhoneNoValid(value),
     },
     subjectAgreeContact: {
       name: 'agree',
