@@ -109,7 +109,7 @@ export const en = {
 };
 
 export const cy: typeof en = {
-  title: 'Polisi Preifatrwydd y Gwasanaeth Mabwysiadu',
+  title: 'Polisi Preifatrwydd y Tribiwnlys Digolledu am Anafiadau Troseddol',
   info1: 'Mae’r Weinyddiaeth Gyfiawnder (MoJ) wedi ymrwymo i ddiogelu ac amddiffyn eich gwybodaeth bersonol.',
   info2:
     'Mae’r polisi preifatrwydd hwn yn egluro pam rydym yn casglu eich data personol a beth rydym yn ei wneud ag ef. Mae hefyd yn egluro eich hawliau a sut i’w gorfodi.',
@@ -125,7 +125,7 @@ export const cy: typeof en = {
     "Gallwch gael rhagor o wybodaeth am ddefnyddio’r gwasanaeth hwn yn y <a class='govuk-link' href='/terms-and-conditions'>telerau ac amodau</a>.",
   thePersonal: 'Pam rydym ni’n casglu eich data personol',
   personalInformation:
-    'Mae’r rhan fwyaf o’r wybodaeth bersonol a broseswn yn cael ei darparu i ni yn uniongyrchol gennych chi at ddibenion gwneud cais i fabwysiadu plentyn.',
+    "Mae'r rhan fwyaf o'r wybodaeth bersonol rydym yn ei phrosesu yn cael ei darparu i ni gennych chi yn uniongyrchol at ddibenion apelio penderfyniad adolygiad awdurdod digolledu am anafiadau troseddol.",
   whenYouUseAdoptionService: 'Rydym ni’n casglu eich data personol i:',
   applicationProcess: 'prosesu eich cais',
   legalRequirements: 'bodloni gofynion cyfreithiol',
@@ -133,13 +133,14 @@ export const cy: typeof en = {
   personalDataProcessApplication:
     'Mae ein staff yn defnyddio eich data personol i brosesu eich cais. Maent yn gweithio yn y DU ac mae eich data yn cael ei storio yn y DU.',
   collectPersonalData: 'Y data personol rydym ni’n casglu',
-  onlineAdoptionServiceUse: 'Pan fyddwch yn defnyddio’r gwasanaeth mabwysiadu ar-lein hwn, byddwn yn gofyn am eich:',
-  fullName: 'enw, ac unrhyw enwau eraill yr ydych yn cael eich adnabod wrthynt',
-  dateOfBirth: 'dyddiad geni',
-  emailAddress: 'cyfeiriad e-bost',
-  phoneNumber: 'rhif ffôn',
-  representativeDetails: 'cyfeiriad cartref',
-  otherPersonalInfo: 'galwedigaeth',
+  onlineAdoptionServiceUse:
+    "Pan fyddwch yn defnyddio'r gwasanaeth cyflwyno dogfennau ar-lein, byddwn yn gofyn am eich:",
+  fullName: 'Enw llawn',
+  dateOfBirth: 'Dyddiad geni',
+  emailAddress: 'Cyfeiriad e-bost',
+  phoneNumber: 'Rhif cyswllt',
+  representativeDetails: "Manylion eich cynrychiolydd (os yw'n berthnasol)",
+  otherPersonalInfo: "Gwybodaeth bersonol arall rydych chi'n ei darparu yn eich cais",
   specialCategoriesInformation:
     "Rydym hefyd yn casglu gwybodaeth drwy ofyn cwestiynau am nodweddion gwarchodedig sy'n ddewisol, megis:",
   race: 'hil neu ethnigrwydd',
@@ -159,7 +160,7 @@ export const cy: typeof en = {
   theWeb: 'y porwr gwe rydych yn ei ddefnyddio',
   storingYourData: 'Storio eich data',
   postSubmissionData:
-    "Ar ôl i chi gyflwyno’ch cais, bydd yr wybodaeth a roesoch yn cael ei storio am 100 mlynedd ac yna'n cael ei dileu.",
+    "Ar ôl i chi gyflwyno'ch cais, bydd yr wybodaeth a gofnodwyd gennych yn cael ei storio am 50 mlynedd ar ôl y diweddariad diwethaf ar eich apêl ac yna fydd yn cael ei dileu.",
   sharingYourData: 'Rhannu eich data',
   ifAnother:
     'Pan fydd eich hawliad neu eich cais ei brosesu, mae’n bosib y byddwn angen cysylltu ag adran, asiantaeth neu sefydliad arall yn y llywodraeth ac efallai y byddwn yn rhannu eich data gyda nhw.',
