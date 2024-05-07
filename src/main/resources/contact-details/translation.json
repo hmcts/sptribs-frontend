@@ -1,50 +1,50 @@
 {
-    "translations": {
-        "en": {
-            "continue": "Continue",
-            "serviceName": "Contact Number",
-            "title":"What is the contact number of the named applicant?",
-            "line1":"This can be the number of a trusted friend if the applicant does not have a private number.",
-            "homePhoneLabel": "Home Phone",
-            "mobilePhoneLabel": "Mobile Phone",
-            "homePhone": "Enter home phone number",
-            "mobilePhone": "Enter mobile phone number"
-        },
-        "cy": {
-            "continue": "Parhau",
-            "serviceName": "Rhif cyswllt",
-            "title":"Beth yw rhif ffôn cyswllt y ceisydd a enwir?",
-            "line1":"Gall hwn fod yn rhif ffôn ffrind y mae’r ceisydd yn ymddiried ynddynt os nad oes ganddynt rif ffôn eu hunain.",
-            "homePhoneLabel": "Rhif Ffôn Cartref",
-            "mobilePhoneLabel": "Rhif Ffôn Symudol",
-            "homePhone": "Nodwch rif ffôn cartref",
-            "mobilePhone": "Nodwch rif ffôn symudol"
-        }
+  "translations": {
+    "en": {
+      "continue": "Continue",
+      "serviceName": "Contact Number",
+      "title": "What is the contact number of the named applicant?",
+      "line1": "This can be the number of a trusted friend if the applicant does not have a private number.",
+      "homePhoneLabel": "Home Phone",
+      "mobilePhoneLabel": "Mobile Phone",
+      "homePhone": "Enter home phone number",
+      "mobilePhone": "Enter mobile phone number"
     },
-    "errors":{
-        "en": {
-            "applicantPhoneNumber": {
-                "required": "Please enter correct mobile phone number",
-                "invalid": "Please enter correct mobile phone number",
-                "atleastOneRequired": "Mobile phone number is empty, please fill up at least one contact"
-            },
-            "applicantHomeNumber": {
-                "required": "Please enter correct home phone number",
-                "invalid": "Please enter correct home phone number",
-                "atleastOneRequired": "Home phone number is empty, please fill up at least one contact"
-            }
-        },
-        "cy": {
-            "applicantPhoneNumber": {
-                "required": "Nodwch rif ffôn symudol dilys os gwelwch yn dda",
-                "invalid": "Nodwch rif ffôn symudol dilys os gwelwch yn dda",
-                "atleastOneRequired": "Mae’r maes rhif ffôn symudol yn wag, nodwch o leiaf un rhif ffôn cyswllt os gwelwch yn dda"
-            },
-            "applicantHomeNumber": {
-                "required": "Nodwch rif ffôn cartref dilys os gwelwch yn dda",
-                "invalid": "Nodwch rif ffôn cartref dilys os gwelwch yn dda",
-                "atleastOneRequired": "Mae’r maes rif ffôn cartref yn wag, nodwch o leiaf un rhif ffôn cyswllt os gwelwch yn dda"
-            }
-        }
+    "cy": {
+      "continue": "Parhau",
+      "serviceName": "Rhif cyswllt",
+      "title": "Beth yw rhif ffôn cyswllt y ceisydd a enwir?",
+      "line1": "Gall hwn fod yn rhif ffôn ffrind y mae’r ceisydd yn ymddiried ynddynt os nad oes ganddynt rif ffôn eu hunain.",
+      "homePhoneLabel": "Rhif Ffôn Cartref",
+      "mobilePhoneLabel": "Rhif Ffôn Symudol",
+      "homePhone": "Nodwch rif ffôn cartref",
+      "mobilePhone": "Nodwch rif ffôn symudol"
     }
+  },
+  "errors": {
+    "en": {
+      "applicantPhoneNumber": {
+        "required": "Enter correct mobile phone number",
+        "invalid": "Enter a valid mobile phone number",
+        "atleastOneRequired": "Mobile phone number is empty, fill up at least one contact"
+      },
+      "applicantHomeNumber": {
+        "required": "Enter correct home phone number",
+        "invalid": "Enter correct home phone number",
+        "atleastOneRequired": "Home phone number is empty, fill up at least one contact"
+      }
+    },
+    "cy": {
+      "applicantPhoneNumber": {
+        "required": "Nodwch rif ffôn symudol dilys os gwelwch yn dda",
+        "invalid": "Nodwch rif ffôn symudol dilys os gwelwch yn dda",
+        "atleastOneRequired": "Mae’r maes rhif ffôn symudol yn wag, nodwch o leiaf un rhif ffôn cyswllt os gwelwch yn dda"
+      },
+      "applicantHomeNumber": {
+        "required": "Nodwch rif ffôn cartref dilys os gwelwch yn dda",
+        "invalid": "Nodwch rif ffôn cartref dilys os gwelwch yn dda",
+        "atleastOneRequired": "Mae’r maes rif ffôn cartref yn wag, nodwch o leiaf un rhif ffôn cyswllt os gwelwch yn dda"
+      }
+    }
+  }
 }

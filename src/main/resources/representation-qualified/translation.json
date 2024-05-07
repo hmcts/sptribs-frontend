@@ -17,10 +17,10 @@
       "two": "Nac ydy"
     }
   },
-  "errors":{
+  "errors": {
     "en": {
       "representationQualified": {
-        "required": "Please select an answer before you can proceed further"
+        "required": "Select an answer before you can proceed further"
       }
     },
     "cy": {

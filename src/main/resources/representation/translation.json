@@ -15,10 +15,10 @@
       "two": "Nac oes"
     }
   },
-  "errors":{
+  "errors": {
     "en": {
       "representation": {
-        "required": "Please select an answer before you can proceed further"
+        "required": "Select an answer before you can proceed further"
       }
     },
     "cy": {

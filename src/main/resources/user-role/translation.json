@@ -1,30 +1,30 @@
 {
-    "translations": {
-        "en": {
-            "continue": "Continue",
-            "serviceName": "Determine user's role",
-            "label": "Are you applying for yourself or someone else?",
-            "one": " I am applying for myself",
-            "two": " I am applying for someone else"
-        },
-        "cy": {
-            "continue": "Parhau",
-            "serviceName": "Pennu rôl y defnyddiwr",
-            "label": "Ydych chi’n gwneud cais dros eich hun neu ar ran rhywun arall?",
-            "one": "Rwy’n gwneud cais dros fy hun",
-            "two": "Rwy’n gwneud cais ar ran rhywun arall"
-        }
+  "translations": {
+    "en": {
+      "continue": "Continue",
+      "serviceName": "Determine user's role",
+      "label": "Are you applying for yourself or someone else?",
+      "one": " I am applying for myself",
+      "two": " I am applying for someone else"
     },
-    "errors":{
-        "en": {
-            "namedApplicant": {
-                "required": "Please select an answer before you can proceed further"
-            }
-        },
-        "cy": {
-            "namedApplicant": {
-                "required": "Rhaid i chi ddewis ateb cyn y gallwch symud ymlaen"
-            }
-        }
+    "cy": {
+      "continue": "Parhau",
+      "serviceName": "Pennu rôl y defnyddiwr",
+      "label": "Ydych chi’n gwneud cais dros eich hun neu ar ran rhywun arall?",
+      "one": "Rwy’n gwneud cais dros fy hun",
+      "two": "Rwy’n gwneud cais ar ran rhywun arall"
     }
+  },
+  "errors": {
+    "en": {
+      "namedApplicant": {
+        "required": "Select an answer before you can proceed further"
+      }
+    },
+    "cy": {
+      "namedApplicant": {
+        "required": "Rhaid i chi ddewis ateb cyn y gallwch symud ymlaen"
+      }
+    }
+  }
 }

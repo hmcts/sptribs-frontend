@@ -28,15 +28,15 @@
   "errors": {
     "en": {
       "subjectEmailAddress": {
-        "required": "Please enter an email address",
-        "invalid": "Please enter a valid email address. Every email address consists of 3 elements: local-part, @ symbol (pronounced as “at”), and a domain name"
+        "required": "Enter an email address",
+        "invalid": "Enter a valid email address. Every email address consists of 3 elements: local-part, @ symbol (pronounced as “at”), and a domain name"
       },
       "subjectContactNumber": {
-        "required": "Please enter a contact number",
-        "invalid": "Please enter a valid contact number"
+        "required": "Enter a contact number",
+        "invalid": "Enter a valid contact number"
       },
       "subjectAgreeContact": {
-        "required": "Please agree to be contacted using the details provided to continue"
+        "required": "Agree to be contacted using the details provided to continue"
       }
     },
     "cy": {
