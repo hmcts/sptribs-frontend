@@ -26,7 +26,7 @@
   "errors": {
     "en": {
       "representativeFullName": {
-        "required": "Please enter full name",
+        "required": "Please enter a full name",
         "invalid": "Please enter a valid name"
       },
       "representativeOrganisationName": {
@@ -50,11 +50,11 @@
         "required": "Nodwch enw’r sefydliad neu fusnes"
       },
       "representativeContactNumber": {
-        "required": "Nodwch rif cyswllt dilys",
+        "required": "Rhowch rif cyswllt",
         "invalid": "Nodwch rif cyswllt dilys"
       },
       "representativeEmailAddress": {
-        "required": "Nodwch gyfeiriad e-bost dilys",
+        "required": "Rhowch gyfeiriad e-bost",
         "invalid": "Nodwch gyfeiriad e-bost dilys. Mae pob cyfeiriad e-bost yn cynnwys tair elfen: rhan lleol, symbol @ (a ynganir fel “at”), ac enw parth"
       }
     }
