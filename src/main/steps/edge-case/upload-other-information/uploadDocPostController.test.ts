@@ -123,7 +123,7 @@ describe('Document upload controller', () => {
     expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION);
     expect(req.session.fileErrors).toHaveLength(1);
     expect(req.session.fileErrors[0].text).toEqual(
-      'File size exceeds the maximum permitted value. Please upload a file that is less than 100 MB'
+      'File size exceeds the maximum permitted value. Upload a file that is less than 100 MB'
     );
   });
 
@@ -154,7 +154,7 @@ describe('Document upload controller', () => {
     expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION);
     expect(req.session.fileErrors).toHaveLength(2);
     expect(req.session.fileErrors[0].text).toEqual(
-      'File size exceeds the maximum permitted value. Please upload a file that is less than 100 MB'
+      'File size exceeds the maximum permitted value. Upload a file that is less than 100 MB'
     );
     expect(req.session.fileErrors[1].text).toEqual(
       'This service only accepts files in the formats - Ms Word, MS Excel, PDF, JPG, PNG, TXT, RTF, MP4, MP3'
@@ -217,7 +217,7 @@ describe('Document upload controller', () => {
 
     await controller.post(req, res);
     expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION);
-    expect(req.session.fileErrors[0].text).toEqual('Document upload or deletion has failed. Please try again');
+    expect(req.session.fileErrors[0].text).toEqual('Document upload or deletion has failed. Try again');
   });
 
   describe('when there is an error in saving session', () => {
@@ -348,7 +348,7 @@ describe('checking for the redirect of post document upload', () => {
     expect(mockedAxios.create).toHaveBeenCalled();
     expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION);
     expect(req.session.fileErrors).toHaveLength(1);
-    expect(req.session.fileErrors[0].text).toEqual('Document upload or deletion has failed. Please try again');
+    expect(req.session.fileErrors[0].text).toEqual('Document upload or deletion has failed. Try again');
   });
 
   it('should display error if upload file button clicked with no document', async () => {
@@ -361,7 +361,7 @@ describe('checking for the redirect of post document upload', () => {
 
     await postingController.post(req, res);
     expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION);
-    expect(req.session.fileErrors[0].text).toEqual('Please choose a file to upload');
+    expect(req.session.fileErrors[0].text).toEqual('Choose a file to upload');
   });
 
   it('should display error if max documents have been uploaded', async () => {
@@ -594,7 +594,7 @@ describe('checking for the redirect of post document upload', () => {
     await postingController.post(req, res);
     expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION);
     expect(req.session.fileErrors[0].text).toEqual(
-      'You can upload 20 files only. Please delete one of the uploaded files and retry'
+      'You can upload 20 files only. Delete one of the uploaded files and retry'
     );
   });
 });

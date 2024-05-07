@@ -25,12 +25,12 @@
   },
   "errors": {
     "en": {
-      "SIZE_ERROR": "File size exceeds 100Mb. Please upload a file that is less than 100Mb",
+      "SIZE_ERROR": "File size exceeds 100Mb. Upload a file that is less than 100Mb",
       "FORMAT_ERROR": "This service only accepts files in the formats - Ms Word, PDF",
-      "TOTAL_FILES_EXCEED_ERROR": "You can upload 5 files only. Please delete one of the uploaded files and retry",
+      "TOTAL_FILES_EXCEED_ERROR": "You can upload 5 files only. Delete one of the uploaded files and retry",
       "CONTINUE_WITHOUT_UPLOAD_ERROR": "You cannot continue without uploading the application",
-      "NO_FILE_UPLOAD_ERROR": "Please choose a file to upload",
-      "UPLOAD_DELETE_FAIL_ERROR": "Document upload or deletion has failed. Please try again"
+      "NO_FILE_UPLOAD_ERROR": "Choose a file to upload",
+      "UPLOAD_DELETE_FAIL_ERROR": "Document upload or deletion has failed. Try again"
     },
     "cy": {
       "SIZE_ERROR": "Mae maint y ffeil yn fwy na 100Mb. Llwythwch ffeil sy’n llai na 100Mb",

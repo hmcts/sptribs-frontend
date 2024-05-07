@@ -26,19 +26,19 @@
   "errors": {
     "en": {
       "representativeFullName": {
-        "required": "Please enter a full name",
-        "invalid": "Please enter a valid name"
+        "required": "Enter a full name",
+        "invalid": "Enter a valid name"
       },
       "representativeOrganisationName": {
-        "required": "Please enter organisation or business name"
+        "required": "Enter organisation or business name"
       },
       "representativeContactNumber": {
-        "required": "Please enter a contact number",
-        "invalid": "Please enter a valid contact number"
+        "required": "Enter a contact number",
+        "invalid": "Enter a valid contact number"
       },
       "representativeEmailAddress": {
-        "required": "Please enter an email address",
-        "invalid": "Please enter a valid email address. Every email address consists of 3 elements: local-part, @ symbol (pronounced as “at”), and a domain name"
+        "required": "Enter an email address",
+        "invalid": "Enter a valid email address. Every email address consists of 3 elements: local-part, @ symbol (pronounced as “at”), and a domain name"
       }
     },
     "cy": {
