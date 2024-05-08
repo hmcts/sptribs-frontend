@@ -46,34 +46,34 @@
 </p>
 
 <form class="formRow" action="/upload-supporting-documents?_csrf={{ csrfToken }}" method="post" enctype="multipart/form-data">
-{% if FileErrors.length > 0 %}
-  {{ govukFileUpload({
-    id: "file-upload-1",
-    name: "documents",
-    classes: "govuk-!-margin-bottom-1",
-    label: {
-      text: uploadAFile
-    },
-    errorMessage: {
-      text: FileErrors[0].text
-    }
-  }) }}
-{%else%}
-  {{ govukFileUpload({
-    id: "file-upload-1",
-    name: "documents",
-    classes: "govuk-!-margin-bottom-1",
-    label: {
-      text: uploadAFile
-    }
-  }) }}
+  {% if FileErrors.length > 0 %}
+    {{ govukFileUpload({
+      id: "file-upload-1",
+      name: "documents",
+      classes: "govuk-!-margin-bottom-1",
+      label: {
+        text: uploadAFile
+      },
+      errorMessage: {
+        text: FileErrors[0].text
+      }
+    }) }}
+  {%else%}
+    {{ govukFileUpload({
+      id: "file-upload-1",
+      name: "documents",
+      classes: "govuk-!-margin-bottom-1",
+      label: {
+        text: uploadAFile
+      }
+    }) }}
   {%endif%}
   <p class="govuk-body">{{ uploadGuidance }}</p>
 
   {{ govukButton({
-            text: uploadButton,
-            type: "upload document",
-            classes: "govuk-!-margin-bottom-0"
+      text: uploadButton,
+      type: "upload document",
+      classes: "govuk-!-margin-bottom-0"
   }) }}
 </form>
 
