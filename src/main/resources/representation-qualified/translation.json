@@ -11,13 +11,13 @@
     "cy": {
       "continue": "Parhau",
       "serviceName": "Apelio i’r Tribiwnlys Haen Gyntaf",
-      "label": "A yw’r cynrychiolydd a enwyd wedi cymhwyso yn y gyfraith?",
+      "title": "A yw’r cynrychiolydd a enwyd wedi cymhwyso yn y gyfraith?",
       "hint": "Mae cyfreithwyr neu fargyfreithwyr yn gynrychiolwyr sydd wedi cymhwyso yn y gyfraith.",
       "one": "Ydy",
       "two": "Nac ydy"
     }
   },
-  "errors":{
+  "errors": {
     "en": {
       "representationQualified": {
         "required": "Please select an answer before you can proceed further"
