@@ -28,12 +28,12 @@
   "errors": {
     "en": {
       "subjectFullName": {
-        "required": "Enter a full name",
-        "invalid": "Enter a valid name"
+        "required": "Enter your full name",
+        "invalid": "Aside from hyphens (\"-\"), your name must not include any special characters"
       },
       "subjectDateOfBirth": {
-        "required": "Enter a date of birth. For example, 31 3 1980",
-        "invalid": "Enter a valid date of birth. For example, 31 3 1980"
+        "required": "Enter your date of birth",
+        "invalid": "Enter your date of birth in the correct format"
       }
     },
     "cy": {
@@ -42,8 +42,8 @@
         "invalid": "Rhowch enw dilys"
       },
       "subjectDateOfBirth": {
-        "required": "Nodwch ddyddiad geni. Er enghraifft, 31 3 1980",
-        "invalid": "Nodwch ddyddiad geni dilys. Er enghraifft, 31 3 1980"
+        "required": "Nodwch ddyddiad geni",
+        "invalid": "Nodwch ddyddiad geni dilys"
       }
     }
   }

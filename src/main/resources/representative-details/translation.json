@@ -26,19 +26,19 @@
   "errors": {
     "en": {
       "representativeFullName": {
-        "required": "Enter a full name",
-        "invalid": "Enter a valid name"
+        "required": "Enter the full name of the representative",
+        "invalid": "Aside from hyphens (\"-\"), the name of the representative must not include any special characters"
       },
       "representativeOrganisationName": {
-        "required": "Enter organisation or business name"
+        "required": "Enter the organisation or business name of the representative"
       },
       "representativeContactNumber": {
-        "required": "Enter a contact number",
-        "invalid": "Enter a valid contact number"
+        "required": "Enter the contact number of the representative",
+        "invalid": "The contact number of the representative must be in the correct format"
       },
       "representativeEmailAddress": {
         "required": "Enter an email address",
-        "invalid": "Enter a valid email address. Every email address consists of 3 elements: local-part, @ symbol (pronounced as “at”), and a domain name"
+        "invalid": "Enter an email address in the correct format, like name@example.com"
       }
     },
     "cy": {
