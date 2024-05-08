@@ -11,7 +11,7 @@
     "cy": {
       "continue": "Parhau",
       "serviceName": "Apelio i’r Tribiwnlys Haen Gyntaf",
-      "label": "A yw’r cynrychiolydd a enwyd wedi cymhwyso yn y gyfraith?",
+      "title": "A yw’r cynrychiolydd a enwyd wedi cymhwyso yn y gyfraith?",
       "hint": "Mae cyfreithwyr neu fargyfreithwyr yn gynrychiolwyr sydd wedi cymhwyso yn y gyfraith.",
       "one": "Ydy",
       "two": "Nac ydy"

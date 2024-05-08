@@ -10,7 +10,7 @@
     "cy": {
       "continue": "Parhau",
       "serviceName": "Apelio i’r Tribiwnlys Haen Gyntaf",
-      "label": "A oes cynrychiolydd wedi’i enwi ar y ffurflen tribiwnlys sydd wedi’i llenwi?",
+      "title": "A oes cynrychiolydd wedi’i enwi ar y ffurflen tribiwnlys sydd wedi’i llenwi?",
       "one": "Oes",
       "two": "Nac oes"
     }
