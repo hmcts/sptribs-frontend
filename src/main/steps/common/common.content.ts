@@ -22,7 +22,7 @@ const en = {
   warning: 'Warning',
   required: 'You have not answered the question. You need to select an answer before continuing.',
   notAnswered: 'You have not answered the question.',
-  errorSaving: 'Sorry, we’re having technical problems saving your application. Try again in a few minutes.',
+  errorSaving: 'We’re having technical problems saving your application. Try again in a few minutes.',
   errorSendingInvite:
     'Sorry, we’re having technical problems sending your application for review. Try again in a few minutes.',
   ogl: 'All content is available under the <a class="govuk-footer__link" href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license">Open Government Licence v3.0</a>, except where otherwise stated',
