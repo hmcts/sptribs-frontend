@@ -55,7 +55,7 @@
       },
       "representativeEmailAddress": {
         "required": "Rhowch gyfeiriad e-bost",
-        "invalid": "Nodwch gyfeiriad e-bost dilys. Mae pob cyfeiriad e-bost yn cynnwys tair elfen: rhan lleol, symbol @ (a ynganir fel “at”), ac enw parth"
+        "invalid": "Nodwch gyfeiriad e-bost dilys. Mae pob cyfeiriad e-bost yn cynnwys 3 elfen: rhan leol, symbol @ (ynganer fel “yn”), ac enw parth"
       }
     }
   }
