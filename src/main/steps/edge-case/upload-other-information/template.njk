@@ -16,7 +16,7 @@
   errorList: FileErrors
 }) }}
 
-{%endif%}
+{% endif %}
 
 
 <h1 class="govuk-heading-l govuk-!-margin-bottom-2">{{ title }}</h1>
@@ -45,7 +45,7 @@
         <a href="/upload-other-information?query=delete&docId={{documentId}}&documentType=other" class="govuk-link--no-visited-state float-right ">{{ delete }}</a>
       </li>
     {% endfor %}
-    {%endif%}
+    {% endif %}
   </ul>
 </div>
 
@@ -67,7 +67,7 @@
         text: FileErrors[0].text
       }
     }) }}
-  {%else%}
+  {% else %}
     {{ govukFileUpload({
       id: "file-upload-1",
       name: "documents",
@@ -76,7 +76,7 @@
         text: uploadAFile
       }
     }) }}
-  {%endif%}
+  {% endif %}
   <p class="govuk-body">{{ uploadGuidance }}</p>
 
   {{ govukButton({
