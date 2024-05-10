@@ -29,7 +29,7 @@
 
 {% block pageTitle %}
   {% if sessionErrors and sessionErrors.length > 0 %}
-    Error: {{ serviceName }} - {{ title }} - {{ govUk }}
+    {{errorPrefix}} {{ serviceName }} - {{ title }} - {{ govUk }}
   {% else %}
     {{ serviceName }} - {{ title }} - {{ govUk }}
   {% endif %}
