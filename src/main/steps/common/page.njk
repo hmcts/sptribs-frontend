@@ -28,7 +28,7 @@
 {% endblock %}
 
 {% block pageTitle %}
-  {% if sessionErrors and sessionErrors.length > 0 %}
+  {% if (sessionErrors and (sessionErrors.length > 0)) or (FileErrors and (FileErrors.length > 0)) %}
     {{errorPrefix}} {{ serviceName }} - {{ title }} - {{ govUk }}
   {% else %}
     {{ serviceName }} - {{ title }} - {{ govUk }}
