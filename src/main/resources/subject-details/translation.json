@@ -33,7 +33,11 @@
       },
       "subjectDateOfBirth": {
         "required": "Please enter date of birth",
-        "invalid": "Please enter valid date of birth"
+        "invalid": "Please enter valid date of birth",
+        "incompleteDay": "Your date of birth must include a day",
+        "incompleteMonth": "Your date of birth must include a month",
+        "incompleteYear": "Your date of birth must include a year",
+        "invalidDateInFuture": "Your date of birth must be in the past"
       }
     },
     "cy": {

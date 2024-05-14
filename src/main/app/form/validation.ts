@@ -68,6 +68,21 @@ export const isDateInputNotFilled: DateValidator = date => {
       return invalid;
     }
   }
+  const incompleteValues: string[] = [];
+
+  if (isEmpty(date.day)) {
+    incompleteValues.push('incompleteDay');
+  }
+  if (isEmpty(date.month)) {
+    incompleteValues.push('incompleteMonth');
+  }
+  if (isEmpty(date.year)) {
+    incompleteValues.push('incompleteYear');
+  }
+
+  // if (incompleteValues.length > 0) {
+  //   return incompleteValues;
+  // }
 
   if (isEmpty(date.day || date.month || date.year)) {
     return invalid;
