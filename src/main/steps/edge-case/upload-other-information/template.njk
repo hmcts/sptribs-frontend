@@ -40,9 +40,17 @@
     {% if otherInformation.length >0 %}
     {% for file in otherInformation %}
       <li class="uploadedFile govuk-!-padding-top-2 govuk-!-padding-bottom-3 govuk-section-break govuk-section-break--visible">
-        {{ file.fileName }}
-        {% set documentId = file.documentId %}
-        <a href="/upload-other-information?query=delete&docId={{documentId}}&documentType=other" class="govuk-link--no-visited-state float-right ">{{ delete }}</a>
+        <table class="documentRelevanceAndDeletion">
+          <tr>
+            <td class="documentRelevanceAndDeletionAlignment"> {{ file.fileName }}
+            {% if userCase['documentRelevance'] %}
+              <br><br>
+            {{ userCase['documentRelevance'] }}</td>
+            {%endif%}
+            {% set documentId = file.documentId %}
+            <a href="/upload-other-information?query=delete&docId={{documentId}}&documentType=other" class="govuk-link--no-visited-state float-right ">{{ delete }}</a>
+          </tr>
+        </table>
       </li>
     {% endfor %}
     {% endif %}
