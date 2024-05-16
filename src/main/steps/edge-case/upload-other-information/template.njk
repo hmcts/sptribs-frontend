@@ -45,10 +45,11 @@
             <td class="documentRelevanceAndDeletionAlignment"> {{ file.fileName }}
             {% if file.description %}
               <br><br>
-              {{ file.description }}</td>
+              {{ file.description }}
             {%endif%}
+            </td>
             {% set documentId = file.documentId %}
-            <td><a href="/upload-other-information?query=delete&docId={{ documentId }}&documentType=other" class="govuk-link--no-visited-state float-right ">{{ delete }}</a></td>
+            <td class="documentRelevanceAndDeletionAlignment"><a href="/upload-other-information?query=delete&docId={{ documentId }}&documentType=other" class="govuk-link--no-visited-state float-right ">{{ delete }}</a></td>
           </tr>
         </table>
       </li>
