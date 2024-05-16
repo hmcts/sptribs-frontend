@@ -334,7 +334,6 @@ export class UploadController extends PostController<AnyObject> {
     const uploadedDocument = requestDocument.data.document;
     if (req.body.documentRelevance !== (null || undefined)) {
       uploadedDocument.description = req.body.documentRelevance;
-      console.log(req.body);
     }
     req.session[this.getPropertyName()].push(uploadedDocument);
     req.session['errors'] = undefined;
