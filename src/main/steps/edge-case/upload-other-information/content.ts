@@ -5,12 +5,6 @@ import { ResourceReader } from '../../../modules/resourcereader/ResourceReader';
 export const form: FormContent = {
   fields: () => {
     return {
-      documentRelevance: {
-        type: 'text',
-        label: l => l.title3,
-        classes: 'govuk-text',
-        hint: h => h.line4,
-      },
       additionalInformation: {
         type: 'textarea',
         classes: 'govuk-textarea',
