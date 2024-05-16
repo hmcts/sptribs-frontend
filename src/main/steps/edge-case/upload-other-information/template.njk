@@ -43,12 +43,12 @@
         <table class="documentRelevanceAndDeletion">
           <tr>
             <td class="documentRelevanceAndDeletionAlignment"> {{ file.fileName }}
-            {% if userCase['documentRelevance'] %}
+            {% if file.description %}
               <br><br>
-            {{ userCase['documentRelevance'] }}</td>
+              {{ file.description }}</td>
             {%endif%}
             {% set documentId = file.documentId %}
-            <a href="/upload-other-information?query=delete&docId={{documentId}}&documentType=other" class="govuk-link--no-visited-state float-right ">{{ delete }}</a>
+            <a href="/upload-other-information?query=delete&docId={{ documentId }}&documentType=other" class="govuk-link--no-visited-state float-right ">{{ delete }}</a>
           </tr>
         </table>
       </li>
@@ -85,6 +85,11 @@
       }
     }) }}
   {% endif %}
+
+  <label class="govuk-label govuk-label--m" for="documentRelevance">{{ title3 }}</label>
+  <div id="documentRelevance-hint" class="govuk-hint">{{ line4 }}</div>
+  <input class="govuk-input govuk-text" id="documentRelevance" name="documentRelevance" type="text" aria-describedby="documentRelevance-hint">
+
   <p class="govuk-body">{{ uploadGuidance }}</p>
 
   {{ govukButton({

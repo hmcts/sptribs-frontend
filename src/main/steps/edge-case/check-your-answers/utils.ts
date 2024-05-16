@@ -252,6 +252,14 @@ export const OtherInformationSummary = (
         .split(',')
         .join('\n')
     : '';
+  const ListOfOtherDocumentDescriptions = OtherDocuments
+    ? OtherDocuments.map((document): string => {
+        return document.description + '';
+      })
+        .toString()
+        .split(',')
+        .join('\n')
+    : '';
 
   const SummaryData = [
     {
@@ -261,7 +269,7 @@ export const OtherInformationSummary = (
     },
     {
       key: keys.documentRelevance,
-      value: userCase['documentRelevance'],
+      value: ListOfOtherDocumentDescriptions,
       changeUrl: Urls['UPLOAD_OTHER_INFORMATION'],
     },
     {
