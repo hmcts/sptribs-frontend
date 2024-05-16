@@ -48,7 +48,7 @@
               {{ file.description }}</td>
             {%endif%}
             {% set documentId = file.documentId %}
-            <a href="/upload-other-information?query=delete&docId={{ documentId }}&documentType=other" class="govuk-link--no-visited-state float-right ">{{ delete }}</a>
+            <td><a href="/upload-other-information?query=delete&docId={{ documentId }}&documentType=other" class="govuk-link--no-visited-state float-right ">{{ delete }}</a></td>
           </tr>
         </table>
       </li>
