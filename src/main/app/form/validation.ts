@@ -16,6 +16,7 @@ export const enum ValidationError {
   INVALID = 'invalid',
   NOT_UPLOADED = 'notUploaded',
   FILE_COUNT_LIMIT_EXCEEDED = 'maxTenFileUpload',
+  CONTAINS_MARKDOWN_LINK = 'containsMarkdownLink',
 }
 
 export const isFieldFilledIn: Validator = value => {
@@ -218,5 +219,20 @@ export const isAddressSelected: Validator = value => {
 export const isTextAreaValid: Validator = value => {
   if (value && (value as string).trim?.().length > 500) {
     return ValidationError.INVALID;
+  }
+};
+
+export const isMarkDownLinkIncluded: Validator = value => {
+  if (value) {
+    const valueToValidate = String(value);
+    const firstIndex = valueToValidate.indexOf('[');
+    const secondIndex = valueToValidate.indexOf(')');
+
+    if (firstIndex !== -1 && secondIndex !== -1 && firstIndex < secondIndex) {
+      const subStringToValidate = valueToValidate.substring(firstIndex, secondIndex + 1);
+      if (subStringToValidate && new RegExp(/^\[(.*?)]\((https?:\/\/.*?)\)$/).exec(subStringToValidate)) {
+        return ValidationError.CONTAINS_MARKDOWN_LINK;
+      }
+    }
   }
 };
