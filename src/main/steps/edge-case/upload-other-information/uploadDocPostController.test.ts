@@ -68,10 +68,8 @@ describe('Document upload controller', () => {
   test('Should display error if incorrect file type document upload', async () => {
     const mockForm = {
       fields: {
-        field: {
+        documentRelevance: {
           type: 'file',
-          values: [{ label: l => l.no, value: YesOrNo.YES }],
-          validator: isFieldFilledIn,
         },
       },
       submit: {
@@ -101,8 +99,6 @@ describe('Document upload controller', () => {
       fields: {
         field: {
           type: 'file',
-          values: [{ label: l => l.no, value: YesOrNo.YES }],
-          validator: isFieldFilledIn,
         },
       },
       submit: {
@@ -132,8 +128,6 @@ describe('Document upload controller', () => {
       fields: {
         field: {
           type: 'file',
-          values: [{ label: l => l.no, value: YesOrNo.YES }],
-          validator: isFieldFilledIn,
         },
       },
       submit: {
@@ -166,8 +160,6 @@ describe('Document upload controller', () => {
       fields: {
         field: {
           type: 'file',
-          values: [{ label: l => l.no, value: YesOrNo.YES }],
-          validator: isFieldFilledIn,
         },
       },
       submit: {
@@ -197,8 +189,6 @@ describe('Document upload controller', () => {
       fields: {
         field: {
           type: 'file',
-          values: [{ label: l => l.no, value: YesOrNo.YES }],
-          validator: isFieldFilledIn,
         },
       },
       submit: {
@@ -236,6 +226,62 @@ describe('Document upload controller', () => {
       } catch (err) {
         //eslint-disable-next-line jest/no-conditional-expect
         expect(err).not.toBe('MOCK_ERROR');
+      }
+    });
+  });
+
+  describe('when data contains markdown link', () => {
+    test('should throw an error when documentRelevance contains markdown link', async () => {
+      const res = mockResponse();
+      const req = mockRequest({
+        body: {
+          documentRelevance: '[Click here](https://www.google.co.uk)',
+          additionalInformation: 'some info',
+        },
+      });
+      const controller = new UploadDocumentController({});
+
+      await controller.post(req, res);
+
+      expect(req.session.errors).toHaveLength(1);
+      expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION);
+    });
+
+    test('should throw an error when additionalInformation contains markdown link', async () => {
+      const res = mockResponse();
+      const req = mockRequest({
+        body: {
+          documentRelevance: 'doc relevance',
+          additionalInformation: '[Click here](https://www.google.co.uk)',
+        },
+      });
+      const controller = new UploadDocumentController({});
+
+      await controller.post(req, res);
+
+      expect(req.session.errors).toHaveLength(1);
+      expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION);
+    });
+
+    test('should throw an error if error encountered during session save', async () => {
+      const controller = new UploadDocumentController({});
+      const res = mockResponse();
+      const req = mockRequest({
+        body: {
+          documentRelevance: 'doc relevance',
+          additionalInformation: '[Click here](https://www.google.co.uk)',
+        },
+        session: {
+          user: { email: 'test@example.com' },
+
+          save: jest.fn(done => done('MOCK_ERROR')),
+        },
+      });
+      try {
+        await controller.post(req, res);
+      } catch (err) {
+        //eslint-disable-next-line jest/no-conditional-expect
+        expect(err).toBe('MOCK_ERROR');
       }
     });
   });
