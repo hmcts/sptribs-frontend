@@ -1,6 +1,5 @@
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../../app/form/Form';
-import { isMarkDownLinkIncluded } from '../../../app/form/validation';
 import { ResourceReader } from '../../../modules/resourcereader/ResourceReader';
 
 export const form: FormContent = {
@@ -11,14 +10,12 @@ export const form: FormContent = {
         label: l => l.title3,
         classes: 'govuk-text',
         hint: h => h.line4,
-        validator: isMarkDownLinkIncluded,
       },
       additionalInformation: {
         type: 'textarea',
         classes: 'govuk-textarea',
         label: l => l.title2,
         hint: h => h.hint,
-        validator: isMarkDownLinkIncluded,
       },
       documentUploadProceed: {
         type: 'hidden',
