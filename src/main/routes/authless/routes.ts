@@ -10,7 +10,6 @@ export class PublicRoutes {
      * @GET
      */
     app.get(Path.LANDING, LandingController);
-    app.get(Path.CIC_SUBMIT, LandingController);
     app.get(Path.CIC_UPDATE, UpdateLandingController);
   }
 }
