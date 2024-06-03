@@ -1,6 +1,5 @@
 import { EmailAddress } from '../../../app/case/definition';
 import { FormContent, FormFields, FormOptions } from '../../../app/form/Form';
-import { isFieldFilledIn } from '../../../app/form/validation';
 import { ResourceReader } from '../../../modules/resourcereader/ResourceReader';
 import { CommonContent } from '../../common/common.content';
 
@@ -100,9 +99,15 @@ describe('representative-details-content', () => {
     const representativeFullName = fields.representativeFullName as FormOptions;
     const representativeOrganisationName = fields.representativeOrganisationName as FormOptions;
     expect((representativeFullName.label as Function)(generatedContent)).toBe(enContent.fullNameLabel);
-    expect(representativeFullName.validator).toBe(isFieldFilledIn);
+    expect((representativeFullName.validator as Function)('rep name [Text](https://www.google.co.uk)')).toBe('invalid');
+    expect((representativeFullName.validator as Function)('')).toBe('required');
+    expect((representativeFullName.validator as Function)('rep name')).toBe(undefined);
     expect((representativeOrganisationName.label as Function)(generatedContent)).toBe(enContent.organisationNameLabel);
-    expect(representativeOrganisationName.validator).toBe(isFieldFilledIn);
+    expect(
+      (representativeOrganisationName.validator as Function)('rep company [Text](https://www.google.co.uk) some info')
+    ).toBe('containsMarkdownLink');
+    expect((representativeOrganisationName.validator as Function)('')).toBe('required');
+    expect((representativeOrganisationName.validator as Function)('rep business name 123')).toBe(undefined);
   });
 
   it('should have a contact number text field', () => {
