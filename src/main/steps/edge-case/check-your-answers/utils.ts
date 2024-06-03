@@ -1,5 +1,5 @@
 import { getFormattedDate } from '../../../app/case/answers/formatDate';
-import { CaseWithId } from '../../../app/case/case';
+import { CaseWithId, DocumentUpload } from '../../../app/case/case';
 import { YesOrNo } from '../../../app/case/definition';
 import { PageContent } from '../../../app/controller/GetController';
 import * as Urls from '../../../steps/urls';
@@ -244,40 +244,23 @@ export const OtherInformationSummary = (
   userCase: Partial<CaseWithId>
 ): SummaryList | undefined => {
   const sectionTitle = sectionTitles.otherInformation;
-  const ListOfOtherDocuments = OtherDocuments
-    ? OtherDocuments.map((document): string => {
-        return document.fileName + '';
-      })
-        .toString()
-        .split(',')
-        .join('\n')
-    : '';
-  const ListOfOtherDocumentDescriptions = OtherDocuments
-    ? OtherDocuments.map((document): string => {
-        return document.description + '';
-      })
-        .toString()
-        .split(',')
-        .join('\n')
-    : '';
 
-  const SummaryData = [
-    {
-      key: keys.otherInformation,
-      value: ListOfOtherDocuments,
+  const additionalInformation = {
+    key: keys.additionalInformation,
+    value: userCase['additionalInformation'],
+    changeUrl: Urls['UPLOAD_OTHER_INFORMATION'],
+  };
+
+  const documentInformation = OtherDocuments.map((document: DocumentUpload) => {
+    return {
+      key: keys.otherInformation + ' ' + document.fileName + ' and ' + keys.documentRelevance,
+      keyHtml: keys.otherInformation + '<br><br>' + keys.documentRelevance,
+      valueHtml: document.fileName + '<br><br>' + document.description,
       changeUrl: Urls['UPLOAD_OTHER_INFORMATION'],
-    },
-    {
-      key: keys.documentRelevance,
-      value: ListOfOtherDocumentDescriptions,
-      changeUrl: Urls['UPLOAD_OTHER_INFORMATION'],
-    },
-    {
-      key: keys.additionalInformation,
-      value: userCase['additionalInformation'],
-      changeUrl: Urls['UPLOAD_OTHER_INFORMATION'],
-    },
-  ];
+    };
+  });
+
+  const SummaryData = [additionalInformation, ...documentInformation].filter(item => item);
 
   return {
     title: sectionTitle,

@@ -27,7 +27,7 @@
         "representativeEmailAddress": "Email address",
         "appealDocuments": "List of forms uploaded (Appeal form)",
         "supportingDocuments": "List of supporting documents uploaded",
-        "otherInformation": "List of other documents uploaded",
+        "otherInformation": "Additional document",
         "additionalInformation": "Additional information",
         "documentRelevance": "Document relevance"
       },
