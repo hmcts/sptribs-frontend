@@ -8,6 +8,7 @@ export const form: FormContent = {
       additionalInformation: {
         type: 'textarea',
         classes: 'govuk-textarea',
+        autocomplete: 'on',
         label: l => l.title2,
         hint: h => h.hint,
       },
