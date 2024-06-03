@@ -1,7 +1,13 @@
 import { EmailAddress } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
-import { isEmailValid, isFieldFilledIn, isPhoneNoValid } from '../../../app/form/validation';
+import {
+  isEmailValid,
+  isFieldFilledIn,
+  isFieldLetters,
+  isMarkDownLinkIncluded,
+  isPhoneNoValid,
+} from '../../../app/form/validation';
 import { ResourceReader } from '../../../modules/resourcereader/ResourceReader';
 
 export const form: FormContent = {
@@ -10,13 +16,13 @@ export const form: FormContent = {
       type: 'text',
       classes: 'govuk-input',
       label: l => l.fullNameLabel,
-      validator: isFieldFilledIn,
+      validator: input => isFieldFilledIn(input) || isFieldLetters(input),
     },
     representativeOrganisationName: {
       type: 'text',
       classes: 'govuk-input',
       label: l => l.organisationNameLabel,
-      validator: isFieldFilledIn,
+      validator: input => isFieldFilledIn(input) || isMarkDownLinkIncluded(input),
     },
     representativeContactNumber: {
       type: 'text',
