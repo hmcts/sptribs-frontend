@@ -249,4 +249,36 @@ describe('PostController', () => {
     });
     expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION);
   });
+
+  test('Should upload additional document successfully when document relevance is empty', async () => {
+    const mockForm = {
+      fields: {
+        field: {
+          type: 'file',
+        },
+      },
+      submit: {
+        text: l => l.continue,
+      },
+    };
+    const req = mockRequest({});
+    const res = mockResponse();
+    mockedAxios.post.mockResolvedValueOnce({ data: { document: { fileName: 'test' } } });
+    const controller = new UploadDocumentController(mockForm.fields);
+    req.session.otherCaseInformation = [];
+    (req.files as any) = { documents: { name: 'test', mimetype: 'application/pdf', size: 20480000, data: 'data' } };
+    req.body.documentRelevance = undefined;
+    req.session.fileErrors = [];
+    req.body['documentUploadProceed'] = false;
+
+    await controller.post(req, res);
+    expect(mockedAxios.create).toHaveBeenCalled();
+    expect(mockedAxios.post).toHaveBeenCalled();
+    expect(req.session.fileErrors).toHaveLength(0);
+    expect(req.session.otherCaseInformation).toHaveLength(1);
+    expect(req.session.otherCaseInformation[0]).toEqual({
+      fileName: 'test',
+    });
+    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION);
+  });
 });
