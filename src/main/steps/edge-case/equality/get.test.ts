@@ -49,6 +49,7 @@ describe('PCQGetController', () => {
         filename: 'fileName',
         documentId: 'documentId',
         binaryUrl: 'binaryUrl',
+        description: 'testing',
       },
     ];
     const redirectMock = jest.fn();
