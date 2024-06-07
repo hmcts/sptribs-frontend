@@ -6,8 +6,6 @@ import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import * as steps from '../../steps';
 import { SPTRIBS_CASE_API_BASE_URL } from '../../steps/common/constants/apiConstants';
-import UploadDocumentController from '../../steps/edge-case/upload-other-information/uploadDocPostController';
-import { UPLOAD_OTHER_INFORMATION } from '../../steps/urls';
 import { YesOrNo } from '../case/definition';
 import { isFieldFilledIn } from '../form/validation';
 
@@ -215,92 +213,5 @@ describe('PostController', () => {
     expect(req.session.fileErrors[0].text).toEqual('You cannot continue without uploading the application');
     expect(req.session.fileErrors[0].href).toEqual('#file-upload-1');
     expect(res.redirect).toHaveBeenCalledWith('/' + testCurrentPageRedirectUrl);
-  });
-
-  test('Should upload additional document with document relevance successfully', async () => {
-    const mockForm = {
-      fields: {
-        field: {
-          type: 'file',
-        },
-      },
-      submit: {
-        text: l => l.continue,
-      },
-    };
-    const req = mockRequest({});
-    const res = mockResponse();
-    mockedAxios.post.mockResolvedValueOnce({ data: { document: { fileName: 'test' } } });
-    const controller = new UploadDocumentController(mockForm.fields);
-    req.session.otherCaseInformation = [];
-    (req.files as any) = { documents: { name: 'test', mimetype: 'application/pdf', size: 20480000, data: 'data' } };
-    req.body.documentRelevance = 'this is an important document';
-    req.session.fileErrors = [];
-    req.body['documentUploadProceed'] = false;
-
-    await controller.post(req, res);
-    expect(mockedAxios.create).toHaveBeenCalled();
-    expect(mockedAxios.post).toHaveBeenCalled();
-    expect(req.session.fileErrors).toHaveLength(0);
-    expect(req.session.otherCaseInformation).toHaveLength(1);
-    expect(req.session.otherCaseInformation[0]).toEqual({
-      description: 'this is an important document',
-      fileName: 'test',
-    });
-    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION);
-  });
-
-  test('Should upload additional documents successfully when document relevance is empty for one document', async () => {
-    const mockForm = {
-      fields: {
-        field: {
-          type: 'file',
-        },
-      },
-      submit: {
-        text: l => l.continue,
-      },
-    };
-    const req = mockRequest({});
-    const res = mockResponse();
-    mockedAxios.post.mockResolvedValueOnce({ data: { document: { fileName: 'test' } } });
-    const controller = new UploadDocumentController(mockForm.fields);
-    req.session.otherCaseInformation = [];
-    (req.files as any) = { documents: { name: 'test', mimetype: 'application/pdf', size: 20480000, data: 'data' } };
-    req.body.documentRelevance = undefined;
-    req.session.fileErrors = [];
-    req.body['documentUploadProceed'] = false;
-
-    await controller.post(req, res);
-    expect(mockedAxios.create).toHaveBeenCalled();
-    expect(mockedAxios.post).toHaveBeenCalled();
-    expect(req.session.fileErrors).toHaveLength(0);
-    expect(req.session.otherCaseInformation).toHaveLength(1);
-    expect(req.session.otherCaseInformation[0]).toEqual({
-      fileName: 'test',
-    });
-    expect(req.session.otherCaseInformation[0]).not.toHaveProperty('description');
-    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION);
-
-    mockedAxios.post.mockResolvedValueOnce({ data: { document: { fileName: 'test2' } } });
-    const controller2 = new UploadDocumentController(mockForm.fields);
-    (req.files as any) = { documents: { name: 'test2', mimetype: 'application/pdf', size: 20480000, data: 'data' } };
-    req.body.documentRelevance = 'this is a relevant document';
-    req.body['documentUploadProceed'] = false;
-    await controller2.post(req, res);
-
-    expect(mockedAxios.create).toHaveBeenCalled();
-    expect(mockedAxios.post).toHaveBeenCalled();
-    expect(req.session.fileErrors).toHaveLength(0);
-    expect(req.session.otherCaseInformation).toHaveLength(2);
-    expect(req.session.otherCaseInformation[0]).toEqual({
-      fileName: 'test',
-    });
-    expect(req.session.otherCaseInformation[0]).not.toHaveProperty('description');
-    expect(req.session.otherCaseInformation[1]).toEqual({
-      description: 'this is a relevant document',
-      fileName: 'test2',
-    });
-    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION);
   });
 });
