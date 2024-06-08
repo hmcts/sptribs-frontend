@@ -1,9 +1,11 @@
-import axios from 'axios';
+import axios, { RawAxiosRequestHeaders } from 'axios';
 import config from 'config';
 
 import { ResourceReader } from '../../../main/modules/resourcereader/ResourceReader';
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
+import { mockUserCase4, mockUserCase4Output } from '../../../test/unit/utils/mockUserCase';
+import { getServiceAuthToken } from '../../app/auth/service/get-service-auth-token';
 import * as steps from '../../steps';
 import { SPTRIBS_CASE_API_BASE_URL } from '../../steps/common/constants/apiConstants';
 import UploadDocumentController from '../../steps/edge-case/upload-other-information/uploadDocPostController';
@@ -249,5 +251,113 @@ describe('PostController', () => {
       fileName: 'test',
     });
     expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION);
+  });
+
+  test('Should pass additional document information to axios', async () => {
+    const mockForm = {
+      fields: {
+        field: {
+          type: 'file',
+        },
+      },
+      submit: {
+        text: l => l.continue,
+      },
+    };
+
+    const req = mockRequest({ userCase: mockUserCase4 });
+    const res = mockResponse();
+    const controller = new UploadDocumentController(mockForm.fields);
+    (req.files as any) = { documents: { name: 'test', mimetype: 'application/pdf', size: 20480000, data: 'data' } };
+
+    //req.body.documentRelevance = 'this is an important document';
+    req.session.caseDocuments = [
+      {
+        url: 'url',
+        fileName: 'fileName',
+        documentId: 'documentId',
+        binaryUrl: 'binaryUrl',
+      },
+    ];
+    req.session.supportingCaseDocuments = [
+      {
+        url: 'url',
+        fileName: 'fileName',
+        documentId: 'documentId',
+        binaryUrl: 'binaryUrl',
+      },
+    ];
+    req.session.otherCaseInformation = [
+      {
+        url: 'url',
+        fileName: 'fileName',
+        documentId: 'documentId',
+        binaryUrl: 'binaryUrl',
+        description: 'this is an important document',
+      },
+    ];
+
+    const headers: RawAxiosRequestHeaders = {
+      authorization: `Bearer ${req.session.user['accessToken']}`,
+      serviceAuthorization: getServiceAuthToken(),
+    };
+    const baseUrl = '/case/dss-orchestration/' + req.session.userCase.id + '/update?event=UPDATE';
+
+    const TribunalFormDocuments = [
+      {
+        id: 'documentId',
+        value: {
+          documentLink: {
+            document_url: 'url',
+            document_filename: 'fileName',
+            document_binary_url: 'binaryUrl',
+          },
+        },
+      },
+    ];
+    const SupportingDocuments = [
+      {
+        id: 'documentId',
+        value: {
+          documentLink: {
+            document_url: 'url',
+            document_filename: 'fileName',
+            document_binary_url: 'binaryUrl',
+          },
+        },
+      },
+    ];
+    const OtherInfoDocuments = [
+      {
+        id: 'documentId',
+        value: {
+          documentLink: {
+            document_url: 'url',
+            document_filename: 'fileName',
+            document_binary_url: 'binaryUrl',
+          },
+          comment: 'this is an important document',
+        },
+      },
+    ];
+
+    const responseBody = {
+      ...mockUserCase4Output,
+      TribunalFormDocuments,
+      SupportingDocuments,
+      OtherInfoDocuments,
+    };
+
+    req.body['documentUploadProceed'] = true;
+    await controller.post(req, res);
+
+    expect(
+      axios.create({
+        baseURL: config.get(SPTRIBS_CASE_API_BASE_URL),
+        headers,
+        maxContentLength: Infinity,
+        maxBodyLength: Infinity,
+      }).put
+    ).toHaveBeenCalledWith(baseUrl, responseBody);
   });
 });
