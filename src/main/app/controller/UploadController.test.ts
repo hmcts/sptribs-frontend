@@ -19,6 +19,7 @@ const getNextStepUrlMock = jest.spyOn(steps, 'getNextStepUrl');
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 mockedAxios.create = jest.fn(() => mockedAxios);
+
 describe('PostController', () => {
   afterEach(() => {
     getNextStepUrlMock.mockClear();
@@ -234,6 +235,7 @@ describe('PostController', () => {
     const res = mockResponse();
     mockedAxios.post.mockResolvedValueOnce({ data: { document: { fileName: 'test' } } });
     const controller = new UploadDocumentController(mockForm.fields);
+
     req.session.otherCaseInformation = [];
     (req.files as any) = { documents: { name: 'test', mimetype: 'application/pdf', size: 20480000, data: 'data' } };
     req.body.documentRelevance = 'this is an important document';
@@ -253,7 +255,7 @@ describe('PostController', () => {
     expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION);
   });
 
-  test('Should pass additional document information to axios', async () => {
+  test('Should pass additional document information to axios when documentUploadProceed is true', async () => {
     const mockForm = {
       fields: {
         field: {
@@ -269,6 +271,12 @@ describe('PostController', () => {
     const res = mockResponse();
     const controller = new UploadDocumentController(mockForm.fields);
     (req.files as any) = { documents: { name: 'test', mimetype: 'application/pdf', size: 20480000, data: 'data' } };
+
+    const headers: RawAxiosRequestHeaders = {
+      authorization: `Bearer ${req.session.user['accessToken']}`,
+      serviceAuthorization: getServiceAuthToken(),
+    };
+    const baseUrl = '/case/dss-orchestration/' + req.session.userCase.id + '/update?event=UPDATE';
 
     //req.body.documentRelevance = 'this is an important document';
     req.session.caseDocuments = [
@@ -296,12 +304,6 @@ describe('PostController', () => {
         description: 'this is an important document',
       },
     ];
-
-    const headers: RawAxiosRequestHeaders = {
-      authorization: `Bearer ${req.session.user['accessToken']}`,
-      serviceAuthorization: getServiceAuthToken(),
-    };
-    const baseUrl = '/case/dss-orchestration/' + req.session.userCase.id + '/update?event=UPDATE';
 
     const TribunalFormDocuments = [
       {
