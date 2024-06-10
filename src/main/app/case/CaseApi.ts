@@ -73,6 +73,7 @@ export class CaseApi {
               document_filename: fileName,
               document_binary_url: binaryUrl,
             },
+            comment: document.description ? document.description : null,
           },
         };
       });
