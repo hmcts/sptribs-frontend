@@ -18,7 +18,7 @@ nodejs:
     EQUALITY_URL: 'https://pcq.{{ .Values.global.environment }}.platform.hmcts.net'
     CASE_API_URL: 'https://sptribs-case-api-pr-1784.preview.platform.hmcts.net'
     PCQ_ENABLED: true
-    DSS_UPDATE_URL: 'https://sptribs-dss-update-case-web.{{ .Values.global.environment }}.platform.hmcts.net/'
+    DSS_UPDATE_URL: 'https://sptribs-dss-update-case-web-pr-325.preview.platform.hmcts.net'
 
   keyVaults:
     sptribs:
