@@ -87,6 +87,9 @@
     }) }}
   {% endif %}
 
+  <br>
+  <br>
+
   <label class="govuk-label govuk-label--m" for="documentRelevance">{{ title3 }}</label>
   <div id="documentRelevance-hint" class="govuk-hint">{{ line4 }}</div>
   <input class="govuk-input govuk-text" id="documentRelevance" name="documentRelevance" type="text" aria-describedby="documentRelevance-hint">
@@ -97,6 +100,26 @@
       text: uploadButton,
       type: "upload document",
       classes: "govuk-!-margin-bottom-1"
+  }) }}
+
+  <br>
+  <br>
+  <br>
+
+  {{ govukTextarea({
+      name: "additionalInformation",
+      id: "additionalInformation",
+      value: userCase.additionalInformation,
+      hint: {
+        text: hint,
+        classes: "govuk-hint",
+        isPageHeading: false
+      },
+      label: { 
+        text: title2,
+        classes: "govuk-label--m",
+        isPageHeading: true 
+      }
   }) }}
 
 </form>
