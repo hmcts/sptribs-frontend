@@ -64,7 +64,7 @@ export const en = {
   accessibilityStatementPreparationDate:
     'This statement was prepared on 1st December 2023. It was last reviewed on 16 April 2024.',
   accessibilityStatementPreparationLastTested:
-    'This website was last tested on 27th March 2024. The test was carried out by Digital Accessibility Testing.',
+    'This website was last tested on 28th March 2024. The test was carried out by Digital Accessibility Testing.',
 };
 
 export const cy = {
@@ -129,7 +129,7 @@ export const cy = {
   accessibilityStatementPreparationDate:
     'This statement was prepared on 1st December 2023. It was last reviewed on 16 April 2024. (WELSH)',
   accessibilityStatementPreparationLastTested:
-    'This website was last tested on 27th March 2024. The test was carried out by Digital Accessibility Testing. (WELSH)',
+    'This website was last tested on 28th March 2024. The test was carried out by Digital Accessibility Testing. (WELSH)',
 };
 
 const languages = {
