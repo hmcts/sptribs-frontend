@@ -68,68 +68,70 @@ export const en = {
 };
 
 export const cy = {
-  title: 'Datganiad hygyrchedd ar gyfer y gwasanaeth mabwysiadu',
-  websiteRanBy: 'Mae’r gwasanaeth hwn yn caniatáu i ddarpar rieni wneud cais i fabwysiadu plentyn ar-lein.',
+  title: 'Datganiad Hygyrchedd ar gyfer Apelio yn erbyn penderfyniad yr Awdurdod Digolledu am Anafiadau Troseddol',
+  websiteRanBy:
+    'Mae’r datganiad hygyrchedd hwn yn berthnasol i GOV.UK - Y lle gorau i ddod o hyd i wasanaethau a gwybodaeth gan y llywodraeth (special-tribunals.service.gov.uk) sy’n caniatáu i ddefnyddwyr gyflwyno apêl digolledu am anafiadau troseddol ar-lein.',
   asManyAsPossible:
-    'Gwasanaeth Llysoedd a Thribiwnlysoedd EM sy’n gyfrifol am y gwasanaeth hwn.  Rydym eisiau i gymaint o bobl â phosibl allu ei ddefnyddio, felly rydym wedi ceisio ei wneud mor hygyrch â phosibl.  Er enghraifft, dylech allu:',
-  asManyAsPossibleColours: 'newid y lliwiau, y lefelau cyferbyniad a’r ffontiau',
-  asManyAsPossibleZoom: 'gwneud y testun hyd at 300% yn fwy heb iddo ddiflannu oddi ar y sgrin',
+    "Mae’r wefan hon yn cael ei rhedeg gan Lysoedd a Thribiwnlysoedd EM. Rydym am i gynifer o bobl â phosibl allu defnyddio’r wefan hon. Er enghraifft, mae hynny'n golygu y dylech allu:",
+  asManyAsPossibleColours: 'newid lliwiau, lefelau cyferbyniad a ffontiau',
+  asManyAsPossibleZoom: "chwyddo hyd at 300% heb i'r testun arllwys oddi ar y sgrin",
   asManyAsPossibleKeyboard: "llywio'r rhan fwyaf o'r wefan gan ddefnyddio bysellfwrdd yn unig",
-  asManyAsPossibleSpeech: "llywio'r rhan fwyaf o'r wefan gan ddefnyddio meddalwedd adnabod llais",
+  asManyAsPossibleSpeech: "llywio'r rhan fwyaf o'r wefan gan ddefnyddio meddalwedd adnabod lleferydd",
   asManyAsPossibleListen:
-    'gwrando ar y rhan fwyaf o’r wefan gan ddefnyddio darllenydd sgrin (gan gynnwys fersiynau diweddaraf NVDA, CCA (Dadansoddwr cyferbyniad lliwiau) a VoiceOver)',
-  simpleAsPossible: 'Rydym hefyd wedi sicrhau ein bod wedi defnyddio iaith syml.',
+    "gwrando ar y rhan fwyaf o'r wefan gan ddefnyddio darllenydd sgrin (gan gynnwys fersiynau diweddaraf JAWS, NVDA a VoiceOver)",
+  simpleAsPossible: 'Rydym hefyd wedi gwneud testun y wefan mor syml â phosibl i’w ddeall.',
   abilityNet:
-    '<a href="https://mcmw.abilitynet.org.uk" class="govuk-link" target="_blank">Mae AbilityNet</a> yn rhoi cyngor ar sut i wneud eich dyfais yn haws i’w defnyddio os oes gennych anabledd.',
+    'Mae gan <a href="https://mcmw.abilitynet.org.uk" class="govuk-link" target="_blank" aria-label="Bydd y ddolen hon yn agor mewn tab newydd ar gyfer AbilityNet">AbilityNet</a> gyngor ar wneud eich dyfais yn haws ei defnyddio os oes gennych anabledd.',
   howAccessible: "Pa mor hygyrch yw'r wefan hon",
-  somePartsNot: "Rydym yn gwybod nad yw rhai rhannau o'r wefan hon yn gwbl hygyrch:",
+  somePartsNot: 'Gwyddwn nad yw rhai rhannau o’r wefan hon yn gwbl hygyrch:',
   somePartsNotReflow: 'nid yw’r testun yn newid i fod mewn un golofn pan fyddwch yn newid maint ffenestr y porwr',
   somePartsNotSpacing: 'ni allwch newid lled y llinellau neu fylchiad y testun',
-  somePartsScreenReader: 'most older PDF documents are not fully accessible to screen reader software (WELSH)',
-  somePartsNoCaptions: 'live video streams do not have captions (WELSH)',
-  somePartsOnlineForms: 'some of our online forms are difficult to navigate using just a keyboard (WELSH)',
-  somePartsSkipContent: 'you cannot skip to the main content when using a screen reader (WELSH)',
-  somePartsMagnify: 'there’s a limit to how far you can magnify the map on our ‘contact us’ page (WELSH)',
+  somePartsScreenReader: 'nid yw’r rhan fwyaf o ddogfennau PDF hŷn yn gwbl hygyrch i feddalwedd darllen sgrin',
+  somePartsNoCaptions: 'nid oes gan ffrydiau fideo byw gapsiynau',
+  somePartsOnlineForms: 'mae rhai o’n ffurflenni ar-lein yn anodd eu llywio gan ddefnyddio bysellfwrdd yn unig',
+  somePartsSkipContent: "ni allwch fynd i'r prif gynnwys wrth ddefnyddio darllenydd sgrin",
+  somePartsMagnify: "mae terfyn ar ba mor bell y gallwch chwyddo'r map ar ein tudalen 'cysylltu â ni'",
   feedbackAndContactInformation: 'Adborth a gwybodaeth gyswllt',
   needMoreInformation:
-    'Os ydych angen gwybodaeth sydd ar y wefan hon mewn fformat arall megis ar ffurf PDF hygyrch, print bras, fformat hawdd ei ddarllen, recordiad sain neu braille:',
-  email: 'E-bost: <a href="mailto:CIC.enquiries@justice.gov.uk" class=”govuk-link”>CIC.enquiries@justice.gov.uk</a>',
-  phone: 'Ffoniwch: 01634 887900',
+    'Os oes angen gwybodaeth arnoch ar y wefan hon mewn fformat gwahanol fel PDF hygyrch, print bras, hawdd ei ddarllen, recordiad sain neu braille:',
+  email:
+    'e-bost <a href="mailto:HMCTSforms@justice.gov.uk" class="govuk-link" aria-label="Bydd y ddolen hon yn agor mewn e-bost newydd i HMCTSforms@justice.gov.uk">HMCTSforms@justice.gov.uk</a>',
+  phone: 'ffoniwch 0300 790 6234',
   tribunalsCentre: 'Glasgow Tribunals Centre 20 York Street Glasgow G2 8GT',
   considerYourRequest: 'Byddwn yn ystyried eich cais ac yn ymateb o fewn 10 diwrnod gwaith.',
-  reportingAccessibility: "Riportio problemau hygyrchedd gyda'r wefan hon",
-  accessibilityPhoneNumber: 'Rhif ffôn: 01634 887900',
+  reportingAccessibility: "Rhoi gwybod am broblemau hygyrchedd gyda'r wefan hon",
   improveAccessibility:
-    'Rydym wastad yn ceisio gwella hygyrchedd y wefan hon. Os byddwch yn cael unrhyw broblemau nad ydynt yn cael eu crybwyll ar y dudalen hon, neu os ydych yn credu nad ydym yn bodloni gofynion y rheoliadau hygyrchedd, cysylltwch â: <a href="mailto:CIC.enquiries@justice.gov.uk" class=”govuk-link”>CIC.enquiries@justice.gov.uk</a>.',
-  enforcementProcedure: 'Y Weithdrefn Orfodi',
+    "Rydym bob amser yn ceisio gwella hygyrchedd y wefan hon. Os byddwch yn dod o hyd i unrhyw broblemau nad ydynt wedi'u rhestru ar y dudalen hon neu'n meddwl nad ydym yn bodloni gofynion hygyrchedd, cysylltwch â:",
+  accessibilityPhoneNumber: 'ffoniwch 0300 790 6234',
+  enforcementProcedure: 'Gweithdrefn orfodi',
   humanRightsCommission:
-    'Y Comisiwn Cydraddoldeb a Hawliau Dynol (EHRC) sy’n gyfrifol am orfodi Rheoliadau Hygyrchedd Cyrff y Sector Cyhoeddus (Gwefannau a Rhaglenni Symudol) (Rhif 2) 2018 (y ‘rheoliadau hygyrchedd’).',
-  contactingUs: 'Cysylltu â ni dros y ffôn neu ymweld â ni’n bersonol',
-  contactCourtDirectly:
-    "Os oes gennych gwestiwn am hygyrchedd yn ein llysoedd teulu, gallwch <a href='https://www.find-court-tribunal.service.gov.uk/services/childcare-and-parenting/adoption/search-by-postcode?lng=cy' class='govuk-link' target='_blank'>gysylltu â'r llys yn uniongyrchol</a>.",
+    'Mae’r Comisiwn Cydraddoldeb a Hawliau Dynol (EHRC) yn gyfrifol am orfodi Rheoliadau Hygyrchedd Cyrff y Sector Cyhoeddus (Gwefannau a Chymwysiadau Symudol) (Rhif 2) 2018 (y ‘rheoliadau hygyrchedd’). Os nad ydych yn hapus gyda’r ffordd yr ydym yn ymateb i’ch cwyn, <a href="https://www.equalityadvisoryservice.com/" class="govuk-link" target="_blank" aria-label="Bydd y ddolen hon yn agor mewn tab newydd ar gyfer y Gwasanaeth Cynghori a Chymorth Cydraddoldeb">cysylltwch â’r Gwasanaeth Cynghori a Chymorth Cydraddoldeb (EASS)</a>.',
+  contactingUs: 'Cysylltu â ni dros y ffôn neu ymweld â ni yn bersonol',
   contactTextRelay:
     'Rydym yn darparu gwasanaeth cyfnewid negeseuon testun ar gyfer pobl fyddar, pobl sydd â nam ar eu clyw a phobl sydd â nam ar eu lleferydd.',
   contactInductionLoops:
-    'Mae gan y llysoedd teulu ddolenni sain a gallwch hefyd ofyn am gael mynediad heb risiau, cyfieithydd iaith arwyddion neu gyfieithydd iaith dramor.',
+    'Mae yna ddolenni sain yn ein swyddfeydd, neu os byddwch yn cysylltu â ni cyn eich ymweliad, gallwn drefnu cyfieithydd Iaith Arwyddion Prydain (BSL) ar eich cyfer.',
+  contactCourtDirectly:
+    'Gwybodaeth am sut i gysylltu â ni: <a href="https://www.find-court-tribunal.service.gov.uk" class="govuk-link" target="blank">Dod o hyd i lys neu dribiwnlys - GOV.UK (find-court-tribunal.service.gov.uk)</a>.',
   technicalInfo: 'Gwybodaeth dechnegol am hygyrchedd y wefan hon',
   hmctsIsCommitted:
-    'Mae GLlTEM wedi ymrwymo i sicrhau bod ei wefannau yn hygyrch, a hynny yn unol â Rheoliadau Hygyrchedd Cyrff y Sector Gyhoeddus (Gwefannau a Rhaglenni Symudol) (Rhif 2) 2018.',
-  complianceStatus: 'Statws cydymffurfiaeth',
+    'Mae GLlTEM wedi ymrwymo i wneud ei wefan yn hygyrch, yn unol â Rheoliadau Hygyrchedd Cyrff y Sector Cyhoeddus (Gwefannau a Chymwysiadau Symudol) (Rhif 2) 2018.',
+  complianceStatus: 'Statws cydymffurfio',
   partiallyCompliant:
-    'Mae’r wefan hon yn cydymffurfio’n rhannol â safon <a href="https://www.w3.org/TR/WCAG21/" class="govuk-link" target="blank">AA Canllawiau Hygyrchedd Cynnwys Gwe fersiwn 2.1,</a>a hynny oherwydd y materion o beidio â chydymffurfio a’r esemptiadau a restrir isod.',
-  nonAccessibleContent: 'Cynnwys sydd ddim o fewn cwmpas y rheoliadau hygyrchedd',
-  nonAccessibleReasons: 'The content listed below is non-accessible for the following reasons. (WELSH)',
-  nonComplianceAccessibility: 'Non-compliance with the accessibility regulations (WELSH)',
+    'Mae’r wefan hon yn cydymffurfio’n rhannol â safon AA <a href="https://www.w3.org/TR/WCAG21/" class="govuk-link" target="blank">Canllawiau Hygyrchedd Cynnwys Gwe fersiwn 2.1</a> oherwydd y diffyg cydymffurfio a\'r eithriadau a restrir isod.',
+  nonAccessibleContent: 'Cynnwys anhygyrch',
+  nonAccessibleReasons: 'Mae’r cynnwys a restrir isod yn anhygyrch am y rhesymau canlynol.',
+  nonComplianceAccessibility: 'Methiant i gydymffurfio â’r rheoliadau hygyrchedd',
   nonCompliancePDF:
-    'Some of our PDF documents do not meet accessibility standards - for example, they may not be structured so they’re accessible to a screen reader. This does not meet WCAG 2.1 success criterion 4.1.2 (name, role value). (WELSH)',
-  whatDoingToImproveAccessibility: 'What we’re doing to improve accessibility (WELSH)',
+    'Nid yw rhai o’n dogfennau PDF yn bodloni’r safonau hygyrchedd - er enghraifft, efallai nad ydynt wedi’u strwythuro fel eu bod yn hygyrch i ddarllenydd sgrîn. Nid yw hyn yn bodloni WCAG 2.1 maen prawf llwyddiant 4.1.2 (enw, rôl, gwerth).',
+  whatDoingToImproveAccessibility: 'Beth rydym yn ei wneud i wella hygyrchedd',
   whatDoingToImproveAccessibilityAction:
-    'This website is currently being improved based on the digital accessibility report. We will fix the accessibility issues identified in the report and update this statement regularly. The site is continually tested using accessibility software internally and externally. Any new features which are introduced will also be tested. (WELSH)',
-  accessibilityStatementPreparation: 'Preparation of this accessibility statement (WELSH)',
+    'Mae gwaith yn cael ei wneud ar y wefan hon ar hyn o bryd yn seiliedig ar yr adroddiad argaeledd digidol. Byddwn yn datrys y problemau hygyrchedd a adnabuwyd yn yr adroddiad ac yn diweddaru’r datganiad hwn yn rheolaidd. Mae’r wefan yn cael ei phrofi’n barhaus gan ddefnyddio meddalwedd hygyrchedd mewnol ac allanol. Bydd unrhyw nodweddion newydd a gyflwynir hefyd yn cael eu profi.',
+  accessibilityStatementPreparation: "Paratoi'r datganiad hygyrchedd hwn",
   accessibilityStatementPreparationDate:
-    'This statement was prepared on 1st December 2023. It was last reviewed on 16 April 2024. (WELSH)',
+    'Paratowyd y datganiad hwn ar 1 Rhagfyr 2023. Cafodd ei adolygu ddiwethaf ar 16 Ebrill 2024.',
   accessibilityStatementPreparationLastTested:
-    'This website was last tested on 28th March 2024. The test was carried out by Digital Accessibility Testing. (WELSH)',
+    'Profwyd y wefan hon ddiwethaf ar 28 Mawrth 2024. Cynhaliwyd y prawf gan y Ganolfan Brofi Hygyrchedd Digidol.',
 };
 
 const languages = {
