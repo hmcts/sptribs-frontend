@@ -3,7 +3,7 @@ import { TranslationFn } from '../../app/controller/GetController';
 export const en = {
   title: 'Accessibility statement for Appeal against a decision of the Criminal Injuries Compensation Authority',
   websiteRanBy:
-    'This accessibility statement applies to GOV.UK - The best place to find government services and information (special-tribunals.service.gov.uk) that allows users to submit a criminal injuries compensation appeal online.',
+    'This accessibility statement applies to <a href="https://special-tribunals.service.gov.uk/cic-submit" class="govuk-link" target="_blank" aria-label="This link will open in a new tab for https://special-tribunals.service.gov.uk/cic-submit">GOV.UK - The best place to find government services and information (special-tribunals.service.gov.uk)</a> that allows users to submit a criminal injuries compensation appeal online.',
   asManyAsPossible:
     'This website is run by HM Courts and Tribunals. We want as many people as possible to be able to use this website. For example, that means you should be able to:',
   asManyAsPossibleColours: 'change colours, contrast levels and fonts',
