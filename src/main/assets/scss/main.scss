@@ -53,6 +53,34 @@ section {
   font-weight: 400;
 }
 
+.doc-rel-key-bottom-div {
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  padding-top: 10px;
+  padding-right: 20px;
+  padding-bottom: 10px;
+  padding-left: 0px;
+}
+
+.doc-rel-value-bottom-div {
+  bottom: 0;
+  position: absolute;
+  padding-top: 10px;
+  padding-right: 20px;
+  padding-bottom: 10px;
+  padding-left: 0px;
+}
+
+.govuk-summary-list__row {
+  position: relative;
+}
+
+.govuk-summary-list__value {
+  word-break: break-all;
+  word-wrap: break-word;
+}
+
 .summary-list-value {
   text-align: left;
   @include govuk-media-query($from: tablet) {
@@ -78,4 +106,6 @@ section {
 .documentRelevanceAndDeletionAlignment {
   vertical-align: bottom;
   width: 75%;
+  word-break: break-all;
+  word-wrap: break-word;
 }
