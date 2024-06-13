@@ -70,7 +70,7 @@ export const en = {
 export const cy = {
   title: 'Datganiad Hygyrchedd ar gyfer Apelio yn erbyn penderfyniad yr Awdurdod Digolledu am Anafiadau Troseddol',
   websiteRanBy:
-    'Mae’r datganiad hygyrchedd hwn yn berthnasol i GOV.UK - Y lle gorau i ddod o hyd i wasanaethau a gwybodaeth gan y llywodraeth (special-tribunals.service.gov.uk) sy’n caniatáu i ddefnyddwyr gyflwyno apêl digolledu am anafiadau troseddol ar-lein.',
+    'Mae’r datganiad hygyrchedd hwn yn berthnasol i <a href="https://special-tribunals.service.gov.uk/cic-submit" class="govuk-link" target="_blank" aria-label="Bydd y ddolen hon yn agor mewn tab newydd ar gyfer https://special-tribunals.service.gov.uk/cic-submit">GOV.UK - Y lle gorau i ddod o hyd i wasanaethau a gwybodaeth gan y llywodraeth (special-tribunals.service.gov.uk)</a> sy’n caniatáu i ddefnyddwyr gyflwyno apêl digolledu am anafiadau troseddol ar-lein.',
   asManyAsPossible:
     "Mae’r wefan hon yn cael ei rhedeg gan Lysoedd a Thribiwnlysoedd EM. Rydym am i gynifer o bobl â phosibl allu defnyddio’r wefan hon. Er enghraifft, mae hynny'n golygu y dylech allu:",
   asManyAsPossibleColours: 'newid lliwiau, lefelau cyferbyniad a ffontiau',
