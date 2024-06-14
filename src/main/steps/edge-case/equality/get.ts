@@ -32,12 +32,12 @@ export default class PCQGetController {
           req.session.userCase.pcqId = uuid();
           const updateCaseResponse: AxiosResponse<StatusResponse> = await this.updateCase(req);
           if (updateCaseResponse && updateCaseResponse.status === 200) {
-            const pcqParams = this.gatherPcqParams(req, ageCheckValue);
+            const pcqParams = this.gatherPcqParams(req, res, ageCheckValue);
             const path: string = config.get('services.equalityAndDiversity.path');
             const qs = Object.keys(pcqParams)
               .map(key => `${key}=${pcqParams[key]}`)
               .join('&');
-            res.redirect(`${pcqUrl}${path}?${qs}`);
+            res.redirect(`${pcqUrl}${path}?${qs}`); //TODO: fortify complaining
           } else {
             res.redirect(CHECK_YOUR_ANSWERS);
           }
@@ -52,11 +52,12 @@ export default class PCQGetController {
     }
   }
 
-  private gatherPcqParams(req: AppRequest, ageCheckValue: number) {
+  private gatherPcqParams(req: AppRequest, res: Response, ageCheckValue: number) {
+    const tokenKey: string = config.get('services.equalityAndDiversity.tokenKey');
     const developmentMode = process.env.NODE_ENV === 'development';
     const protocol = developmentMode ? 'http://' : '';
-    const host = req.headers['x-forwarded-host'] || req.hostname;
     const port = developmentMode ? `:${config.get('port')}` : '';
+
     const pcqParams = {
       actor: 'APPLICANT',
       serviceId: 'SpecialTribunals_CIC',
@@ -64,12 +65,12 @@ export default class PCQGetController {
       pcqId: req.session.userCase.pcqId,
       partyId: req.session.userCase.subjectEmailAddress,
       language: req.session.lang ? req.session.lang : 'en',
-      returnUrl: `${protocol}${host}${port}${CHECK_YOUR_ANSWERS}`,
+      returnUrl: `${protocol}${res.locals.host}${port}${CHECK_YOUR_ANSWERS}`,
       ageCheck: ageCheckValue.toString(),
     };
-    const tokenKey: string = config.get('services.equalityAndDiversity.tokenKey');
     pcqParams['token'] = createToken(pcqParams, tokenKey);
     pcqParams.partyId = encodeURIComponent(pcqParams.partyId);
+
     return pcqParams;
   }
 
