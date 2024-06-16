@@ -19,7 +19,7 @@ services:
     url: EQUALITY_URL
     tokenKey: PCQ_TOKEN
     enabled: PCQ_ENABLED
-  fisDssUpdate:
+  dssUpdate:
     url: DSS_UPDATE_URL
 port: PORT
 session:

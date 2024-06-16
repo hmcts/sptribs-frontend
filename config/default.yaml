@@ -23,8 +23,8 @@ services:
   postcodeLookup:
     url: 'https://api.os.uk/search/places/v1'
     token: 'NEED TO INSERT SECRET'
-  fisDssUpdate:
-    url: 'https://dss-update-case.aat.platform.hmcts.net/dss-update/start'
+  dssUpdate:
+    url: 'https://sptribs-dss-update-case-web.aat.platform.hmcts.net'
   hmctsHomePage:
     url: 'https://www.gov.uk/government/organisations/hm-courts-and-tribunals-service'
   RPE_TOKEN:
