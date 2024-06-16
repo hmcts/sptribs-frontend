@@ -9,7 +9,7 @@
       "emailAddressHint": "Enter an email address in the correct format, like name@example.com",
       "emailAddress": "Insert email address",
       "contactNumberLabel": "Contact number",
-      "contactNumberHint": "",
+      "contactNumberHint": "Enter a telephone number in the correct format, like 01632 960 001 or 07700 900 982",
       "agreeContactLabel": "I agree to be contacted about this case using the details I have provided"
     },
     "cy": {
@@ -32,11 +32,11 @@
         "invalid": "Enter your email address in the correct format"
       },
       "subjectContactNumber": {
-        "required": "Enter your contact number",
-        "invalid": "Enter your contact number in the correct format"
+        "required": "Enter a telephone number",
+        "invalid": "Enter a telephone number in the correct format"
       },
       "subjectAgreeContact": {
-        "required": "Agree to be contacted using the details provided to continue"
+        "required": "You must agree to be contacted using the details provided to continue"
       }
     },
     "cy": {

@@ -18,7 +18,7 @@
   "errors": {
     "en": {
       "representation": {
-        "required": "Select an answer before you can proceed further"
+        "required": "You must select an answer before you can proceed further"
       }
     },
     "cy": {
