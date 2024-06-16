@@ -9,7 +9,9 @@
       "fullNameLabel": "Full name",
       "organisationNameLabel": "Organisation or business name",
       "contactNumberLabel": "Contact number",
-      "emailAddressLabel": "Email address"
+      "contactNumberHint": "Enter a telephone number in the correct format, like 01632 960 001 or 07700 900 982",
+      "emailAddressLabel": "Email address",
+      "emailAddressHint": "Enter an email address in the correct format, like name@example.com"
     },
     "cy": {
       "continue": "Parhau",
@@ -20,26 +22,27 @@
       "fullNameLabel": "Enw llawn",
       "organisationNameLabel": "Enw’r sefydliad neu’r busnes",
       "contactNumberLabel": "Rhif cyswllt",
-      "emailAddressLabel": "Cyfeiriad e-bost"
+      "contactNumberHint": "Enter a telephone number in the correct format, like 01632 960 001 or 07700 900 982 (WELSH)",
+      "emailAddressLabel": "Cyfeiriad e-bost",
+      "emailAddressHint": "Enter an email address in the correct format, like name@example.com (WELSH)"
     }
   },
   "errors": {
     "en": {
       "representativeFullName": {
-        "required": "Please enter full name",
-        "invalid": "Please enter a valid full name"
+        "required": "Enter the full name of your representative"
       },
       "representativeOrganisationName": {
-        "required": "Please enter organisation or business name",
+        "required": "Enter the organisation name or business name of your representative",
         "containsMarkdownLink": "The data entered is not valid for Organisation or business name. Link markdown characters are not allowed in this field."
       },
       "representativeContactNumber": {
-        "required": "Please enter a valid contact number",
-        "invalid": "Please enter a valid contact number"
+        "required": "Enter the contact number of your representative",
+        "invalid": "Enter a telephone number in the correct format"
       },
       "representativeEmailAddress": {
-        "required": "Please enter a valid email address",
-        "invalid": "Every email address consists of 3 elements: local-part, @ symbol (pronounced as “at”), and a domain name"
+        "required": "Enter an email address",
+        "invalid": "Enter an email address in the correct format"
       }
     },
     "cy": {
