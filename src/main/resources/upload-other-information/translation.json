@@ -45,14 +45,26 @@
       "FORMAT_ERROR": "This service only accepts files in the formats - Ms Word, MS Excel, PDF, JPG, PNG, TXT, RTF, MP4, MP3",
       "TOTAL_FILES_EXCEED_ERROR": "You can upload 20 files only. Please delete one of the uploaded files and retry",
       "NO_FILE_UPLOAD_ERROR": "Please choose a file to upload",
-      "UPLOAD_DELETE_FAIL_ERROR": "Document upload or deletion has failed. Please try again"
+      "UPLOAD_DELETE_FAIL_ERROR": "Document upload or deletion has failed. Please try again",
+      "documentRelevance": {
+        "containsMarkdownLink": "The data entered is not valid for Document relevance. Link markup characters are not allowed in this field."
+      },
+      "additionalInformation": {
+        "containsMarkdownLink": "The data entered is not valid for Additional information. Link markup characters are not allowed in this field."
+      }
     },
     "cy": {
       "SIZE_ERROR": "Mae’r ffeil yn fwy na’r maint mwyaf a ganiateir. Llwythwch ffeil sy’n llai na 100Mb",
       "FORMAT_ERROR": "Dim ond ffeiliau yn y fformatau canlynol y gall y gwasanaeth hwn dderbyn - MS Word, MS Excel, PDF, JPG, PNG, TXT, RTF, MP4, MP3",
       "TOTAL_FILES_EXCEED_ERROR": "Gallwch lwytho hyd at 20 ffeil yn unig. Dylech ddileu un o’r ffeiliau a llwythwyd a rhoi cynnig arall arni",
       "NO_FILE_UPLOAD_ERROR": "Dewiswch ffeil i’w llwytho",
-      "UPLOAD_DELETE_FAIL_ERROR": "Mae llwytho neu ddileu’r ffeil wedi methu. Rhowch gynnig arall arni"
+      "UPLOAD_DELETE_FAIL_ERROR": "Mae llwytho neu ddileu’r ffeil wedi methu. Rhowch gynnig arall arni",
+      "documentRelevance": {
+        "containsMarkdownLink": "The data entered is not valid for Document relevance. Link markup characters are not allowed in this field."
+      },
+      "additionalInformation": {
+        "containsMarkdownLink": "The data entered is not valid for Additional information. Link markup characters are not allowed in this field."
+      }
     }
   }
 }

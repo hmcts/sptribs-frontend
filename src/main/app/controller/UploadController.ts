@@ -14,6 +14,7 @@ import { Form, FormFields, FormFieldsFn } from '../../app/form/Form';
 import { ResourceReader } from '../../modules/resourcereader/ResourceReader';
 import { SPTRIBS_CASE_API_BASE_URL } from '../../steps/common/constants/apiConstants';
 import { UPLOAD_APPEAL_FORM, UPLOAD_SUPPORTING_DOCUMENTS } from '../../steps/urls';
+import { isMarkDownLinkIncluded } from '../form/validation';
 const logger = Logger.getLogger('uploadDocumentPostController');
 
 /**
@@ -146,7 +147,12 @@ export class UploadController extends PostController<AnyObject> {
         };
 
         await this.uploadDocumentInstance(CASE_API_URL, headers).put(baseUrl, responseBody);
-        res.redirect(this.getNextPageRedirectUrl());
+        req.session.save(err => {
+          if (err) {
+            throw err;
+          }
+          res.redirect(this.getNextPageRedirectUrl());
+        });
       } catch (error) {
         this.createUploadedFileError(req, res, chooseFileLink, 'UPLOAD_DELETE_FAIL_ERROR');
       }
@@ -244,40 +250,57 @@ export class UploadController extends PostController<AnyObject> {
     totalUploadDocuments = this.getTotalUploadDocumentsFromSessionProperty(req, totalUploadDocuments);
     const { files }: AppRequest<AnyObject> = req;
 
-    if (documentUploadProceed) {
-      await this.postDocumentUploader(req, res);
-    } else if (isNull(files)) {
-      this.createUploadedFileError(req, res, chooseFileLink, 'NO_FILE_UPLOAD_ERROR');
-    } else if (totalUploadDocuments < Number(config.get(this.getValidationTotal()))) {
-      if (!req.session.hasOwnProperty('errors')) {
-        req.session['errors'] = [];
-      }
+    req.session.errors = req.session.errors || [];
+    if (isMarkDownLinkIncluded(req.body['documentRelevance'] as string)) {
+      req.session.errors.push({ errorType: 'containsMarkdownLink', propertyName: 'documentRelevance' });
+    }
+    if (isMarkDownLinkIncluded(req.body['additionalInformation'] as string)) {
+      req.session.errors.push({ errorType: 'containsMarkdownLink', propertyName: 'additionalInformation' });
+    }
 
-      const { documents }: any = files;
+    if (req.session.errors?.length) {
+      req.session.save(err => {
+        if (err) {
+          throw err;
+        }
+        res.redirect(this.getCurrentPageRedirectUrl());
+      });
+    } else {
+      if (documentUploadProceed) {
+        await this.postDocumentUploader(req, res);
+      } else if (isNull(files)) {
+        this.createUploadedFileError(req, res, chooseFileLink, 'NO_FILE_UPLOAD_ERROR');
+      } else if (totalUploadDocuments < Number(config.get(this.getValidationTotal()))) {
+        if (!req.session.hasOwnProperty('errors')) {
+          req.session['errors'] = [];
+        }
 
-      const isValidMimeType: boolean = FileValidations.formatValidation(
-        documents.mimetype,
-        this.getAcceptedFileMimeType()
-      );
-      const isValidFileSize: boolean = FileValidations.sizeValidation(documents.size);
+        const { documents }: any = files;
 
-      if (!isValidFileSize) {
-        this.createUploadedFileError(req, res, chooseFileLink, 'SIZE_ERROR');
-      }
+        const isValidMimeType: boolean = FileValidations.formatValidation(
+          documents.mimetype,
+          this.getAcceptedFileMimeType()
+        );
+        const isValidFileSize: boolean = FileValidations.sizeValidation(documents.size);
 
-      if (!isValidMimeType) {
-        this.createUploadedFileError(req, res, chooseFileLink, 'FORMAT_ERROR');
-      }
+        if (!isValidFileSize) {
+          this.createUploadedFileError(req, res, chooseFileLink, 'SIZE_ERROR');
+        }
 
-      if (isValidMimeType && isValidFileSize) {
-        await this.uploadDocument(documents, req, res, chooseFileLink);
+        if (!isValidMimeType) {
+          this.createUploadedFileError(req, res, chooseFileLink, 'FORMAT_ERROR');
+        }
+
+        if (isValidMimeType && isValidFileSize) {
+          await this.uploadDocument(documents, req, res, chooseFileLink);
+        } else {
+          this.redirect(req, res, this.getCurrentPageRedirectUrl());
+        }
       } else {
+        this.createUploadedFileError(req, res, filesUploadedLink, 'TOTAL_FILES_EXCEED_ERROR');
+
         this.redirect(req, res, this.getCurrentPageRedirectUrl());
       }
-    } else {
-      this.createUploadedFileError(req, res, filesUploadedLink, 'TOTAL_FILES_EXCEED_ERROR');
-
-      this.redirect(req, res, this.getCurrentPageRedirectUrl());
     }
   }
 
