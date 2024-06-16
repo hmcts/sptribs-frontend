@@ -26,36 +26,38 @@
   "errors": {
     "en": {
       "representativeFullName": {
-        "required": "Enter the full name of the representative",
-        "invalid": "Aside from hyphens (\"-\"), the name of the representative must not include any special characters"
+        "required": "Please enter full name",
+        "invalid": "Please enter a valid full name"
       },
       "representativeOrganisationName": {
-        "required": "Enter the organisation or business name of the representative"
+        "required": "Please enter organisation or business name",
+        "containsMarkdownLink": "The data entered is not valid for Organisation or business name. Link markdown characters are not allowed in this field."
       },
       "representativeContactNumber": {
-        "required": "Enter the contact number of the representative",
-        "invalid": "The contact number of the representative must be in the correct format"
+        "required": "Please enter a valid contact number",
+        "invalid": "Please enter a valid contact number"
       },
       "representativeEmailAddress": {
-        "required": "Enter an email address",
-        "invalid": "Enter an email address in the correct format, like name@example.com"
+        "required": "Please enter a valid email address",
+        "invalid": "Every email address consists of 3 elements: local-part, @ symbol (pronounced as “at”), and a domain name"
       }
     },
     "cy": {
       "representativeFullName": {
         "required": "Nodwch enw llawn",
-        "invalid": "Rhowch enw dilys"
+        "invalid": "Rhowch enw llawn dilys"
       },
       "representativeOrganisationName": {
-        "required": "Nodwch enw’r sefydliad neu fusnes"
+        "required": "Nodwch enw’r sefydliad neu fusnes",
+        "containsMarkdownLink": "Nid yw'r data a gofnodwyd yn ddilys ar gyfer enw Sefydliad neu fusnes. Ni chaniateir nodau marcio i lawr yn y maes hwn."
       },
       "representativeContactNumber": {
-        "required": "Rhowch rif cyswllt",
+        "required": "Nodwch rif cyswllt dilys",
         "invalid": "Nodwch rif cyswllt dilys"
       },
       "representativeEmailAddress": {
-        "required": "Rhowch gyfeiriad e-bost",
-        "invalid": "Nodwch gyfeiriad e-bost dilys. Mae pob cyfeiriad e-bost yn cynnwys tair elfen: rhan lleol, symbol @ (a ynganir fel “at”), ac enw parth"
+        "required": "Nodwch gyfeiriad e-bost dilys",
+        "invalid": "Mae pob cyfeiriad e-bost yn cynnwys tair elfen: rhan lleol, symbol @ (a ynganir fel “at”), ac enw parth"
       }
     }
   }
