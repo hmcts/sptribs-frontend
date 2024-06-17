@@ -13,7 +13,7 @@
       "line4": "Please explain why you feel this document is relevant to your case",
       "uploadExamples": "<div class='govuk-body-m'><ul class=‘govuk-list govuk-list--bullet’><li>copies of any relevant correspondence or documentation</li><li>audio or video recordings</li><li>written statements</li><li>related reports</li></ul></div>",
       "uploadRequirementHeader": "File uploads requirements",
-      "uploadRequirement": "<div class='govuk-body-s'><ul class=‘govuk-list govuk-list--bullet’><li>File formats: MS Word, MS Excel, PDF, JPG, PNG, TXT, RTF, MP4, MP3</li><li>File size per document: up to 100 megabytes (MB)</li><li>File size per multimedia file: 100 megabytes (MB)</li><li>Files cannot be password protected</li></ul><p> You can’t upload executable (.exe), .zip or other archive files due to virus risks.</div>",
+      "uploadRequirement": "<div class='govuk-body-s'><ul class=‘govuk-list govuk-list--bullet’><li>File formats: MS Word, MS Excel, PDF, JPG, PNG, TXT, RTF, MP4, MP3</li><li>File size per document: up to 100 megabytes (MB)</li><li>File size per multimedia file: 100 megabytes (MB)</li><li>Files cannot be password protected</li><li>You can only upload a maximum of 20 files on this page.</li></ul><p> You can’t upload executable (.exe), .zip or other archive files due to virus risks.</div>",
       "uploadGuidance": "Once you have selected the file click \"Upload file\" to upload it.",
       "additionalInfo": "For each piece of additional information or evidence you are submitting, please state why it is relevant to your case.",
       "uploadButton": "Upload file",
@@ -43,9 +43,9 @@
     "en": {
       "SIZE_ERROR": "File size exceeds the maximum permitted value. Upload a file that is less than 100 MB",
       "FORMAT_ERROR": "This service only accepts files in the formats - Ms Word, MS Excel, PDF, JPG, PNG, TXT, RTF, MP4, MP3",
-      "TOTAL_FILES_EXCEED_ERROR": "You can upload 20 files only. Please delete one of the uploaded files and retry",
+      "TOTAL_FILES_EXCEED_ERROR": "You can upload 20 files only. Delete one of the uploaded files and retry",
       "NO_FILE_UPLOAD_ERROR": "Please choose a file to upload",
-      "UPLOAD_DELETE_FAIL_ERROR": "Document upload or deletion has failed. Please try again",
+      "UPLOAD_DELETE_FAIL_ERROR": "Document upload or deletion has failed. Try again",
       "documentRelevance": {
         "containsMarkdownLink": "The data entered is not valid for Document relevance. Link markup characters are not allowed in this field."
       },

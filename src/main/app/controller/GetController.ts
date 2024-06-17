@@ -255,7 +255,7 @@ export class GetController {
       req.query.hasOwnProperty('documentType')
     ) {
       const checkForDeleteQuery = req.query['query'] === 'delete';
-      const errorMessage = 'Document upload or deletion has failed. Please try again';
+      const errorMessage = 'Document upload or deletion has failed. Try again';
       if (checkForDeleteQuery) {
         const { documentType } = req.query;
         const { docId } = req.query;

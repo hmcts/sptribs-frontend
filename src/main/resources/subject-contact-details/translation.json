@@ -29,7 +29,7 @@
     "en": {
       "subjectEmailAddress": {
         "required": "Enter an email address",
-        "invalid": "Enter your email address in the correct format"
+        "invalid": "Enter an email address in the correct format"
       },
       "subjectContactNumber": {
         "required": "Enter a telephone number",

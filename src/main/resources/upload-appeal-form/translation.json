@@ -6,7 +6,7 @@
       "line1": "Please upload the First-tier tribunal form that you have already completed.",
       "line2": "If you have other evidence or supporting documents, you can upload these files on the next screen.",
       "uploadRequirementHeader": "File uploads requirements",
-      "uploadRequirement": "<div class='govuk-body-s'><ul class=‘govuk-list govuk-list--bullet’><li>File formats: MS Word, PDF</li><li>File size per document: up to 100 megabytes (MB)</li><li>Files cannot be password protected</li></ul><p> You can’t upload executable (.exe), .zip or other archive files due to virus risks.</div>",
+      "uploadRequirement": "<div class='govuk-body-s'><ul class=‘govuk-list govuk-list--bullet’><li>File formats: MS Word, PDF</li><li>File size per document: up to 100 megabytes (MB)</li><li>Files cannot be password protected</li><li>You can only upload a maximum of 5 files on this page.</li></ul><p> You can’t upload executable (.exe), .zip or other archive files due to virus risks.</div>",
       "uploadGuidance": "Once you have selected the file click \"Upload file\" to upload it.",
       "uploadButton": "Upload file",
       "uploadAFile": "Upload a file"
@@ -25,7 +25,7 @@
   },
   "errors": {
     "en": {
-      "SIZE_ERROR": "File size exceeds 100Mb. Upload a file that is less than 100Mb",
+      "SIZE_ERROR": "File size exceeds the maximum permitted value. Upload a file that is less than 100 MB",
       "FORMAT_ERROR": "This service only accepts files in the formats - Ms Word, PDF",
       "TOTAL_FILES_EXCEED_ERROR": "You can upload 5 files only. Delete one of the uploaded files and retry",
       "CONTINUE_WITHOUT_UPLOAD_ERROR": "You cannot continue without uploading the application",
