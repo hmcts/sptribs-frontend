@@ -6,7 +6,7 @@
       "line1": "Please upload the First-tier tribunal form that you have already completed.",
       "line2": "If you have other evidence or supporting documents, you can upload these files on the next screen.",
       "uploadRequirementHeader": "File uploads requirements",
-      "uploadRequirement": "<div class='govuk-body-s'><ul class=‘govuk-list govuk-list--bullet’><li>File formats: MS Word, PDF</li><li>File size per document: up to 100 megabytes (MB)</li><li>Files cannot be password protected</li><li>You can only upload a maximum of 5 files on this page.</li></ul><p> You can’t upload executable (.exe), .zip or other archive files due to virus risks.</div>",
+      "uploadRequirement": "<div class='govuk-body-s'><ul class=‘govuk-list govuk-list--bullet’><li>File formats: MS Word, PDF</li><li>File size per document: up to 100 megabytes (MB)</li><li>Files cannot be password protected</li><li>Only a maximum of 5 files can be uploaded on this page</li></ul><p> You can’t upload executable (.exe), .zip or other archive files due to virus risks.</div>",
       "uploadGuidance": "Once you have selected the file click \"Upload file\" to upload it.",
       "uploadButton": "Upload file",
       "uploadAFile": "Upload a file"
