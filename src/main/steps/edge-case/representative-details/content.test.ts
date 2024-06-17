@@ -73,7 +73,7 @@ describe('representative-details-content', () => {
     const generatedContent = generateContent(commonContent);
     const form = generatedContent.form as FormContent;
 
-    expect((form.submit.text as Function)(generateContent({ ...commonContent, language: EN }))).toBe('Continue');
+    expect((form.submit?.text as Function)(generateContent({ ...commonContent, language: EN }))).toBe('Continue');
   });
 
   it('should have an email input text field', () => {

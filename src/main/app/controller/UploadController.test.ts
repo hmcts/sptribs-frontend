@@ -255,7 +255,7 @@ describe('PostController', () => {
     expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION);
   });
 
-  test('Should pass additional document information to axios when documentUploadProceed is true', async () => {
+  test('Should pass additional document information to axios when continuing', async () => {
     const mockForm = {
       fields: {
         field: {
@@ -350,7 +350,7 @@ describe('PostController', () => {
       OtherInfoDocuments,
     };
 
-    req.body['documentUploadProceed'] = true;
+    req.body['saveAndContinue'] = true;
     await controller.post(req, res);
 
     expect(
