@@ -69,7 +69,7 @@ describe('statement-of-truth', () => {
   });
 
   test('should contain continue button', () => {
-    expect((form.submit.text as Function)(generateContent(commonContent))).toBe(enContent.continue);
+    expect((form.submit?.text as Function)(generateContent(commonContent))).toBe(enContent.continue);
   });
 });
 /* eslint-enable @typescript-eslint/ban-types */
