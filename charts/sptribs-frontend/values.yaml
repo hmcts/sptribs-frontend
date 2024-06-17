@@ -16,7 +16,7 @@ nodejs:
     IDAM_API_URL: 'https://idam-api.{{ .Values.global.environment }}.platform.hmcts.net/o/token'
     REDIS_HOST: 'sptribs-{{ .Values.global.environment }}.redis.cache.windows.net'
     EQUALITY_URL: 'https://pcq.{{ .Values.global.environment }}.platform.hmcts.net'
-    CASE_API_URL: 'http://sptribs-case-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal'
+    CASE_API_URL: 'https://sptribs-case-api-pr-1802.preview.platform.hmcts.net'
     PCQ_ENABLED: true
     DSS_UPDATE_URL: 'https://sptribs-dss-update-case-web.{{ .Values.global.environment }}.platform.hmcts.net/'
 
