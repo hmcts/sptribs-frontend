@@ -123,6 +123,8 @@ export class UploadController extends PostController<AnyObject> {
       };
 
       try {
+        req.session.userCase.additionalInformation = req.body.additionalInformation as string;
+
         let TribunalFormDocuments: Document[] = [];
         if (req.session.caseDocuments !== undefined) {
           TribunalFormDocuments = this.getTribunalFormDocuments(req);
@@ -241,7 +243,7 @@ export class UploadController extends PostController<AnyObject> {
   public async submit(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const chooseFileLink = '#file-upload-1';
     const filesUploadedLink = '#filesUploaded';
-    const { documentUploadProceed } = req.body;
+    const saveAndContinue = JSON.parse(JSON.stringify(req.body)).hasOwnProperty('saveAndContinue');
 
     if (this.shouldSetUpFormData()) {
       this.setUpForm(req);
@@ -267,7 +269,7 @@ export class UploadController extends PostController<AnyObject> {
         res.redirect(this.getCurrentPageRedirectUrl());
       });
     } else {
-      if (documentUploadProceed) {
+      if (saveAndContinue) {
         await this.postDocumentUploader(req, res);
       } else if (isNull(files)) {
         this.createUploadedFileError(req, res, chooseFileLink, 'NO_FILE_UPLOAD_ERROR');
