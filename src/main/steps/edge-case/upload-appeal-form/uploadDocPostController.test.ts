@@ -119,7 +119,9 @@ describe('Document upload controller', () => {
     expect(getNextStepUrlMock).not.toHaveBeenCalled();
     expect(res.redirect).toHaveBeenCalledWith(UPLOAD_APPEAL_FORM);
     expect(req.session.fileErrors).toHaveLength(1);
-    expect(req.session.fileErrors[0].text).toEqual('File size exceeds 100Mb. Upload a file that is less than 100Mb');
+    expect(req.session.fileErrors[0].text).toEqual(
+      'File size exceeds the maximum permitted value. Upload a file that is less than 100 MB'
+    );
   });
 
   test('Should display error if incorrect file type and file size document upload', async () => {
@@ -148,7 +150,9 @@ describe('Document upload controller', () => {
     expect(getNextStepUrlMock).not.toHaveBeenCalled();
     expect(res.redirect).toHaveBeenCalledWith(UPLOAD_APPEAL_FORM);
     expect(req.session.fileErrors).toHaveLength(2);
-    expect(req.session.fileErrors[0].text).toEqual('File size exceeds 100Mb. Upload a file that is less than 100Mb');
+    expect(req.session.fileErrors[0].text).toEqual(
+      'File size exceeds the maximum permitted value. Upload a file that is less than 100 MB'
+    );
     expect(req.session.fileErrors[1].text).toEqual('This service only accepts files in the formats - Ms Word, PDF');
   });
 
