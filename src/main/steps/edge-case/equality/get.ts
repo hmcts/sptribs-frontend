@@ -61,7 +61,6 @@ export default class PCQGetController {
     const pcqParams = {
       actor: 'APPLICANT',
       serviceId: 'SpecialTribunals_CIC',
-      ccdCaseId: req.session.userCase.id,
       pcqId: req.session.userCase.pcqId,
       partyId: req.session.userCase.subjectEmailAddress,
       language: req.session.lang ? req.session.lang : 'en',
