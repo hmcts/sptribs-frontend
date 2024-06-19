@@ -70,10 +70,6 @@ export default class PCQGetController {
     pcqParams['token'] = createToken(pcqParams, tokenKey);
     pcqParams.partyId = encodeURIComponent(pcqParams.partyId);
 
-    if (req.session.userCase.id.match(/^\d{16}$/)) {
-      pcqParams['ccdCaseId'] = req.session.userCase.id;
-    }
-
     return pcqParams;
   }
 
