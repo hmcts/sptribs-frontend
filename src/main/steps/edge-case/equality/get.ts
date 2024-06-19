@@ -57,13 +57,14 @@ export default class PCQGetController {
     const developmentMode = process.env.NODE_ENV === 'development';
     const protocol = developmentMode ? 'http://' : '';
     const port = developmentMode ? `:${config.get('port')}` : '';
+    const lang = req.session.lang === 'en' ? 'en' : 'cy';
 
     const pcqParams = {
       actor: 'APPLICANT',
       serviceId: 'SpecialTribunals_CIC',
       pcqId: req.session.userCase.pcqId,
       partyId: req.session.userCase.subjectEmailAddress,
-      language: req.session.lang ? req.session.lang : 'en',
+      language: lang,
       returnUrl: `${protocol}${res.locals.host}${port}${CHECK_YOUR_ANSWERS}`,
       ageCheck: ageCheckValue.toString(),
     };
