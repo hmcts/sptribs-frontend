@@ -361,7 +361,9 @@ describe('checking for the redirect of post document upload', () => {
 
     await postingController.post(req, res);
     expect(res.redirect).toHaveBeenCalledWith(UPLOAD_SUPPORTING_DOCUMENTS);
-    expect(req.session.fileErrors[0].text).toEqual('You cannot continue without uploading supporting documentation');
+    expect(req.session.fileErrors[0].text).toEqual(
+      'You must upload supporting documentation before you can proceed further'
+    );
   });
 
   it('should display error if upload file button clicked with no document', async () => {
