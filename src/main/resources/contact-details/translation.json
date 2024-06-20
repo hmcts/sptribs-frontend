@@ -24,9 +24,9 @@
   "errors": {
     "en": {
       "applicantPhoneNumber": {
-        "required": "Enter your mobile phone number",
-        "invalid": "Your mobile number must be numerical and not include any special characters",
-        "atleastOneRequired": "Mobile phone number is empty, fill up at least one contact"
+        "required": "Please enter correct mobile phone number",
+        "invalid": "Please enter correct mobile phone number",
+        "atleastOneRequired": "Mobile phone number is empty, please fill up at least one contact"
       },
       "applicantHomeNumber": {
         "required": "Enter your home phone number",
