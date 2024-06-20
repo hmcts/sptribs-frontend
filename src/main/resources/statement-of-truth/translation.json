@@ -16,7 +16,7 @@
   "errors": {
     "en": {
       "applicantStatementOfTruth": {
-        "required": "Accept the Statement of Truth to continue"
+        "required": "Please accept the Statement of Truth to continue"
       }
     },
     "cy": {
