@@ -64,6 +64,12 @@ export const isDateInputNotFilled: DateValidator = date => {
     return invalid;
   }
 
+  for (const value in date) {
+    if (isNaN(+date[value])) {
+      return invalid;
+    }
+  }
+
   if (isEmpty(date.day || date.month || date.year)) {
     return invalid;
   } else {
