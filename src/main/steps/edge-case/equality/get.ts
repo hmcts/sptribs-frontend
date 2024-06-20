@@ -37,7 +37,7 @@ export default class PCQGetController {
             const qs = Object.keys(pcqParams)
               .map(key => `${key}=${pcqParams[key]}`)
               .join('&');
-            res.redirect(`${pcqUrl}${path}?${qs}`); //TODO: fortify complaining
+            res.redirect(`${pcqUrl}${path}?${qs}`);
           } else {
             res.redirect(CHECK_YOUR_ANSWERS);
           }
@@ -62,6 +62,7 @@ export default class PCQGetController {
     const pcqParams = {
       actor: 'APPLICANT',
       serviceId: 'SpecialTribunals_CIC',
+      ccdCaseId: req.session.userCase.id,
       pcqId: req.session.userCase.pcqId,
       partyId: req.session.userCase.subjectEmailAddress,
       language: lang,
