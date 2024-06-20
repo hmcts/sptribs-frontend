@@ -344,7 +344,7 @@ describe('checking for the redirect of post document upload', () => {
 
     await postingController.post(req, res);
     expect(res.redirect).toHaveBeenCalledWith(UPLOAD_APPEAL_FORM);
-    expect(req.session.fileErrors[0].text).toEqual('You cannot continue without uploading the application');
+    expect(req.session.fileErrors[0].text).toEqual('You must upload the application before you can proceed further');
   });
 
   it('should display error if upload file button clicked with no document', async () => {
