@@ -32,12 +32,17 @@
         "invalid": "Please enter a valid name"
       },
       "subjectDateOfBirth": {
-        "required": "Please enter date of birth",
-        "invalid": "Please enter valid date of birth",
-        "incompleteDay": "Your date of birth must include a day",
-        "incompleteMonth": "Your date of birth must include a month",
-        "incompleteYear": "Your date of birth must include a year",
-        "invalidDateInFuture": "Your date of birth must be in the past"
+        "invalid": "Date of birth must be a real date",
+        "invalidAndIncomplete": "Date of birth must be a real date and must include a day, month and year",
+        "incompleteDay": "Date of birth must include a day",
+        "incompleteMonth": "Date of birth must include a month",
+        "incompleteYear": "Date of birth must include a year",
+        "incompleteDayAndMonth": "Date of birth must include a day and month",
+        "incompleteDayAndYear": "Date of birth must include a day and year",
+        "incompleteMonthAndYear": "Date of birth must include a month and year",
+        "incompleteDayAndMonthAndYear": "Date of birth must include a day, month and year",
+        "invalidDateInFuture": "Date of birth must be in the past",
+        "invalidDateInPast": "Date of birth must be after 31/12/1899"
       }
     },
     "cy": {
