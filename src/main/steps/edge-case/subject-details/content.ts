@@ -47,16 +47,34 @@ export const form: FormContent = {
       ],
       parser: body => covertToDateObject('subjectDateOfBirth', body as Record<string, unknown>),
       validator: value => {
-        if (isDateInputNotFilled(value as CaseDate)) {
-          return 'required';
-        }
-        if (
-          isDateInputInvalid(value as CaseDate) ||
-          isFutureDate(value as CaseDate) ||
-          isObsoleteDate(value as CaseDate)
-        ) {
-          return 'invalid';
-        }
+        const date = value as CaseDate;
+
+        return isDateInputInvalid(date) && isDateInputNotFilled(date)
+          ? 'invalidAndIncomplete'
+          : isDateInputInvalid(date)
+          ? isDateInputInvalid(date)
+          : isDateInputNotFilled(date)
+          ? isDateInputNotFilled(date)
+          : isFutureDate(date)
+          ? isFutureDate(date)
+          : isObsoleteDate(date)
+          ? isObsoleteDate(date)
+          : undefined;
+        // if (isDateInputInvalid(value as CaseDate) && isDateInputNotFilled(value as CaseDate)) {
+        //   return 'invalidAndIncomplete';
+        // }
+        // if (isDateInputInvalid(value as CaseDate)) {
+        //   return isDateInputInvalid(value as CaseDate);
+        // }
+        // if (isDateInputNotFilled(value as CaseDate)) {
+        //   return isDateInputNotFilled(value as CaseDate);
+        // }
+        // if (isFutureDate(value as CaseDate)) {
+        //   return isFutureDate(value as CaseDate);
+        // }
+        // if (isObsoleteDate(value as CaseDate)) {
+        //   return isObsoleteDate(value as CaseDate);
+        // }
       },
     },
   },

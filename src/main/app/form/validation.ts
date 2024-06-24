@@ -59,43 +59,46 @@ export const doesArrayHaveValues: Validator = value => {
 };
 
 export const isDateInputNotFilled: DateValidator = date => {
-  const invalid = 'invalidDate';
-  if (!date) {
-    return invalid;
+  if (!date || (isEmpty(date.day) && isEmpty(date.month) && isEmpty(date.year))) {
+    return 'incompleteDayAndMonthAndYear';
   }
 
   for (const value in date) {
     if (isNaN(+date[value])) {
-      return invalid;
+      return 'invalid';
     }
   }
-  const incompleteValues: string[] = [];
+
+  if (isEmpty(date.day) && isEmpty(date.month)) {
+    return 'incompleteDayAndMonth';
+  }
+
+  if (isEmpty(date.day) && isEmpty(date.year)) {
+    return 'incompleteDayAndYear';
+  }
+
+  if (isEmpty(date.month) && isEmpty(date.year)) {
+    return 'incompleteMonthAndYear';
+  }
 
   if (isEmpty(date.day)) {
-    incompleteValues.push('incompleteDay');
+    return 'incompleteDay';
   }
   if (isEmpty(date.month)) {
-    incompleteValues.push('incompleteMonth');
+    return 'incompleteMonth';
   }
   if (isEmpty(date.year)) {
-    incompleteValues.push('incompleteYear');
-  }
-
-  // if (incompleteValues.length > 0) {
-  //   return incompleteValues;
-  // }
-
-  if (isEmpty(date.day || date.month || date.year)) {
-    return invalid;
+    return 'incompleteYear';
   } else {
     return;
   }
 };
 
 export const isDateInputInvalid: DateValidator = date => {
-  const invalid = 'invalidDate';
+  const invalid = 'invalid';
+
   if (!date) {
-    return invalid;
+    return 'incompleteDayAndMonthAndYear';
   }
 
   for (const value in date) {
@@ -110,14 +113,17 @@ export const isDateInputInvalid: DateValidator = date => {
   if (year === 0 && month === 0 && day === 0) {
     return;
   }
-  if (!dayjs(`${year}-${month}-${day}`, 'YYYY-M-D', true).isValid()) {
+
+  const values = [year, month, day];
+
+  if (!(0 in values) && !dayjs(`${year}-${month}-${day}`, 'YYYY-M-D', true).isValid()) {
     return invalid;
   }
 };
 
 export const isFutureDate: DateValidator = date => {
   if (!date) {
-    return;
+    return 'invalid';
   }
 
   const enteredDate = new Date(+date.year, +date.month - 1, +date.day);
@@ -133,7 +139,7 @@ export const isObsoleteDate: DateValidator = date => {
 
   const enteredDate = new Date(+date.year, +date.month - 1, +date.day);
   if (new Date('1900-01-01') > enteredDate) {
-    return 'invalidObsoleteDate';
+    return 'invalidDateInPast';
   }
 };
 
