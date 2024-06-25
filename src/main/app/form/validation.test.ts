@@ -108,10 +108,10 @@ describe('Validation', () => {
       };
 
       let isValid = isDateInputNotFilled(undefined);
-      expect(isValid).toStrictEqual('invalidDate');
+      expect(isValid).toStrictEqual('incompleteDayAndMonthAndYear');
 
       isValid = isDateInputNotFilled(date);
-      expect(isValid).toStrictEqual('invalidDate');
+      expect(isValid).toStrictEqual('incompleteDayAndMonthAndYear');
     });
   });
 
@@ -124,7 +124,7 @@ describe('Validation', () => {
       };
 
       const isValid = isObsoleteDate(date);
-      expect(isValid).toStrictEqual('invalidObsoleteDate');
+      expect(isValid).toStrictEqual('invalidDateInPast');
     });
   });
 
@@ -185,17 +185,17 @@ describe('Validation', () => {
     test.each([
       { date: { day: 1, month: 1, year: 1970 }, expected: undefined },
       { date: { day: 31, month: 12, year: 2000 }, expected: undefined },
-      { date: { day: 31, month: 12, year: 123 }, expected: 'invalidDate' },
-      { date: { day: 1, month: 1, year: 1 }, expected: 'invalidDate' },
-      { date: { day: -31, month: 12, year: 2000 }, expected: 'invalidDate' },
-      { date: { day: 31, month: -12, year: 2000 }, expected: 'invalidDate' },
-      { date: { day: 32, month: 12, year: 2000 }, expected: 'invalidDate' },
-      { date: { day: 31, month: 13, year: 2000 }, expected: 'invalidDate' },
-      { date: { day: 'no', month: '!%', year: 'way' }, expected: 'invalidDate' },
+      { date: { day: 31, month: 12, year: 123 }, expected: undefined },
+      { date: { day: 1, month: 1, year: 1 }, expected: undefined },
+      { date: { day: -31, month: 12, year: 2000 }, expected: 'invalid' },
+      { date: { day: 31, month: -12, year: 2000 }, expected: 'invalid' },
+      { date: { day: 32, month: 12, year: 2000 }, expected: 'invalid' },
+      { date: { day: 31, month: 13, year: 2000 }, expected: 'invalid' },
+      { date: { day: 'no', month: '!%', year: 'way' }, expected: 'invalid' },
       { date: { day: '29', month: '2', year: '2000' }, expected: undefined },
-      { date: { day: '31', month: '2', year: '2000' }, expected: 'invalidDate' },
+      { date: { day: '31', month: '2', year: '2000' }, expected: 'invalid' },
       { date: { day: ' ', month: ' ', year: ' ' }, expected: undefined },
-      { expected: 'invalidDate' },
+      { expected: undefined },
     ])('checks dates validity when %o', ({ date, expected }) => {
       const isValid = isDateInputInvalid(date as unknown as CaseDate);
 

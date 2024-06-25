@@ -131,7 +131,7 @@ export const isDateInputInvalid: DateValidator = date => {
 
 export const isFutureDate: DateValidator = date => {
   if (!date) {
-    return 'invalid';
+    return;
   }
 
   const enteredDate = new Date(+date.year, +date.month - 1, +date.day);
@@ -262,6 +262,9 @@ export const isMarkDownLinkIncluded: Validator = value => {
       if (subStringToValidate && new RegExp(/^\[(.*?)]\((https?:\/\/.*?)\)$/).exec(subStringToValidate)) {
         return ValidationError.CONTAINS_MARKDOWN_LINK;
       }
+    }
+    if (new RegExp(/<[^>]*>/).exec(valueToValidate)) {
+      return ValidationError.CONTAINS_MARKDOWN_LINK;
     }
   }
 };
