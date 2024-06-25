@@ -263,7 +263,7 @@ export const isMarkDownLinkIncluded: Validator = value => {
         return ValidationError.CONTAINS_MARKDOWN_LINK;
       }
     }
-    if (new RegExp(/<[^>]*>/).exec(valueToValidate)) {
+    if (valueToValidate.includes('<') || valueToValidate.includes('>')) {
       return ValidationError.CONTAINS_MARKDOWN_LINK;
     }
   }
