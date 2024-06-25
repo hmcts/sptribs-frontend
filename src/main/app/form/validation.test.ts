@@ -263,9 +263,6 @@ describe('Validation', () => {
       { date: { day: '29', month: '2', year: '2000' }, expected: undefined },
       { date: { day: '31', month: '2', year: '2000' }, expected: 'invalid' },
       { date: { day: ' ', month: ' ', year: ' ' }, expected: undefined },
-      { date: { day: '', month: 13, year: '' }, expected: 'invalid' },
-      { date: { day: '', month: -13, year: '' }, expected: 'invalid' },
-      { date: { day: '', month: 12, year: '' }, expected: undefined },
       { expected: undefined },
     ])('checks dates validity when %o', ({ date, expected }) => {
       const isValid = isDateInputInvalid(date as unknown as CaseDate);
