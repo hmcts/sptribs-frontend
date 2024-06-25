@@ -28,8 +28,8 @@
   "errors": {
     "en": {
       "subjectFullName": {
-        "required": "Please enter full name",
-        "invalid": "Please enter a valid name"
+        "required": "Enter your full name",
+        "containsMarkdownLink": "The data entered is not valid for a full name. Link markup characters are not allowed in this field"
       },
       "subjectDateOfBirth": {
         "invalid": "Date of birth must be a real date",
@@ -48,11 +48,20 @@
     "cy": {
       "subjectFullName": {
         "required": "Nodwch enw llawn",
-        "invalid": "Rhowch enw dilys"
+        "containsMarkdownLink": "The data entered is not valid for a full name. Link markup characters are not allowed in this field (WELSH)"
       },
       "subjectDateOfBirth": {
-        "required": "Nodwch ddyddiad geni",
-        "invalid": "Nodwch ddyddiad geni dilys"
+        "invalid": "Date of birth must be a real date (WELSH)",
+        "invalidAndIncomplete": "Date of birth must be a real date and must include a day, month and year (WELSH)",
+        "incompleteDay": "Date of birth must include a day (WELSH)",
+        "incompleteMonth": "Date of birth must include a month (WELSH)",
+        "incompleteYear": "Date of birth must include a year (WELSH)",
+        "incompleteDayAndMonth": "Date of birth must include a day and month (WELSH)",
+        "incompleteDayAndYear": "Date of birth must include a day and year (WELSH)",
+        "incompleteMonthAndYear": "Date of birth must include a month and year (WELSH)",
+        "incompleteDayAndMonthAndYear": "Date of birth must include a day, month and year (WELSH)",
+        "invalidDateInFuture": "Date of birth must be in the past (WELSH)",
+        "invalidDateInPast": "Date of birth must be after 31/12/1899 (WELSH)"
       }
     }
   }
