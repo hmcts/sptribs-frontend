@@ -100,7 +100,7 @@ describe('Validation', () => {
   });
 
   describe('isDateInputNotFilled()', () => {
-    test('Should check if date entered is future date', async () => {
+    test('Should return incompleteDayAndMonthAndYear error if no date fields are entered', async () => {
       const date = {
         day: '',
         month: '',
@@ -113,10 +113,76 @@ describe('Validation', () => {
       isValid = isDateInputNotFilled(date);
       expect(isValid).toStrictEqual('incompleteDayAndMonthAndYear');
     });
+
+    test('Should return incompleteDayAndMonth error if no day and month fields are entered', async () => {
+      const date = {
+        day: '',
+        month: '',
+        year: '2000',
+      };
+
+      const isValid = isDateInputNotFilled(date);
+      expect(isValid).toStrictEqual('incompleteDayAndMonth');
+    });
+
+    test('Should return incompleteDayAndYear error if no day and year fields are entered', async () => {
+      const date = {
+        day: '',
+        month: '12',
+        year: '',
+      };
+
+      const isValid = isDateInputNotFilled(date);
+      expect(isValid).toStrictEqual('incompleteDayAndYear');
+    });
+
+    test('Should return incompleteMonthAndYear error if no day and year fields are entered', async () => {
+      const date = {
+        day: '31',
+        month: '',
+        year: '',
+      };
+
+      const isValid = isDateInputNotFilled(date);
+      expect(isValid).toStrictEqual('incompleteMonthAndYear');
+    });
+
+    test('Should return incompleteDay error if no day and year fields are entered', async () => {
+      const date = {
+        day: '',
+        month: '12',
+        year: '2000',
+      };
+
+      const isValid = isDateInputNotFilled(date);
+      expect(isValid).toStrictEqual('incompleteDay');
+    });
+
+    test('Should return incompleteMonth error if no day and year fields are entered', async () => {
+      const date = {
+        day: '31',
+        month: '',
+        year: '2000',
+      };
+
+      const isValid = isDateInputNotFilled(date);
+      expect(isValid).toStrictEqual('incompleteMonth');
+    });
+
+    test('Should return incompleteYear error if no day and year fields are entered', async () => {
+      const date = {
+        day: '31',
+        month: '12',
+        year: '',
+      };
+
+      const isValid = isDateInputNotFilled(date);
+      expect(isValid).toStrictEqual('incompleteYear');
+    });
   });
 
   describe('isObsoleteDate()', () => {
-    test('Should check if date entered is future date', async () => {
+    test('Should check if date entered is too far in the past', async () => {
       const date = {
         day: '01',
         month: '01',
