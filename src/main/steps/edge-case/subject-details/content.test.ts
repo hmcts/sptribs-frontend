@@ -122,6 +122,7 @@ describe('subject-details-content', () => {
     ).toEqual({ day: '21', month: '12', year: '2018' });
     expect((dobField.validator as Function)({ day: '', month: '', year: '' })).toBe('incompleteDayAndMonthAndYear');
     expect((dobField.validator as Function)({ day: '1', month: '1', year: '1889' })).toBe('invalidDateInPast');
+    expect((dobField.validator as Function)({ day: 'ab', month: '', year: '2000' })).toBe('invalidAndIncomplete');
   });
 });
 
