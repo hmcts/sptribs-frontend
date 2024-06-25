@@ -262,6 +262,9 @@ describe('Validation', () => {
       { date: { day: 'no', month: '!%', year: 'way' }, expected: 'invalid' },
       { date: { day: '29', month: '2', year: '2000' }, expected: undefined },
       { date: { day: '31', month: '2', year: '2000' }, expected: 'invalid' },
+      { date: { day: 31, month: 'ab', year: 2000 }, expected: 'invalid' },
+      { date: { day: 'cd', month: 12, year: '2000' }, expected: 'invalid' },
+      { date: { day: 31, month: 12, year: 'ef' }, expected: 'invalid' },
       { date: { day: ' ', month: ' ', year: ' ' }, expected: undefined },
       { expected: undefined },
     ])('checks dates validity when %o', ({ date, expected }) => {

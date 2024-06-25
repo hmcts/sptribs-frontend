@@ -108,12 +108,6 @@ export const isDateInputInvalid: DateValidator = date => {
     return;
   }
 
-  const values = [year, month, day];
-
-  if (!(0 in values) && !dayjs(`${year}-${month}-${day}`, 'YYYY-M-D', true).isValid()) {
-    return invalid;
-  }
-
   const monthLength = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
   if (year % 400 === 0 || (year % 100 !== 0 && year % 4 === 0)) {
