@@ -6,8 +6,8 @@ import {
   isDateInputInvalid,
   isDateInputNotFilled,
   isFieldFilledIn,
-  isFieldLetters,
   isFutureDate,
+  isMarkDownLinkIncluded,
   isObsoleteDate,
 } from '../../../app/form/validation';
 import { ResourceReader } from '../../../modules/resourcereader/ResourceReader';
@@ -18,7 +18,7 @@ export const form: FormContent = {
       type: 'text',
       classes: 'govuk-input',
       label: l => l.subjectFullNameLabel,
-      validator: input => isFieldFilledIn(input) || isFieldLetters(input),
+      validator: input => isFieldFilledIn(input) || isMarkDownLinkIncluded(input),
     },
     subjectDateOfBirth: {
       type: 'date',
@@ -60,21 +60,6 @@ export const form: FormContent = {
           : isObsoleteDate(date)
           ? isObsoleteDate(date)
           : undefined;
-        // if (isDateInputInvalid(value as CaseDate) && isDateInputNotFilled(value as CaseDate)) {
-        //   return 'invalidAndIncomplete';
-        // }
-        // if (isDateInputInvalid(value as CaseDate)) {
-        //   return isDateInputInvalid(value as CaseDate);
-        // }
-        // if (isDateInputNotFilled(value as CaseDate)) {
-        //   return isDateInputNotFilled(value as CaseDate);
-        // }
-        // if (isFutureDate(value as CaseDate)) {
-        //   return isFutureDate(value as CaseDate);
-        // }
-        // if (isObsoleteDate(value as CaseDate)) {
-        //   return isObsoleteDate(value as CaseDate);
-        // }
       },
     },
   },
