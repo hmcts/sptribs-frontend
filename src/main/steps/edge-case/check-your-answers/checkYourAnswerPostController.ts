@@ -91,8 +91,6 @@ export default class submitCaseController extends PostController<AnyObject> {
         ...CaseData,
         LanguagePreference,
       };
-      console.log('data to send to case api');
-      console.log(JSON.stringify(responseBody));
       await this.caseSubmit(CASE_API_URL, Headers).put(baseURL, responseBody);
       res.redirect(APPLICATION_SUBMITTED);
     } catch (error) {
