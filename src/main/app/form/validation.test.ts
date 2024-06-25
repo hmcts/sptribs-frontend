@@ -189,7 +189,9 @@ describe('Validation', () => {
         year: '1899',
       };
 
-      const isValid = isObsoleteDate(date);
+      let isValid = isObsoleteDate(undefined);
+      expect(isValid).toStrictEqual(undefined);
+      isValid = isObsoleteDate(date);
       expect(isValid).toStrictEqual('invalidDateInPast');
     });
   });
