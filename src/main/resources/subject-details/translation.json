@@ -49,7 +49,8 @@
     "cy": {
       "subjectFullName": {
         "required": "Nodwch enw llawn",
-        "containsMarkdownLink": "The data entered is not valid for a full name. Link markup characters are not allowed in this field (WELSH)"
+        "containsMarkdownLink": "The data entered is not valid for a full name. Link markup characters are not allowed in this field (WELSH)",
+        "containsInvalidCharacters": "Full name must not include HTML (WELSH)"
       },
       "subjectDateOfBirth": {
         "invalid": "Date of birth must be a real date (WELSH)",
