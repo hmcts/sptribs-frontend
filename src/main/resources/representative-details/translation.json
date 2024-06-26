@@ -9,7 +9,7 @@
       "fullNameLabel": "Full name",
       "organisationNameLabel": "Organisation or business name",
       "contactNumberLabel": "Contact number",
-      "contactNumberHint": "Enter a telephone number in the correct format, like 01632 960 001 or 07700 900 982",
+      "contactNumberHint": "Enter a contact number in the correct format, like 01632 960 001 or 07700 900 982",
       "emailAddressLabel": "Email address",
       "emailAddressHint": "Enter an email address in the correct format, like name@example.com"
     },
@@ -22,7 +22,7 @@
       "fullNameLabel": "Enw llawn",
       "organisationNameLabel": "Enw’r sefydliad neu’r busnes",
       "contactNumberLabel": "Rhif cyswllt",
-      "contactNumberHint": "Enter a telephone number in the correct format, like 01632 960 001 or 07700 900 982 (WELSH)",
+      "contactNumberHint": "Enter a contact number in the correct format, like 01632 960 001 or 07700 900 982 (WELSH)",
       "emailAddressLabel": "Cyfeiriad e-bost",
       "emailAddressHint": "Enter an email address in the correct format, like name@example.com (WELSH)"
     }
@@ -30,18 +30,21 @@
   "errors": {
     "en": {
       "representativeFullName": {
-        "required": "Enter the full name of your representative"
+        "required": "Enter full name of the representative",
+        "containsMarkdownLink": "Full name must not include a link",
+        "containsInvalidCharacters": "Full name must not include HTML"
       },
       "representativeOrganisationName": {
-        "required": "Enter the organisation name or business name of your representative",
-        "containsMarkdownLink": "The data entered is not valid for Organisation or business name. Link markdown characters are not allowed in this field."
+        "required": "Enter organisation or business name of the representative",
+        "containsMarkdownLink": "Organisation or business name must not include a link",
+        "containsInvalidCharacters": "Organisation or business name must not include HTML"
       },
       "representativeContactNumber": {
-        "required": "Enter the contact number of your representative",
-        "invalid": "Enter a telephone number in the correct format"
+        "required": "Enter a contact number of the representative",
+        "invalid": "Enter a contact number in the correct format"
       },
       "representativeEmailAddress": {
-        "required": "Enter an email address",
+        "required": "Enter an email address of the representative",
         "invalid": "Enter an email address in the correct format"
       }
     },

@@ -236,3 +236,9 @@ export const isMarkDownLinkIncluded: Validator = value => {
     }
   }
 };
+
+export const containsInvalidCharacters: Validator = value => {
+  if (value && (value as string).match(/[<>]/gu)) {
+    return 'containsInvalidCharacters';
+  }
+};
