@@ -84,7 +84,7 @@ describe('subject-details-content', () => {
     const fields = form.fields as FormFields;
     const subjectFullName = fields.subjectFullName as FormOptions;
 
-    expect((subjectFullName.validator as Function)('<marquee>John Doe</marquee>')).toBe('containsMarkdownLink');
+    expect((subjectFullName.validator as Function)('<marquee>John Doe</marquee>')).toBe('containsInvalidCharacters');
   });
 
   test('should contain dateOfBirth field', () => {
