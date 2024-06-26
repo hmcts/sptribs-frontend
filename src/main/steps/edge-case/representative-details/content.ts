@@ -2,6 +2,7 @@ import { EmailAddress } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import {
+  containsInvalidCharacters,
   isEmailValid,
   isFieldFilledIn,
   isFieldLetters,
@@ -16,18 +17,19 @@ export const form: FormContent = {
       type: 'text',
       classes: 'govuk-input',
       label: l => l.fullNameLabel,
-      validator: input => isFieldFilledIn(input) || isFieldLetters(input),
+      validator: input => isFieldFilledIn(input) || isFieldLetters(input) || containsInvalidCharacters(input),
     },
     representativeOrganisationName: {
       type: 'text',
       classes: 'govuk-input',
       label: l => l.organisationNameLabel,
-      validator: input => isFieldFilledIn(input) || isMarkDownLinkIncluded(input),
+      validator: input => isFieldFilledIn(input) || isMarkDownLinkIncluded(input) || containsInvalidCharacters(input),
     },
     representativeContactNumber: {
       type: 'text',
       classes: 'govuk-input',
       label: l => l.contactNumberLabel,
+      hint: l => l.contactNumberHint,
 
       validator: value => isFieldFilledIn(value) || isPhoneNoValid(value),
     },
@@ -35,6 +37,7 @@ export const form: FormContent = {
       type: 'text',
       classes: 'govuk-input',
       label: l => l.emailAddressLabel,
+      hint: l => l.emailAddressHint,
 
       values: [{ label: l => l.emailAddressLabel, value: EmailAddress.EMAIL_ADDRESS }],
       validator: value => isFieldFilledIn(value) || isEmailValid(value),
