@@ -28,8 +28,9 @@
   "errors": {
     "en": {
       "subjectFullName": {
-        "required": "Enter your full name",
-        "containsMarkdownLink": "The data entered is not valid for a full name. Link markup characters are not allowed in this field"
+        "required": "Enter full name",
+        "containsMarkdownLink": "Full name must not include a link",
+        "containsInvalidCharacters": "Full name must not include HTML"
       },
       "subjectDateOfBirth": {
         "invalid": "Date of birth must be a real date",

@@ -3,6 +3,7 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { covertToDateObject } from '../../../app/form/parser';
 import {
+  containsInvalidCharacters,
   isDateInputInvalid,
   isDateInputNotFilled,
   isFieldFilledIn,
@@ -18,7 +19,7 @@ export const form: FormContent = {
       type: 'text',
       classes: 'govuk-input',
       label: l => l.subjectFullNameLabel,
-      validator: input => isFieldFilledIn(input) || isMarkDownLinkIncluded(input),
+      validator: input => isFieldFilledIn(input) || isMarkDownLinkIncluded(input) || containsInvalidCharacters(input),
     },
     subjectDateOfBirth: {
       type: 'date',

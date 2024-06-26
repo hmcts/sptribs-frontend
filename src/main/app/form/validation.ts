@@ -257,8 +257,11 @@ export const isMarkDownLinkIncluded: Validator = value => {
         return ValidationError.CONTAINS_MARKDOWN_LINK;
       }
     }
-    if (valueToValidate.includes('<') || valueToValidate.includes('>')) {
-      return ValidationError.CONTAINS_MARKDOWN_LINK;
-    }
+  }
+};
+
+export const containsInvalidCharacters: Validator = value => {
+  if (value && (value as string).match(/[<>]/gu)) {
+    return 'containsInvalidCharacters';
   }
 };
