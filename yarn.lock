@@ -3081,11 +3081,11 @@ __metadata:
   linkType: hard
 
 "@types/node@npm:*, @types/node@npm:^20.1.0, @types/node@npm:^20.8.9":
-  version: 20.14.5
-  resolution: "@types/node@npm:20.14.5"
+  version: 20.14.9
+  resolution: "@types/node@npm:20.14.9"
   dependencies:
     undici-types: ~5.26.4
-  checksum: b337784407edbdd374b25149e9dfce80368846a9b0dc5b7d88a2591572ec87a5d87c11c9ddc1906294aef26a1ad889d56be8b08de6be3ce1256b8d9a836bc7d8
+  checksum: 5e9eda1ac8c6cc6bcd1063903ae195eaede9aad1bdad00408a919409cfbcdd2d6535aa3d50346f0d385528f9e03dafc7d1b3bad25aedb1dcd79a6ad39d06c35d
   languageName: node
   linkType: hard
 
@@ -5834,11 +5834,11 @@ __metadata:
   linkType: hard
 
 "config@npm:^3.3.7":
-  version: 3.3.11
-  resolution: "config@npm:3.3.11"
+  version: 3.3.12
+  resolution: "config@npm:3.3.12"
   dependencies:
     json5: ^2.2.3
-  checksum: 84d783978ca7bf74bc6347868b6db29b853f5eda66021a04d77a84027b8b8b9d2fb5744409de5a39a5d63d867c3ac5f4169407701fa48f380015065b2701b221
+  checksum: db1b7718ffb0a8dc99cac003f31f6af99562362b8b25f2c72104465983d471e683ea25866308886723179248113a584e6ec3f67811e25e3c2b070bee592dd94d
   languageName: node
   linkType: hard
 
@@ -11895,8 +11895,8 @@ __metadata:
   linkType: hard
 
 "nodemon@npm:^3.0.0":
-  version: 3.1.3
-  resolution: "nodemon@npm:3.1.3"
+  version: 3.1.4
+  resolution: "nodemon@npm:3.1.4"
   dependencies:
     chokidar: ^3.5.2
     debug: ^4
@@ -11910,7 +11910,7 @@ __metadata:
     undefsafe: ^2.0.5
   bin:
     nodemon: bin/nodemon.js
-  checksum: ac2fa8865ab292b7ddf66731487acca4b4282b2728361e0de633c0c74cd705d6a0852b52f785c09469d959241d038ba824f50375622e687a2a318be747d9cd9d
+  checksum: 3f003fc2c7bdaba559108320f188b7cb063220455e5da218ff3bf4f7468ad7059852da6e35a52b8c690cc27f6e36a433a9ad1f1bdb8096ec1ee3d930629cbeca
   languageName: node
   linkType: hard
 
@@ -16176,8 +16176,8 @@ __metadata:
   linkType: hard
 
 "webpack@npm:^5.85.0":
-  version: 5.92.0
-  resolution: "webpack@npm:5.92.0"
+  version: 5.92.1
+  resolution: "webpack@npm:5.92.1"
   dependencies:
     "@types/eslint-scope": ^3.7.3
     "@types/estree": ^1.0.5
@@ -16208,7 +16208,7 @@ __metadata:
       optional: true
   bin:
     webpack: bin/webpack.js
-  checksum: b020102549d2bdbc59902003140808601a4f85800c3efcb8292d4239a71a44786d0b4e2412cfa840a75c2e60276e7e55ea3b77b4e1850a915024cab2a57e90ef
+  checksum: 11bec781260c4180883e98a4a15a08df297aca654ded45e70598f688881dd722f992d680addafe6f6342debede345cddcce2b781c50f5cde29d6c0bc33a82452
   languageName: node
   linkType: hard
 
