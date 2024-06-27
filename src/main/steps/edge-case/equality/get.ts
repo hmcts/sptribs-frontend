@@ -58,11 +58,12 @@ export default class PCQGetController {
     const protocol = developmentMode ? 'http://' : '';
     const port = developmentMode ? `:${config.get('port')}` : '';
     const lang = req.session.lang === 'en' ? 'en' : 'cy';
+    const ccdCaseId = parseInt(req.session.userCase.id);
 
     const pcqParams = {
       actor: 'APPLICANT',
       serviceId: 'SpecialTribunals_CIC',
-      ccdCaseId: req.session.userCase.id,
+      ccdCaseId: ccdCaseId.toString(),
       pcqId: req.session.userCase.pcqId,
       partyId: req.session.userCase.subjectEmailAddress,
       language: lang,
