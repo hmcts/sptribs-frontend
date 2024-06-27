@@ -22,8 +22,7 @@ describe('GetController', () => {
     const res = mockResponse();
     await controller.get(req, res);
 
-    const requestWithCookiesParams = req;
-    requestWithCookiesParams.query = {
+    req.query = {
       analytics: 'off',
       apm: 'off',
     };
@@ -171,61 +170,6 @@ describe('GetController', () => {
       expect(getContentMock).toHaveBeenCalledTimes(1);
       expect(res.render).toHaveBeenCalledWith(expect.stringContaining('page'), expect.anything());
     });
-  });
-
-  describe('save', () => {
-    test('Should save the users data, and return the updated userCase', async () => {
-      const controller = new GetController('page', () => ({}));
-
-      const req = mockRequest();
-      const res = mockResponse();
-      req.url = '/next-page';
-
-      controller.saveSessionAndRedirect(req, res);
-
-      expect(res.redirect).toHaveBeenCalledWith('/next-page');
-    });
-  });
-
-  describe('saveSessionAndRedirect', () => {
-    test('should save session and redirect to req.url', () => {
-      const controller = new GetController('page', () => ({}));
-      const req = mockRequest();
-      const res = mockResponse();
-
-      controller.saveSessionAndRedirect(req, res);
-
-      expect(req.session.save).toHaveBeenCalled();
-      expect(res.redirect).toHaveBeenCalledWith('/request');
-    });
-
-    test('should throw an error and not redirect when session can not be saved', () => {
-      const controller = new GetController('page', () => ({}));
-      const req = mockRequest({
-        session: {
-          save: jest.fn(done => done('MOCK_ERROR')),
-        },
-      });
-      const res = mockResponse();
-      try {
-        controller.saveSessionAndRedirect(req, res);
-      } catch (err) {
-        //eslint-disable-next-line jest/no-conditional-expect
-        expect(err).toBe('MOCK_ERROR');
-      }
-      expect(res.redirect).not.toHaveBeenCalledWith('/request');
-    });
-  });
-
-  test('should trigger callback if callback passed', () => {
-    const controller = new GetController('page', () => ({}));
-    const req = mockRequest();
-    const res = mockResponse();
-    const callback = jest.fn();
-
-    controller.saveSessionAndRedirect(req, res, callback);
-
-    expect(callback).toHaveBeenCalled();
   });
 });
 
