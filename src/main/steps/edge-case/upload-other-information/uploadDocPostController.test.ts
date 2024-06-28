@@ -287,6 +287,62 @@ describe('Document upload controller', () => {
   });
 });
 
+describe('when data contains markdown link', () => {
+  test('should throw an error when documentRelevance contains HTML', async () => {
+    const res = mockResponse();
+    const req = mockRequest({
+      body: {
+        documentRelevance: '<a>https://www.google.co.uk</a>)',
+        additionalInformation: 'some info',
+      },
+    });
+    const controller = new UploadDocumentController({});
+
+    await controller.post(req, res);
+
+    expect(req.session.errors).toHaveLength(1);
+    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION);
+  });
+
+  test('should throw an error when additionalInformation contains HTML', async () => {
+    const res = mockResponse();
+    const req = mockRequest({
+      body: {
+        documentRelevance: 'doc relevance',
+        additionalInformation: '<a>https://www.google.co.uk</a>',
+      },
+    });
+    const controller = new UploadDocumentController({});
+
+    await controller.post(req, res);
+
+    expect(req.session.errors).toHaveLength(1);
+    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION);
+  });
+
+  test('should throw an error if error encountered during session save', async () => {
+    const controller = new UploadDocumentController({});
+    const res = mockResponse();
+    const req = mockRequest({
+      body: {
+        documentRelevance: 'doc relevance',
+        additionalInformation: '<a>https://www.google.co.uk</a>',
+      },
+      session: {
+        user: { email: 'test@example.com' },
+
+        save: jest.fn(done => done('MOCK_ERROR')),
+      },
+    });
+    try {
+      await controller.post(req, res);
+    } catch (err) {
+      //eslint-disable-next-line jest/no-conditional-expect
+      expect(err).toBe('MOCK_ERROR');
+    }
+  });
+});
+
 describe('checking for the redirect of post document upload', () => {
   const mockForm = {
     fields: {
