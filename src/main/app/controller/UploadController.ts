@@ -268,42 +268,40 @@ export class UploadController extends PostController<AnyObject> {
         }
         res.redirect(this.getCurrentPageRedirectUrl());
       });
-    } else {
-      if (saveAndContinue) {
-        await this.postDocumentUploader(req, res);
-      } else if (isNull(files)) {
-        this.createUploadedFileError(req, res, chooseFileLink, 'NO_FILE_UPLOAD_ERROR');
-      } else if (totalUploadDocuments < Number(config.get(this.getValidationTotal()))) {
-        if (!req.session.hasOwnProperty('errors')) {
-          req.session['errors'] = [];
-        }
+    } else if (saveAndContinue) {
+      await this.postDocumentUploader(req, res);
+    } else if (isNull(files)) {
+      this.createUploadedFileError(req, res, chooseFileLink, 'NO_FILE_UPLOAD_ERROR');
+    } else if (totalUploadDocuments < Number(config.get(this.getValidationTotal()))) {
+      if (!req.session.hasOwnProperty('errors')) {
+        req.session['errors'] = [];
+      }
 
-        const { documents }: any = files;
+      const { documents }: any = files;
 
-        const isValidMimeType: boolean = FileValidations.formatValidation(
-          documents.mimetype,
-          this.getAcceptedFileMimeType()
-        );
-        const isValidFileSize: boolean = FileValidations.sizeValidation(documents.size);
+      const isValidMimeType: boolean = FileValidations.formatValidation(
+        documents.mimetype,
+        this.getAcceptedFileMimeType()
+      );
+      const isValidFileSize: boolean = FileValidations.sizeValidation(documents.size);
 
-        if (!isValidFileSize) {
-          this.createUploadedFileError(req, res, chooseFileLink, 'SIZE_ERROR');
-        }
+      if (!isValidFileSize) {
+        this.createUploadedFileError(req, res, chooseFileLink, 'SIZE_ERROR');
+      }
 
-        if (!isValidMimeType) {
-          this.createUploadedFileError(req, res, chooseFileLink, 'FORMAT_ERROR');
-        }
+      if (!isValidMimeType) {
+        this.createUploadedFileError(req, res, chooseFileLink, 'FORMAT_ERROR');
+      }
 
-        if (isValidMimeType && isValidFileSize) {
-          await this.uploadDocument(documents, req, res, chooseFileLink);
-        } else {
-          this.redirect(req, res, this.getCurrentPageRedirectUrl());
-        }
+      if (isValidMimeType && isValidFileSize) {
+        await this.uploadDocument(documents, req, res, chooseFileLink);
       } else {
-        this.createUploadedFileError(req, res, filesUploadedLink, 'TOTAL_FILES_EXCEED_ERROR');
-
         this.redirect(req, res, this.getCurrentPageRedirectUrl());
       }
+    } else {
+      this.createUploadedFileError(req, res, filesUploadedLink, 'TOTAL_FILES_EXCEED_ERROR');
+
+      this.redirect(req, res, this.getCurrentPageRedirectUrl());
     }
   }
 
