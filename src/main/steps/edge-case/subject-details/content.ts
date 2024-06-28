@@ -49,18 +49,19 @@ export const form: FormContent = {
       parser: body => covertToDateObject('subjectDateOfBirth', body as Record<string, unknown>),
       validator: value => {
         const date = value as CaseDate;
-
-        return isDateInputInvalid(date) && isDateInputNotFilled(date)
-          ? 'invalidAndIncomplete'
-          : isDateInputInvalid(date)
-          ? isDateInputInvalid(date)
-          : isDateInputNotFilled(date)
-          ? isDateInputNotFilled(date)
-          : isFutureDate(date)
-          ? isFutureDate(date)
-          : isObsoleteDate(date)
-          ? isObsoleteDate(date)
-          : undefined;
+        if (isDateInputInvalid(date) && isDateInputNotFilled(date)) {
+          return 'invalidAndIncomplete';
+        } else if (isDateInputInvalid(date)) {
+          return isDateInputInvalid(date);
+        } else if (isDateInputNotFilled(date)) {
+          return isDateInputNotFilled(date);
+        } else if (isFutureDate(date)) {
+          return isFutureDate(date);
+        } else if (isObsoleteDate(date)) {
+          return isObsoleteDate(date);
+        } else {
+          return undefined;
+        }
       },
     },
   },
