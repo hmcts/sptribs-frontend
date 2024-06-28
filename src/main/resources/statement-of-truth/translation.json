@@ -1,28 +1,28 @@
 {
-    "translations": {
-      "en": {
-        "serviceName": "Statement of truth",
-        "statementOfTruthLabel": "I believe that the facts stated in this application are true",
-        "confirmStatement": "This confirms that the information you are submitting is true and accurate to the best of your knowledge. It's known as your 'statement of truth'.",
-        "continue": "Submit"
-      },
-      "cy": {
-        "serviceName": "Datganiad Gwirionedd",
-        "statementOfTruthLabel": "Credaf fod y ffeithiau a nodir yn y cais hwn yn wir",
-        "confirmStatement": "Mae hyn yn cadarnhau bod yr wybodaeth yr ydych yn ei chyflwyno yn wir ac yn gywir hyd eithaf eich gwybodaeth. Gelwir hwn yn eich ‘datganiad gwirionedd’.",
-        "continue": "Cyflwyno"
+  "translations": {
+    "en": {
+      "serviceName": "Statement of truth",
+      "statementOfTruthLabel": "I believe that the facts stated in this application are true",
+      "confirmStatement": "This confirms that the information you are submitting is true and accurate to the best of your knowledge. It's known as your 'statement of truth'.",
+      "continue": "Submit"
+    },
+    "cy": {
+      "serviceName": "Datganiad Gwirionedd",
+      "statementOfTruthLabel": "Credaf fod y ffeithiau a nodir yn y cais hwn yn wir",
+      "confirmStatement": "Mae hyn yn cadarnhau bod yr wybodaeth yr ydych yn ei chyflwyno yn wir ac yn gywir hyd eithaf eich gwybodaeth. Gelwir hwn yn eich ‘datganiad gwirionedd’.",
+      "continue": "Cyflwyno"
+    }
+  },
+  "errors": {
+    "en": {
+      "applicantStatementOfTruth": {
+        "required": "Please accept the Statement of Truth to continue"
       }
     },
-    "errors": {
-      "en": {
-        "applicantStatementOfTruth": {
-          "required" : "Please accept the Statement of Truth to continue"
-        }
-      },
-      "cy": {
-        "applicantStatementOfTruth": {
-          "required" : "Dylech dderbyn y Datganiad Gwirionedd i barhau"
-        }
+    "cy": {
+      "applicantStatementOfTruth": {
+        "required": "Dylech dderbyn y Datganiad Gwirionedd i barhau"
       }
     }
   }
+}

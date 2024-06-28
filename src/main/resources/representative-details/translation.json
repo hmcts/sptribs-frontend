@@ -9,7 +9,9 @@
       "fullNameLabel": "Full name",
       "organisationNameLabel": "Organisation or business name",
       "contactNumberLabel": "Contact number",
-      "emailAddressLabel": "Email address"
+      "contactNumberHint": "Enter a contact number in the correct format, like 01632 960 001 or 07700 900 982",
+      "emailAddressLabel": "Email address",
+      "emailAddressHint": "Enter an email address in the correct format, like name@example.com"
     },
     "cy": {
       "continue": "Parhau",
@@ -20,26 +22,30 @@
       "fullNameLabel": "Enw llawn",
       "organisationNameLabel": "Enw’r sefydliad neu’r busnes",
       "contactNumberLabel": "Rhif cyswllt",
-      "emailAddressLabel": "Cyfeiriad e-bost"
+      "contactNumberHint": "Enter a contact number in the correct format, like 01632 960 001 or 07700 900 982 (WELSH)",
+      "emailAddressLabel": "Cyfeiriad e-bost",
+      "emailAddressHint": "Enter an email address in the correct format, like name@example.com (WELSH)"
     }
   },
   "errors": {
     "en": {
       "representativeFullName": {
-        "required": "Please enter full name",
-        "invalid": "Please enter a valid full name"
+        "required": "Enter full name of the representative",
+        "containsMarkdownLink": "Full name must not include a link",
+        "containsInvalidCharacters": "Full name must not include HTML"
       },
       "representativeOrganisationName": {
-        "required": "Please enter organisation or business name",
-        "containsMarkdownLink": "The data entered is not valid for Organisation or business name. Link markdown characters are not allowed in this field."
+        "required": "Enter organisation or business name of the representative",
+        "containsMarkdownLink": "Organisation or business name must not include a link",
+        "containsInvalidCharacters": "Organisation or business name must not include HTML"
       },
       "representativeContactNumber": {
-        "required": "Please enter a valid contact number",
-        "invalid": "Please enter a valid contact number"
+        "required": "Enter a contact number of the representative",
+        "invalid": "Enter a contact number in the correct format"
       },
       "representativeEmailAddress": {
-        "required": "Please enter a valid email address",
-        "invalid": "Every email address consists of 3 elements: local-part, @ symbol (pronounced as “at”), and a domain name"
+        "required": "Enter an email address of the representative",
+        "invalid": "Enter an email address in the correct format"
       }
     },
     "cy": {

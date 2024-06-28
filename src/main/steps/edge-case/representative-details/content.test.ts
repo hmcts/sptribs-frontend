@@ -99,7 +99,9 @@ describe('representative-details-content', () => {
     const representativeFullName = fields.representativeFullName as FormOptions;
     const representativeOrganisationName = fields.representativeOrganisationName as FormOptions;
     expect((representativeFullName.label as Function)(generatedContent)).toBe(enContent.fullNameLabel);
-    expect((representativeFullName.validator as Function)('rep name [Text](https://www.google.co.uk)')).toBe('invalid');
+    expect((representativeFullName.validator as Function)('rep name [Text](https://www.google.co.uk)')).toBe(
+      'containsMarkdownLink'
+    );
     expect((representativeFullName.validator as Function)('')).toBe('required');
     expect((representativeFullName.validator as Function)('rep name')).toBe(undefined);
     expect((representativeOrganisationName.label as Function)(generatedContent)).toBe(enContent.organisationNameLabel);
