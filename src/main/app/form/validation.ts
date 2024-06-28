@@ -59,28 +59,30 @@ export const doesArrayHaveValues: Validator = value => {
 };
 
 export const isDateInputNotFilled: DateValidator = date => {
-  const invalid = 'invalidDate';
-  if (!date) {
-    return invalid;
-  }
-
-  for (const value in date) {
-    if (isNaN(+date[value])) {
-      return invalid;
-    }
-  }
-
-  if (isEmpty(date.day || date.month || date.year)) {
-    return invalid;
+  if (!date || (isEmpty(date.day) && isEmpty(date.month) && isEmpty(date.year))) {
+    return 'incompleteDayAndMonthAndYear';
+  } else if (isEmpty(date.day) && isEmpty(date.month)) {
+    return 'incompleteDayAndMonth';
+  } else if (isEmpty(date.day) && isEmpty(date.year)) {
+    return 'incompleteDayAndYear';
+  } else if (isEmpty(date.month) && isEmpty(date.year)) {
+    return 'incompleteMonthAndYear';
+  } else if (isEmpty(date.day)) {
+    return 'incompleteDay';
+  } else if (isEmpty(date.month)) {
+    return 'incompleteMonth';
+  } else if (isEmpty(date.year)) {
+    return 'incompleteYear';
   } else {
     return;
   }
 };
 
 export const isDateInputInvalid: DateValidator = date => {
-  const invalid = 'invalidDate';
+  const invalid = 'invalid';
+
   if (!date) {
-    return invalid;
+    return;
   }
 
   for (const value in date) {
@@ -95,7 +97,14 @@ export const isDateInputInvalid: DateValidator = date => {
   if (year === 0 && month === 0 && day === 0) {
     return;
   }
-  if (!dayjs(`${year}-${month}-${day}`, 'YYYY-M-D', true).isValid()) {
+
+  const monthLength = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+  if (year % 400 === 0 || (year % 100 !== 0 && year % 4 === 0)) {
+    monthLength[1] = 29;
+  }
+
+  if (month < 0 || month > 12 || !(day >= 0 && day <= monthLength[month - 1])) {
     return invalid;
   }
 };
@@ -118,7 +127,7 @@ export const isObsoleteDate: DateValidator = date => {
 
   const enteredDate = new Date(+date.year, +date.month - 1, +date.day);
   if (new Date('1900-01-01') > enteredDate) {
-    return 'invalidObsoleteDate';
+    return 'invalidDateInPast';
   }
 };
 
@@ -234,5 +243,11 @@ export const isMarkDownLinkIncluded: Validator = value => {
         return ValidationError.CONTAINS_MARKDOWN_LINK;
       }
     }
+  }
+};
+
+export const containsInvalidCharacters: Validator = value => {
+  if (value && (value as string).match(/[<>]/gu)) {
+    return 'containsInvalidCharacters';
   }
 };

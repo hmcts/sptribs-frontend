@@ -78,31 +78,13 @@ describe('subject-details-content', () => {
     expect((subjectFullName.validator as Function)("Dermot O'Leary")).toBe(undefined);
   });
 
-  test('should fail validation when subject full name contains number', () => {
-    const generatedContent = generateContent(commonContent);
-    const form = generatedContent.form as FormContent;
-    const fields = form.fields as FormFields;
-    const subjectFullName = fields.subjectFullName as FormOptions;
-
-    expect((subjectFullName.validator as Function)('FirstName 1Surname')).toBe('invalid');
-  });
-
-  test('should fail validation when subject full name contains invalid punctuation', () => {
-    const generatedContent = generateContent(commonContent);
-    const form = generatedContent.form as FormContent;
-    const fields = form.fields as FormFields;
-    const subjectFullName = fields.subjectFullName as FormOptions;
-
-    expect((subjectFullName.validator as Function)('FirstName Surname!')).toBe('invalid');
-  });
-
   test('should fail validation when subject full name contains invalid text (eg. html)', () => {
     const generatedContent = generateContent(commonContent);
     const form = generatedContent.form as FormContent;
     const fields = form.fields as FormFields;
     const subjectFullName = fields.subjectFullName as FormOptions;
 
-    expect((subjectFullName.validator as Function)('<marquee>John Doe</marquee>')).toBe('invalid');
+    expect((subjectFullName.validator as Function)('<marquee>John Doe</marquee>')).toBe('containsInvalidCharacters');
   });
 
   test('should contain dateOfBirth field', () => {
@@ -138,8 +120,9 @@ describe('subject-details-content', () => {
         'subjectDateOfBirth-year': '2018',
       })
     ).toEqual({ day: '21', month: '12', year: '2018' });
-    expect((dobField.validator as Function)({ day: '', month: '', year: '' })).toBe('required');
-    expect((dobField.validator as Function)({ day: '1', month: '1', year: '1889' })).toBe('invalid');
+    expect((dobField.validator as Function)({ day: '', month: '', year: '' })).toBe('incompleteDayAndMonthAndYear');
+    expect((dobField.validator as Function)({ day: '1', month: '1', year: '1889' })).toBe('invalidDateInPast');
+    expect((dobField.validator as Function)({ day: 'ab', month: '', year: '2000' })).toBe('invalidAndIncomplete');
   });
 });
 
