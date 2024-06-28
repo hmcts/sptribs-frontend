@@ -61,27 +61,17 @@ export const doesArrayHaveValues: Validator = value => {
 export const isDateInputNotFilled: DateValidator = date => {
   if (!date || (isEmpty(date.day) && isEmpty(date.month) && isEmpty(date.year))) {
     return 'incompleteDayAndMonthAndYear';
-  }
-
-  if (isEmpty(date.day) && isEmpty(date.month)) {
+  } else if (isEmpty(date.day) && isEmpty(date.month)) {
     return 'incompleteDayAndMonth';
-  }
-
-  if (isEmpty(date.day) && isEmpty(date.year)) {
+  } else if (isEmpty(date.day) && isEmpty(date.year)) {
     return 'incompleteDayAndYear';
-  }
-
-  if (isEmpty(date.month) && isEmpty(date.year)) {
+  } else if (isEmpty(date.month) && isEmpty(date.year)) {
     return 'incompleteMonthAndYear';
-  }
-
-  if (isEmpty(date.day)) {
+  } else if (isEmpty(date.day)) {
     return 'incompleteDay';
-  }
-  if (isEmpty(date.month)) {
+  } else if (isEmpty(date.month)) {
     return 'incompleteMonth';
-  }
-  if (isEmpty(date.year)) {
+  } else if (isEmpty(date.year)) {
     return 'incompleteYear';
   } else {
     return;
@@ -112,13 +102,9 @@ export const isDateInputInvalid: DateValidator = date => {
 
   if (year % 400 === 0 || (year % 100 !== 0 && year % 4 === 0)) {
     monthLength[1] = 29;
-  }
-
-  if (month < 0 || month > 12) {
+  } else if (month < 0 || month > 12) {
     return invalid;
-  }
-
-  if (!(day >= 0 && day <= monthLength[month - 1])) {
+  } else if (!(day >= 0 && day <= monthLength[month - 1])) {
     return invalid;
   }
 };
