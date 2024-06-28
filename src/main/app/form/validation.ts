@@ -102,7 +102,9 @@ export const isDateInputInvalid: DateValidator = date => {
 
   if (year % 400 === 0 || (year % 100 !== 0 && year % 4 === 0)) {
     monthLength[1] = 29;
-  } else if (month < 0 || month > 12) {
+  }
+
+  if (month < 0 || month > 12) {
     return invalid;
   } else if (!(day >= 0 && day <= monthLength[month - 1])) {
     return invalid;
