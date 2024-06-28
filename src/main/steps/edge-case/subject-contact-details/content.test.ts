@@ -90,6 +90,6 @@ describe('Email Address', () => {
     const generatedContent = generateContent(CommonContent);
     const form = generatedContent.form as FormContent;
 
-    expect((form.submit.text as Function)(generateContent({ ...CommonContent, language: EN }))).toBe('Continue');
+    expect((form.submit?.text as Function)(generateContent({ ...CommonContent, language: EN }))).toBe('Continue');
   });
 });
