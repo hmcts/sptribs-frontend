@@ -5,7 +5,6 @@ import {
   containsInvalidCharacters,
   isEmailValid,
   isFieldFilledIn,
-  isFieldLetters,
   isMarkDownLinkIncluded,
   isPhoneNoValid,
 } from '../../../app/form/validation';
@@ -17,7 +16,7 @@ export const form: FormContent = {
       type: 'text',
       classes: 'govuk-input',
       label: l => l.fullNameLabel,
-      validator: input => isFieldFilledIn(input) || isFieldLetters(input) || containsInvalidCharacters(input),
+      validator: input => isFieldFilledIn(input) || isMarkDownLinkIncluded(input) || containsInvalidCharacters(input),
     },
     representativeOrganisationName: {
       type: 'text',
