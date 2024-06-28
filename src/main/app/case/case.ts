@@ -22,9 +22,7 @@ export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data
 
 export type FieldFormats = Record<string, string | ((AnyObject) => AnyObject)>;
 
-/***@caseData */
 export interface Case {
-  /*********All information related to the Case */
   namedApplicant: YesOrNo;
   caseTypeOfApplication: string;
   applicantFirstName: string;
