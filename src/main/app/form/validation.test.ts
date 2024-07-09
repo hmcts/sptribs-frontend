@@ -136,7 +136,7 @@ describe('Validation', () => {
       expect(isValid).toStrictEqual('incompleteDayAndYear');
     });
 
-    test('Should return incompleteMonthAndYear error if no day and year fields are entered', async () => {
+    test('Should return incompleteMonthAndYear error if no month and year fields are entered', async () => {
       const date = {
         day: '31',
         month: '',
@@ -147,7 +147,7 @@ describe('Validation', () => {
       expect(isValid).toStrictEqual('incompleteMonthAndYear');
     });
 
-    test('Should return incompleteDay error if no day and year fields are entered', async () => {
+    test('Should return incompleteDay error if no day field is entered', async () => {
       const date = {
         day: '',
         month: '12',
@@ -158,7 +158,7 @@ describe('Validation', () => {
       expect(isValid).toStrictEqual('incompleteDay');
     });
 
-    test('Should return incompleteMonth error if no day and year fields are entered', async () => {
+    test('Should return incompleteMonth error if no month field is entered', async () => {
       const date = {
         day: '31',
         month: '',
@@ -169,7 +169,7 @@ describe('Validation', () => {
       expect(isValid).toStrictEqual('incompleteMonth');
     });
 
-    test('Should return incompleteYear error if no day and year fields are entered', async () => {
+    test('Should return incompleteYear error if no year field is entered', async () => {
       const date = {
         day: '31',
         month: '12',
