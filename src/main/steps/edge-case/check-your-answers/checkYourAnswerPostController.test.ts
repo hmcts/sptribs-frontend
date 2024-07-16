@@ -1,3 +1,4 @@
+import axios from 'axios';
 import config from 'config';
 
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
@@ -7,11 +8,16 @@ import { isFieldFilledIn } from '../../../app/form/validation';
 import { ResourceReader } from '../../../modules/resourcereader/ResourceReader';
 import * as steps from '../../../steps';
 import { SPTRIBS_CASE_API_BASE_URL } from '../../common/constants/apiConstants';
-import { CHECK_YOUR_ANSWERS } from '../../urls';
+import { APPLICATION_SUBMITTED, CHECK_YOUR_ANSWERS } from '../../urls';
 
 import submitCaseController, { CASE_API_URL, FileValidations } from './checkYourAnswerPostController';
 
 const getNextStepUrlMock = jest.spyOn(steps, 'getNextStepUrl');
+
+jest.mock('axios');
+
+const mockedAxios = axios as jest.Mocked<typeof axios>;
+mockedAxios.create = jest.fn(() => mockedAxios);
 
 describe('Submit case controller', () => {
   afterEach(() => {
@@ -19,6 +25,9 @@ describe('Submit case controller', () => {
   });
 
   test('Should redirect back to the current page with the form data on errors', async () => {
+    mockedAxios.put.mockRejectedValueOnce({
+      status: 500,
+    });
     const errors = [{ errorType: 'required', propertyName: 'field' }];
     const mockForm = {
       fields: {
@@ -55,7 +64,7 @@ describe('Submit case controller', () => {
 
     expect(req.locals.api.triggerEvent).not.toHaveBeenCalled();
     expect(getNextStepUrlMock).not.toHaveBeenCalled();
-    expect(res.redirect).toBeCalledWith('/check-your-answers');
+    expect(res.redirect).toBeCalledWith(CHECK_YOUR_ANSWERS);
     expect(req.session.errors).not.toEqual(errors);
   });
 
@@ -131,7 +140,7 @@ describe('Check for System contents to match for fr', () => {
   });
 });
 
-describe('checking for the redirect of post check your answers', () => {
+describe('LanguagePreference passed to Case API for email notifications', () => {
   const mockForm = {
     fields: {
       field: {
@@ -147,11 +156,57 @@ describe('checking for the redirect of post check your answers', () => {
 
   const req = mockRequest({});
   const res = mockResponse();
-  const postingcontroller = new submitCaseController(mockForm.fields);
+  const postController = new submitCaseController(mockForm.fields);
 
-  it('should allow continue if no documents uploaded', async () => {
-    req.session.fileErrors = [];
-    await postingcontroller.post(req, res);
-    expect(res.redirect).toHaveBeenCalledWith(CHECK_YOUR_ANSWERS);
+  it('should pass english as LanguagePreference if not set on session', async () => {
+    mockedAxios.put.mockResolvedValue({
+      status: 200,
+    });
+
+    await postController.post(req, res);
+
+    expect(mockedAxios.put).toHaveBeenCalledWith('/case/dss-orchestration/1234/update?event=SUBMIT', {
+      CaseTypeOfApplication: 'CIC',
+      SubjectAgreeContact: 'No',
+      SubjectDateOfBirth: '',
+      LanguagePreference: 'english',
+    });
+    expect(res.redirect).toHaveBeenCalledWith(APPLICATION_SUBMITTED);
+  });
+
+  it('should pass english as LanguagePreference if english set on lang session variable', async () => {
+    mockedAxios.put.mockResolvedValue({
+      status: 200,
+    });
+
+    req.session.lang = 'en';
+
+    await postController.post(req, res);
+
+    expect(mockedAxios.put).toHaveBeenCalledWith('/case/dss-orchestration/1234/update?event=SUBMIT', {
+      CaseTypeOfApplication: 'CIC',
+      SubjectAgreeContact: 'No',
+      SubjectDateOfBirth: '',
+      LanguagePreference: 'english',
+    });
+    expect(res.redirect).toHaveBeenCalledWith(APPLICATION_SUBMITTED);
+  });
+
+  it('should pass welsh as LanguagePreference if welsh set on lang session variable', async () => {
+    mockedAxios.put.mockResolvedValue({
+      status: 200,
+    });
+
+    req.session.lang = 'cy';
+
+    await postController.post(req, res);
+
+    expect(mockedAxios.put).toHaveBeenCalledWith('/case/dss-orchestration/1234/update?event=SUBMIT', {
+      CaseTypeOfApplication: 'CIC',
+      SubjectAgreeContact: 'No',
+      SubjectDateOfBirth: '',
+      LanguagePreference: 'welsh',
+    });
+    expect(res.redirect).toHaveBeenCalledWith(APPLICATION_SUBMITTED);
   });
 });
