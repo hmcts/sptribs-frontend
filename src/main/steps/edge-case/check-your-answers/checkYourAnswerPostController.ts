@@ -79,9 +79,7 @@ export default class submitCaseController extends PostController<AnyObject> {
     try {
       let LanguagePreference: string = 'english';
       if (req.session.hasOwnProperty('lang')) {
-        if (req.session?.lang === 'en') {
-          LanguagePreference = 'english';
-        } else if (req.session?.lang === 'cy') {
+        if (req.session?.lang === 'cy') {
           LanguagePreference = 'welsh';
         }
       }
