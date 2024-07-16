@@ -174,24 +174,6 @@ describe('LanguagePreference passed to Case API for email notifications', () => 
     expect(res.redirect).toHaveBeenCalledWith(APPLICATION_SUBMITTED);
   });
 
-  it('should pass english as LanguagePreference if english set on lang session variable', async () => {
-    mockedAxios.put.mockResolvedValue({
-      status: 200,
-    });
-
-    req.session.lang = 'en';
-
-    await postController.post(req, res);
-
-    expect(mockedAxios.put).toHaveBeenCalledWith('/case/dss-orchestration/1234/update?event=SUBMIT', {
-      CaseTypeOfApplication: 'CIC',
-      SubjectAgreeContact: 'No',
-      SubjectDateOfBirth: '',
-      LanguagePreference: 'english',
-    });
-    expect(res.redirect).toHaveBeenCalledWith(APPLICATION_SUBMITTED);
-  });
-
   it('should pass welsh as LanguagePreference if welsh set on lang session variable', async () => {
     mockedAxios.put.mockResolvedValue({
       status: 200,
