@@ -75,10 +75,21 @@ export default class submitCaseController extends PostController<AnyObject> {
       Authorization: `Bearer ${req.session.user['accessToken']}`,
       ServiceAuthorization: getServiceAuthToken(),
     };
+
     try {
+      let LanguagePreference: string = 'english';
+      if (req.session.hasOwnProperty('lang')) {
+        if (req.session?.lang === 'en') {
+          LanguagePreference = 'english';
+        } else if (req.session?.lang === 'cy') {
+          LanguagePreference = 'welsh';
+        }
+      }
+
       const CaseData = mapCaseData(req);
       const responseBody = {
         ...CaseData,
+        LanguagePreference,
       };
       await this.caseSubmit(CASE_API_URL, Headers).put(baseURL, responseBody);
       res.redirect(APPLICATION_SUBMITTED);
