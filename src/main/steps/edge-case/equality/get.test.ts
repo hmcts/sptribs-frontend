@@ -322,6 +322,7 @@ describe('PCQGetController', () => {
         maxBodyLength: Infinity,
       }).put
     ).toHaveBeenCalledWith(baseUrl, requestBody);
+  });
 
   test('Should redirect to Check your answers page if PCQ is DOWN', async () => {
     mockedConfig.get.mockReturnValueOnce('https://pcq.aat.platform.hmcts.net');
