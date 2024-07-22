@@ -322,5 +322,30 @@ describe('PCQGetController', () => {
         maxBodyLength: Infinity,
       }).put
     ).toHaveBeenCalledWith(baseUrl, requestBody);
+
+  test('Should redirect to Check your answers page if PCQ is DOWN', async () => {
+    mockedConfig.get.mockReturnValueOnce('https://pcq.aat.platform.hmcts.net');
+    mockedConfig.get.mockReturnValueOnce('true');
+    mockedConfig.get.mockReturnValueOnce('https://sptribs');
+
+    const req = mockRequest();
+    const res = mockResponse();
+    req.session.userCase.subjectDateOfBirth = { day: '01', month: '01', year: '1970' };
+    req.session.caseDocuments = [];
+
+    const redirectMock = jest.fn();
+    res.redirect = redirectMock;
+
+    mockedAxios.get.mockRejectedValueOnce({
+      data: {
+        status: 'DOWN',
+      },
+    });
+    mockedAxios.put.mockResolvedValue({
+      status: 500,
+    });
+
+    await controller.get(req, res);
+    expect(redirectMock.mock.calls[0][0]).toContain('/check-your-answers');
   });
 });
