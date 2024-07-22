@@ -49,21 +49,21 @@
     "cy": {
       "subjectFullName": {
         "required": "Nodwch enw llawn",
-        "containsMarkdownLink": "The data entered is not valid for a full name. Link markup characters are not allowed in this field (WELSH)",
-        "containsInvalidCharacters": "Full name must not include HTML (WELSH)"
+        "containsMarkdownLink": "Ni ddylai'r enw llawn gynnwys dolen",
+        "containsInvalidCharacters": "Ni ddylai'r enw llawn gynnwys HTML"
       },
       "subjectDateOfBirth": {
-        "invalid": "Date of birth must be a real date (WELSH)",
-        "invalidAndIncomplete": "Date of birth must be a real date and must include a day, month and year (WELSH)",
+        "invalid": "Rhaid i'r dyddiad geni fod yn ddyddiad go iawn",
+        "invalidAndIncomplete": "Rhaid i'r dyddiad geni fod yn ddyddiad go iawn a rhaid iddo gynnwys diwrnod, mis a blwyddyn",
         "incompleteDay": "Date of birth must include a day (WELSH)",
         "incompleteMonth": "Date of birth must include a month (WELSH)",
         "incompleteYear": "Date of birth must include a year (WELSH)",
         "incompleteDayAndMonth": "Date of birth must include a day and month (WELSH)",
         "incompleteDayAndYear": "Date of birth must include a day and year (WELSH)",
         "incompleteMonthAndYear": "Date of birth must include a month and year (WELSH)",
-        "incompleteDayAndMonthAndYear": "Date of birth must include a day, month and year (WELSH)",
-        "invalidDateInFuture": "Date of birth must be in the past (WELSH)",
-        "invalidDateInPast": "Date of birth must be after 31/12/1899 (WELSH)"
+        "incompleteDayAndMonthAndYear": "Rhaid i'r dyddiad geni gynnwys diwrnod, mis a blwyddyn",
+        "invalidDateInFuture": "Rhaid i'r dyddiad geni fod yn y gorffennol",
+        "invalidDateInPast": "Rhaid i'r dyddiad geni fod ar ôl 31/12/1899"
       }
     }
   }
