@@ -2,6 +2,7 @@ import * as path from 'path';
 
 import * as bodyParser from 'body-parser';
 import config from 'config';
+import cors from 'cors';
 import express, { RequestHandler } from 'express';
 import rateLimit from 'express-rate-limit';
 import favicon from 'serve-favicon';
@@ -31,6 +32,14 @@ import { PublicRoutes } from './routes/authless/routes';
 const { Logger } = require('@hmcts/nodejs-logging');
 const logger: LoggerInstance = Logger.getLogger('server');
 const app = express();
+
+const corsOptions = {
+  origin: ['https://js-cdn.dynatrace.com'],
+  methods: 'GET',
+  allowedHeaders: ['Content-Type', 'Authorization'],
+};
+
+app.use(cors(corsOptions));
 
 const rateLimiterDisabled = process.env.RATE_LIMITER_DISABLED;
 if (!rateLimiterDisabled) {
