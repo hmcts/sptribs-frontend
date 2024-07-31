@@ -41,15 +41,15 @@
     },
     "cy": {
       "subjectEmailAddress": {
-        "required": "Nodwch gyfeiriad e-bost dilys",
-        "invalid": "Mae pob cyfeiriad e-bost yn cynnwys tair elfen: rhan lleol, symbol @ (a ynganir fel “at”), ac enw parth"
+        "required": "Nodwch gyfeiriad e-bost",
+        "invalid": "Rhowch gyfeiriad e-bost yn y fformat cywir"
       },
       "subjectContactNumber": {
-        "required": "Nodwch rif cyswllt dilys",
-        "invalid": "Nodwch rif cyswllt dilys"
+        "required": "Nodwch rif cyswllt",
+        "invalid": "Nodwch rif cyswllt yn y fformat cywir"
       },
       "subjectAgreeContact": {
-        "required": "Dylech gytuno i’r llys gysylltu â chi gan ddefnyddio’r manylion a ddarparwyd cyn y gallwch barhau"
+        "required": "Mae’n rhaid i chi gytuno i ni gysylltu â chi trwy ddefnyddio’r manylion a ddarparwyd i barhau"
       }
     }
   }
