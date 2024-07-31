@@ -50,20 +50,22 @@
     },
     "cy": {
       "representativeFullName": {
-        "required": "Nodwch enw llawn",
-        "invalid": "Rhowch enw llawn dilys"
+        "required": "Rhowch enw llawn y cynrychiolydd",
+        "containsMarkdownLink": "Ni ddylai'r enw llawn gynnwys dolen",
+        "containsInvalidCharacters": "Ni ddylai'r enw llawn gynnwys HTML"
       },
       "representativeOrganisationName": {
-        "required": "Nodwch enw’r sefydliad neu fusnes",
-        "containsMarkdownLink": "Nid yw'r data a gofnodwyd yn ddilys ar gyfer enw Sefydliad neu fusnes. Ni chaniateir nodau marcio i lawr yn y maes hwn."
+        "required": "Rhowch enw busnes neu sefydliad y cynrychiolydd",
+        "containsMarkdownLink": "Ni ddylai’r enw busnes neu sefydliad gynnwys dolen",
+        "containsInvalidCharacters": "Ni ddylai’r enw busnes neu sefydliad gynnwys HTML"
       },
       "representativeContactNumber": {
-        "required": "Nodwch rif cyswllt dilys",
-        "invalid": "Nodwch rif cyswllt dilys"
+        "required": "Rhowch rif cyswllt y cynrychiolydd",
+        "invalid": "Nodwch rif cyswllt yn y fformat cywir"
       },
       "representativeEmailAddress": {
-        "required": "Nodwch gyfeiriad e-bost dilys",
-        "invalid": "Mae pob cyfeiriad e-bost yn cynnwys tair elfen: rhan lleol, symbol @ (a ynganir fel “at”), ac enw parth"
+        "required": "Rhowch gyfeiriad e-bost y cynrychiolydd",
+        "invalid": "Rhowch gyfeiriad e-bost yn y fformat cywir"
       }
     }
   }
