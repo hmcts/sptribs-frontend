@@ -251,22 +251,22 @@ export const OtherInformationSummary = (
     changeUrl: Urls['UPLOAD_OTHER_INFORMATION'],
   };
 
-  const documentInformation = OtherDocuments.map((document: DocumentUpload) => {
-    return {
+  const docInfoArray: { [key: string]: string }[] = [];
+
+  OtherDocuments.map((document: DocumentUpload) => {
+    docInfoArray.push({
       key: keys.otherInformation,
       value: document.fileName,
       changeUrl: Urls['UPLOAD_OTHER_INFORMATION'],
-    };
-  });
+    });
 
-  const documentRelevance = OtherDocuments.map((document: DocumentUpload) => {
-    return {
+    docInfoArray.push({
       keyHtml: '<hr width=1000 height=100>' + keys.documentRelevance,
       value: document.description,
-    };
+    });
   });
 
-  const SummaryData = [additionalInformation, ...documentInformation, ...documentRelevance].filter(item => item);
+  const SummaryData = [additionalInformation, ...docInfoArray].filter(item => item);
 
   return {
     title: sectionTitle,
