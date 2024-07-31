@@ -251,22 +251,22 @@ export const OtherInformationSummary = (
     changeUrl: Urls['UPLOAD_OTHER_INFORMATION'],
   };
 
-  const docInfoArray: { [key: string]: string }[] = [];
+  const documentInformation: { [key: string]: string }[] = [];
 
   OtherDocuments.map((document: DocumentUpload) => {
-    docInfoArray.push({
+    documentInformation.push({
       key: keys.otherInformation,
       value: document.fileName,
       changeUrl: Urls['UPLOAD_OTHER_INFORMATION'],
     });
 
-    docInfoArray.push({
+    documentInformation.push({
       keyHtml: '<hr width=1000 height=100>' + keys.documentRelevance,
       value: document.description,
     });
   });
 
-  const SummaryData = [additionalInformation, ...docInfoArray].filter(item => item);
+  const SummaryData = [additionalInformation, ...documentInformation].filter(item => item);
 
   return {
     title: sectionTitle,
