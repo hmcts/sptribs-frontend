@@ -253,16 +253,20 @@ export const OtherInformationSummary = (
 
   const documentInformation = OtherDocuments.map((document: DocumentUpload) => {
     return {
-      key: keys.otherInformation + ' ' + document.fileName + ' and ' + keys.documentRelevance,
-      keyHtml:
-        keys.otherInformation + '<br><br><br><div class=doc-rel-key-bottom-div>' + keys.documentRelevance + '</div>',
-      valueHtml:
-        document.fileName + '<br><br><br><div class=doc-rel-value-bottom-div>' + document.description + '</div>',
+      key: keys.otherInformation,
+      value: document.fileName,
       changeUrl: Urls['UPLOAD_OTHER_INFORMATION'],
     };
   });
 
-  const SummaryData = [additionalInformation, ...documentInformation].filter(item => item);
+  const documentRelevance = OtherDocuments.map((document: DocumentUpload) => {
+    return {
+      keyHtml: '<hr width=1000 height=100>' + keys.documentRelevance,
+      value: document.description,
+    };
+  });
+
+  const SummaryData = [additionalInformation, ...documentInformation, ...documentRelevance].filter(item => item);
 
   return {
     title: sectionTitle,

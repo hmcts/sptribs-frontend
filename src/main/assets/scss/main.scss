@@ -53,25 +53,6 @@ section {
   font-weight: 400;
 }
 
-.doc-rel-key-bottom-div {
-  bottom: 0;
-  left: 0;
-  position: absolute;
-  padding-top: 10px;
-  padding-right: 20px;
-  padding-bottom: 10px;
-  padding-left: 0px;
-}
-
-.doc-rel-value-bottom-div {
-  bottom: 0;
-  position: absolute;
-  padding-top: 10px;
-  padding-right: 20px;
-  padding-bottom: 10px;
-  padding-left: 0px;
-}
-
 .govuk-summary-list__row {
   position: relative;
 }
@@ -108,4 +89,12 @@ section {
   width: 75%;
   word-break: break-all;
   word-wrap: break-word;
+}
+
+hr {
+  border-color: white;
+  border-top: 1px solid white;
+  margin: auto;
+  position: absolute;
+  top: -1px;
 }
