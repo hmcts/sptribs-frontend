@@ -15,6 +15,7 @@ import { Case, CaseWithId } from '../case/case';
 
 import { AppRequest } from './AppRequest';
 import { AnyObject } from './PostController';
+import { FileValidations } from './UploadController';
 export type PageContent = Record<string, unknown>;
 export type TranslationFn = (content: CommonContent) => PageContent;
 
@@ -255,7 +256,7 @@ export class GetController {
       req.query.hasOwnProperty('documentType')
     ) {
       const checkForDeleteQuery = req.query['query'] === 'delete';
-      const errorMessage = 'Document upload or deletion has failed. Try again';
+
       if (checkForDeleteQuery) {
         const { documentType } = req.query;
         const { docId } = req.query;
@@ -283,6 +284,10 @@ export class GetController {
                 res.redirect(UPLOAD_APPEAL_FORM);
               });
             } catch (error) {
+              const errorMessage = FileValidations.ResourceReaderContents(
+                req,
+                UPLOAD_APPEAL_FORM
+              ).UPLOAD_DELETE_FAIL_ERROR;
               this.deleteFileError(req, UPLOAD_APPEAL_FORM, res, errorMessage);
             }
 
@@ -302,6 +307,10 @@ export class GetController {
                 res.redirect(UPLOAD_SUPPORTING_DOCUMENTS);
               });
             } catch (error) {
+              const errorMessage = FileValidations.ResourceReaderContents(
+                req,
+                UPLOAD_SUPPORTING_DOCUMENTS
+              ).UPLOAD_DELETE_FAIL_ERROR;
               this.deleteFileError(req, UPLOAD_APPEAL_FORM, res, errorMessage);
             }
 
@@ -321,6 +330,10 @@ export class GetController {
                 res.redirect(UPLOAD_OTHER_INFORMATION);
               });
             } catch (error) {
+              const errorMessage = FileValidations.ResourceReaderContents(
+                req,
+                UPLOAD_OTHER_INFORMATION
+              ).UPLOAD_DELETE_FAIL_ERROR;
               this.deleteFileError(req, UPLOAD_APPEAL_FORM, res, errorMessage);
             }
 
