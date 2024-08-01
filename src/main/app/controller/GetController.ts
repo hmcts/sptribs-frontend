@@ -16,6 +16,7 @@ import { Case, CaseWithId } from '../case/case';
 import { AppRequest } from './AppRequest';
 import { AnyObject } from './PostController';
 import { FileValidations } from './UploadController';
+
 export type PageContent = Record<string, unknown>;
 export type TranslationFn = (content: CommonContent) => PageContent;
 
@@ -181,22 +182,6 @@ export class GetController {
     }
   }
 
-  //eslint-disable-next-line @typescript-eslint/ban-types
-  public saveSessionAndRedirect(req: AppRequest, res: Response, callback?: Function): void {
-    req.session.save(err => {
-      if (err) {
-        throw err;
-      }
-      if (callback) {
-        callback();
-      } else {
-        res.redirect(req.url);
-      }
-    });
-  }
-
-  /**Cookies prefrences saver */
-
   public CookiePreferencesChanger = (req: AppRequest, res: Response): void => {
     //?analytics=off&apm=off
     if (req.query.hasOwnProperty('analytics') && req.query.hasOwnProperty('apm')) {
@@ -268,19 +253,19 @@ export class GetController {
           baseURL: config.get(SPTRIBS_CASE_API_BASE_URL),
           headers: { ...Headers },
         });
-        /** Switching type of documents */
-        /*eslint no-case-declarations: "error"*/
         switch (documentType) {
           case 'tribunalform': {
             try {
               const baseURL = `/doc/dss-orchestration/${docId}/delete`;
               await DOCUMENT_DELETEMANAGER.delete(baseURL);
-              const sessionObjectOfApplicationDocuments = req.session['caseDocuments'].filter(document => {
+              req.session['caseDocuments'] = req.session['caseDocuments'].filter(document => {
                 const { documentId } = document;
                 return documentId !== docId;
               });
-              req.session['caseDocuments'] = sessionObjectOfApplicationDocuments;
-              this.saveSessionAndRedirect(req, res, () => {
+              req.session.save(err => {
+                if (err) {
+                  throw err;
+                }
                 res.redirect(UPLOAD_APPEAL_FORM);
               });
             } catch (error) {
@@ -290,7 +275,6 @@ export class GetController {
               ).UPLOAD_DELETE_FAIL_ERROR;
               this.deleteFileError(req, UPLOAD_APPEAL_FORM, res, errorMessage);
             }
-
             break;
           }
 
@@ -298,12 +282,14 @@ export class GetController {
             try {
               const baseURL = `/doc/dss-orchestration/${docId}/delete`;
               await DOCUMENT_DELETEMANAGER.delete(baseURL);
-              const sessionObjectOfSupportingDocuments = req.session['supportingCaseDocuments'].filter(document => {
+              req.session['supportingCaseDocuments'] = req.session['supportingCaseDocuments'].filter(document => {
                 const { documentId } = document;
                 return documentId !== docId;
               });
-              req.session['supportingCaseDocuments'] = sessionObjectOfSupportingDocuments;
-              this.saveSessionAndRedirect(req, res, () => {
+              req.session.save(err => {
+                if (err) {
+                  throw err;
+                }
                 res.redirect(UPLOAD_SUPPORTING_DOCUMENTS);
               });
             } catch (error) {
@@ -313,7 +299,6 @@ export class GetController {
               ).UPLOAD_DELETE_FAIL_ERROR;
               this.deleteFileError(req, UPLOAD_APPEAL_FORM, res, errorMessage);
             }
-
             break;
           }
 
@@ -321,12 +306,14 @@ export class GetController {
             try {
               const baseURL = `/doc/dss-orchestration/${docId}/delete`;
               await DOCUMENT_DELETEMANAGER.delete(baseURL);
-              const sessionObjectOfOtherDocuments = req.session['otherCaseInformation'].filter(document => {
+              req.session['otherCaseInformation'] = req.session['otherCaseInformation'].filter(document => {
                 const { documentId } = document;
                 return documentId !== docId;
               });
-              req.session['otherCaseInformation'] = sessionObjectOfOtherDocuments;
-              this.saveSessionAndRedirect(req, res, () => {
+              req.session.save(err => {
+                if (err) {
+                  throw err;
+                }
                 res.redirect(UPLOAD_OTHER_INFORMATION);
               });
             } catch (error) {
@@ -336,7 +323,6 @@ export class GetController {
               ).UPLOAD_DELETE_FAIL_ERROR;
               this.deleteFileError(req, UPLOAD_APPEAL_FORM, res, errorMessage);
             }
-
             break;
           }
         }
