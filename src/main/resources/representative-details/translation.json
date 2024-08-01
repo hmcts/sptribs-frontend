@@ -22,9 +22,9 @@
       "fullNameLabel": "Enw llawn",
       "organisationNameLabel": "Enw’r sefydliad neu’r busnes",
       "contactNumberLabel": "Rhif cyswllt",
-      "contactNumberHint": "Enter a contact number in the correct format, like 01632 960 001 or 07700 900 982 (WELSH)",
+      "contactNumberHint": "Rhowch rif cyswllt yn y fformat cywir, fel 01632 960 001 neu 07700 900 982",
       "emailAddressLabel": "Cyfeiriad e-bost",
-      "emailAddressHint": "Enter an email address in the correct format, like name@example.com (WELSH)"
+      "emailAddressHint": "Rhowch gyfeiriad e-bost yn y fformat cywir, fel enw@enghraifft.com"
     }
   },
   "errors": {

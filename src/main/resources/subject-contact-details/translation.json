@@ -18,10 +18,10 @@
       "title": "Rhowch fanylion cyswllt",
       "line1": "Rhowch y manylion cyswllt sydd fwyaf addas ar gyfer yr achos hwn.",
       "emailAddressLabel": "Cyfeiriad e-bost",
-      "emailAddressHint": "",
+      "emailAddressHint": "Rhowch gyfeiriad e-bost yn y fformat cywir, fel enw@enghraifft.com",
       "emailAddress": "Nodwch gyfeiriad e-bost",
       "contactNumberLabel": "Rhif cyswllt",
-      "contactNumberHint": "",
+      "contactNumberHint": "Rhowch rif cyswllt yn y fformat cywir, fel 01632 960 001 neu 07700 900 982",
       "agreeContactLabel": "Rwy’n cytuno i’r llys gysylltu â mi am yr achos hwn gan ddefnyddio’r manylion rwyf wedi’u darparu"
     }
   },
