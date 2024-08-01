@@ -15,7 +15,6 @@ import { Case, CaseWithId } from '../case/case';
 
 import { AppRequest } from './AppRequest';
 import { AnyObject } from './PostController';
-import { FileValidations } from './UploadController';
 export type PageContent = Record<string, unknown>;
 export type TranslationFn = (content: CommonContent) => PageContent;
 
@@ -72,7 +71,7 @@ export class GetController {
      *      ************************************  ************************************
      *
      */
-    this.documentDeleteManager(req, res);
+    this.documentDeleteManager(req, res, language);
     const RedirectConditions = {
       /*************************************** query @query  ***************************/
       query: req.query.hasOwnProperty('query'),
@@ -249,14 +248,19 @@ export class GetController {
     }
   };
 
-  public async documentDeleteManager(req: AppRequest, res: Response): Promise<void> {
+  public async documentDeleteManager(req: AppRequest, res: Response, lang: Language): Promise<void> {
     if (
       req.query.hasOwnProperty('query') &&
       req.query.hasOwnProperty('docId') &&
       req.query.hasOwnProperty('documentType')
     ) {
       const checkForDeleteQuery = req.query['query'] === 'delete';
-
+      let errorMessage;
+      if (lang === 'en') {
+        errorMessage = 'Document upload or deletion has failed. Try again';
+      } else {
+        errorMessage = 'Mae llwytho neu ddileu ffeil wedi methu. Rhowch gynnig arall arni';
+      }
       if (checkForDeleteQuery) {
         const { documentType } = req.query;
         const { docId } = req.query;
@@ -284,10 +288,6 @@ export class GetController {
                 res.redirect(UPLOAD_APPEAL_FORM);
               });
             } catch (error) {
-              const errorMessage = FileValidations.ResourceReaderContents(
-                req,
-                UPLOAD_APPEAL_FORM
-              ).UPLOAD_DELETE_FAIL_ERROR;
               this.deleteFileError(req, UPLOAD_APPEAL_FORM, res, errorMessage);
             }
 
@@ -307,10 +307,6 @@ export class GetController {
                 res.redirect(UPLOAD_SUPPORTING_DOCUMENTS);
               });
             } catch (error) {
-              const errorMessage = FileValidations.ResourceReaderContents(
-                req,
-                UPLOAD_SUPPORTING_DOCUMENTS
-              ).UPLOAD_DELETE_FAIL_ERROR;
               this.deleteFileError(req, UPLOAD_APPEAL_FORM, res, errorMessage);
             }
 
@@ -330,10 +326,6 @@ export class GetController {
                 res.redirect(UPLOAD_OTHER_INFORMATION);
               });
             } catch (error) {
-              const errorMessage = FileValidations.ResourceReaderContents(
-                req,
-                UPLOAD_OTHER_INFORMATION
-              ).UPLOAD_DELETE_FAIL_ERROR;
               this.deleteFileError(req, UPLOAD_APPEAL_FORM, res, errorMessage);
             }
 
