@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { SIGN_IN_URL } from '../../steps/urls';
@@ -174,20 +176,21 @@ describe('GetController', () => {
 });
 
 describe('checking for documents Delete manager', () => {
-  it('should delete additional documents', async () => {
-    const languages = {
-      en: {
-        text: 'english',
-      },
-      cy: {
-        text: 'welsh',
-      },
-    };
-    const generateContent = content => languages[content.language];
-    const controller = new GetController('page', generateContent);
+  const languages = {
+    en: {
+      text: 'english',
+    },
+    cy: {
+      text: 'welsh',
+    },
+  };
+  const generateContent = content => languages[content.language];
+  const controller = new GetController('page', generateContent);
 
-    const req = mockRequest();
-    const res = mockResponse();
+  const req = mockRequest();
+  const res = mockResponse();
+
+  it('should delete additional documents', async () => {
     req.session.caseDocuments = [
       {
         originalDocumentName: 'document1.docx',
@@ -222,33 +225,93 @@ describe('checking for documents Delete manager', () => {
     expect(req.session.caseDocuments.some(doc => doc.id === '10')).toBe(false);
   });
 
-  describe('parseAndSetReturnUrl', () => {
-    test('req.session.returnUrl populated', async () => {
-      const controller = new GetController('page', () => ({}));
-      const req = mockRequest();
-      req.query = { returnUrl: SIGN_IN_URL };
-
-      controller.parseAndSetReturnUrl(req);
-
-      expect(req.session.returnUrl).toEqual(SIGN_IN_URL);
+  it('should return an english error message when an error is thrown with english language preferences', async () => {
+    jest.spyOn(axios, 'create').mockImplementation(() => {
+      throw new Error();
     });
 
-    test('returnUrl not populated if returnUrl not set', async () => {
-      const controller = new GetController('page', () => ({}));
-      const req = mockRequest();
+    req.query = {
+      query: 'delete',
+      docId: '10',
+      documentType: 'tribunalform',
+    };
 
-      controller.parseAndSetReturnUrl(req);
+    await controller.get(req, res);
+    expect(req.session.fileErrors).toEqual(
+      expect.arrayContaining([{ text: 'Document upload or deletion has failed. Try again', href: '#' }])
+    );
 
-      expect(req.session.returnUrl).toBeFalsy();
+    req.query.documentType = 'supporting';
+    await controller.get(req, res);
+    expect(req.session.fileErrors).toEqual(
+      expect.arrayContaining([{ text: 'Document upload or deletion has failed. Try again', href: '#' }])
+    );
+
+    req.query.documentType = 'other';
+    await controller.get(req, res);
+    expect(req.session.fileErrors).toEqual(
+      expect.arrayContaining([{ text: 'Document upload or deletion has failed. Try again', href: '#' }])
+    );
+  });
+
+  it('should return a welsh error message when an error is thrown with welsh language preferences', async () => {
+    jest.spyOn(axios, 'create').mockImplementation(() => {
+      throw new Error();
     });
 
-    test('returnUrl not populated if returnUrl not a valid pagelink url', async () => {
-      const controller = new GetController('page', () => ({}));
-      const req = mockRequest();
+    req.query = {
+      query: 'delete',
+      docId: '10',
+      documentType: 'tribunalform',
+    };
 
-      controller.parseAndSetReturnUrl(req);
+    req.query.lng = 'cy';
 
-      expect(req.session.returnUrl).toBeFalsy();
-    });
+    await controller.get(req, res);
+    expect(req.session.fileErrors).toEqual(
+      expect.arrayContaining([{ text: 'Mae llwytho neu ddileu ffeil wedi methu. Rhowch gynnig arall arni', href: '#' }])
+    );
+
+    req.query.documentType = 'supporting';
+    await controller.get(req, res);
+    expect(req.session.fileErrors).toEqual(
+      expect.arrayContaining([{ text: 'Mae llwytho neu ddileu ffeil wedi methu. Rhowch gynnig arall arni', href: '#' }])
+    );
+
+    req.query.documentType = 'other';
+    await controller.get(req, res);
+    expect(req.session.fileErrors).toEqual(
+      expect.arrayContaining([{ text: 'Mae llwytho neu ddileu ffeil wedi methu. Rhowch gynnig arall arni', href: '#' }])
+    );
+  });
+});
+
+describe('parseAndSetReturnUrl', () => {
+  test('req.session.returnUrl populated', async () => {
+    const controller = new GetController('page', () => ({}));
+    const req = mockRequest();
+    req.query = { returnUrl: SIGN_IN_URL };
+
+    controller.parseAndSetReturnUrl(req);
+
+    expect(req.session.returnUrl).toEqual(SIGN_IN_URL);
+  });
+
+  test('returnUrl not populated if returnUrl not set', async () => {
+    const controller = new GetController('page', () => ({}));
+    const req = mockRequest();
+
+    controller.parseAndSetReturnUrl(req);
+
+    expect(req.session.returnUrl).toBeFalsy();
+  });
+
+  test('returnUrl not populated if returnUrl not a valid pagelink url', async () => {
+    const controller = new GetController('page', () => ({}));
+    const req = mockRequest();
+
+    controller.parseAndSetReturnUrl(req);
+
+    expect(req.session.returnUrl).toBeFalsy();
   });
 });
