@@ -176,21 +176,21 @@ describe('GetController', () => {
 });
 
 describe('checking for documents Delete manager', () => {
-  const languages = {
-    en: {
-      text: 'english',
-    },
-    cy: {
-      text: 'welsh',
-    },
-  };
-  const generateContent = content => languages[content.language];
-  const controller = new GetController('page', generateContent);
-
-  const req = mockRequest();
-  const res = mockResponse();
-
   it('should delete additional documents', async () => {
+    const languages = {
+      en: {
+        text: 'english',
+      },
+      cy: {
+        text: 'welsh',
+      },
+    };
+    const generateContent = content => languages[content.language];
+    const controller = new GetController('page', generateContent);
+
+    const req = mockRequest();
+    const res = mockResponse();
+
     req.session.caseDocuments = [
       {
         originalDocumentName: 'document1.docx',
@@ -226,6 +226,20 @@ describe('checking for documents Delete manager', () => {
   });
 
   it('should return an english error message when an error is thrown with english language preferences', async () => {
+    const languages = {
+      en: {
+        text: 'english',
+      },
+      cy: {
+        text: 'welsh',
+      },
+    };
+    const generateContent = content => languages[content.language];
+    const controller = new GetController('page', generateContent);
+
+    const req = mockRequest();
+    const res = mockResponse();
+
     jest.spyOn(axios, 'create').mockImplementation(() => {
       throw new Error();
     });
@@ -255,6 +269,20 @@ describe('checking for documents Delete manager', () => {
   });
 
   it('should return a welsh error message when an error is thrown with welsh language preferences', async () => {
+    const languages = {
+      en: {
+        text: 'english',
+      },
+      cy: {
+        text: 'welsh',
+      },
+    };
+    const generateContent = content => languages[content.language];
+    const controller = new GetController('page', generateContent);
+
+    const req = mockRequest();
+    const res = mockResponse();
+
     jest.spyOn(axios, 'create').mockImplementation(() => {
       throw new Error();
     });
