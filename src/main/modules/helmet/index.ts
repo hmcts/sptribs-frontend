@@ -6,9 +6,9 @@ export interface HelmetConfig {
   referrerPolicy: string;
 }
 
-const dynatraceDomain = '*.dynatrace.com';
-const googleAnalyticsDomain = '*.google-analytics.com';
-const googleTagManagerDomain = '*.googletagmanager.com';
+const dynatraceDomain = 'https://*.dynatrace.com';
+const googleAnalyticsDomain = 'https://*.google-analytics.com';
+const googleTagManagerDomain = 'https://*.googletagmanager.com';
 const self = "'self'";
 
 /**
