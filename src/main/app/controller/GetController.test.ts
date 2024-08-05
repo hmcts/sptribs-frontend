@@ -191,7 +191,6 @@ describe('checking for documents Delete manager', () => {
 
     const req = mockRequest();
     const res = mockResponse();
-
     req.session.caseDocuments = [
       {
         originalDocumentName: 'document1.docx',
@@ -222,7 +221,6 @@ describe('checking for documents Delete manager', () => {
       documentId: '10',
       documentType: 'applicationform',
     };
-
     await controller.get(req, res);
     expect(req.session.caseDocuments.some(doc => doc.id === '10')).toBe(false);
   });
