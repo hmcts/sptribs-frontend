@@ -1,5 +1,5 @@
 import autobind from 'autobind-decorator';
-import axios, { AxiosInstance, RawAxiosRequestHeaders } from 'axios';
+import axios, { AxiosInstance } from 'axios';
 import config from 'config';
 import { Response } from 'express';
 import Negotiator from 'negotiator';
@@ -232,13 +232,6 @@ export class GetController {
     }
   };
 
-  public axiosDeleteManager(caseApiUrl: string, header: RawAxiosRequestHeaders): AxiosInstance {
-    return axios.create({
-      baseURL: caseApiUrl,
-      headers: { ...header },
-    });
-  }
-
   public async documentDeleteManager(req: AppRequest, res: Response, lang: Language): Promise<void> {
     if (
       req.query.hasOwnProperty('query') &&
@@ -259,12 +252,15 @@ export class GetController {
           Authorization: `Bearer ${req.session.user['accessToken']}`,
           ServiceAuthorization: getServiceAuthToken(),
         };
-        const caseApiUrl: string = config.get(SPTRIBS_CASE_API_BASE_URL);
+        const DOCUMENT_DELETEMANAGER: AxiosInstance = axios.create({
+          baseURL: config.get(SPTRIBS_CASE_API_BASE_URL),
+          headers: { ...Headers },
+        });
         switch (documentType) {
           case 'tribunalform': {
             try {
               const baseURL = `/doc/dss-orchestration/${docId}/delete`;
-              await this.axiosDeleteManager(caseApiUrl, Headers).delete(baseURL);
+              await DOCUMENT_DELETEMANAGER.delete(baseURL);
               req.session['caseDocuments'] = req.session['caseDocuments'].filter(document => {
                 const { documentId } = document;
                 return documentId !== docId;
@@ -284,7 +280,7 @@ export class GetController {
           case 'supporting': {
             try {
               const baseURL = `/doc/dss-orchestration/${docId}/delete`;
-              await this.axiosDeleteManager(caseApiUrl, Headers).delete(baseURL);
+              await DOCUMENT_DELETEMANAGER.delete(baseURL);
               req.session['supportingCaseDocuments'] = req.session['supportingCaseDocuments'].filter(document => {
                 const { documentId } = document;
                 return documentId !== docId;
@@ -304,7 +300,7 @@ export class GetController {
           case 'other': {
             try {
               const baseURL = `/doc/dss-orchestration/${docId}/delete`;
-              await this.axiosDeleteManager(caseApiUrl, Headers).delete(baseURL);
+              await DOCUMENT_DELETEMANAGER.delete(baseURL);
               req.session['otherCaseInformation'] = req.session['otherCaseInformation'].filter(document => {
                 const { documentId } = document;
                 return documentId !== docId;

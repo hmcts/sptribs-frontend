@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { SIGN_IN_URL } from '../../steps/urls';
@@ -176,15 +174,17 @@ describe('GetController', () => {
 });
 
 describe('checking for documents Delete manager', () => {
+  const languages = {
+    en: {
+      text: 'english',
+    },
+    cy: {
+      text: 'welsh',
+    },
+  };
+
+  const mockError = 'An error while saving session';
   it('should delete additional documents', async () => {
-    const languages = {
-      en: {
-        text: 'english',
-      },
-      cy: {
-        text: 'welsh',
-      },
-    };
     const generateContent = content => languages[content.language];
     const controller = new GetController('page', generateContent);
 
@@ -221,28 +221,17 @@ describe('checking for documents Delete manager', () => {
       documentId: '10',
       documentType: 'applicationform',
     };
+
     await controller.get(req, res);
     expect(req.session.caseDocuments.some(doc => doc.id === '10')).toBe(false);
   });
 
   it('should return an english error message when an error is thrown with english language preferences', async () => {
-    const languages = {
-      en: {
-        text: 'english',
-      },
-      cy: {
-        text: 'welsh',
-      },
-    };
     const generateContent = content => languages[content.language];
     const controller = new GetController('page', generateContent);
 
-    const req = mockRequest();
+    const req = mockRequest({ session: { save: jest.fn(done => done(mockError)) } });
     const res = mockResponse();
-
-    jest.spyOn(axios, 'create').mockImplementation(() => {
-      throw new Error();
-    });
 
     req.query = {
       query: 'delete',
@@ -250,42 +239,30 @@ describe('checking for documents Delete manager', () => {
       documentType: 'tribunalform',
     };
 
-    await controller.get(req, res);
+    await expect(controller.documentDeleteManager(req, res, 'en')).rejects.toEqual('An error while saving session');
     expect(req.session.fileErrors).toEqual(
       expect.arrayContaining([{ text: 'Document upload or deletion has failed. Try again', href: '#' }])
     );
 
     req.query.documentType = 'supporting';
-    await controller.get(req, res);
+    await expect(controller.documentDeleteManager(req, res, 'en')).rejects.toEqual('An error while saving session');
     expect(req.session.fileErrors).toEqual(
       expect.arrayContaining([{ text: 'Document upload or deletion has failed. Try again', href: '#' }])
     );
 
     req.query.documentType = 'other';
-    await controller.get(req, res);
+    await expect(controller.documentDeleteManager(req, res, 'en')).rejects.toEqual('An error while saving session');
     expect(req.session.fileErrors).toEqual(
       expect.arrayContaining([{ text: 'Document upload or deletion has failed. Try again', href: '#' }])
     );
   });
 
   it('should return a welsh error message when an error is thrown with welsh language preferences', async () => {
-    const languages = {
-      en: {
-        text: 'english',
-      },
-      cy: {
-        text: 'welsh',
-      },
-    };
     const generateContent = content => languages[content.language];
     const controller = new GetController('page', generateContent);
 
-    const req = mockRequest();
+    const req = mockRequest({ session: { save: jest.fn(done => done(mockError)) } });
     const res = mockResponse();
-
-    jest.spyOn(axios, 'create').mockImplementation(() => {
-      throw new Error();
-    });
 
     req.query = {
       query: 'delete',
@@ -293,21 +270,19 @@ describe('checking for documents Delete manager', () => {
       documentType: 'tribunalform',
     };
 
-    req.query.lng = 'cy';
-
-    await controller.get(req, res);
+    await expect(controller.documentDeleteManager(req, res, 'cy')).rejects.toEqual('An error while saving session');
     expect(req.session.fileErrors).toEqual(
       expect.arrayContaining([{ text: 'Mae llwytho neu ddileu ffeil wedi methu. Rhowch gynnig arall arni', href: '#' }])
     );
 
     req.query.documentType = 'supporting';
-    await controller.get(req, res);
+    await expect(controller.documentDeleteManager(req, res, 'cy')).rejects.toEqual('An error while saving session');
     expect(req.session.fileErrors).toEqual(
       expect.arrayContaining([{ text: 'Mae llwytho neu ddileu ffeil wedi methu. Rhowch gynnig arall arni', href: '#' }])
     );
 
     req.query.documentType = 'other';
-    await controller.get(req, res);
+    await expect(controller.documentDeleteManager(req, res, 'cy')).rejects.toEqual('An error while saving session');
     expect(req.session.fileErrors).toEqual(
       expect.arrayContaining([{ text: 'Mae llwytho neu ddileu ffeil wedi methu. Rhowch gynnig arall arni', href: '#' }])
     );
