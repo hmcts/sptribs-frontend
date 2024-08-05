@@ -184,6 +184,7 @@ describe('checking for documents Delete manager', () => {
   };
 
   const mockError = 'An error while saving session';
+
   it('should delete additional documents', async () => {
     const generateContent = content => languages[content.language];
     const controller = new GetController('page', generateContent);
