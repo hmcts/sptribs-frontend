@@ -50,12 +50,10 @@
     },
     "cy": {
       "representativeFullName": {
-        "required": "Nodwch enw llawn",
-        "invalid": "Rhowch enw llawn dilys"
+        "required": "Nodwch enw llawn"
       },
       "representativeOrganisationName": {
-        "required": "Nodwch enw’r sefydliad neu fusnes",
-        "containsMarkdownLink": "Nid yw'r data a gofnodwyd yn ddilys ar gyfer enw Sefydliad neu fusnes. Ni chaniateir nodau marcio i lawr yn y maes hwn."
+        "required": "Nodwch enw’r sefydliad neu fusnes"
       },
       "representativeContactNumber": {
         "required": "Nodwch rif cyswllt dilys",
