@@ -22,9 +22,9 @@
       "fullNameLabel": "Enw llawn",
       "organisationNameLabel": "Enw’r sefydliad neu’r busnes",
       "contactNumberLabel": "Rhif cyswllt",
-      "contactNumberHint": "Enter a contact number in the correct format, like 01632 960 001 or 07700 900 982 (WELSH)",
+      "contactNumberHint": "Rhowch rif cyswllt yn y fformat cywir, fel 01632 960 001 neu 07700 900 982",
       "emailAddressLabel": "Cyfeiriad e-bost",
-      "emailAddressHint": "Enter an email address in the correct format, like name@example.com (WELSH)"
+      "emailAddressHint": "Rhowch gyfeiriad e-bost yn y fformat cywir, fel enw@enghraifft.com"
     }
   },
   "errors": {
@@ -50,18 +50,22 @@
     },
     "cy": {
       "representativeFullName": {
-        "required": "Nodwch enw llawn"
+        "required": "Rhowch enw llawn y cynrychiolydd",
+        "containsMarkdownLink": "Ni ddylai'r enw llawn gynnwys dolen",
+        "containsInvalidCharacters": "Ni ddylai'r enw llawn gynnwys HTML"
       },
       "representativeOrganisationName": {
-        "required": "Nodwch enw’r sefydliad neu fusnes"
+        "required": "Rhowch enw busnes neu sefydliad y cynrychiolydd",
+        "containsMarkdownLink": "Ni ddylai’r enw busnes neu sefydliad gynnwys dolen",
+        "containsInvalidCharacters": "Ni ddylai’r enw busnes neu sefydliad gynnwys HTML"
       },
       "representativeContactNumber": {
-        "required": "Nodwch rif cyswllt dilys",
-        "invalid": "Nodwch rif cyswllt dilys"
+        "required": "Rhowch rif cyswllt y cynrychiolydd",
+        "invalid": "Nodwch rif cyswllt yn y fformat cywir"
       },
       "representativeEmailAddress": {
-        "required": "Nodwch gyfeiriad e-bost dilys",
-        "invalid": "Mae pob cyfeiriad e-bost yn cynnwys tair elfen: rhan lleol, symbol @ (a ynganir fel “at”), ac enw parth"
+        "required": "Rhowch gyfeiriad e-bost y cynrychiolydd",
+        "invalid": "Rhowch gyfeiriad e-bost yn y fformat cywir"
       }
     }
   }

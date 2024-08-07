@@ -15,7 +15,6 @@ import { Case, CaseWithId } from '../case/case';
 
 import { AppRequest } from './AppRequest';
 import { AnyObject } from './PostController';
-
 export type PageContent = Record<string, unknown>;
 export type TranslationFn = (content: CommonContent) => PageContent;
 
@@ -72,7 +71,7 @@ export class GetController {
      *      ************************************  ************************************
      *
      */
-    this.documentDeleteManager(req, res);
+    this.documentDeleteManager(req, res, language);
     const RedirectConditions = {
       /*************************************** query @query  ***************************/
       query: req.query.hasOwnProperty('query'),
@@ -233,14 +232,19 @@ export class GetController {
     }
   };
 
-  public async documentDeleteManager(req: AppRequest, res: Response): Promise<void> {
+  public async documentDeleteManager(req: AppRequest, res: Response, lang: Language): Promise<void> {
     if (
       req.query.hasOwnProperty('query') &&
       req.query.hasOwnProperty('docId') &&
       req.query.hasOwnProperty('documentType')
     ) {
       const checkForDeleteQuery = req.query['query'] === 'delete';
-      const errorMessage = 'Document upload or deletion has failed. Try again';
+      let errorMessage;
+      if (lang === 'en') {
+        errorMessage = 'Document upload or deletion has failed. Try again';
+      } else {
+        errorMessage = 'Mae llwytho neu ddileu ffeil wedi methu. Rhowch gynnig arall arni';
+      }
       if (checkForDeleteQuery) {
         const { documentType } = req.query;
         const { docId } = req.query;
