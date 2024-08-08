@@ -57,7 +57,7 @@ export default class PCQGetController {
     const developmentMode = process.env.NODE_ENV === 'development';
     const protocol = developmentMode ? 'http://' : '';
     const port = developmentMode ? `:${config.get('port')}` : '';
-    const lang = req.session.lang === 'en' ? 'en' : 'cy';
+    const lang = req.session.lang === 'cy' ? 'cy' : 'en';
     const ccdCaseId = parseInt(req.session.userCase.id);
 
     const pcqParams = {
