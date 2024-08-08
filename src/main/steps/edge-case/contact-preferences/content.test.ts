@@ -84,6 +84,6 @@ describe('contact-preferences', () => {
   });
 
   test('should contain continue button', () => {
-    expect((form.submit.text as Function)(generateContent(commonContent))).toBe(en.continue);
+    expect((form.submit?.text as Function)(generateContent(commonContent))).toBe(en.continue);
   });
 });

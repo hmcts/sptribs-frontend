@@ -44,15 +44,22 @@ section {
   float: right !important;
 }
 
-.govuk--custom__button{
+.govuk--custom__button {
   background-color: #999999 !important;
-   color: white !important;
+  color: white !important;
 }
-
-
 
 .font-normal {
   font-weight: 400;
+}
+
+.govuk-summary-list__row {
+  position: relative;
+}
+
+.govuk-summary-list__value {
+  word-break: break-all;
+  word-wrap: break-word;
 }
 
 .summary-list-value {
@@ -71,4 +78,23 @@ section {
 
 .formRow .govuk-form-group {
   margin-bottom: 0 !important;
+}
+
+.documentRelevanceAndDeletion {
+  width: 100%;
+}
+
+.documentRelevanceAndDeletionAlignment {
+  vertical-align: bottom;
+  width: 75%;
+  word-break: break-all;
+  word-wrap: break-word;
+}
+
+hr {
+  border-color: white;
+  border-top: 1px solid white;
+  margin: auto;
+  position: absolute;
+  top: -1px;
 }

@@ -79,6 +79,14 @@ export interface UploadedFile {
   name: string;
 }
 
+export interface DocumentUpload {
+  url: string;
+  fileName: string;
+  documentId: string;
+  binaryUrl: string;
+  description: string;
+}
+
 export enum FieldPrefix {
   APPLICANT = 'applicant',
 }

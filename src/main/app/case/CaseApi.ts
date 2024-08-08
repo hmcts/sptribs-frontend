@@ -73,6 +73,7 @@ export class CaseApi {
               document_filename: fileName,
               document_binary_url: binaryUrl,
             },
+            comment: document.description ? document.description : null,
           },
         };
       });
@@ -244,7 +245,6 @@ export const mapCaseData = (req: AppRequest): any => {
     RepresentativeContactNumber: req.session.userCase.representativeContactNumber,
     RepresentativeEmailAddress: req.session.userCase.representativeEmailAddress,
     PcqId: req.session.userCase.pcqId,
-    DocumentRelevance: req.session.userCase.documentRelevance,
     AdditionalInformation: req.session.userCase.additionalInformation,
   };
   return data;

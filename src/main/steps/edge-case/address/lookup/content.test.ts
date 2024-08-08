@@ -73,7 +73,7 @@ describe('applicant1 > address > lookup > content', () => {
 
   test('should contain find address button', () => {
     const form = generatedContent.form as FormContent;
-    expect((form.submit.text as Function)(generatedContent)).toBe('Find address');
+    expect((form.submit?.text as Function)(generatedContent)).toBe('Find address');
   });
 });
 /* eslint-enable @typescript-eslint/ban-types, @typescript-eslint/no-explicit-any */

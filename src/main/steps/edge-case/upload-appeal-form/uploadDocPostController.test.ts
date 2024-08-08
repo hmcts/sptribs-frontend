@@ -342,6 +342,8 @@ describe('checking for the redirect of post document upload', () => {
     req.files = [];
     req.session.fileErrors = [];
 
+    req.body['saveAndContinue'] = true;
+
     await postingController.post(req, res);
     expect(res.redirect).toHaveBeenCalledWith(UPLOAD_APPEAL_FORM);
     expect(req.session.fileErrors[0].text).toEqual('You cannot continue without uploading the application');
@@ -353,6 +355,8 @@ describe('checking for the redirect of post document upload', () => {
     (req.files as any) = null;
     req.session.fileErrors = [];
     req.body['documentUploadProceed'] = false;
+
+    delete req.body['saveAndContinue'];
 
     await postingController.post(req, res);
     expect(res.redirect).toHaveBeenCalledWith(UPLOAD_APPEAL_FORM);
@@ -420,6 +424,8 @@ describe('checking for the redirect of post document upload', () => {
     req.session.supportingCaseDocuments = [];
     req.files = [{ originalname: 'uploaded-file.pdf' }] as unknown as Express.Multer.File[];
     req.session.fileErrors = [];
+
+    delete req.body['saveAndContinue'];
 
     await postingController.post(req, res);
     expect(res.redirect).toHaveBeenCalledWith(UPLOAD_APPEAL_FORM);

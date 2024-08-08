@@ -40,9 +40,18 @@
     {% if otherInformation.length >0 %}
     {% for file in otherInformation %}
       <li class="uploadedFile govuk-!-padding-top-2 govuk-!-padding-bottom-3 govuk-section-break govuk-section-break--visible">
-        {{ file.fileName }}
-        {% set documentId = file.documentId %}
-        <a href="/upload-other-information?query=delete&docId={{documentId}}&documentType=other" class="govuk-link--no-visited-state float-right ">{{ delete }}</a>
+        <table class="documentRelevanceAndDeletion">
+          <tr>
+            <td class="documentRelevanceAndDeletionAlignment"> {{ file.fileName }}
+            {% if file.description %}
+              <br><br>
+              {{ file.description }}
+            {%endif%}
+            </td>
+            {% set documentId = file.documentId %}
+            <td class="documentRelevanceAndDeletionAlignment"><a href="/upload-other-information?query=delete&docId={{ documentId }}&documentType=other" class="govuk-link--no-visited-state float-right ">{{ delete }}</a></td>
+          </tr>
+        </table>
       </li>
     {% endfor %}
     {% endif %}
@@ -77,11 +86,46 @@
       }
     }) }}
   {% endif %}
+
+  <br>
+  <br>
+
+  <label class="govuk-label govuk-label--m" for="documentRelevance">{{ title3 }}</label>
+  <div id="documentRelevance-hint" class="govuk-hint">{{ line4 }}</div>
+  <input class="govuk-input govuk-text" id="documentRelevance" name="documentRelevance" type="text" aria-describedby="documentRelevance-hint">
+
   <p class="govuk-body">{{ uploadGuidance }}</p>
 
   {{ govukButton({
       text: uploadButton,
       type: "upload document",
+      classes: "govuk-!-margin-bottom-1"
+  }) }}
+
+  <br>
+  <br>
+  <br>
+
+  {{ govukTextarea({
+      name: "additionalInformation",
+      id: "additionalInformation",
+      value: userCase.additionalInformation,
+      hint: {
+        text: hint,
+        classes: "govuk-hint",
+        isPageHeading: false
+      },
+      label: { 
+        text: title2,
+        classes: "govuk-label--m",
+        isPageHeading: true 
+      }
+  }) }}
+
+  {{ govukButton({
+      text: continue,
+      type: submit,
+      name: 'saveAndContinue',
       classes: "govuk-!-margin-bottom-1"
   }) }}
 
