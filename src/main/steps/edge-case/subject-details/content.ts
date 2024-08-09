@@ -3,11 +3,12 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { covertToDateObject } from '../../../app/form/parser';
 import {
+  containsInvalidCharacters,
   isDateInputInvalid,
   isDateInputNotFilled,
   isFieldFilledIn,
-  isFieldLetters,
   isFutureDate,
+  isMarkDownLinkIncluded,
   isObsoleteDate,
 } from '../../../app/form/validation';
 import { ResourceReader } from '../../../modules/resourcereader/ResourceReader';
@@ -18,7 +19,7 @@ export const form: FormContent = {
       type: 'text',
       classes: 'govuk-input',
       label: l => l.subjectFullNameLabel,
-      validator: input => isFieldFilledIn(input) || isFieldLetters(input),
+      validator: input => isFieldFilledIn(input) || isMarkDownLinkIncluded(input) || containsInvalidCharacters(input),
     },
     subjectDateOfBirth: {
       type: 'date',
@@ -47,15 +48,19 @@ export const form: FormContent = {
       ],
       parser: body => covertToDateObject('subjectDateOfBirth', body as Record<string, unknown>),
       validator: value => {
-        if (isDateInputNotFilled(value as CaseDate)) {
-          return 'required';
-        }
-        if (
-          isDateInputInvalid(value as CaseDate) ||
-          isFutureDate(value as CaseDate) ||
-          isObsoleteDate(value as CaseDate)
-        ) {
-          return 'invalid';
+        const date = value as CaseDate;
+        if (isDateInputInvalid(date) && isDateInputNotFilled(date)) {
+          return 'invalidAndIncomplete';
+        } else if (isDateInputInvalid(date)) {
+          return isDateInputInvalid(date);
+        } else if (isDateInputNotFilled(date)) {
+          return isDateInputNotFilled(date);
+        } else if (isFutureDate(date)) {
+          return isFutureDate(date);
+        } else if (isObsoleteDate(date)) {
+          return isObsoleteDate(date);
+        } else {
+          return undefined;
         }
       },
     },
