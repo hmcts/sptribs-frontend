@@ -6,10 +6,10 @@
       "title": "Enter contact information",
       "line1": "Please enter your contact details to use for this case.",
       "emailAddressLabel": "Email address",
-      "emailAddressHint": "",
+      "emailAddressHint": "Enter an email address in the correct format, like name@example.com",
       "emailAddress": "Insert email address",
       "contactNumberLabel": "Contact number",
-      "contactNumberHint": "",
+      "contactNumberHint": "Enter a contact number in the correct format, like 01632 960 001 or 07700 900 982",
       "agreeContactLabel": "I agree to be contacted about this case using the details I have provided"
     },
     "cy": {
@@ -28,15 +28,15 @@
   "errors": {
     "en": {
       "subjectEmailAddress": {
-        "required": "Please enter a valid email address",
-        "invalid": "Every email address consists of 3 elements: local-part, @ symbol (pronounced as “at”), and a domain name"
+        "required": "Enter an email address",
+        "invalid": "Enter an email address in the correct format"
       },
       "subjectContactNumber": {
-        "required": "Please enter a valid contact number",
-        "invalid": "Please enter a valid contact number"
+        "required": "Enter a contact number",
+        "invalid": "Enter a contact number in the correct format"
       },
       "subjectAgreeContact": {
-        "required": "Please agree to be contacted using the details provided to continue"
+        "required": "You must agree to be contacted using the details provided to continue"
       }
     },
     "cy": {
