@@ -1,7 +1,7 @@
 import { CaseDate } from '../../../app/case/case';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
-import { covertToDateObject } from '../../../app/form/parser';
+import { convertToDateObject } from '../../../app/form/parser';
 import {
   containsInvalidCharacters,
   isDateInputInvalid,
@@ -46,7 +46,7 @@ export const form: FormContent = {
           attributes: { maxLength: 4, pattern: '[0-9]*', inputMode: 'numeric' },
         },
       ],
-      parser: body => covertToDateObject('subjectDateOfBirth', body as Record<string, unknown>),
+      parser: body => convertToDateObject('subjectDateOfBirth', body as Record<string, unknown>),
       validator: value => {
         const date = value as CaseDate;
         if (isDateInputInvalid(date) && isDateInputNotFilled(date)) {
