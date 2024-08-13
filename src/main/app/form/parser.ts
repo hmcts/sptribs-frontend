@@ -4,7 +4,7 @@ import { FormField, FormOptions } from './Form';
 
 export type DateParser = (property: string, body: Record<string, unknown>) => CaseDate;
 
-export const covertToDateObject: DateParser = (property, body) =>
+export const convertToDateObject: DateParser = (property, body) =>
   ['day', 'month', 'year'].reduce(
     (newDateObj: CaseDate, date: string) => {
       const propertyName = `${property}-${date}`;

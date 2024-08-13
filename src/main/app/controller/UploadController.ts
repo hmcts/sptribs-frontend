@@ -14,7 +14,7 @@ import { Form, FormFields, FormFieldsFn } from '../../app/form/Form';
 import { ResourceReader } from '../../modules/resourcereader/ResourceReader';
 import { SPTRIBS_CASE_API_BASE_URL } from '../../steps/common/constants/apiConstants';
 import { UPLOAD_APPEAL_FORM, UPLOAD_SUPPORTING_DOCUMENTS } from '../../steps/urls';
-import { isMarkDownLinkIncluded } from '../form/validation';
+import { containsInvalidCharacters, isMarkDownLinkIncluded } from '../form/validation';
 const logger = Logger.getLogger('uploadDocumentPostController');
 
 /**
@@ -254,8 +254,14 @@ export class UploadController extends PostController<AnyObject> {
     if (isMarkDownLinkIncluded(req.body['documentRelevance'] as string)) {
       req.session.errors.push({ errorType: 'containsMarkdownLink', propertyName: 'documentRelevance' });
     }
+    if (containsInvalidCharacters(req.body['documentRelevance'] as string)) {
+      req.session.errors.push({ errorType: 'containsInvalidCharacters', propertyName: 'documentRelevance' });
+    }
     if (isMarkDownLinkIncluded(req.body['additionalInformation'] as string)) {
       req.session.errors.push({ errorType: 'containsMarkdownLink', propertyName: 'additionalInformation' });
+    }
+    if (containsInvalidCharacters(req.body['additionalInformation'] as string)) {
+      req.session.errors.push({ errorType: 'containsInvalidCharacters', propertyName: 'additionalInformation' });
     }
 
     if (req.session.errors?.length) {
