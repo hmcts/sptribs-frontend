@@ -215,7 +215,7 @@ describe('PostController', () => {
 
     await controller.postDocumentUploader(req, res);
     expect(req.session.fileErrors).toHaveLength(1);
-    expect(req.session.fileErrors[0].text).toEqual('You cannot continue without uploading the application');
+    expect(req.session.fileErrors[0].text).toEqual('You must upload the application before you can proceed further');
     expect(req.session.fileErrors[0].href).toEqual('#file-upload-1');
     expect(res.redirect).toHaveBeenCalledWith('/' + testCurrentPageRedirectUrl);
   });
