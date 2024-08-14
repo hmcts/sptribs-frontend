@@ -11,3 +11,11 @@ idam-pr:
   redirect_uris:
     sptribs-frontend:
       - https://${SERVICE_FQDN}/receiver
+
+keyVaults:
+  sptribs:
+    secrets:
+      - name: app-insights-instrumentation-key-preview
+        alias: app-insights-instrumentation-key
+      - name: app-insights-connection-string-preview
+        alias: app-insights-connection-string
