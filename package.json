@@ -59,7 +59,7 @@
     "@uppy/xhr-upload": "^2.0.7",
     "applicationinsights": "^2.5.0",
     "autobind-decorator": "^2.4.0",
-    "axios": "^1.6.2",
+    "axios": "^1.7.4",
     "config": "^3.3.7",
     "connect-redis": "^7.1.0",
     "cookie-parser": "^1.4.5",
@@ -158,7 +158,7 @@
   "resolutions": {
     "@azure/msal-node": "^2.9.2",
     "@babel/traverse": "^7.23.2",
-    "axios": "^1.6.1",
+    "axios": "^1.7.4",
     "follow-redirects": "^1.15.6",
     "formidable": "^3.2.4",
     "got": "^13.0.0",

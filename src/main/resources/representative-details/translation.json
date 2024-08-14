@@ -9,7 +9,9 @@
       "fullNameLabel": "Full name",
       "organisationNameLabel": "Organisation or business name",
       "contactNumberLabel": "Contact number",
-      "emailAddressLabel": "Email address"
+      "contactNumberHint": "Enter a contact number in the correct format, like 01632 960 001 or 07700 900 982",
+      "emailAddressLabel": "Email address",
+      "emailAddressHint": "Enter an email address in the correct format, like name@example.com"
     },
     "cy": {
       "continue": "Parhau",
@@ -20,40 +22,50 @@
       "fullNameLabel": "Enw llawn",
       "organisationNameLabel": "Enw’r sefydliad neu’r busnes",
       "contactNumberLabel": "Rhif cyswllt",
-      "emailAddressLabel": "Cyfeiriad e-bost"
+      "contactNumberHint": "Rhowch rif cyswllt yn y fformat cywir, fel 01632 960 001 neu 07700 900 982",
+      "emailAddressLabel": "Cyfeiriad e-bost",
+      "emailAddressHint": "Rhowch gyfeiriad e-bost yn y fformat cywir, fel enw@enghraifft.com"
     }
   },
   "errors": {
     "en": {
       "representativeFullName": {
-        "required": "Please enter full name"
+        "required": "Enter full name of the representative",
+        "containsMarkdownLink": "Full name must not include a link",
+        "containsInvalidCharacters": "Full name must not include HTML"
       },
       "representativeOrganisationName": {
-        "required": "Please enter organisation or business name"
+        "required": "Enter organisation or business name of the representative",
+        "containsMarkdownLink": "Organisation or business name must not include a link",
+        "containsInvalidCharacters": "Organisation or business name must not include HTML"
       },
       "representativeContactNumber": {
-        "required": "Please enter a valid contact number",
-        "invalid": "Please enter a valid contact number"
+        "required": "Enter a contact number of the representative",
+        "invalid": "Enter a contact number in the correct format"
       },
       "representativeEmailAddress": {
-        "required": "Please enter a valid email address",
-        "invalid": "Every email address consists of 3 elements: local-part, @ symbol (pronounced as “at”), and a domain name"
+        "required": "Enter an email address of the representative",
+        "invalid": "Enter an email address in the correct format"
       }
     },
     "cy": {
       "representativeFullName": {
-        "required": "Nodwch enw llawn"
+        "required": "Rhowch enw llawn y cynrychiolydd",
+        "containsMarkdownLink": "Ni ddylai'r enw llawn gynnwys dolen",
+        "containsInvalidCharacters": "Ni ddylai'r enw llawn gynnwys HTML"
       },
       "representativeOrganisationName": {
-        "required": "Nodwch enw’r sefydliad neu fusnes"
+        "required": "Rhowch enw busnes neu sefydliad y cynrychiolydd",
+        "containsMarkdownLink": "Ni ddylai’r enw busnes neu sefydliad gynnwys dolen",
+        "containsInvalidCharacters": "Ni ddylai’r enw busnes neu sefydliad gynnwys HTML"
       },
       "representativeContactNumber": {
-        "required": "Nodwch rif cyswllt dilys",
-        "invalid": "Nodwch rif cyswllt dilys"
+        "required": "Rhowch rif cyswllt y cynrychiolydd",
+        "invalid": "Nodwch rif cyswllt yn y fformat cywir"
       },
       "representativeEmailAddress": {
-        "required": "Nodwch gyfeiriad e-bost dilys",
-        "invalid": "Mae pob cyfeiriad e-bost yn cynnwys tair elfen: rhan lleol, symbol @ (a ynganir fel “at”), ac enw parth"
+        "required": "Rhowch gyfeiriad e-bost y cynrychiolydd",
+        "invalid": "Rhowch gyfeiriad e-bost yn y fformat cywir"
       }
     }
   }

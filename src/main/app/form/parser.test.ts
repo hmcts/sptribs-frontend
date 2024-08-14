@@ -1,8 +1,8 @@
 import { FormField } from './Form';
-import { covertToDateObject, setupCheckboxParser } from './parser';
+import { convertToDateObject, setupCheckboxParser } from './parser';
 
 describe('Parser', () => {
-  describe('covertToDateObject()', () => {
+  describe('convertToDateObject()', () => {
     test('Should covert object with different date properties to 1 property', async () => {
       const date = {
         'date-day': '1',
@@ -10,7 +10,7 @@ describe('Parser', () => {
         'date-year': '1',
       };
 
-      expect(covertToDateObject('date', date)).toStrictEqual({
+      expect(convertToDateObject('date', date)).toStrictEqual({
         day: '1',
         month: '1',
         year: '1',
