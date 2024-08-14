@@ -105,7 +105,7 @@ describe('common > components > address-international > content', () => {
   });
 
   test('should contain submit button', () => {
-    expect((form.submit.text as Function)(generatePageContent({ language: 'en' }))).toBe('Continue');
+    expect((form.submit?.text as Function)(generatePageContent({ language: 'en' }))).toBe('Continue');
   });
 });
 /* eslint-enable @typescript-eslint/ban-types, @typescript-eslint/no-explicit-any */
