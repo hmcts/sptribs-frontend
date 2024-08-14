@@ -1,7 +1,7 @@
 import languageAssertions from '../../../../test/unit/utils/languageAssertions';
 import { FormContent, FormFields } from '../../../app/form/Form';
 import { ResourceReader } from '../../../modules/resourcereader/ResourceReader';
-import { CommonContent, generatePageContent } from '../../common/common.content';
+import { CommonContent } from '../../common/common.content';
 
 import { generateContent } from './content';
 
@@ -51,9 +51,9 @@ describe('Upload content', () => {
     expect(documentUploadProceed.type).not.toBe('checkboxes');
   });
 
-  it('should contain submit button', () => {
+  it('should not contain submit button', () => {
     const generatedContent = generateContent(commonContent);
     const form = generatedContent.form as FormContent;
-    expect((form.submit.text as Function)(generatePageContent({ language: EN }))).toBe('Continue');
+    expect(form.hasOwnProperty('submit')).toBe(false);
   });
 });
