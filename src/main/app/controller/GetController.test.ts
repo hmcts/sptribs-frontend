@@ -174,15 +174,18 @@ describe('GetController', () => {
 });
 
 describe('checking for documents Delete manager', () => {
+  const languages = {
+    en: {
+      text: 'english',
+    },
+    cy: {
+      text: 'welsh',
+    },
+  };
+
+  const mockError = 'An error while saving session';
+
   it('should delete additional documents', async () => {
-    const languages = {
-      en: {
-        text: 'english',
-      },
-      cy: {
-        text: 'welsh',
-      },
-    };
     const generateContent = content => languages[content.language];
     const controller = new GetController('page', generateContent);
 
@@ -222,33 +225,95 @@ describe('checking for documents Delete manager', () => {
     expect(req.session.caseDocuments.some(doc => doc.id === '10')).toBe(false);
   });
 
-  describe('parseAndSetReturnUrl', () => {
-    test('req.session.returnUrl populated', async () => {
-      const controller = new GetController('page', () => ({}));
-      const req = mockRequest();
-      req.query = { returnUrl: SIGN_IN_URL };
+  it('should return an english error message when an error is thrown with english language preferences', async () => {
+    const generateContent = content => languages[content.language];
+    const controller = new GetController('page', generateContent);
 
-      controller.parseAndSetReturnUrl(req);
+    const req = mockRequest({ session: { save: jest.fn(done => done(mockError)) } });
+    const res = mockResponse();
 
-      expect(req.session.returnUrl).toEqual(SIGN_IN_URL);
-    });
+    req.query = {
+      query: 'delete',
+      docId: '10',
+      documentType: 'tribunalform',
+    };
 
-    test('returnUrl not populated if returnUrl not set', async () => {
-      const controller = new GetController('page', () => ({}));
-      const req = mockRequest();
+    await expect(controller.documentDeleteManager(req, res, 'en')).rejects.toEqual('An error while saving session');
+    expect(req.session.fileErrors).toEqual(
+      expect.arrayContaining([{ text: 'Document upload or deletion has failed. Try again', href: '#' }])
+    );
 
-      controller.parseAndSetReturnUrl(req);
+    req.query.documentType = 'supporting';
+    await expect(controller.documentDeleteManager(req, res, 'en')).rejects.toEqual('An error while saving session');
+    expect(req.session.fileErrors).toEqual(
+      expect.arrayContaining([{ text: 'Document upload or deletion has failed. Try again', href: '#' }])
+    );
 
-      expect(req.session.returnUrl).toBeFalsy();
-    });
+    req.query.documentType = 'other';
+    await expect(controller.documentDeleteManager(req, res, 'en')).rejects.toEqual('An error while saving session');
+    expect(req.session.fileErrors).toEqual(
+      expect.arrayContaining([{ text: 'Document upload or deletion has failed. Try again', href: '#' }])
+    );
+  });
 
-    test('returnUrl not populated if returnUrl not a valid pagelink url', async () => {
-      const controller = new GetController('page', () => ({}));
-      const req = mockRequest();
+  it('should return a welsh error message when an error is thrown with welsh language preferences', async () => {
+    const generateContent = content => languages[content.language];
+    const controller = new GetController('page', generateContent);
 
-      controller.parseAndSetReturnUrl(req);
+    const req = mockRequest({ session: { save: jest.fn(done => done(mockError)) } });
+    const res = mockResponse();
 
-      expect(req.session.returnUrl).toBeFalsy();
-    });
+    req.query = {
+      query: 'delete',
+      docId: '10',
+      documentType: 'tribunalform',
+    };
+
+    await expect(controller.documentDeleteManager(req, res, 'cy')).rejects.toEqual('An error while saving session');
+    expect(req.session.fileErrors).toEqual(
+      expect.arrayContaining([{ text: 'Mae llwytho neu ddileu ffeil wedi methu. Rhowch gynnig arall arni', href: '#' }])
+    );
+
+    req.query.documentType = 'supporting';
+    await expect(controller.documentDeleteManager(req, res, 'cy')).rejects.toEqual('An error while saving session');
+    expect(req.session.fileErrors).toEqual(
+      expect.arrayContaining([{ text: 'Mae llwytho neu ddileu ffeil wedi methu. Rhowch gynnig arall arni', href: '#' }])
+    );
+
+    req.query.documentType = 'other';
+    await expect(controller.documentDeleteManager(req, res, 'cy')).rejects.toEqual('An error while saving session');
+    expect(req.session.fileErrors).toEqual(
+      expect.arrayContaining([{ text: 'Mae llwytho neu ddileu ffeil wedi methu. Rhowch gynnig arall arni', href: '#' }])
+    );
+  });
+});
+
+describe('parseAndSetReturnUrl', () => {
+  test('req.session.returnUrl populated', async () => {
+    const controller = new GetController('page', () => ({}));
+    const req = mockRequest();
+    req.query = { returnUrl: SIGN_IN_URL };
+
+    controller.parseAndSetReturnUrl(req);
+
+    expect(req.session.returnUrl).toEqual(SIGN_IN_URL);
+  });
+
+  test('returnUrl not populated if returnUrl not set', async () => {
+    const controller = new GetController('page', () => ({}));
+    const req = mockRequest();
+
+    controller.parseAndSetReturnUrl(req);
+
+    expect(req.session.returnUrl).toBeFalsy();
+  });
+
+  test('returnUrl not populated if returnUrl not a valid pagelink url', async () => {
+    const controller = new GetController('page', () => ({}));
+    const req = mockRequest();
+
+    controller.parseAndSetReturnUrl(req);
+
+    expect(req.session.returnUrl).toBeFalsy();
   });
 });

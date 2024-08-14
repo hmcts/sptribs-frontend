@@ -2,7 +2,7 @@ import { Case, CaseDate } from '../case/case';
 import { YesOrNo } from '../case/definition';
 
 import { Form, FormContent, FormFields, FormFieldsFn } from './Form';
-import { covertToDateObject } from './parser';
+import { convertToDateObject } from './parser';
 import { areDateFieldsFilledIn, isFieldFilledIn } from './validation';
 
 describe('Form', () => {
@@ -23,7 +23,7 @@ describe('Form', () => {
           { label: l => l.dateFormat['month'], name: 'month' },
           { label: l => l.dateFormat['year'], name: 'year' },
         ],
-        parser: value => covertToDateObject('dateField', value as Record<string, unknown>),
+        parser: value => convertToDateObject('dateField', value as Record<string, unknown>),
         validator: value => areDateFieldsFilledIn(value as CaseDate),
       },
       checkboxes: {

@@ -26,8 +26,8 @@ const en = {
   },
   [StatusCodes.INTERNAL_SERVER_ERROR]: {
     ...common.en,
-    title: 'Sorry, an error has occurred',
-    info: 'There was a problem with your last action. Please go back and try again.<br><br>If the problem persists please contact the Tribunal. <br><br>Find a court or tribunal - <a href=https://www.gov.uk/criminal-injuries-compensation-tribunal/appeal-to-tribunal>GOV.UK</a><br><br><br>',
+    title: 'An error has occurred',
+    info: 'There was a problem with your last action. Go back and try again.<br><br>If the problem persists contact the Tribunal. <br><br>Find a court or tribunal - <a href=https://www.gov.uk/criminal-injuries-compensation-tribunal/appeal-to-tribunal>GOV.UK</a><br><br><br>',
   },
 };
 
@@ -42,8 +42,8 @@ const cy: typeof en = {
   },
   [StatusCodes.INTERNAL_SERVER_ERROR]: {
     ...common.cy,
-    title: 'Yn anffodus, rydym yn cael problemau technegol',
-    info: 'Rhowch gynnig arall arni ymhen ychydig funudau',
+    title: 'Mae gwall wedi digwydd',
+    info: "Roedd yna broblem gyda’ch gweithred ddiwethaf. Ewch yn ôl a rhowch gynnig arall arni. Os bydd y broblem yn parhau, cysylltwch â'r Tribiwnlys. <br><br>Dod o hyd i lys neu dribiwnlys - <a href=https://www.gov.uk/criminal-injuries-compensation-tribunal/appeal-to-tribunal>GOV.UK</a><br><br><br>",
   },
 };
 
