@@ -1,3 +1,6 @@
+# renovate: datasource=github-releases depName=microsoft/ApplicationInsights-Java
+ARG APP_INSIGHTS_AGENT_VERSION=3.5.3
+
 # ---- Base image ----
 FROM hmctspublic.azurecr.io/base/node:20-alpine as base
 COPY --chown=hmcts:hmcts . .
