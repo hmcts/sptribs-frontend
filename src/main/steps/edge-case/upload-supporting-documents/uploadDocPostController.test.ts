@@ -359,6 +359,8 @@ describe('checking for the redirect of post document upload', () => {
     req.files = [];
     req.session.fileErrors = [];
 
+    req.body['saveAndContinue'] = true;
+
     await postingController.post(req, res);
     expect(res.redirect).toHaveBeenCalledWith(UPLOAD_SUPPORTING_DOCUMENTS);
     expect(req.session.fileErrors[0].text).toEqual(
@@ -372,6 +374,8 @@ describe('checking for the redirect of post document upload', () => {
     (req.files as any) = null;
     req.session.fileErrors = [];
     req.body['documentUploadProceed'] = false;
+
+    delete req.body['saveAndContinue'];
 
     await postingController.post(req, res);
     expect(res.redirect).toHaveBeenCalledWith(UPLOAD_SUPPORTING_DOCUMENTS);
@@ -438,6 +442,8 @@ describe('checking for the redirect of post document upload', () => {
     ];
     req.files = [{ originalname: 'uploaded-file.pdf' }] as unknown as Express.Multer.File[];
     req.session.fileErrors = [];
+
+    delete req.body['saveAndContinue'];
 
     await postingController.post(req, res);
     expect(res.redirect).toHaveBeenCalledWith(UPLOAD_SUPPORTING_DOCUMENTS);

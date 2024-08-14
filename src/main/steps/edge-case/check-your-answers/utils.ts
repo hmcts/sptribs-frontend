@@ -1,5 +1,5 @@
 import { getFormattedDate } from '../../../app/case/answers/formatDate';
-import { CaseWithId } from '../../../app/case/case';
+import { CaseWithId, DocumentUpload } from '../../../app/case/case';
 import { YesOrNo } from '../../../app/case/definition';
 import { PageContent } from '../../../app/controller/GetController';
 import * as Urls from '../../../steps/urls';
@@ -244,32 +244,29 @@ export const OtherInformationSummary = (
   userCase: Partial<CaseWithId>
 ): SummaryList | undefined => {
   const sectionTitle = sectionTitles.otherInformation;
-  const ListOfOtherDocuments = OtherDocuments
-    ? OtherDocuments.map((document): string => {
-        return document.fileName + '';
-      })
-        .toString()
-        .split(',')
-        .join('\n')
-    : '';
 
-  const SummaryData = [
-    {
+  const additionalInformation = {
+    key: keys.additionalInformation,
+    value: userCase['additionalInformation'],
+    changeUrl: Urls['UPLOAD_OTHER_INFORMATION'],
+  };
+
+  const documentInformation: { [key: string]: string }[] = [];
+
+  OtherDocuments.map((document: DocumentUpload) => {
+    documentInformation.push({
       key: keys.otherInformation,
-      value: ListOfOtherDocuments,
+      value: document.fileName,
       changeUrl: Urls['UPLOAD_OTHER_INFORMATION'],
-    },
-    {
-      key: keys.documentRelevance,
-      value: userCase['documentRelevance'],
-      changeUrl: Urls['UPLOAD_OTHER_INFORMATION'],
-    },
-    {
-      key: keys.additionalInformation,
-      value: userCase['additionalInformation'],
-      changeUrl: Urls['UPLOAD_OTHER_INFORMATION'],
-    },
-  ];
+    });
+
+    documentInformation.push({
+      keyHtml: '<hr width=1000 height=100>' + keys.documentRelevance,
+      value: document.description,
+    });
+  });
+
+  const SummaryData = [additionalInformation, ...documentInformation].filter(item => item);
 
   return {
     title: sectionTitle,
