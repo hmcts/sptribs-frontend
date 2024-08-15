@@ -1,6 +1,0 @@
-{
-  "connectionString": "${file:/mnt/secrets/sptribs/app-insights-connection-string}",
-  "role": {
-    "name": "sptribs-frontend"
-  }
-}
