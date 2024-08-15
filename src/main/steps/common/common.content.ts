@@ -23,7 +23,7 @@ const en = {
   warning: 'Warning',
   required: 'You have not answered the question. You need to select an answer before continuing.',
   notAnswered: 'You have not answered the question.',
-  errorSaving: 'Sorry, we’re having technical problems saving your application. Please try again in a few minutes.',
+  errorSaving: 'We’re having technical problems saving your application. Try again in a few minutes.',
   errorSendingInvite:
     'Sorry, we’re having technical problems sending your application for review. Please try again in a few minutes.',
   ogl: 'All content is available under the <a class="govuk-footer__link" href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license">Open Government Licence v3.0</a>, except where otherwise stated',
@@ -129,7 +129,7 @@ const cy: typeof en = {
   required: 'Nid ydych wedi ateb y cwestiwn. Rhaid ichi ddewis ateb cyn symud ymlaen.',
   notAnswered: 'Nid ydych wedi ateb y cwestiwn.',
   errorSaving:
-    "Mae'n ddrwg gennym, rydym yn cael problemau technegol wrth geisio cadw eich cais. Rhowch gynnig arall arni mewn ychydig funudau.",
+    'Rydym yn cael problemau technegol wrth geisio cadw eich cais. Rhowch gynnig arall arni ymhen ychydig o funudau.',
   ogl: 'Mae’r holl gynnwys ar gael o dan <a class="govuk-footer__link" href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license" >Drwydded Agored y Llywodraeth f3.0</a>, oni nodir fel arall',
   copyright: '© Hawlfraint y Goron',
   errorSummaryHeading: 'Mae yna broblem',
@@ -180,7 +180,7 @@ const cy: typeof en = {
   contactUsForHelp: 'Cysylltwch â ni am gymorth',
   webChat: 'Sgwrsio dros y we',
   webChatDetails:
-    "Mae ein holl asiantau sgwrsio dros y we yn brysur yn helpu pobl eraill. Dewch yn ôl nes ymlaen neu cysylltwch â ni trwy un o'r dulliau uchod.",
+    'Mae ein asiantau sgwrsio dros y we i gyd yn brysur ar hyn o bryd yn helpu eraill. Rhowch gynnig arall arni yn hwyrach ymlaen neu cysylltwch â ni drwy un o’r dulliau isod.',
   sendUsAMessage: 'Anfonwch neges atom',
   sendUsAMessageDetails: 'Byddwn yn ymdrechu i ymateb o fewn 5 diwrnod.',
   telephone: 'Ffoniwch',

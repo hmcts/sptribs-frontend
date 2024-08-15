@@ -14,7 +14,7 @@ import { Form, FormFields, FormFieldsFn } from '../../app/form/Form';
 import { ResourceReader } from '../../modules/resourcereader/ResourceReader';
 import { SPTRIBS_CASE_API_BASE_URL } from '../../steps/common/constants/apiConstants';
 import { UPLOAD_APPEAL_FORM, UPLOAD_SUPPORTING_DOCUMENTS } from '../../steps/urls';
-import { isMarkDownLinkIncluded } from '../form/validation';
+import { containsInvalidCharacters, isMarkDownLinkIncluded } from '../form/validation';
 const logger = Logger.getLogger('uploadDocumentPostController');
 
 /**
@@ -123,6 +123,8 @@ export class UploadController extends PostController<AnyObject> {
       };
 
       try {
+        req.session.userCase.additionalInformation = req.body.additionalInformation as string;
+
         let TribunalFormDocuments: Document[] = [];
         if (req.session.caseDocuments !== undefined) {
           TribunalFormDocuments = this.getTribunalFormDocuments(req);
@@ -180,6 +182,7 @@ export class UploadController extends PostController<AnyObject> {
             document_filename: fileName,
             document_binary_url: binaryUrl,
           },
+          comment: document.description ? document.description : null,
         },
       };
     });
@@ -240,7 +243,7 @@ export class UploadController extends PostController<AnyObject> {
   public async submit(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const chooseFileLink = '#file-upload-1';
     const filesUploadedLink = '#filesUploaded';
-    const { documentUploadProceed } = req.body;
+    const saveAndContinue = JSON.parse(JSON.stringify(req.body)).hasOwnProperty('saveAndContinue');
 
     if (this.shouldSetUpFormData()) {
       this.setUpForm(req);
@@ -254,8 +257,14 @@ export class UploadController extends PostController<AnyObject> {
     if (isMarkDownLinkIncluded(req.body['documentRelevance'] as string)) {
       req.session.errors.push({ errorType: 'containsMarkdownLink', propertyName: 'documentRelevance' });
     }
+    if (containsInvalidCharacters(req.body['documentRelevance'] as string)) {
+      req.session.errors.push({ errorType: 'containsInvalidCharacters', propertyName: 'documentRelevance' });
+    }
     if (isMarkDownLinkIncluded(req.body['additionalInformation'] as string)) {
       req.session.errors.push({ errorType: 'containsMarkdownLink', propertyName: 'additionalInformation' });
+    }
+    if (containsInvalidCharacters(req.body['additionalInformation'] as string)) {
+      req.session.errors.push({ errorType: 'containsInvalidCharacters', propertyName: 'additionalInformation' });
     }
 
     if (req.session.errors?.length) {
@@ -265,42 +274,40 @@ export class UploadController extends PostController<AnyObject> {
         }
         res.redirect(this.getCurrentPageRedirectUrl());
       });
-    } else {
-      if (documentUploadProceed) {
-        await this.postDocumentUploader(req, res);
-      } else if (isNull(files)) {
-        this.createUploadedFileError(req, res, chooseFileLink, 'NO_FILE_UPLOAD_ERROR');
-      } else if (totalUploadDocuments < Number(config.get(this.getValidationTotal()))) {
-        if (!req.session.hasOwnProperty('errors')) {
-          req.session['errors'] = [];
-        }
+    } else if (saveAndContinue) {
+      await this.postDocumentUploader(req, res);
+    } else if (isNull(files)) {
+      this.createUploadedFileError(req, res, chooseFileLink, 'NO_FILE_UPLOAD_ERROR');
+    } else if (totalUploadDocuments < Number(config.get(this.getValidationTotal()))) {
+      if (!req.session.hasOwnProperty('errors')) {
+        req.session['errors'] = [];
+      }
 
-        const { documents }: any = files;
+      const { documents }: any = files;
 
-        const isValidMimeType: boolean = FileValidations.formatValidation(
-          documents.mimetype,
-          this.getAcceptedFileMimeType()
-        );
-        const isValidFileSize: boolean = FileValidations.sizeValidation(documents.size);
+      const isValidMimeType: boolean = FileValidations.formatValidation(
+        documents.mimetype,
+        this.getAcceptedFileMimeType()
+      );
+      const isValidFileSize: boolean = FileValidations.sizeValidation(documents.size);
 
-        if (!isValidFileSize) {
-          this.createUploadedFileError(req, res, chooseFileLink, 'SIZE_ERROR');
-        }
+      if (!isValidFileSize) {
+        this.createUploadedFileError(req, res, chooseFileLink, 'SIZE_ERROR');
+      }
 
-        if (!isValidMimeType) {
-          this.createUploadedFileError(req, res, chooseFileLink, 'FORMAT_ERROR');
-        }
+      if (!isValidMimeType) {
+        this.createUploadedFileError(req, res, chooseFileLink, 'FORMAT_ERROR');
+      }
 
-        if (isValidMimeType && isValidFileSize) {
-          await this.uploadDocument(documents, req, res, chooseFileLink);
-        } else {
-          this.redirect(req, res, this.getCurrentPageRedirectUrl());
-        }
+      if (isValidMimeType && isValidFileSize) {
+        await this.uploadDocument(documents, req, res, chooseFileLink);
       } else {
-        this.createUploadedFileError(req, res, filesUploadedLink, 'TOTAL_FILES_EXCEED_ERROR');
-
         this.redirect(req, res, this.getCurrentPageRedirectUrl());
       }
+    } else {
+      this.createUploadedFileError(req, res, filesUploadedLink, 'TOTAL_FILES_EXCEED_ERROR');
+
+      this.redirect(req, res, this.getCurrentPageRedirectUrl());
     }
   }
 
@@ -355,6 +362,9 @@ export class UploadController extends PostController<AnyObject> {
   ): Promise<void> {
     const requestDocument = await this.getRequestDocument(headers, formData, formHeaders);
     const uploadedDocument = requestDocument.data.document;
+    if (req.body.documentRelevance !== undefined) {
+      uploadedDocument.description = req.body.documentRelevance;
+    }
     req.session[this.getPropertyName()].push(uploadedDocument);
     req.session['errors'] = undefined;
   }

@@ -90,7 +90,7 @@ describe('Document upload controller', () => {
     expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION);
     expect(req.session.fileErrors).toHaveLength(1);
     expect(req.session.fileErrors[0].text).toEqual(
-      'This service only accepts files in the formats - Ms Word, MS Excel, PDF, JPG, PNG, TXT, RTF, MP4, MP3'
+      'This service only accepts files in the formats - MS Word, MS Excel, PDF, JPG, PNG, TXT, RTF, MP4, MP3'
     );
   });
 
@@ -119,7 +119,7 @@ describe('Document upload controller', () => {
     expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION);
     expect(req.session.fileErrors).toHaveLength(1);
     expect(req.session.fileErrors[0].text).toEqual(
-      'File size exceeds the maximum permitted value. Please upload a file that is less than 100 MB'
+      'File size exceeds the maximum permitted value. Upload a file that is less than 100 MB'
     );
   });
 
@@ -148,10 +148,10 @@ describe('Document upload controller', () => {
     expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION);
     expect(req.session.fileErrors).toHaveLength(2);
     expect(req.session.fileErrors[0].text).toEqual(
-      'File size exceeds the maximum permitted value. Please upload a file that is less than 100 MB'
+      'File size exceeds the maximum permitted value. Upload a file that is less than 100 MB'
     );
     expect(req.session.fileErrors[1].text).toEqual(
-      'This service only accepts files in the formats - Ms Word, MS Excel, PDF, JPG, PNG, TXT, RTF, MP4, MP3'
+      'This service only accepts files in the formats - MS Word, MS Excel, PDF, JPG, PNG, TXT, RTF, MP4, MP3'
     );
   });
 
@@ -207,7 +207,7 @@ describe('Document upload controller', () => {
 
     await controller.post(req, res);
     expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION);
-    expect(req.session.fileErrors[0].text).toEqual('Document upload or deletion has failed. Please try again');
+    expect(req.session.fileErrors[0].text).toEqual('Document upload or deletion has failed. Try again');
   });
 
   describe('when there is an error in saving session', () => {
@@ -287,6 +287,62 @@ describe('Document upload controller', () => {
   });
 });
 
+describe('when data contains markdown link', () => {
+  test('should throw an error when documentRelevance contains HTML', async () => {
+    const res = mockResponse();
+    const req = mockRequest({
+      body: {
+        documentRelevance: '<a>https://www.google.co.uk</a>)',
+        additionalInformation: 'some info',
+      },
+    });
+    const controller = new UploadDocumentController({});
+
+    await controller.post(req, res);
+
+    expect(req.session.errors).toHaveLength(1);
+    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION);
+  });
+
+  test('should throw an error when additionalInformation contains HTML', async () => {
+    const res = mockResponse();
+    const req = mockRequest({
+      body: {
+        documentRelevance: 'doc relevance',
+        additionalInformation: '<a>https://www.google.co.uk</a>',
+      },
+    });
+    const controller = new UploadDocumentController({});
+
+    await controller.post(req, res);
+
+    expect(req.session.errors).toHaveLength(1);
+    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION);
+  });
+
+  test('should throw an error if error encountered during session save', async () => {
+    const controller = new UploadDocumentController({});
+    const res = mockResponse();
+    const req = mockRequest({
+      body: {
+        documentRelevance: 'doc relevance',
+        additionalInformation: '<a>https://www.google.co.uk</a>',
+      },
+      session: {
+        user: { email: 'test@example.com' },
+
+        save: jest.fn(done => done('MOCK_ERROR')),
+      },
+    });
+    try {
+      await controller.post(req, res);
+    } catch (err) {
+      //eslint-disable-next-line jest/no-conditional-expect
+      expect(err).toBe('MOCK_ERROR');
+    }
+  });
+});
+
 describe('checking for the redirect of post document upload', () => {
   const mockForm = {
     fields: {
@@ -356,6 +412,8 @@ describe('checking for the redirect of post document upload', () => {
     req.files = [];
     req.session.fileErrors = [];
 
+    req.body['saveAndContinue'] = true;
+
     await postingController.post(req, res);
     expect(res.redirect).toHaveBeenCalledWith(EQUALITY);
     expect(req.session.fileErrors).toHaveLength(0);
@@ -394,7 +452,7 @@ describe('checking for the redirect of post document upload', () => {
     expect(mockedAxios.create).toHaveBeenCalled();
     expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION);
     expect(req.session.fileErrors).toHaveLength(1);
-    expect(req.session.fileErrors[0].text).toEqual('Document upload or deletion has failed. Please try again');
+    expect(req.session.fileErrors[0].text).toEqual('Document upload or deletion has failed. Try again');
   });
 
   it('should display error if upload file button clicked with no document', async () => {
@@ -405,9 +463,11 @@ describe('checking for the redirect of post document upload', () => {
     req.session.fileErrors = [];
     req.body['documentUploadProceed'] = false;
 
+    delete req.body['saveAndContinue'];
+
     await postingController.post(req, res);
     expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION);
-    expect(req.session.fileErrors[0].text).toEqual('Please choose a file to upload');
+    expect(req.session.fileErrors[0].text).toEqual('Choose a file to upload');
   });
 
   it('should display error if max documents have been uploaded', async () => {
@@ -637,10 +697,12 @@ describe('checking for the redirect of post document upload', () => {
     req.files = [{ originalname: 'uploaded-file.pdf' }] as unknown as Express.Multer.File[];
     req.session.fileErrors = [];
 
+    delete req.body['saveAndContinue'];
+
     await postingController.post(req, res);
     expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION);
     expect(req.session.fileErrors[0].text).toEqual(
-      'You can upload 20 files only. Please delete one of the uploaded files and retry'
+      'You can upload 20 files only. Delete one of the uploaded files and retry'
     );
   });
 });
