@@ -10,6 +10,7 @@ export class PropertiesVolume {
     if (!app.locals.developmentMode) {
       propertiesVolume.addTo(config);
       this.setSecret('secrets.sptribs.app-insights-instrumentation-key', 'appInsights.instrumentationKey');
+      this.setSecret('secrets.sptribs.app-insights-connection-string', 'appInsights.connectionString');
       this.setSecret('secrets.sptribs.idam-ui-secret', 'services.idam.clientSecret');
       this.setSecret('secrets.sptribs.idam-systemupdate-username', 'services.idam.systemUsername');
       this.setSecret('secrets.sptribs.idam-systemupdate-password', 'services.idam.systemPassword');
