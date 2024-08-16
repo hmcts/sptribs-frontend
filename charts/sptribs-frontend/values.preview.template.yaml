@@ -5,7 +5,7 @@ nodejs:
   environment:
     PCQ_ENABLED: true
     RATE_LIMITER_DISABLED: true
-  keyVaults:
+  keyvaults:
     sptribs:
       secrets:
         - name: app-insights-instrumentation-key-preview
