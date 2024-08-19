@@ -94,7 +94,7 @@ export class GetController {
      *      ************************************  ************************************
      *
      */
-    const cookiesForPrefrences = req.cookies.hasOwnProperty('frontend-cookie-preferences')
+    const cookiesForPreferences = Object.prototype.hasOwnProperty.call(req.cookies, 'frontend-cookie-preferences')
       ? JSON.parse(req.cookies['frontend-cookie-preferences'])
       : {
           analytics: 'off',
@@ -115,7 +115,7 @@ export class GetController {
       uploadedDocuments: req.session?.caseDocuments,
       supportingDocuments: req.session?.supportingCaseDocuments,
       otherInformation: req.session?.otherCaseInformation,
-      cookiePreferences: cookiesForPrefrences,
+      cookiePreferences: cookiesForPreferences,
       sessionErrors,
       cookieMessage: false,
       FileErrors,
@@ -133,8 +133,8 @@ export class GetController {
      *
      */
     const cookieWithSaveQuery = COOKIES + '?togglesaveCookie=true';
-    const checkforCookieUrlAndQuery = req.url === cookieWithSaveQuery;
-    if (checkforCookieUrlAndQuery) {
+    const checkForCookieUrlAndQuery = req.url === cookieWithSaveQuery;
+    if (checkForCookieUrlAndQuery) {
       pageRenderableContents = { ...pageRenderableContents, cookieMessage: true };
     }
 
