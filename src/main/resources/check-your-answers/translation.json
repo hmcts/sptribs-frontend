@@ -27,7 +27,7 @@
         "representativeEmailAddress": "Email address",
         "appealDocuments": "List of forms uploaded (Appeal form)",
         "supportingDocuments": "List of supporting documents uploaded",
-        "otherInformation": "List of other documents uploaded",
+        "otherInformation": "Additional document",
         "additionalInformation": "Additional information",
         "documentRelevance": "Document relevance"
       },
@@ -63,7 +63,7 @@
         "representativeEmailAddress": "Cyfeiriad e-bost",
         "appealDocuments": "Rhestr o ffurflenni sydd wedi’u llwytho (Ffurflen apelio)",
         "supportingDocuments": "Rhestr o ddogfennau ategol sydd wedi’u llwytho",
-        "otherInformation": "Rhestr o ddogfennau eraill a uwchlwythwyd",
+        "otherInformation": "Dogfennau ychwanegol",
         "additionalInformation": "Gwybodaeth ychwanegol",
         "documentRelevance": "Perthnasedd dogfennau"
       },
@@ -75,10 +75,10 @@
   },
   "errors": {
     "en": {
-      "SUBMIT_ERROR": "An error has occurred, unable to submit your application. We are sorry for the inconvenience. Please try again later. If the problem persists, please contact us."
+      "SUBMIT_ERROR": "An error has occurred, unable to submit your application. Try again later. If the problem persists, contact us."
     },
     "cy": {
-      "SUBMIT_ERROR": "Mae gwall wedi digwydd, nid oes modd cyflwyno’ch cais. Ymddiheurwn am yr anghyfleustra. Rhowch gynnig arall arni nes ymlaen. Os bydd y broblem yn parhau, cysylltwch â ni."
+      "SUBMIT_ERROR": "Mae gwall wedi digwydd, nid oes modd cyflwyno’ch cais. Rhowch gynnig arall arni yn hwyrach ymlaen. Os bydd y broblem yn parhau, cysylltwch â ni."
     }
   }
 }

@@ -45,7 +45,7 @@ describe('check-your-answer > content', () => {
   test('should contain submit button', () => {
     const generatedContent = generateContent(commonContent);
     const form = generatedContent.form as FormContent;
-    expect((form.submit.text as Function)(generatePageContent({ language: 'en' }))).toBe('Continue');
+    expect((form.submit?.text as Function)(generatePageContent({ language: 'en' }))).toBe('Continue');
   });
 });
 /* eslint-enable @typescript-eslint/ban-types, @typescript-eslint/no-explicit-any */

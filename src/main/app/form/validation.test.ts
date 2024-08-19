@@ -3,6 +3,7 @@ import { CaseDate } from '../case/case';
 import {
   areDateFieldsFilledIn,
   atLeastOneFieldIsChecked,
+  containsInvalidCharacters,
   doesArrayHaveValues,
   isAddressSelected,
   isDateInputInvalid,
@@ -486,6 +487,38 @@ describe('isMarkDownLinkIncluded()', () => {
 
   test('should return null if value passed is undefined', async () => {
     const isValid = isMarkDownLinkIncluded(undefined);
+    expect(isValid).toStrictEqual(undefined);
+  });
+});
+
+describe('containsInvalidCharacters()', () => {
+  test('should return error if value contains HTML and additional text before', async () => {
+    const isValid = containsInvalidCharacters('info <a>https://www.google.co.uk)</a>');
+    expect(isValid).toStrictEqual('containsInvalidCharacters');
+  });
+
+  test('should return error if value contains HTML and additional text before and after', async () => {
+    const isValid = containsInvalidCharacters('info <a>https://www.google.co.uk)</a> some info');
+    expect(isValid).toStrictEqual('containsInvalidCharacters');
+  });
+
+  test('should return error if value is HTML', async () => {
+    const isValid = containsInvalidCharacters('<a>');
+    expect(isValid).toStrictEqual('containsInvalidCharacters');
+  });
+
+  test('should return null if value passed is valid', async () => {
+    const isValid = containsInvalidCharacters('Some document info');
+    expect(isValid).toStrictEqual(undefined);
+  });
+
+  test('should return null if value passed is empty', async () => {
+    const isValid = containsInvalidCharacters('');
+    expect(isValid).toStrictEqual(undefined);
+  });
+
+  test('should return null if value passed is undefined', async () => {
+    const isValid = containsInvalidCharacters(undefined);
     expect(isValid).toStrictEqual(undefined);
   });
 });

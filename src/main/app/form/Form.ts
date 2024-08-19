@@ -119,7 +119,7 @@ export type FormFields = Record<string, FormField>;
 export type FormFieldsFn = (userCase: Partial<Case>, language?: string) => FormFields;
 
 export interface FormContent {
-  submit: {
+  submit?: {
     text: Label;
     classes?: string;
   };

@@ -1,15 +1,24 @@
+import axios, { RawAxiosRequestHeaders } from 'axios';
 import config from 'config';
 
 import { ResourceReader } from '../../../main/modules/resourcereader/ResourceReader';
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
+import { mockResponse } from '../../../test/unit/utils/mockResponse';
+import { mockUserCase4, mockUserCase4Output } from '../../../test/unit/utils/mockUserCase';
+import { getServiceAuthToken } from '../../app/auth/service/get-service-auth-token';
 import * as steps from '../../steps';
 import { SPTRIBS_CASE_API_BASE_URL } from '../../steps/common/constants/apiConstants';
+import UploadDocumentController from '../../steps/edge-case/upload-other-information/uploadDocPostController';
+import { UPLOAD_OTHER_INFORMATION } from '../../steps/urls';
 import { YesOrNo } from '../case/definition';
 import { isFieldFilledIn } from '../form/validation';
 
 import { CASE_API_URL, FileValidations, UploadController } from './UploadController';
 
 const getNextStepUrlMock = jest.spyOn(steps, 'getNextStepUrl');
+jest.mock('axios');
+const mockedAxios = axios as jest.Mocked<typeof axios>;
+mockedAxios.create = jest.fn(() => mockedAxios);
 
 describe('PostController', () => {
   afterEach(() => {
@@ -53,6 +62,7 @@ describe('PostController', () => {
       expect(Object.entries(allTypes)).toHaveLength(Object.entries(controller.getAcceptedFileMimeType()).length);
       expect(allTypes).toMatchObject(controller.getAcceptedFileMimeType());
       expect(Object.entries(allTypes).toString()).toBe(Object.entries(controller.getAcceptedFileMimeType()).toString());
+      expect(typeof mockForm.fields).toBe('object');
     });
 
     describe('document format validation', () => {
@@ -182,5 +192,174 @@ describe('PostController', () => {
         expect(SystemContentLoader).toEqual(getEnglishContents);
       });
     });
+  });
+
+  test('Check error is thrown when no property exists for case documents', async () => {
+    const mockForm = {
+      fields: {
+        field: {
+          type: 'file',
+          values: [{ label: l => l.no, value: YesOrNo.YES }],
+          validator: isFieldFilledIn,
+        },
+      },
+      submit: {
+        text: l => l.continue,
+      },
+    };
+    const controller = new UploadController(mockForm.fields);
+    const req = mockRequest({});
+    const res = mockResponse();
+
+    delete req.session.caseDocuments;
+
+    await controller.postDocumentUploader(req, res);
+    expect(req.session.fileErrors).toHaveLength(1);
+    expect(req.session.fileErrors[0].text).toEqual('You must upload the application before you can proceed further');
+    expect(req.session.fileErrors[0].href).toEqual('#file-upload-1');
+    expect(res.redirect).toHaveBeenCalledWith('/' + testCurrentPageRedirectUrl);
+  });
+
+  test('Should upload additional document with document relevance successfully', async () => {
+    const mockForm = {
+      fields: {
+        field: {
+          type: 'file',
+        },
+      },
+      submit: {
+        text: l => l.continue,
+      },
+    };
+    const req = mockRequest({});
+    const res = mockResponse();
+    mockedAxios.post.mockResolvedValueOnce({ data: { document: { fileName: 'test' } } });
+    const controller = new UploadDocumentController(mockForm.fields);
+
+    req.session.otherCaseInformation = [];
+    (req.files as any) = { documents: { name: 'test', mimetype: 'application/pdf', size: 20480000, data: 'data' } };
+    req.body.documentRelevance = 'this is an important document';
+    req.session.fileErrors = [];
+    req.body['documentUploadProceed'] = false;
+
+    await controller.post(req, res);
+    expect(mockedAxios.create).toHaveBeenCalled();
+    expect(mockedAxios.post).toHaveBeenCalled();
+    expect(req.session.fileErrors).toHaveLength(0);
+    expect(req.session.otherCaseInformation).toHaveLength(1);
+    expect(req.session.otherCaseInformation[0]).toHaveProperty('description');
+    expect(req.session.otherCaseInformation[0]).toEqual({
+      description: 'this is an important document',
+      fileName: 'test',
+    });
+    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION);
+  });
+
+  test('Should pass additional document information to axios when continuing', async () => {
+    const mockForm = {
+      fields: {
+        field: {
+          type: 'file',
+        },
+      },
+      submit: {
+        text: l => l.continue,
+      },
+    };
+
+    const req = mockRequest({ userCase: mockUserCase4 });
+    const res = mockResponse();
+    const controller = new UploadDocumentController(mockForm.fields);
+    (req.files as any) = { documents: { name: 'test', mimetype: 'application/pdf', size: 20480000, data: 'data' } };
+
+    const headers: RawAxiosRequestHeaders = {
+      authorization: `Bearer ${req.session.user['accessToken']}`,
+      serviceAuthorization: getServiceAuthToken(),
+    };
+    const baseUrl = '/case/dss-orchestration/' + req.session.userCase.id + '/update?event=UPDATE';
+
+    //req.body.documentRelevance = 'this is an important document';
+    req.session.caseDocuments = [
+      {
+        url: 'url',
+        fileName: 'fileName',
+        documentId: 'documentId',
+        binaryUrl: 'binaryUrl',
+      },
+    ];
+    req.session.supportingCaseDocuments = [
+      {
+        url: 'url',
+        fileName: 'fileName',
+        documentId: 'documentId',
+        binaryUrl: 'binaryUrl',
+      },
+    ];
+    req.session.otherCaseInformation = [
+      {
+        url: 'url',
+        fileName: 'fileName',
+        documentId: 'documentId',
+        binaryUrl: 'binaryUrl',
+        description: 'this is an important document',
+      },
+    ];
+
+    const TribunalFormDocuments = [
+      {
+        id: 'documentId',
+        value: {
+          documentLink: {
+            document_url: 'url',
+            document_filename: 'fileName',
+            document_binary_url: 'binaryUrl',
+          },
+        },
+      },
+    ];
+    const SupportingDocuments = [
+      {
+        id: 'documentId',
+        value: {
+          documentLink: {
+            document_url: 'url',
+            document_filename: 'fileName',
+            document_binary_url: 'binaryUrl',
+          },
+        },
+      },
+    ];
+    const OtherInfoDocuments = [
+      {
+        id: 'documentId',
+        value: {
+          documentLink: {
+            document_url: 'url',
+            document_filename: 'fileName',
+            document_binary_url: 'binaryUrl',
+          },
+          comment: 'this is an important document',
+        },
+      },
+    ];
+
+    const responseBody = {
+      ...mockUserCase4Output,
+      TribunalFormDocuments,
+      SupportingDocuments,
+      OtherInfoDocuments,
+    };
+
+    req.body['saveAndContinue'] = true;
+    await controller.post(req, res);
+
+    expect(
+      axios.create({
+        baseURL: config.get(SPTRIBS_CASE_API_BASE_URL),
+        headers,
+        maxContentLength: Infinity,
+        maxBodyLength: Infinity,
+      }).put
+    ).toHaveBeenCalledWith(baseUrl, responseBody);
   });
 });
