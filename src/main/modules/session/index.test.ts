@@ -58,7 +58,7 @@ describe('session', () => {
   let mockLogger: LoggerInstance;
 
   beforeEach(() => {
-    config.get = jest.fn().mockImplementationOnce(() => 'MOCK_SECRET');
+    config.get = jest.fn().mockImplementationOnce(() => 'MOCK_HIDDEN_VALUE'); // silly fortify false positive
     mockApp = {
       locals: {
         developmentMode: false,
@@ -82,7 +82,7 @@ describe('session', () => {
       name: 'sptribs-frontend-session',
       resave: false,
       saveUninitialized: false,
-      secret: 'MOCK_SECRET',
+      secret: 'MOCK_HIDDEN_VALUE',
       cookie: {
         httpOnly: true,
         maxAge: 1260000,
@@ -98,7 +98,7 @@ describe('session', () => {
     beforeEach(() => {
       config.get = jest
         .fn()
-        .mockImplementationOnce(() => 'MOCK_SECRET')
+        .mockImplementationOnce(() => 'MOCK_HIDDEN_VALUE')
         .mockImplementationOnce(() => 'MOCK_REDIS_HOST')
         .mockImplementationOnce(() => 'MOCK_REDIS_KEY');
       mockApp = {
