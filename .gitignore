@@ -10,6 +10,7 @@ node_modules/
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+!.yarn/plugins
 
 .idea/
 *.iml
