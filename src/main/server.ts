@@ -4,7 +4,7 @@ import * as bodyParser from 'body-parser';
 import config from 'config';
 import cors from 'cors';
 import express, { RequestHandler } from 'express';
-import rateLimit from 'express-rate-limit';
+import { rateLimit } from 'express-rate-limit';
 import favicon from 'serve-favicon';
 import toobusy from 'toobusy-js';
 import type { LoggerInstance } from 'winston';
