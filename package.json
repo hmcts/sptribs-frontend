@@ -138,7 +138,7 @@
     "moment": "^2.29.3",
     "node-sass": "^9.0.0",
     "nodemon": "^3.0.0",
-    "npm-run-all2": "^5.0.0",
+    "npm-run-all2": "^8.0.0",
     "pa11y": "^8.0.0",
     "postcss": "^8.4.31",
     "prettier": "^2.5.1",
