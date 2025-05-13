@@ -156,7 +156,7 @@
     "webpack-node-externals": "^3.0.0"
   },
   "resolutions": {
-    "@azure/msal-node": "^2.9.2",
+    "@azure/msal-node": "^3.0.0",
     "@babel/traverse": "^7.23.2",
     "axios": "^1.7.4",
     "cookie": "^0.7.0",
