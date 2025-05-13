@@ -12372,6 +12372,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"negotiator@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "negotiator@npm:1.0.0"
+  checksum: 20ebfe79b2d2e7cf9cbc8239a72662b584f71164096e6e8896c8325055497c96f6b80cd22c258e8a2f2aa382a787795ec3ee8b37b422a302c7d4381b0d5ecfbb
+  languageName: node
+  linkType: hard
+
 "neo-async@npm:^2.6.2":
   version: 2.6.2
   resolution: "neo-async@npm:2.6.2"
@@ -15177,7 +15184,7 @@ __metadata:
     mocha-multi: ^1.1.6
     mochawesome: 7.1.3
     moment: ^2.29.3
-    negotiator: ^0.6.3
+    negotiator: ^1.0.0
     node-sass: ^9.0.0
     nodemon: ^3.0.0
     npm-run-all2: ^5.0.0
