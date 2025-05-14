@@ -7,6 +7,6 @@ module.exports = {
   },
   moduleFileExtensions: ['ts', 'js', 'json'],
   moduleNameMapper: {
-    "axios": "axios/dist/node/axios.cjs"
+    "/axios/": "axios/dist/node/axios.cjs"
   },
 };
