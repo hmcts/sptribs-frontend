@@ -28,7 +28,7 @@ const mockRedisStore = jest.fn();
 jest.mock('connect-redis', () => {
   return {
     __esModule: true,
-    default: jest.fn(() => jest.fn().mockImplementation(() => mockRedisStore)),
+    RedisStore: jest.fn(() => jest.fn().mockImplementation(() => mockRedisStore)),
   };
 });
 

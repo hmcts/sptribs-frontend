@@ -1,10 +1,10 @@
 import { Logger } from '@hmcts/nodejs-logging';
 import config from 'config';
-import RedisStore from 'connect-redis';
+import { RedisStore } from 'connect-redis';
 import cookieParser from 'cookie-parser';
 import { Application } from 'express';
 import session from 'express-session';
-import * as redis from 'redis';
+import { createClient } from 'redis';
 import FileStoreFactory from 'session-file-store';
 
 const FileStore = FileStoreFactory(session);
@@ -36,7 +36,7 @@ export class SessionStorage {
   private getStore(app: Application, logger: Logger) {
     const redisHost = config.get('session.redis.host');
     if (redisHost) {
-      const client = redis.createClient({
+      const client = createClient({
         socket: {
           host: redisHost as string,
           port: 6380,
