@@ -38,7 +38,7 @@ describe('RepresentationPostController', () => {
     await controller.post(req, res);
 
     expect(getNextStepUrlMock).not.toHaveBeenCalled();
-    expect(res.redirect).toBeCalledWith(req.path);
+    expect(res.redirect).toHaveBeenCalledWith(req.path);
     expect(req.session.errors).toEqual(errors);
   });
 
@@ -67,7 +67,7 @@ describe('RepresentationPostController', () => {
     await controller.post(req, res);
 
     expect(getNextStepUrlMock).not.toHaveBeenCalled();
-    expect(res.redirect).toBeCalledWith(REPRESENTATION_QUALIFIED);
+    expect(res.redirect).toHaveBeenCalledWith(REPRESENTATION_QUALIFIED);
   });
 
   test('Should redirect to user role page when no radio button selected', async () => {
@@ -95,6 +95,6 @@ describe('RepresentationPostController', () => {
     await controller.post(req, res);
 
     expect(getNextStepUrlMock).not.toHaveBeenCalled();
-    expect(res.redirect).toBeCalledWith(UPLOAD_APPEAL_FORM);
+    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_APPEAL_FORM);
   });
 });

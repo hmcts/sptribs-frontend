@@ -2,6 +2,7 @@ jest.mock('axios');
 jest.mock('@hmcts/nodejs-logging');
 jest.useFakeTimers();
 
+// eslint-disable-next-line import/order
 import { Logger } from '@hmcts/nodejs-logging';
 
 const logger = {
