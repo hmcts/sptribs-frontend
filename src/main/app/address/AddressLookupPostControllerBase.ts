@@ -9,7 +9,10 @@ import { Address, getAddressesFromPostcode } from '../postcode/postcode-lookup-a
 
 @autobind
 export default class AddressLookupPostControllerBase extends PostController<AnyObject> {
-  constructor(protected readonly fields: FormFields | FormFieldsFn, protected readonly fieldPrefix: FieldPrefix) {
+  constructor(
+    protected readonly fields: FormFields | FormFieldsFn,
+    protected readonly fieldPrefix: FieldPrefix
+  ) {
     super(fields);
   }
 

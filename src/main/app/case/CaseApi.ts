@@ -23,7 +23,10 @@ import { CaseData, YesOrNo } from './definition';
 import { toApiDate, toApiFormat } from './to-api-format';
 
 export class CaseApi {
-  constructor(private readonly axios: AxiosInstance, private readonly logger: LoggerInstance) {}
+  constructor(
+    private readonly axios: AxiosInstance,
+    private readonly logger: LoggerInstance
+  ) {}
 
   public async getOrCreateCase(): Promise<any> {
     return { id: '', state: 'SPTRIBS' };

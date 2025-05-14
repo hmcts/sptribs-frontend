@@ -21,7 +21,10 @@ export type TranslationFn = (content: CommonContent) => PageContent;
 export type AsyncTranslationFn = any;
 @autobind
 export class GetController {
-  constructor(protected readonly view: string, protected readonly content: TranslationFn) {}
+  constructor(
+    protected readonly view: string,
+    protected readonly content: TranslationFn
+  ) {}
 
   public async get(req: AppRequest, res: Response): Promise<void> {
     this.CookiePreferencesChanger(req, res);
