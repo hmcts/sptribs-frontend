@@ -43,6 +43,6 @@ describe('Helmet', () => {
     const helmetInstance = new Helmet(config);
     expect(() => {
       helmetInstance.enableFor(mockApp);
-    }).toThrowError('Referrer policy configuration is required');
+    }).toThrow('Referrer policy configuration is required');
   });
 });

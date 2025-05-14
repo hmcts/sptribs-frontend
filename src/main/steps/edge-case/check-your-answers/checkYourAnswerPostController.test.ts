@@ -64,7 +64,7 @@ describe('Submit case controller', () => {
 
     expect(req.locals.api.triggerEvent).not.toHaveBeenCalled();
     expect(getNextStepUrlMock).not.toHaveBeenCalled();
-    expect(res.redirect).toBeCalledWith(CHECK_YOUR_ANSWERS);
+    expect(res.redirect).toHaveBeenCalledWith(CHECK_YOUR_ANSWERS);
     expect(req.session.errors).not.toEqual(errors);
   });
 
