@@ -31,7 +31,7 @@ export class Helmet {
       googleAnalyticsDomain,
       googleTagManagerDomain,
       dynatraceDomain,
-      "'sha256-+6WnXIl4mbFTCARd8N3COQmT3bJJmo32N8q8ZSQAIcU='",
+      "'sha256-GUQ5ad8JK5KmEWmROf3LZd9ge94daqNvd8xy9YS1iDw='",
       "'sha256-XbrIe2Mu+2yK4boWprqdknTXJvaHzNkq5hBOh5NMUwE='",
     ];
 

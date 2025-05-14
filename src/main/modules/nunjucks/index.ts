@@ -9,7 +9,7 @@ import { FormInput } from '../../app/form/Form';
 export class Nunjucks {
   enableFor(app: express.Express): void {
     app.set('view engine', 'njk');
-    const govUkFrontendPath = path.join(__dirname, '..', '..', '..', '..', 'node_modules', 'govuk-frontend');
+    const govUkFrontendPath = path.join(__dirname, '..', '..', '..', '..', 'node_modules', 'govuk-frontend', 'dist');
     const hmctsFrontendPath = path.join(__dirname, '..', '..', '..', '..', 'node_modules', '@hmcts', 'frontend');
 
     const authLessPath = path.join(__dirname, '..', '..', 'routes', 'authless', 'views');
