@@ -28,7 +28,7 @@ export class FileUploadEvents {
     location.hash = '#uploadErrorSummary';
     errorUploadingEl?.focus();
     this.uppy.info('');
-    this.uppy.reset();
+    this.uppy.cancelAll();
   };
 
   public onFilesSelected = async (uppy: Uppy, uploadedFiles: UploadedFiles): Promise<void> => {
@@ -37,12 +37,12 @@ export class FileUploadEvents {
 
     const result = await uppy.upload();
     location.hash = '#';
-    if (result.successful[0]?.response?.body) {
+    if (result && result?.successful?.[0]?.response?.body) {
       uploadedFiles.add(Object.values(result.successful[0].response.body) as []);
     }
     const uploadInfo = uppy.getState();
-    if (result.failed.length || !result.successful.length || uploadInfo.info?.[0]?.message) {
-      return this.onError(uploadInfo.info![0]);
+    if (!result || result.failed?.length || !result.successful?.length || uploadInfo.info?.[0]?.message) {
+      return this.onError({ name: 'Upload error', ...(uploadInfo.info ? uploadInfo.info[0] : new Error()) });
     }
 
     location.hash = '#uploadGroup';
