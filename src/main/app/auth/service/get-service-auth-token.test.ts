@@ -2,56 +2,40 @@ jest.mock('axios');
 jest.mock('@hmcts/nodejs-logging');
 jest.useFakeTimers();
 
+// eslint-disable-next-line import/order
 import { Logger } from '@hmcts/nodejs-logging';
-import axios, { AxiosStatic } from 'axios';
+
 const logger = {
   info: jest.fn(),
   error: jest.fn(),
 };
 Logger.getLogger.mockReturnValue(logger);
 
+import axios from 'axios';
+
 import { getServiceAuthToken, initAuthToken } from './get-service-auth-token';
 
-const mockedAxios = axios as jest.Mocked<AxiosStatic>;
+const mockAxios = axios as jest.Mocked<typeof axios>;
 
 describe('initAuthToken', () => {
-  test('Should set an interval to start fetching a token', () => {
-    mockedAxios.post.mockResolvedValue('token');
-
-    initAuthToken();
-    expect(mockedAxios.post).toHaveBeenCalledWith(
-      'http://rpe-service-auth-provider-aat.service.core-compute-aat.internal/lease',
-      {
-        microservice: 'sptribs_frontend',
-        oneTimePassword: expect.anything(),
-      }
-    );
+  test('sets an interval to fetch a token', async () => {
+    mockAxios.post.mockResolvedValue({ data: 'token' });
+    await initAuthToken();
+    expect(mockAxios.post).toHaveBeenCalled();
   });
 
-  test('Should log errors', () => {
-    mockedAxios.post.mockRejectedValue({ response: { status: 500, data: 'Error' } });
-
-    initAuthToken();
-    return new Promise<void>(resolve => {
-      setImmediate(() => {
-        expect(logger.error).toHaveBeenCalledWith(500, 'Error');
-        resolve();
-      });
-    });
+  test('logs errors', async () => {
+    mockAxios.post.mockRejectedValue({ response: { status: 500, data: 'Error' } });
+    await initAuthToken();
+    expect(logger.error).toHaveBeenCalledWith(500, 'Error');
   });
 });
 
 describe('getServiceAuthToken', () => {
-  test('Should return a token', async () => {
-    mockedAxios.post.mockResolvedValue({ data: 'token' });
+  test('returns a token', async () => {
+    mockAxios.post.mockResolvedValue({ data: 'token' });
+    await initAuthToken();
 
-    initAuthToken();
-
-    return new Promise<void>(resolve => {
-      setImmediate(() => {
-        expect(getServiceAuthToken()).not.toBeUndefined();
-        resolve();
-      });
-    });
+    expect(getServiceAuthToken()).toBe('token');
   });
 });

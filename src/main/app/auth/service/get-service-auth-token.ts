@@ -6,7 +6,7 @@ import { authenticator } from 'otplib';
 const logger = Logger.getLogger('service-auth-token');
 let token;
 
-export const getTokenFromApi = (): void => {
+export const getTokenFromApi = async (): Promise<void> => {
   logger.info('Refreshing service auth token');
 
   const url: string = config.get('services.authProvider.url') + '/lease';
@@ -15,14 +15,16 @@ export const getTokenFromApi = (): void => {
   const oneTimePassword = authenticator.generate(secret);
   const body = { microservice, oneTimePassword };
 
-  axios
-    .post(url, body)
-    .then(response => (token = response.data))
-    .catch(err => logger.error(err.response?.status, err.response?.data));
+  try {
+    const response = await axios.post(url, body);
+    token = response.data;
+  } catch (err) {
+    logger.error(err.response?.status, err.response?.data);
+  }
 };
 
-export const initAuthToken = (): void => {
-  getTokenFromApi();
+export const initAuthToken = async (): Promise<void> => {
+  await getTokenFromApi();
   setInterval(getTokenFromApi, 1000 * 60 * 60);
 };
 
