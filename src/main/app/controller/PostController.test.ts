@@ -3,6 +3,7 @@ import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { FormContent } from '../../app/form/Form';
 import * as steps from '../../steps';
 import { SUBJECT_CONTACT_DETAILS } from '../../steps/urls'; //TOOK out CONTACT_DETAILS for EMAIL_ADDRESS RB
+import { CITIZEN_CIC_CREATE_CASE, CITIZEN_CIC_SUBMIT_CASE, CITIZEN_CIC_UPDATE_CASE } from '../case/definition';
 import { isPhoneNoValid } from '../form/validation';
 
 import { AppRequest } from './AppRequest';
@@ -299,7 +300,7 @@ describe('PostController', () => {
       const controller = new PostController(mockFormContent.fields);
       const eventName = controller.getEventName(req);
 
-      expect(eventName).toEqual('CREATE');
+      expect(eventName).toEqual(CITIZEN_CIC_CREATE_CASE);
     });
 
     test('should return CITIZEN_UPDATE when originalUrl is CONTACT_DETAILS', () => {
@@ -308,7 +309,7 @@ describe('PostController', () => {
 
       const eventName = controller.getEventName(req);
 
-      expect(eventName).toEqual('UPDATE');
+      expect(eventName).toEqual(CITIZEN_CIC_UPDATE_CASE);
     });
 
     test('should return CITIZEN_SUBMIT when originalUrl is CHECK_YOUR_ANSWERS', () => {
@@ -317,7 +318,7 @@ describe('PostController', () => {
 
       const eventName = controller.getEventName(req);
 
-      expect(eventName).toEqual('SUBMIT');
+      expect(eventName).toEqual(CITIZEN_CIC_SUBMIT_CASE);
     });
 
     test('should return undefined when originalUrl does not match any known patterns', () => {
