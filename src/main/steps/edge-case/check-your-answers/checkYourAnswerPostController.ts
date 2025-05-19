@@ -1,18 +1,12 @@
 import autobind from 'autobind-decorator';
-import axios, { AxiosInstance, RawAxiosRequestHeaders } from 'axios';
-import config from 'config';
 import { Response } from 'express';
 
-import { getServiceAuthToken } from '../../../app/auth/service/get-service-auth-token';
-import { mapCaseData } from '../../../app/case/CaseApi';
+import { CITIZEN_CIC_SUBMIT_CASE, LanguagePreference } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
 import { FormFields, FormFieldsFn } from '../../../app/form/Form';
 import { ResourceReader } from '../../../modules/resourcereader/ResourceReader';
-import { SPTRIBS_CASE_API_BASE_URL } from '../../../steps/common/constants/apiConstants';
 import { APPLICATION_SUBMITTED, CHECK_YOUR_ANSWERS } from '../../urls';
-
-export const CASE_API_URL: string = config.get(SPTRIBS_CASE_API_BASE_URL);
 
 /**
  * ****** File Upload validations Message
@@ -54,42 +48,16 @@ export default class submitCaseController extends PostController<AnyObject> {
     super(fields);
   }
 
-  public caseSubmit = (BASEURL: string, header: RawAxiosRequestHeaders): AxiosInstance => {
-    return axios.create({
-      baseURL: BASEURL,
-      headers: header,
-      maxContentLength: Infinity,
-      maxBodyLength: Infinity,
-    });
-  };
-
   /**
    *
    * @param req
    * @param res
    */
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
-    const CaseId = req.session.userCase['id'];
-    const baseURL = '/case/dss-orchestration/' + CaseId + '/update?event=SUBMIT';
-    const Headers = {
-      Authorization: `Bearer ${req.session.user['accessToken']}`,
-      ServiceAuthorization: getServiceAuthToken(),
-    };
-
     try {
-      let LanguagePreference: string = 'english';
-      if (req.session.hasOwnProperty('lang')) {
-        if (req.session?.lang === 'cy') {
-          LanguagePreference = 'welsh';
-        }
-      }
-
-      const CaseData = mapCaseData(req);
-      const responseBody = {
-        ...CaseData,
-        LanguagePreference,
-      };
-      await this.caseSubmit(CASE_API_URL, Headers).put(baseURL, responseBody);
+      const languagePreference = req.session?.lang === 'cy' ? LanguagePreference.WELSH : LanguagePreference.ENGLISH;
+      const data = { languagePreference };
+      await req.locals.api.triggerEvent(req.session.userCase.id, data, CITIZEN_CIC_SUBMIT_CASE);
       res.redirect(APPLICATION_SUBMITTED);
     } catch (error) {
       const errorMessage = FileValidations.ResourceReaderContents(req).SUBMIT_ERROR;

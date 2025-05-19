@@ -1,16 +1,24 @@
-import dayjs from 'dayjs';
-import advancedFormat from 'dayjs/plugin/advancedFormat';
 import { invert } from 'lodash';
 
-import { Case, formFieldsToCaseMapping, formatCase } from './case';
+import { Case, CaseDate, formFieldsToCaseMapping, formatCase } from './case';
 import { CaseData } from './definition';
-
-dayjs.extend(advancedFormat);
 
 type FromApiConverters = Partial<Record<keyof CaseData, string | ((data: Partial<CaseData>) => Partial<Case>)>>;
 
 const fields: FromApiConverters = {
   ...invert(formFieldsToCaseMapping),
+  dssCaseDataSubjectDateOfBirth: (data: Partial<CaseData>) => ({
+    subjectDateOfBirth: fromApiDate(data.dssCaseDataSubjectDateOfBirth),
+  }),
 };
 
 export const fromApiFormat = (data: CaseData): Case => formatCase(fields, data);
+
+const fromApiDate = (date: string | undefined): CaseDate | undefined => {
+  if (!date) {
+    return;
+  }
+
+  const [y, m, d] = date.split('-');
+  return { year: `${+y}`, month: `${+m}`, day: `${+d}` };
+};

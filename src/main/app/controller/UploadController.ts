@@ -7,13 +7,13 @@ import FormData from 'form-data';
 import { isNull } from 'lodash';
 
 import { getServiceAuthToken } from '../../app/auth/service/get-service-auth-token';
-import { mapCaseData } from '../../app/case/CaseApi';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../app/form/Form';
 import { ResourceReader } from '../../modules/resourcereader/ResourceReader';
 import { SPTRIBS_CASE_API_BASE_URL } from '../../steps/common/constants/apiConstants';
 import { UPLOAD_APPEAL_FORM, UPLOAD_SUPPORTING_DOCUMENTS } from '../../steps/urls';
+import { CITIZEN_CIC_UPDATE_CASE } from '../case/definition';
 import { containsInvalidCharacters, isMarkDownLinkIncluded } from '../form/validation';
 const logger = Logger.getLogger('uploadDocumentPostController');
 
@@ -115,40 +115,33 @@ export class UploadController extends PostController<AnyObject> {
     if (totalUploadDocuments === 0 && this.checkIfNoFilesUploaded()) {
       this.createUploadedFileError(req, res, chooseFileLink, 'CONTINUE_WITHOUT_UPLOAD_ERROR');
     } else {
-      const caseId = req.session.userCase['id'];
-      const baseUrl = '/case/dss-orchestration/' + caseId + '/update?event=UPDATE';
-      const headers = {
-        authorization: `Bearer ${req.session.user['accessToken']}`,
-        serviceAuthorization: getServiceAuthToken(),
-      };
-
       try {
         req.session.userCase.additionalInformation = req.body.additionalInformation as string;
 
-        let TribunalFormDocuments: Document[] = [];
+        let tribunalFormDocuments: Document[] = [];
         if (req.session.caseDocuments !== undefined) {
-          TribunalFormDocuments = this.getTribunalFormDocuments(req);
+          tribunalFormDocuments = this.getTribunalFormDocuments(req);
         }
 
-        let SupportingDocuments: Document[] = [];
+        let supportingDocuments: Document[] = [];
         if (req.session.supportingCaseDocuments !== undefined) {
-          SupportingDocuments = this.getSupportingDocuments(req);
+          supportingDocuments = this.getSupportingDocuments(req);
         }
 
-        let OtherInfoDocuments: Document[] = [];
+        let otherInfoDocuments: Document[] = [];
         if (req.session.otherCaseInformation !== undefined) {
-          OtherInfoDocuments = this.getOtherInfoDocuments(req);
+          otherInfoDocuments = this.getOtherInfoDocuments(req);
         }
 
-        const caseData = mapCaseData(req);
         const responseBody = {
-          ...caseData,
-          TribunalFormDocuments,
-          SupportingDocuments,
-          OtherInfoDocuments,
+          tribunalFormDocuments,
+          supportingDocuments,
+          otherInfoDocuments,
         };
 
-        await this.uploadDocumentInstance(CASE_API_URL, headers).put(baseUrl, responseBody);
+        const caseId = req.session.userCase['id'];
+        req.session.userCase = await req.locals.api.triggerEvent(caseId, responseBody, CITIZEN_CIC_UPDATE_CASE);
+
         req.session.save(err => {
           if (err) {
             throw err;
@@ -156,6 +149,7 @@ export class UploadController extends PostController<AnyObject> {
           res.redirect(this.getNextPageRedirectUrl());
         });
       } catch (error) {
+        logger.error(error);
         this.createUploadedFileError(req, res, chooseFileLink, 'UPLOAD_DELETE_FAIL_ERROR');
       }
     }

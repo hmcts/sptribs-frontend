@@ -282,7 +282,6 @@ describe('checking for the redirect of post document upload', () => {
     ];
 
     await postingController.postDocumentUploader(req, res);
-    expect(mockedAxios.create).toHaveBeenCalled();
     expect(res.redirect).toHaveBeenCalledWith(UPLOAD_SUPPORTING_DOCUMENTS);
     expect(req.session.fileErrors).toHaveLength(0);
   });
