@@ -1,3 +1,11 @@
+// eslint-disable-next-line import/order
+import { AppInsights } from './modules/appinsights';
+// eslint-disable-next-line import/order
+import { PropertiesVolume } from './modules/properties-volume';
+
+new PropertiesVolume().enableFor(process.env.NODE_ENV !== 'production');
+new AppInsights().enable();
+
 import * as path from 'path';
 
 import * as bodyParser from 'body-parser';
@@ -9,7 +17,6 @@ import favicon from 'serve-favicon';
 import toobusy from 'toobusy-js';
 import type { LoggerInstance } from 'winston';
 
-import { AppInsights } from './modules/appinsights';
 import { AuthProvider } from './modules/auth-provider';
 import { AxiosLogger } from './modules/axios-logger';
 import { CSRFToken } from './modules/csrf';
@@ -20,7 +27,6 @@ import { Helmet } from './modules/helmet';
 import { LanguageToggle } from './modules/i18n';
 import { Nunjucks } from './modules/nunjucks';
 import { OidcMiddleware } from './modules/oidc';
-import { PropertiesVolume } from './modules/properties-volume';
 import { SessionStorage } from './modules/session';
 import { StateRedirectMiddleware } from './modules/state-redirect';
 import { LoadTimeouts } from './modules/timeouts';
@@ -57,9 +63,6 @@ app.use((req, res, next) => {
   res.setHeader('Cache-Control', 'no-cache, max-age=0, must-revalidate, no-store');
   next();
 });
-
-new PropertiesVolume().enableFor(app);
-new AppInsights().enable();
 
 const { Logger } = require('@hmcts/nodejs-logging');
 const logger: LoggerInstance = Logger.getLogger('server');
