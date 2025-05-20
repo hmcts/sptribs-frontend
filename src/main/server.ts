@@ -30,7 +30,6 @@ import { Routes } from './routes';
 import { PublicRoutes } from './routes/authless/routes';
 
 const app = express();
-new AppInsights().enable();
 
 const corsOptions = {
   origin: ['https://js-cdn.dynatrace.com'],
@@ -59,12 +58,14 @@ app.use((req, res, next) => {
   next();
 });
 
+new PropertiesVolume().enableFor(app);
+new AppInsights().enable();
+
 const { Logger } = require('@hmcts/nodejs-logging');
 const logger: LoggerInstance = Logger.getLogger('server');
 
 new FileUpload().enableFor(app);
 new AxiosLogger().enableFor(app);
-new PropertiesVolume().enableFor(app);
 new ErrorHandler().enableFor(app, logger);
 new LoadTimeouts().enableFor(app);
 new Nunjucks().enableFor(app);
