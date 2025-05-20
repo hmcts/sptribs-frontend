@@ -29,9 +29,8 @@ import { Webpack } from './modules/webpack';
 import { Routes } from './routes';
 import { PublicRoutes } from './routes/authless/routes';
 
-const { Logger } = require('@hmcts/nodejs-logging');
-const logger: LoggerInstance = Logger.getLogger('server');
 const app = express();
+new AppInsights().enable();
 
 const corsOptions = {
   origin: ['https://js-cdn.dynatrace.com'],
@@ -59,8 +58,11 @@ app.use((req, res, next) => {
   res.setHeader('Cache-Control', 'no-cache, max-age=0, must-revalidate, no-store');
   next();
 });
-new FileUpload().enableFor(app);
 
+const { Logger } = require('@hmcts/nodejs-logging');
+const logger: LoggerInstance = Logger.getLogger('server');
+
+new FileUpload().enableFor(app);
 new AxiosLogger().enableFor(app);
 new PropertiesVolume().enableFor(app);
 new ErrorHandler().enableFor(app, logger);
@@ -68,7 +70,6 @@ new LoadTimeouts().enableFor(app);
 new Nunjucks().enableFor(app);
 new Webpack().enableFor(app);
 new Helmet(config.get('security')).enableFor(app);
-new AppInsights().enable();
 new SessionStorage().enableFor(app, logger);
 new TooBusy().enableFor(app);
 new HealthCheck().enableFor(app);
