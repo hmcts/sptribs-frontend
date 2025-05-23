@@ -2,12 +2,11 @@ import { execSync } from 'child_process';
 
 import * as propertiesVolume from '@hmcts/properties-volume';
 import config from 'config';
-import { Application } from 'express';
 import { get, set } from 'lodash';
 
 export class PropertiesVolume {
-  enableFor(app: Application): void {
-    if (!app.locals.developmentMode) {
+  enableFor(devMode: boolean): void {
+    if (!devMode) {
       propertiesVolume.addTo(config);
       this.setSecret('secrets.sptribs.app-insights-connection-string', 'appInsights.instrumentationKey');
       this.setSecret('secrets.sptribs.idam-ui-secret', 'services.idam.clientSecret');
