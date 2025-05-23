@@ -15,13 +15,13 @@ export class PropertiesVolume {
       this.setSecret('secrets.sptribs.idam-systemupdate-password', 'services.idam.systemPassword');
       this.setSecret('secrets.sptribs.redis-access-key', 'session.redis.key');
       this.setSecret('secrets.sptribs.redis-access-key', 'session.secret');
-      this.setSecret('secrets.sptribs.s2s-secret-sptribs-frontend', 'services.authProvider.secret');
+      this.setSecret('secrets.sptribs.s2s-case-api-secret', 'services.authProvider.secret');
       this.setSecret('secrets.sptribs.postcode-lookup-token', 'services.postcodeLookup.token');
       this.setSecret('secrets.sptribs.specialTribunals-cic-pcq-token', 'services.equalityAndDiversity.tokenKey');
       this.setSecret('secrets.sptribs.sptribs-frontend-dynatrace-url', 'dynatrace.dynatraceUrl');
     } else {
       this.setLocalSecret('idam-ui-secret', 'services.idam.clientSecret');
-      this.setLocalSecret('s2s-secret-sptribs-frontend', 'services.authProvider.secret');
+      this.setLocalSecret('s2s-case-api-secret', 'services.authProvider.secret');
       this.setLocalSecret('postcode-lookup-token', 'services.postcodeLookup.token');
       // this.setLocalSecret('idam-systemupdate-username', 'services.idam.systemUsername');
       // this.setLocalSecret('idam-systemupdate-password', 'services.idam.systemPassword');

@@ -3,7 +3,11 @@ services:
     url: SERVICE_AUTH_PROVIDER_URL
     secret: SERVICE_AUTH_SECRET
   sptribs:
-    url: CASE_API_URL
+    url: SPTRIBS_API_URL
+  ccd:
+    url: CCD_API_URL
+  cdam:
+    url: CASE_DOCUMENT_API_URL
   idam:
     authorizationURL: IDAM_WEB_URL
     tokenURL: IDAM_API_URL
@@ -29,3 +33,4 @@ e2e:
   userTestPassword: TEST_PASSWORD
 appInsights:
   instrumentationKey: APPINSIGHTS_KEY
+caseType: CASE_TYPE

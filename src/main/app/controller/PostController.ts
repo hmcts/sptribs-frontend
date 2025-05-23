@@ -5,7 +5,7 @@ import { Response } from 'express';
 import { getNextStepUrl } from '../../steps';
 import { CHECK_YOUR_ANSWERS, CONTACT_DETAILS, SAVE_AND_SIGN_OUT, SUBJECT_CONTACT_DETAILS } from '../../steps/urls';
 import { Case, CaseWithId } from '../case/case';
-import { CITIZEN_CREATE, CITIZEN_SAVE_AND_CLOSE, CITIZEN_SUBMIT, CITIZEN_UPDATE } from '../case/definition';
+import { CITIZEN_CIC_CREATE_CASE, CITIZEN_CIC_SUBMIT_CASE, CITIZEN_CIC_UPDATE_CASE } from '../case/definition';
 import { Form, FormFields, FormFieldsFn } from '../form/Form';
 import { ValidationError } from '../form/validation';
 
@@ -40,7 +40,7 @@ export class PostController<T extends AnyObject> {
 
   private async saveAndSignOut(req: AppRequest<T>, res: Response, formData: Partial<Case>): Promise<void> {
     try {
-      await this.save(req, formData, CITIZEN_SAVE_AND_CLOSE);
+      await this.save(req, formData, CITIZEN_CIC_UPDATE_CASE);
     } catch {
       // ignore
     }
@@ -65,7 +65,7 @@ export class PostController<T extends AnyObject> {
     if (req.session?.user && req.session.errors.length === 0) {
       if (!(Object.values(noHitToSaveAndContinue) as string[]).includes(req.originalUrl)) {
         const eventName = this.getEventName(req);
-        if (eventName === CITIZEN_CREATE) {
+        if (eventName === CITIZEN_CIC_CREATE_CASE) {
           req.session.userCase = await this.createCase(req);
         }
       }
@@ -75,9 +75,8 @@ export class PostController<T extends AnyObject> {
   }
   async createCase(req: AppRequest<T>): Promise<CaseWithId | PromiseLike<CaseWithId>> {
     try {
-      req.session.userCase = await req.locals.api.createCaseNew(req, req.session.user);
+      req.session.userCase = await req.locals.api.createCase(req.session.userCase);
     } catch (err) {
-      req.locals.logger.error('Error saving', err);
       req.session.errors = req.session.errors || [];
       req.session.errors.push({ errorType: 'errorSaving', propertyName: '*' });
     }
@@ -108,17 +107,6 @@ export class PostController<T extends AnyObject> {
     return req.session.userCase;
   }
 
-  protected async updateCase(req: AppRequest<T>, eventName: string): Promise<CaseWithId> {
-    try {
-      req.session.userCase = await req.locals.api.updateCase(req, req.session.user, eventName);
-    } catch (err) {
-      req.locals.logger.error('Error saving', err);
-      req.session.errors = req.session.errors || [];
-      req.session.errors.push({ errorType: 'errorSaving', propertyName: '*' });
-    }
-    return req.session.userCase;
-  }
-
   public redirect(req: AppRequest<T>, res: Response, nextUrl?: string): void {
     if (!nextUrl) {
       nextUrl = req.session.errors?.length ? req.url : getNextStepUrl(req, req.session.userCase);
@@ -135,11 +123,11 @@ export class PostController<T extends AnyObject> {
   public getEventName(req: AppRequest): string {
     let eventName;
     if (req.originalUrl.startsWith(SUBJECT_CONTACT_DETAILS) && this.isBlank(req)) {
-      eventName = CITIZEN_CREATE;
+      eventName = CITIZEN_CIC_CREATE_CASE;
     } else if (req.originalUrl === CONTACT_DETAILS) {
-      eventName = CITIZEN_UPDATE;
+      eventName = CITIZEN_CIC_UPDATE_CASE;
     } else if (req.originalUrl === CHECK_YOUR_ANSWERS) {
-      eventName = CITIZEN_SUBMIT;
+      eventName = CITIZEN_CIC_SUBMIT_CASE;
     }
     return eventName;
   }

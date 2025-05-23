@@ -11,7 +11,6 @@ import { TOGGLE_SWITCH } from '../../steps/common/constants/commonConstants';
 import * as Urls from '../../steps/urls';
 import { COOKIES, UPLOAD_APPEAL_FORM, UPLOAD_OTHER_INFORMATION, UPLOAD_SUPPORTING_DOCUMENTS } from '../../steps/urls';
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
-import { Case, CaseWithId } from '../case/case';
 
 import { AppRequest } from './AppRequest';
 import { AnyObject } from './PostController';
@@ -172,16 +171,16 @@ export class GetController {
     }
   }
 
-  public async save(req: AppRequest, formData: Partial<Case>, eventName: string): Promise<CaseWithId> {
-    try {
-      return await req.locals.api.triggerEvent(req.session.userCase.id, formData, eventName);
-    } catch (err) {
-      req.locals.logger.error('Error saving', err);
-      req.session.errors = req.session.errors || [];
-      req.session.errors.push({ errorType: 'errorSaving', propertyName: '*' });
-      return req.session.userCase;
-    }
-  }
+  // public async save(req: AppRequest, formData: Partial<Case>, eventName: string): Promise<CaseWithId> {
+  //   try {
+  //     return await req.locals.api.triggerEvent(req.session.userCase.id, formData, eventName);
+  //   } catch (err) {
+  //     req.locals.logger.error('Error saving', err);
+  //     req.session.errors = req.session.errors || [];
+  //     req.session.errors.push({ errorType: 'errorSaving', propertyName: '*' });
+  //     return req.session.userCase;
+  //   }
+  // }
 
   public CookiePreferencesChanger = (req: AppRequest, res: Response): void => {
     //?analytics=off&apm=off
