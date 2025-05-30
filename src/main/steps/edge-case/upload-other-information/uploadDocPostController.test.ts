@@ -357,9 +357,16 @@ describe('checking for the redirect of post document upload', () => {
     },
   };
 
-  const req = mockRequest({});
-  const res = mockResponse();
-  const postingController = new UploadDocumentController(mockForm.fields);
+  let req;
+  let res;
+  let postingController;
+
+  beforeEach(() => {
+    req = mockRequest({});
+    res = mockResponse();
+    postingController = new UploadDocumentController(mockForm.fields);
+  });
+
   it('continue to next page after the documents has been proccessed', async () => {
     req.session.otherCaseInformation = [
       {
@@ -387,7 +394,6 @@ describe('checking for the redirect of post document upload', () => {
     ];
 
     await postingController.postDocumentUploader(req, res);
-    expect(mockedAxios.create).toHaveBeenCalled();
     expect(res.redirect).toHaveBeenCalledWith(EQUALITY);
     expect(req.session.fileErrors).toHaveLength(0);
   });
@@ -402,10 +408,10 @@ describe('checking for the redirect of post document upload', () => {
     expect(systemInstance instanceof Axios);
   });
 
-  req.body['documentUploadProceed'] = true;
-  req.session.otherCaseInformation = [];
-
   it('should allow continue if no documents uploaded', async () => {
+    req.body['documentUploadProceed'] = true;
+    req.session.otherCaseInformation = [];
+
     req.session.caseDocuments = [];
     req.session.supportingCaseDocuments = [];
     req.session.otherCaseInformation = [];
@@ -420,7 +426,7 @@ describe('checking for the redirect of post document upload', () => {
   });
 
   it('Should return error after the documents proccess has failed', async () => {
-    jest.spyOn(postingController, 'uploadDocumentInstance').mockImplementation(() => {
+    jest.spyOn(req.locals.api, 'triggerEvent').mockImplementation(() => {
       throw new Error();
     });
     req.session.supportingCaseDocuments = [
@@ -449,7 +455,6 @@ describe('checking for the redirect of post document upload', () => {
     ];
 
     await postingController.postDocumentUploader(req, res);
-    expect(mockedAxios.create).toHaveBeenCalled();
     expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION);
     expect(req.session.fileErrors).toHaveLength(1);
     expect(req.session.fileErrors[0].text).toEqual('Document upload or deletion has failed. Try again');

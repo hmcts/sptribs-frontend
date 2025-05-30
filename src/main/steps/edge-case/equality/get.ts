@@ -4,11 +4,8 @@ import config from 'config';
 import { Response } from 'express';
 import { v4 as uuid } from 'uuid';
 
-import { getServiceAuthToken } from '../../../app/auth/service/get-service-auth-token';
-import { mapCaseData } from '../../../app/case/CaseApi';
 import { CaseDate } from '../../../app/case/case';
 import { AppRequest } from '../../../app/controller/AppRequest';
-import { SPTRIBS_CASE_API_BASE_URL } from '../../common/constants/apiConstants';
 import { CHECK_YOUR_ANSWERS } from '../../urls';
 
 import { createToken } from './createToken';
@@ -29,17 +26,12 @@ export default class PCQGetController {
         const equalityHealth = response.data && response.data.status === 'UP';
         if (equalityHealth) {
           req.session.userCase.pcqId = uuid();
-          const updateCaseResponse: AxiosResponse<StatusResponse> = await this.updateCase(req);
-          if (updateCaseResponse && updateCaseResponse.status === 200) {
-            const pcqParams = this.gatherPcqParams(req, res, ageCheckValue);
-            const path: string = config.get('services.equalityAndDiversity.path');
-            const qs = Object.keys(pcqParams)
-              .map(key => `${key}=${pcqParams[key]}`)
-              .join('&');
-            res.redirect(`${pcqUrl}${path}?${qs}`);
-          } else {
-            res.redirect(CHECK_YOUR_ANSWERS);
-          }
+          const pcqParams = this.gatherPcqParams(req, res, ageCheckValue);
+          const path: string = config.get('services.equalityAndDiversity.path');
+          const qs = Object.keys(pcqParams)
+            .map(key => `${key}=${pcqParams[key]}`)
+            .join('&');
+          res.redirect(`${pcqUrl}${path}?${qs}`);
         } else {
           res.redirect(CHECK_YOUR_ANSWERS);
         }
@@ -86,79 +78,6 @@ export default class PCQGetController {
     } else {
       return 0;
     }
-  }
-
-  private async updateCase(req: AppRequest) {
-    const CaseId = req.session.userCase['id'];
-    const updateUrl = `/case/dss-orchestration/${CaseId}/update?event=UPDATE`;
-    const Headers = {
-      Authorization: `Bearer ${req.session.user['accessToken']}`,
-      ServiceAuthorization: getServiceAuthToken(),
-    };
-    const TribunalFormDocuments = req.session['caseDocuments'].map(document => {
-      const { url, fileName, documentId, binaryUrl } = document;
-      return {
-        id: documentId,
-        value: {
-          documentLink: {
-            document_url: url,
-            document_filename: fileName,
-            document_binary_url: binaryUrl,
-          },
-        },
-      };
-    });
-
-    let SupportingDocuments = [];
-    if (req.session.supportingCaseDocuments !== undefined) {
-      SupportingDocuments = req.session['supportingCaseDocuments'].map(document => {
-        // eslint-disable-next-line @typescript-eslint/no-shadow
-        const { url, fileName, documentId, binaryUrl } = document;
-        return {
-          id: documentId,
-          value: {
-            documentLink: {
-              document_url: url,
-              document_filename: fileName,
-              document_binary_url: binaryUrl,
-            },
-          },
-        };
-      });
-    }
-    let OtherInfoDocuments = [];
-    if (req.session.otherCaseInformation !== undefined) {
-      OtherInfoDocuments = req.session['otherCaseInformation'].map(document => {
-        // eslint-disable-next-line @typescript-eslint/no-shadow
-        const { url, fileName, documentId, binaryUrl } = document;
-        return {
-          id: documentId,
-          value: {
-            documentLink: {
-              document_url: url,
-              document_filename: fileName,
-              document_binary_url: binaryUrl,
-            },
-            comment: document.description ? document.description : null,
-          },
-        };
-      });
-    }
-    const CaseData = mapCaseData(req);
-    const requestBody = {
-      ...CaseData,
-      TribunalFormDocuments,
-      SupportingDocuments,
-      OtherInfoDocuments,
-    };
-    return axios
-      .create({
-        baseURL: config.get(SPTRIBS_CASE_API_BASE_URL),
-        headers: Headers,
-        maxContentLength: Infinity,
-        maxBodyLength: Infinity,
-      })
-      .put(updateUrl, requestBody);
   }
 }
 
