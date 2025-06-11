@@ -140,7 +140,7 @@ export class UploadController extends PostController<AnyObject> {
         };
 
         const caseId = req.session.userCase['id'];
-        req.session.userCase = await req.locals.api.triggerEvent(caseId, responseBody, CITIZEN_CIC_UPDATE_CASE);
+        await req.locals.api.triggerEvent(caseId, responseBody, CITIZEN_CIC_UPDATE_CASE);
 
         req.session.save(err => {
           if (err) {
