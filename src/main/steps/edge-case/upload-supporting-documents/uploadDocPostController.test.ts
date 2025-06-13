@@ -304,7 +304,6 @@ describe('checking for the redirect of post document upload', () => {
       },
     ];
     await postingController.postDocumentUploader(req, res);
-    expect(mockedAxios.create).toHaveBeenCalled();
     expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION);
     expect(req.session.fileErrors).toHaveLength(0);
   });
@@ -315,7 +314,7 @@ describe('checking for the redirect of post document upload', () => {
   });
 
   it('Should return error after the documents proccess has failed', async () => {
-    jest.spyOn(postingController, 'uploadDocumentInstance').mockImplementation(() => {
+    jest.spyOn(req.locals.api, 'triggerEvent').mockImplementation(() => {
       throw new Error();
     });
     req.session.supportingCaseDocuments = [

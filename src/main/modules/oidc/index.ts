@@ -7,7 +7,6 @@ import { AppRequest } from '../../app/controller/AppRequest';
 import { signInNotRequired } from '../../steps/url-utils';
 import { CALLBACK_URL, SIGN_IN_URL, SIGN_OUT_URL, SUBJECT_DETAILS } from '../../steps/urls';
 
-//TODO remove applicant2 related stuff
 /**
  * Adds the oidc middleware to add oauth authentication
  */
@@ -40,7 +39,7 @@ export class OidcMiddleware {
         if (req.session?.user?.roles.includes('citizen')) {
           res.locals.isLoggedIn = true;
           req.locals.api = getCaseApi(req.session.user, req.locals.logger);
-          req.session.userCase = req.session.userCase || (await req.locals.api.getOrCreateCase());
+          req.session.userCase = req.session.userCase || { id: '', state: 'SPTRIBS' };
           return next();
         } else if (signInNotRequired(req.path)) {
           return next();
