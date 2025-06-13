@@ -1,11 +1,10 @@
-import axios, { RawAxiosRequestHeaders } from 'axios';
+import axios from 'axios';
 import config from 'config';
 
 import { ResourceReader } from '../../../main/modules/resourcereader/ResourceReader';
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
-import { mockUserCase4, mockUserCase4Output } from '../../../test/unit/utils/mockUserCase';
-import { getServiceAuthToken } from '../../app/auth/service/get-service-auth-token';
+import { mockUserCase4 } from '../../../test/unit/utils/mockUserCase';
 import * as steps from '../../steps';
 import { SPTRIBS_CASE_API_BASE_URL } from '../../steps/common/constants/apiConstants';
 import UploadDocumentController from '../../steps/edge-case/upload-other-information/uploadDocPostController';
@@ -272,12 +271,6 @@ describe('PostController', () => {
     const controller = new UploadDocumentController(mockForm.fields);
     (req.files as any) = { documents: { name: 'test', mimetype: 'application/pdf', size: 20480000, data: 'data' } };
 
-    const headers: RawAxiosRequestHeaders = {
-      authorization: `Bearer ${req.session.user['accessToken']}`,
-      serviceAuthorization: getServiceAuthToken(),
-    };
-    const baseUrl = '/case/dss-orchestration/' + req.session.userCase.id + '/update?event=UPDATE';
-
     //req.body.documentRelevance = 'this is an important document';
     req.session.caseDocuments = [
       {
@@ -305,7 +298,7 @@ describe('PostController', () => {
       },
     ];
 
-    const TribunalFormDocuments = [
+    const tribunalFormDocuments = [
       {
         id: 'documentId',
         value: {
@@ -317,7 +310,7 @@ describe('PostController', () => {
         },
       },
     ];
-    const SupportingDocuments = [
+    const supportingDocuments = [
       {
         id: 'documentId',
         value: {
@@ -329,7 +322,7 @@ describe('PostController', () => {
         },
       },
     ];
-    const OtherInfoDocuments = [
+    const otherInfoDocuments = [
       {
         id: 'documentId',
         value: {
@@ -344,22 +337,19 @@ describe('PostController', () => {
     ];
 
     const responseBody = {
-      ...mockUserCase4Output,
-      TribunalFormDocuments,
-      SupportingDocuments,
-      OtherInfoDocuments,
+      tribunalFormDocuments,
+      supportingDocuments,
+      otherInfoDocuments,
     };
 
     req.body['saveAndContinue'] = true;
+    const caseId = req.session.userCase.id;
     await controller.post(req, res);
 
-    expect(
-      axios.create({
-        baseURL: config.get(SPTRIBS_CASE_API_BASE_URL),
-        headers,
-        maxContentLength: Infinity,
-        maxBodyLength: Infinity,
-      }).put
-    ).toHaveBeenCalledWith(baseUrl, responseBody);
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
+      caseId,
+      responseBody,
+      'citizen-cic-update-dss-application'
+    );
   });
 });

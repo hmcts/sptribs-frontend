@@ -7,6 +7,9 @@ type ToApiConverters = Partial<Record<keyof Case, string | ((data: Case) => OrNu
 
 export const fields: ToApiConverters = {
   ...formFieldsToCaseMapping,
+  subjectDateOfBirth: (data: Case) => ({
+    dssCaseDataSubjectDateOfBirth: toApiDate(data.subjectDateOfBirth),
+  }),
 };
 
 export const toApiFormat = (data: Partial<Case>): CaseData => formatCase(fields, data);

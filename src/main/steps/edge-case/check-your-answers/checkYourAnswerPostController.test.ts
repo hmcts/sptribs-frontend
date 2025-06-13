@@ -1,16 +1,14 @@
 import axios from 'axios';
-import config from 'config';
 
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
-import { YesOrNo } from '../../../app/case/definition';
+import { CITIZEN_CIC_SUBMIT_CASE, LanguagePreference, YesOrNo } from '../../../app/case/definition';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import { ResourceReader } from '../../../modules/resourcereader/ResourceReader';
 import * as steps from '../../../steps';
-import { SPTRIBS_CASE_API_BASE_URL } from '../../common/constants/apiConstants';
 import { APPLICATION_SUBMITTED, CHECK_YOUR_ANSWERS } from '../../urls';
 
-import submitCaseController, { CASE_API_URL, FileValidations } from './checkYourAnswerPostController';
+import submitCaseController, { FileValidations } from './checkYourAnswerPostController';
 
 const getNextStepUrlMock = jest.spyOn(steps, 'getNextStepUrl');
 
@@ -25,9 +23,6 @@ describe('Submit case controller', () => {
   });
 
   test('Should redirect back to the current page with the form data on errors', async () => {
-    mockedAxios.put.mockRejectedValueOnce({
-      status: 500,
-    });
     const errors = [{ errorType: 'required', propertyName: 'field' }];
     const mockForm = {
       fields: {
@@ -49,6 +44,9 @@ describe('Submit case controller', () => {
     };
 
     const req = mockRequest({});
+    (req.locals.api.triggerEvent as any).mockRejectedValueOnce({
+      status: 500,
+    });
     const res = mockResponse();
     (req.files as any) = { documents: { mimetype: 'text/plain' } };
     req.session.caseDocuments = [];
@@ -62,7 +60,11 @@ describe('Submit case controller', () => {
       documentType: 'other',
     });
 
-    expect(req.locals.api.triggerEvent).not.toHaveBeenCalled();
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
+      req.session.userCase.id,
+      { languagePreference: LanguagePreference.ENGLISH },
+      CITIZEN_CIC_SUBMIT_CASE
+    );
     expect(getNextStepUrlMock).not.toHaveBeenCalled();
     expect(res.redirect).toHaveBeenCalledWith(CHECK_YOUR_ANSWERS);
     expect(req.session.errors).not.toEqual(errors);
@@ -86,12 +88,6 @@ describe('Submit case controller', () => {
         expect(err).toBe('MOCK_ERROR');
       }
     });
-  });
-});
-
-describe('The url must match the config url', () => {
-  it('must match baseURl', () => {
-    expect(CASE_API_URL).toBe(config.get(SPTRIBS_CASE_API_BASE_URL));
   });
 });
 
@@ -159,36 +155,30 @@ describe('LanguagePreference passed to Case API for email notifications', () => 
   const postController = new submitCaseController(mockForm.fields);
 
   it('should pass english as LanguagePreference if not set on session', async () => {
-    mockedAxios.put.mockResolvedValue({
-      status: 200,
-    });
-
     await postController.post(req, res);
 
-    expect(mockedAxios.put).toHaveBeenCalledWith('/case/dss-orchestration/1234/update?event=SUBMIT', {
-      CaseTypeOfApplication: 'CIC',
-      SubjectAgreeContact: 'No',
-      SubjectDateOfBirth: '',
-      LanguagePreference: 'english',
-    });
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
+      req.session.userCase.id,
+      {
+        languagePreference: LanguagePreference.ENGLISH,
+      },
+      CITIZEN_CIC_SUBMIT_CASE
+    );
     expect(res.redirect).toHaveBeenCalledWith(APPLICATION_SUBMITTED);
   });
 
   it('should pass welsh as LanguagePreference if welsh set on lang session variable', async () => {
-    mockedAxios.put.mockResolvedValue({
-      status: 200,
-    });
-
     req.session.lang = 'cy';
 
     await postController.post(req, res);
+    expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
+      req.session.userCase.id,
+      {
+        languagePreference: LanguagePreference.WELSH,
+      },
+      CITIZEN_CIC_SUBMIT_CASE
+    );
 
-    expect(mockedAxios.put).toHaveBeenCalledWith('/case/dss-orchestration/1234/update?event=SUBMIT', {
-      CaseTypeOfApplication: 'CIC',
-      SubjectAgreeContact: 'No',
-      SubjectDateOfBirth: '',
-      LanguagePreference: 'welsh',
-    });
     expect(res.redirect).toHaveBeenCalledWith(APPLICATION_SUBMITTED);
   });
 });

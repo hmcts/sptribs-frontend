@@ -1,160 +1,81 @@
-/* eslint-disable @typescript-eslint/no-shadow */
 import axios, { AxiosError, AxiosInstance, AxiosResponse } from 'axios';
 import config from 'config';
 import { LoggerInstance } from 'winston';
 
-import {
-  APPLICATION_JSON,
-  AUTHORIZATION,
-  BEARER,
-  CONTENT_TYPE,
-  CONTEXT_PATH,
-  CREATE_API_PATH,
-  SPTRIBS_CASE_API_BASE_URL,
-  UPDATE_API_PATH,
-} from '../../steps/common/constants/apiConstants';
-import { EMPTY, FORWARD_SLASH, SPACE } from '../../steps/common/constants/commonConstants';
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
-import { AppRequest, UserDetails } from '../controller/AppRequest';
+import { UserDetails } from '../controller/AppRequest';
 
 import { Case, CaseWithId } from './case';
 import { CaseAssignedUserRoles } from './case-roles';
-import { CaseData, YesOrNo } from './definition';
-import { toApiDate, toApiFormat } from './to-api-format';
+import { CITIZEN_CIC_CREATE_CASE, CaseData } from './definition';
+import { fromApiFormat } from './from-api-format';
+import { toApiFormat } from './to-api-format';
 
 export class CaseApi {
+  readonly maxRetries: number = 3;
+  readonly CASE_TYPE = config.get('caseType');
+
   constructor(
-    private readonly axios: AxiosInstance,
+    private readonly client: AxiosInstance,
     private readonly logger: LoggerInstance
   ) {}
 
-  public async getOrCreateCase(): Promise<any> {
-    return { id: '', state: 'SPTRIBS' };
+  public async findExistingUserCases(): Promise<CcdV1Response[] | false> {
+    const query = {
+      query: { match_all: {} },
+      sort: [{ created_date: { order: 'desc' } }],
+    };
+    return this.findUserCases(JSON.stringify(query));
   }
 
-  public async updateCase(req: AppRequest, userDetails: UserDetails, eventName: string): Promise<any> {
-    axios.defaults.headers.put[CONTENT_TYPE] = APPLICATION_JSON;
-    axios.defaults.headers.put[AUTHORIZATION] = BEARER + SPACE + userDetails.accessToken;
+  private async findUserCases(query: string): Promise<CcdV1Response[] | false> {
     try {
-      if (req.session.userCase.id === EMPTY) {
-        throw new Error('Error in updating case, case id is missing');
-      }
-      const url: string = config.get(SPTRIBS_CASE_API_BASE_URL);
-      const CaseDocuments = req.session['caseDocuments'].map(document => {
-        const { url, fileName, documentId, binaryUrl } = document;
-        return {
-          id: documentId,
-          value: {
-            documentLink: {
-              document_url: url,
-              document_filename: fileName,
-              document_binary_url: binaryUrl,
-            },
-          },
-        };
-      });
-      const SupportingDocuments = req.session['supportingCaseDocuments'].map(document => {
-        const { url, fileName, documentId, binaryUrl } = document;
-        return {
-          id: documentId,
-          value: {
-            documentLink: {
-              document_url: url,
-              document_filename: fileName,
-              document_binary_url: binaryUrl,
-            },
-          },
-        };
-      });
-      const OtherInformation = req.session['otherCaseInformation'].map(document => {
-        const { url, fileName, documentId, binaryUrl } = document;
-        return {
-          id: documentId,
-          value: {
-            documentLink: {
-              document_url: url,
-              document_filename: fileName,
-              document_binary_url: binaryUrl,
-            },
-            comment: document.description ? document.description : null,
-          },
-        };
-      });
-
-      const data = {
-        ...mapCaseData(req),
-        tribunalFormDocuments: CaseDocuments,
-        supportingDocuments: SupportingDocuments,
-        otherInformationDocuments: OtherInformation,
-      };
-      const res: AxiosResponse<CreateCaseResponse> = await axios.put(
-        url + CONTEXT_PATH + FORWARD_SLASH + req.session.userCase.id + UPDATE_API_PATH,
-        data,
-        {
-          params: { event: eventName },
-        }
-      );
-      if (res.status === 200) {
-        return req.session.userCase;
-      } else {
-        throw new Error('Error in updating case');
-      }
+      const response = await this.client.post<ES<CcdV1Response>>(`/searchCases?ctid=${this.CASE_TYPE}`, query);
+      return response.data.cases;
     } catch (err) {
+      if (err.response?.status === 404) {
+        return false;
+      }
       this.logError(err);
-      throw new Error('Error in updating case');
+      throw new Error('Case could not be retrieved.');
     }
   }
 
-  /**
-   *
-   * @param req
-   * @param userDetails
-   * @param  formData
-   * @returns
-   */
-  public async createCaseNew(req: AppRequest, userDetails: UserDetails): Promise<any> {
+  public async getCaseById(caseId: string): Promise<CaseWithId> {
     try {
-      const url: string = config.get(SPTRIBS_CASE_API_BASE_URL);
-      const headers = {
-        CONTENT_TYPE: APPLICATION_JSON,
-        Authorization: BEARER + SPACE + userDetails.accessToken,
-        ServiceAuthorization: getServiceAuthToken(),
-      };
-      const res: AxiosResponse<CreateCaseResponse> = await axios.post(
-        url + CONTEXT_PATH + CREATE_API_PATH,
-        mapCaseData(req),
-        { headers }
-      );
-      if (res.status === 200) {
-        req.session.userCase.id = res.data.id;
-        return req.session.userCase;
-      } else {
-        throw new Error(
-          'Error in creating case. URL:' +
-            url +
-            CONTEXT_PATH +
-            CREATE_API_PATH +
-            ' response.status:' +
-            res.status +
-            ' res.data:' +
-            JSON.stringify(res.data, null, 2)
-        );
-      }
+      const response = await this.client.get<CcdV2Response>(`/cases/${caseId}`);
+
+      return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data.data) };
     } catch (err) {
       this.logError(err);
-      throw new Error('Error in creating case');
+      throw new Error('Case could not be retrieved.');
     }
   }
 
-  /**
-   *
-   * @param caseId
-   * @param userId
-   * @returns
-   */
+  public async createCase(data: Partial<Case>): Promise<CaseWithId> {
+    try {
+      const tokenResponse: AxiosResponse<CcdTokenResponse> = await this.client.get(
+        `/case-types/${this.CASE_TYPE}/event-triggers/${CITIZEN_CIC_CREATE_CASE}`
+      );
+      const token = tokenResponse.data.token;
+      const event = { id: CITIZEN_CIC_CREATE_CASE };
+
+      const response = await this.client.post<CcdV2Response>(`/case-types/${this.CASE_TYPE}/cases`, {
+        data: toApiFormat(data),
+        event,
+        event_token: token,
+      });
+
+      return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data.data) };
+    } catch (err) {
+      this.logError(err);
+      throw new Error('Case could not be created.');
+    }
+  }
+
   public async getCaseUserRoles(caseId: string, userId: string): Promise<CaseAssignedUserRoles> {
     try {
-      const response = await this.axios.get<CaseAssignedUserRoles>(`case-users?case_ids=${caseId}&user_ids=${userId}`);
+      const response = await this.client.get<CaseAssignedUserRoles>(`case-users?case_ids=${caseId}&user_ids=${userId}`);
       return response.data;
     } catch (err) {
       this.logError(err);
@@ -162,40 +83,33 @@ export class CaseApi {
     }
   }
 
-  /**
-   *
-   * @param caseId
-   * @param data
-   * @param eventName
-   * @returns
-   */
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  private async sendEvent(caseId: string, data: Partial<CaseData>, eventName: string): Promise<CaseWithId> {
-    return new Promise(() => {
-      null;
-    });
+  public async triggerEvent(caseId: string, data: Partial<Case>, eventName: string, retries = 0): Promise<CaseWithId> {
+    try {
+      const tokenResponse = await this.client.get<CcdTokenResponse>(`/cases/${caseId}/event-triggers/${eventName}`);
+      const token = tokenResponse.data.token;
+      const event = { id: eventName };
+      const response: AxiosResponse<CcdV2Response> = await this.client.post(`/cases/${caseId}/events`, {
+        event,
+        data: toApiFormat(data),
+        event_token: token,
+      });
+
+      return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data.data) };
+    } catch (err) {
+      if (retries < this.maxRetries && [409, 422, 502, 504].includes(err?.response.status)) {
+        ++retries;
+        this.logger.info(`retrying send event due to ${err.response.status}. this is retry no (${retries})`);
+        return this.triggerEvent(caseId, data, eventName, retries);
+      }
+      this.logError(err);
+      throw new Error('Case could not be updated.');
+    }
   }
 
-  /**
-   *
-   * @param caseId
-   * @param userData
-   * @param eventName
-   * @returns
-   */
-  public async triggerEvent(caseId: string, userData: Partial<Case>, eventName: string): Promise<CaseWithId> {
-    const data = toApiFormat(userData);
-    return this.sendEvent(caseId, data, eventName);
-  }
-
-  /**
-   *
-   * @param error
-   */
   private logError(error: AxiosError) {
     if (error.response) {
-      this.logger.error(`API Error ${error.config?.method} ${error.config?.url} ${error.response?.status}`);
-      this.logger.info('Response: ', error.response?.data);
+      this.logger.error(`API Error ${error.config?.method} ${error.config?.url} ${error.response.status}`);
+      this.logger.info('Response: ', error.response.data);
     } else if (error.request) {
       this.logger.error(`API Error ${error.config?.method} ${error.config?.url}`);
     } else {
@@ -204,16 +118,10 @@ export class CaseApi {
   }
 }
 
-/**
- *
- * @param userDetails
- * @param logger
- * @returns
- */
 export const getCaseApi = (userDetails: UserDetails, logger: LoggerInstance): CaseApi => {
   return new CaseApi(
     axios.create({
-      baseURL: config.get('services.sptribs.url'),
+      baseURL: config.get('services.ccd.url'),
       headers: {
         Authorization: 'Bearer ' + userDetails.accessToken,
         ServiceAuthorization: getServiceAuthToken(),
@@ -226,37 +134,24 @@ export const getCaseApi = (userDetails: UserDetails, logger: LoggerInstance): Ca
   );
 };
 
-interface CreateCaseResponse {
-  status: string;
-  id: string;
+interface ES<T> {
+  cases: T[];
+  total: number;
 }
 
-export const mapCaseData = (req: AppRequest): any => {
-  const data = {
-    //CaseTypeOfApplication: req.session['edgecaseType'],
-    // Hardcode for now
-    CaseTypeOfApplication: 'CIC',
-    SubjectFullName: req.session.userCase.subjectFullName,
-    SubjectDateOfBirth: toApiDate(req.session.userCase.subjectDateOfBirth),
-    SubjectEmailAddress: req.session.userCase.subjectEmailAddress,
-    SubjectContactNumber: req.session.userCase.subjectContactNumber,
-    SubjectAgreeContact: checkboxConverter(req.session.userCase.subjectAgreeContact),
-    Representation: req.session.userCase.representation,
-    RepresentationQualified: req.session.userCase.representationQualified,
-    RepresentativeFullName: req.session.userCase.representativeFullName,
-    RepresentativeOrganisationName: req.session.userCase.representativeOrganisationName,
-    RepresentativeContactNumber: req.session.userCase.representativeContactNumber,
-    RepresentativeEmailAddress: req.session.userCase.representativeEmailAddress,
-    PcqId: req.session.userCase.pcqId,
-    AdditionalInformation: req.session.userCase.additionalInformation,
-  };
-  return data;
-};
+export interface CcdV1Response {
+  id: string;
+  state: string;
+  created_date: string;
+  case_data: CaseData;
+}
 
-const checkboxConverter = (value: string | undefined) => {
-  if (value === YesOrNo.YES) {
-    return YesOrNo.YES;
-  } else {
-    return YesOrNo.NO;
-  }
-};
+interface CcdV2Response {
+  id: string;
+  state: string;
+  data: CaseData;
+}
+
+interface CcdTokenResponse {
+  token: string;
+}

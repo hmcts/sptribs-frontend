@@ -75,23 +75,6 @@ export const mockUserCase4 = {
   additionalInformation: undefined,
 } as unknown as any;
 
-export const mockUserCase4Output = {
-  CaseTypeOfApplication: 'CIC',
-  SubjectFullName: 'Joe Bob',
-  SubjectDateOfBirth: '1829-12-27',
-  SubjectEmailAddress: 'dummy@bob.com',
-  SubjectContactNumber: '012345678910',
-  SubjectAgreeContact: 'Yes',
-  Representation: YesOrNo.YES,
-  RepresentationQualified: YesOrNo.YES,
-  RepresentativeFullName: 'rep org',
-  RepresentativeOrganisationName: 'rep org',
-  RepresentativeContactNumber: '012345678910',
-  RepresentativeEmailAddress: 'dummy@bob.com',
-  PcqId: undefined,
-  AdditionalInformation: undefined,
-} as unknown as any;
-
 export const mockAdditionalDocument = {
   id: '1',
 } as unknown as any;

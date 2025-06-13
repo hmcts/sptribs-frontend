@@ -1,9 +1,28 @@
 import { AnyObject } from '../controller/PostController';
 
-import { CaseData, YesOrNo } from './definition';
+import type { CaseData, LanguagePreference, YesOrNo } from './definition';
 
 export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
-  applicantDateOfBirth: 'applicantDateOfBirth',
+  caseTypeOfApplication: 'dssCaseDataCaseTypeOfApplication',
+  applicantDateOfBirth: 'cicCaseApplicantDateOfBirth',
+  applicantEmailAddress: 'cicCaseApplicantEmailAddress',
+  applicantPhoneNumber: 'cicCaseApplicantPhoneNumber',
+  tribunalFormDocuments: 'dssCaseDataTribunalFormDocuments',
+  supportingDocuments: 'dssCaseDataSupportingDocuments',
+  otherInfoDocuments: 'dssCaseDataOtherInfoDocuments',
+  subjectFullName: 'dssCaseDataSubjectFullName',
+  subjectEmailAddress: 'dssCaseDataSubjectEmailAddress',
+  subjectContactNumber: 'dssCaseDataSubjectContactNumber',
+  subjectAgreeContact: 'dssCaseDataSubjectAgreeContact',
+  representation: 'dssCaseDataRepresentation',
+  representationQualified: 'dssCaseDataRepresentationQualified',
+  representativeFullName: 'dssCaseDataRepresentativeFullName',
+  representativeOrganisationName: 'dssCaseDataRepresentativeOrganisationName',
+  representativeContactNumber: 'dssCaseDataRepresentativeContactNumber',
+  representativeEmailAddress: 'dssCaseDataRepresentativeEmailAddress',
+  pcqId: 'dssCaseDataPcqId',
+  additionalInformation: 'dssCaseDataAdditionalInformation',
+  languagePreference: 'dssCaseDataLanguagePreference',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -51,6 +70,10 @@ export interface Case {
   pcqId: string;
   documentRelevance: string;
   additionalInformation: string;
+  tribunalFormDocuments: Document[];
+  supportingDocuments: Document[];
+  otherInfoDocuments: Document[];
+  languagePreference: LanguagePreference;
 }
 
 export interface CaseWithId extends Case {
@@ -67,11 +90,6 @@ export interface CaseDate {
   year: string;
   month: string;
   day: string;
-}
-
-export enum LanguagePreference {
-  English = 'english',
-  Welsh = 'welsh',
 }
 
 export interface UploadedFile {
