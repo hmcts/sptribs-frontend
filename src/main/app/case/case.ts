@@ -70,9 +70,9 @@ export interface Case {
   pcqId: string;
   documentRelevance: string;
   additionalInformation: string;
-  tribunalFormDocuments: Document[];
-  supportingDocuments: Document[];
-  otherInfoDocuments: Document[];
+  tribunalFormDocuments: CaseDocument[];
+  supportingDocuments: CaseDocument[];
+  otherInfoDocuments: CaseDocument[];
   languagePreference: LanguagePreference;
 }
 
@@ -107,4 +107,16 @@ export interface DocumentUpload {
 
 export enum FieldPrefix {
   APPLICANT = 'applicant',
+}
+
+export interface CaseDocument {
+  id: string;
+  value: {
+    documentLink: {
+      document_url: string;
+      document_filename: string;
+      document_binary_url: string;
+    };
+    comment: string | null;
+  };
 }

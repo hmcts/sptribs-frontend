@@ -4,6 +4,7 @@ import type { LoggerInstance } from 'winston';
 
 import { CaseApi } from '../case/CaseApi';
 import { Case, CaseWithId } from '../case/case';
+import { CaseDocumentManagementClient } from '../document/CaseDocumentManagementClient';
 import { FormError } from '../form/Form';
 
 export interface AppRequest<T = Partial<Case>> extends Request {
@@ -13,6 +14,7 @@ export interface AppRequest<T = Partial<Case>> extends Request {
     lang: string;
     logger: LoggerInstance;
     api: CaseApi;
+    documentApi: CaseDocumentManagementClient;
   };
   body: T;
 }
