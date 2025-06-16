@@ -4,8 +4,6 @@ import healthcheck from '@hmcts/nodejs-healthcheck';
 import config from 'config';
 import { Application } from 'express';
 
-import { SPTRIBS_CASE_API_BASE_URL } from '../../steps/common/constants/apiConstants';
-
 /**
  * Sets up the HMCTS info and health endpoints
  */
@@ -22,7 +20,7 @@ export class HealthCheck {
         ...(redis ? { redis } : {}),
         'authProvider-api': healthcheck.web(new URL('/health', config.get('services.authProvider.url'))),
         'idam-api': healthcheck.web(new URL('/health', idamUrl.replace('/o/token', ''))),
-        'case-api': healthcheck.web(new URL('/health', config.get(SPTRIBS_CASE_API_BASE_URL))),
+        'case-api': healthcheck.web(new URL('/health', config.get('services.ccd.url'))),
       },
       ...(redis
         ? {
