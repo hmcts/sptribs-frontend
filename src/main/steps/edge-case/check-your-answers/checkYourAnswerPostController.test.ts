@@ -62,7 +62,7 @@ describe('Submit case controller', () => {
 
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
       req.session.userCase.id,
-      { languagePreference: LanguagePreference.ENGLISH },
+      { id: '1234', languagePreference: LanguagePreference.ENGLISH },
       CITIZEN_CIC_SUBMIT_CASE
     );
     expect(getNextStepUrlMock).not.toHaveBeenCalled();
@@ -160,6 +160,7 @@ describe('LanguagePreference passed to Case API for email notifications', () => 
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
       req.session.userCase.id,
       {
+        id: '1234',
         languagePreference: LanguagePreference.ENGLISH,
       },
       CITIZEN_CIC_SUBMIT_CASE
@@ -174,6 +175,7 @@ describe('LanguagePreference passed to Case API for email notifications', () => 
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
       req.session.userCase.id,
       {
+        id: '1234',
         languagePreference: LanguagePreference.WELSH,
       },
       CITIZEN_CIC_SUBMIT_CASE
