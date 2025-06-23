@@ -4,17 +4,19 @@ import FormData from 'form-data';
 
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import type { UserDetails } from '../controller/AppRequest';
+import type { Document } from 'app/case/definition';
 
 export class CaseDocumentManagementClient {
   client: AxiosInstance;
   BASE_URL: string = config.get('services.cdam.url');
 
-  constructor(private readonly user: UserDetails) {
+  constructor(user: UserDetails) {
     this.client = axios.create({
       baseURL: this.BASE_URL,
       headers: {
         Authorization: `Bearer ${user.accessToken}`,
         ServiceAuthorization: getServiceAuthToken(),
+        'user-id': user.id,
       },
     });
   }
@@ -32,7 +34,7 @@ export class CaseDocumentManagementClient {
     formData.append('classification', classification);
 
     for (const [, file] of Object.entries(files)) {
-      formData.append('files', file.buffer, file.originalname);
+      formData.append('files', file.data, file.name);
     }
 
     const response: AxiosResponse<CaseDocumentManagementResponse> = await this.client.post(
@@ -41,7 +43,6 @@ export class CaseDocumentManagementClient {
       {
         headers: {
           ...formData.getHeaders(),
-          'user-id': this.user.id,
         },
         maxContentLength: Infinity,
         maxBodyLength: Infinity,
@@ -51,8 +52,14 @@ export class CaseDocumentManagementClient {
     return response.data?.documents || [];
   }
 
-  async delete({ url }: { url: string }): Promise<AxiosResponse> {
-    return this.client.delete(url, { headers: { 'user-id': this.user.id } });
+  async delete(document: Document): Promise<AxiosResponse> {
+    const id = document._links.self.href.split('/').pop();
+    
+    if (!id) {
+      throw new Error('Document ID not found in the URL');
+    }
+
+    return this.client.delete(`/cases/documents/${id}`);
   }
 }
 

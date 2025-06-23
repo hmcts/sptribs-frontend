@@ -1,5 +1,5 @@
 import { getFormattedDate } from '../../../app/case/answers/formatDate';
-import { CaseWithId, DocumentUpload } from '../../../app/case/case';
+import { CaseWithId } from '../../../app/case/case';
 import { YesOrNo } from '../../../app/case/definition';
 import { PageContent } from '../../../app/controller/GetController';
 import * as Urls from '../../../steps/urls';
@@ -190,7 +190,7 @@ export const UploadAppealFormSummary = (
   const sectionTitle = sectionTitles.documents;
   const ListOfUploadedDocuments = uploadedDocuments
     .map((document): string => {
-      return document.fileName + '';
+      return document.name + '';
     })
     .toString()
     .split(',')
@@ -217,7 +217,7 @@ export const SupportingDocumentsSummary = (
 ): SummaryList | undefined => {
   const sectionTitle = sectionTitles.supportingDocuments;
   const ListOfSupportingDocuments = AddDocuments.map((document): string => {
-    return document.fileName + '';
+    return document.name + '';
   })
     .toString()
     .split(',')
@@ -253,10 +253,10 @@ export const OtherInformationSummary = (
 
   const documentInformation: { [key: string]: string }[] = [];
 
-  OtherDocuments.map((document: DocumentUpload) => {
+  OtherDocuments.map((document: any) => {
     documentInformation.push({
       key: keys.otherInformation,
-      value: document.fileName,
+      value: document.name,
       changeUrl: Urls['UPLOAD_OTHER_INFORMATION'],
     });
 
