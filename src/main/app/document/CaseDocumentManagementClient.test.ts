@@ -19,6 +19,8 @@ describe('CaseDocumentManagementClient', () => {
     const mockPost = jest.fn().mockResolvedValue({ data: { documents: ['a-document'] } });
     mockedAxios.create.mockReturnValueOnce({ post: mockPost } as unknown as AxiosInstance);
     mockedConfig.get.mockReturnValueOnce('case-document-management-base-url');
+    mockedConfig.get.mockReturnValueOnce('caseType');
+    mockedConfig.get.mockReturnValueOnce('jurisdiction');
     mockServiceAuth.getServiceAuthToken.mockReturnValueOnce('dummyS2SAuthToken');
 
     const client = new CaseDocumentManagementClient({

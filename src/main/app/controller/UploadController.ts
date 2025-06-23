@@ -260,6 +260,14 @@ export class UploadController extends PostController<AnyObject> {
     return 'documentUpload.validation.totaldocuments';
   }
 
+  protected checkIfNoFilesUploaded(): boolean {
+    return true;
+  }
+
+  protected shouldSetUpFormData(): boolean {
+    return false;
+  }
+
   public getAcceptedFileMimeType(): Partial<Record<keyof FileType, keyof FileMimeTypeInfo>> {
     return {
       doc: 'application/msword',
@@ -330,11 +338,19 @@ export class UploadController extends PostController<AnyObject> {
 
   private async uploadDocument(req: AppRequest, res: Response, chooseFileLink: string) {
     try {
-      await req.locals.documentApi.create({
-        files: req.files!,
-        classification: Classification.Public,
-      });
-      this.redirect(req, res, this.getCurrentPageRedirectUrl());
+      const newDocument = (
+        await req.locals.documentApi.create({
+          files: req.files!,
+          classification: Classification.Public,
+        })
+      )[0];
+
+      if (req.body.documentRelevance) {
+        newDocument.description = req.body.documentRelevance;
+      }
+
+      req.session[this.getPropertyName()].push(newDocument);
+      req.session.save(() => this.redirect(req, res, this.getCurrentPageRedirectUrl()));
     } catch (error) {
       logger.error(error);
       this.createUploadedFileError(req, res, chooseFileLink, 'UPDATE_DELETE_FAIL_ERROR');
