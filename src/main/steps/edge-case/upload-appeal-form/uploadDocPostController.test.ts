@@ -1,4 +1,4 @@
-import axios, { Axios } from 'axios';
+import axios from 'axios';
 
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
@@ -169,22 +169,38 @@ describe('Document upload controller', () => {
         text: l => l.continue,
       },
     };
-    const req = mockRequest({});
+    const req = mockRequest({
+      locals: {
+        documentApi: {
+          create: jest.fn(),
+        },
+      },
+    });
     const res = mockResponse();
-    mockedAxios.post.mockResolvedValueOnce({ data: { document: 'test' } });
     const controller = new UploadDocumentController(mockForm.fields);
+    const createMock = jest.spyOn(req.locals.documentApi, 'create');
+    createMock.mockResolvedValue([
+      {
+        originalDocumentName: 'test.pdf',
+        _links: {
+          self: { href: 'http://localhost:8080/documents/1234' },
+          binary: { href: 'http://localhost:8080/documents/1234/binary' },
+          thumbnail: { href: 'http://localhost:8080/documents/1234/thumbnail' },
+        },
+      },
+    ] as any);
     req.session.caseDocuments = [];
     (req.files as any) = { documents: { name: 'test', mimetype: 'application/pdf', size: 20480000, data: 'data' } };
     req.session.fileErrors = [];
     req.body['documentUploadProceed'] = false;
 
     await controller.post(req, res);
-    expect(mockedAxios.create).toHaveBeenCalled();
-    expect(mockedAxios.post).toHaveBeenCalled();
+
     expect(req.session.fileErrors).toHaveLength(0);
     expect(req.session.caseDocuments).toHaveLength(1);
-    expect(req.session.caseDocuments[0]).toEqual('test');
+    expect(req.session.caseDocuments[0].originalDocumentName).toEqual('test.pdf');
     expect(res.redirect).toHaveBeenCalledWith(UPLOAD_APPEAL_FORM);
+    expect(req.locals.documentApi.create).toHaveBeenCalled();
   });
 
   test('Should display error if upload file fails', async () => {
@@ -200,20 +216,26 @@ describe('Document upload controller', () => {
         text: l => l.continue,
       },
     };
-    const req = mockRequest({});
+    const req = mockRequest({
+      locals: {
+        documentApi: {
+          create: jest.fn(),
+        },
+      },
+    });
     const res = mockResponse();
     const controller = new UploadDocumentController(mockForm.fields);
-    jest.spyOn(controller, 'uploadDocumentInstance').mockImplementation(() => {
-      throw new Error();
-    });
+    const createMock = jest.spyOn(req.locals.documentApi, 'create');
+    createMock.mockRejectedValue(new Error('mock error'));
+
     req.session.caseDocuments = [];
     req.session.supportingCaseDocuments = [];
     (req.files as any) = { documents: { name: 'test', mimetype: 'application/pdf', size: 20480000, data: 'data' } };
-    req.session.fileErrors = [];
-    req.body['documentUploadProceed'] = false;
 
     await controller.post(req, res);
+    req.body['documentUploadProceed'] = false;
     expect(res.redirect).toHaveBeenCalledWith(UPLOAD_APPEAL_FORM);
+    expect(req.locals.documentApi.create).toHaveBeenCalled();
     expect(req.session.fileErrors[0].text).toEqual('Document upload or deletion has failed. Try again');
   });
 
@@ -284,16 +306,6 @@ describe('checking for the redirect of post document upload', () => {
     await postingController.postDocumentUploader(req, res);
     expect(res.redirect).toHaveBeenCalledWith(UPLOAD_SUPPORTING_DOCUMENTS);
     expect(req.session.fileErrors).toHaveLength(0);
-  });
-
-  it('must be have axios instance', () => {
-    const systemInstance = postingController.uploadDocumentInstance('/', {});
-    expect(systemInstance instanceof Axios);
-  });
-
-  it('procceding the document upload', () => {
-    const systemInstance = postingController.uploadDocumentInstance('/', {});
-    expect(systemInstance instanceof Axios);
   });
 
   it('Should return error after the documents proccess has failed', async () => {

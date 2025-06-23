@@ -61,6 +61,7 @@ interface CaseDocumentManagementResponse {
 }
 
 export interface DocumentManagementFile {
+  description?: string;
   size: number;
   mimeType: string;
   originalDocumentName: string;

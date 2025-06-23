@@ -1,23 +1,16 @@
-import axios from 'axios';
-import config from 'config';
-
 import { ResourceReader } from '../../../main/modules/resourcereader/ResourceReader';
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { mockUserCase4 } from '../../../test/unit/utils/mockUserCase';
 import * as steps from '../../steps';
-import { SPTRIBS_CASE_API_BASE_URL } from '../../steps/common/constants/apiConstants';
 import UploadDocumentController from '../../steps/edge-case/upload-other-information/uploadDocPostController';
 import { UPLOAD_OTHER_INFORMATION } from '../../steps/urls';
 import { YesOrNo } from '../case/definition';
 import { isFieldFilledIn } from '../form/validation';
 
-import { CASE_API_URL, FileValidations, UploadController } from './UploadController';
+import { FileValidations, UploadController } from './UploadController';
 
 const getNextStepUrlMock = jest.spyOn(steps, 'getNextStepUrl');
-jest.mock('axios');
-const mockedAxios = axios as jest.Mocked<typeof axios>;
-mockedAxios.create = jest.fn(() => mockedAxios);
 
 describe('PostController', () => {
   afterEach(() => {
@@ -106,12 +99,6 @@ describe('PostController', () => {
         expect(FileValidations.formatValidation('audio/mp4', controller.getAcceptedFileMimeType())).toBe(true);
         expect(FileValidations.formatValidation('video/mp4', controller.getAcceptedFileMimeType())).toBe(true);
         expect(FileValidations.formatValidation('audio/mpeg', controller.getAcceptedFileMimeType())).toBe(true);
-      });
-    });
-
-    describe('The url must match the config url', () => {
-      it('must match baseURl', () => {
-        expect(CASE_API_URL).toBe(config.get(SPTRIBS_CASE_API_BASE_URL));
       });
     });
 
@@ -230,11 +217,26 @@ describe('PostController', () => {
         text: l => l.continue,
       },
     };
-    const req = mockRequest({});
+    const req = mockRequest({
+      locals: {
+        documentApi: {
+          create: jest.fn(),
+        },
+      },
+    });
     const res = mockResponse();
-    mockedAxios.post.mockResolvedValueOnce({ data: { document: { fileName: 'test' } } });
     const controller = new UploadDocumentController(mockForm.fields);
-
+    const createMock = jest.spyOn(req.locals.documentApi, 'create');
+    createMock.mockResolvedValue([
+      {
+        originalDocumentName: 'test.pdf',
+        _links: {
+          self: { href: 'http://localhost:8080/documents/1234' },
+          binary: { href: 'http://localhost:8080/documents/1234/binary' },
+          thumbnail: { href: 'http://localhost:8080/documents/1234/thumbnail' },
+        },
+      },
+    ] as any);
     req.session.otherCaseInformation = [];
     (req.files as any) = { documents: { name: 'test', mimetype: 'application/pdf', size: 20480000, data: 'data' } };
     req.body.documentRelevance = 'this is an important document';
@@ -242,16 +244,11 @@ describe('PostController', () => {
     req.body['documentUploadProceed'] = false;
 
     await controller.post(req, res);
-    expect(mockedAxios.create).toHaveBeenCalled();
-    expect(mockedAxios.post).toHaveBeenCalled();
+    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION);
     expect(req.session.fileErrors).toHaveLength(0);
     expect(req.session.otherCaseInformation).toHaveLength(1);
     expect(req.session.otherCaseInformation[0]).toHaveProperty('description');
-    expect(req.session.otherCaseInformation[0]).toEqual({
-      description: 'this is an important document',
-      fileName: 'test',
-    });
-    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION);
+    expect(req.session.otherCaseInformation[0].originalDocumentName).toEqual('test.pdf');
   });
 
   test('Should pass additional document information to axios when continuing', async () => {
@@ -307,6 +304,7 @@ describe('PostController', () => {
             document_filename: 'fileName',
             document_binary_url: 'binaryUrl',
           },
+          comment: null,
         },
       },
     ];
@@ -319,6 +317,7 @@ describe('PostController', () => {
             document_filename: 'fileName',
             document_binary_url: 'binaryUrl',
           },
+          comment: null,
         },
       },
     ];
