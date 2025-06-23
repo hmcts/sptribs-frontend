@@ -11,7 +11,7 @@ import { ResourceReader } from '../../modules/resourcereader/ResourceReader';
 import { UPLOAD_APPEAL_FORM, UPLOAD_SUPPORTING_DOCUMENTS } from '../../steps/urls';
 import { CaseDocument } from '../case/case';
 import { CITIZEN_CIC_UPDATE_CASE } from '../case/definition';
-import { Classification } from '../document/CaseDocumentManagementClient';
+import { Classification, DocumentManagementFile } from '../document/CaseDocumentManagementClient';
 import { containsInvalidCharacters, isMarkDownLinkIncluded } from '../form/validation';
 
 const logger = Logger.getLogger('uploadDocumentPostController');
@@ -135,20 +135,21 @@ export class UploadController extends PostController<AnyObject> {
         this.createUploadedFileError(req, res, chooseFileLink, 'UPLOAD_DELETE_FAIL_ERROR');
       }
     }
-  }
+  } 
 
-  private getCaseDocuments(documents: any[]): CaseDocument[] {
+  private getCaseDocuments(documents: DocumentManagementFile[]): CaseDocument[] {
     return documents.map(document => {
-      const { url, fileName, documentId, binaryUrl } = document;
+      const documentId = document._links.self.href.split('/').pop();
+  
       return {
-        id: documentId,
+        id: documentId!,
         value: {
           documentLink: {
-            document_url: url,
-            document_filename: fileName,
-            document_binary_url: binaryUrl,
+            document_url: document._links.binary.href,
+            document_filename: document.originalDocumentName,
+            document_binary_url: document._links.binary.href,
           },
-          comment: document.description ? document.description : null,
+          description: document.description || null,
         },
       };
     });

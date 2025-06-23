@@ -54,9 +54,9 @@ export class GetController {
       pageContent: this.content,
       userCase: req.session?.userCase,
       userEmail: req.session?.user?.email,
-      uploadedDocuments: req.session?.caseDocuments,
-      supportingDocuments: req.session?.supportingCaseDocuments,
-      otherInformation: req.session?.otherCaseInformation,
+      uploadedDocuments: formatDocuments(req.session?.caseDocuments || [], 'caseDocuments'),
+      supportingDocuments: formatDocuments(req.session?.supportingCaseDocuments || [], 'supportingCaseDocuments'),
+      otherInformation: formatDocuments(req.session?.otherCaseInformation || [], 'otherCaseInformation'),
       addresses,
     });
 
@@ -110,9 +110,6 @@ export class GetController {
      */
     let pageRenderableContents = {
       ...content,
-      uploadedDocuments: req.session?.caseDocuments,
-      supportingDocuments: req.session?.supportingCaseDocuments,
-      otherInformation: req.session?.otherCaseInformation,
       cookiePreferences: cookiesForPreferences,
       sessionErrors,
       cookieMessage: false,
@@ -227,13 +224,15 @@ export class GetController {
       req.query['query'] === 'delete'
     ) {
       const { documentType } = req.query;
-      const { docId } = req.query;
+      const docId = parseInt(req.query.docId as string, 10);
       const redirectUrl = this.getRedirectUrl(documentType);
 
+      console.log(`Deleting document with ID: ${docId} of type: ${documentType}`);
+
       try {
-        const docToRemove = req.session['caseDocuments'].filter(d => d.documentId !== docId);
+        const docToRemove = req.session[documentType][docId];
         await req.locals.documentApi.delete(docToRemove);
-        req.session['caseDocuments'] = req.session['caseDocuments'].filter(d => d.documentId !== docId);
+        req.session[documentType] = req.session[documentType].filter((_, index) => index !== docId);
 
         req.session.save(err => {
           if (err) {
@@ -242,6 +241,8 @@ export class GetController {
           res.redirect(redirectUrl);
         });
       } catch (error) {
+        console.error(`Error deleting document with ID: ${docId} of type: ${documentType}`, error.message);
+        console.error(error.response?.data || error.response?.statusText);
         const errorMessage =
           lang === 'en'
             ? 'Document upload or deletion has failed. Try again'
@@ -268,14 +269,23 @@ export class GetController {
 
   private getRedirectUrl(documentType: string): string {
     switch (documentType) {
-      case 'tribunalform':
+      case 'caseDocuments':
         return Urls.UPLOAD_APPEAL_FORM;
-      case 'supporting':
+      case 'supportingCaseDocuments':
         return Urls.UPLOAD_SUPPORTING_DOCUMENTS;
-      case 'other':
+      case 'otherCaseInformation':
         return Urls.UPLOAD_OTHER_INFORMATION;
       default:
         return Urls.UPLOAD_APPEAL_FORM;
     }
   }
 }
+
+const formatDocuments = (documents: any[], type: string): any[] => documents.map((file, index) => {
+    return {
+      id: index,
+      name: file.originalDocumentName,
+      documentType: type,
+      description: file.description || '',
+    };
+  });

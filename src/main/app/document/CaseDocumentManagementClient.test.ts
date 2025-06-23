@@ -29,7 +29,7 @@ describe('CaseDocumentManagementClient', () => {
     } as unknown as UserDetails);
 
     const actual = await client.create({
-      files: [{ buffer: '123', originalname: 'a-new-file' }] as unknown as UploadedFiles,
+      files: [{ buffer: '123', originalname: 'a-new-file', name: 'a-new-file' }] as unknown as UploadedFiles,
       classification: Classification.Private,
     });
 
@@ -54,7 +54,9 @@ describe('CaseDocumentManagementClient', () => {
       accessToken: 'userAccessToken',
     } as unknown as UserDetails);
 
-    const actual = await client.delete({ url: 'http://localhost/doc' });
+    const actual = await client.delete({
+      _links: { self: { href: 'http://localhost/doc' } },
+    } as any);
 
     expect(mockDelete.mock.calls[0][0]).toEqual('http://localhost/doc');
     expect(mockDelete.mock.calls[0][1].headers['user-id']).toEqual('userId');
