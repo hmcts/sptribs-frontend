@@ -412,7 +412,6 @@ describe('checking for the redirect of post document upload', () => {
     expect(req.session.fileErrors).toHaveLength(0);
   });
 
-
   it('should allow continue if no documents uploaded', async () => {
     req.body['documentUploadProceed'] = true;
     req.session.otherCaseInformation = [];

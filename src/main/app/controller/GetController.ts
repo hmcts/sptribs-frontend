@@ -227,8 +227,6 @@ export class GetController {
       const docId = parseInt(req.query.docId as string, 10);
       const redirectUrl = this.getRedirectUrl(documentType);
 
-      console.log(`Deleting document with ID: ${docId} of type: ${documentType}`);
-
       try {
         const docToRemove = req.session[documentType][docId];
         await req.locals.documentApi.delete(docToRemove);
@@ -281,7 +279,8 @@ export class GetController {
   }
 }
 
-const formatDocuments = (documents: any[], type: string): any[] => documents.map((file, index) => {
+const formatDocuments = (documents: any[], type: string): any[] =>
+  documents.map((file, index) => {
     return {
       id: index,
       name: file.originalDocumentName,

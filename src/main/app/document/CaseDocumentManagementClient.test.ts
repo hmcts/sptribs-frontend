@@ -29,19 +29,22 @@ describe('CaseDocumentManagementClient', () => {
     } as unknown as UserDetails);
 
     const actual = await client.create({
-      files: [{ buffer: '123', originalname: 'a-new-file', name: 'a-new-file' }] as unknown as UploadedFiles,
+      files: { documents: { data: '123', name: 'a-new-file' } } as unknown as UploadedFiles,
       classification: Classification.Private,
     });
 
     expect(mockedAxios.create).toHaveBeenCalledWith({
       baseURL: 'case-document-management-base-url',
-      headers: { Authorization: 'Bearer userAccessToken', ServiceAuthorization: 'dummyS2SAuthToken' },
+      headers: {
+        Authorization: 'Bearer userAccessToken',
+        ServiceAuthorization: 'dummyS2SAuthToken',
+        'user-id': 'userId',
+      },
     });
 
     expect(mockPost.mock.calls[0][0]).toEqual('/cases/documents');
     expect(mockPost.mock.calls[0][1]._streams[9]).toContain('filename="a-new-file"');
     expect(mockPost.mock.calls[0][1]._streams[7]).toEqual('PRIVATE');
-    expect(mockPost.mock.calls[0][2].headers['user-id']).toEqual('userId');
     expect(actual).toEqual(['a-document']);
   });
 
@@ -58,8 +61,7 @@ describe('CaseDocumentManagementClient', () => {
       _links: { self: { href: 'http://localhost/doc' } },
     } as any);
 
-    expect(mockDelete.mock.calls[0][0]).toEqual('http://localhost/doc');
-    expect(mockDelete.mock.calls[0][1].headers['user-id']).toEqual('userId');
+    expect(mockDelete.mock.calls[0][0]).toEqual('/cases/documents/doc');
     expect(actual).toEqual({ data: 'MOCKED-OK' });
   });
 });

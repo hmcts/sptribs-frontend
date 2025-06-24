@@ -135,17 +135,17 @@ export class UploadController extends PostController<AnyObject> {
         this.createUploadedFileError(req, res, chooseFileLink, 'UPLOAD_DELETE_FAIL_ERROR');
       }
     }
-  } 
+  }
 
   private getCaseDocuments(documents: DocumentManagementFile[]): CaseDocument[] {
     return documents.map(document => {
       const documentId = document._links.self.href.split('/').pop();
-  
+
       return {
         id: documentId!,
         value: {
           documentLink: {
-            document_url: document._links.binary.href,
+            document_url: document._links.self.href,
             document_filename: document.originalDocumentName,
             document_binary_url: document._links.binary.href,
           },

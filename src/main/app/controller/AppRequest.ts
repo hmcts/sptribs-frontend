@@ -4,7 +4,7 @@ import type { LoggerInstance } from 'winston';
 
 import { CaseApi } from '../case/CaseApi';
 import { Case, CaseWithId } from '../case/case';
-import { CaseDocumentManagementClient } from '../document/CaseDocumentManagementClient';
+import { CaseDocumentManagementClient, DocumentManagementFile } from '../document/CaseDocumentManagementClient';
 import { FormError } from '../form/Form';
 
 export interface AppRequest<T = Partial<Case>> extends Request {
@@ -22,10 +22,9 @@ export interface AppRequest<T = Partial<Case>> extends Request {
 export interface AppSession extends Session {
   csrfSecret: string;
   rpeToken: any;
-  caseDocuments: any;
-  supportingCaseDocuments: any;
-  otherCaseInformation: any;
-  postDocs: any;
+  caseDocuments: DocumentManagementFile[];
+  supportingCaseDocuments: DocumentManagementFile[];
+  otherCaseInformation: DocumentManagementFile[];
   cookieMessage: boolean;
   user: UserDetails;
   userCase: CaseWithId;

@@ -2,6 +2,7 @@ import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import { YesOrNo } from '../../../app/case/definition';
 import { FileValidations } from '../../../app/controller/UploadController';
+import { DocumentManagementFile } from '../../../app/document/CaseDocumentManagementClient';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import * as steps from '../../../steps';
 import { UPLOAD_OTHER_INFORMATION, UPLOAD_SUPPORTING_DOCUMENTS } from '../../../steps/urls';
@@ -286,7 +287,7 @@ describe('checking for the redirect of post document upload', () => {
           },
         },
       },
-    ];
+    ] as DocumentManagementFile[];
     req.session.supportingCaseDocuments = [
       {
         originalDocumentName: 'document1.docx',
@@ -310,7 +311,7 @@ describe('checking for the redirect of post document upload', () => {
           },
         },
       },
-    ];
+    ] as DocumentManagementFile[];
     await postingController.postDocumentUploader(req, res);
     expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION);
     expect(req.session.fileErrors).toHaveLength(0);
@@ -343,7 +344,7 @@ describe('checking for the redirect of post document upload', () => {
           },
         },
       },
-    ];
+    ] as DocumentManagementFile[];
 
     await postingController.postDocumentUploader(req, res);
     expect(res.redirect).toHaveBeenCalledWith(UPLOAD_SUPPORTING_DOCUMENTS);
@@ -440,7 +441,7 @@ describe('checking for the redirect of post document upload', () => {
           },
         },
       },
-    ];
+    ] as DocumentManagementFile[];
     req.files = [{ originalname: 'uploaded-file.pdf' }] as unknown as Express.Multer.File[];
     req.session.fileErrors = [];
 
