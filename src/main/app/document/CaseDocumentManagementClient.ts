@@ -1,10 +1,10 @@
+import type { Document } from 'app/case/definition';
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
 import config from 'config';
 import FormData from 'form-data';
 
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import type { UserDetails } from '../controller/AppRequest';
-import type { Document } from 'app/case/definition';
 
 export class CaseDocumentManagementClient {
   client: AxiosInstance;
@@ -54,7 +54,7 @@ export class CaseDocumentManagementClient {
 
   async delete(document: Document): Promise<AxiosResponse> {
     const id = document._links.self.href.split('/').pop();
-    
+
     if (!id) {
       throw new Error('Document ID not found in the URL');
     }
@@ -82,7 +82,7 @@ export interface DocumentManagementFile {
     binary: {
       href: string;
     };
-    thumbnail: {
+    thumbnail?: {
       href: string;
     };
   };
