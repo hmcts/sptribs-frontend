@@ -117,6 +117,6 @@ export interface CaseDocument {
       document_filename: string;
       document_binary_url: string;
     };
-    description: string | null;
+    comment: string | null;
   };
 }

@@ -3,6 +3,7 @@ import config from 'config';
 import { Response } from 'express';
 import Negotiator from 'negotiator';
 
+import { DocumentManagementFile } from '../../app/document/CaseDocumentManagementClient';
 import { LanguageToggle } from '../../modules/i18n';
 import { CommonContent, Language, generatePageContent } from '../../steps/common/common.content';
 import { TOGGLE_SWITCH } from '../../steps/common/constants/commonConstants';
@@ -279,7 +280,7 @@ export class GetController {
   }
 }
 
-const formatDocuments = (documents: any[], type: string): any[] =>
+const formatDocuments = (documents: DocumentManagementFile[], type: string): any[] =>
   documents.map((file, index) => {
     return {
       id: index,

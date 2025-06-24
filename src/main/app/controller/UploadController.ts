@@ -149,7 +149,7 @@ export class UploadController extends PostController<AnyObject> {
             document_filename: document.originalDocumentName,
             document_binary_url: document._links.binary.href,
           },
-          description: document.description || null,
+          comment: document.description || null,
         },
       };
     });

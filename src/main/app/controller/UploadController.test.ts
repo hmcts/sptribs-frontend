@@ -320,7 +320,7 @@ describe('PostController', () => {
             document_filename: 'other-info.pdf',
             document_binary_url: 'http://localhost:8080/documents/91011/binary',
           },
-          description: 'this is an important document',
+          comment: 'this is an important document',
         },
       },
     ];
@@ -333,7 +333,7 @@ describe('PostController', () => {
             document_filename: 'supporting.pdf',
             document_binary_url: 'http://localhost:8080/documents/5678/binary',
           },
-          description: null,
+          comment: null,
         },
       },
     ];
@@ -346,7 +346,7 @@ describe('PostController', () => {
             document_filename: 'test.pdf',
             document_binary_url: 'http://localhost:8080/documents/1234/binary',
           },
-          description: null,
+          comment: null,
         },
       },
     ];
