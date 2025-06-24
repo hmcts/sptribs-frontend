@@ -64,7 +64,7 @@ const cy: typeof en = (content: CommonContent) => {
   const caseAppealDocuments = content.uploadedDocuments;
   const supportingDocuments = content.supportingDocuments;
   const otherInformation = content.otherInformation;
-  console.log(caseAppealDocuments, supportingDocuments, otherInformation);
+
   return {
     ...cyContent,
     language: content.language,
