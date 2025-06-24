@@ -22,13 +22,6 @@ export class HealthCheck {
         'idam-api': healthcheck.web(new URL('/health', idamUrl.replace('/o/token', ''))),
         'case-api': healthcheck.web(new URL('/health', config.get('services.ccd.url'))),
       },
-      ...(redis
-        ? {
-            readinessChecks: {
-              redis,
-            },
-          }
-        : {}),
       buildInfo: {
         name: 'sptribs-frontend',
         host: os.hostname(),
