@@ -1,23 +1,20 @@
 import autobind from 'autobind-decorator';
-import axios, { AxiosInstance } from 'axios';
 import config from 'config';
 import { Response } from 'express';
 import Negotiator from 'negotiator';
 
+import { DocumentManagementFile } from '../../app/document/CaseDocumentManagementClient';
 import { LanguageToggle } from '../../modules/i18n';
 import { CommonContent, Language, generatePageContent } from '../../steps/common/common.content';
-import { SPTRIBS_CASE_API_BASE_URL } from '../../steps/common/constants/apiConstants';
 import { TOGGLE_SWITCH } from '../../steps/common/constants/commonConstants';
 import * as Urls from '../../steps/urls';
-import { COOKIES, UPLOAD_APPEAL_FORM, UPLOAD_OTHER_INFORMATION, UPLOAD_SUPPORTING_DOCUMENTS } from '../../steps/urls';
-import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
+import { COOKIES, UPLOAD_APPEAL_FORM } from '../../steps/urls';
 
 import { AppRequest } from './AppRequest';
-import { AnyObject } from './PostController';
+
 export type PageContent = Record<string, unknown>;
 export type TranslationFn = (content: CommonContent) => PageContent;
 
-export type AsyncTranslationFn = any;
 @autobind
 export class GetController {
   constructor(
@@ -58,9 +55,9 @@ export class GetController {
       pageContent: this.content,
       userCase: req.session?.userCase,
       userEmail: req.session?.user?.email,
-      uploadedDocuments: req.session?.caseDocuments,
-      supportingDocuments: req.session?.supportingCaseDocuments,
-      otherInformation: req.session?.otherCaseInformation,
+      uploadedDocuments: formatDocuments(req.session?.caseDocuments || [], 'caseDocuments'),
+      supportingDocuments: formatDocuments(req.session?.supportingCaseDocuments || [], 'supportingCaseDocuments'),
+      otherInformation: formatDocuments(req.session?.otherCaseInformation || [], 'otherCaseInformation'),
       addresses,
     });
 
@@ -73,7 +70,7 @@ export class GetController {
      *      ************************************  ************************************
      *
      */
-    this.documentDeleteManager(req, res, language);
+    await this.documentDeleteManager(req, res, language);
     const RedirectConditions = {
       /*************************************** query @query  ***************************/
       query: req.query.hasOwnProperty('query'),
@@ -114,9 +111,6 @@ export class GetController {
      */
     let pageRenderableContents = {
       ...content,
-      uploadedDocuments: req.session?.caseDocuments,
-      supportingDocuments: req.session?.supportingCaseDocuments,
-      otherInformation: req.session?.otherCaseInformation,
       cookiePreferences: cookiesForPreferences,
       sessionErrors,
       cookieMessage: false,
@@ -170,17 +164,6 @@ export class GetController {
       }
     }
   }
-
-  // public async save(req: AppRequest, formData: Partial<Case>, eventName: string): Promise<CaseWithId> {
-  //   try {
-  //     return await req.locals.api.triggerEvent(req.session.userCase.id, formData, eventName);
-  //   } catch (err) {
-  //     req.locals.logger.error('Error saving', err);
-  //     req.session.errors = req.session.errors || [];
-  //     req.session.errors.push({ errorType: 'errorSaving', propertyName: '*' });
-  //     return req.session.userCase;
-  //   }
-  // }
 
   public CookiePreferencesChanger = (req: AppRequest, res: Response): void => {
     //?analytics=off&apm=off
@@ -238,97 +221,38 @@ export class GetController {
     if (
       req.query.hasOwnProperty('query') &&
       req.query.hasOwnProperty('docId') &&
-      req.query.hasOwnProperty('documentType')
+      typeof req.query.documentType === 'string' &&
+      req.query['query'] === 'delete'
     ) {
-      const checkForDeleteQuery = req.query['query'] === 'delete';
-      let errorMessage;
-      if (lang === 'en') {
-        errorMessage = 'Document upload or deletion has failed. Try again';
-      } else {
-        errorMessage = 'Mae llwytho neu ddileu ffeil wedi methu. Rhowch gynnig arall arni';
-      }
-      if (checkForDeleteQuery) {
-        const { documentType } = req.query;
-        const { docId } = req.query;
-        const Headers = {
-          Authorization: `Bearer ${req.session.user['accessToken']}`,
-          ServiceAuthorization: getServiceAuthToken(),
-        };
-        const DOCUMENT_DELETEMANAGER: AxiosInstance = axios.create({
-          baseURL: config.get(SPTRIBS_CASE_API_BASE_URL),
-          headers: { ...Headers },
+      const { documentType } = req.query;
+      const docId = parseInt(req.query.docId as string, 10);
+      const redirectUrl = this.getRedirectUrl(documentType);
+
+      try {
+        const docToRemove = req.session[documentType][docId];
+        await req.locals.documentApi.delete(docToRemove);
+        req.session[documentType] = req.session[documentType].filter((_, index) => index !== docId);
+
+        req.session.save(err => {
+          if (err) {
+            throw err;
+          }
+          res.redirect(redirectUrl);
         });
-        switch (documentType) {
-          case 'tribunalform': {
-            try {
-              const baseURL = `/doc/dss-orchestration/${docId}/delete`;
-              await DOCUMENT_DELETEMANAGER.delete(baseURL);
-              req.session['caseDocuments'] = req.session['caseDocuments'].filter(document => {
-                const { documentId } = document;
-                return documentId !== docId;
-              });
-              req.session.save(err => {
-                if (err) {
-                  throw err;
-                }
-                res.redirect(UPLOAD_APPEAL_FORM);
-              });
-            } catch (error) {
-              this.deleteFileError(req, UPLOAD_APPEAL_FORM, res, errorMessage);
-            }
-            break;
-          }
+      } catch (error) {
+        console.error(`Error deleting document with ID: ${docId} of type: ${documentType}`, error.message);
+        console.error(error.response?.data || error.response?.statusText);
+        const errorMessage =
+          lang === 'en'
+            ? 'Document upload or deletion has failed. Try again'
+            : 'Mae llwytho neu ddileu ffeil wedi methu. Rhowch gynnig arall arni';
 
-          case 'supporting': {
-            try {
-              const baseURL = `/doc/dss-orchestration/${docId}/delete`;
-              await DOCUMENT_DELETEMANAGER.delete(baseURL);
-              req.session['supportingCaseDocuments'] = req.session['supportingCaseDocuments'].filter(document => {
-                const { documentId } = document;
-                return documentId !== docId;
-              });
-              req.session.save(err => {
-                if (err) {
-                  throw err;
-                }
-                res.redirect(UPLOAD_SUPPORTING_DOCUMENTS);
-              });
-            } catch (error) {
-              this.deleteFileError(req, UPLOAD_APPEAL_FORM, res, errorMessage);
-            }
-            break;
-          }
-
-          case 'other': {
-            try {
-              const baseURL = `/doc/dss-orchestration/${docId}/delete`;
-              await DOCUMENT_DELETEMANAGER.delete(baseURL);
-              req.session['otherCaseInformation'] = req.session['otherCaseInformation'].filter(document => {
-                const { documentId } = document;
-                return documentId !== docId;
-              });
-              req.session.save(err => {
-                if (err) {
-                  throw err;
-                }
-                res.redirect(UPLOAD_OTHER_INFORMATION);
-              });
-            } catch (error) {
-              this.deleteFileError(req, UPLOAD_APPEAL_FORM, res, errorMessage);
-            }
-            break;
-          }
-        }
+        this.deleteFileError(req, UPLOAD_APPEAL_FORM, res, errorMessage);
       }
     }
   }
 
-  private deleteFileError(
-    req: AppRequest<AnyObject>,
-    url: string,
-    res: Response<any, Record<string, any>>,
-    errorMessage?: string
-  ) {
+  private deleteFileError(req: AppRequest, url: string, res: Response, errorMessage?: string) {
     req.session.fileErrors.push({
       text: errorMessage,
       href: '#',
@@ -341,4 +265,27 @@ export class GetController {
       res.redirect(url!);
     });
   }
+
+  private getRedirectUrl(documentType: string): string {
+    switch (documentType) {
+      case 'caseDocuments':
+        return Urls.UPLOAD_APPEAL_FORM;
+      case 'supportingCaseDocuments':
+        return Urls.UPLOAD_SUPPORTING_DOCUMENTS;
+      case 'otherCaseInformation':
+        return Urls.UPLOAD_OTHER_INFORMATION;
+      default:
+        return Urls.UPLOAD_APPEAL_FORM;
+    }
+  }
 }
+
+const formatDocuments = (documents: DocumentManagementFile[], type: string): any[] =>
+  documents.map((file, index) => {
+    return {
+      id: index,
+      name: file.originalDocumentName,
+      documentType: type,
+      description: file.description || '',
+    };
+  });

@@ -1,20 +1,19 @@
 import { Logger } from '@hmcts/nodejs-logging';
 import autobind from 'autobind-decorator';
-import axios, { AxiosInstance, RawAxiosRequestHeaders } from 'axios';
 import config from 'config';
 import { Response } from 'express';
-import FormData from 'form-data';
 import { isNull } from 'lodash';
 
-import { getServiceAuthToken } from '../../app/auth/service/get-service-auth-token';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../app/form/Form';
 import { ResourceReader } from '../../modules/resourcereader/ResourceReader';
-import { SPTRIBS_CASE_API_BASE_URL } from '../../steps/common/constants/apiConstants';
 import { UPLOAD_APPEAL_FORM, UPLOAD_SUPPORTING_DOCUMENTS } from '../../steps/urls';
+import { CaseDocument } from '../case/case';
 import { CITIZEN_CIC_UPDATE_CASE } from '../case/definition';
+import { Classification, DocumentManagementFile } from '../document/CaseDocumentManagementClient';
 import { containsInvalidCharacters, isMarkDownLinkIncluded } from '../form/validation';
+
 const logger = Logger.getLogger('uploadDocumentPostController');
 
 /**
@@ -63,8 +62,6 @@ type FileUploadErrorTranslatables = {
   NO_FILE_UPLOAD_ERROR?: string;
   UPLOAD_DELETE_FAIL_ERROR?: string;
 };
-
-export const CASE_API_URL: string = config.get(SPTRIBS_CASE_API_BASE_URL);
 
 export class FileValidations {
   static ResourceReaderContents(req: AppRequest<AnyObject>, page: string): FileUploadErrorTranslatables {
@@ -118,25 +115,10 @@ export class UploadController extends PostController<AnyObject> {
       try {
         req.session.userCase.additionalInformation = req.body.additionalInformation as string;
 
-        let tribunalFormDocuments: Document[] = [];
-        if (req.session.caseDocuments !== undefined) {
-          tribunalFormDocuments = this.getTribunalFormDocuments(req);
-        }
-
-        let supportingDocuments: Document[] = [];
-        if (req.session.supportingCaseDocuments !== undefined) {
-          supportingDocuments = this.getSupportingDocuments(req);
-        }
-
-        let otherInfoDocuments: Document[] = [];
-        if (req.session.otherCaseInformation !== undefined) {
-          otherInfoDocuments = this.getOtherInfoDocuments(req);
-        }
-
         const responseBody = {
-          tribunalFormDocuments,
-          supportingDocuments,
-          otherInfoDocuments,
+          tribunalFormDocuments: this.getCaseDocuments(req.session.caseDocuments || []),
+          supportingDocuments: this.getCaseDocuments(req.session.supportingCaseDocuments || []),
+          otherInfoDocuments: this.getCaseDocuments(req.session.otherCaseInformation || []),
         };
 
         const caseId = req.session.userCase['id'];
@@ -155,61 +137,19 @@ export class UploadController extends PostController<AnyObject> {
     }
   }
 
-  public uploadDocumentInstance(baseUrl: string, header: RawAxiosRequestHeaders): AxiosInstance {
-    return axios.create({
-      baseURL: baseUrl,
-      headers: header,
-      maxContentLength: Infinity,
-      maxBodyLength: Infinity,
-    });
-  }
+  private getCaseDocuments(documents: DocumentManagementFile[]): CaseDocument[] {
+    return documents.map(document => {
+      const documentId = document._links.self.href.split('/').pop();
 
-  private getOtherInfoDocuments(req: AppRequest<AnyObject>): Document[] {
-    return req.session['otherCaseInformation'].map(document => {
-      // eslint-disable-next-line @typescript-eslint/no-shadow
-      const { url, fileName, documentId, binaryUrl } = document;
       return {
-        id: documentId,
+        id: documentId!,
         value: {
           documentLink: {
-            document_url: url,
-            document_filename: fileName,
-            document_binary_url: binaryUrl,
+            document_url: document._links.self.href,
+            document_filename: document.originalDocumentName,
+            document_binary_url: document._links.binary.href,
           },
-          comment: document.description ? document.description : null,
-        },
-      };
-    });
-  }
-
-  private getSupportingDocuments(req: AppRequest<AnyObject>): Document[] {
-    return req.session['supportingCaseDocuments'].map(document => {
-      // eslint-disable-next-line @typescript-eslint/no-shadow
-      const { url, fileName, documentId, binaryUrl } = document;
-      return {
-        id: documentId,
-        value: {
-          documentLink: {
-            document_url: url,
-            document_filename: fileName,
-            document_binary_url: binaryUrl,
-          },
-        },
-      };
-    });
-  }
-
-  private getTribunalFormDocuments(req: AppRequest<AnyObject>): Document[] {
-    return req.session['caseDocuments'].map(document => {
-      const { url, fileName, documentId, binaryUrl } = document;
-      return {
-        id: documentId,
-        value: {
-          documentLink: {
-            document_url: url,
-            document_filename: fileName,
-            document_binary_url: binaryUrl,
-          },
+          comment: document.description || null,
         },
       };
     });
@@ -245,7 +185,6 @@ export class UploadController extends PostController<AnyObject> {
 
     let totalUploadDocuments = 0;
     totalUploadDocuments = this.getTotalUploadDocumentsFromSessionProperty(req, totalUploadDocuments);
-    const { files }: AppRequest<AnyObject> = req;
 
     req.session.errors = req.session.errors || [];
     if (isMarkDownLinkIncluded(req.body['documentRelevance'] as string)) {
@@ -270,14 +209,14 @@ export class UploadController extends PostController<AnyObject> {
       });
     } else if (saveAndContinue) {
       await this.postDocumentUploader(req, res);
-    } else if (isNull(files)) {
+    } else if (isNull(req.files)) {
       this.createUploadedFileError(req, res, chooseFileLink, 'NO_FILE_UPLOAD_ERROR');
     } else if (totalUploadDocuments < Number(config.get(this.getValidationTotal()))) {
       if (!req.session.hasOwnProperty('errors')) {
         req.session['errors'] = [];
       }
 
-      const { documents }: any = files;
+      const { documents }: any = req.files;
 
       const isValidMimeType: boolean = FileValidations.formatValidation(
         documents.mimetype,
@@ -294,7 +233,7 @@ export class UploadController extends PostController<AnyObject> {
       }
 
       if (isValidMimeType && isValidFileSize) {
-        await this.uploadDocument(documents, req, res, chooseFileLink);
+        await this.uploadDocument(req, res, chooseFileLink);
       } else {
         this.redirect(req, res, this.getCurrentPageRedirectUrl());
       }
@@ -348,21 +287,6 @@ export class UploadController extends PostController<AnyObject> {
     };
   }
 
-  private async addUploadedFileToData(
-    headers: { authorization: string; serviceAuthorization: string },
-    formData: FormData,
-    formHeaders: FormData.Headers,
-    req: AppRequest<AnyObject>
-  ): Promise<void> {
-    const requestDocument = await this.getRequestDocument(headers, formData, formHeaders);
-    const uploadedDocument = requestDocument.data.document;
-    if (req.body.documentRelevance !== undefined) {
-      uploadedDocument.description = req.body.documentRelevance;
-    }
-    req.session[this.getPropertyName()].push(uploadedDocument);
-    req.session['errors'] = undefined;
-  }
-
   private createUploadedFileError(
     req: AppRequest<AnyObject>,
     res: Response<any, Record<string, any>>,
@@ -403,23 +327,6 @@ export class UploadController extends PostController<AnyObject> {
     Object.assign(req.session.userCase, formData);
   }
 
-  private async getRequestDocument(
-    headers: { authorization: string; serviceAuthorization: string },
-    formData: FormData,
-    formHeaders: FormData.Headers
-  ): Promise<any> {
-    return this.uploadDocumentInstance(CASE_API_URL, headers).post(
-      '/doc/dss-orchestration/upload?caseTypeOfApplication=CIC',
-      formData,
-      {
-        headers: {
-          ...formHeaders,
-          serviceAuthorization: getServiceAuthToken(),
-        },
-      }
-    );
-  }
-
   private getTotalUploadDocumentsFromSessionProperty(req: AppRequest<AnyObject>, totalUploadDocuments: number): number {
     if (!req.session.hasOwnProperty(this.getPropertyName())) {
       req.session[this.getPropertyName()] = [];
@@ -430,27 +337,21 @@ export class UploadController extends PostController<AnyObject> {
     return totalUploadDocuments;
   }
 
-  private async uploadDocument(
-    documents: any,
-    req: AppRequest<AnyObject>,
-    res: Response<any, Record<string, any>>,
-    chooseFileLink: string
-  ) {
-    const formData: FormData = new FormData();
-    formData.append('file', documents.data, {
-      contentType: documents.mimetype,
-      filename: documents.name,
-    });
-    const formHeaders = formData.getHeaders();
-
-    const headers = {
-      authorization: `Bearer ${req.session.user['accessToken']}`,
-      serviceAuthorization: getServiceAuthToken(),
-    };
-
+  private async uploadDocument(req: AppRequest, res: Response, chooseFileLink: string) {
     try {
-      await this.addUploadedFileToData(headers, formData, formHeaders, req);
-      this.redirect(req, res, this.getCurrentPageRedirectUrl());
+      const newDocument = (
+        await req.locals.documentApi.create({
+          files: req.files!,
+          classification: Classification.Public,
+        })
+      )[0];
+
+      if (req.body.documentRelevance) {
+        newDocument.description = req.body.documentRelevance;
+      }
+
+      req.session[this.getPropertyName()].push(newDocument);
+      req.session.save(() => this.redirect(req, res, this.getCurrentPageRedirectUrl()));
     } catch (error) {
       logger.error(error);
       this.createUploadedFileError(req, res, chooseFileLink, 'UPDATE_DELETE_FAIL_ERROR');

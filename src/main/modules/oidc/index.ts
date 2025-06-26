@@ -4,6 +4,7 @@ import { Application, NextFunction, Response } from 'express';
 import { getRedirectUrl, getUserDetails } from '../../app/auth/user/oidc';
 import { getCaseApi } from '../../app/case/CaseApi';
 import { AppRequest } from '../../app/controller/AppRequest';
+import { CaseDocumentManagementClient } from '../../app/document/CaseDocumentManagementClient';
 import { signInNotRequired } from '../../steps/url-utils';
 import { CALLBACK_URL, SIGN_IN_URL, SIGN_OUT_URL, SUBJECT_DETAILS } from '../../steps/urls';
 
@@ -39,6 +40,7 @@ export class OidcMiddleware {
         if (req.session?.user?.roles.includes('citizen')) {
           res.locals.isLoggedIn = true;
           req.locals.api = getCaseApi(req.session.user, req.locals.logger);
+          req.locals.documentApi = new CaseDocumentManagementClient(req.session.user);
           req.session.userCase = req.session.userCase || { id: '', state: 'SPTRIBS' };
           return next();
         } else if (signInNotRequired(req.path)) {

@@ -9,13 +9,16 @@ export const mockRequest = ({
   appLocals = {},
   query = {},
   fileErrors = [],
+  locals = {},
 } = {}): AppRequest =>
   ({
     headers: { 'accept-language': 'en', ...headers },
     body,
     locals: {
+      ...locals,
       api: {
         triggerEvent: jest.fn(),
+        ...(locals['api'] ?? {}),
         addPayment: jest.fn(),
         getCaseById: jest.fn(),
       },

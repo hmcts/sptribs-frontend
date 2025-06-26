@@ -42,14 +42,14 @@
       <li class="uploadedFile govuk-!-padding-top-2 govuk-!-padding-bottom-3 govuk-section-break govuk-section-break--visible">
         <table class="documentRelevanceAndDeletion">
           <tr>
-            <td class="documentRelevanceAndDeletionAlignment"> {{ file.fileName }}
+            <td class="documentRelevanceAndDeletionAlignment"> {{ file.name }}
             {% if file.description %}
               <br><br>
               {{ file.description }}
             {%endif%}
             </td>
-            {% set documentId = file.documentId %}
-            <td class="documentRelevanceAndDeletionAlignment"><a href="/upload-other-information?query=delete&docId={{ documentId }}&documentType=other" class="govuk-link--no-visited-state float-right ">{{ delete }}</a></td>
+            {% set documentId = file.id %}
+            <td class="documentRelevanceAndDeletionAlignment"><a href="/upload-other-information?query=delete&docId={{ documentId }}&documentType={{ file.documentType }}" class="govuk-link--no-visited-state float-right ">{{ delete }}</a></td>
           </tr>
         </table>
       </li>

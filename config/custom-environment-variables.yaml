@@ -1,9 +1,8 @@
+uploadTimeout: UPLOAD_TIMEOUT
 services:
   authProvider:
     url: SERVICE_AUTH_PROVIDER_URL
     secret: SERVICE_AUTH_SECRET
-  sptribs:
-    url: SPTRIBS_API_URL
   ccd:
     url: CCD_API_URL
   cdam:
@@ -34,3 +33,4 @@ e2e:
 appInsights:
   instrumentationKey: APPINSIGHTS_KEY
 caseType: CASE_TYPE
+jurisdiction: JURISDICTION

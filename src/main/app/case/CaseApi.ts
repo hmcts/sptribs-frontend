@@ -20,38 +20,6 @@ export class CaseApi {
     private readonly logger: LoggerInstance
   ) {}
 
-  public async findExistingUserCases(): Promise<CcdV1Response[] | false> {
-    const query = {
-      query: { match_all: {} },
-      sort: [{ created_date: { order: 'desc' } }],
-    };
-    return this.findUserCases(JSON.stringify(query));
-  }
-
-  private async findUserCases(query: string): Promise<CcdV1Response[] | false> {
-    try {
-      const response = await this.client.post<ES<CcdV1Response>>(`/searchCases?ctid=${this.CASE_TYPE}`, query);
-      return response.data.cases;
-    } catch (err) {
-      if (err.response?.status === 404) {
-        return false;
-      }
-      this.logError(err);
-      throw new Error('Case could not be retrieved.');
-    }
-  }
-
-  public async getCaseById(caseId: string): Promise<CaseWithId> {
-    try {
-      const response = await this.client.get<CcdV2Response>(`/cases/${caseId}`);
-
-      return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data.data) };
-    } catch (err) {
-      this.logError(err);
-      throw new Error('Case could not be retrieved.');
-    }
-  }
-
   public async createCase(data: Partial<Case>): Promise<CaseWithId> {
     try {
       const tokenResponse: AxiosResponse<CcdTokenResponse> = await this.client.get(
@@ -133,18 +101,6 @@ export const getCaseApi = (userDetails: UserDetails, logger: LoggerInstance): Ca
     logger
   );
 };
-
-interface ES<T> {
-  cases: T[];
-  total: number;
-}
-
-export interface CcdV1Response {
-  id: string;
-  state: string;
-  created_date: string;
-  case_data: CaseData;
-}
 
 interface CcdV2Response {
   id: string;
