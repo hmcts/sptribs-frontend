@@ -18,9 +18,9 @@ export class HealthCheck {
     healthcheck.addTo(app, {
       checks: {
         ...(redis ? { redis } : {}),
-        'authProvider-api': healthcheck.web(new URL('/health', config.get('services.authProvider.url'))),
+        'rpe-auth-service-api': healthcheck.web(new URL('/health', config.get('services.authProvider.url'))),
         'idam-api': healthcheck.web(new URL('/health', idamUrl.replace('/o/token', ''))),
-        'case-api': healthcheck.web(new URL('/health', config.get('services.ccd.url'))),
+        'ccd-data-store-api': healthcheck.web(new URL('/health', config.get('services.ccd.url'))),
       },
       buildInfo: {
         name: 'sptribs-frontend',
