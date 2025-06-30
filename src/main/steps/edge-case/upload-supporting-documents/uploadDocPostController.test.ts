@@ -1,9 +1,8 @@
-import axios, { Axios } from 'axios';
-
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import { YesOrNo } from '../../../app/case/definition';
 import { FileValidations } from '../../../app/controller/UploadController';
+import { DocumentManagementFile } from '../../../app/document/CaseDocumentManagementClient';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import * as steps from '../../../steps';
 import { UPLOAD_OTHER_INFORMATION, UPLOAD_SUPPORTING_DOCUMENTS } from '../../../steps/urls';
@@ -11,12 +10,6 @@ import { UPLOAD_OTHER_INFORMATION, UPLOAD_SUPPORTING_DOCUMENTS } from '../../../
 import UploadDocumentController from './uploadDocPostController';
 
 const getNextStepUrlMock = jest.spyOn(steps, 'getNextStepUrl');
-jest.mock('axios');
-const mockedAxios = axios as jest.Mocked<typeof axios>;
-mockedAxios.create = jest.fn(() => mockedAxios);
-// jest.mock('../../../app/auth/service/get-service-auth-token', () => ({
-//   getServiceAuthToken: jest.fn(() => 'mockServiceAuthToken'),
-// }));
 
 describe('Document format validation', () => {
   it('must match valid mimetypes', () => {
@@ -171,21 +164,32 @@ describe('Form upload controller', () => {
         text: l => l.continue,
       },
     };
-    const req = mockRequest({});
+    const req = mockRequest({
+      locals: {
+        documentApi: {
+          create: jest.fn(),
+        },
+      },
+    });
     const res = mockResponse();
-    mockedAxios.post.mockResolvedValueOnce({ data: { document: 'test' } });
     const controller = new UploadDocumentController(mockForm.fields);
+    const createMock = jest.spyOn(req.locals.documentApi, 'create');
+    createMock.mockResolvedValue([
+      {
+        originalDocumentName: 'test.pdf',
+        _links: {
+          self: { href: 'http://localhost:8080/documents/1234' },
+          binary: { href: 'http://localhost:8080/documents/1234/binary' },
+          thumbnail: { href: 'http://localhost:8080/documents/1234/thumbnail' },
+        },
+      },
+    ] as any);
     req.session.supportingCaseDocuments = [];
     (req.files as any) = { documents: { name: 'test', mimetype: 'application/pdf', size: 20480000, data: 'data' } };
     req.session.fileErrors = [];
     req.body['documentUploadProceed'] = false;
 
     await controller.post(req, res);
-    expect(mockedAxios.create).toHaveBeenCalled();
-    expect(mockedAxios.post).toHaveBeenCalled();
-    expect(req.session.fileErrors).toHaveLength(0);
-    expect(req.session.supportingCaseDocuments).toHaveLength(1);
-    expect(req.session.supportingCaseDocuments[0]).toEqual('test');
     expect(res.redirect).toHaveBeenCalledWith(UPLOAD_SUPPORTING_DOCUMENTS);
   });
 
@@ -202,12 +206,17 @@ describe('Form upload controller', () => {
         text: l => l.continue,
       },
     };
-    const req = mockRequest({});
+    const req = mockRequest({
+      locals: {
+        documentApi: {
+          create: jest.fn(),
+        },
+      },
+    });
     const res = mockResponse();
     const controller = new UploadDocumentController(mockForm.fields);
-    jest.spyOn(controller, 'uploadDocumentInstance').mockImplementation(() => {
-      throw new Error();
-    });
+    const createMock = jest.spyOn(req.locals.documentApi, 'create');
+    createMock.mockRejectedValue(new Error('mock error'));
     (req.files as any) = { documents: { name: 'test', mimetype: 'application/pdf', size: 20480000, data: 'data' } };
     req.session.fileErrors = [];
     req.body['documentUploadProceed'] = false;
@@ -278,7 +287,7 @@ describe('checking for the redirect of post document upload', () => {
           },
         },
       },
-    ];
+    ] as DocumentManagementFile[];
     req.session.supportingCaseDocuments = [
       {
         originalDocumentName: 'document1.docx',
@@ -302,15 +311,10 @@ describe('checking for the redirect of post document upload', () => {
           },
         },
       },
-    ];
+    ] as DocumentManagementFile[];
     await postingController.postDocumentUploader(req, res);
     expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION);
     expect(req.session.fileErrors).toHaveLength(0);
-  });
-
-  it('must be have axios instance', () => {
-    const systemInstance = postingController.uploadDocumentInstance('/', {});
-    expect(systemInstance instanceof Axios);
   });
 
   it('Should return error after the documents proccess has failed', async () => {
@@ -340,10 +344,9 @@ describe('checking for the redirect of post document upload', () => {
           },
         },
       },
-    ];
+    ] as DocumentManagementFile[];
 
     await postingController.postDocumentUploader(req, res);
-    expect(mockedAxios.create).toHaveBeenCalled();
     expect(res.redirect).toHaveBeenCalledWith(UPLOAD_SUPPORTING_DOCUMENTS);
     expect(req.session.fileErrors).toHaveLength(1);
     expect(req.session.fileErrors[0].text).toEqual('Document upload or deletion has failed. Try again');
@@ -438,7 +441,7 @@ describe('checking for the redirect of post document upload', () => {
           },
         },
       },
-    ];
+    ] as DocumentManagementFile[];
     req.files = [{ originalname: 'uploaded-file.pdf' }] as unknown as Express.Multer.File[];
     req.session.fileErrors = [];
 

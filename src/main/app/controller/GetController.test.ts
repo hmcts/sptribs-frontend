@@ -1,6 +1,7 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { SIGN_IN_URL } from '../../steps/urls';
+import { DocumentManagementFile } from '../document/CaseDocumentManagementClient';
 
 import { GetController } from './GetController';
 
@@ -74,7 +75,7 @@ describe('GetController', () => {
             },
           },
         },
-      ];
+      ] as DocumentManagementFile[];
 
       documentManagerRequest.query = {
         query: 'delete',
@@ -214,15 +215,20 @@ describe('checking for documents Delete manager', () => {
           },
         },
       },
-    ];
+    ] as DocumentManagementFile[];
+
+    req.locals.documentApi = {
+      delete: jest.fn().mockResolvedValue({}),
+    } as any;
 
     req.query = {
       query: 'delete',
-      documentId: '10',
-      documentType: 'applicationform',
+      docId: '1',
+      documentType: 'caseDocuments',
     };
     await controller.get(req, res);
-    expect(req.session.caseDocuments.some(doc => doc.id === '10')).toBe(false);
+    expect(req.locals.documentApi.delete).toHaveBeenCalled();
+    expect(req.session.caseDocuments.some(doc => doc.originalDocumentName === 'document2.docx')).toBe(false);
   });
 
   it('should return an english error message when an error is thrown with english language preferences', async () => {

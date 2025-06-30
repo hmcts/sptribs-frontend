@@ -31,9 +31,9 @@
     {% if supportingDocuments.length >0 %}
     {% for file in supportingDocuments %}
       <li class="uploadedFile govuk-!-padding-top-2 govuk-!-padding-bottom-3 govuk-section-break govuk-section-break--visible">
-        {{ file.fileName }}
-        {% set documentId = file.documentId %}
-        <a href="/upload-supporting-documents?query=delete&docId={{documentId}}&documentType=supporting" class="govuk-link--no-visited-state float-right ">{{ delete }}</a>
+        {{ file.name }}
+        {% set documentId = file.id %}
+        <a href="/upload-supporting-documents?query=delete&docId={{documentId}}&documentType={{file.documentType}}" class="govuk-link--no-visited-state float-right ">{{ delete }}</a>
       </li>
     {% endfor %}
     {% endif %}
