@@ -4119,18 +4119,18 @@ __metadata:
   linkType: hard
 
 "@uppy/core@npm:^4.0.0":
-  version: 4.4.4
-  resolution: "@uppy/core@npm:4.4.4"
+  version: 4.4.7
+  resolution: "@uppy/core@npm:4.4.7"
   dependencies:
     "@transloadit/prettier-bytes": "npm:^0.3.4"
     "@uppy/store-default": "npm:^4.2.0"
-    "@uppy/utils": "npm:^6.1.3"
+    "@uppy/utils": "npm:^6.1.5"
     lodash: "npm:^4.17.21"
     mime-match: "npm:^1.0.2"
     namespace-emitter: "npm:^2.0.1"
     nanoid: "npm:^5.0.9"
     preact: "npm:^10.5.13"
-  checksum: 10c0/b4605333001d03fe09999f51e72525948a8bec839661066772a37c2c38ed1dc7dc9efbd5e27cf9851c85145af2881e97c3f75aa47ddd95ae04c19c87ce9eb4e8
+  checksum: 10c0/8f45f3a425c8d860d73379efd04575af45429b79925511090addf04da2817d6c4f78133f5f23289f71de5c9258fefbe95a7610f03812923ef3473e42fe5932a4
   languageName: node
   linkType: hard
 
@@ -4146,14 +4146,14 @@ __metadata:
   linkType: hard
 
 "@uppy/file-input@npm:^4.0.0":
-  version: 4.1.2
-  resolution: "@uppy/file-input@npm:4.1.2"
+  version: 4.1.3
+  resolution: "@uppy/file-input@npm:4.1.3"
   dependencies:
-    "@uppy/utils": "npm:^6.1.3"
+    "@uppy/utils": "npm:^6.1.4"
     preact: "npm:^10.5.13"
   peerDependencies:
-    "@uppy/core": ^4.4.4
-  checksum: 10c0/de280ceba10892ed3a698fcf36d28feef0920c0a4f3b0178fe346d7a5aa6d3bb1f72a9019e65acda7ec89e56a802f5645e1f2050d40b16f7ae26be97e5e9bf4e
+    "@uppy/core": ^4.4.5
+  checksum: 10c0/fce0b1cd196941fdb54490ac50b05f7e3aa8b648c7638809de953c2ce5261cd102f2e1726eace3a8e806680be8ebecc07911ded4df8256151c59f143ef26ce6e
   languageName: node
   linkType: hard
 
@@ -4176,13 +4176,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/utils@npm:^6.1.1, @uppy/utils@npm:^6.1.2, @uppy/utils@npm:^6.1.3":
+"@uppy/utils@npm:^6.1.1, @uppy/utils@npm:^6.1.2":
   version: 6.1.3
   resolution: "@uppy/utils@npm:6.1.3"
   dependencies:
     lodash: "npm:^4.17.21"
     preact: "npm:^10.5.13"
   checksum: 10c0/5474e0932a2379acb0767409992a7da9d4ef20d87e90e152ccbd614b8cf53ed6dfd3ea1dcb4bccc0a52c12be8ed8d794453a91285896e8e8f88352f1394c6e4f
+  languageName: node
+  linkType: hard
+
+"@uppy/utils@npm:^6.1.4, @uppy/utils@npm:^6.1.5":
+  version: 6.1.5
+  resolution: "@uppy/utils@npm:6.1.5"
+  dependencies:
+    lodash: "npm:^4.17.21"
+    preact: "npm:^10.5.13"
+  checksum: 10c0/9064f40174ed43b2226329826a70bb77a1a6366bcc24df043677b4e0b92f79c09ae16629e102f3e5906db0c079eb8d96dbb8f65957d8e79035a7027df290cf30
   languageName: node
   linkType: hard
 
