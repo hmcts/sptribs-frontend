@@ -38,7 +38,7 @@ const en = {
   cookies: 'Cookies',
   privacyPolicy: 'Privacy policy',
   termsAndConditions: 'Terms and conditions',
-  contactUs: 'Contact Us',
+  contactUs: 'Contact us',
   marriage: 'marriage',
   divorce: 'divorce',
   civilPartnership: 'civil partnership',
@@ -73,15 +73,23 @@ const en = {
   notSure: 'Not sure',
   english: 'English',
   welsh: 'Welsh',
-  contactUsForHelp: 'Contact us for help',
   webChat: 'Web chat',
-  webChatDetails:
-    'All our web chat agents are busy helping other people. Please try again later or contact us using one of the ways below.',
-  sendUsAMessage: 'Send us a message',
-  sendUsAMessageDetails: 'We aim to get back to you within 5 days.',
+  webChatDetails: 'Get some help by messaging an agent online',
+  webChatLink: 'Start webchat',
+  email: 'Email',
+  emailDetails: 'Email the department and we will get back to you in due course',
+  contactEmail: 'cic.enquiries@justice.gov.uk',
   telephone: 'Telephone',
-  telephoneNumber: '0300 303 0642',
-  telephoneDetails: 'Monday to Friday, 8am to 8pm, Saturday 8am to 2pm.',
+  telephoneNumber: '0300 790 6234',
+  telephoneDetails: 'Talk to one of our agents now over the phone',
+  telephoneOpenDetails: 'Monday to Friday, 8:30am to 5pm',
+  telephoneClosureDetails: 'Closed weekends and Scottish bank holidays',
+  telephoneCallCharges: 'Find out about call charges',
+  telephoneCallChargesLink: 'https://www.gov.uk/call-charges',
+  byPost: 'By post',
+  byPostAddressTo: 'First-tier Tribunal (Criminal Injuries Compensation)',
+  byPostBuilding: 'The Glasgow Tribunals Centre',
+  byPostAddress: '20 York Street Glasgow G2 8GT',
   habitualResidentHelpText1:
     'This may include working, owning property, having children in school, and your main family life taking place in England or Wales.',
   habitualResidentHelpText2:
@@ -177,12 +185,11 @@ const cy: typeof en = {
   notSure: 'Ddim yn siŵr',
   english: 'Saesneg',
   welsh: 'Cymraeg',
-  contactUsForHelp: 'Cysylltwch â ni am gymorth',
   webChat: 'Sgwrsio dros y we',
   webChatDetails:
     'Mae ein asiantau sgwrsio dros y we i gyd yn brysur ar hyn o bryd yn helpu eraill. Rhowch gynnig arall arni yn hwyrach ymlaen neu cysylltwch â ni drwy un o’r dulliau isod.',
-  sendUsAMessage: 'Anfonwch neges atom',
-  sendUsAMessageDetails: 'Byddwn yn ymdrechu i ymateb o fewn 5 diwrnod.',
+  email: 'Anfonwch neges atom',
+  emailDetails: 'Byddwn yn ymdrechu i ymateb o fewn 5 diwrnod.',
   telephone: 'Ffoniwch',
   telephoneNumber: '0300 303 5171',
   telephoneDetails: 'Dydd Llun i Ddydd Gwener, 8.30am - 5pm.',
@@ -228,7 +235,6 @@ export const generatePageContent = ({
 }): PageContent => {
   const commonTranslations: typeof en = language === 'en' ? en : cy;
   const serviceName = getServiceName(commonTranslations);
-  const contactEmail = 'todo@test.com';
 
   const content: CommonContent = {
     ...commonTranslations,
@@ -239,7 +245,6 @@ export const generatePageContent = ({
     supportingDocuments,
     otherInformation,
     userEmail,
-    contactEmail,
     addresses,
     fee,
   };
