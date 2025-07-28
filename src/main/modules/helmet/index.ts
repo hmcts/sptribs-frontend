@@ -71,6 +71,7 @@ export class Helmet {
           scriptSrc,
           styleSrc: [self, "'sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU='"],
           frameSrc: ['blob:'],
+          manifestSrc: [self],
         },
       }) as RequestHandler
     );
