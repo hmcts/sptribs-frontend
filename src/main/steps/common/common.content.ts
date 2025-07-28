@@ -89,7 +89,9 @@ const en = {
   byPost: 'By post',
   byPostAddressTo: 'First-tier Tribunal (Criminal Injuries Compensation)',
   byPostBuilding: 'The Glasgow Tribunals Centre',
-  byPostAddress: '20 York Street Glasgow G2 8GT',
+  byPostAddress: '20 York Street',
+  byPostAddressRegion: 'Glasgow',
+  byPostAddressPostcode: 'G2 8GT',
   habitualResidentHelpText1:
     'This may include working, owning property, having children in school, and your main family life taking place in England or Wales.',
   habitualResidentHelpText2:
