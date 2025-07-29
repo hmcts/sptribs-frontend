@@ -195,6 +195,7 @@ const cy: typeof en = {
   telephone: 'Ffoniwch',
   telephoneNumber: '0300 303 5171',
   telephoneDetails: 'Dydd Llun i Ddydd Gwener, 8.30am - 5pm.',
+  telephoneCallChargesLink: 'https://www.gov.uk/costau-galwadau',
   cookiesHeading: 'Cwcis ar',
   cookiesLine1: "Rydym yn defnyddio cwcis hanfodol i wneud i'r gwasanaeth hwn weithio.",
   cookiesLine2:
