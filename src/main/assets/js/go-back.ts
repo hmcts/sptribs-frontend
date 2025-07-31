@@ -28,6 +28,7 @@ if (backLink) {
           break;
         } else if (previousPagesArry[i].split(':')[0] === location.pathname) {
           previousPage = previousPagesArry[i].split(':')[1];
+          sessionStorage.setItem(PREVIOUS_KEY, previousPagesArry.slice(0, previousPagesArry.length - 1).join());
           break;
         }
       }
