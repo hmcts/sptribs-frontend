@@ -4,6 +4,14 @@
 const backLink: HTMLAnchorElement | null = document.querySelector('.govuk-back-link');
 const PREVIOUS_KEY = 'sptribs:dss:previousPages';
 const SUBMITTED_KEY = 'sptribs:dss:submittedFrom';
+const NON_FORM_PAGES = [
+  '/cookies',
+  '/privacy-policy',
+  '/accessibility-statement',
+  '/terms-and-conditions',
+  '/contact-us',
+];
+
 if (backLink) {
   backLink.onclick = function (e) {
     e.preventDefault();
@@ -11,8 +19,14 @@ if (backLink) {
     let previousPage;
     if (previousPages) {
       const previousPagesArry = previousPages.split(',');
+      if (previousPagesArry.includes('/application-submitted:/check-your-answers')) {
+        sessionStorage.clear();
+      }
       for (let i = 0; i < previousPagesArry.length; i++) {
-        if (previousPagesArry[i].split(':')[0] === location.pathname) {
+        if (NON_FORM_PAGES.includes(location.pathname) && i === previousPagesArry.length - 1) {
+          previousPage = previousPagesArry[i].split(':')[0];
+          break;
+        } else if (previousPagesArry[i].split(':')[0] === location.pathname) {
           previousPage = previousPagesArry[i].split(':')[1];
           break;
         }
@@ -21,11 +35,11 @@ if (backLink) {
         location.pathname = previousPage;
       } else {
         // Should not occur unless the user has directly typed the url, for example
-        history.go(-1);
+        location.pathname = '/';
       }
     } else {
       // Should not occur unless the user has directly typed the url, for example
-      history.go(-1);
+      location.pathname = '/';
     }
   };
 }
