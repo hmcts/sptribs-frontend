@@ -4,16 +4,32 @@
 const backLink: HTMLAnchorElement | null = document.querySelector('.govuk-back-link');
 const PREVIOUS_KEY = 'sptribs:dss:previousPages';
 const SUBMITTED_KEY = 'sptribs:dss:submittedFrom';
+const NON_FORM_PAGES = [
+  '/cookies',
+  '/privacy-policy',
+  '/accessibility-statement',
+  '/terms-and-conditions',
+  '/contact-us',
+];
+
 if (backLink) {
   backLink.onclick = function (e) {
     e.preventDefault();
     const previousPages = sessionStorage.getItem(PREVIOUS_KEY);
     let previousPage;
     if (previousPages) {
-      const previousPagesArry = previousPages.split(',');
-      for (let i = 0; i < previousPagesArry.length; i++) {
-        if (previousPagesArry[i].split(':')[0] === location.pathname) {
-          previousPage = previousPagesArry[i].split(':')[1];
+      let previousPagesArray = previousPages.split(',');
+      if (previousPagesArray.includes('/application-submitted:/check-your-answers')) {
+        sessionStorage.clear();
+        previousPagesArray = [];
+      }
+      for (let i = 0; i < previousPagesArray.length; i++) {
+        if (NON_FORM_PAGES.includes(location.pathname) && i === previousPagesArray.length - 1) {
+          previousPage = previousPagesArray[i].split(':')[0];
+          break;
+        } else if (previousPagesArray[i].split(':')[0] === location.pathname) {
+          previousPage = previousPagesArray[i].split(':')[1];
+          sessionStorage.setItem(PREVIOUS_KEY, previousPagesArray.slice(0, previousPagesArray.length - 1).join());
           break;
         }
       }
@@ -21,11 +37,11 @@ if (backLink) {
         location.pathname = previousPage;
       } else {
         // Should not occur unless the user has directly typed the url, for example
-        history.go(-1);
+        location.pathname = '/';
       }
     } else {
       // Should not occur unless the user has directly typed the url, for example
-      history.go(-1);
+      location.pathname = '/';
     }
   };
 }
@@ -42,21 +58,21 @@ window.onload = function () {
   if (submittedFrom) {
     const previousPages = sessionStorage.getItem(PREVIOUS_KEY);
     if (previousPages) {
-      const previousPagesArry = previousPages.split(',');
+      const previousPagesArray = previousPages.split(',');
       let previousAdded = false;
-      for (let i = 0; i < previousPagesArry.length; i++) {
-        if (previousPagesArry[i].split(':')[0] === location.pathname) {
+      for (let i = 0; i < previousPagesArray.length; i++) {
+        if (previousPagesArray[i].split(':')[0] === location.pathname) {
           if (location.pathname !== submittedFrom) {
-            previousPagesArry[i] = location.pathname + ':' + submittedFrom;
+            previousPagesArray[i] = location.pathname + ':' + submittedFrom;
             previousAdded = true;
           }
           break;
         }
       }
       if (!previousAdded && location.pathname !== submittedFrom) {
-        previousPagesArry.push(location.pathname + ':' + submittedFrom);
+        previousPagesArray.push(location.pathname + ':' + submittedFrom);
       }
-      sessionStorage.setItem(PREVIOUS_KEY, previousPagesArry.join());
+      sessionStorage.setItem(PREVIOUS_KEY, previousPagesArray.join());
     } else if (location.pathname !== submittedFrom) {
       sessionStorage.setItem(PREVIOUS_KEY, location.pathname + ':' + submittedFrom);
     }
