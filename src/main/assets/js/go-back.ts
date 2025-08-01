@@ -18,18 +18,18 @@ if (backLink) {
     const previousPages = sessionStorage.getItem(PREVIOUS_KEY);
     let previousPage;
     if (previousPages) {
-      let previousPagesArry = previousPages.split(',');
-      if (previousPagesArry.includes('/application-submitted:/check-your-answers')) {
+      let previousPagesArray = previousPages.split(',');
+      if (previousPagesArray.includes('/application-submitted:/check-your-answers')) {
         sessionStorage.clear();
-        previousPagesArry = [];
+        previousPagesArray = [];
       }
-      for (let i = 0; i < previousPagesArry.length; i++) {
-        if (NON_FORM_PAGES.includes(location.pathname) && i === previousPagesArry.length - 1) {
-          previousPage = previousPagesArry[i].split(':')[0];
+      for (let i = 0; i < previousPagesArray.length; i++) {
+        if (NON_FORM_PAGES.includes(location.pathname) && i === previousPagesArray.length - 1) {
+          previousPage = previousPagesArray[i].split(':')[0];
           break;
-        } else if (previousPagesArry[i].split(':')[0] === location.pathname) {
-          previousPage = previousPagesArry[i].split(':')[1];
-          sessionStorage.setItem(PREVIOUS_KEY, previousPagesArry.slice(0, previousPagesArry.length - 1).join());
+        } else if (previousPagesArray[i].split(':')[0] === location.pathname) {
+          previousPage = previousPagesArray[i].split(':')[1];
+          sessionStorage.setItem(PREVIOUS_KEY, previousPagesArray.slice(0, previousPagesArray.length - 1).join());
           break;
         }
       }
@@ -58,21 +58,21 @@ window.onload = function () {
   if (submittedFrom) {
     const previousPages = sessionStorage.getItem(PREVIOUS_KEY);
     if (previousPages) {
-      const previousPagesArry = previousPages.split(',');
+      const previousPagesArray = previousPages.split(',');
       let previousAdded = false;
-      for (let i = 0; i < previousPagesArry.length; i++) {
-        if (previousPagesArry[i].split(':')[0] === location.pathname) {
+      for (let i = 0; i < previousPagesArray.length; i++) {
+        if (previousPagesArray[i].split(':')[0] === location.pathname) {
           if (location.pathname !== submittedFrom) {
-            previousPagesArry[i] = location.pathname + ':' + submittedFrom;
+            previousPagesArray[i] = location.pathname + ':' + submittedFrom;
             previousAdded = true;
           }
           break;
         }
       }
       if (!previousAdded && location.pathname !== submittedFrom) {
-        previousPagesArry.push(location.pathname + ':' + submittedFrom);
+        previousPagesArray.push(location.pathname + ':' + submittedFrom);
       }
-      sessionStorage.setItem(PREVIOUS_KEY, previousPagesArry.join());
+      sessionStorage.setItem(PREVIOUS_KEY, previousPagesArray.join());
     } else if (location.pathname !== submittedFrom) {
       sessionStorage.setItem(PREVIOUS_KEY, location.pathname + ':' + submittedFrom);
     }
