@@ -18,9 +18,10 @@ if (backLink) {
     const previousPages = sessionStorage.getItem(PREVIOUS_KEY);
     let previousPage;
     if (previousPages) {
-      const previousPagesArry = previousPages.split(',');
+      let previousPagesArry = previousPages.split(',');
       if (previousPagesArry.includes('/application-submitted:/check-your-answers')) {
         sessionStorage.clear();
+        previousPagesArry = [];
       }
       for (let i = 0; i < previousPagesArry.length; i++) {
         if (NON_FORM_PAGES.includes(location.pathname) && i === previousPagesArry.length - 1) {
