@@ -13,7 +13,7 @@ describe('ContactUsGetController', () => {
     await controller.get(req, res);
 
     expect(res.render).toHaveBeenCalledWith(
-      expect.stringContaining(__dirname + '/template'),
+      expect.stringContaining(__dirname + '/contact-us'),
       expect.objectContaining(en)
     );
   });
@@ -25,7 +25,7 @@ describe('ContactUsGetController', () => {
     await controller.get(req, res);
 
     expect(res.render).toHaveBeenCalledWith(
-      expect.stringContaining(__dirname + '/template'),
+      expect.stringContaining(__dirname + '/contact-us'),
       expect.objectContaining(cy)
     );
   });

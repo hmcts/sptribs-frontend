@@ -1,0 +1,78 @@
+{% extends "common/page.njk" %}
+{% block content %}
+
+  <h1 class="govuk-heading-l">
+    {{ contactUs }}
+  </h1>
+  <h2 class="govuk-heading-m">{{ webChat }}</h2>
+  <p class="govuk-body">{{ webChatDetails }}</p>
+  <div id="__8x8-chat-button-container-script_1884191033687e003928f2d5.92671744"></div>
+
+  <h2 class="govuk-heading-m">{{ email }}</h2>
+  <p class="govuk-body">{{ emailDetails }}</p>
+  <p class="govuk-body"><a class="govuk-link" href="mailto:{{ contactEmail }}">{{ contactEmail }}</a></p>
+
+  <h2 class="govuk-heading-m">{{ telephone }}</h2>
+  <p class="govuk-body">{{ telephoneDetails }}</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li><p class="govuk-body">{{ telephone }}: {{ telephoneNumber }}</p></li>
+    <li><p class="govuk-body">{{ telephoneOpenDetails }}</p></li>
+    <li><p class="govuk-body">{{ telephoneClosureDetails }}</p></li>
+    <p class="govuk-body"><a href='{{ telephoneCallChargesLink }}'>{{ telephoneCallCharges }}</a></p>
+  </ul>
+
+  <h2 class="govuk-heading-m">{{ byPost }}</h2>
+  <p class="govuk-body">{{ byPostAddressTo }}</p>
+  <p class="govuk-body">{{ byPostBuilding }}</p>
+  <p class="govuk-body">{{ byPostAddress }}</p>
+  <p class="govuk-body">{{ byPostAddressRegion }}</p>
+  <p class="govuk-body">{{ byPostAddressPostcode }}</p>
+
+  <script type="text/javascript">
+    (function(c, f, ef){
+        var typeofC = Object.prototype.toString.call(c);
+        var props = (typeofC === '[object Object]' && c) || {};
+        var cb = f || (typeofC === '[object Function]' && c);
+        var config = {
+            scriptUuid: "script_1884191033687e003928f2d5.92671744",
+            tenant: "aG1jdHN4MTAx",
+            channelName: "ST CIC Webchat",
+            channelUuid: "dwI43uIrQuervDEMExbQJQ",
+            domain: "https://vcc-eu4.8x8.com",
+            buttonContainerId: "__8x8-chat-button-container-script_1884191033687e003928f2d5.92671744",
+            align: "right",
+        };
+
+        var url = new URL("https://cloud8-cc-geo.8x8.com/vcc-chat-channels/public/webchat/discovery");
+        var params = { domain: config.domain, tenant: config.tenant, channelUuid: config.channelUuid };
+        url.search = new URLSearchParams(params).toString();
+        fetch(url)
+            .then(response => response.json())
+            .then(data => config.domain = !data.domain ? config.domain : data.domain)
+            .catch(error => console.warn('Failed to retrieve override domain, will continue using ', config.domain, error))
+            .finally(() => loadChat());
+
+        function loadChat() {
+            var se = document.createElement("script");
+            se.type = "text/javascript";
+            se.async = true;
+            se.src = props.loaderURL || (config.domain + "/CHAT/common/js/chatv3.js");
+            Object.keys(config).forEach(function (k) { se.dataset[k] = config[k] });
+            Object.keys(props).forEach(function (k) { se.dataset[k] = props[k] });
+            function handleInitEvent(e) {
+                var initFn = e.detail.init;
+                initFn(config, cb);
+                se.removeEventListener('init', handleInitEvent)
+            }
+            function handleErrorEvent(e) {
+                ef && ef(e);
+                se.removeEventListener('customerror', handleErrorEvent);
+            }
+            se.addEventListener('init', handleInitEvent);
+            se.addEventListener('customerror', handleErrorEvent);
+            var os = document.getElementsByTagName("script")[0];
+            os.parentNode.insertBefore(se, os);
+        }
+    })();
+  </script>
+{% endblock %}
