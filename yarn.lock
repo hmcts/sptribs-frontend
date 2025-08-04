@@ -5694,11 +5694,11 @@ __metadata:
   linkType: hard
 
 "connect-redis@npm:^8.0.3":
-  version: 8.0.3
-  resolution: "connect-redis@npm:8.0.3"
+  version: 8.1.0
+  resolution: "connect-redis@npm:8.1.0"
   peerDependencies:
     express-session: ">=1"
-  checksum: 10c0/c8fb17e1c060ce2b1097feddd711f29fc48723d7b1f59729940c4a7b81e00cc577291d9cb4b247bbdd1d103f3fff92f90c63a269e020e2db9cc295ff37491ce6
+  checksum: 10c0/ce08b467cb88177e0553fe338cb2cb96745d644a969255665588da8eab48f17ca0790c038e2de71e53c968ddbc9da10e2fa23c7980c1ff62e072c8b166435527
   languageName: node
   linkType: hard
 
@@ -7036,8 +7036,8 @@ __metadata:
   linkType: hard
 
 "eslint-plugin-jest@npm:^28.11.0":
-  version: 28.12.0
-  resolution: "eslint-plugin-jest@npm:28.12.0"
+  version: 28.14.0
+  resolution: "eslint-plugin-jest@npm:28.14.0"
   dependencies:
     "@typescript-eslint/utils": "npm:^6.0.0 || ^7.0.0 || ^8.0.0"
   peerDependencies:
@@ -7049,7 +7049,7 @@ __metadata:
       optional: true
     jest:
       optional: true
-  checksum: 10c0/1072070921e0329bd8a369fea6017de930d942387ef325bc656301812d08d8a9dcd862284493d57c0a52b4bd73128f2157e010116f5efe7bf626c61a78f0a2d8
+  checksum: 10c0/da9c99dd8a1a80aa0c126ff4558882451dcee61b7e4c88e2407ac27d0c86fad2951384a4b037748e26f8743890b4628c6917b0760b01b7017c53fb29768584bc
   languageName: node
   linkType: hard
 
@@ -7713,12 +7713,12 @@ __metadata:
   linkType: hard
 
 "follow-redirects@npm:^1.15.6":
-  version: 1.15.9
-  resolution: "follow-redirects@npm:1.15.9"
+  version: 1.15.11
+  resolution: "follow-redirects@npm:1.15.11"
   peerDependenciesMeta:
     debug:
       optional: true
-  checksum: 10c0/5829165bd112c3c0e82be6c15b1a58fa9dcfaede3b3c54697a82fe4a62dd5ae5e8222956b448d2f98e331525f05d00404aba7d696de9e761ef6e42fdc780244f
+  checksum: 10c0/d301f430542520a54058d4aeeb453233c564aaccac835d29d15e050beb33f339ad67d9bddbce01739c5dc46a6716dbe3d9d0d5134b1ca203effa11a7ef092343
   languageName: node
   linkType: hard
 
