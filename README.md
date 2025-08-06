@@ -71,6 +71,10 @@ To enable this to run automatically when commiting to git:
 $ yarn prepare
 ```
 
+### Testing compatability with sptribs-case-api
+
+To edit dependent services such as CCD in a PR, update the URLs in default.yaml, values.yaml, custom-environment-variables.yaml, to direct them away from using AAT as a default
+
 ### Running the tests
 
 This template app uses [Jest](https://jestjs.io//) as the test engine. You can run unit tests by executing
