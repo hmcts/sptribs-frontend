@@ -90,9 +90,44 @@
   <br>
   <br>
 
-  <label class="govuk-label govuk-label--m" for="documentRelevance">{{ title3 }}</label>
-  <div id="documentRelevance-hint" class="govuk-hint">{{ line4 }}</div>
-  <input class="govuk-input govuk-text" id="documentRelevance" name="documentRelevance" type="text" aria-describedby="documentRelevance-hint">
+  {% if sessionErrors.length > 0 %}
+    {% from "common/error/summary.njk" import errorList with context %}
+
+    {% set additionalInformationErrors = "" %}
+    {% set documentRelevanceErrors = "" %}
+
+    {% for error in errorList | list %}
+      {% if "#additionalInformation" in error.href %}
+        {% set additionalInformationErrors = [additionalInformationErrors, error.text] | join(" ") | safe %}
+        {% if loop.last == false %}
+          {% set additionalInformationErrors = [additionalInformationErrors, "<br>"] | join(" ") | safe %}
+        {% endif %}
+      {% endif %}
+      {% if "#documentRelevance" in error.href %}
+        {% set documentRelevanceErrors = [documentRelevanceErrors, error.text] | join(" ") | safe %}
+        {% if loop.last == false %}
+          {% set documentRelevanceErrors = [documentRelevanceErrors, "<br>"] | join(" ") | safe %}
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+
+  {% if documentRelevanceErrors.length > 0 %}
+    <div class="govuk-form-group govuk-form-group--error">
+      <label class="govuk-label govuk-label--m" for="documentRelevance">{{ title3 }}</label>
+      <div id="documentRelevance-hint" class="govuk-hint">{{ line4 }}</div>
+      <p id="documentRelevance-error" class="govuk-error-message">
+        {% from "common/error/summary.njk" import errorList with context %}
+        <span class="govuk-visually-hidden">Error:</span>
+        {{ documentRelevanceErrors }}
+      </p>
+      <input class="govuk-input govuk-input--error" id="documentRelevance" name="documentRelevance" type="text" aria-describedby="documentRelevance-hint documentRelevance-error">
+    </div>
+  {% else %}
+    <label class="govuk-label govuk-label--m" for="documentRelevance">{{ title3 }}</label>
+    <div id="documentRelevance-hint" class="govuk-hint">{{ line4 }}</div>
+    <input class="govuk-input govuk-text" id="documentRelevance" name="documentRelevance" type="text" aria-describedby="documentRelevance-hint">
+  {% endif %}
 
   <p class="govuk-body">{{ uploadGuidance }}</p>
 
@@ -106,21 +141,42 @@
   <br>
   <br>
 
-  {{ govukTextarea({
-      name: "additionalInformation",
-      id: "additionalInformation",
-      value: userCase.additionalInformation,
-      hint: {
-        text: hint,
-        classes: "govuk-hint",
-        isPageHeading: false
-      },
-      label: { 
-        text: title2,
-        classes: "govuk-label--m",
-        isPageHeading: true 
-      }
-  }) }}
+  {% if additionalInformationErrors.length > 0 %}
+    {{ govukTextarea({
+        name: "additionalInformation",
+        id: "additionalInformation",
+        value: userCase.additionalInformation,
+        label: {
+          text: title2,
+          classes: "govuk-label--m",
+          isPageHeading: true
+        },
+        hint: {
+          text: hint,
+          classes: "govuk-hint",
+          isPageHeading: false
+        },
+        errorMessage: {
+          text: additionalInformationErrors
+        }
+    }) }}
+  {% else %}
+      {{ govukTextarea({
+          name: "additionalInformation",
+          id: "additionalInformation",
+          value: userCase.additionalInformation,
+          hint: {
+            text: hint,
+            classes: "govuk-hint",
+            isPageHeading: false
+          },
+          label: {
+            text: title2,
+            classes: "govuk-label--m",
+            isPageHeading: true
+          }
+      }) }}
+  {% endif %}
 
   {{ govukButton({
       text: continue,
