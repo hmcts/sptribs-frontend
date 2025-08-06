@@ -73,7 +73,7 @@ $ yarn prepare
 
 ### Testing compatability with sptribs-case-api
 
-To edit dependent services such as CCD in a PR, update the URLs in default.yaml, values.yaml, custom-environment-variables.yaml, to direct them away from using AAT as a default
+To edit dependent services such as CCD in a PR, update the URLs in default.yaml and values.yaml, to direct them away from using AAT as a default
 
 ### Running the tests
 
