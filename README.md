@@ -73,12 +73,9 @@ $ yarn prepare
 
 ### Testing compatability with sptribs-case-api
 
-To edit dependent integrated services (e.g. ccd), update the reference URLs in default.yaml and values.yaml , to direct them away from the AAT default and point to a PR version (e.g. http://ccd-data-store-api-sptribs-case-api-pr-2226.preview.platform.hmcts.net).
+To edit dependent or integrated services (e.g. CCD), update the reference URLs in default.yaml and values.yaml, to direct them away from the AAT default and point to a PR version (e.g. http://ccd-data-store-api-sptribs-case-api-pr-2226.preview.platform.hmcts.net).
 
-To obtain the URL for sptribs-case-api, `enable_keep_help` on the sptribs-case-api build, then run a preview command from here:
-https://tools.hmcts.net/confluence/display/DATS/AKS+kubectl+cheatsheet
-
-And then run the following command to get the URL:
+To keep a deployment in preview add the GitHub label enable_keep_helm. Then connect to the relevant kubernetes cluster using one of the commands on the https://tools.hmcts.net/confluence/display/DATS/AKS+kubectl+cheatsheet. You can then obtain the URL for your deployment using:
 
 `kubectl -n <namespace> get ingress | grep <PR-number>  e.g. kubectl -n sptribs get ingress | PR 2226`
 
