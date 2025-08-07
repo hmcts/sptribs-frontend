@@ -73,7 +73,14 @@ $ yarn prepare
 
 ### Testing compatability with sptribs-case-api
 
-To edit dependent services such as CCD in a PR, update the URLs in default.yaml and values.yaml, to direct them away from using AAT as a default
+To edit dependent integrated services (e.g. ccd), update the reference URLs in default.yaml and values.yaml , to direct them away from the AAT default and point to a PR version (e.g. http://ccd-data-store-api-sptribs-case-api-pr-2226.preview.platform.hmcts.net).
+
+To obtain the URL for sptribs-case-api, `enable_keep_help` on the sptribs-case-api build, then run a preview command from here:
+https://tools.hmcts.net/confluence/display/DATS/AKS+kubectl+cheatsheet
+
+And then run the following command to get the URL:
+
+`kubectl -n <namespace> get ingress | grep <PR-number>  e.g. kubectl -n sptribs get ingress | PR 2226`
 
 ### Running the tests
 
