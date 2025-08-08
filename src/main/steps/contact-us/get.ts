@@ -4,6 +4,6 @@ import { generateContent } from './content';
 
 export class ContactUsGetController extends GetController {
   constructor() {
-    super(__dirname + '/template', generateContent);
+    super(__dirname + '/contact-us', generateContent);
   }
 }
