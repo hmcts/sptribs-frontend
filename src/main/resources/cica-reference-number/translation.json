@@ -1,0 +1,34 @@
+{
+  "translations": {
+    "en": {
+      "continue": "Continue",
+      "serviceName": "Appeal to the First-tier Tribunal",
+      "title": "Criminal Injuries Compensation Authority Reference Number",
+      "line1": "You can find this on any correspondence that you've received from CICA.",
+      "cicaReferenceNumberLabel": "CICA reference number"
+    },
+    "cy": {
+      "continue": "Parhau",
+      "serviceName": "Apelio i’r Tribiwnlys Haen Gyntaf",
+      "title": "Pwy yw testun yr achos hwn?",
+      "line1": "Gall testun yr achos fod yn chi, neu’r unigolyn rydych yn cyflwyno’r ffurflen tribiwnlys hon ar ei ran.",
+      "cicaReferenceNumberLabel": "Enw llawn"
+    }
+  },
+  "errors": {
+    "en": {
+      "cicaReferenceNumber": {
+        "required": "Enter CICA reference number",
+        "containsMarkdownLink": "CICA reference number must not include a link",
+        "containsInvalidCharacters": "CICA reference number must not include HTML"
+      }
+    },
+    "cy": {
+      "cicaReferenceNumber": {
+        "required": "Nodwch enw llawn",
+        "containsMarkdownLink": "Ni ddylai'r enw llawn gynnwys dolen",
+        "containsInvalidCharacters": "Ni ddylai'r enw llawn gynnwys HTML"
+      }
+    }
+  }
+}
