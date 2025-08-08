@@ -20,6 +20,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   representativeOrganisationName: 'dssCaseDataRepresentativeOrganisationName',
   representativeContactNumber: 'dssCaseDataRepresentativeContactNumber',
   representativeEmailAddress: 'dssCaseDataRepresentativeEmailAddress',
+  cicaReferenceNumber: 'cicCaseCicaReferenceNumber',
   pcqId: 'dssCaseDataPcqId',
   additionalInformation: 'dssCaseDataAdditionalInformation',
   languagePreference: 'dssCaseDataLanguagePreference',
@@ -67,6 +68,7 @@ export interface Case {
   representativeOrganisationName: string;
   representativeContactNumber: string;
   representativeEmailAddress: string;
+  cicaReferenceNumber: string;
   pcqId: string;
   documentRelevance: string;
   additionalInformation: string;
