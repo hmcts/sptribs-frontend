@@ -3,7 +3,7 @@ import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import { YesOrNo } from '../../../app/case/definition';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import * as steps from '../../../steps';
-import { REPRESENTATION_QUALIFIED, UPLOAD_APPEAL_FORM } from '../../urls';
+import { CICA_REFERENCE_NUMBER, REPRESENTATION_QUALIFIED } from '../../urls';
 
 import RepresentationPostController from './representationPostController';
 
@@ -95,6 +95,6 @@ describe('RepresentationPostController', () => {
     await controller.post(req, res);
 
     expect(getNextStepUrlMock).not.toHaveBeenCalled();
-    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_APPEAL_FORM);
+    expect(res.redirect).toHaveBeenCalledWith(CICA_REFERENCE_NUMBER);
   });
 });
