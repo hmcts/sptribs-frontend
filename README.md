@@ -71,6 +71,14 @@ To enable this to run automatically when commiting to git:
 $ yarn prepare
 ```
 
+### Testing compatability with sptribs-case-api
+
+To edit dependent or integrated services (e.g. CCD), update the reference URLs in default.yaml and values.yaml, to direct them away from the AAT default and point to a PR version (e.g. http://ccd-data-store-api-sptribs-case-api-pr-2226.preview.platform.hmcts.net).
+
+To keep a deployment in preview add the GitHub label enable_keep_helm. Then connect to the relevant kubernetes cluster using one of the commands on the https://tools.hmcts.net/confluence/display/DATS/AKS+kubectl+cheatsheet. You can then obtain the URL for your deployment using:
+
+`kubectl -n <namespace> get ingress | grep <PR-number>  e.g. kubectl -n sptribs get ingress | PR 2226`
+
 ### Running the tests
 
 This template app uses [Jest](https://jestjs.io//) as the test engine. You can run unit tests by executing
