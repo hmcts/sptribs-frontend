@@ -69,6 +69,12 @@ describe('Case interface', () => {
       representativeOrganisationName: string;
       applicantAddress2: string;
       applicantPhoneNumber: string;
+      cicaReferenceNumber: string;
+      editCicaCaseDetails: {
+        cicaReferenceNumber: string;
+        cicaCaseWorker: string;
+        cicaCasePresentingOfficer: string;
+      };
     } = {
       caseTypeOfApplication: 'Type A',
       applicantFirstName: 'John',
@@ -93,6 +99,12 @@ describe('Case interface', () => {
       representativeContactNumber: '',
       representativeEmailAddress: '',
       pcqId: '123456',
+      cicaReferenceNumber: 'testCicaRef123',
+      editCicaCaseDetails: {
+        cicaReferenceNumber: 'testCicaRef123',
+        cicaCaseWorker: '',
+        cicaCasePresentingOfficer: '',
+      },
     };
 
     expect(caseData).toBeDefined();

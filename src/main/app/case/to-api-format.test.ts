@@ -27,3 +27,73 @@ test('if date is null then check for empty value', async () => {
   const dateFormat = toApiDate({ day: '', month: '1', year: '2000' });
   expect(dateFormat).toMatch('');
 });
+
+test('if CICA reference number is null then should return empty value', async () => {
+  const editCicaCaseDetailsFormat = toApiFormat({
+    caseTypeOfApplication: 'Type A',
+    applicantFirstName: 'John',
+    applicantLastName: 'Doe',
+    applicantDateOfBirth: { year: '1990', month: '05', day: '15' },
+    applicantEmailAddress: 'john@example.com',
+    applicantPhoneNumber: '1234567890',
+    applicantHomeNumber: '',
+    applicantAddress1: '123 Main Street',
+    applicantAddress2: '',
+    applicantAddressTown: 'Cityville',
+    applicantAddressCountry: null,
+    applicantAddressPostcode: null,
+    applicantStatementOfTruth: 'I declare...',
+    subjectFullName: 'Jane Smith',
+    subjectDateOfBirth: { year: '1985', month: '10', day: '25' },
+    subjectEmailAddress: 'jane@example.com',
+    subjectContactNumber: '9876543210',
+    subjectAgreeContact: 'yes',
+    representativeFullName: '',
+    representativeOrganisationName: '',
+    representativeContactNumber: '',
+    representativeEmailAddress: '',
+    pcqId: '123456',
+    cicaReferenceNumber: 'testCicaRef123',
+    editCicaCaseDetails: {
+      cicaReferenceNumber: '',
+      cicaCaseWorker: '',
+      cicaCasePresentingOfficer: '',
+    },
+  });
+  expect(editCicaCaseDetailsFormat.editCicaCaseDetails.cicaReferenceNumber).toMatch('');
+});
+
+test('if CICA reference number is not null then should return CICA reference number', async () => {
+  const editCicaCaseDetailsFormat = toApiFormat({
+    caseTypeOfApplication: 'Type A',
+    applicantFirstName: 'John',
+    applicantLastName: 'Doe',
+    applicantDateOfBirth: { year: '1990', month: '05', day: '15' },
+    applicantEmailAddress: 'john@example.com',
+    applicantPhoneNumber: '1234567890',
+    applicantHomeNumber: '',
+    applicantAddress1: '123 Main Street',
+    applicantAddress2: '',
+    applicantAddressTown: 'Cityville',
+    applicantAddressCountry: null,
+    applicantAddressPostcode: null,
+    applicantStatementOfTruth: 'I declare...',
+    subjectFullName: 'Jane Smith',
+    subjectDateOfBirth: { year: '1985', month: '10', day: '25' },
+    subjectEmailAddress: 'jane@example.com',
+    subjectContactNumber: '9876543210',
+    subjectAgreeContact: 'yes',
+    representativeFullName: '',
+    representativeOrganisationName: '',
+    representativeContactNumber: '',
+    representativeEmailAddress: '',
+    pcqId: '123456',
+    cicaReferenceNumber: 'testCicaRef123',
+    editCicaCaseDetails: {
+      cicaReferenceNumber: 'testCicaRef123',
+      cicaCaseWorker: '',
+      cicaCasePresentingOfficer: '',
+    },
+  });
+  expect(editCicaCaseDetailsFormat.editCicaCaseDetails.cicaReferenceNumber).toMatch('testCicaRef123');
+});
