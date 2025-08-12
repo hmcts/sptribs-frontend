@@ -10,9 +10,9 @@
     "cy": {
       "continue": "Parhau",
       "serviceName": "Apelio i’r Tribiwnlys Haen Gyntaf",
-      "title": "Pwy yw testun yr achos hwn?",
-      "line1": "Gall testun yr achos fod yn chi, neu’r unigolyn rydych yn cyflwyno’r ffurflen tribiwnlys hon ar ei ran.",
-      "cicaReferenceNumberLabel": "Enw llawn"
+      "title": "Cyfeirnod Awdurdod Digolledu am Anafiadau Troseddol",
+      "line1": "Gallwch ddod o hyd i hwn ar unrhyw ohebiaeth rydych wedi'i derbyn gan ADAT.",
+      "cicaReferenceNumberLabel": "Cyfeirnod ADAT"
     }
   },
   "errors": {
@@ -25,9 +25,9 @@
     },
     "cy": {
       "cicaReferenceNumber": {
-        "required": "Nodwch enw llawn",
-        "containsMarkdownLink": "Ni ddylai'r enw llawn gynnwys dolen",
-        "containsInvalidCharacters": "Ni ddylai'r enw llawn gynnwys HTML"
+        "required": "Nodwch gyfeirnod ADAT",
+        "containsMarkdownLink": "Ni ddylai cyfeirnod ADAT gynnwys dolen",
+        "containsInvalidCharacters": "Ni ddylai cyfeirnod ADAT gynnwys HTML"
       }
     }
   }
