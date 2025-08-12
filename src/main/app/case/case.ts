@@ -1,6 +1,6 @@
 import { AnyObject } from '../controller/PostController';
 
-import type { CaseData, LanguagePreference, YesOrNo } from './definition';
+import type { CaseData, EditCicaCaseDetails, LanguagePreference, YesOrNo } from './definition';
 
 export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
   caseTypeOfApplication: 'dssCaseDataCaseTypeOfApplication',
@@ -21,6 +21,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   representativeContactNumber: 'dssCaseDataRepresentativeContactNumber',
   representativeEmailAddress: 'dssCaseDataRepresentativeEmailAddress',
   cicaReferenceNumber: 'cicCaseCicaReferenceNumber',
+  editCicaCaseDetails: 'editCicaCaseDetails',
   pcqId: 'dssCaseDataPcqId',
   additionalInformation: 'dssCaseDataAdditionalInformation',
   languagePreference: 'dssCaseDataLanguagePreference',
@@ -69,6 +70,7 @@ export interface Case {
   representativeContactNumber: string;
   representativeEmailAddress: string;
   cicaReferenceNumber: string;
+  editCicaCaseDetails: EditCicaCaseDetails;
   pcqId: string;
   documentRelevance: string;
   additionalInformation: string;
