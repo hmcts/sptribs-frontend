@@ -71,6 +71,7 @@ export const mockUserCase4 = {
   representativeOrganisationName: 'rep org',
   representativeContactNumber: '012345678910',
   representativeEmailAddress: 'dummy@bob.com',
+  cicaReferenceNumber: 'testReferenceNumber123',
   pcqId: undefined,
   additionalInformation: undefined,
 } as unknown as any;

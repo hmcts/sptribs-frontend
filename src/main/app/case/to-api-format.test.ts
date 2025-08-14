@@ -28,7 +28,7 @@ test('if date is null then check for empty value', async () => {
   expect(dateFormat).toMatch('');
 });
 
-test('if CICA reference number is null then should return empty value', async () => {
+test('if editCicaCaseDetails.cicaReferenceNumber is null then toApiFormat should still return empty editCicaCaseDetails.cicaReferenceNumber value', async () => {
   const editCicaCaseDetailsFormat = toApiFormat({
     caseTypeOfApplication: 'Type A',
     applicantFirstName: 'John',
@@ -63,7 +63,7 @@ test('if CICA reference number is null then should return empty value', async ()
   expect(editCicaCaseDetailsFormat.editCicaCaseDetails.cicaReferenceNumber).toMatch('');
 });
 
-test('if CICA reference number is not null then should return CICA reference number', async () => {
+test('if editCicaCaseDetails.cicaReferenceNumber is not null then toApiFormat should return editCicaCaseDetails.cicaReferenceNumber', async () => {
   const editCicaCaseDetailsFormat = toApiFormat({
     caseTypeOfApplication: 'Type A',
     applicantFirstName: 'John',
