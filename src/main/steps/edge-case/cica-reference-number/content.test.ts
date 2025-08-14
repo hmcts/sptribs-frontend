@@ -38,6 +38,7 @@ describe('cica-reference-number-content', () => {
     expect(generatedContent.serviceName).toEqual(enContent.serviceName);
     expect(generatedContent.cicaReferenceNumberLabel).toEqual(enContent.cicaReferenceNumberLabel);
     expect(generatedContent.line1).toEqual(enContent.line1);
+    expect(generatedContent.title).toEqual(enContent.title);
     expect(generatedContent.errors).toEqual(enContent.errors);
   });
 
@@ -55,18 +56,33 @@ describe('cica-reference-number-content', () => {
   });
   /* eslint-disable @typescript-eslint/ban-types, @typescript-eslint/no-explicit-any */
   test('should contain submit button', () => {
-    const generatedContent = generateContent(commonContent);
-    const form = generatedContent.form as FormContent;
-
-    expect((form.submit?.text as Function)(generateContent({ ...commonContent, language: EN }))).toBe('Continue');
+    const generatedContentEN = generateContent({ ...commonContent, language: EN });
+    const formEN = generatedContentEN.form as FormContent;
+    expect((formEN.submit?.text as Function)(generateContent({ ...commonContent, language: EN }))).toBe(
+      enContent.continue
+    );
+    const generatedContentCY = generateContent({ ...commonContent, language: CY });
+    const formCY = generatedContentCY.form as FormContent;
+    expect((formCY.submit?.text as Function)(generateContent({ ...commonContent, language: CY }))).toBe(
+      cyContent.continue
+    );
   });
 
-  test('should call validation function', () => {
+  test('should have a CICA reference number input text field', () => {
+    const generatedContent = generateContent(commonContent);
+    const form = generatedContent.form as FormContent;
+    const fields = form.fields as FormFields;
+    const cicaReferenceNumber = fields.cicaReferenceNumber;
+    expect(cicaReferenceNumber.classes).toBe('govuk-input');
+    expect((cicaReferenceNumber.label as Function)(generatedContent)).toBe(enContent.cicaReferenceNumberLabel);
+    expect(cicaReferenceNumber.type).toBe('text');
+  });
+
+  test('should call and pass validation function for valid CICA reference number', () => {
     const generatedContent = generateContent(commonContent);
     const form = generatedContent.form as FormContent;
     const fields = form.fields as FormFields;
     const cicaReferenceNumber = fields.cicaReferenceNumber as FormOptions;
-    expect((cicaReferenceNumber.label as Function)(generatedContent)).toBe(enContent.cicaReferenceNumberLabel);
     expect((cicaReferenceNumber.validator as Function)('testCicaRef123')).toBe(undefined);
   });
 
@@ -84,24 +100,4 @@ describe('cica-reference-number-content', () => {
     );
     expect((cicaReferenceNumber.validator as Function)(' ')).toBe('required');
   });
-});
-
-it('should use cy language translation and cover happy path', () => {
-  const generatedContent = generateContent(commonContent);
-  const form = generatedContent.form as FormContent;
-  const fields = form.fields as FormFields;
-  const cicaReferenceNumber = fields.cicaReferenceNumber as FormOptions;
-
-  expect(generatedContent.title).toBe(enContent.title);
-  expect((cicaReferenceNumber.validator as Function)('testCicaRef123')).toBe(undefined);
-});
-
-it('should use en language translation and cover happy path', () => {
-  const generatedContent = generateContent(commonContent);
-  const form = generatedContent.form as FormContent;
-  const fields = form.fields as FormFields;
-  const cicaReferenceNumber = fields.cicaReferenceNumber as FormOptions;
-
-  expect(generatedContent.section).not.toBe('testCicaRef123');
-  expect((cicaReferenceNumber.validator as Function)('testCicaRef123')).toBe(undefined);
 });
