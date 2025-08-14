@@ -135,4 +135,28 @@ describe('RepresentationPostController', () => {
     expect(getNextStepUrlMock).not.toHaveBeenCalled();
     expect(res.redirect).toHaveBeenCalledWith(CICA_REFERENCE_NUMBER);
   });
+
+  test('Should redirect to cica reference number page when no radio button selected on form with a custom field function', async () => {
+    const fieldsFn = jest.fn().mockReturnValue({
+      representation: {
+        type: 'radios',
+        values: [
+          { label: l => l.no, value: YesOrNo.YES },
+          { label: l => l.yes, value: YesOrNo.NO },
+        ],
+        validator: isFieldFilledIn,
+      },
+    });
+    const controller = new RepresentationPostController(fieldsFn);
+
+    const body = { representation: 'No' };
+
+    const req = mockRequest({ body });
+    const res = mockResponse();
+    await controller.post(req, res);
+
+    expect(getNextStepUrlMock).not.toHaveBeenCalled();
+    expect(res.redirect).toHaveBeenCalledWith(CICA_REFERENCE_NUMBER);
+    expect(fieldsFn).toHaveBeenCalledWith(req.session.userCase);
+  });
 });
