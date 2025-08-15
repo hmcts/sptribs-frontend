@@ -182,6 +182,26 @@ export const RepresentativeSummaryList = (
   };
 };
 
+export const CICAReferenceNumberSummary = (
+  { sectionTitles, keys, ...content }: SummaryListContent,
+  userCase: Partial<CaseWithId>
+): SummaryList | undefined => {
+  const sectionTitle = sectionTitles.cicaReferenceNumber;
+
+  const SummaryData = [
+    {
+      key: keys.cicaReferenceNumber,
+      value: userCase['cicaReferenceNumber'],
+      changeUrl: Urls['CICA_REFERENCE_NUMBER'],
+    },
+  ];
+
+  return {
+    title: sectionTitle,
+    rows: getSectionSummaryList(SummaryData, content),
+  };
+};
+
 /* eslint-disable import/namespace */
 export const UploadAppealFormSummary = (
   { sectionTitles, keys, ...content }: SummaryListContent,
