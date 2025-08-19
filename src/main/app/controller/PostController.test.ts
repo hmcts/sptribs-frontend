@@ -289,6 +289,28 @@ describe('PostController', () => {
     expect(req.session.userCase.state).toEqual('Holding');
   });
 
+  test('should post form with a custom field function', async () => {
+    const fieldsFn = jest.fn().mockReturnValue({
+      fields: {},
+    });
+    const controller = new PostController(fieldsFn);
+
+    const body = {
+      id: '',
+      state: 'Holding',
+      saveAndContinue: 'true',
+      serviceType: 'No',
+      applicantFirstName: 'qazqazqwe',
+      applicantLastName: 'wsxwsxdfg',
+    };
+
+    const req = mockRequest({ body });
+    const res = mockResponse();
+    await controller.post(req, res);
+
+    expect(fieldsFn).toHaveBeenCalledWith(req.session.userCase);
+  });
+
   describe('getEventName', () => {
     const subjectContactDetailsUrl = '/subject-contact-details';
     const contactDetailsUrl = '/contact-details';
