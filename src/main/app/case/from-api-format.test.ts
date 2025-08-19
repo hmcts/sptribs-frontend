@@ -32,5 +32,14 @@ describe('from-api-format', () => {
 
       expect(nfdivFormat).toStrictEqual({ cicaReferenceNumber: 'CICA123456' });
     });
+
+    test('when without editCicaCaseDetails.cicaReferenceNumber, cicaReferenceNumber is empty', () => {
+      const nfdivFormat = fromApiFormat({
+        ...results,
+        editCicaCaseDetails: { cicaCaseWorker: '', cicaCasePresentingOfficer: '' } as EditCicaCaseDetails,
+      } as unknown as CaseData);
+
+      expect(nfdivFormat).toStrictEqual({ cicaReferenceNumber: '' });
+    });
   });
 });
