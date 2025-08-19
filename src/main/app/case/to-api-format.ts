@@ -10,7 +10,7 @@ export const fields: ToApiConverters = {
   subjectDateOfBirth: (data: Case) => ({
     dssCaseDataSubjectDateOfBirth: toApiDate(data.subjectDateOfBirth),
   }),
-  editCicaCaseDetails: (data: Case) => ({
+  cicaReferenceNumber: (data: Case) => ({
     editCicaCaseDetails: {
       cicaReferenceNumber: data.cicaReferenceNumber ? data.cicaReferenceNumber : '',
       cicaCaseWorker: '',

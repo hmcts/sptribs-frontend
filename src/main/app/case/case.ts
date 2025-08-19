@@ -20,8 +20,6 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   representativeOrganisationName: 'dssCaseDataRepresentativeOrganisationName',
   representativeContactNumber: 'dssCaseDataRepresentativeContactNumber',
   representativeEmailAddress: 'dssCaseDataRepresentativeEmailAddress',
-  cicaReferenceNumber: 'cicCaseCicaReferenceNumber',
-  editCicaCaseDetails: 'editCicaCaseDetails',
   pcqId: 'dssCaseDataPcqId',
   additionalInformation: 'dssCaseDataAdditionalInformation',
   languagePreference: 'dssCaseDataLanguagePreference',
