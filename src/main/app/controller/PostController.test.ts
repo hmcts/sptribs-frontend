@@ -2,7 +2,7 @@ import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { FormContent } from '../../app/form/Form';
 import * as steps from '../../steps';
-import { CICA_REFERENCE_NUMBER, SUBJECT_CONTACT_DETAILS } from '../../steps/urls'; //TOOK out CONTACT_DETAILS for EMAIL_ADDRESS RB
+import { CICA_REFERENCE_NUMBER, CONTACT_DETAILS, SUBJECT_CONTACT_DETAILS } from '../../steps/urls'; //TOOK out CONTACT_DETAILS for EMAIL_ADDRESS RB
 import { CITIZEN_CIC_CREATE_CASE, CITIZEN_CIC_SUBMIT_CASE, CITIZEN_CIC_UPDATE_CASE } from '../case/definition';
 import { isPhoneNoValid } from '../form/validation';
 
@@ -44,22 +44,28 @@ describe('PostController', () => {
 
   test('Should save the users data, update session case from API response and redirect to the next page if the form is valid', async () => {
     getNextStepUrlMock.mockReturnValue('/next-step-url');
-    const body = { MOCK_KEY: 'MOCK_VALUE', originalUrl: SUBJECT_CONTACT_DETAILS };
+    const body = { MOCK_KEY: 'MOCK_VALUE' };
     const controller = new PostController(mockFormContent.fields);
 
     const expectedUserCase = {
       id: '1234',
       MOCK_KEY: 'MOCK_VALUE',
-      originalUrl: SUBJECT_CONTACT_DETAILS,
     };
 
     const req = mockRequest({ body });
+    req.originalUrl = CONTACT_DETAILS;
     (req.locals.api.triggerEvent as jest.Mock).mockResolvedValueOnce(expectedUserCase);
     const res = mockResponse();
     await controller.post(req, res);
 
     expect(req.session.userCase).toEqual(expectedUserCase);
     expect(getNextStepUrlMock).toHaveBeenCalledWith(req, expectedUserCase);
+    expect(controller.getEventName(req)).toEqual('citizen-cic-update-dss-application');
+    expect(req.locals.api.triggerEvent as jest.Mock).toHaveBeenCalledWith(
+      '1234',
+      { MOCK_KEY: 'MOCK_VALUE' },
+      'citizen-cic-update-dss-application'
+    );
     expect(req.session.errors).toStrictEqual([]);
   });
 
@@ -227,7 +233,7 @@ describe('PostController', () => {
     expect(res.end).toHaveBeenCalledWith();
   });
 
-  test('whether the citizen update api call is made with correct user details fistname lastname update caseid', async () => {
+  test('whether the citizen update api call is made with correct user details firstname lastname update caseid', async () => {
     getNextStepUrlMock.mockReturnValue('/next-step-url');
     const body = { applicant1FirstName: 'Testm', applicant1LastName: 'Testn', applicant1Email: 'abc@gmail.com' };
     const controller = new PostController(mockFormContent.fields);
