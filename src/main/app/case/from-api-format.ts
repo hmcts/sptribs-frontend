@@ -10,6 +10,9 @@ const fields: FromApiConverters = {
   dssCaseDataSubjectDateOfBirth: (data: Partial<CaseData>) => ({
     subjectDateOfBirth: fromApiDate(data.dssCaseDataSubjectDateOfBirth),
   }),
+  editCicaCaseDetails: (data: Partial<CaseData>) => ({
+    cicaReferenceNumber: data.editCicaCaseDetails?.cicaReferenceNumber || '',
+  }),
 };
 
 export const fromApiFormat = (data: CaseData): Case => formatCase(fields, data);

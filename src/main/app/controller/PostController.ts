@@ -3,7 +3,13 @@ import config from 'config';
 import { Response } from 'express';
 
 import { getNextStepUrl } from '../../steps';
-import { CHECK_YOUR_ANSWERS, CONTACT_DETAILS, SAVE_AND_SIGN_OUT, SUBJECT_CONTACT_DETAILS } from '../../steps/urls';
+import {
+  CHECK_YOUR_ANSWERS,
+  CICA_REFERENCE_NUMBER,
+  CONTACT_DETAILS,
+  SAVE_AND_SIGN_OUT,
+  SUBJECT_CONTACT_DETAILS,
+} from '../../steps/urls';
 import { Case, CaseWithId } from '../case/case';
 import { CITIZEN_CIC_CREATE_CASE, CITIZEN_CIC_SUBMIT_CASE, CITIZEN_CIC_UPDATE_CASE } from '../case/definition';
 import { Form, FormFields, FormFieldsFn } from '../form/Form';
@@ -67,6 +73,8 @@ export class PostController<T extends AnyObject> {
         const eventName = this.getEventName(req);
         if (eventName === CITIZEN_CIC_CREATE_CASE) {
           req.session.userCase = await this.createCase(req);
+        } else if (eventName === CITIZEN_CIC_UPDATE_CASE) {
+          req.session.userCase = await this.save(req, formData, eventName);
         }
       }
     }
@@ -125,6 +133,8 @@ export class PostController<T extends AnyObject> {
     if (req.originalUrl.startsWith(SUBJECT_CONTACT_DETAILS) && this.isBlank(req)) {
       eventName = CITIZEN_CIC_CREATE_CASE;
     } else if (req.originalUrl === CONTACT_DETAILS) {
+      eventName = CITIZEN_CIC_UPDATE_CASE;
+    } else if (req.originalUrl === CICA_REFERENCE_NUMBER) {
       eventName = CITIZEN_CIC_UPDATE_CASE;
     } else if (req.originalUrl === CHECK_YOUR_ANSWERS) {
       eventName = CITIZEN_CIC_SUBMIT_CASE;
