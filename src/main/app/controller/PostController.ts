@@ -132,9 +132,7 @@ export class PostController<T extends AnyObject> {
     let eventName;
     if (req.originalUrl.startsWith(SUBJECT_CONTACT_DETAILS) && this.isBlank(req)) {
       eventName = CITIZEN_CIC_CREATE_CASE;
-    } else if (req.originalUrl === CONTACT_DETAILS) {
-      eventName = CITIZEN_CIC_UPDATE_CASE;
-    } else if (req.originalUrl === CICA_REFERENCE_NUMBER) {
+    } else if (req.originalUrl === CONTACT_DETAILS || req.originalUrl === CICA_REFERENCE_NUMBER) {
       eventName = CITIZEN_CIC_UPDATE_CASE;
     } else if (req.originalUrl === CHECK_YOUR_ANSWERS) {
       eventName = CITIZEN_CIC_SUBMIT_CASE;
