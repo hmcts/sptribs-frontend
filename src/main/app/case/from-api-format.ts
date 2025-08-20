@@ -11,7 +11,7 @@ const fields: FromApiConverters = {
     subjectDateOfBirth: fromApiDate(data.dssCaseDataSubjectDateOfBirth),
   }),
   editCicaCaseDetails: (data: Partial<CaseData>) => ({
-    cicaReferenceNumber: data.editCicaCaseDetails?.cicaReferenceNumber || '',
+    cicaReferenceNumber: data.editCicaCaseDetails?.cicaReferenceNumber,
   }),
 };
 
