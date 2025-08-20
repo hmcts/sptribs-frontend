@@ -108,7 +108,7 @@ describe('RepresentationPostController', () => {
     (Form.prototype.getErrors as jest.Mock).mockRestore();
   });
 
-  test('Should redirect to cica reference number page when no radio button selected', async () => {
+  test('Should redirect to cica-reference-number page when no radio button selected', async () => {
     const mockForm = {
       fields: {
         representation: {
@@ -136,7 +136,7 @@ describe('RepresentationPostController', () => {
     expect(res.redirect).toHaveBeenCalledWith(CICA_REFERENCE_NUMBER);
   });
 
-  test('Should redirect to cica reference number page when no radio button selected on form with a custom field function', async () => {
+  test('Should redirect to cica-reference-number page when no radio button selected on form with a custom field function', async () => {
     const fieldsFn = jest.fn().mockReturnValue({
       representation: {
         type: 'radios',
