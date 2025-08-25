@@ -152,3 +152,4 @@ The application exposes a health endpoint (https://localhost:4000/health), creat
 ### License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
