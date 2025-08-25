@@ -1,4 +1,4 @@
-import { CaseData } from './definition';
+import { CaseData, EditCicaCaseDetails } from './definition';
 import { fromApiFormat } from './from-api-format';
 
 describe('from-api-format', () => {
@@ -20,6 +20,26 @@ describe('from-api-format', () => {
       } as unknown as CaseData);
 
       expect(nfdivFormat).toMatchObject({});
+    });
+  });
+
+  describe('pulling CICA reference number from editCicaCaseDetails to cicaReferenceNumber', () => {
+    test('extracts to cicaReferenceNumber', () => {
+      const nfdivFormat = fromApiFormat({
+        ...results,
+        editCicaCaseDetails: { cicaReferenceNumber: 'CICA123456' } as EditCicaCaseDetails,
+      } as unknown as CaseData);
+
+      expect(nfdivFormat).toStrictEqual({ cicaReferenceNumber: 'CICA123456' });
+    });
+
+    test('when without editCicaCaseDetails.cicaReferenceNumber, cicaReferenceNumber is undefined', () => {
+      const nfdivFormat = fromApiFormat({
+        ...results,
+        editCicaCaseDetails: { cicaCaseWorker: '', cicaCasePresentingOfficer: '' } as EditCicaCaseDetails,
+      } as unknown as CaseData);
+
+      expect(nfdivFormat).toStrictEqual({ cicaReferenceNumber: undefined });
     });
   });
 });
