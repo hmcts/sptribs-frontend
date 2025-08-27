@@ -13,8 +13,6 @@ export const fields: ToApiConverters = {
   cicaReferenceNumber: (data: Case) => ({
     editCicaCaseDetails: {
       cicaReferenceNumber: data.cicaReferenceNumber,
-      cicaCaseWorker: '',
-      cicaCasePresentingOfficer: '',
     },
   }),
 };
