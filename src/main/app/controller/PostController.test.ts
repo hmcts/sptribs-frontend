@@ -71,7 +71,7 @@ describe('PostController', () => {
 
   test('Should save the users data, update session case from API response and redirect to the next page if the form is valid and the user has representation', async () => {
     getNextStepUrlMock.mockReturnValue('/next-step-url');
-    const body = { MOCK_KEY: 'MOCK_VALUE' };
+    const body = { MOCK_KEY: 'MOCK_VALUE', representation: 'Yes' };
     const controller = new PostController(mockFormContent.fields);
 
     const expectedUserCase = {
@@ -91,7 +91,7 @@ describe('PostController', () => {
     expect(controller.getEventName(req)).toEqual('citizen-cic-update-dss-application');
     expect(req.locals.api.triggerEvent as jest.Mock).toHaveBeenCalledWith(
       '1234',
-      { MOCK_KEY: 'MOCK_VALUE', representation: 'No' },
+      { MOCK_KEY: 'MOCK_VALUE', representation: 'Yes' },
       'citizen-cic-update-dss-application'
     );
     expect(req.session.errors).toStrictEqual([]);
