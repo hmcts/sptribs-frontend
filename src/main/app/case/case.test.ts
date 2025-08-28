@@ -76,8 +76,6 @@ describe('Case interface', () => {
       cicaReferenceNumber: 'testCicaRef123',
       editCicaCaseDetails: {
         cicaReferenceNumber: 'testCicaRef123',
-        cicaCaseWorker: '',
-        cicaCasePresentingOfficer: '',
       },
       documentRelevance: 'doc relevance',
       additionalInformation: 'some info',

@@ -63,7 +63,7 @@ describe('PostController', () => {
     expect(controller.getEventName(req)).toEqual('citizen-cic-update-dss-application');
     expect(req.locals.api.triggerEvent as jest.Mock).toHaveBeenCalledWith(
       '1234',
-      { MOCK_KEY: 'MOCK_VALUE' },
+      { MOCK_KEY: 'MOCK_VALUE', representation: 'No' },
       'citizen-cic-update-dss-application'
     );
     expect(req.session.errors).toStrictEqual([]);

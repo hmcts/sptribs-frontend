@@ -33,7 +33,7 @@ const cyContent = {
 
 describe('cica-reference-number-content', () => {
   test('should return correct english content', () => {
-    const generatedContent = generateContent({ ...commonContent });
+    const generatedContent = generateContent({ ...commonContent, language: EN });
     expect(generatedContent.continue).toEqual(enContent.continue);
     expect(generatedContent.serviceName).toEqual(enContent.serviceName);
     expect(generatedContent.cicaReferenceNumberLabel).toEqual(enContent.cicaReferenceNumberLabel);
@@ -43,17 +43,14 @@ describe('cica-reference-number-content', () => {
   });
 
   test('should return correct welsh content', () => {
-    const generatedContent = generateContent({
-      ...commonContent,
-      language: CY,
-    });
-
+    const generatedContent = generateContent({ ...commonContent, language: CY });
     expect(generatedContent.continue).toEqual(cyContent.continue);
     expect(generatedContent.serviceName).toEqual(cyContent.serviceName);
     expect(generatedContent.cicaReferenceNumberLabel).toEqual(cyContent.cicaReferenceNumberLabel);
     expect(generatedContent.line1).toEqual(cyContent.line1);
     expect(generatedContent.errors).toEqual(cyContent.errors);
   });
+
   /* eslint-disable @typescript-eslint/ban-types, @typescript-eslint/no-explicit-any */
   test('should contain submit button', () => {
     const generatedContentEN = generateContent({ ...commonContent, language: EN });
@@ -86,7 +83,7 @@ describe('cica-reference-number-content', () => {
     expect((cicaReferenceNumber.validator as Function)('testCicaRef123')).toBe(undefined);
   });
 
-  test('should fail validation when CICA reference number contains invalid text (eg. html, markdown, null)', () => {
+  test('should fail validation when CICA reference number contains invalid text (eg. HTML, markdown, empty)', () => {
     const generatedContent = generateContent(commonContent);
     const form = generatedContent.form as FormContent;
     const fields = form.fields as FormFields;
