@@ -43,7 +43,7 @@ describe('RepresentationPostController', () => {
     expect(req.session.errors).toEqual(errors);
   });
 
-  test('Should redirect to the representation qualifed page when yes radio button selected', async () => {
+  test('Should redirect to the representation qualified page when "Yes" radio button selected', async () => {
     const mockForm = {
       fields: {
         representation: {
@@ -71,7 +71,7 @@ describe('RepresentationPostController', () => {
     expect(res.redirect).toHaveBeenCalledWith(REPRESENTATION_QUALIFIED);
   });
 
-  test('Should not redirect to the representation qualifed page when errors occur and yes radio button selected', async () => {
+  test('Should not redirect to the representation qualified page when errors occur and "Yes" radio button selected', async () => {
     const errors = [{ errorType: 'required', propertyName: 'representation' }];
     const mockForm = {
       fields: {
@@ -108,7 +108,7 @@ describe('RepresentationPostController', () => {
     (Form.prototype.getErrors as jest.Mock).mockRestore();
   });
 
-  test('Should redirect to cica-reference-number page when no radio button selected', async () => {
+  test('Should redirect to cica-reference-number page when "No" radio button selected', async () => {
     const mockForm = {
       fields: {
         representation: {
@@ -136,7 +136,7 @@ describe('RepresentationPostController', () => {
     expect(res.redirect).toHaveBeenCalledWith(CICA_REFERENCE_NUMBER);
   });
 
-  test('Should redirect to cica-reference-number page when no radio button selected on form with a custom field function', async () => {
+  test('Should redirect to cica-reference-number page when "No" radio button selected on form with a custom field function', async () => {
     const fieldsFn = jest.fn().mockReturnValue({
       representation: {
         type: 'radios',

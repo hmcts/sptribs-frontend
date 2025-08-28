@@ -34,9 +34,6 @@ test('if cicaReferenceNumber is populated then editCicaCaseDetails.cicaReference
 });
 
 test('if nothing is passed to toApiFormat then empty object should be returned', async () => {
-  const editCicaCaseDetailsFormat = toApiFormat({});
-  expect(editCicaCaseDetailsFormat).not.toContain({
-    editCicaCaseDetails: { cicaReferenceNumber: '', cicaCaseWorker: '', cicaCasePresentingOfficer: '' },
-  });
-  expect(editCicaCaseDetailsFormat).toStrictEqual({});
+  const emptyCase = toApiFormat({});
+  expect(emptyCase).toStrictEqual({});
 });
