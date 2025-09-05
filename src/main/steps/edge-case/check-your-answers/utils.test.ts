@@ -1,7 +1,8 @@
-import { mockUserCase1, mockUserCase2, mockUserCase3 } from '../../../../test/unit/utils/mockUserCase';
+import { mockUserCase1, mockUserCase2, mockUserCase3, mockUserCase4 } from '../../../../test/unit/utils/mockUserCase';
 
 import { enContent } from './content';
 import {
+  CICAReferenceNumberSummary,
   OtherInformationSummary,
   RepresentationSummary,
   SubjectSummaryList,
@@ -507,6 +508,39 @@ describe('Representation Summary > check-your-answers', () => {
       },
     ])('return correct summary list items when %#', ({ userCase, expected }) => {
       expect(RepresentationSummary(enContent, userCase)).toStrictEqual(expected);
+    });
+  });
+});
+
+describe('cica-reference-number > check-your-answers', () => {
+  describe('applicationSummaryList', () => {
+    test.each([
+      {
+        documents: [],
+        userCase: {
+          ...mockUserCase4,
+        },
+        expected: {
+          rows: [
+            {
+              actions: {
+                items: [
+                  {
+                    href: '/cica-reference-number',
+                    text: 'change',
+                    visuallyHiddenText: 'CICA reference number',
+                  },
+                ],
+              },
+              key: { text: 'CICA reference number' },
+              value: { text: 'testReferenceNumber123' },
+            },
+          ],
+          title: 'Criminal Injuries Compensation Authority Reference Number',
+        },
+      },
+    ])('return correct summary list items when %#', ({ userCase, expected }) => {
+      expect(CICAReferenceNumberSummary(enContent, userCase)).toStrictEqual(expected);
     });
   });
 });

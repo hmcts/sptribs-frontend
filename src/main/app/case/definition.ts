@@ -12,14 +12,11 @@ export interface Address {
   Country: string;
 }
 
-export interface AddressGlobal extends Address {
-}
+export interface AddressGlobal extends Address {}
 
-export interface AddressGlobalUK extends Address {
-}
+export interface AddressGlobalUK extends Address {}
 
-export interface AddressUK extends Address {
-}
+export interface AddressUK extends Address {}
 
 export interface BulkScanEnvelope {
   id: string;
@@ -50,11 +47,9 @@ export interface ChangeOrganisationRequest<R> {
   CreatedBy: string;
 }
 
-export interface ComponentLauncher {
-}
+export interface ComponentLauncher {}
 
-export interface DynamicElementIndicator {
-}
+export interface DynamicElementIndicator {}
 
 export interface DynamicList {
   value: DynamicListElement;
@@ -141,8 +136,7 @@ export interface FlagDetail {
   availableExternally: YesOrNo;
 }
 
-export interface FlagLauncher {
-}
+export interface FlagLauncher {}
 
 export interface Flags {
   partyName: string;
@@ -232,11 +226,9 @@ export interface TTL {
   OverrideTTL: DateAsString;
 }
 
-export interface WaysToPay {
-}
+export interface WaysToPay {}
 
-export interface CaseBuilt {
-}
+export interface CaseBuilt {}
 
 export interface CaseFlagDisplay {
   name: string;
@@ -355,8 +347,8 @@ export interface DraftOrderContentCIC {
 
 export interface EditCicaCaseDetails {
   cicaReferenceNumber: string;
-  cicaCaseWorker: string;
-  cicaCasePresentingOfficer: string;
+  cicaCaseWorker?: string;
+  cicaCasePresentingOfficer?: string;
 }
 
 export interface HearingSummary {
@@ -1314,16 +1306,14 @@ export interface Region {
   welsh_description: string;
 }
 
-export interface DateTime extends BaseDateTime, ReadableDateTime, Serializable {
-}
+export interface DateTime extends BaseDateTime, ReadableDateTime, Serializable {}
 
 export interface Links {
   self: DocumentLink;
   binary: DocumentLink;
 }
 
-export interface MappableObject {
-}
+export interface MappableObject {}
 
 export interface CaseDetails<T, S> {
   id: number;
@@ -1339,808 +1329,801 @@ export interface CaseDetails<T, S> {
   callback_response_status: string;
 }
 
-export interface BaseDateTime extends AbstractDateTime, ReadableDateTime, Serializable {
-}
+export interface BaseDateTime extends AbstractDateTime, ReadableDateTime, Serializable {}
 
-export interface ReadableDateTime extends ReadableInstant {
-}
+export interface ReadableDateTime extends ReadableInstant {}
 
-export interface Serializable {
-}
+export interface Serializable {}
 
 export interface DocumentLink {
   href: string;
 }
 
-export interface AbstractDateTime extends AbstractInstant, ReadableDateTime {
-}
+export interface AbstractDateTime extends AbstractInstant, ReadableDateTime {}
 
-export interface ReadableInstant extends Comparable<ReadableInstant> {
-}
+export interface ReadableInstant extends Comparable<ReadableInstant> {}
 
-export interface AbstractInstant extends ReadableInstant {
-}
+export interface AbstractInstant extends ReadableInstant {}
 
-export interface Comparable<T> {
-}
+export interface Comparable<T> {}
 
 export type DateAsString = string;
 
 export const enum ChangeOrganisationApprovalStatus {
-  NOT_CONSIDERED = "0",
-  APPROVED = "1",
-  REJECTED = "2",
+  NOT_CONSIDERED = '0',
+  APPROVED = '1',
+  REJECTED = '2',
 }
 
 export const enum FieldType {
-  Unspecified = "Unspecified",
-  Email = "Email",
-  PhoneUK = "PhoneUK",
-  Date = "Date",
-  Document = "Document",
-  Schedule = "Schedule",
-  TextArea = "TextArea",
-  FixedList = "FixedList",
-  FixedRadioList = "FixedRadioList",
-  YesOrNo = "YesOrNo",
-  Address = "Address",
-  CaseLink = "CaseLink",
-  CaseLocation = "CaseLocation",
-  OrderSummary = "OrderSummary",
-  MultiSelectList = "MultiSelectList",
-  Collection = "Collection",
-  Label = "Label",
-  CasePaymentHistoryViewer = "CasePaymentHistoryViewer",
-  DynamicRadioList = "DynamicRadioList",
-  DynamicMultiSelectList = "DynamicMultiSelectList",
-  Flags = "Flags",
-  FlagLauncher = "FlagLauncher",
-  FlagType = "FlagType",
-  FlagDetail = "FlagDetail",
-  ComponentLauncher = "ComponentLauncher",
-  SearchCriteria = "SearchCriteria",
-  TTL = "TTL",
+  Unspecified = 'Unspecified',
+  Email = 'Email',
+  PhoneUK = 'PhoneUK',
+  Date = 'Date',
+  Document = 'Document',
+  Schedule = 'Schedule',
+  TextArea = 'TextArea',
+  FixedList = 'FixedList',
+  FixedRadioList = 'FixedRadioList',
+  YesOrNo = 'YesOrNo',
+  Address = 'Address',
+  CaseLink = 'CaseLink',
+  CaseLocation = 'CaseLocation',
+  OrderSummary = 'OrderSummary',
+  MultiSelectList = 'MultiSelectList',
+  Collection = 'Collection',
+  Label = 'Label',
+  CasePaymentHistoryViewer = 'CasePaymentHistoryViewer',
+  DynamicRadioList = 'DynamicRadioList',
+  DynamicMultiSelectList = 'DynamicMultiSelectList',
+  Flags = 'Flags',
+  FlagLauncher = 'FlagLauncher',
+  FlagType = 'FlagType',
+  FlagDetail = 'FlagDetail',
+  ComponentLauncher = 'ComponentLauncher',
+  SearchCriteria = 'SearchCriteria',
+  TTL = 'TTL',
 }
 
 export const enum FlagType {
-  APPELLANT_ABROAD = "appellantAbroad",
-  OTHER = "Other",
+  APPELLANT_ABROAD = 'appellantAbroad',
+  OTHER = 'Other',
 }
 
 export const enum FlagVisibility {
-  INTERNAL = "Internal",
-  EXTERNAL = "External",
+  INTERNAL = 'Internal',
+  EXTERNAL = 'External',
 }
 
 export const enum ScannedDocumentType {
-  CHERISHED = "cherished",
-  COVERSHEET = "coversheet",
-  FORM = "form",
-  OTHER = "other",
+  CHERISHED = 'cherished',
+  COVERSHEET = 'coversheet',
+  FORM = 'form',
+  OTHER = 'other',
 }
 
 export const enum YesOrNo {
-  YES = "Yes",
-  NO = "No",
+  YES = 'Yes',
+  NO = 'No',
 }
 
 export const enum CloseCaseRejectionReason {
-  CREATED_IN_ERROR = "createdInError",
-  DEADLINE_MISSED = "deadlineMissed",
-  DUPLICATE_CASE = "duplicateCase",
-  VEXATIOUS_LITIGANT = "vexatiousLitigant",
-  OTHER = "other",
+  CREATED_IN_ERROR = 'createdInError',
+  DEADLINE_MISSED = 'deadlineMissed',
+  DUPLICATE_CASE = 'duplicateCase',
+  VEXATIOUS_LITIGANT = 'vexatiousLitigant',
+  OTHER = 'other',
 }
 
 export const enum CloseCaseStrikeOutReason {
-  NO_JURISDICTION = "noncomplianceWithDirections",
-  OTHER = "other",
+  NO_JURISDICTION = 'noncomplianceWithDirections',
+  OTHER = 'other',
 }
 
 export const enum CloseReason {
-  Withdrawn = "caseWithdrawn",
-  Rejected = "caseRejected",
-  StrikeOut = "caseStrikeOut",
-  Concession = "caseConcession",
-  ConsentOrder = "consentOrder",
-  Rule27 = "rule27",
-  DeathOfAppellant = "deathOfAppellant",
+  Withdrawn = 'caseWithdrawn',
+  Rejected = 'caseRejected',
+  StrikeOut = 'caseStrikeOut',
+  Concession = 'caseConcession',
+  ConsentOrder = 'consentOrder',
+  Rule27 = 'rule27',
+  DeathOfAppellant = 'deathOfAppellant',
 }
 
 export const enum ContactPartiesAllowedFileTypes {
-  PDF = "PDF",
-  CSV = "CSV",
-  JSON = "JSON",
-  ODT = "ODT",
-  TXT = "TXT",
-  RTF = "RTF",
-  XLSX = "XLSX",
-  DOC = "DOC",
-  DOCX = "DOCX",
+  PDF = 'PDF',
+  CSV = 'CSV',
+  JSON = 'JSON',
+  ODT = 'ODT',
+  TXT = 'TXT',
+  RTF = 'RTF',
+  XLSX = 'XLSX',
+  DOC = 'DOC',
+  DOCX = 'DOCX',
 }
 
 export const enum FlagLevel {
-  PARTY_LEVEL = "PartyLevel",
-  CASE_LEVEL = "CaseLevel",
+  PARTY_LEVEL = 'PartyLevel',
+  CASE_LEVEL = 'CaseLevel',
 }
 
 export const enum HearingCancellationReason {
-  CASE_REJECTED = "caseRejected",
-  CONSENT_ORDER_RECEIVED_AND_NO_TIME_FOR_INFILL = "consentOrderReceivedAndNoTimeForInfill",
-  INCOMPLETE_PANEL = "incompletePanel",
-  NO_SUITABLE_CASES_THAT_ARE_READY_TO_LIST = "noSuitableCasesThatAreReadyToList",
-  REQUEST_FOR_R27_DECISION_AND_NO_TIME_FOR_INFILL = "RequestForR27DecisionAndNoTimeForInfill",
-  VENUE_UNAVAILABLE = "venueUnavailable",
-  OTHER = "Other",
+  CASE_REJECTED = 'caseRejected',
+  CONSENT_ORDER_RECEIVED_AND_NO_TIME_FOR_INFILL = 'consentOrderReceivedAndNoTimeForInfill',
+  INCOMPLETE_PANEL = 'incompletePanel',
+  NO_SUITABLE_CASES_THAT_ARE_READY_TO_LIST = 'noSuitableCasesThatAreReadyToList',
+  REQUEST_FOR_R27_DECISION_AND_NO_TIME_FOR_INFILL = 'RequestForR27DecisionAndNoTimeForInfill',
+  VENUE_UNAVAILABLE = 'venueUnavailable',
+  OTHER = 'Other',
 }
 
 export const enum LinkCaseReason {
-  PROGRESSED_AS_PART_OF_LEAD_CASE = "progressedAsPartOfLeadCase",
-  BAIL = "bail",
-  CASE_CONSOLIDATED = "caseConsolidated",
-  FAMILIAL = "familial",
-  GUARDIAN = "guardian",
-  HOME_OFFICE_REQUEST = "homeOfficeRequest",
-  LINKED_FOR_HEARING = "linkedForHearing",
-  SHARED_EVIDENCE = "sharedEvidence",
-  OTHER_APPEAL_DECIDED = "otherAppealDecided",
-  OTHER_APPEAL_PENDING = "otherAppealPending",
-  OTHER = "other",
+  PROGRESSED_AS_PART_OF_LEAD_CASE = 'progressedAsPartOfLeadCase',
+  BAIL = 'bail',
+  CASE_CONSOLIDATED = 'caseConsolidated',
+  FAMILIAL = 'familial',
+  GUARDIAN = 'guardian',
+  HOME_OFFICE_REQUEST = 'homeOfficeRequest',
+  LINKED_FOR_HEARING = 'linkedForHearing',
+  SHARED_EVIDENCE = 'sharedEvidence',
+  OTHER_APPEAL_DECIDED = 'otherAppealDecided',
+  OTHER_APPEAL_PENDING = 'otherAppealPending',
+  OTHER = 'other',
 }
 
 export const enum NextState {
-  CaseManagement = "CaseManagement",
-  NewCasePendingReview = "NewCasePendingReview",
+  CaseManagement = 'CaseManagement',
+  NewCasePendingReview = 'NewCasePendingReview',
 }
 
 export const enum NoticeOption {
-  UPLOAD_FROM_COMPUTER = "Upload from your computer",
-  CREATE_FROM_TEMPLATE = "Create from a template",
+  UPLOAD_FROM_COMPUTER = 'Upload from your computer',
+  CREATE_FROM_TEMPLATE = 'Create from a template',
 }
 
 export const enum OrderIssuingType {
-  ISSUE_AND_SEND_AN_EXISTING_DRAFT = "DraftOrder",
-  UPLOAD_A_NEW_ORDER_FROM_YOUR_COMPUTER = "UploadOrder",
+  ISSUE_AND_SEND_AN_EXISTING_DRAFT = 'DraftOrder',
+  UPLOAD_A_NEW_ORDER_FROM_YOUR_COMPUTER = 'UploadOrder',
 }
 
 export const enum PostponeReason {
-  APPELLANT_IS_OUT_OF_COUNTRY = "Appellant is out of country",
-  APPELLANT_SEEKING_LEGAL_ADVICE = "Appellant seeking legal advice",
-  APPELLANT_UNABLE_TO_ATTEND_FACE_TO_FACE = "Appellant unable to attend face to face, change of hearing format requested",
-  APPELLANT_UNAVAILABLE = "Appellant unavailable (holiday/work/appointment/unwell)",
-  BEREAVEMENT = "Bereavement",
-  CASESTAYED_DUE_TO_CIVIL_PROCEEDINGS = "Case stayed due to Civil proceedings",
-  CICA_REQUESTS_CASE_BE_HEARD_BY_A_SINGLE_JUDGE_AS_A_RULE_27_DECISION = "CICA requests case be heard by a single Judge as a Rule 27 decision",
-  CICA_SEEKING_COUNCIL = "CICA seeking Counsel",
-  EXTENSION_GRANTED = "Extension granted",
-  FACE_TO_FACE_HEARING_REQUIRED = "Face to face hearing required",
-  LAST_MINUTE_SUBMISSION = "Last minute submissions i.e. 1-2 weeks prior to hearing",
-  LINKED_CASE_TO_BE_HEARD_TOGETHER = "Linked cases - to be heard together",
-  MEMBER_EXCLUDED_LISTED_IN_ERROR = "Member excluded - listed in error",
-  REPRESENTATIVE_CANNOT_MAKE_CONTACT_WITH_APPELLANT = "Representative/Solicitor cannot make contact with Appellant",
-  REPRESENTATIVE_SEEKING_FURTHER_EVIDENCE = "Representative/Solicitor seeking further evidence",
-  REPRESENTATIVE_UNAVAILABLE = "Representative/Solicitor unavailable (holiday/work/appointment/unwell)",
-  TRIBUNAL_MEMBER_UNAVAILABLE = "Tribunal members unavailable (holiday/work/appointment/unwell)",
-  TRIBUNAL_MEMBER_DEEMED_LISTING_TIME_DIRECTED_INADEQUATE = "Tribunal members deemed listing time directed inadequate",
-  OTHER = "Other",
+  APPELLANT_IS_OUT_OF_COUNTRY = 'Appellant is out of country',
+  APPELLANT_SEEKING_LEGAL_ADVICE = 'Appellant seeking legal advice',
+  APPELLANT_UNABLE_TO_ATTEND_FACE_TO_FACE = 'Appellant unable to attend face to face, change of hearing format requested',
+  APPELLANT_UNAVAILABLE = 'Appellant unavailable (holiday/work/appointment/unwell)',
+  BEREAVEMENT = 'Bereavement',
+  CASESTAYED_DUE_TO_CIVIL_PROCEEDINGS = 'Case stayed due to Civil proceedings',
+  CICA_REQUESTS_CASE_BE_HEARD_BY_A_SINGLE_JUDGE_AS_A_RULE_27_DECISION = 'CICA requests case be heard by a single Judge as a Rule 27 decision',
+  CICA_SEEKING_COUNCIL = 'CICA seeking Counsel',
+  EXTENSION_GRANTED = 'Extension granted',
+  FACE_TO_FACE_HEARING_REQUIRED = 'Face to face hearing required',
+  LAST_MINUTE_SUBMISSION = 'Last minute submissions i.e. 1-2 weeks prior to hearing',
+  LINKED_CASE_TO_BE_HEARD_TOGETHER = 'Linked cases - to be heard together',
+  MEMBER_EXCLUDED_LISTED_IN_ERROR = 'Member excluded - listed in error',
+  REPRESENTATIVE_CANNOT_MAKE_CONTACT_WITH_APPELLANT = 'Representative/Solicitor cannot make contact with Appellant',
+  REPRESENTATIVE_SEEKING_FURTHER_EVIDENCE = 'Representative/Solicitor seeking further evidence',
+  REPRESENTATIVE_UNAVAILABLE = 'Representative/Solicitor unavailable (holiday/work/appointment/unwell)',
+  TRIBUNAL_MEMBER_UNAVAILABLE = 'Tribunal members unavailable (holiday/work/appointment/unwell)',
+  TRIBUNAL_MEMBER_DEEMED_LISTING_TIME_DIRECTED_INADEQUATE = 'Tribunal members deemed listing time directed inadequate',
+  OTHER = 'Other',
 }
 
 export const enum ReferralReason {
-  CORRECTIONS = "corrections",
-  LISTED_CASE = "listedCase",
-  LISTED_CASE_WITHIN_5_DAYS = "listedCaseWithin5Days",
-  LISTING_DIRECTIONS = "listingDirections",
-  NEW_CASE = "newCase",
-  POSTPONEMENT_REQUEST = "postponementRequest",
-  REINSTATEMENT_REQUEST = "reinstatementRequest",
-  RULE_27_REQUEST = "rule27Request",
-  SET_ASIDE_REQUEST = "setAsideRequest",
-  STAY_REQUEST = "stayRequest",
-  STRIKE_OUT_REQUEST = "strikeOutRequest",
-  TIME_EXTENSION_REQUEST = "timeExtensionRequest",
-  WITHDRAWAL_REQUEST = "withdrawalRequest",
-  WRITTEN_REASONS_REQUEST = "writtenReasonsRequest",
-  OTHER = "other",
+  CORRECTIONS = 'corrections',
+  LISTED_CASE = 'listedCase',
+  LISTED_CASE_WITHIN_5_DAYS = 'listedCaseWithin5Days',
+  LISTING_DIRECTIONS = 'listingDirections',
+  NEW_CASE = 'newCase',
+  POSTPONEMENT_REQUEST = 'postponementRequest',
+  REINSTATEMENT_REQUEST = 'reinstatementRequest',
+  RULE_27_REQUEST = 'rule27Request',
+  SET_ASIDE_REQUEST = 'setAsideRequest',
+  STAY_REQUEST = 'stayRequest',
+  STRIKE_OUT_REQUEST = 'strikeOutRequest',
+  TIME_EXTENSION_REQUEST = 'timeExtensionRequest',
+  WITHDRAWAL_REQUEST = 'withdrawalRequest',
+  WRITTEN_REASONS_REQUEST = 'writtenReasonsRequest',
+  OTHER = 'other',
 }
 
 export const enum ReinstateReason {
-  REQUEST_FOLLOWING_A_WITHDRAWAL_DECISION = "requestFollowingAWithdrawalDecision",
-  REQUEST_FOLLOWING_A_STRIKE_OUT_DECISION = "RequestFollowingAStrikeOutDecision",
-  CASE_HAD_BEEN_CLOSED_IN_ERROR = "caseHadBeenClosedInError",
-  REQUEST_FOLLOWING_A_DECISION_FROM_THE_UPPER_TRIBUNAL = "requestFollowingADecisionFromTheUpperTribunal",
-  REQUEST_FOLLOWING_AN_ORAL_HEARING_APPLICATION_FOLLOWING_A_RULE_27_DECISION = "requestFollowingAnOralHearingApplicationFollowingARule27Decision",
-  REQUEST_TO_SET_ASIDE_A_TRIBUNAL_DECISION_FOLLOWING_AN_ORAL_HEARING = "Request to set aside a tribunal decision following an oral hearing",
-  OTHER = "Other",
+  REQUEST_FOLLOWING_A_WITHDRAWAL_DECISION = 'requestFollowingAWithdrawalDecision',
+  REQUEST_FOLLOWING_A_STRIKE_OUT_DECISION = 'RequestFollowingAStrikeOutDecision',
+  CASE_HAD_BEEN_CLOSED_IN_ERROR = 'caseHadBeenClosedInError',
+  REQUEST_FOLLOWING_A_DECISION_FROM_THE_UPPER_TRIBUNAL = 'requestFollowingADecisionFromTheUpperTribunal',
+  REQUEST_FOLLOWING_AN_ORAL_HEARING_APPLICATION_FOLLOWING_A_RULE_27_DECISION = 'requestFollowingAnOralHearingApplicationFollowingARule27Decision',
+  REQUEST_TO_SET_ASIDE_A_TRIBUNAL_DECISION_FOLLOWING_AN_ORAL_HEARING = 'Request to set aside a tribunal decision following an oral hearing',
+  OTHER = 'Other',
 }
 
 export const enum ReminderDays {
-  DAY_COUNT_1 = "1 day",
-  DAY_COUNT_3 = "3 days",
-  DAY_COUNT_5 = "5 days",
-  DAY_COUNT_7 = "7 days",
+  DAY_COUNT_1 = '1 day',
+  DAY_COUNT_3 = '3 days',
+  DAY_COUNT_5 = '5 days',
+  DAY_COUNT_7 = '7 days',
 }
 
 export const enum SecurityClass {
-  PUBLIC = "PUBLIC",
-  PRIVATE = "PRIVATE",
-  RESTRICTED = "Restricted",
+  PUBLIC = 'PUBLIC',
+  PRIVATE = 'PRIVATE',
+  RESTRICTED = 'Restricted',
 }
 
 export const enum StayReason {
-  AWAITING_OUTCOME_OF_A_CIVIL_CASE = "waitingOutcomeOfCivilCase",
-  AWAITING_OUTCOME_OF_A_CRIMINAL_PROCEEDINGS = "awaitingOutcomeOfCriminalProceedings",
-  AWAITING_OUTCOME_OF_A_COURT_JUDGEMENT = "awaitingACourtJudgement",
-  UNABLE_TO_PROGRESS_DUE_TO_SUBJECTS_AGE = "unableToProgressDueToSubject’sAge",
-  UNABLE_TO_PROGRESS_AS_SUBJECT_UNDERGOING_OR_AWAITING_TREATMENT = "unableToProgressAsSubjectUndergoingOrAwaitingTreatment",
-  AWAITING_OUTCOME_OF_LINKED_CASE = "awaitingOutcomeOfLinkedCase",
-  OTHER = "Other",
+  AWAITING_OUTCOME_OF_A_CIVIL_CASE = 'waitingOutcomeOfCivilCase',
+  AWAITING_OUTCOME_OF_A_CRIMINAL_PROCEEDINGS = 'awaitingOutcomeOfCriminalProceedings',
+  AWAITING_OUTCOME_OF_A_COURT_JUDGEMENT = 'awaitingACourtJudgement',
+  UNABLE_TO_PROGRESS_DUE_TO_SUBJECTS_AGE = 'unableToProgressDueToSubject’sAge',
+  UNABLE_TO_PROGRESS_AS_SUBJECT_UNDERGOING_OR_AWAITING_TREATMENT = 'unableToProgressAsSubjectUndergoingOrAwaitingTreatment',
+  AWAITING_OUTCOME_OF_LINKED_CASE = 'awaitingOutcomeOfLinkedCase',
+  OTHER = 'Other',
 }
 
 export const enum StayRemoveReason {
-  RECEIVED_OUTCOME_OF_CIVIL_CASE = "receivedOutcomeOfCivilCase",
-  RECEIVED_OUTCOME_OF_CRIMINAL_PROCEEDINGS = "receviedOutcomeOfCriminalProceedings",
-  RECEIVED_A_COURT_JUDGEMENT = "receivedACourtJudgement",
-  APPLICANT_HAS_REACHED_REQUIRED_AGE = "applicantHasReachedRequiredAge",
-  SUBJECT_HAS_RECEIVED_THEIR_MEDICAL_TREATMENT = "subjectHasReceivedTheirMedicalTreatment",
-  RECEIVED_OUTCOME_OF_LINKED_CASE = "receivedOutcomeOfLinkedCase",
-  OTHER = "Other",
+  RECEIVED_OUTCOME_OF_CIVIL_CASE = 'receivedOutcomeOfCivilCase',
+  RECEIVED_OUTCOME_OF_CRIMINAL_PROCEEDINGS = 'receviedOutcomeOfCriminalProceedings',
+  RECEIVED_A_COURT_JUDGEMENT = 'receivedACourtJudgement',
+  APPLICANT_HAS_REACHED_REQUIRED_AGE = 'applicantHasReachedRequiredAge',
+  SUBJECT_HAS_RECEIVED_THEIR_MEDICAL_TREATMENT = 'subjectHasReceivedTheirMedicalTreatment',
+  RECEIVED_OUTCOME_OF_LINKED_CASE = 'receivedOutcomeOfLinkedCase',
+  OTHER = 'Other',
 }
 
 export const enum YesNo {
-  YES = "Yes",
-  NO = "No",
+  YES = 'Yes',
+  NO = 'No',
 }
 
 export const enum Classification {
-  PUBLIC = "PUBLIC",
-  PRIVATE = "PRIVATE",
-  RESTRICTED = "RESTRICTED",
+  PUBLIC = 'PUBLIC',
+  PRIVATE = 'PRIVATE',
+  RESTRICTED = 'RESTRICTED',
 }
 
 export const enum AdjournmentReasons {
-  ADJOURNED_FACE_TO_FACE = "Adjourned to face to face",
-  ADJOURNED_TO_VIDEO = "Adjourned to Video",
-  ADMIN_ERROR = "Admin error",
-  APPELLANT_DID_NOT_ATTEND = "Appellant did not attend",
-  APPELLANT_DID_NOT_HAVE_BUNDLE = "Appellant did not have bundle",
-  APPELLANT_NOT_READY_TO_PROCEED = "Appellant not ready to proceed",
-  complex_case = "Complex case",
-  failure_to_comply_with_directions = "Failure to comply with directions",
-  FOR_LEGALE_REP_NO_SOL = "For Legal Rep/No Sol",
-  FOR_OTHER_PARTIES_TO_ATTEND = "For Other Parties to Attend",
-  FURTHER_EVIDENCE_RECEIVED_AT_COURT = "Further evidence received at hearing",
-  FURTHER_EVIDENCE_SUPPLIED_BUT_NOT_BEFORE_HEARING = "Further evidence supplied but not before Tribunal at hearing",
-  FURTHER_LOSS_OF_EARNINGS_INFORMATION_REQUIRED_APPELLANT = "Further Loss of Earnings information required - Appellant",
-  FURTHER_LOSS_OF_EARNINGS_INFORMATION_REQUIRED_RESPONDANT = "Further Loss of Earnings information required - Respondent",
-  FURTHER_MEDICAL_EVIDENCE_REQUIRED_APPELLANT = "Further medical evidence required - Appellant",
-  FURTHER_MEDICAL_EVIDENCE_REQUIRED_RESPONDANT = "Further medical evidence required - Respondent",
-  FURTHER_POLICEL_EVIDENCE_REQUIRED_RESPONDANT = "Further police evidence required - Respondent",
-  FURTHER_POLICEL_EVIDENCE_REQUIRED_APPELLANT = "Further police evidence required - Appellant",
-  FURTHER_POLICEL_EVIDENCE_REQUIRED_HMCTS_SUMMONS = "Further police evidence required - HMCTS (Summons)",
-  INSUFFICIENT_TIME = "Insufficient time",
-  INTERPRETER_REQUIRED = "Interpreter required",
-  MEMBER_UNABLE_TO_ATTEND = "Member Unable to Attend",
-  PO_DID_NOT_ATTEND = "PO did not attend",
-  POOR_EVIDENCE = "Poor Evidence",
-  VENUE_NOT_SUITABLE = "Venue not suitable",
-  WITNESS_DID_NOT_ATTEND = "Witness did not attend",
-  OTHER = "Other",
+  ADJOURNED_FACE_TO_FACE = 'Adjourned to face to face',
+  ADJOURNED_TO_VIDEO = 'Adjourned to Video',
+  ADMIN_ERROR = 'Admin error',
+  APPELLANT_DID_NOT_ATTEND = 'Appellant did not attend',
+  APPELLANT_DID_NOT_HAVE_BUNDLE = 'Appellant did not have bundle',
+  APPELLANT_NOT_READY_TO_PROCEED = 'Appellant not ready to proceed',
+  complex_case = 'Complex case',
+  failure_to_comply_with_directions = 'Failure to comply with directions',
+  FOR_LEGALE_REP_NO_SOL = 'For Legal Rep/No Sol',
+  FOR_OTHER_PARTIES_TO_ATTEND = 'For Other Parties to Attend',
+  FURTHER_EVIDENCE_RECEIVED_AT_COURT = 'Further evidence received at hearing',
+  FURTHER_EVIDENCE_SUPPLIED_BUT_NOT_BEFORE_HEARING = 'Further evidence supplied but not before Tribunal at hearing',
+  FURTHER_LOSS_OF_EARNINGS_INFORMATION_REQUIRED_APPELLANT = 'Further Loss of Earnings information required - Appellant',
+  FURTHER_LOSS_OF_EARNINGS_INFORMATION_REQUIRED_RESPONDANT = 'Further Loss of Earnings information required - Respondent',
+  FURTHER_MEDICAL_EVIDENCE_REQUIRED_APPELLANT = 'Further medical evidence required - Appellant',
+  FURTHER_MEDICAL_EVIDENCE_REQUIRED_RESPONDANT = 'Further medical evidence required - Respondent',
+  FURTHER_POLICEL_EVIDENCE_REQUIRED_RESPONDANT = 'Further police evidence required - Respondent',
+  FURTHER_POLICEL_EVIDENCE_REQUIRED_APPELLANT = 'Further police evidence required - Appellant',
+  FURTHER_POLICEL_EVIDENCE_REQUIRED_HMCTS_SUMMONS = 'Further police evidence required - HMCTS (Summons)',
+  INSUFFICIENT_TIME = 'Insufficient time',
+  INTERPRETER_REQUIRED = 'Interpreter required',
+  MEMBER_UNABLE_TO_ATTEND = 'Member Unable to Attend',
+  PO_DID_NOT_ATTEND = 'PO did not attend',
+  POOR_EVIDENCE = 'Poor Evidence',
+  VENUE_NOT_SUITABLE = 'Venue not suitable',
+  WITNESS_DID_NOT_ATTEND = 'Witness did not attend',
+  OTHER = 'Other',
 }
 
 export const enum ApplicantCIC {
-  APPLICANT_CIC = "ApplicantCIC",
+  APPLICANT_CIC = 'ApplicantCIC',
 }
 
 export const enum CaseCategory {
-  ASSESSMENT = "Assessment",
-  ELIGIBILITY = "Eligibility",
+  ASSESSMENT = 'Assessment',
+  ELIGIBILITY = 'Eligibility',
 }
 
 export const enum CaseSubcategory {
-  FATAL = "Fatal",
-  MEDICAL_REOPENING = "MedicalReOpening",
-  MINOR = "Minor",
-  PARAGRAPH_26 = "Paragraph26",
-  SEXUAL_ABUSE = "sexualAbuse",
-  SPECIAL_JURISDICTION = "SpecialJurisdiction",
-  OTHER = "other",
+  FATAL = 'Fatal',
+  MEDICAL_REOPENING = 'MedicalReOpening',
+  MINOR = 'Minor',
+  PARAGRAPH_26 = 'Paragraph26',
+  SEXUAL_ABUSE = 'sexualAbuse',
+  SPECIAL_JURISDICTION = 'SpecialJurisdiction',
+  OTHER = 'other',
 }
 
 export const enum ContactPartiesCIC {
-  SUBJECTTOCONTACT = "SubjectToContact",
-  RESPONDENTTOCONTACT = "RespondentToContact",
-  REPRESENTATIVETOCONTACT = "RepresentativeToContact",
+  SUBJECTTOCONTACT = 'SubjectToContact',
+  RESPONDENTTOCONTACT = 'RespondentToContact',
+  REPRESENTATIVETOCONTACT = 'RepresentativeToContact',
 }
 
 export const enum ContactPreferencePartiesCIC {
-  SUBJECT = "SubjectCIC",
-  REPRESENTATIVE = "RepresentativeCIC",
-  APPLICANT = "ApplicantCIC",
+  SUBJECT = 'SubjectCIC',
+  REPRESENTATIVE = 'RepresentativeCIC',
+  APPLICANT = 'ApplicantCIC',
 }
 
 export const enum ContactPreferenceType {
-  EMAIL = "Email",
-  POST = "Post",
+  EMAIL = 'Email',
+  POST = 'Post',
 }
 
 export const enum DecisionTemplate {
-  ELIGIBILITY = "CIC1 - Eligibility",
-  QUANTUM = "CIC2 - Quantum",
-  RULE_27 = "CIC3 - Rule 27",
-  BLANK_DECISION_NOTICE = "CIC4 - Blank Decision Notice",
-  GENERAL_DIRECTIONS = "CIC6 - General Directions",
-  ME_DMI_REPORTS = "CIC7 - ME Dmi Reports",
-  ME_JOINT_INSTRUCTION = "CIC8 - ME Joint Instructions",
-  STRIKE_OUT_WARNING = "CIC10 - Strike Out Warning",
-  STRIKE_OUT_DECISION_NOTICE = "CIC11 - Strike Out Decision Notice",
-  PRO_FORMA_SUMMONS = "CIC13 - Pro Forma Summons",
+  ELIGIBILITY = 'CIC1 - Eligibility',
+  QUANTUM = 'CIC2 - Quantum',
+  RULE_27 = 'CIC3 - Rule 27',
+  BLANK_DECISION_NOTICE = 'CIC4 - Blank Decision Notice',
+  GENERAL_DIRECTIONS = 'CIC6 - General Directions',
+  ME_DMI_REPORTS = 'CIC7 - ME Dmi Reports',
+  ME_JOINT_INSTRUCTION = 'CIC8 - ME Joint Instructions',
+  STRIKE_OUT_WARNING = 'CIC10 - Strike Out Warning',
+  STRIKE_OUT_DECISION_NOTICE = 'CIC11 - Strike Out Decision Notice',
+  PRO_FORMA_SUMMONS = 'CIC13 - Pro Forma Summons',
 }
 
 export const enum FullPanelHearing {
   NO = "No. It was a 'sit alone' hearing",
-  YES = "Yes",
+  YES = 'Yes',
 }
 
 export const enum GetAmendDateAsCompleted {
-  MARKASCOMPLETED = "Mark as completed",
+  MARKASCOMPLETED = 'Mark as completed',
 }
 
 export const enum HearingAttendeesRole {
-  APPELLANT = "appellant",
-  APPRAISER = "appraiser",
-  COUNSEL = "Counsel",
-  INTERPRETER = "interpreter",
-  LAY_MEMBER = "layMember",
-  MAIN_APPELLANT = "mainAppellant",
-  MEDICAL_MEMBER = "medicalMember",
-  OBSERVER = "observer",
-  PRESENTING_OFFICER = "presentingOfficer",
-  REPRESENTATIVE_LEGAL = "representativeLegal",
-  REPRESENTATIVE_NON_LEGAL = "representativeNonLegal",
-  TRIBUNAL_CLERK = "Tribunal clerk",
-  TRIBUNAL_JUDGE = "Tribunal Judge",
-  VICTIM = "victim",
-  WITNESS_GENERAL = "Witness - General",
-  WITNESS_POLICE = "witnessPolice",
-  OTHER = "other",
+  APPELLANT = 'appellant',
+  APPRAISER = 'appraiser',
+  COUNSEL = 'Counsel',
+  INTERPRETER = 'interpreter',
+  LAY_MEMBER = 'layMember',
+  MAIN_APPELLANT = 'mainAppellant',
+  MEDICAL_MEMBER = 'medicalMember',
+  OBSERVER = 'observer',
+  PRESENTING_OFFICER = 'presentingOfficer',
+  REPRESENTATIVE_LEGAL = 'representativeLegal',
+  REPRESENTATIVE_NON_LEGAL = 'representativeNonLegal',
+  TRIBUNAL_CLERK = 'Tribunal clerk',
+  TRIBUNAL_JUDGE = 'Tribunal Judge',
+  VICTIM = 'victim',
+  WITNESS_GENERAL = 'Witness - General',
+  WITNESS_POLICE = 'witnessPolice',
+  OTHER = 'other',
 }
 
 export const enum HearingFormat {
-  FACE_TO_FACE = "Face to Face",
-  HYBRID = "Hybrid",
-  VIDEO = "Video",
-  TELEPHONE = "Telephone",
-  PAPER = "Paper",
+  FACE_TO_FACE = 'Face to Face',
+  HYBRID = 'Hybrid',
+  VIDEO = 'Video',
+  TELEPHONE = 'Telephone',
+  PAPER = 'Paper',
 }
 
 export const enum HearingOutcome {
-  ADJOURNED = "Adjourned",
-  ALLOWED = "Allowed",
-  REFUSED = "Refused",
-  WITHDRAWN_AT_HEARING = "Withdrawn at Hearing",
+  ADJOURNED = 'Adjourned',
+  ALLOWED = 'Allowed',
+  REFUSED = 'Refused',
+  WITHDRAWN_AT_HEARING = 'Withdrawn at Hearing',
 }
 
 export const enum HearingSession {
-  MORNING = "morning",
-  AFTERNOON = "afternoon",
-  ALL_DAY = "allDay",
+  MORNING = 'morning',
+  AFTERNOON = 'afternoon',
+  ALL_DAY = 'allDay',
 }
 
 export const enum HearingState {
-  Listed = "Listed",
-  Complete = "Complete",
-  Cancelled = "Cancelled",
-  Postponed = "Postponed",
+  Listed = 'Listed',
+  Complete = 'Complete',
+  Cancelled = 'Cancelled',
+  Postponed = 'Postponed',
 }
 
 export const enum HearingSummaryHearingType {
-  CASE_MANAGEMENT = "CaseManagement",
-  FINAL = "Final",
-  INTERLOCUTORY = "Interlocutory",
+  CASE_MANAGEMENT = 'CaseManagement',
+  FINAL = 'Final',
+  INTERLOCUTORY = 'Interlocutory',
 }
 
 export const enum HearingType {
-  CASE_MANAGEMENT = "CaseManagement",
-  FINAL = "Final",
-  INTERLOCUTORY = "Interlocutory",
+  CASE_MANAGEMENT = 'CaseManagement',
+  FINAL = 'Final',
+  INTERLOCUTORY = 'Interlocutory',
 }
 
 export const enum LanguagePreference {
-  ENGLISH = "ENGLISH",
-  WELSH = "WELSH",
+  ENGLISH = 'ENGLISH',
+  WELSH = 'WELSH',
 }
 
 export const enum NotificationParties {
-  SUBJECT = "Subject",
-  REPRESENTATIVE = "Representative",
-  APPLICANT = "Applicant",
-  RESPONDENT = "Respondent",
+  SUBJECT = 'Subject',
+  REPRESENTATIVE = 'Representative',
+  APPLICANT = 'Applicant',
+  RESPONDENT = 'Respondent',
 }
 
 export const enum NotificationType {
-  EMAIL = "Email",
-  POST = "Post",
+  EMAIL = 'Email',
+  POST = 'Post',
 }
 
 export const enum OrderTemplate {
-  CIC3_RULE_27 = "CIC3_Rule_27",
-  CIC6_GENERAL_DIRECTIONS = "CIC6_General_Directions",
-  CIC7_ME_DMI_REPORTS = "CIC7_ME_Dmi_Reports",
-  CIC8_ME_JOINT_INSTRUCTION = "CIC8_ME_Joint_Instruction",
-  CIC10_STRIKE_OUT_WARNING = "CIC10_Strike_Out_Warning",
-  CIC13_PRO_FORMA_SUMMONS = "CIC13_Pro_Forma_Summons",
-  CIC14_LO_GENERAL_DIRECTIONS = "CIC14_LO_General_Directions",
+  CIC3_RULE_27 = 'CIC3_Rule_27',
+  CIC6_GENERAL_DIRECTIONS = 'CIC6_General_Directions',
+  CIC7_ME_DMI_REPORTS = 'CIC7_ME_Dmi_Reports',
+  CIC8_ME_JOINT_INSTRUCTION = 'CIC8_ME_Joint_Instruction',
+  CIC10_STRIKE_OUT_WARNING = 'CIC10_Strike_Out_Warning',
+  CIC13_PRO_FORMA_SUMMONS = 'CIC13_Pro_Forma_Summons',
+  CIC14_LO_GENERAL_DIRECTIONS = 'CIC14_LO_General_Directions',
 }
 
 export const enum PanelComposition {
-  PANEL_1 = "Panel 1",
-  PANEL_2 = "Panel 2",
-  PANEL_3 = "Panel 3",
+  PANEL_1 = 'Panel 1',
+  PANEL_2 = 'Panel 2',
+  PANEL_3 = 'Panel 3',
 }
 
 export const enum PanelMembersRole {
-  FULL_MEMBER = "fullMember",
-  OBSERVER = "observer",
-  APPRAISER = "appraiser",
+  FULL_MEMBER = 'fullMember',
+  OBSERVER = 'observer',
+  APPRAISER = 'appraiser',
 }
 
 export const enum PartiesCIC {
-  SUBJECT = "SubjectCIC",
-  REPRESENTATIVE = "RepresentativeCIC",
-  APPLICANT = "ApplicantCIC",
+  SUBJECT = 'SubjectCIC',
+  REPRESENTATIVE = 'RepresentativeCIC',
+  APPLICANT = 'ApplicantCIC',
 }
 
 export const enum RegionCIC {
-  SCOTLAND = "Scotland",
-  LONDON = "London",
-  MIDLANDS = "Midlands",
-  NORTH_EAST = "North East",
-  NORTH_WEST = "North West",
-  WALES_AND_SOUTH_WEST = "Wales & South West",
+  SCOTLAND = 'Scotland',
+  LONDON = 'London',
+  MIDLANDS = 'Midlands',
+  NORTH_EAST = 'North East',
+  NORTH_WEST = 'North West',
+  WALES_AND_SOUTH_WEST = 'Wales & South West',
 }
 
 export const enum RepresentativeCIC {
-  REPRESENTATIVE = "RepresentativeCIC",
+  REPRESENTATIVE = 'RepresentativeCIC',
 }
 
 export const enum RepresentativeLegalQualification {
-  EMAIL = "Qualified",
-  POST = "POST",
+  EMAIL = 'Qualified',
+  POST = 'POST',
 }
 
 export const enum RespondentCIC {
-  RESPONDENT = "RespondentCIC",
+  RESPONDENT = 'RespondentCIC',
 }
 
 export const enum SchemeCic {
-  Year1996 = "Preference",
-  Year2001 = "Year2001",
-  Year2008 = "Year2008",
-  Year2012 = "Year2012",
+  Year1996 = 'Preference',
+  Year2001 = 'Year2001',
+  Year2008 = 'Year2008',
+  Year2012 = 'Year2012',
 }
 
 export const enum SecondPanelMember {
-  TRIBUNAL_JUDGE = "Tribunal Judge",
-  MEDICAL_MEMBER = "Medical Member",
-  LAY_MEMBER = "Lay Member",
+  TRIBUNAL_JUDGE = 'Tribunal Judge',
+  MEDICAL_MEMBER = 'Medical Member',
+  LAY_MEMBER = 'Lay Member',
 }
 
 export const enum State {
-  Completed = "Completed",
-  Rejected = "Rejected",
-  Sent = "Sent",
-  Withdrawn = "Withdrawn",
-  AwaitingHearing = "AwaitingHearing",
-  AwaitingOutcome = "AwaitingOutcome",
-  CaseClosed = "CaseClosed",
-  Concession = "Concession",
-  CaseManagement = "CaseManagement",
-  CaseStayed = "CaseStayed",
-  StrikeOut = "StrikeOut",
-  ConsentOrder = "ConsentOrder",
-  DeathOfAppellant = "DeathOfAppellant",
-  Draft = "Draft",
-  DSS_Draft = "DSS_Draft",
-  DSS_Expired = "DSS_Expired",
-  DSS_Submitted = "DSS_Submitted",
-  NewCaseReceived = "NewCaseReceived",
-  ReadyToList = "ReadyToList",
-  Rule27 = "Rule27",
-  Submitted = "Submitted",
+  Completed = 'Completed',
+  Rejected = 'Rejected',
+  Sent = 'Sent',
+  Withdrawn = 'Withdrawn',
+  AwaitingHearing = 'AwaitingHearing',
+  AwaitingOutcome = 'AwaitingOutcome',
+  CaseClosed = 'CaseClosed',
+  Concession = 'Concession',
+  CaseManagement = 'CaseManagement',
+  CaseStayed = 'CaseStayed',
+  StrikeOut = 'StrikeOut',
+  ConsentOrder = 'ConsentOrder',
+  DeathOfAppellant = 'DeathOfAppellant',
+  Draft = 'Draft',
+  DSS_Draft = 'DSS_Draft',
+  DSS_Expired = 'DSS_Expired',
+  DSS_Submitted = 'DSS_Submitted',
+  NewCaseReceived = 'NewCaseReceived',
+  ReadyToList = 'ReadyToList',
+  Rule27 = 'Rule27',
+  Submitted = 'Submitted',
 }
 
 export const enum SubjectCIC {
-  SUBJECT = "SubjectCIC",
+  SUBJECT = 'SubjectCIC',
 }
 
 export const enum ThirdPanelMember {
-  MEDICAL_MEMBER = "Medical Member",
-  LAY_MEMBER = "Lay Member",
+  MEDICAL_MEMBER = 'Medical Member',
+  LAY_MEMBER = 'Lay Member',
 }
 
 export const enum TribunalCIC {
-  TRIBUNAL = "TribunalCIC",
+  TRIBUNAL = 'TribunalCIC',
 }
 
 export const enum UserRole {
-  SUPER_USER = "caseworker-sptribs-superuser",
-  SYSTEM_UPDATE = "caseworker-sptribs-systemupdate",
-  CASEWORKER = "caseworker",
-  CREATOR = "[CREATOR]",
-  DISTRICT_JUDGE_CIC = "caseworker-sptribs-cic-districtjudge",
-  RESPONDENT_CIC = "caseworker-sptribs-cic-respondent",
-  ST_CIC_CASEWORKER = "caseworker-st_cic-caseworker",
-  ST_CIC_SENIOR_CASEWORKER = "caseworker-st_cic-senior-caseworker",
-  ST_CIC_HEARING_CENTRE_ADMIN = "caseworker-st_cic-hearing-centre-admin",
-  ST_CIC_HEARING_CENTRE_TEAM_LEADER = "caseworker-st_cic-hearing-centre-team-leader",
-  ST_CIC_SENIOR_JUDGE = "caseworker-st_cic-senior-judge",
-  ST_CIC_JUDGE = "caseworker-st_cic-judge",
-  ST_CIC_RESPONDENT = "caseworker-st_cic-respondent",
-  AC_CASE_FLAGS_ADMIN = "caseflags-admin",
-  AC_CASE_FLAGS_VIEWER = "caseflags-viewer",
-  CITIZEN = "citizen",
-  GS_PROFILE = "GS_profile",
-  ST_CIC_WA_CONFIG_USER = "caseworker-wa-task-configuration",
-  RAS_CASEWORKER_VALIDATION = "caseworker-ras-validation",
+  SUPER_USER = 'caseworker-sptribs-superuser',
+  SYSTEM_UPDATE = 'caseworker-sptribs-systemupdate',
+  CASEWORKER = 'caseworker',
+  CREATOR = '[CREATOR]',
+  DISTRICT_JUDGE_CIC = 'caseworker-sptribs-cic-districtjudge',
+  RESPONDENT_CIC = 'caseworker-sptribs-cic-respondent',
+  ST_CIC_CASEWORKER = 'caseworker-st_cic-caseworker',
+  ST_CIC_SENIOR_CASEWORKER = 'caseworker-st_cic-senior-caseworker',
+  ST_CIC_HEARING_CENTRE_ADMIN = 'caseworker-st_cic-hearing-centre-admin',
+  ST_CIC_HEARING_CENTRE_TEAM_LEADER = 'caseworker-st_cic-hearing-centre-team-leader',
+  ST_CIC_SENIOR_JUDGE = 'caseworker-st_cic-senior-judge',
+  ST_CIC_JUDGE = 'caseworker-st_cic-judge',
+  ST_CIC_RESPONDENT = 'caseworker-st_cic-respondent',
+  AC_CASE_FLAGS_ADMIN = 'caseflags-admin',
+  AC_CASE_FLAGS_VIEWER = 'caseflags-viewer',
+  CITIZEN = 'citizen',
+  GS_PROFILE = 'GS_profile',
+  ST_CIC_WA_CONFIG_USER = 'caseworker-wa-task-configuration',
+  RAS_CASEWORKER_VALIDATION = 'caseworker-ras-validation',
 }
 
 export const enum UserRoleCS {
-  COURT_ADMIN = "caseworker-sptribs-cs-courtadmin",
-  CASE_OFFICER = "caseworker-sptribs-cs-caseofficer",
-  DISTRICT_REGISTRAR = "caseworker-sptribs-cs-districtregistrar",
-  DISTRICT_JUDGE = "caseworker-sptribs-cs-districtjudge",
-  CITIZEN = "citizen-sptribs-cs-dss",
+  COURT_ADMIN = 'caseworker-sptribs-cs-courtadmin',
+  CASE_OFFICER = 'caseworker-sptribs-cs-caseofficer',
+  DISTRICT_REGISTRAR = 'caseworker-sptribs-cs-districtregistrar',
+  DISTRICT_JUDGE = 'caseworker-sptribs-cs-districtjudge',
+  CITIZEN = 'citizen-sptribs-cs-dss',
 }
 
 export const enum UserRoleMH {
-  COURT_ADMIN = "caseworker-sptribs-mh-courtadmin",
-  CASE_OFFICER = "caseworker-sptribs-mh-caseofficer",
-  DISTRICT_REGISTRAR = "caseworker-sptribs-mh-districtregistrar",
-  DISTRICT_JUDGE = "caseworker-sptribs-mh-districtjudge",
-  CITIZEN = "citizen-sptribs-mh-dss",
+  COURT_ADMIN = 'caseworker-sptribs-mh-courtadmin',
+  CASE_OFFICER = 'caseworker-sptribs-mh-caseofficer',
+  DISTRICT_REGISTRAR = 'caseworker-sptribs-mh-districtregistrar',
+  DISTRICT_JUDGE = 'caseworker-sptribs-mh-districtjudge',
+  CITIZEN = 'citizen-sptribs-mh-dss',
 }
 
 export const enum UserRolePHL {
-  COURT_ADMIN = "caseworker-sptribs-phl-courtadmin",
-  CASE_OFFICER = "caseworker-sptribs-phl-caseofficer",
-  DISTRICT_REGISTRAR = "caseworker-sptribs-phl-districtregistrar",
-  DISTRICT_JUDGE = "caseworker-sptribs-phl-districtjudge",
-  CITIZEN = "citizen-sptribs-phl-dss",
+  COURT_ADMIN = 'caseworker-sptribs-phl-courtadmin',
+  CASE_OFFICER = 'caseworker-sptribs-phl-caseofficer',
+  DISTRICT_REGISTRAR = 'caseworker-sptribs-phl-districtregistrar',
+  DISTRICT_JUDGE = 'caseworker-sptribs-phl-districtjudge',
+  CITIZEN = 'citizen-sptribs-phl-dss',
 }
 
 export const enum UserRoleSEND {
-  COURT_ADMIN = "caseworker-sptribs-send-courtadmin",
-  CASE_OFFICER = "caseworker-sptribs-send-caseofficer",
-  DISTRICT_REGISTRAR = "caseworker-sptribs-send-districtregistrar",
-  DISTRICT_JUDGE = "caseworker-sptribs-send-districtjudge",
-  CITIZEN = "citizen-sptribs-send-dss",
-  COURT_ADMIN_ASST = "caseworker-sptribs-send-courtadminasst",
+  COURT_ADMIN = 'caseworker-sptribs-send-courtadmin',
+  CASE_OFFICER = 'caseworker-sptribs-send-caseofficer',
+  DISTRICT_REGISTRAR = 'caseworker-sptribs-send-districtregistrar',
+  DISTRICT_JUDGE = 'caseworker-sptribs-send-districtjudge',
+  CITIZEN = 'citizen-sptribs-send-dss',
+  COURT_ADMIN_ASST = 'caseworker-sptribs-send-courtadminasst',
 }
 
 export const enum UserRolesForAccessProfiles {
-  CREATOR = "[CREATOR]",
-  SUPER_USER = "idam:caseworker-sptribs-superuser",
-  SYSTEMUPDATE = "idam:caseworker-sptribs-systemupdate",
-  CASEWORKER = "idam:caseworker",
-  ST_CIC_CASEWORKER = "idam:caseworker-st_cic-caseworker",
-  ST_CIC_SENIOR_CASEWORKER = "idam:caseworker-st_cic-senior-caseworker",
-  ST_CIC_HEARING_CENTRE_ADMIN = "idam:caseworker-st_cic-hearing-centre-admin",
-  ST_CIC_HEARING_CENTRE_TEAM_LEADER = "idam:caseworker-st_cic-hearing-centre-team-leader",
-  ST_CIC_SENIOR_JUDGE = "idam:caseworker-st_cic-senior-judge",
-  ST_CIC_JUDGE = "idam:caseworker-st_cic-judge",
-  ST_CIC_RESPONDENT = "idam:caseworker-st_cic-respondent",
-  CITIZEN_CIC = "idam:citizen",
-  IDAM_RAS_CASEWORKER_VALIDATION = "idam:caseworker-ras-validation",
-  CIC_SUPER_USER = "caseworker-sptribs-superuser",
-  AC_SYSTEMUPDATE = "caseworker-sptribs-systemupdate",
-  CIC_CASEWORKER = "caseworker-st_cic-caseworker",
-  CIC_SENIOR_CASEWORKER = "caseworker-st_cic-senior-caseworker",
-  CIC_CENTRE_ADMIN = "caseworker-st_cic-hearing-centre-admin",
-  CIC_CENTRE_TEAM_LEADER = "caseworker-st_cic-hearing-centre-team-leader",
-  CIC_SENIOR_JUDGE = "caseworker-st_cic-senior-judge",
-  CIC_JUDGE = "caseworker-st_cic-judge",
-  CIC_RESPONDENT = "caseworker-st_cic-respondent",
-  AC_CASEWORKER = "caseworker",
-  AC_CITIZEN = "citizen",
-  AC_CASEFLAGS_ADMIN = "caseflags-admin",
-  AC_CASEFLAGS_VIEWER = "caseflags-viewer",
-  GS_PROFILE = "GS_profile",
-  ST_CIC_WA_CONFIG_USER = "idam:caseworker-wa-task-configuration",
-  AC_ST_CIC_WA_CONFIG_USER = "caseworker-wa-task-configuration",
-  RAS_HMCTS_STAFF = "hmcts-staff",
-  RAS_HMCTS_CTSC = "hmcts-ctsc",
-  RAS_HMCTS_LEGAL_OPERATIONS = "hmcts-legal-operations",
-  RAS_HMCTS_ADMIN = "hmcts-admin",
-  RAS_HMCTS_JUDICIARY = "hmcts-judiciary",
-  RAS_ST_SENIOR_TRIBUNAL_CASEWORKER = "senior-tribunal-caseworker",
-  RAS_ST_TRIBUNAL_CASEWORKER = "tribunal-caseworker",
-  RAS_ST_HEARING_CENTRE_TEAM_LEADER = "hearing-centre-team-leader",
-  RAS_ST_HEARING_CENTRE_ADMIN = "hearing-centre-admin",
-  RAS_ST_REGIONAL_CENTRE_TEAM_LEADER = "regional-centre-team-leader",
-  RAS_ST_REGIONAL_CENTRE_ADMIN = "regional-centre-admin",
-  RAS_ST_CICA = "cica",
-  RAS_ST_CTSC_TEAM_LEADER = "ctsc-team-leader",
-  RAS_ST_CTSC = "ctsc",
-  RAS_ST_CASE_ALLOCATOR = "case-allocator",
-  RAS_ST_TASK_SUPERVISOR = "task-supervisor",
-  RAS_ST_SPECIFIC_ACCESS_APPROVER_LEGAL_OPS = "specific-access-approver-legal-ops",
-  RAS_ST_SPECIFIC_ACCESS_APPROVER_ADMIN = "specific-access-approver-admin",
-  RAS_ST_SPECIFIC_ACCESS_APPROVER_CTSC = "specific-access-approver-ctsc",
-  RAS_ST_SPECIFIC_ACCESS_APPROVER_JUDICIARY = "specific-access-approver-judiciary",
-  RAS_ST_SPECIFIC_ACCESS_LEGAL_OPS = "specific-access-legal-ops",
-  RAS_ST_SPECIFIC_ACCESS_ADMIN = "specific-access-admin",
-  RAS_ST_SPECIFIC_ACCESS_CTSC = "specific-access-ctsc",
-  RAS_ST_SPECIFIC_ACCESS_JUDICIARY = "specific-access-judiciary",
-  RAS_ST_JUDGE = "judge",
-  RAS_ST_SENIOR_JUDGE = "senior-judge",
-  RAS_ST_LEADERSHIP_JUDGE = "leadership-judge",
-  RAS_ST_FEE_PAID_JUDGE = "fee-paid-judge",
-  RAS_ST_FEE_PAID_TRIBUNAL_MEMBER = "fee-paid-tribunal-member",
-  RAS_ST_MEDICAL = "medical",
-  RAS_ST_FEE_PAID_MEDICAL = "fee-paid-medical",
-  RAS_ST_FEE_PAID_DISABILITY = "fee-paid-disability",
-  RAS_ST_FEE_PAID_FINANCIAL = "fee-paid-financial",
-  RAS_ST_ALLOCATED_JUDGE = "allocated-judge",
-  RAS_ST_INTERLOC_JUDGE = "interloc-judge",
-  RAS_ST_TRIBUNAL_MEMBER1 = "tribunal-member-1",
-  RAS_ST_TRIBUNAL_MEMBER2 = "tribunal-member-2",
-  RAS_ST_TRIBUNAL_MEMBER3 = "tribunal-member-3",
-  RAS_ST_APPRAISER1 = "appraiser-1",
-  RAS_ST_APPRAISER2 = "appraiser-2",
-  RAS_CASEWORKER_VALIDATION = "caseworker-ras-validation",
+  CREATOR = '[CREATOR]',
+  SUPER_USER = 'idam:caseworker-sptribs-superuser',
+  SYSTEMUPDATE = 'idam:caseworker-sptribs-systemupdate',
+  CASEWORKER = 'idam:caseworker',
+  ST_CIC_CASEWORKER = 'idam:caseworker-st_cic-caseworker',
+  ST_CIC_SENIOR_CASEWORKER = 'idam:caseworker-st_cic-senior-caseworker',
+  ST_CIC_HEARING_CENTRE_ADMIN = 'idam:caseworker-st_cic-hearing-centre-admin',
+  ST_CIC_HEARING_CENTRE_TEAM_LEADER = 'idam:caseworker-st_cic-hearing-centre-team-leader',
+  ST_CIC_SENIOR_JUDGE = 'idam:caseworker-st_cic-senior-judge',
+  ST_CIC_JUDGE = 'idam:caseworker-st_cic-judge',
+  ST_CIC_RESPONDENT = 'idam:caseworker-st_cic-respondent',
+  CITIZEN_CIC = 'idam:citizen',
+  IDAM_RAS_CASEWORKER_VALIDATION = 'idam:caseworker-ras-validation',
+  CIC_SUPER_USER = 'caseworker-sptribs-superuser',
+  AC_SYSTEMUPDATE = 'caseworker-sptribs-systemupdate',
+  CIC_CASEWORKER = 'caseworker-st_cic-caseworker',
+  CIC_SENIOR_CASEWORKER = 'caseworker-st_cic-senior-caseworker',
+  CIC_CENTRE_ADMIN = 'caseworker-st_cic-hearing-centre-admin',
+  CIC_CENTRE_TEAM_LEADER = 'caseworker-st_cic-hearing-centre-team-leader',
+  CIC_SENIOR_JUDGE = 'caseworker-st_cic-senior-judge',
+  CIC_JUDGE = 'caseworker-st_cic-judge',
+  CIC_RESPONDENT = 'caseworker-st_cic-respondent',
+  AC_CASEWORKER = 'caseworker',
+  AC_CITIZEN = 'citizen',
+  AC_CASEFLAGS_ADMIN = 'caseflags-admin',
+  AC_CASEFLAGS_VIEWER = 'caseflags-viewer',
+  GS_PROFILE = 'GS_profile',
+  ST_CIC_WA_CONFIG_USER = 'idam:caseworker-wa-task-configuration',
+  AC_ST_CIC_WA_CONFIG_USER = 'caseworker-wa-task-configuration',
+  RAS_HMCTS_STAFF = 'hmcts-staff',
+  RAS_HMCTS_CTSC = 'hmcts-ctsc',
+  RAS_HMCTS_LEGAL_OPERATIONS = 'hmcts-legal-operations',
+  RAS_HMCTS_ADMIN = 'hmcts-admin',
+  RAS_HMCTS_JUDICIARY = 'hmcts-judiciary',
+  RAS_ST_SENIOR_TRIBUNAL_CASEWORKER = 'senior-tribunal-caseworker',
+  RAS_ST_TRIBUNAL_CASEWORKER = 'tribunal-caseworker',
+  RAS_ST_HEARING_CENTRE_TEAM_LEADER = 'hearing-centre-team-leader',
+  RAS_ST_HEARING_CENTRE_ADMIN = 'hearing-centre-admin',
+  RAS_ST_REGIONAL_CENTRE_TEAM_LEADER = 'regional-centre-team-leader',
+  RAS_ST_REGIONAL_CENTRE_ADMIN = 'regional-centre-admin',
+  RAS_ST_CICA = 'cica',
+  RAS_ST_CTSC_TEAM_LEADER = 'ctsc-team-leader',
+  RAS_ST_CTSC = 'ctsc',
+  RAS_ST_CASE_ALLOCATOR = 'case-allocator',
+  RAS_ST_TASK_SUPERVISOR = 'task-supervisor',
+  RAS_ST_SPECIFIC_ACCESS_APPROVER_LEGAL_OPS = 'specific-access-approver-legal-ops',
+  RAS_ST_SPECIFIC_ACCESS_APPROVER_ADMIN = 'specific-access-approver-admin',
+  RAS_ST_SPECIFIC_ACCESS_APPROVER_CTSC = 'specific-access-approver-ctsc',
+  RAS_ST_SPECIFIC_ACCESS_APPROVER_JUDICIARY = 'specific-access-approver-judiciary',
+  RAS_ST_SPECIFIC_ACCESS_LEGAL_OPS = 'specific-access-legal-ops',
+  RAS_ST_SPECIFIC_ACCESS_ADMIN = 'specific-access-admin',
+  RAS_ST_SPECIFIC_ACCESS_CTSC = 'specific-access-ctsc',
+  RAS_ST_SPECIFIC_ACCESS_JUDICIARY = 'specific-access-judiciary',
+  RAS_ST_JUDGE = 'judge',
+  RAS_ST_SENIOR_JUDGE = 'senior-judge',
+  RAS_ST_LEADERSHIP_JUDGE = 'leadership-judge',
+  RAS_ST_FEE_PAID_JUDGE = 'fee-paid-judge',
+  RAS_ST_FEE_PAID_TRIBUNAL_MEMBER = 'fee-paid-tribunal-member',
+  RAS_ST_MEDICAL = 'medical',
+  RAS_ST_FEE_PAID_MEDICAL = 'fee-paid-medical',
+  RAS_ST_FEE_PAID_DISABILITY = 'fee-paid-disability',
+  RAS_ST_FEE_PAID_FINANCIAL = 'fee-paid-financial',
+  RAS_ST_ALLOCATED_JUDGE = 'allocated-judge',
+  RAS_ST_INTERLOC_JUDGE = 'interloc-judge',
+  RAS_ST_TRIBUNAL_MEMBER1 = 'tribunal-member-1',
+  RAS_ST_TRIBUNAL_MEMBER2 = 'tribunal-member-2',
+  RAS_ST_TRIBUNAL_MEMBER3 = 'tribunal-member-3',
+  RAS_ST_APPRAISER1 = 'appraiser-1',
+  RAS_ST_APPRAISER2 = 'appraiser-2',
+  RAS_CASEWORKER_VALIDATION = 'caseworker-ras-validation',
 }
 
 export const enum VenueNotListed {
-  VENUE_NOT_LISTED = "VenueNotListed",
+  VENUE_NOT_LISTED = 'VenueNotListed',
 }
 
 export const enum BundlePaginationStyle {
-  off = "off",
-  topLeft = "topLeft",
-  topCenter = "topCenter",
-  topRight = "topRight",
-  bottomLeft = "bottomLeft",
-  bottomCenter = "bottomCenter",
-  bottomRight = "bottomRight",
+  off = 'off',
+  topLeft = 'topLeft',
+  topCenter = 'topCenter',
+  topRight = 'topRight',
+  bottomLeft = 'bottomLeft',
+  bottomCenter = 'bottomCenter',
+  bottomRight = 'bottomRight',
 }
 
 export const enum ConfidentialDocumentsReceived {
-  AOS = "aos",
-  ANNEX_A = "annexa",
-  AOS_INVITATION_LETTER_OFFLINE_RESP = "aosInvitationLetterOfflineResp",
-  APPLICATION = "application",
-  BAILIFF_SERVICE = "bailiffService",
-  COE = "coe",
-  CO_ANSWERS = "coAnswers",
-  CONDITIONAL_ORDER_APPLICATION = "conditionalOrderApplication",
-  CONDITIONAL_ORDER_GRANTED = "conditionalOrderGranted",
-  CO_REFUSAL_CLARIFICATION_RESP = "coRefusalClarificationResp",
-  CORRESPONDENCE = "correspondence",
-  COSTS = "costs",
-  COSTS_ORDER = "costsOrder",
-  DEEMED_SERVICE = "deemedService",
-  DISPENSE_WITH_SERVICE = "dispenseWithService",
-  D84A = "d84a",
-  D9D = "d9d",
-  D9H = "d9h",
-  EMAIL = "email",
-  FINAL_ORDER_APPLICATION = "finalOrderApplication",
-  FINAL_ORDER_GRANTED = "finalOrderGranted",
-  GENERAL_LETTER = "generalLetter",
-  MARRIAGE_CERT = "marriageCert",
-  MARRIAGE_CERT_TRANSLATION = "marriageCertTranslation",
-  NAME_CHANGE = "nameChange",
-  NOTICE_OF_REFUSAL_OF_ENTITLEMENT = "noticeOfRefusalOfEntitlement",
-  OTHER = "other",
-  RESPONDENT_ANSWERS = "respondentAnswers",
-  SOLICITOR_SERVICE = "solicitorService",
-  WELSH_TRANSLATION = "welshTranslation",
-  NOTICE_OF_PROCEEDINGS_APP_1 = "noticeOfProceedings",
-  NOTICE_OF_PROCEEDINGS_APP_2 = "noticeOfProceedingsApp2",
+  AOS = 'aos',
+  ANNEX_A = 'annexa',
+  AOS_INVITATION_LETTER_OFFLINE_RESP = 'aosInvitationLetterOfflineResp',
+  APPLICATION = 'application',
+  BAILIFF_SERVICE = 'bailiffService',
+  COE = 'coe',
+  CO_ANSWERS = 'coAnswers',
+  CONDITIONAL_ORDER_APPLICATION = 'conditionalOrderApplication',
+  CONDITIONAL_ORDER_GRANTED = 'conditionalOrderGranted',
+  CO_REFUSAL_CLARIFICATION_RESP = 'coRefusalClarificationResp',
+  CORRESPONDENCE = 'correspondence',
+  COSTS = 'costs',
+  COSTS_ORDER = 'costsOrder',
+  DEEMED_SERVICE = 'deemedService',
+  DISPENSE_WITH_SERVICE = 'dispenseWithService',
+  D84A = 'd84a',
+  D9D = 'd9d',
+  D9H = 'd9h',
+  EMAIL = 'email',
+  FINAL_ORDER_APPLICATION = 'finalOrderApplication',
+  FINAL_ORDER_GRANTED = 'finalOrderGranted',
+  GENERAL_LETTER = 'generalLetter',
+  MARRIAGE_CERT = 'marriageCert',
+  MARRIAGE_CERT_TRANSLATION = 'marriageCertTranslation',
+  NAME_CHANGE = 'nameChange',
+  NOTICE_OF_REFUSAL_OF_ENTITLEMENT = 'noticeOfRefusalOfEntitlement',
+  OTHER = 'other',
+  RESPONDENT_ANSWERS = 'respondentAnswers',
+  SOLICITOR_SERVICE = 'solicitorService',
+  WELSH_TRANSLATION = 'welshTranslation',
+  NOTICE_OF_PROCEEDINGS_APP_1 = 'noticeOfProceedings',
+  NOTICE_OF_PROCEEDINGS_APP_2 = 'noticeOfProceedingsApp2',
 }
 
 export const enum DocumentType {
-  APPLICATION_FORM = "ApplicationForm",
-  FIRST_DECISION = "First decision",
-  APPLICATION_FOR_REVIEW = "Application for review",
-  REVIEW_DECISION = "Review decision",
-  NOTICE_OF_APPEAL = "Notice of Appeal",
-  EVIDENCE_CORRESPONDENCE_FROM_THE_APPELLANT = "Evidence/correspondence from the Appellant",
-  CORRESPONDENCE_FROM_THE_CICA = "Correspondence from the CICA",
-  TRIBUNAL_DIRECTION = "Direction / decision notices",
-  POLICE_EVIDENCE = "PoliceEvidence",
-  GP_RECORDS = "GP records",
-  HOSPITAL_RECORDS = "Hospital records",
-  MENTAL_HEALTH_RECORDS = "Mental Health records",
-  EXPERT_EVIDENCE = "Expert evidence",
-  OTHER_MEDICAL_RECORDS = "Other medical records",
-  DWP_RECORDS = "DWP records",
-  HMRC_RECORDS = "HMRC records",
-  EMPLOYMENT_RECORDS = "Employment records",
-  SCHEDULE_OF_LOSS = "Schedule of Loss",
-  COUNTER_SCHEDULE = "Counter Schedule",
-  OTHER_FINANCIAL = "Other-D",
-  CARE_PLAN = "Care plan",
-  LOCAL_AUTHORITY_CARE_RECORDS = "Local Authority/care records",
-  OTHER_EVIDENCE = "Other-E",
-  LINKED_DOCS = "Linked docs",
-  WITNESS_STATEMENT = "Witness Statement",
-  APPLICATION_FOR_AN_EXTENSION_OF_TIME = "Application for an extension of time",
-  APPLICATION_FOR_A_POSTPONEMENT = "Application for a postponement",
-  SUBMISSION_FROM_APPELLANT = "Submission from appellant",
-  SUBMISSION_FROM_RESPONDENT = "Submission from respondent",
-  OTHER_GENERAL_EVIDENCE = "Other-TG",
-  DSS_TRIBUNAL_FORM = "DSS Tribunal form uploaded documents",
-  DSS_SUPPORTING = "DSS Supporting uploaded documents",
-  DSS_OTHER = "DSS Other information documents",
+  APPLICATION_FORM = 'ApplicationForm',
+  FIRST_DECISION = 'First decision',
+  APPLICATION_FOR_REVIEW = 'Application for review',
+  REVIEW_DECISION = 'Review decision',
+  NOTICE_OF_APPEAL = 'Notice of Appeal',
+  EVIDENCE_CORRESPONDENCE_FROM_THE_APPELLANT = 'Evidence/correspondence from the Appellant',
+  CORRESPONDENCE_FROM_THE_CICA = 'Correspondence from the CICA',
+  TRIBUNAL_DIRECTION = 'Direction / decision notices',
+  POLICE_EVIDENCE = 'PoliceEvidence',
+  GP_RECORDS = 'GP records',
+  HOSPITAL_RECORDS = 'Hospital records',
+  MENTAL_HEALTH_RECORDS = 'Mental Health records',
+  EXPERT_EVIDENCE = 'Expert evidence',
+  OTHER_MEDICAL_RECORDS = 'Other medical records',
+  DWP_RECORDS = 'DWP records',
+  HMRC_RECORDS = 'HMRC records',
+  EMPLOYMENT_RECORDS = 'Employment records',
+  SCHEDULE_OF_LOSS = 'Schedule of Loss',
+  COUNTER_SCHEDULE = 'Counter Schedule',
+  OTHER_FINANCIAL = 'Other-D',
+  CARE_PLAN = 'Care plan',
+  LOCAL_AUTHORITY_CARE_RECORDS = 'Local Authority/care records',
+  OTHER_EVIDENCE = 'Other-E',
+  LINKED_DOCS = 'Linked docs',
+  WITNESS_STATEMENT = 'Witness Statement',
+  APPLICATION_FOR_AN_EXTENSION_OF_TIME = 'Application for an extension of time',
+  APPLICATION_FOR_A_POSTPONEMENT = 'Application for a postponement',
+  SUBMISSION_FROM_APPELLANT = 'Submission from appellant',
+  SUBMISSION_FROM_RESPONDENT = 'Submission from respondent',
+  OTHER_GENERAL_EVIDENCE = 'Other-TG',
+  DSS_TRIBUNAL_FORM = 'DSS Tribunal form uploaded documents',
+  DSS_SUPPORTING = 'DSS Supporting uploaded documents',
+  DSS_OTHER = 'DSS Other information documents',
 }
 
 export const enum ImageRendering {
-  opaque = "opaque",
-  translucent = "translucent",
+  opaque = 'opaque',
+  translucent = 'translucent',
 }
 
 export const enum ImageRenderingLocation {
-  allPages = "allPages",
-  firstPage = "firstPage",
+  allPages = 'allPages',
+  firstPage = 'firstPage',
 }
 
 export const enum PageNumberFormat {
-  numberOfPages = "numberOfPages",
-  pageRange = "pageRange",
+  numberOfPages = 'numberOfPages',
+  pageRange = 'pageRange',
 }
 
 export const enum Event {
-  SUBMIT = "SUBMIT",
-  UPDATE = "UPDATE",
-  UPDATE_CASE = "UPDATE_CASE",
+  SUBMIT = 'SUBMIT',
+  UPDATE = 'UPDATE',
+  UPDATE_CASE = 'UPDATE_CASE',
 }
 
 export const enum TemplateName {
-  RESPONDENT_SOLICITOR_HAS_NOT_RESPONDED = "RESPONDENT_SOLICITOR_HAS_NOT_RESPONDED",
-  APPLICATION_RECEIVED = "APPLICATION_RECEIVED",
-  APPLICATION_RECEIVED_CY = "APPLICATION_RECEIVED_CY",
-  APPLICATION_NEW_ORDER_ISSUED = "APPLICATION_NEW_ORDER_ISSUED",
-  CASE_CANCEL_HEARING_EMAIL = "CASE_CANCEL_HEARING_EMAIL",
-  CASE_CANCEL_HEARING_POST = "CASE_CANCEL_HEARING_POST",
-  CASE_REINSTATED_EMAIL = "CASE_REINSTATED_EMAIL",
-  CASE_REINSTATED_POST = "CASE_REINSTATED_POST",
-  DECISION_ISSUED_EMAIL = "DECISION_ISSUED_EMAIL",
-  DECISION_ISSUED_POST = "DECISION_ISSUED_POST",
-  CONTACT_PARTIES_EMAIL = "CONTACT_PARTIES_EMAIL",
-  CONTACT_PARTIES_POST = "CONTACT_PARTIES_POST",
-  CASE_UNLINKED_EMAIL = "CASE_UNLINKED_EMAIL",
-  CASE_UNLINKED_POST = "CASE_UNLINKED_POST",
-  CASE_STAYED_EMAIL = "CASE_STAYED_EMAIL",
-  CASE_STAYED_POST = "CASE_STAYED_POST",
-  CASE_UNSTAYED_EMAIL = "CASE_UNSTAYED_EMAIL",
-  CASE_UNSTAYED_POST = "CASE_UNSTAYED_POST",
-  TEST_TEMPLATE = "TEST_TEMPLATE",
-  CASE_ISSUED_CITIZEN_EMAIL = "CASE_ISSUED_CITIZEN_EMAIL",
-  CASE_ISSUED_CITIZEN_POST = "CASE_ISSUED_CITIZEN_POST",
-  CASE_ISSUED_RESPONDENT_EMAIL = "CASE_ISSUED_RESPONDENT_EMAIL",
-  LISTING_UPDATED_CITIZEN_EMAIL = "LISTING_UPDATED_CITIZEN_EMAIL",
-  LISTING_UPDATED_CITIZEN_POST = "LISTING_UPDATED_CITIZEN_POST",
-  LISTING_CREATED_CITIZEN_EMAIL = "LISTING_CREATED_CITIZEN_EMAIL",
-  LISTING_CREATED_CITIZEN_POST = "LISTING_CREATED_CITIZEN_POST",
-  CASE_FINAL_DECISION_ISSUED_EMAIL = "CASE_FINAL_DECISION_ISSUED_EMAIL",
-  CASE_FINAL_DECISION_ISSUED_POST = "CASE_FINAL_DECISION_ISSUED_POST",
-  HEARING_POSTPONED_EMAIL = "HEARING_POSTPONED_EMAIL",
-  HEARING_POSTPONED_POST = "HEARING_POSTPONED_POST",
-  CASE_WITHDRAWN_EMAIL = "CASE_WITHDRAWN_EMAIL",
-  CASE_WITHDRAWN_POST = "CASE_WITHDRAWN_POST",
-  NEW_ORDER_ISSUED_EMAIL = "NEW_ORDER_ISSUED_EMAIL",
-  NEW_ORDER_ISSUED_POST = "NEW_ORDER_ISSUED_POST",
-  CASE_LINKED_EMAIL = "CASE_LINKED_EMAIL",
-  CASE_LINKED_POST = "CASE_LINKED_POST",
-  UPDATE_RECEIVED_CITIZEN = "UPDATE_RECEIVED_CITIZEN",
-  UPDATE_RECEIVED_CASEWORKER = "UPDATE_RECEIVED_CASEWORKER",
+  RESPONDENT_SOLICITOR_HAS_NOT_RESPONDED = 'RESPONDENT_SOLICITOR_HAS_NOT_RESPONDED',
+  APPLICATION_RECEIVED = 'APPLICATION_RECEIVED',
+  APPLICATION_RECEIVED_CY = 'APPLICATION_RECEIVED_CY',
+  APPLICATION_NEW_ORDER_ISSUED = 'APPLICATION_NEW_ORDER_ISSUED',
+  CASE_CANCEL_HEARING_EMAIL = 'CASE_CANCEL_HEARING_EMAIL',
+  CASE_CANCEL_HEARING_POST = 'CASE_CANCEL_HEARING_POST',
+  CASE_REINSTATED_EMAIL = 'CASE_REINSTATED_EMAIL',
+  CASE_REINSTATED_POST = 'CASE_REINSTATED_POST',
+  DECISION_ISSUED_EMAIL = 'DECISION_ISSUED_EMAIL',
+  DECISION_ISSUED_POST = 'DECISION_ISSUED_POST',
+  CONTACT_PARTIES_EMAIL = 'CONTACT_PARTIES_EMAIL',
+  CONTACT_PARTIES_POST = 'CONTACT_PARTIES_POST',
+  CASE_UNLINKED_EMAIL = 'CASE_UNLINKED_EMAIL',
+  CASE_UNLINKED_POST = 'CASE_UNLINKED_POST',
+  CASE_STAYED_EMAIL = 'CASE_STAYED_EMAIL',
+  CASE_STAYED_POST = 'CASE_STAYED_POST',
+  CASE_UNSTAYED_EMAIL = 'CASE_UNSTAYED_EMAIL',
+  CASE_UNSTAYED_POST = 'CASE_UNSTAYED_POST',
+  TEST_TEMPLATE = 'TEST_TEMPLATE',
+  CASE_ISSUED_CITIZEN_EMAIL = 'CASE_ISSUED_CITIZEN_EMAIL',
+  CASE_ISSUED_CITIZEN_POST = 'CASE_ISSUED_CITIZEN_POST',
+  CASE_ISSUED_RESPONDENT_EMAIL = 'CASE_ISSUED_RESPONDENT_EMAIL',
+  LISTING_UPDATED_CITIZEN_EMAIL = 'LISTING_UPDATED_CITIZEN_EMAIL',
+  LISTING_UPDATED_CITIZEN_POST = 'LISTING_UPDATED_CITIZEN_POST',
+  LISTING_CREATED_CITIZEN_EMAIL = 'LISTING_CREATED_CITIZEN_EMAIL',
+  LISTING_CREATED_CITIZEN_POST = 'LISTING_CREATED_CITIZEN_POST',
+  CASE_FINAL_DECISION_ISSUED_EMAIL = 'CASE_FINAL_DECISION_ISSUED_EMAIL',
+  CASE_FINAL_DECISION_ISSUED_POST = 'CASE_FINAL_DECISION_ISSUED_POST',
+  HEARING_POSTPONED_EMAIL = 'HEARING_POSTPONED_EMAIL',
+  HEARING_POSTPONED_POST = 'HEARING_POSTPONED_POST',
+  CASE_WITHDRAWN_EMAIL = 'CASE_WITHDRAWN_EMAIL',
+  CASE_WITHDRAWN_POST = 'CASE_WITHDRAWN_POST',
+  NEW_ORDER_ISSUED_EMAIL = 'NEW_ORDER_ISSUED_EMAIL',
+  NEW_ORDER_ISSUED_POST = 'NEW_ORDER_ISSUED_POST',
+  CASE_LINKED_EMAIL = 'CASE_LINKED_EMAIL',
+  CASE_LINKED_POST = 'CASE_LINKED_POST',
+  UPDATE_RECEIVED_CITIZEN = 'UPDATE_RECEIVED_CITIZEN',
+  UPDATE_RECEIVED_CASEWORKER = 'UPDATE_RECEIVED_CASEWORKER',
 }
 
-export const CITIZEN_CIC_CREATE_CASE = "citizen-cic-create-dss-application";
-export const CITIZEN_CIC_UPDATE_CASE = "citizen-cic-update-dss-application";
-export const CITIZEN_CIC_SUBMIT_CASE = "citizen-cic-submit-dss-application";
-export const CITIZEN_DSS_UPDATE_CASE_SUBMISSION = "citizen-cic-dss-update-case";
+export const CITIZEN_CIC_CREATE_CASE = 'citizen-cic-create-dss-application';
+export const CITIZEN_CIC_UPDATE_CASE = 'citizen-cic-update-dss-application';
+export const CITIZEN_CIC_SUBMIT_CASE = 'citizen-cic-submit-dss-application';
+export const CITIZEN_DSS_UPDATE_CASE_SUBMISSION = 'citizen-cic-dss-update-case';
 
 // manually added
 export const enum EmailAddress {
