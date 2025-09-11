@@ -51,7 +51,8 @@ if (!rateLimiterDisabled) {
 }
 
 app.locals.developmentMode = process.env.NODE_ENV !== 'production';
-app.use(favicon(path.join(__dirname, '/public/assets/images/favicon.ico')));
+app.use('/assets', express.static(path.join(__dirname, '../node_modules/govuk-frontend/dist/govuk/assets')));
+app.use(favicon(path.join(__dirname, '../node_modules/govuk-frontend/dist/govuk/assets/images/favicon.ico')));
 app.use(bodyParser.json() as RequestHandler);
 app.use(bodyParser.urlencoded({ extended: false }) as RequestHandler);
 app.use(express.static(path.join(__dirname, 'public')));
