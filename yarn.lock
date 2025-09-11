@@ -7352,13 +7352,13 @@ __metadata:
   linkType: hard
 
 "express-http-proxy@npm:^2.0.0":
-  version: 2.1.1
-  resolution: "express-http-proxy@npm:2.1.1"
+  version: 2.1.2
+  resolution: "express-http-proxy@npm:2.1.2"
   dependencies:
     debug: "npm:^3.0.1"
     es6-promise: "npm:^4.1.1"
     raw-body: "npm:^2.3.0"
-  checksum: 10c0/c8e21f621e607c7b12d74df105d78b336f0e39b91b16e5a881e0905736f519aab0c5e5d41929ee210a595211127a420618ddb6a52f46f7f9770f0ca3ea9ead7c
+  checksum: 10c0/e40df492eff2cf3a7b0341dabe3096c799d0a73a1a7c309709bfba8c5928bd80f417f3831a7092b94043c7d9543af7917259e124c78f5222e3f9b01e6a08a3e9
   languageName: node
   linkType: hard
 
