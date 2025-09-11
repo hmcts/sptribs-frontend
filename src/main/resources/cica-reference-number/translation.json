@@ -3,15 +3,15 @@
     "en": {
       "continue": "Continue",
       "serviceName": "Appeal to the First-tier Tribunal",
-      "title": "Criminal Injuries Compensation Authority Reference Number",
-      "line1": "You can find this on any correspondence that you've received from CICA.",
+      "title": "Enter your Criminal Injuries Compensation Authority Reference Number",
+      "line1": "You can find this on any correspondence that you've received from CICA, CICA reference numbers begin with the letter X or G",
       "cicaReferenceNumberLabel": "CICA reference number"
     },
     "cy": {
       "continue": "Parhau",
       "serviceName": "Apelio i’r Tribiwnlys Haen Gyntaf",
-      "title": "Cyfeirnod Awdurdod Digolledu am Anafiadau Troseddol",
-      "line1": "Gallwch ddod o hyd i hwn ar unrhyw ohebiaeth rydych wedi'i derbyn gan ADAT.",
+      "title": "Nodwch eich Cyfeirnod Awdurdod Digolledu am Anafiadau Troseddol",
+      "line1": "Gallwch ddod o hyd i hwn ar unrhyw ohebiaeth rydych wedi'i derbyn gan ADAT, Mae cyfeirnodau ADAT yn dechrau gyda’r lythyren X neu G",
       "cicaReferenceNumberLabel": "Cyfeirnod ADAT"
     }
   },
