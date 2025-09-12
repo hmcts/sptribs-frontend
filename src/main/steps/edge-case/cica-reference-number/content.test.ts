@@ -80,21 +80,24 @@ describe('cica-reference-number-content', () => {
     const form = generatedContent.form as FormContent;
     const fields = form.fields as FormFields;
     const cicaReferenceNumber = fields.cicaReferenceNumber as FormOptions;
-    expect((cicaReferenceNumber.validator as Function)('testCicaRef123')).toBe(undefined);
+    expect((cicaReferenceNumber.validator as Function)('G testCicaRef123')).toBe(undefined);
+    expect((cicaReferenceNumber.validator as Function)('X testCicaRef123')).toBe(undefined);
   });
 
-  test('should fail validation when CICA reference number contains invalid text (eg. HTML, markdown, empty)', () => {
+  test('should fail validation when CICA reference number contains invalid text (eg. HTML, markdown, empty, invalid)', () => {
     const generatedContent = generateContent(commonContent);
     const form = generatedContent.form as FormContent;
     const fields = form.fields as FormFields;
     const cicaReferenceNumber = fields.cicaReferenceNumber as FormOptions;
 
-    expect((cicaReferenceNumber.validator as Function)('<marquee>testCicaRef123</marquee>')).toBe(
+    expect((cicaReferenceNumber.validator as Function)('X<marquee>testCicaRef123</marquee>')).toBe(
       'containsInvalidCharacters'
     );
-    expect((cicaReferenceNumber.validator as Function)('[Click here](https://www.google.co.uk)')).toBe(
+    expect((cicaReferenceNumber.validator as Function)('G[Click here](https://www.google.co.uk)')).toBe(
       'containsMarkdownLink'
     );
     expect((cicaReferenceNumber.validator as Function)(' ')).toBe('required');
+
+    expect((cicaReferenceNumber.validator as Function)('A123456 7890')).toBe('invalid');
   });
 });
