@@ -1,6 +1,11 @@
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
-import { containsInvalidCharacters, isFieldFilledIn, isMarkDownLinkIncluded } from '../../../app/form/validation';
+import {
+  containsInvalidCharacters,
+  isCICAReferenceNumberAcceptable,
+  isFieldFilledIn,
+  isMarkDownLinkIncluded,
+} from '../../../app/form/validation';
 import { ResourceReader } from '../../../modules/resourcereader/ResourceReader';
 
 export const form: FormContent = {
@@ -9,7 +14,11 @@ export const form: FormContent = {
       type: 'text',
       classes: 'govuk-input',
       label: l => l.cicaReferenceNumberLabel,
-      validator: input => isFieldFilledIn(input) || isMarkDownLinkIncluded(input) || containsInvalidCharacters(input),
+      validator: input =>
+        isFieldFilledIn(input) ||
+        isMarkDownLinkIncluded(input) ||
+        containsInvalidCharacters(input) ||
+        isCICAReferenceNumberAcceptable(input),
     },
   },
   submit: {

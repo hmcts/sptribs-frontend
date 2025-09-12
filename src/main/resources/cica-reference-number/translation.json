@@ -20,14 +20,16 @@
       "cicaReferenceNumber": {
         "required": "Enter CICA reference number",
         "containsMarkdownLink": "CICA reference number must not include a link",
-        "containsInvalidCharacters": "CICA reference number must not include HTML"
+        "containsInvalidCharacters": "CICA reference number must not include HTML",
+        "invalid": "CICA reference number must begin with the letter X or G"
       }
     },
     "cy": {
       "cicaReferenceNumber": {
         "required": "Nodwch gyfeirnod ADAT",
         "containsMarkdownLink": "Ni ddylai cyfeirnod ADAT gynnwys dolen",
-        "containsInvalidCharacters": "Ni ddylai cyfeirnod ADAT gynnwys HTML"
+        "containsInvalidCharacters": "Ni ddylai cyfeirnod ADAT gynnwys HTML",
+        "invalid": "Rhaid i gyfeirnod ADAT ddechrau gyda’r llythyren X neu G"
       }
     }
   }
