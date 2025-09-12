@@ -10,6 +10,7 @@
         "subjectDetails": "Subject Details",
         "representativeDetails": "Representative's Details",
         "representation": "Representation",
+        "cicaReferenceNumber": "Criminal Injuries Compensation Authority Reference Number",
         "documents": "Appeal forms",
         "supportingDocuments": "Supporting documents",
         "otherInformation": "Additional information"
@@ -25,6 +26,7 @@
         "representativeOrganisationName": "Organisation or business name",
         "representativeContactNumber": "Contact number",
         "representativeEmailAddress": "Email address",
+        "cicaReferenceNumber": "CICA reference number",
         "appealDocuments": "List of forms uploaded (Appeal form)",
         "supportingDocuments": "List of supporting documents uploaded",
         "otherInformation": "Additional document",
@@ -46,6 +48,7 @@
         "subjectDetails": "Manylion yr Unigolyn Perthnasol",
         "representativeDetails": "Manylion y cynrychiolydd",
         "representation": "Cynrychiolaeth",
+        "cicaReferenceNumber": "Cyfeirnod Awdurdod Digolledu am Anafiadau Troseddol",
         "documents": "Ffurflenni apelio",
         "supportingDocuments": "Dogfennau ategol",
         "otherInformation": "Gwybodaeth ychwanegol"
@@ -61,6 +64,7 @@
         "representativeOrganisationName": "Enw’r sefydliad neu’r busnes",
         "representativeContactNumber": "Rhif cyswllt",
         "representativeEmailAddress": "Cyfeiriad e-bost",
+        "cicaReferenceNumber": "Cyfeirnod ADAT",
         "appealDocuments": "Rhestr o ffurflenni sydd wedi’u llwytho (Ffurflen apelio)",
         "supportingDocuments": "Rhestr o ddogfennau ategol sydd wedi’u llwytho",
         "otherInformation": "Dogfennau ychwanegol",

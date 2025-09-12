@@ -10,6 +10,11 @@ export const fields: ToApiConverters = {
   subjectDateOfBirth: (data: Case) => ({
     dssCaseDataSubjectDateOfBirth: toApiDate(data.subjectDateOfBirth),
   }),
+  cicaReferenceNumber: (data: Case) => ({
+    editCicaCaseDetails: {
+      cicaReferenceNumber: data.cicaReferenceNumber,
+    },
+  }),
 };
 
 export const toApiFormat = (data: Partial<Case>): CaseData => formatCase(fields, data);
