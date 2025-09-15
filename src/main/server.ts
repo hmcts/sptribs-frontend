@@ -52,7 +52,10 @@ if (!rateLimiterDisabled) {
 
 app.locals.developmentMode = process.env.NODE_ENV !== 'production';
 app.use('/assets', express.static(path.join(__dirname, '../node_modules/govuk-frontend/dist/govuk/assets')));
-  app.use('/assets/rebrand', express.static(path.join(__dirname, '../node_modules/govuk-frontend/dist/govuk/assets/rebrand')));
+app.use(
+  '/assets/rebrand',
+  express.static(path.join(__dirname, '../node_modules/govuk-frontend/dist/govuk/assets/rebrand'))
+);
 app.use(favicon(path.join(__dirname, '../node_modules/govuk-frontend/dist/govuk/assets/rebrand/images/favicon.ico')));
 app.use(bodyParser.json() as RequestHandler);
 app.use(bodyParser.urlencoded({ extended: false }) as RequestHandler);
