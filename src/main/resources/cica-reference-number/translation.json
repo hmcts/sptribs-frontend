@@ -29,7 +29,7 @@
         "required": "Nodwch gyfeirnod ADAT",
         "containsMarkdownLink": "Ni ddylai cyfeirnod ADAT gynnwys dolen",
         "containsInvalidCharacters": "Ni ddylai cyfeirnod ADAT gynnwys HTML",
-        "invalid": "Rhaid i gyfeirnod ADAT ddechrau gyda’r llythyren X neu G"
+        "invalid": "Rhaid i gyfeirnod ADAT ddechrau gyda llythyren X neu G"
       }
     }
   }
