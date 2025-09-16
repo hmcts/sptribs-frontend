@@ -5,6 +5,7 @@ import { ResourceReader } from '../../../modules/resourcereader/ResourceReader';
 import { CommonContent } from '../../../steps/common/common.content';
 
 import {
+  CICAReferenceNumberSummary,
   OtherInformationSummary,
   RepresentationSummary,
   RepresentativeSummaryList,
@@ -38,6 +39,7 @@ export const en = (content: any) => {
             SubjectSummaryList(enContent, userCase),
             RepresentationSummary(enContent, userCase),
             RepresentativeSummaryList(enContent, userCase),
+            CICAReferenceNumberSummary(enContent, userCase),
             UploadAppealFormSummary(enContent, caseAppealDocuments),
             SupportingDocumentsSummary(enContent, supportingDocuments),
             OtherInformationSummary(enContent, otherInformation, userCase),
@@ -45,6 +47,7 @@ export const en = (content: any) => {
         : [
             SubjectSummaryList(enContent, userCase),
             RepresentationSummary(enContent, userCase),
+            CICAReferenceNumberSummary(enContent, userCase),
             UploadAppealFormSummary(enContent, caseAppealDocuments),
             SupportingDocumentsSummary(enContent, supportingDocuments),
             OtherInformationSummary(enContent, otherInformation, userCase),
@@ -74,6 +77,7 @@ const cy: typeof en = (content: CommonContent) => {
             SubjectSummaryList(cyContent, userCase),
             RepresentationSummary(cyContent, userCase),
             RepresentativeSummaryList(cyContent, userCase),
+            CICAReferenceNumberSummary(cyContent, userCase),
             UploadAppealFormSummary(cyContent, caseAppealDocuments),
             SupportingDocumentsSummary(cyContent, supportingDocuments),
             OtherInformationSummary(cyContent, otherInformation, userCase),
@@ -81,6 +85,7 @@ const cy: typeof en = (content: CommonContent) => {
         : [
             SubjectSummaryList(cyContent, userCase),
             RepresentationSummary(cyContent, userCase),
+            CICAReferenceNumberSummary(cyContent, userCase),
             UploadAppealFormSummary(cyContent, caseAppealDocuments),
             SupportingDocumentsSummary(cyContent, supportingDocuments),
             OtherInformationSummary(cyContent, otherInformation, userCase),
