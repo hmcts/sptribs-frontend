@@ -3,7 +3,10 @@
 {% from "govuk/components/footer/macro.njk" import govukFooter %}
 
 {% block header %}
-  {{ govukHeader({serviceName: content.serviceTitle}) }}
+  {{ govukHeader({
+    serviceName: content.serviceTitle,
+    rebrand: true
+  }) }}
 {% endblock %}
 
 
@@ -33,7 +36,7 @@
   <p class="govuk-body-l">{{ content['body'] | safe }}</p>
   <h2 class="govuk-heading-m"><span class="govuk-!-font-weight-bold">{{ content['subheading'] }}</span></h2>
   <p class="govuk-body-l">{{ content['subbody'] | safe }}</p>
-  
+
   <br/>
 
   {{ govukButton({
@@ -74,6 +77,7 @@
           text: content.contactUs
         }
       ]
-    }
+    },
+    rebrand: true
   }) }}
 {% endblock %}
