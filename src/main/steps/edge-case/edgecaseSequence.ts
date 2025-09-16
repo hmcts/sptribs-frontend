@@ -2,6 +2,7 @@ import { Sections, Step } from '../constants';
 import {
   APPLICATION_SUBMITTED,
   CHECK_YOUR_ANSWERS,
+  CICA_REFERENCE_NUMBER,
   CONTACT_PREFERENCES,
   COOKIES,
   DATE_OF_BIRTH,
@@ -43,6 +44,11 @@ export const edgecaseSequence: Step[] = [
   },
   {
     url: REPRESENTATIVES_DETAILS,
+    showInSection: Sections.AboutEdgeCase,
+    getNextStep: () => CICA_REFERENCE_NUMBER,
+  },
+  {
+    url: CICA_REFERENCE_NUMBER,
     showInSection: Sections.AboutEdgeCase,
     getNextStep: () => UPLOAD_APPEAL_FORM,
   },
