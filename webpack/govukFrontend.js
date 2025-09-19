@@ -8,13 +8,15 @@ const sass = path.resolve(root, 'all.scss');
 const javascript = path.resolve(root, 'all.js');
 const components = path.resolve(root, 'components');
 const assets = path.resolve(root, 'assets');
-const images = path.resolve(assets, 'images');
 const fonts = path.resolve(assets, 'fonts');
+const images = path.resolve(assets, 'images');
+const rebrand = path.resolve(assets, 'rebrand');
 
 const copyGovukTemplateAssets = new CopyWebpackPlugin({
   patterns: [
-    { from: images, to: 'assets/images' },
     { from: fonts, to: 'assets/fonts' },
+    { from: images, to: 'assets/images' },
+    { from: rebrand, to: 'assets/rebrand' },
     { from: `${assets}/manifest.json`, to: 'assets/manifest.json' }
   ],
 });

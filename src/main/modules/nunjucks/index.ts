@@ -28,6 +28,8 @@ export class Nunjucks {
       return typeof prop === 'function' ? prop(this.ctx) : prop;
     });
 
+    env.addGlobal('govukRebrand', true);
+
     env.addGlobal('getError', function (fieldName: string): { text?: string } | boolean {
       const { /*form,*/ sessionErrors, errors } = this.ctx;
       //const hasMoreThanTwoFields = new Form(form.fields).getFieldNames().size >= 2;
