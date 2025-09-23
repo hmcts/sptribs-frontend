@@ -48,6 +48,8 @@ export class SessionStorage {
 
       client.connect().catch(logger.error);
 
+      client.on('error', err => logger.error('Redis Client Error', err));
+
       app.locals.redisClient = client;
       return new RedisStore({ client });
     }
