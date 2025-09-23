@@ -163,15 +163,12 @@ describe('SessionStorage getStore error handling', () => {
       locals: {},
     } as unknown as Application;
 
-    // Act
     new SessionStorage().enableFor(mockApp, mockLogger as any);
 
-    // Simulate error event registration
     expect(mockOn).toHaveBeenCalledWith('error', expect.any(Function));
     const errorHandler = mockOn.mock.calls.find(call => call[0] === 'error')[1];
     errorHandler(mockError);
 
-    // Assert
     expect(mockLogger.error).toHaveBeenCalledWith('Redis Client Error', mockError);
   });
 });
