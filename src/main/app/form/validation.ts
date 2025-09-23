@@ -25,6 +25,12 @@ export const isFieldFilledIn: Validator = value => {
   }
 };
 
+export const isCICAReferenceNumberAcceptable: Validator = value => {
+  if (value && value[0] !== 'G' && value[0] !== 'X') {
+    return ValidationError.INVALID;
+  }
+};
+
 export const atLeastOneFieldIsChecked: Validator = fields => {
   if (!fields || (fields as []).length === 0) {
     return ValidationError.REQUIRED;

@@ -1,4 +1,5 @@
-import { formatCase } from './case';
+import { Case, formatCase } from './case';
+import { LanguagePreference, YesOrNo } from './definition';
 
 describe('formatCase', () => {
   it('formats case data using field formats', () => {
@@ -45,31 +46,8 @@ describe('formatCase', () => {
 
 describe('Case interface', () => {
   it('defines the structure of a case', () => {
-    const caseData: {
-      representativeContactNumber: string;
-      representativeEmailAddress: string;
-      pcqId: string;
-      applicantLastName: string;
-      applicantAddress1: string;
-      applicantEmailAddress: string;
-      applicantHomeNumber: string;
-      applicantAddressTown: string;
-      subjectEmailAddress: string;
-      representativeFullName: string;
-      subjectContactNumber: string;
-      caseTypeOfApplication: string;
-      applicantFirstName: string;
-      applicantDateOfBirth: { month: string; year: string; day: string };
-      applicantAddressCountry: null;
-      subjectDateOfBirth: { month: string; year: string; day: string };
-      applicantAddressPostcode: null;
-      subjectAgreeContact: string;
-      subjectFullName: string;
-      applicantStatementOfTruth: string;
-      representativeOrganisationName: string;
-      applicantAddress2: string;
-      applicantPhoneNumber: string;
-    } = {
+    const caseData: Case = {
+      namedApplicant: YesOrNo.YES,
       caseTypeOfApplication: 'Type A',
       applicantFirstName: 'John',
       applicantLastName: 'Doe',
@@ -88,11 +66,23 @@ describe('Case interface', () => {
       subjectEmailAddress: 'jane@example.com',
       subjectContactNumber: '9876543210',
       subjectAgreeContact: 'yes',
+      representation: YesOrNo.YES,
+      representationQualified: YesOrNo.YES,
       representativeFullName: '',
       representativeOrganisationName: '',
       representativeContactNumber: '',
       representativeEmailAddress: '',
       pcqId: '123456',
+      cicaReferenceNumber: 'testCicaRef123',
+      editCicaCaseDetails: {
+        cicaReferenceNumber: 'testCicaRef123',
+      },
+      documentRelevance: 'doc relevance',
+      additionalInformation: 'some info',
+      tribunalFormDocuments: [],
+      supportingDocuments: [],
+      otherInfoDocuments: [],
+      languagePreference: LanguagePreference.ENGLISH,
     };
 
     expect(caseData).toBeDefined();
