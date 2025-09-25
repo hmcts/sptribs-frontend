@@ -1,4 +1,7 @@
 jest.mock('config');
+
+const mockOn = jest.fn();
+
 const mockRedisClient = {
   connect: () =>
     new Promise(resolve =>
@@ -6,6 +9,7 @@ const mockRedisClient = {
         test: () => jest.fn(),
       })
     ),
+  on: mockOn,
 };
 
 const mockCreateClient = jest.fn(() => mockRedisClient);
@@ -129,5 +133,42 @@ describe('session', () => {
       expect(mockApp.locals.redisClient).toEqual(mockRedisClient);
       expect(mockApp.use).toHaveBeenNthCalledWith(2, 'MOCK session');
     });
+  });
+});
+
+describe('SessionStorage getStore error handling', () => {
+  beforeEach(() => {
+    jest.resetModules();
+    jest.clearAllMocks();
+  });
+  it('should call logger.error when redis client emits error', () => {
+    // Arrange
+    const mockError = new Error('Redis failure');
+    const mockLogger = { error: jest.fn() };
+
+    jest.mock('redis', () => ({
+      __esModule: true,
+      createClient: mockCreateClient,
+    }));
+
+    config.get = jest
+      .fn()
+      .mockImplementationOnce(() => 'MOCK_SECRET')
+      .mockImplementationOnce(() => 'MOCK_REDIS_HOST')
+      .mockImplementationOnce(() => 'MOCK_REDIS_KEY');
+
+    const mockApp = {
+      use: jest.fn(callback => callback),
+      set: jest.fn(),
+      locals: {},
+    } as unknown as Application;
+
+    new SessionStorage().enableFor(mockApp, mockLogger as any);
+
+    expect(mockOn).toHaveBeenCalledWith('error', expect.any(Function));
+    const errorHandler = mockOn.mock.calls.find(call => call[0] === 'error')[1];
+    errorHandler(mockError);
+
+    expect(mockLogger.error).toHaveBeenCalledWith('Redis Client Error', mockError);
   });
 });
