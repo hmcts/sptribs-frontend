@@ -10,7 +10,10 @@
 {% endblock %}
 
 {% block header %}
-    { { govukHeader({serviceName: content.serviceTitle}) } }
+  {{ govukHeader({
+    serviceName: content.serviceTitle,
+    rebrand: true
+  }) }}
 {% endblock %}
 
 {% block beforeContent %}

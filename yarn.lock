@@ -8300,7 +8300,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"govuk-frontend@npm:^5.0.0":
+"govuk-frontend@npm:^5.10.0":
   version: 5.11.2
   resolution: "govuk-frontend@npm:5.11.2"
   checksum: 10c0/54993df0537ddde1e14a5219bc88ce0ba71f79157ba685b58234843cda8f95b8432f8de4047273670e402479cc3a3654056438d260879f5a433d8d1747922a03
@@ -13473,7 +13473,7 @@ __metadata:
     follow-redirects: "npm:^1.15.6"
     form-data: "npm:^4.0.0"
     glob: "npm:^11.0.0"
-    govuk-frontend: "npm:^5.0.0"
+    govuk-frontend: "npm:^5.10.0"
     helmet: "npm:^4.6.0"
     html-webpack-plugin: "npm:^5.5.3"
     http-cache-semantics: "npm:^4.1.1"
