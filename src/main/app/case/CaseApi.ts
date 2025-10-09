@@ -7,7 +7,7 @@ import { UserDetails } from '../controller/AppRequest';
 
 import { Case, CaseWithId } from './case';
 import { CaseAssignedUserRoles } from './case-roles';
-import { CITIZEN_CIC_CREATE_CASE, CaseData } from './definition';
+import { CITIZEN_CIC_CREATE_CASE, CaseData, YesOrNo } from './definition';
 import { fromApiFormat } from './from-api-format';
 import { toApiFormat } from './to-api-format';
 
@@ -28,6 +28,7 @@ export class CaseApi {
       const token = tokenResponse.data.token;
       const event = { id: CITIZEN_CIC_CREATE_CASE };
 
+      data.newBundleOrderEnabled = YesOrNo.YES;
       const response = await this.client.post<CcdV2Response>(`/case-types/${this.CASE_TYPE}/cases`, {
         data: toApiFormat(data),
         event,
