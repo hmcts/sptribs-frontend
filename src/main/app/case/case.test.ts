@@ -47,6 +47,7 @@ describe('formatCase', () => {
 describe('Case interface', () => {
   it('defines the structure of a case', () => {
     const caseData: Case = {
+      newBundleOrderEnabled: YesOrNo.YES,
       namedApplicant: YesOrNo.YES,
       caseTypeOfApplication: 'Type A',
       applicantFirstName: 'John',
