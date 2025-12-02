@@ -11,6 +11,7 @@ import { ResourceReader } from '../../modules/resourcereader/ResourceReader';
 import { UPLOAD_APPEAL_FORM, UPLOAD_SUPPORTING_DOCUMENTS } from '../../steps/urls';
 import { CaseDocument } from '../case/case';
 import { CITIZEN_CIC_UPDATE_CASE } from '../case/definition';
+import { fromApiFormat } from '../case/from-api-format';
 import { Classification, DocumentManagementFile } from '../document/CaseDocumentManagementClient';
 import { containsInvalidCharacters, isMarkDownLinkIncluded } from '../form/validation';
 
@@ -115,14 +116,25 @@ export class UploadController extends PostController<AnyObject> {
       try {
         req.session.userCase.additionalInformation = req.body.additionalInformation as string;
 
+        const caseId = req.session.userCase['id'];
+        const eventTrigger = await req.locals.api.getEventTrigger(caseId, CITIZEN_CIC_UPDATE_CASE);
+        const caseData = eventTrigger.case_details?.data ? fromApiFormat(eventTrigger.case_details.data) : undefined;
+
         const responseBody = {
-          tribunalFormDocuments: this.getCaseDocuments(req.session.caseDocuments || []),
-          supportingDocuments: this.getCaseDocuments(req.session.supportingCaseDocuments || []),
-          otherInfoDocuments: this.getCaseDocuments(req.session.otherCaseInformation || []),
+          tribunalFormDocuments: this.mergeDocuments(caseData?.tribunalFormDocuments, req.session.caseDocuments || []),
+          supportingDocuments: this.mergeDocuments(
+            caseData?.supportingDocuments,
+            req.session.supportingCaseDocuments || []
+          ),
+          otherInfoDocuments: this.mergeDocuments(caseData?.otherInfoDocuments, req.session.otherCaseInformation || []),
         };
 
-        const caseId = req.session.userCase['id'];
-        await req.locals.api.triggerEvent(caseId, responseBody, CITIZEN_CIC_UPDATE_CASE);
+        req.session.userCase = await req.locals.api.triggerEvent(
+          caseId,
+          responseBody,
+          CITIZEN_CIC_UPDATE_CASE,
+          eventTrigger.token
+        );
 
         req.session.save(err => {
           if (err) {
@@ -135,6 +147,21 @@ export class UploadController extends PostController<AnyObject> {
         this.createUploadedFileError(req, res, chooseFileLink, 'UPLOAD_DELETE_FAIL_ERROR');
       }
     }
+  }
+
+  private mergeDocuments(existingDocs: CaseDocument[] = [], uploadedDocs: DocumentManagementFile[] = []): CaseDocument[] {
+    const currentDocs = existingDocs.filter(Boolean);
+    const newDocs = this.getCaseDocuments(uploadedDocs);
+    const seenIds = new Set(currentDocs.map(doc => doc.id));
+
+    for (const doc of newDocs) {
+      if (!seenIds.has(doc.id)) {
+        currentDocs.push(doc);
+        seenIds.add(doc.id);
+      }
+    }
+
+    return currentDocs;
   }
 
   private getCaseDocuments(documents: DocumentManagementFile[]): CaseDocument[] {
