@@ -149,7 +149,10 @@ export class UploadController extends PostController<AnyObject> {
     }
   }
 
-  private mergeDocuments(existingDocs: CaseDocument[] = [], uploadedDocs: DocumentManagementFile[] = []): CaseDocument[] {
+  private mergeDocuments(
+    existingDocs: CaseDocument[] = [],
+    uploadedDocs: DocumentManagementFile[] = []
+  ): CaseDocument[] {
     const currentDocs = existingDocs.filter(Boolean);
     const newDocs = this.getCaseDocuments(uploadedDocs);
     const seenIds = new Set(currentDocs.map(doc => doc.id));
