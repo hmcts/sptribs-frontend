@@ -58,7 +58,13 @@ export default class submitCaseController extends PostController<AnyObject> {
       const languagePreference = req.session?.lang === 'cy' ? LanguagePreference.WELSH : LanguagePreference.ENGLISH;
       req.session.userCase.languagePreference = languagePreference;
 
-      await req.locals.api.triggerEvent(req.session.userCase.id, req.session.userCase, CITIZEN_CIC_SUBMIT_CASE);
+      const eventTrigger = await req.locals.api.getEventTrigger(req.session.userCase.id, CITIZEN_CIC_SUBMIT_CASE);
+      await req.locals.api.triggerEvent(
+        req.session.userCase.id,
+        req.session.userCase,
+        CITIZEN_CIC_SUBMIT_CASE,
+        eventTrigger.token
+      );
       res.redirect(APPLICATION_SUBMITTED);
     } catch (error) {
       const errorMessage = FileValidations.ResourceReaderContents(req).SUBMIT_ERROR;

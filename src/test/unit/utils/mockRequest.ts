@@ -18,6 +18,7 @@ export const mockRequest = ({
       ...locals,
       api: {
         triggerEvent: jest.fn(),
+        getEventTrigger: jest.fn().mockResolvedValue({ token: 'mock-event-token', case_details: { data: {} } }),
         ...(locals['api'] ?? {}),
         addPayment: jest.fn(),
         getCaseById: jest.fn(),

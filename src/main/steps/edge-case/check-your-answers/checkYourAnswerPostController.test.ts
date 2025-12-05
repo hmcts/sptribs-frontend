@@ -60,10 +60,12 @@ describe('Submit case controller', () => {
       documentType: 'other',
     });
 
+    expect(req.locals.api.getEventTrigger).toHaveBeenCalledWith(req.session.userCase.id, CITIZEN_CIC_SUBMIT_CASE);
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
       req.session.userCase.id,
       { id: '1234', languagePreference: LanguagePreference.ENGLISH },
-      CITIZEN_CIC_SUBMIT_CASE
+      CITIZEN_CIC_SUBMIT_CASE,
+      'mock-event-token'
     );
     expect(getNextStepUrlMock).not.toHaveBeenCalled();
     expect(res.redirect).toHaveBeenCalledWith(CHECK_YOUR_ANSWERS);
@@ -157,13 +159,15 @@ describe('LanguagePreference passed to Case API for email notifications', () => 
   it('should pass english as LanguagePreference if not set on session', async () => {
     await postController.post(req, res);
 
+    expect(req.locals.api.getEventTrigger).toHaveBeenCalledWith(req.session.userCase.id, CITIZEN_CIC_SUBMIT_CASE);
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
       req.session.userCase.id,
       {
         id: '1234',
         languagePreference: LanguagePreference.ENGLISH,
       },
-      CITIZEN_CIC_SUBMIT_CASE
+      CITIZEN_CIC_SUBMIT_CASE,
+      'mock-event-token'
     );
     expect(res.redirect).toHaveBeenCalledWith(APPLICATION_SUBMITTED);
   });
@@ -172,13 +176,15 @@ describe('LanguagePreference passed to Case API for email notifications', () => 
     req.session.lang = 'cy';
 
     await postController.post(req, res);
+    expect(req.locals.api.getEventTrigger).toHaveBeenCalledWith(req.session.userCase.id, CITIZEN_CIC_SUBMIT_CASE);
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
       req.session.userCase.id,
       {
         id: '1234',
         languagePreference: LanguagePreference.WELSH,
       },
-      CITIZEN_CIC_SUBMIT_CASE
+      CITIZEN_CIC_SUBMIT_CASE,
+      'mock-event-token'
     );
 
     expect(res.redirect).toHaveBeenCalledWith(APPLICATION_SUBMITTED);

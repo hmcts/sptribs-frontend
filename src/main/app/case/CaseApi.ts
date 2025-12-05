@@ -52,25 +52,43 @@ export class CaseApi {
     }
   }
 
-  public async triggerEvent(caseId: string, data: Partial<Case>, eventName: string, retries = 0): Promise<CaseWithId> {
+  public async getEventTrigger(caseId: string, eventName: string): Promise<CcdEventTriggerResponse> {
     try {
-      const tokenResponse = await this.client.get<CcdTokenResponse>(`/cases/${caseId}/event-triggers/${eventName}`);
-      const token = tokenResponse.data.token;
+      const response = await this.client.get<CcdEventTriggerResponse>(`/cases/${caseId}/event-triggers/${eventName}`);
+      return response.data;
+    } catch (err) {
+      this.logError(err);
+      throw new Error('Case event trigger could not be fetched.');
+    }
+  }
+
+  public async triggerEvent(
+    caseId: string,
+    data: Partial<Case>,
+    eventName: string,
+    eventToken: string,
+    retries = 0
+  ): Promise<CaseWithId> {
+    try {
       const event = { id: eventName };
       const response: AxiosResponse<CcdV2Response> = await this.client.post(`/cases/${caseId}/events`, {
         event,
         data: toApiFormat(data),
-        event_token: token,
+        event_token: eventToken,
       });
 
       return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data.data) };
     } catch (err) {
-      if (retries < this.maxRetries && [409, 422, 502, 504].includes(err?.response.status)) {
+      const status = err?.response?.status;
+      if (retries < this.maxRetries && [502, 504].includes(status)) {
         ++retries;
-        this.logger.info(`retrying send event due to ${err.response.status}. this is retry no (${retries})`);
-        return this.triggerEvent(caseId, data, eventName, retries);
+        this.logger.info(`retrying send event due to ${status}. this is retry no (${retries})`);
+        return this.triggerEvent(caseId, data, eventName, eventToken, retries);
       }
       this.logError(err);
+      if (status === 409) {
+        throw new Error('Case could not be updated due to a version conflict.');
+      }
       throw new Error('Case could not be updated.');
     }
   }
@@ -111,4 +129,12 @@ interface CcdV2Response {
 
 interface CcdTokenResponse {
   token: string;
+}
+
+interface CcdEventTriggerResponse extends CcdTokenResponse {
+  case_details?: {
+    id: string;
+    state: string;
+    data: CaseData;
+  };
 }

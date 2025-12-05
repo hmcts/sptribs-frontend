@@ -361,10 +361,12 @@ describe('PostController', () => {
     const caseId = req.session.userCase.id;
     await controller.post(req, res);
 
+    expect(req.locals.api.getEventTrigger).toHaveBeenCalledWith(caseId, 'citizen-cic-update-dss-application');
     expect(req.locals.api.triggerEvent).toHaveBeenCalledWith(
       caseId,
       responseBody,
-      'citizen-cic-update-dss-application'
+      'citizen-cic-update-dss-application',
+      'mock-event-token'
     );
   });
 });

@@ -61,10 +61,15 @@ describe('PostController', () => {
     expect(req.session.userCase).toEqual(expectedUserCase);
     expect(getNextStepUrlMock).toHaveBeenCalledWith(req, expectedUserCase);
     expect(controller.getEventName(req)).toEqual('citizen-cic-update-dss-application');
+    expect(req.locals.api.getEventTrigger as jest.Mock).toHaveBeenCalledWith(
+      '1234',
+      'citizen-cic-update-dss-application'
+    );
     expect(req.locals.api.triggerEvent as jest.Mock).toHaveBeenCalledWith(
       '1234',
       { MOCK_KEY: 'MOCK_VALUE', representation: 'No' },
-      'citizen-cic-update-dss-application'
+      'citizen-cic-update-dss-application',
+      'mock-event-token'
     );
     expect(req.session.errors).toStrictEqual([]);
   });
@@ -89,10 +94,15 @@ describe('PostController', () => {
     expect(req.session.userCase).toEqual(expectedUserCase);
     expect(getNextStepUrlMock).toHaveBeenCalledWith(req, expectedUserCase);
     expect(controller.getEventName(req)).toEqual('citizen-cic-update-dss-application');
+    expect(req.locals.api.getEventTrigger as jest.Mock).toHaveBeenCalledWith(
+      '1234',
+      'citizen-cic-update-dss-application'
+    );
     expect(req.locals.api.triggerEvent as jest.Mock).toHaveBeenCalledWith(
       '1234',
       { MOCK_KEY: 'MOCK_VALUE', representation: 'Yes' },
-      'citizen-cic-update-dss-application'
+      'citizen-cic-update-dss-application',
+      'mock-event-token'
     );
     expect(req.session.errors).toStrictEqual([]);
   });
