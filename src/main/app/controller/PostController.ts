@@ -107,7 +107,13 @@ export class PostController<T extends AnyObject> {
 
   protected async save(req: AppRequest<T>, formData: Partial<Case>, eventName: string): Promise<CaseWithId> {
     try {
-      req.session.userCase = await req.locals.api.triggerEvent(req.session.userCase.id, formData, eventName);
+      const eventTrigger = await req.locals.api.getEventTrigger(req.session.userCase.id, eventName);
+      req.session.userCase = await req.locals.api.triggerEvent(
+        req.session.userCase.id,
+        formData,
+        eventName,
+        eventTrigger.token
+      );
     } catch (err) {
       req.locals.logger.error('Error saving', err);
       req.session.errors = req.session.errors || [];
