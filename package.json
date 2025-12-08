@@ -164,6 +164,8 @@
     "follow-redirects": "^1.15.6",
     "formidable": "^3.5.4",
     "got": "^14.0.0",
+    "jws@npm:^3.2.2": "npm:3.2.3",
+    "jws@npm:^4.0.0": "npm:4.0.1",
     "nanoid": "^5.0.0",
     "path-to-regexp": "^0.1.12",
     "postcss": "^8.4.31",
