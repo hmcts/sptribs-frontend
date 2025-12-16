@@ -127,6 +127,7 @@ export class UploadController extends PostController<AnyObject> {
             req.session.supportingCaseDocuments || []
           ),
           otherInfoDocuments: this.mergeDocuments(caseData?.otherInfoDocuments, req.session.otherCaseInformation || []),
+          additionalInformation: req.session.userCase.additionalInformation,
         };
 
         req.session.userCase = await req.locals.api.triggerEvent(
