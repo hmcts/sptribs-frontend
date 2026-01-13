@@ -52,6 +52,44 @@ export class CaseApi {
     }
   }
 
+  public async getCasesByUserId(userId: string): Promise<CaseWithId[]> {
+    try {
+      // Use case-users endpoint to find all cases for a user
+      const response = await this.client.get<CaseAssignedUserRoles>(`case-users?user_ids=${userId}`);
+      const caseIds = response.data.case_users?.map(cu => cu.case_id) || [];
+
+      if (caseIds.length === 0) {
+        return [];
+      }
+
+      // Fetch all cases by their IDs
+      const casePromises = caseIds.map(caseId => this.getCaseById(caseId));
+      const cases = await Promise.all(casePromises);
+
+      // Filter by case type and sort by last modified date (most recent first)
+      return cases
+        .filter(caseData => caseData && caseData.id)
+        .sort((a, b) => {
+          // Sort by case ID descending (assuming higher IDs are more recent)
+          // If cases have last_modified dates, use those instead
+          return parseInt(b.id) - parseInt(a.id);
+        });
+    } catch (err) {
+      this.logError(err);
+      throw new Error('Cases could not be fetched.');
+    }
+  }
+
+  public async getCaseById(caseId: string): Promise<CaseWithId> {
+    try {
+      const response = await this.client.get<CcdV2Response>(`/cases/${caseId}`);
+      return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data.data) };
+    } catch (err) {
+      this.logError(err);
+      throw new Error('Case could not be fetched.');
+    }
+  }
+
   public async getEventTrigger(caseId: string, eventName: string): Promise<CcdEventTriggerResponse> {
     try {
       const response = await this.client.get<CcdEventTriggerResponse>(`/cases/${caseId}/event-triggers/${eventName}`);

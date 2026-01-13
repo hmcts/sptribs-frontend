@@ -8,6 +8,8 @@ import { KeepAliveController } from './app/keepalive/KeepAliveController';
 import { stepsWithContent } from './steps';
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
 import { ContactUsGetController } from './steps/contact-us/get';
+import DocumentDownloadController from './steps/dashboard/download';
+import DashboardGetController from './steps/dashboard/get';
 import { ErrorController } from './steps/error/error.controller';
 import { HomeGetController } from './steps/home/get';
 import { PrivacyPolicyGetController } from './steps/privacy-policy/get';
@@ -18,6 +20,8 @@ import {
   ACCESSIBILITY_STATEMENT,
   CONTACT_US,
   CSRF_TOKEN_ERROR_URL,
+  DASHBOARD_URL,
+  DOCUMENT_DOWNLOAD_URL,
   HOME_URL,
   KEEP_ALIVE_URL,
   PRIVACY_POLICY,
@@ -43,6 +47,8 @@ export class Routes {
     app.get(TERMS_AND_CONDITIONS, errorHandler(new TermsAndConditionsGetController().get));
     app.get(ACCESSIBILITY_STATEMENT, errorHandler(new AccessibilityStatementGetController().get));
     app.get(CONTACT_US, errorHandler(new ContactUsGetController().get));
+    app.get(DASHBOARD_URL, errorHandler(new DashboardGetController().get));
+    app.get(DOCUMENT_DOWNLOAD_URL, errorHandler(new DocumentDownloadController().get));
 
     for (const step of stepsWithContent) {
       const files = fs.readdirSync(`${step.stepDir}`);

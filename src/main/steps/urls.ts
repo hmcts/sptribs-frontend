@@ -50,3 +50,5 @@ export const JURISDICTION_MAY_NOT_BE_ABLE_TO: PageLink = '/you-may-not-be-able-t
 export const JURISDICTION_CONNECTION_SUMMARY: PageLink = '/connection-summary';
 export const PAY_AND_SUBMIT: PageLink = '/pay-and-submit';
 export const ELIGIBILITY_URL: PageLink = '/eligibility';
+export const DASHBOARD_URL: PageLink = '/dashboard';
+export const DOCUMENT_DOWNLOAD_URL: PageLink = '/dashboard/document/download';

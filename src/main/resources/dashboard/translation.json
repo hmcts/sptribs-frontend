@@ -1,0 +1,33 @@
+{
+  "translations": {
+    "en": {
+      "title": "Your documents",
+      "serviceName": "Appeal to the First-tier Tribunal",
+      "caseNumberLabel": "Case Number",
+      "documentsHeading": "Documents",
+      "documentName": "Document name",
+      "date": "Date",
+      "status": "Status",
+      "action": "Action",
+      "latestTag": "Latest",
+      "download": "Download",
+      "noDocuments": "No documents available",
+      "noDocumentsMessage": "There are no documents available for this case."
+    },
+    "cy": {
+      "title": "Eich dogfennau",
+      "serviceName": "Apelio i'r Tribiwnlys Haen Gyntaf",
+      "caseNumberLabel": "Rhif Achos",
+      "documentsHeading": "Dogfennau",
+      "documentName": "Enw'r ddogfen",
+      "date": "Dyddiad",
+      "status": "Statws",
+      "action": "Gweithred",
+      "latestTag": "Diweddaraf",
+      "download": "Lawrlwytho",
+      "noDocuments": "Nid oes dogfennau ar gael",
+      "noDocumentsMessage": "Nid oes dogfennau ar gael ar gyfer yr achos hwn."
+    }
+  }
+}
+
