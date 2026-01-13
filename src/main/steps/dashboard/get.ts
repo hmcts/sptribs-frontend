@@ -10,7 +10,6 @@ import { generateContent } from './content';
 
 interface DashboardDocument {
   name: string;
-  date: string;
   downloadUrl: string;
   isLatest: boolean;
   comment?: string;
@@ -60,7 +59,6 @@ export default class DashboardGetController extends GetController {
 
             allDocuments.push({
               name: filename,
-              date: this.extractDateFromDocument(doc),
               downloadUrl,
               isLatest: false, // Will be set after sorting
               comment: doc.value.comment || undefined,
@@ -69,20 +67,20 @@ export default class DashboardGetController extends GetController {
         });
       });
 
-      // Sort documents by date (most recent first) and mark the latest
-      allDocuments.sort((a, b) => {
-        const dateA = new Date(a.date).getTime();
-        const dateB = new Date(b.date).getTime();
-        return dateB - dateA;
-      });
+      // // Sort documents by date (most recent first) and mark the latest
+      // allDocuments.sort((a, b) => {
+      //   const dateA = new Date(a.date).getTime();
+      //   const dateB = new Date(b.date).getTime();
+      //   return dateB - dateA;
+      // });
 
       // Mark the most recent document(s) as latest
-      if (allDocuments.length > 0) {
-        const latestDate = allDocuments[0].date;
-        allDocuments.forEach(doc => {
-          doc.isLatest = doc.date === latestDate;
-        });
-      }
+      // if (allDocuments.length > 0) {
+      //   const latestDate = allDocuments[0].date;
+      //   allDocuments.forEach(doc => {
+      //     doc.isLatest = doc.date === latestDate;
+      //   });
+      // }
 
       // Store documents in session temporarily for template access
       // The parent get method will call generateContent which we can extend
@@ -100,12 +98,12 @@ export default class DashboardGetController extends GetController {
     }
   }
 
-  private extractDateFromDocument(doc: CaseDocument): string {
-    // Try to extract date from document metadata or use current date as fallback
-    // Documents may have createdOn or modifiedOn in metadata
-    // For now, use a fallback - this can be enhanced if document metadata is available
-    return new Date().toISOString().split('T')[0];
-  }
+  // private extractDateFromDocument(doc: CaseDocument): string {
+  //   // Try to extract date from document metadata or use current date as fallback
+  //   // Documents may have createdOn or modifiedOn in metadata
+  //   // For now, use a fallback - this can be enhanced if document metadata is available
+  //   return new Date().toISOString().split('T')[0];
+  // }
 
   // private extractDocumentIdFromUrl(url: string): string | null {
   //   // Document URLs are typically in the format:
