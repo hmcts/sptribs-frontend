@@ -78,6 +78,7 @@ describe('Case interface', () => {
       editCicaCaseDetails: {
         cicaReferenceNumber: 'testCicaRef123',
       },
+      initialCicaDecisionDate: { year: '2020', month: '01', day: '30' },
       documentRelevance: 'doc relevance',
       additionalInformation: 'some info',
       tribunalFormDocuments: [],
