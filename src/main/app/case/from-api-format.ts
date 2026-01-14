@@ -13,6 +13,9 @@ const fields: FromApiConverters = {
   editCicaCaseDetails: (data: Partial<CaseData>) => ({
     cicaReferenceNumber: data.editCicaCaseDetails?.cicaReferenceNumber,
   }),
+  cicCaseApplicantDocuments: (data: Partial<CaseData>) => ({
+    applicantDocuments: data.cicCaseApplicantDocuments || [],
+  }),
 };
 
 export const fromApiFormat = (data: CaseData): Case => formatCase(fields, data);

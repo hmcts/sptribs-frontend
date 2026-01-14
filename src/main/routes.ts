@@ -7,6 +7,10 @@ import { PostController } from './app/controller/PostController';
 import { KeepAliveController } from './app/keepalive/KeepAliveController';
 import { stepsWithContent } from './steps';
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
+import CicaConfirmNewGetController from './steps/cica-confirm-new/get';
+import CicaConfirmNewPostController from './steps/cica-confirm-new/post';
+import CicaLookupGetController from './steps/cica-lookup/get';
+import CicaLookupPostController from './steps/cica-lookup/post';
 import { ContactUsGetController } from './steps/contact-us/get';
 import DocumentDownloadController from './steps/dashboard/download';
 import DashboardGetController from './steps/dashboard/get';
@@ -18,6 +22,8 @@ import { TermsAndConditionsGetController } from './steps/terms-and-conditions/ge
 import { TimedOutGetController } from './steps/timed-out/get';
 import {
   ACCESSIBILITY_STATEMENT,
+  CICA_CONFIRM_NEW,
+  CICA_LOOKUP,
   CONTACT_US,
   CSRF_TOKEN_ERROR_URL,
   DASHBOARD_URL,
@@ -49,6 +55,10 @@ export class Routes {
     app.get(CONTACT_US, errorHandler(new ContactUsGetController().get));
     app.get(DASHBOARD_URL, errorHandler(new DashboardGetController().get));
     app.get(DOCUMENT_DOWNLOAD_URL, errorHandler(new DocumentDownloadController().get));
+    app.get(CICA_LOOKUP, errorHandler(new CicaLookupGetController().get));
+    app.post(CICA_LOOKUP, errorHandler(new CicaLookupPostController().post));
+    app.get(CICA_CONFIRM_NEW, errorHandler(new CicaConfirmNewGetController().get));
+    app.post(CICA_CONFIRM_NEW, errorHandler(new CicaConfirmNewPostController().post));
 
     for (const step of stepsWithContent) {
       const files = fs.readdirSync(`${step.stepDir}`);

@@ -8,7 +8,7 @@ const { Logger } = require('@hmcts/nodejs-logging');
 const logger: LoggerInstance = Logger.getLogger('app');
 
 const { csrfSynchronisedProtection, generateToken } = csrfSync({
-  getTokenFromRequest: (req: Request) => req.body?._csrf || req.headers['csrf-token'],
+  getTokenFromRequest: (req: Request) => req.body?._csrf || (req.query?._csrf as string) || req.headers['csrf-token'],
 });
 
 export class CSRFToken {

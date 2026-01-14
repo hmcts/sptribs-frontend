@@ -1,7 +1,6 @@
 {% from "govuk/components/panel/macro.njk" import govukPanel %}
 {% from "govuk/components/table/macro.njk" import govukTable %}
 {% from "govuk/components/tag/macro.njk" import govukTag %}
-{% from "govuk/components/link/macro.njk" import govukLink %}
 {% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 {% extends "common/page.njk" %}
 
@@ -32,15 +31,9 @@
               {% endif %}
             {% endset %}
             {% set downloadLink %}
-              {{ govukLink({
-                text: download,
-                href: document.downloadUrl,
-                attributes: {
-                  download: document.name
-                }
-              }) }}
+              <a class="govuk-link" href="{{ document.downloadUrl | escape }}" download="{{ document.name | escape }}">{{ download }}</a>
             {% endset %}
-            {% set row = [
+            {% set tableRows = (tableRows.push([
               {
                 text: document.name
               },
@@ -53,8 +46,7 @@
               {
                 html: downloadLink
               }
-            ] %}
-            {% set _ = tableRows.append(row) %}
+            ]), tableRows) %}
           {% endfor %}
 
           {{ govukTable({
@@ -83,4 +75,7 @@
     </div>
   </div>
 {% endblock %}
+
+
+
 

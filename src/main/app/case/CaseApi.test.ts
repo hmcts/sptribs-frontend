@@ -1,8 +1,6 @@
 import axios from 'axios';
 import { LoggerInstance } from 'winston';
 
-import { UserDetails } from '../controller/AppRequest';
-
 import { CaseApi } from './CaseApi';
 import { fromApiFormat } from './from-api-format';
 
@@ -24,18 +22,11 @@ test('Should return case roles for userId and caseId passed', async () => {
       ],
     },
   });
-  const userDetails: UserDetails = {
-    accessToken: 'string',
-    id: '372ff9c1-9930-46d9-8bd2-88dd26ba2475',
-    email: 'harry@hog.com',
-    givenName: 'harry',
-    familyName: 'potter',
-    roles: ['citizen'],
-  };
 
   const case_id = '1624351572550045';
+  const user_id = '372ff9c1-9930-46d9-8bd2-88dd26ba2475';
   const caseApiInstance: CaseApi = new CaseApi(mockedAxios, logger);
-  const result = await caseApiInstance.getCaseUserRoles(case_id, userDetails.id);
+  const result = await caseApiInstance.getCaseUserRoles(case_id, user_id);
   expect(result).toEqual({
     case_users: [
       {
@@ -65,38 +56,20 @@ test('Should throw error when case roles could not be fetched', async () => {
   await expect(caseApiInstance.getCaseUserRoles(case_id, user_id)).rejects.toThrow(expectedError);
 });
 
-test('Should return cases for a user ID', async () => {
+test('Should return case by CICA reference', async () => {
   const mockedAxios = axios as jest.Mocked<typeof axios>;
-
-  // Mock getCaseUserRoles call
-  mockedAxios.get.mockResolvedValueOnce({
-    data: {
-      case_users: [
-        {
-          case_id: '1624351572550045',
-          user_id: '372ff9c1-9930-46d9-8bd2-88dd26ba2475',
-          case_role: '[CREATOR]',
-        },
-        {
-          case_id: '1624351572550046',
-          user_id: '372ff9c1-9930-46d9-8bd2-88dd26ba2475',
-          case_role: '[CREATOR]',
-        },
-      ],
-    },
-  });
-
-  // Mock getCaseById calls
+  const mockedSptribsAxios = axios as jest.Mocked<typeof axios>;
   const mockedFromApiFormat = fromApiFormat as jest.MockedFunction<typeof fromApiFormat>;
+
   mockedFromApiFormat.mockReturnValueOnce({
     tribunalFormDocuments: [],
     supportingDocuments: [],
     otherInfoDocuments: [],
   } as any);
 
-  mockedAxios.get.mockResolvedValueOnce({
+  mockedSptribsAxios.get.mockResolvedValueOnce({
     data: {
-      id: '1624351572550046',
+      id: '1624351572550045',
       state: 'Submitted',
       data: {
         dssCaseDataTribunalFormDocuments: [],
@@ -106,61 +79,56 @@ test('Should return cases for a user ID', async () => {
     },
   });
 
-  mockedFromApiFormat.mockReturnValueOnce({
-    tribunalFormDocuments: [],
-    supportingDocuments: [],
-    otherInfoDocuments: [],
-  } as any);
+  const cicaReference = 'X12345';
+  const caseApiInstance: CaseApi = new CaseApi(mockedAxios, logger, mockedSptribsAxios);
+  const result = await caseApiInstance.getCaseByCicaReference(cicaReference);
 
-  mockedAxios.get.mockResolvedValueOnce({
-    data: {
-      id: '1624351572550045',
-      state: 'DSS_Submitted',
-      data: {
-        dssCaseDataTribunalFormDocuments: [],
-        dssCaseDataSupportingDocuments: [],
-        dssCaseDataOtherInfoDocuments: [],
-      },
-    },
-  });
-
-  const user_id = '372ff9c1-9930-46d9-8bd2-88dd26ba2475';
-  const caseApiInstance: CaseApi = new CaseApi(mockedAxios, logger);
-  const result = await caseApiInstance.getCasesByUserId(user_id);
-
-  expect(result).toHaveLength(2);
-  expect(result[0].id).toBe('1624351572550046');
-  expect(result[1].id).toBe('1624351572550045');
-  expect(mockedAxios.get).toHaveBeenCalledWith(`case-users?user_ids=${user_id}`);
+  expect(result).not.toBeNull();
+  expect(result!.id).toBe('1624351572550045');
+  expect(result!.state).toBe('Submitted');
+  expect(mockedSptribsAxios.get).toHaveBeenCalledWith(`/cases/cica/${cicaReference}`);
 });
 
-test('Should return empty array when user has no cases', async () => {
+test('Should return null when no case found by CICA reference', async () => {
   const mockedAxios = axios as jest.Mocked<typeof axios>;
-  mockedAxios.get.mockResolvedValueOnce({
-    data: {
-      case_users: [],
-    },
+  const mockedSptribsAxios = axios as jest.Mocked<typeof axios>;
+
+  mockedSptribsAxios.get.mockRejectedValueOnce({
+    response: { status: 404 },
+    config: { method: 'GET', url: 'https://example.com/cases/cica/X99999' },
   });
 
-  const user_id = '372ff9c1-9930-46d9-8bd2-88dd26ba2475';
-  const caseApiInstance: CaseApi = new CaseApi(mockedAxios, logger);
-  const result = await caseApiInstance.getCasesByUserId(user_id);
+  const cicaReference = 'X99999';
+  const caseApiInstance: CaseApi = new CaseApi(mockedAxios, logger, mockedSptribsAxios);
+  const result = await caseApiInstance.getCaseByCicaReference(cicaReference);
 
-  expect(result).toEqual([]);
+  expect(result).toBeNull();
 });
 
-test('Should throw error when cases could not be fetched', async () => {
+test('Should throw error when case lookup by CICA reference fails', async () => {
   const mockedAxios = axios as jest.Mocked<typeof axios>;
-  mockedAxios.get.mockRejectedValue({
-    config: { method: 'GET', url: 'https://example.com/case-users' },
-    request: 'mock request',
+  const mockedSptribsAxios = axios as jest.Mocked<typeof axios>;
+
+  mockedSptribsAxios.get.mockRejectedValueOnce({
+    response: { status: 500 },
+    config: { method: 'GET', url: 'https://example.com/cases/cica/X12345' },
   });
 
-  const user_id = '123';
-  const caseApiInstance: CaseApi = new CaseApi(mockedAxios, logger);
-  const expectedError = 'Cases could not be fetched.';
+  const cicaReference = 'X12345';
+  const caseApiInstance: CaseApi = new CaseApi(mockedAxios, logger, mockedSptribsAxios);
+  const expectedError = 'Case could not be fetched.';
 
-  await expect(caseApiInstance.getCasesByUserId(user_id)).rejects.toThrow(expectedError);
+  await expect(caseApiInstance.getCaseByCicaReference(cicaReference)).rejects.toThrow(expectedError);
+});
+
+test('Should throw error when sptribs client not configured', async () => {
+  const mockedAxios = axios as jest.Mocked<typeof axios>;
+
+  const cicaReference = 'X12345';
+  const caseApiInstance: CaseApi = new CaseApi(mockedAxios, logger);
+  const expectedError = 'Sptribs backend client not configured';
+
+  await expect(caseApiInstance.getCaseByCicaReference(cicaReference)).rejects.toThrow(expectedError);
 });
 
 test('Should return case by ID', async () => {

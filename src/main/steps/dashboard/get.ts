@@ -1,10 +1,10 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { CaseDocument } from '../../app/case/case';
-import { State } from '../../app/case/definition';
+import { CaseworkerCICDocument, ListValue, State } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { GetController } from '../../app/controller/GetController';
+import { CICA_LOOKUP } from '../urls';
 
 import { generateContent } from './content';
 
@@ -12,7 +12,8 @@ interface DashboardDocument {
   name: string;
   downloadUrl: string;
   isLatest: boolean;
-  comment?: string;
+  date?: string;
+  category?: string;
 }
 
 @autobind
@@ -23,100 +24,88 @@ export default class DashboardGetController extends GetController {
 
   public async get(req: AppRequest, res: Response): Promise<void> {
     try {
-      // Get user's cases
-      const userCases = await req.locals.api.getCasesByUserId(req.session.user.id);
+      // Use the case from session to get case ID and check submission status
+      const sessionCase = req.session.userCase;
 
-      // Find the latest submitted case
-      const latestCase = userCases.find(
-        userCase => userCase.state === State.Submitted || userCase.state === State.DSS_Submitted
-      );
+      // If no case in session or case is not submitted, redirect to CICA lookup
+      if (!sessionCase || !sessionCase.id) {
+        return res.redirect(CICA_LOOKUP);
+      }
 
-      if (!latestCase) {
-        // If no submitted case, redirect to subject details
+      const isSubmitted = sessionCase.state === State.Submitted || sessionCase.state === State.DSS_Submitted;
+      if (!isSubmitted) {
         return res.redirect('/subject-details');
       }
 
-      // Set the case in session for content generation
-      req.session.userCase = latestCase;
+      // Fetch fresh case data from API to get the latest documents
+      // cicCaseApplicantDocuments is only populated after a fresh API call
+      const freshCase = await req.locals.api.getCaseById(sessionCase.id);
 
-      // Extract and format documents
+      // Extract and format documents from cicCaseApplicantDocuments
       const allDocuments: DashboardDocument[] = [];
+      const applicantDocuments: ListValue<CaseworkerCICDocument>[] = freshCase.applicantDocuments || [];
 
-      // Combine all document types
-      const documentArrays: { documents: CaseDocument[]; type: string }[] = [
-        { documents: latestCase.tribunalFormDocuments || [], type: 'Tribunal Form' },
-        { documents: latestCase.supportingDocuments || [], type: 'Supporting' },
-        { documents: latestCase.otherInfoDocuments || [], type: 'Other Information' },
-      ];
+      applicantDocuments.forEach(doc => {
+        if (doc.value?.documentLink) {
+          const filename = doc.value.documentLink.document_filename || 'Unknown document';
+          const documentUrl = doc.value.documentLink.document_url || '';
+          // Extract document ID (UUID) from the document URL
+          // URL format: http://dm-store/documents/{uuid} or http://dm-store/documents/{uuid}/binary
+          const documentId = extractDocumentId(documentUrl);
 
-      documentArrays.forEach(({ documents }) => {
-        documents.forEach(doc => {
-          if (doc.value?.documentLink) {
-            const filename = doc.value.documentLink.document_filename || 'Unknown document';
-            const binaryUrl = doc.value.documentLink.document_binary_url || doc.value.documentLink.document_url;
-            // Create download URL that proxies through our server
-            const downloadUrl = `/dashboard/document/download?url=${encodeURIComponent(binaryUrl)}&filename=${encodeURIComponent(filename)}`;
+          if (documentId) {
+            // Create download URL that proxies through sptribs-case-api
+            const downloadUrl = `/dashboard/document/download?documentId=${encodeURIComponent(documentId)}&filename=${encodeURIComponent(filename)}`;
 
             allDocuments.push({
               name: filename,
               downloadUrl,
-              isLatest: false, // Will be set after sorting
-              comment: doc.value.comment || undefined,
+              isLatest: false,
+              date: doc.value.date ? formatDate(doc.value.date) : undefined,
+              category: doc.value.documentCategory || undefined,
             });
           }
-        });
+        }
       });
 
-      // // Sort documents by date (most recent first) and mark the latest
-      // allDocuments.sort((a, b) => {
-      //   const dateA = new Date(a.date).getTime();
-      //   const dateB = new Date(b.date).getTime();
-      //   return dateB - dateA;
-      // });
-
-      // Mark the most recent document(s) as latest
-      // if (allDocuments.length > 0) {
-      //   const latestDate = allDocuments[0].date;
-      //   allDocuments.forEach(doc => {
-      //     doc.isLatest = doc.date === latestDate;
-      //   });
-      // }
-
-      // Store documents in session temporarily for template access
-      // The parent get method will call generateContent which we can extend
-      // For now, store in res.locals which should be accessible in template
+      // Store documents in res.locals for template access
       res.locals.documents = allDocuments;
       res.locals.hasDocuments = allDocuments.length > 0;
-      res.locals.caseNumber = latestCase.id?.toString().replace(/.{4}/g, '$& - ').substring(0, 25);
+      res.locals.caseNumber = sessionCase.id?.toString().replace(/.{4}/g, '$& - ').substring(0, 25);
 
       // Call parent get method to render
       return super.get(req, res);
     } catch (error) {
       req.locals.logger.error('Error loading dashboard:', error);
-      // On error, redirect to subject details
-      return res.redirect('/subject-details');
+      return res.redirect(CICA_LOOKUP);
     }
   }
+}
 
-  // private extractDateFromDocument(doc: CaseDocument): string {
-  //   // Try to extract date from document metadata or use current date as fallback
-  //   // Documents may have createdOn or modifiedOn in metadata
-  //   // For now, use a fallback - this can be enhanced if document metadata is available
-  //   return new Date().toISOString().split('T')[0];
-  // }
+/**
+ * Format a date string from API format (YYYY-MM-DD) to display format (DD/MM/YYYY)
+ */
+function formatDate(dateString: string): string {
+  if (!dateString) {
+    return '';
+  }
+  const [year, month, day] = dateString.split('-');
+  if (!year || !month || !day) {
+    return dateString;
+  }
+  return `${day}/${month}/${year}`;
+}
 
-  // private extractDocumentIdFromUrl(url: string): string | null {
-  //   // Document URLs are typically in the format:
-  //   // http://dm-store/documents/{documentId}/binary
-  //   // http://ccd-case-document-am-api/cases/documents/{documentId}/binary
-  //   // http://ccd-case-document-am-api/cases/documents/{documentId}
-  //   if (!url) {
-  //     return null;
-  //   }
-  //
-  //   // UUID regex pattern
-  //   const uuidPattern = /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/i;
-  //   const match = url.match(uuidPattern);
-  //   return match ? match[0] : null;
-  // }
+/**
+ * Extract document ID (UUID) from a document URL
+ * URL format: http://dm-store/documents/{uuid} or http://dm-store/documents/{uuid}/binary
+ */
+function extractDocumentId(documentUrl: string): string | null {
+  if (!documentUrl) {
+    return null;
+  }
+  // Match UUID pattern in the URL (after /documents/)
+  const uuidPattern = /\/documents\/([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})/i;
+  const match = documentUrl.match(uuidPattern);
+  return match ? match[1] : null;
 }
