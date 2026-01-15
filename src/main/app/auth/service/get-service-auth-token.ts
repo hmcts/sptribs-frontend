@@ -1,6 +1,4 @@
 import { Logger } from '@hmcts/nodejs-logging';
-import { ScureBase32Plugin } from '@otplib/plugin-base32-scure';
-import { NodeCryptoPlugin } from '@otplib/plugin-crypto-node';
 import axios from 'axios';
 import config from 'config';
 import { generate } from 'otplib';
@@ -14,7 +12,7 @@ export const getTokenFromApi = async (): Promise<void> => {
   const url: string = config.get('services.authProvider.url') + '/lease';
   const microservice: string = config.get('services.authProvider.microservice');
   const secret: string = config.get('services.authProvider.secret');
-  const oneTimePassword = await generate({ secret, crypto: new NodeCryptoPlugin(), base32: new ScureBase32Plugin() });
+  const oneTimePassword = await generate({ secret });
   const body = { microservice, oneTimePassword };
 
   try {
