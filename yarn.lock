@@ -2706,6 +2706,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@otplib/plugin-crypto-node@npm:^13.1.1":
+  version: 13.1.1
+  resolution: "@otplib/plugin-crypto-node@npm:13.1.1"
+  dependencies:
+    "@noble/hashes": "npm:^2.0.1"
+    "@otplib/core": "npm:13.1.1"
+  checksum: 10c0/71af4f580600f5d01bbec5bc15196ea427e4cfe193425bf821c839e26a964b858eaf5302784ff8d1e21a675d687d4a89a7fe909f56dff8df7b7afba32a8ce7cc
+  languageName: node
+  linkType: hard
+
 "@otplib/totp@npm:13.1.0":
   version: 13.1.0
   resolution: "@otplib/totp@npm:13.1.0"
@@ -13578,6 +13588,7 @@ __metadata:
     "@hmcts/nodejs-healthcheck": "npm:^1.8.0"
     "@hmcts/nodejs-logging": "npm:^4.0.4"
     "@hmcts/properties-volume": "npm:^1.0.0"
+    "@otplib/plugin-crypto-node": "npm:^13.1.1"
     "@otplib/v12-adapter": "npm:^13.1.1"
     "@types/autobind-decorator": "npm:^2.1.0"
     "@types/config": "npm:^3.0.0"

@@ -3,13 +3,14 @@ module.exports = {
   testRegex: '(/src/test/.*|\\.test)\\.(ts|js)$',
   testEnvironment: 'node',
   transform: {
-    '^.+\\.ts$': 'ts-jest',
+    '^.+\\.(ts|js)$': 'ts-jest',
   },
+  transformIgnorePatterns: ['node_modules/(?!(?:@scure|@otplib|@noble)/)'],
   moduleFileExtensions: ['ts', 'js', 'json'],
   setupFilesAfterEnv: ['jest-extended'],
   moduleNameMapper: {
     '@hmcts/nodejs-logging': '<rootDir>/src/test/unit/mocks/hmcts/nodejs-logging',
-    "/axios/": "axios/dist/node/axios.cjs"
+    '/axios/': 'axios/dist/node/axios.cjs',
   },
   coverageThreshold: {
     global: {
