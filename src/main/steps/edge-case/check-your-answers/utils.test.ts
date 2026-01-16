@@ -3,6 +3,7 @@ import { mockUserCase1, mockUserCase2, mockUserCase3, mockUserCase4 } from '../.
 import { enContent } from './content';
 import {
   CICAReferenceNumberSummary,
+  InitialCicaDecisionDateSummary,
   OtherInformationSummary,
   RepresentationSummary,
   SubjectSummaryList,
@@ -541,6 +542,39 @@ describe('cica-reference-number > check-your-answers', () => {
       },
     ])('return correct summary list items when %#', ({ userCase, expected }) => {
       expect(CICAReferenceNumberSummary(enContent, userCase)).toStrictEqual(expected);
+    });
+  });
+});
+
+describe('cica-decision-date > check-your-answers', () => {
+  describe('applicationSummaryList', () => {
+    test.each([
+      {
+        documents: [],
+        userCase: {
+          ...mockUserCase4,
+        },
+        expected: {
+          rows: [
+            {
+              actions: {
+                items: [
+                  {
+                    href: '/cica-decision-date',
+                    text: 'change',
+                    visuallyHiddenText: 'Date of CICA initial review decision letter',
+                  },
+                ],
+              },
+              key: { text: 'Date of CICA initial review decision letter' },
+              value: { text: '15 January 2020' },
+            },
+          ],
+          title: 'Date of Criminal Injuries Compensation Authority initial review decision letter',
+        },
+      },
+    ])('return correct summary list items when %#', ({ userCase, expected }) => {
+      expect(InitialCicaDecisionDateSummary(enContent, userCase)).toStrictEqual(expected);
     });
   });
 });
