@@ -43,7 +43,6 @@ export const REPRESENTATIVES_DETAILS: PageLink = '/representative-details';
 export const CICA_REFERENCE_NUMBER: PageLink = '/cica-reference-number';
 export const CICA_LOOKUP: PageLink = '/cica-lookup';
 export const CICA_CONFIRM_NEW: PageLink = '/cica-confirm-new';
-export const CICA_NOT_FOUND: PageLink = '/cica-not-found';
 
 export const CHECK_JURISDICTION: PageLink = '/check-jurisdiction';
 export const WHERE_YOUR_LIVES_ARE_BASED_URL: PageLink = '/where-your-lives-are-based';
