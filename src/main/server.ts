@@ -60,6 +60,8 @@ app.use((req, res, next) => {
   res.setHeader('Cache-Control', 'no-cache, max-age=0, must-revalidate, no-store');
   next();
 });
+app.disable('x-powered-by');
+app.disable('X-Powered-By');
 new FileUpload().enableFor(app);
 
 new AxiosLogger().enableFor(app);
