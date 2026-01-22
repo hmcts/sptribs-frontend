@@ -3094,11 +3094,11 @@ __metadata:
   linkType: hard
 
 "@types/copy-webpack-plugin@npm:^10.1.0":
-  version: 10.1.0
-  resolution: "@types/copy-webpack-plugin@npm:10.1.0"
+  version: 10.1.3
+  resolution: "@types/copy-webpack-plugin@npm:10.1.3"
   dependencies:
     copy-webpack-plugin: "npm:*"
-  checksum: 10c0/0cef97618bb991c978b8c3eef9e8472d4037edb2949f8dd4292cd577a674848da33d8da017395849b0eadb1d3365008b798df8f340223c4a0787a5945d17c566
+  checksum: 10c0/ed96fd91acad1746847d05a11afb46ba9209f0c244d598fde9afa10f64d3202921f37f2679bbb76dcabd0ca3b802b45063f72338f21e93adfd5e4031495e577f
   languageName: node
   linkType: hard
 
