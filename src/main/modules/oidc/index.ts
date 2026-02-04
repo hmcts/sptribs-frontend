@@ -6,7 +6,7 @@ import { getCaseApi } from '../../app/case/CaseApi';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { CaseDocumentManagementClient } from '../../app/document/CaseDocumentManagementClient';
 import { signInNotRequired } from '../../steps/url-utils';
-import { CALLBACK_URL, SIGN_IN_URL, SIGN_OUT_URL, SUBJECT_DETAILS } from '../../steps/urls';
+import { CALLBACK_URL, CICA_LOOKUP, SIGN_IN_URL, SIGN_OUT_URL } from '../../steps/urls';
 
 /**
  * Adds the oidc middleware to add oauth authentication
@@ -28,7 +28,9 @@ export class OidcMiddleware {
       errorHandler(async (req, res) => {
         if (typeof req.query.code === 'string') {
           req.session.user = await getUserDetails(`${protocol}${res.locals.host}${port}`, req.query.code, CALLBACK_URL);
-          req.session.save(() => res.redirect(SUBJECT_DETAILS));
+
+          // Redirect to CICA lookup page to find their case
+          req.session.save(() => res.redirect(CICA_LOOKUP));
         } else {
           res.redirect(SIGN_IN_URL);
         }
