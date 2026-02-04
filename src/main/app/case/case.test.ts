@@ -83,6 +83,7 @@ describe('Case interface', () => {
       tribunalFormDocuments: [],
       supportingDocuments: [],
       otherInfoDocuments: [],
+      applicantDocuments: [],
       languagePreference: LanguagePreference.ENGLISH,
     };
 

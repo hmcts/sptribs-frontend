@@ -1,0 +1,39 @@
+{
+  "translations": {
+    "en": {
+      "continue": "Continue",
+      "serviceName": "Appeal to the First-tier Tribunal",
+      "title": "Enter your CICA reference number",
+      "line1": "If you have an existing case, entering your CICA reference number will take you to it. Otherwise, a new application will be started.",
+      "line2": "You can find this on any correspondence that you've received from CICA. CICA reference numbers begin with the letter X or G.",
+      "cicaReferenceLabel": "CICA reference number"
+    },
+    "cy": {
+      "continue": "Parhau",
+      "serviceName": "Apelio i'r Tribiwnlys Haen Gyntaf",
+      "title": "Nodwch eich cyfeirnod ADAT",
+      "line1": "Os oes gennych achos presennol, bydd nodi eich cyfeirnod ADAT yn mynd â chi ato. Fel arall, bydd cais newydd yn cael ei ddechrau.",
+      "line2": "Gallwch ddod o hyd i hwn ar unrhyw ohebiaeth rydych wedi'i derbyn gan ADAT. Mae cyfeirnodau ADAT yn dechrau gyda'r lythyren X neu G.",
+      "cicaReferenceLabel": "Cyfeirnod ADAT"
+    }
+  },
+  "errors": {
+    "en": {
+      "cicaReference": {
+        "required": "Enter your CICA reference number",
+        "containsMarkdownLink": "CICA reference number must not include a link",
+        "containsInvalidCharacters": "CICA reference number must not include HTML",
+        "invalid": "CICA reference number must begin with the letter X or G"
+      }
+    },
+    "cy": {
+      "cicaReference": {
+        "required": "Nodwch eich cyfeirnod ADAT",
+        "containsMarkdownLink": "Ni ddylai cyfeirnod ADAT gynnwys dolen",
+        "containsInvalidCharacters": "Ni ddylai cyfeirnod ADAT gynnwys HTML",
+        "invalid": "Rhaid i gyfeirnod ADAT ddechrau gyda llythyren X neu G"
+      }
+    }
+  }
+}
+
