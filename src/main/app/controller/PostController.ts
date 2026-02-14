@@ -5,6 +5,7 @@ import { Response } from 'express';
 import { getNextStepUrl } from '../../steps';
 import {
   CHECK_YOUR_ANSWERS,
+  CICA_DECISION_DATE,
   CICA_REFERENCE_NUMBER,
   CONTACT_DETAILS,
   SAVE_AND_SIGN_OUT,
@@ -142,6 +143,7 @@ export class PostController<T extends AnyObject> {
     } else if (
       req.originalUrl === CONTACT_DETAILS ||
       req.originalUrl === CICA_REFERENCE_NUMBER ||
+      req.originalUrl === CICA_DECISION_DATE ||
       req.originalUrl.startsWith('/represent')
     ) {
       eventName = CITIZEN_CIC_UPDATE_CASE;

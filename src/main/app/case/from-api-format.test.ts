@@ -42,4 +42,17 @@ describe('from-api-format', () => {
       expect(nfdivFormat).toStrictEqual({ cicaReferenceNumber: undefined });
     });
   });
+
+  describe('pulling initial CICA decision date from cicCaseInitialCicaDecisionDate to initialCicaDecisionDate', () => {
+    test('extracts to initialCicaDecisionDate', () => {
+      const initialCicaDecisionDateFormat = fromApiFormat({
+        ...results,
+        cicCaseInitialCicaDecisionDate: '2000-01-20',
+      } as unknown as CaseData);
+
+      expect(initialCicaDecisionDateFormat).toStrictEqual({
+        initialCicaDecisionDate: { day: '20', month: '1', year: '2000' },
+      });
+    });
+  });
 });
