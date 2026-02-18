@@ -13340,15 +13340,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sonar-scanner@npm:^3.1.0":
-  version: 3.1.0
-  resolution: "sonar-scanner@npm:3.1.0"
-  bin:
-    sonar-scanner: index.js
-  checksum: 10c0/8dbdc604ca95793842e4eace31ff685158df6af8e17c1f8aec11aa9b35c0b17646e337f564dfbaed11c0bda92b4eb884617f162217c514408f9c74b5a0e61b3a
-  languageName: node
-  linkType: hard
-
 "source-list-map@npm:^2.0.0":
   version: 2.0.1
   resolution: "source-list-map@npm:2.0.1"
@@ -13536,7 +13527,6 @@ __metadata:
     semver: "npm:^7.5.2"
     serve-favicon: "npm:^2.5.0"
     session-file-store: "npm:^1.5.0"
-    sonar-scanner: "npm:^3.1.0"
     style-loader: "npm:^4.0.0"
     terser-webpack-plugin: "npm:^5.3.10"
     toobusy-js: "npm:^0.5.1"
