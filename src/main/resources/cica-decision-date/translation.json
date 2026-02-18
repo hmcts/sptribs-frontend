@@ -1,0 +1,54 @@
+{
+  "translations": {
+    "en": {
+      "continue": "Continue",
+      "serviceName": "Appeal to the First-tier Tribunal",
+      "title": "Enter the date of your Criminal Injuries Compensation Authority initial review decision letter",
+      "line1": "You can find this on your CICA initial review decision letter",
+      "dateOfCicaInitialReviewDecisionLetterLabel": "Date of CICA initial review decision letter",
+      "hint": "For example, 31 3 2026",
+      "day": "Day",
+      "month": "Month",
+      "year": "Year"
+    },
+    "cy": {
+      "continue": "Parhau",
+      "serviceName": "Apelio i’r Tribiwnlys Haen Gyntaf",
+      "title": "Rhowch ddyddiad eich llythyr penderfyniad adolygu cychwynnol yr Awdurdod Digolledu am Anafiadau Troseddol",
+      "line1": "Gallwch ddod o hyd iddo ar eich llythyr penderfyniad adolygu cychwynnol ADAT",
+      "dateOfCicaInitialReviewDecisionLetterLabel": "Dyddiad llythyr penderfyniad adolygu cychwynnol ADAT",
+      "hint": "For example, 31 3 2026",
+      "day": "Diwrnod",
+      "month": "Mis",
+      "year": "Blwyddyn"
+    }
+  },
+  "errors": {
+    "en": {
+      "initialCicaDecisionDate": {
+        "invalid": "Date of CICA initial review decision letter must be a real date",
+        "invalidAndIncomplete": "Date of CICA initial review decision letter must be a real date and must include a day, month and year",
+        "incompleteDay": "Date of CICA initial review decision letter must include a day",
+        "incompleteMonth": "Date of CICA initial review decision letter must include a month",
+        "incompleteYear": "Date of CICA initial review decision letter must include a year",
+        "incompleteDayAndMonth": "Date of CICA initial review decision letter must include a day and month",
+        "incompleteDayAndYear": "Date of CICA initial review decision letter must include a day and year",
+        "incompleteMonthAndYear": "Date of CICA initial review decision letter must include a month and year",
+        "incompleteDayAndMonthAndYear": "Date of CICA initial review decision letter must include a day, month and year"
+      }
+    },
+    "cy": {
+      "initialCicaDecisionDate": {
+        "invalid": "Rhaid i'r dyddiad llythyr penderfyniad adolygu cychwynnol ADAT fod yn ddyddiad go iawn",
+        "invalidAndIncomplete": "Rhaid i'r dyddiad llythyr penderfyniad adolygu cychwynnol ADAT fod yn ddyddiad go iawn a rhaid iddo gynnwys diwrnod, mis a blwyddyn",
+        "incompleteDay": "Rhaid i’r dyddiad llythyr penderfyniad adolygu cychwynnol ADAT gynnwys diwrnod",
+        "incompleteMonth": "Rhaid i’r dyddiad llythyr penderfyniad adolygu cychwynnol ADAT gynnwys mis",
+        "incompleteYear": "Rhaid i’r dyddiad llythyr penderfyniad adolygu cychwynnol ADAT gynnwys blwyddyn",
+        "incompleteDayAndMonth": "Rhaid i’r dyddiad llythyr penderfyniad adolygu cychwynnol ADAT gynnwys diwrnod a mis",
+        "incompleteDayAndYear": "Rhaid i’r dyddiad llythyr penderfyniad adolygu cychwynnol ADAT gynnwys diwrnod a blwyddyn",
+        "incompleteMonthAndYear": "Rhaid i’r dyddiad llythyr penderfyniad adolygu cychwynnol ADAT gynnwys mis a blwyddyn",
+        "incompleteDayAndMonthAndYear": "Rhaid i'r dyddiad llythyr penderfyniad adolygu cychwynnol ADAT gynnwys diwrnod, mis a blwyddyn"
+      }
+    }
+  }
+}

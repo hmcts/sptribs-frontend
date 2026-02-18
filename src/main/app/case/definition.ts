@@ -554,6 +554,7 @@ export interface CaseData {
   cicCaseSchemeCic: SchemeCic;
   cicCaseRegionCIC: RegionCIC;
   cicCaseCicaReferenceNumber: string;
+  cicCaseInitialCicaDecisionDate: DateAsString;
   cicCaseApplicantFullName: string;
   cicCaseApplicantAddress: AddressGlobalUK;
   cicCaseApplicantPhoneNumber: string;
@@ -929,6 +930,7 @@ export interface CicCase {
   SchemeCic: SchemeCic;
   RegionCIC: RegionCIC;
   CicaReferenceNumber: string;
+  InitialCicaDecisionDate: DateAsString;
   ApplicantFullName: string;
   ApplicantAddress: AddressGlobalUK;
   ApplicantPhoneNumber: string;
