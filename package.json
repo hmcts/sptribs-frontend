@@ -175,7 +175,8 @@
     "serialize-javascript": "^6.0.1",
     "superagent": "^10.2.2",
     "express": "^4.22.0",
-    "qs": "^6.14.1"
+    "qs": "^6.14.1",
+    "ajv": "^8.18.0"
   },
   "packageManager": "yarn@4.10.3"
 }
