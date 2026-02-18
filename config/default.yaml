@@ -18,7 +18,7 @@ services:
   sptribs:
     url: 'http://sptribs-case-api-aat.service.core-compute-aat.internal'
   ccd:
-    url: 'https://ccd-data-store-api-sptribs-case-api-pr-2420.preview.platform.hmcts.net'
+    url: 'http://ccd-data-store-api-aat.service.core-compute-aat.internal'
   cdam:
     url: 'http://ccd-case-document-am-api-aat.service.core-compute-aat.internal'
   equalityAndDiversity:
