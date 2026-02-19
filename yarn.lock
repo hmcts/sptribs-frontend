@@ -14368,7 +14368,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"test-exclude@npm:^7.0.1":
+"test-exclude@npm:^7.0.0":
   version: 7.0.1
   resolution: "test-exclude@npm:7.0.1"
   dependencies:
