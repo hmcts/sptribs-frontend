@@ -11,6 +11,7 @@
         "representativeDetails": "Representative's Details",
         "representation": "Representation",
         "cicaReferenceNumber": "Criminal Injuries Compensation Authority Reference Number",
+        "initialCicaDecisionDate": "Date of Criminal Injuries Compensation Authority initial review decision letter",
         "documents": "Appeal forms",
         "supportingDocuments": "Supporting documents",
         "otherInformation": "Additional information"
@@ -27,6 +28,7 @@
         "representativeContactNumber": "Contact number",
         "representativeEmailAddress": "Email address",
         "cicaReferenceNumber": "CICA reference number",
+        "initialCicaDecisionDate": "Date of CICA initial review decision letter",
         "appealDocuments": "List of forms uploaded (Appeal form)",
         "supportingDocuments": "List of supporting documents uploaded",
         "otherInformation": "Additional document",
@@ -49,6 +51,7 @@
         "representativeDetails": "Manylion y cynrychiolydd",
         "representation": "Cynrychiolaeth",
         "cicaReferenceNumber": "Cyfeirnod Awdurdod Digolledu am Anafiadau Troseddol",
+        "initialCicaDecisionDate": "Dyddiad llythyr penderfyniad adolygu cychwynnol yr Awdurdod Digolledu am Anafiadau Troseddol",
         "documents": "Ffurflenni apelio",
         "supportingDocuments": "Dogfennau ategol",
         "otherInformation": "Gwybodaeth ychwanegol"
@@ -65,6 +68,7 @@
         "representativeContactNumber": "Rhif cyswllt",
         "representativeEmailAddress": "Cyfeiriad e-bost",
         "cicaReferenceNumber": "Cyfeirnod ADAT",
+        "initialCicaDecisionDate": "Dyddiad llythyr penderfyniad adolygu cychwynnol ADAT",
         "appealDocuments": "Rhestr o ffurflenni sydd wedi’u llwytho (Ffurflen apelio)",
         "supportingDocuments": "Rhestr o ddogfennau ategol sydd wedi’u llwytho",
         "otherInformation": "Dogfennau ychwanegol",
