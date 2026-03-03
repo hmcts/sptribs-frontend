@@ -16,11 +16,11 @@ services:
     systemUsername: 'dummy_user'
     systemPassword: 'dummy_password'
   sptribs:
-    url: 'http://sptribs-case-api-aat.service.core-compute-aat.internal'
+    url: 'http://sptribs-case-api-pr-2478.preview.platform.hmcts.net'
   ccd:
-    url: 'http://ccd-data-store-api-aat.service.core-compute-aat.internal'
+    url: 'http://ccd-data-store-api-sptribs-case-api-pr-2478.preview.platform.hmcts.net'
   cdam:
-    url: 'http://ccd-case-document-am-api-aat.service.core-compute-aat.internal'
+    url: 'http://ccd-case-document-am-api-sptribs-case-api-pr-2478.preview.platform.hmcts.net'
   equalityAndDiversity:
     url: 'https://pcq.aat.platform.hmcts.net'
     path: '/service-endpoint'
