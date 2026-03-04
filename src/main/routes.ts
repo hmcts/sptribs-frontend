@@ -26,6 +26,17 @@ import {
   TIMED_OUT_URL,
 } from './steps/urls';
 
+export const restrictContentType = (contentType: string | any[]): RequestHandler => {
+  return (req, res, next) => {
+    const headerValue = req.headers['content-type'];
+    if (headerValue && contentType.indexOf(headerValue) !== -1) {
+      res.status(403).send();
+    } else {
+      next();
+    }
+  };
+};
+
 export class Routes {
   /**
    *
@@ -59,6 +70,7 @@ export class Routes {
         const postController = postControllerFileName
           ? require(`${step.stepDir}/${postControllerFileName}`).default
           : PostController;
+        app.use(step.url, restrictContentType(['application/json']));
         app.post(step.url, errorHandler(new postController(step.form.fields).post));
       }
     }
