@@ -80,6 +80,7 @@ export class Routes {
     /**
      * @POST_ROUTES
      */
+
     app.use(errorController.notFound as unknown as RequestHandler);
   }
 }
