@@ -1,6 +1,6 @@
 import fs from 'fs';
 
-import { Application, RequestHandler } from 'express';
+import { Application, NextFunction, Request, RequestHandler, Response } from 'express';
 
 import { GetController } from './app/controller/GetController';
 import { PostController } from './app/controller/PostController';
@@ -26,10 +26,10 @@ import {
   TIMED_OUT_URL,
 } from './steps/urls';
 
-export const restrictContentType = (contentType: string | any[]): ((req: any, res: any, next: any) => void) => {
-  return (req: any, res: any, next: any) => {
+export const restrictContentType = (contentType: string[]) => {
+  return (req: Request, res: Response, next: NextFunction): void => {
     const headerValue = req.headers['content-type'];
-    if (headerValue && contentType.indexOf(headerValue) !== -1) {
+    if (headerValue && contentType.includes(headerValue)) {
       res.status(403).send();
     } else {
       next();
@@ -70,7 +70,7 @@ export class Routes {
         const postController = postControllerFileName
           ? require(`${step.stepDir}/${postControllerFileName}`).default
           : PostController;
-        app.use(step.url, restrictContentType(['application/json']));
+        app.use(step.url, restrictContentType(['application/json', 'application/x-www-form-urlencoded']));
         app.post(step.url, errorHandler(new postController(step.form.fields).post));
       }
     }
@@ -80,7 +80,6 @@ export class Routes {
     /**
      * @POST_ROUTES
      */
-
     app.use(errorController.notFound as unknown as RequestHandler);
   }
 }
