@@ -2128,7 +2128,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@hmcts/properties-volume@npm:^1.3.1":
+"@hmcts/properties-volume@npm:^1.0.0":
   version: 1.3.1
   resolution: "@hmcts/properties-volume@npm:1.3.1"
   dependencies:
@@ -3259,13 +3259,6 @@ __metadata:
   version: 2.0.0
   resolution: "@tootallnate/once@npm:2.0.0"
   checksum: 10c0/073bfa548026b1ebaf1659eb8961e526be22fa77139b10d60e712f46d2f0f05f4e6c8bec62a087d41088ee9e29faa7f54838568e475ab2f776171003c3920858
-  languageName: node
-  linkType: hard
-
-"@tootallnate/once@npm:^3.0.1":
-  version: 3.0.1
-  resolution: "@tootallnate/once@npm:3.0.1"
-  checksum: 10c0/a66a5be492a19337be450056f0225f34abb7e88845bd1f5899211134827a0d90937d8ef161f8ce663aa8fc1505d39ad016e497963f2780d8199ce2067d2b1317
   languageName: node
   linkType: hard
 
@@ -13752,9 +13745,8 @@ __metadata:
     "@hmcts/frontend": "npm:^0.0.50-alpha"
     "@hmcts/nodejs-healthcheck": "npm:^1.8.0"
     "@hmcts/nodejs-logging": "npm:^4.0.4"
-    "@hmcts/properties-volume": "npm:^1.3.1"
+    "@hmcts/properties-volume": "npm:^1.0.0"
     "@sonar/scan": "npm:^4.3.4"
-    "@tootallnate/once": "npm:^3.0.1"
     "@types/autobind-decorator": "npm:^2.1.0"
     "@types/config": "npm:^3.0.0"
     "@types/cookie-parser": "npm:^1.4.2"
