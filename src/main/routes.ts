@@ -70,7 +70,7 @@ export class Routes {
         const postController = postControllerFileName
           ? require(`${step.stepDir}/${postControllerFileName}`).default
           : PostController;
-        app.use(step.url, restrictContentType(['application/json', 'application/x-www-form-urlencoded']));
+        app.use(step.url, restrictContentType(['application/json']));
         app.post(step.url, errorHandler(new postController(step.form.fields).post));
       }
     }
