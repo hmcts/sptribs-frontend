@@ -4,8 +4,7 @@ import * as bodyParser from 'body-parser';
 import config from 'config';
 import cors from 'cors';
 import express, { RequestHandler } from 'express';
-import rateLimit from 'express-rate-limit';
-import favicon from 'serve-favicon';
+import rateLimitMiddleware from 'express-rate-limit';
 import toobusy from 'toobusy-js';
 import type { LoggerInstance } from 'winston';
 
@@ -32,6 +31,7 @@ import { PublicRoutes } from './routes/authless/routes';
 const { Logger } = require('@hmcts/nodejs-logging');
 const logger: LoggerInstance = Logger.getLogger('server');
 const app = express();
+const favicon = require('serve-favicon');
 
 const corsOptions = {
   origin: ['https://js-cdn.dynatrace.com'],
@@ -43,7 +43,7 @@ app.use(cors(corsOptions));
 
 const rateLimiterDisabled = process.env.RATE_LIMITER_DISABLED;
 if (!rateLimiterDisabled) {
-  const limiter = rateLimit({
+  const limiter = rateLimitMiddleware({
     windowMs: 15000,
     limit: 30,
   });
