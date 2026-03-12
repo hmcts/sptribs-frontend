@@ -2,7 +2,7 @@ import { Logger } from '@hmcts/nodejs-logging';
 import config from 'config';
 import { RedisStore } from 'connect-redis';
 import cookieParser from 'cookie-parser';
-import { Application } from 'express';
+import type { Application } from 'express';
 import session from 'express-session';
 import { createClient } from 'redis';
 import FileStoreFactory from 'session-file-store';

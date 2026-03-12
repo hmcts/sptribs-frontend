@@ -1,6 +1,9 @@
-
 @import './_ie8';
-@import 'govuk-frontend';
+
+@import 'sass-mq';
+
+@import 'govuk-frontend/dist/govuk/all';
+
 @import '~@hmcts/frontend/all';
 
 @import './banner';
@@ -14,6 +17,7 @@
   @extend %govuk-body-m;
   @extend %govuk-link;
   @include govuk-link-style-default;
+  @extend .govuk-textarea;
 
   background: none;
   color: $govuk-link-colour;
