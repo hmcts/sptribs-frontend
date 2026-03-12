@@ -3232,24 +3232,23 @@ __metadata:
   linkType: hard
 
 "@sonar/scan@npm:^4.3.4":
-  version: 4.3.4
-  resolution: "@sonar/scan@npm:4.3.4"
+  version: 4.3.5
+  resolution: "@sonar/scan@npm:4.3.5"
   dependencies:
     adm-zip: "npm:0.5.16"
-    axios: "npm:1.13.2"
+    axios: "npm:1.13.6"
     commander: "npm:13.1.0"
-    fs-extra: "npm:11.3.3"
     hpagent: "npm:1.2.0"
     node-forge: "npm:1.3.3"
-    properties-file: "npm:3.6.3"
+    properties-file: "npm:3.6.4"
     proxy-from-env: "npm:1.1.0"
-    semver: "npm:7.7.3"
+    semver: "npm:7.7.4"
     slugify: "npm:1.6.6"
-    tar-stream: "npm:3.1.7"
+    tar-stream: "npm:3.1.8"
   bin:
     sonar: bin/sonar-scanner.js
     sonar-scanner: bin/sonar-scanner.js
-  checksum: 10c0/0fe6e6399aa318641324aa596c047d73c5e70f71826717fc538e36687342450db20bee7d03d6f25f38826b93459fca4f9a31efec9d4df6e9956a6fe1fe44d622
+  checksum: 10c0/7f5dbb8100dafa165ad2ab422ad38a626a1e97716effc5be43a4e4a83cced8e2b995d00a6eff48cddd6bfa4dfa2ee073454504b49c646231ed39a8134f39715c
   languageName: node
   linkType: hard
 
@@ -5395,6 +5394,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"bare-fs@npm:^4.5.5":
+  version: 4.5.5
+  resolution: "bare-fs@npm:4.5.5"
+  dependencies:
+    bare-events: "npm:^2.5.4"
+    bare-path: "npm:^3.0.0"
+    bare-stream: "npm:^2.6.4"
+    bare-url: "npm:^2.2.2"
+    fast-fifo: "npm:^1.3.2"
+  peerDependencies:
+    bare-buffer: "*"
+  peerDependenciesMeta:
+    bare-buffer:
+      optional: true
+  checksum: 10c0/1f8b31b73848639fff4ab46fb9d8c0477dc571813fd6790ec75edc192abc467310f1082ecb81170aeffca91b4d08f0e9a002d6f9fa6968a07d11ea22be1597ff
+  languageName: node
+  linkType: hard
+
 "bare-os@npm:^3.0.1":
   version: 3.6.1
   resolution: "bare-os@npm:3.6.1"
@@ -5425,6 +5442,15 @@ __metadata:
     bare-events:
       optional: true
   checksum: 10c0/1242286f8f3147e9fd353cdaa9cf53226a807ac0dde8177c13f1463aa4cd1f88e07407c883a1b322b901e9af2d1cd30aacd873529031132c384622972e0419df
+  languageName: node
+  linkType: hard
+
+"bare-url@npm:^2.2.2":
+  version: 2.3.2
+  resolution: "bare-url@npm:2.3.2"
+  dependencies:
+    bare-path: "npm:^3.0.0"
+  checksum: 10c0/4fd0046314390a54404519d9db20e130ab3a341ef638d040f9603ae3fa0a1d84f6970357d21c8fc64e6163d1f61fd212cb1cfa4cb537dfead99fb06e3c030b15
   languageName: node
   linkType: hard
 
@@ -8323,17 +8349,6 @@ __metadata:
   version: 1.0.0
   resolution: "fs-constants@npm:1.0.0"
   checksum: 10c0/a0cde99085f0872f4d244e83e03a46aa387b74f5a5af750896c6b05e9077fac00e9932fdf5aef84f2f16634cd473c63037d7a512576da7d5c2b9163d1909f3a8
-  languageName: node
-  linkType: hard
-
-"fs-extra@npm:11.3.3":
-  version: 11.3.3
-  resolution: "fs-extra@npm:11.3.3"
-  dependencies:
-    graceful-fs: "npm:^4.2.0"
-    jsonfile: "npm:^6.0.1"
-    universalify: "npm:^2.0.0"
-  checksum: 10c0/984924ff4104e3e9f351b658a864bf3b354b2c90429f57aec0acd12d92c4e6b762cbacacdffb4e745b280adce882e1f980c485d9f02c453f769ab4e7fc646ce3
   languageName: node
   linkType: hard
 
@@ -12461,10 +12476,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"properties-file@npm:3.6.3":
-  version: 3.6.3
-  resolution: "properties-file@npm:3.6.3"
-  checksum: 10c0/cc30ad9a6c1e7e728b280f8dac6b409626565f02c78974375d1db7e0b1f444c41f776e5d6e3f61f3c8ee21840f3faed7bb4724a9613fc8285a452a8443455395
+"properties-file@npm:3.6.4":
+  version: 3.6.4
+  resolution: "properties-file@npm:3.6.4"
+  checksum: 10c0/c9958cdd6a8e3c8df04616215ada8beec6ac8fd6001ed88d32396929fbb55331a843791ddf5c9b4965d26fddbfa62341a6ea58e4fb3367e2ddc7f874be0dfbd1
   languageName: node
   linkType: hard
 
@@ -14248,14 +14263,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tar-stream@npm:3.1.7":
-  version: 3.1.7
-  resolution: "tar-stream@npm:3.1.7"
+"tar-stream@npm:3.1.8":
+  version: 3.1.8
+  resolution: "tar-stream@npm:3.1.8"
   dependencies:
     b4a: "npm:^1.6.4"
+    bare-fs: "npm:^4.5.5"
     fast-fifo: "npm:^1.2.0"
     streamx: "npm:^2.15.0"
-  checksum: 10c0/a09199d21f8714bd729993ac49b6c8efcb808b544b89f23378ad6ffff6d1cb540878614ba9d4cfec11a64ef39e1a6f009a5398371491eb1fda606ffc7f70f718
+  checksum: 10c0/c4bf369de2302fcf30218d091167a5372ee79b69a1b5bb493ddb7714193ca805719558966334bab1f2775c8142826865f24e25459ff1c5f0a096bc3a3d5c5ce2
   languageName: node
   linkType: hard
 
