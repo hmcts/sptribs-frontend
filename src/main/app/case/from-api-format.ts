@@ -13,6 +13,9 @@ const fields: FromApiConverters = {
   editCicaCaseDetails: (data: Partial<CaseData>) => ({
     cicaReferenceNumber: data.editCicaCaseDetails?.cicaReferenceNumber,
   }),
+  cicCaseInitialCicaDecisionDate: (data: Partial<CaseData>) => ({
+    initialCicaDecisionDate: fromApiDate(data.cicCaseInitialCicaDecisionDate),
+  }),
   cicCaseApplicantDocuments: (data: Partial<CaseData>) => ({
     applicantDocuments: data.cicCaseApplicantDocuments || [],
   }),

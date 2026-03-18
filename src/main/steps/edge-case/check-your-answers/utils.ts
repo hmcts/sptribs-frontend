@@ -202,6 +202,26 @@ export const CICAReferenceNumberSummary = (
   };
 };
 
+export const InitialCicaDecisionDateSummary = (
+  { sectionTitles, keys, ...content }: SummaryListContent,
+  userCase: Partial<CaseWithId>
+): SummaryList | undefined => {
+  const sectionTitle = sectionTitles.initialCicaDecisionDate;
+
+  const SummaryData = [
+    {
+      key: keys.initialCicaDecisionDate,
+      value: getFormattedDate(userCase['initialCicaDecisionDate'], content.language),
+      changeUrl: Urls['CICA_DECISION_DATE'],
+    },
+  ];
+
+  return {
+    title: sectionTitle,
+    rows: getSectionSummaryList(SummaryData, content),
+  };
+};
+
 /* eslint-disable import/namespace */
 export const UploadAppealFormSummary = (
   { sectionTitles, keys, ...content }: SummaryListContent,

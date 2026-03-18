@@ -1,6 +1,6 @@
 import fs from 'fs';
 
-import { Application, RequestHandler } from 'express';
+import { Application, NextFunction, Request, RequestHandler, Response } from 'express';
 
 import { GetController } from './app/controller/GetController';
 import { PostController } from './app/controller/PostController';
@@ -35,6 +35,17 @@ import {
   TERMS_AND_CONDITIONS,
   TIMED_OUT_URL,
 } from './steps/urls';
+
+export const restrictContentType = (contentType: string[]) => {
+  return (req: Request, res: Response, next: NextFunction): void => {
+    const headerValue = req.headers['content-type'];
+    if (headerValue && contentType.includes(headerValue)) {
+      res.status(403).send();
+    } else {
+      next();
+    }
+  };
+};
 
 export class Routes {
   /**
@@ -75,6 +86,7 @@ export class Routes {
         const postController = postControllerFileName
           ? require(`${step.stepDir}/${postControllerFileName}`).default
           : PostController;
+        app.use(step.url, restrictContentType(['application/json']));
         app.post(step.url, errorHandler(new postController(step.form.fields).post));
       }
     }

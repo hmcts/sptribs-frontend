@@ -15,6 +15,9 @@ export const fields: ToApiConverters = {
       cicaReferenceNumber: data.cicaReferenceNumber,
     },
   }),
+  initialCicaDecisionDate: (data: Case) => ({
+    cicCaseInitialCicaDecisionDate: toApiDate(data.initialCicaDecisionDate),
+  }),
 };
 
 export const toApiFormat = (data: Partial<Case>): CaseData => formatCase(fields, data);
