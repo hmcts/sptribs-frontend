@@ -72,7 +72,7 @@ export class CaseApi {
         return null;
       }
       this.logError(err);
-      throw new Error('Case could not be fetched.');
+      throw new Error('Case could not be fetched: ' + err.message);
     }
   }
 
