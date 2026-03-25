@@ -112,11 +112,12 @@ test('Should throw error when case lookup by CICA reference fails', async () => 
   mockedSptribsAxios.get.mockRejectedValueOnce({
     response: { status: 500 },
     config: { method: 'GET', url: 'https://example.com/cases/cica/X12345' },
+    message: 'test error',
   });
 
   const cicaReference = 'X12345';
   const caseApiInstance: CaseApi = new CaseApi(mockedAxios, logger, mockedSptribsAxios);
-  const expectedError = 'Case could not be fetched.';
+  const expectedError = 'Case could not be fetched: test error';
 
   await expect(caseApiInstance.getCaseByCicaReference(cicaReference)).rejects.toThrow(expectedError);
 });
