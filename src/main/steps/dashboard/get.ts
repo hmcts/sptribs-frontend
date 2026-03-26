@@ -43,7 +43,7 @@ export default class DashboardGetController extends GetController {
 
       // Extract and format documents from cicCaseApplicantDocuments
       const allDocuments: DashboardDocument[] = [];
-      const applicantDocuments: ListValue<CaseworkerCICDocument>[] = freshCase.applicantDocuments || [];
+      const applicantDocuments: ListValue<CaseworkerCICDocument>[] = freshCase.applicantDocumentsUploaded || [];
 
       applicantDocuments.forEach(doc => {
         if (doc.value?.documentLink) {

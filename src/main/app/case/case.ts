@@ -84,7 +84,7 @@ export interface Case {
   tribunalFormDocuments: CaseDocument[];
   supportingDocuments: CaseDocument[];
   otherInfoDocuments: CaseDocument[];
-  applicantDocuments: ListValue<CaseworkerCICDocument>[];
+  applicantDocumentsUploaded: ListValue<CaseworkerCICDocument>[];
   languagePreference: LanguagePreference;
 }
 

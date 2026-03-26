@@ -16,8 +16,8 @@ const fields: FromApiConverters = {
   cicCaseInitialCicaDecisionDate: (data: Partial<CaseData>) => ({
     initialCicaDecisionDate: fromApiDate(data.cicCaseInitialCicaDecisionDate),
   }),
-  cicCaseApplicantDocuments: (data: Partial<CaseData>) => ({
-    applicantDocuments: data.cicCaseApplicantDocuments || [],
+  cicCaseApplicantDocumentsUploaded: (data: Partial<CaseData>) => ({
+    applicantDocumentsUploaded: data.cicCaseApplicantDocumentsUploaded || [],
   }),
 };
 
