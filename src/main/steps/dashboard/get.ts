@@ -39,6 +39,7 @@ export default class DashboardGetController extends GetController {
 
       // Fetch fresh case data from API to get the latest documents
       // cicCaseApplicantDocuments is only populated after a fresh API call
+      //replace call to us and not ccd, then we can load the docs through our own database layer....
       const freshCase = await req.locals.api.getCaseById(sessionCase.id);
 
       // Extract and format documents from cicCaseApplicantDocuments
