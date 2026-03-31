@@ -61,6 +61,28 @@ export class CaseDocumentManagementClient {
 
     return this.client.delete(`/cases/documents/${id}`);
   }
+
+  async downloadDocument(binaryUrl: string): Promise<AxiosResponse> {
+    // If binaryUrl is a full URL, we need to make a direct request
+    // Otherwise, use it as a relative path with our client
+    if (binaryUrl.startsWith('http://') || binaryUrl.startsWith('https://')) {
+      // For full URLs, create a new axios instance to handle the request
+      const axiosInstance = axios.create();
+      return axiosInstance.get(binaryUrl, {
+        responseType: 'stream',
+        headers: {
+          Authorization: this.client.defaults.headers.Authorization,
+          ServiceAuthorization: this.client.defaults.headers.ServiceAuthorization,
+          'user-id': this.client.defaults.headers['user-id'],
+        },
+      });
+    } else {
+      // For relative paths, use the existing client
+      return this.client.get(binaryUrl, {
+        responseType: 'stream',
+      });
+    }
+  }
 }
 
 interface CaseDocumentManagementResponse {

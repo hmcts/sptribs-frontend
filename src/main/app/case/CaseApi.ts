@@ -17,7 +17,8 @@ export class CaseApi {
 
   constructor(
     private readonly client: AxiosInstance,
-    private readonly logger: LoggerInstance
+    private readonly logger: LoggerInstance,
+    private readonly sptribsClient?: AxiosInstance
   ) {}
 
   public async createCase(data: Partial<Case>): Promise<CaseWithId> {
@@ -49,6 +50,59 @@ export class CaseApi {
     } catch (err) {
       this.logError(err);
       throw new Error('Case roles could not be fetched.');
+    }
+  }
+
+  public async getCaseByCicaReference(cicaReference: string): Promise<CaseWithId | null> {
+    if (!this.sptribsClient) {
+      throw new Error('Sptribs backend client not configured');
+    }
+
+    try {
+      const response = await this.sptribsClient.get<SptribsCaseResponse>(
+        `/cases/cica/${encodeURIComponent(cicaReference)}`
+      );
+      return {
+        id: response.data.id,
+        state: response.data.state,
+        ...fromApiFormat(response.data.data),
+      };
+    } catch (err) {
+      if ((err as AxiosError).response?.status === 404) {
+        return null;
+      }
+      this.logError(err);
+      throw new Error('Case could not be fetched.');
+    }
+  }
+
+  public async downloadDocument(documentId: string): Promise<AxiosResponse> {
+    if (!this.sptribsClient) {
+      throw new Error('Sptribs backend client not configured');
+    }
+
+    try {
+      const response = await this.sptribsClient.get(`/case/document/downloadDocument/${documentId}`, {
+        responseType: 'stream',
+      });
+      return response;
+    } catch (err) {
+      const error = err as AxiosError;
+      // Extract only primitive values to avoid circular reference issues when logging
+      const status = error.response?.status || 'unknown';
+      const message = error.message || 'Unknown error';
+      this.logger.error(`Document download failed for documentId=${documentId}: status=${status}, message=${message}`);
+      throw new Error('Document could not be downloaded.');
+    }
+  }
+
+  public async getCaseById(caseId: string): Promise<CaseWithId> {
+    try {
+      const response = await this.client.get<CcdV2Response>(`/cases/${caseId}`);
+      return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data.data) };
+    } catch (err) {
+      this.logError(err);
+      throw new Error('Case could not be fetched.');
     }
   }
 
@@ -106,18 +160,26 @@ export class CaseApi {
 }
 
 export const getCaseApi = (userDetails: UserDetails, logger: LoggerInstance): CaseApi => {
+  const authHeaders = {
+    Authorization: 'Bearer ' + userDetails.accessToken,
+    ServiceAuthorization: getServiceAuthToken(),
+    Accept: '*/*',
+    'Content-Type': 'application/json',
+  };
+
   return new CaseApi(
     axios.create({
       baseURL: config.get('services.ccd.url'),
       headers: {
-        Authorization: 'Bearer ' + userDetails.accessToken,
-        ServiceAuthorization: getServiceAuthToken(),
+        ...authHeaders,
         experimental: 'true',
-        Accept: '*/*',
-        'Content-Type': 'application/json',
       },
     }),
-    logger
+    logger,
+    axios.create({
+      baseURL: config.get('services.sptribs.url'),
+      headers: authHeaders,
+    })
   );
 };
 
@@ -137,4 +199,10 @@ interface CcdEventTriggerResponse extends CcdTokenResponse {
     state: string;
     data: CaseData;
   };
+}
+
+interface SptribsCaseResponse {
+  id: string;
+  state: string;
+  data: CaseData;
 }

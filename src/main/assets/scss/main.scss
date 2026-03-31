@@ -1,7 +1,7 @@
-
 @import './_ie8';
-@import 'govuk-frontend';
-@import '~@hmcts/frontend/all';
+@import 'sass-mq/mq';
+@import 'govuk-frontend/dist/govuk/all';
+@import '@hmcts/frontend/all';
 
 @import './banner';
 @import './header';

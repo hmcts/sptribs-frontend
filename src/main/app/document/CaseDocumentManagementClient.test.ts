@@ -64,4 +64,79 @@ describe('CaseDocumentManagementClient', () => {
     expect(mockDelete.mock.calls[0][0]).toEqual('/cases/documents/doc');
     expect(actual).toEqual({ data: 'MOCKED-OK' });
   });
+
+  it('downloads document with full URL', async () => {
+    const mockStream = { pipe: jest.fn() };
+    const mockAxiosGet = jest.fn().mockResolvedValue({
+      data: mockStream,
+      headers: { 'content-type': 'application/pdf' },
+    });
+
+    // Mock client for constructor
+    const mockClient = {
+      get: jest.fn(),
+      defaults: {
+        headers: {
+          Authorization: 'Bearer userAccessToken',
+          ServiceAuthorization: 'dummyS2SAuthToken',
+          'user-id': 'userId',
+        },
+      },
+    };
+    mockedAxios.create.mockReturnValueOnce(mockClient as unknown as AxiosInstance);
+
+    // Mock axios.create for the downloadDocument method (second call)
+    const mockAxiosInstanceForDownload = {
+      get: mockAxiosGet,
+    };
+    mockedAxios.create.mockReturnValueOnce(mockAxiosInstanceForDownload as unknown as AxiosInstance);
+
+    const client = new CaseDocumentManagementClient({
+      id: 'userId',
+      accessToken: 'userAccessToken',
+    } as unknown as UserDetails);
+
+    const result = await client.downloadDocument('https://example.com/cases/documents/123/binary');
+
+    expect(mockAxiosGet).toHaveBeenCalledWith('https://example.com/cases/documents/123/binary', {
+      responseType: 'stream',
+      headers: {
+        Authorization: 'Bearer userAccessToken',
+        ServiceAuthorization: 'dummyS2SAuthToken',
+        'user-id': 'userId',
+      },
+    });
+    expect(result).toBeDefined();
+    expect(result.data).toBe(mockStream);
+  });
+
+  it('downloads document with relative path', async () => {
+    const mockGet = jest.fn().mockResolvedValue({
+      data: { pipe: jest.fn() },
+      headers: { 'content-type': 'application/pdf' },
+    });
+    const mockClient = {
+      get: mockGet,
+      defaults: {
+        headers: {
+          Authorization: 'Bearer userAccessToken',
+          ServiceAuthorization: 'dummyS2SAuthToken',
+          'user-id': 'userId',
+        },
+      },
+    };
+    mockedAxios.create.mockReturnValueOnce(mockClient as unknown as AxiosInstance);
+
+    const client = new CaseDocumentManagementClient({
+      id: 'userId',
+      accessToken: 'userAccessToken',
+    } as unknown as UserDetails);
+
+    const result = await client.downloadDocument('/cases/documents/123/binary');
+
+    expect(mockGet).toHaveBeenCalledWith('/cases/documents/123/binary', {
+      responseType: 'stream',
+    });
+    expect(result).toBeDefined();
+  });
 });
