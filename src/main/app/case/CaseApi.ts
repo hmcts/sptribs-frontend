@@ -53,14 +53,14 @@ export class CaseApi {
     }
   }
 
-  public async getCaseByCicaReference(cicaReference: string): Promise<CaseWithId | null> {
+  public async getCaseByCCDReference(ccdReference: string): Promise<CaseWithId | null> {
     if (!this.sptribsClient) {
       throw new Error('Sptribs backend client not configured');
     }
 
     try {
       const response = await this.sptribsClient.get<SptribsCaseResponse>(
-        `/cases/cica/${encodeURIComponent(cicaReference)}`
+        `/cases/cica/${encodeURIComponent(ccdReference)}`
       );
       return {
         id: response.data.id,
