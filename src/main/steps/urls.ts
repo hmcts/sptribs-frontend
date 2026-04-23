@@ -44,6 +44,7 @@ export const CICA_REFERENCE_NUMBER: PageLink = '/cica-reference-number';
 export const CICA_DECISION_DATE: PageLink = '/cica-decision-date';
 export const CICA_LOOKUP: PageLink = '/cica-lookup';
 export const CICA_CONFIRM_NEW: PageLink = '/cica-confirm-new';
+export const NOT_AUTHORISED: PageLink = '/not-authorised';
 
 export const CHECK_JURISDICTION: PageLink = '/check-jurisdiction';
 export const WHERE_YOUR_LIVES_ARE_BASED_URL: PageLink = '/where-your-lives-are-based';

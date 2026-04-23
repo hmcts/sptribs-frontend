@@ -32,12 +32,6 @@ export default class DashboardGetController extends GetController {
         return res.redirect(CICA_LOOKUP);
       }
 
-      //remove this as now we deal with this in back end
-      // const isSubmitted = sessionCase.state === State.Submitted || sessionCase.state === State.DSS_Submitted;
-      // if (!isSubmitted) {
-      //   return res.redirect('/subject-details');
-      // }
-
       // Fetch fresh case data from API to get the latest documents
       // cicCaseApplicantDocuments is only populated after a fresh API call
       //replace call to us and not ccd, then we can load the docs through our own database layer....

@@ -68,11 +68,9 @@ export class CaseApi {
         ...fromApiFormat(response.data.data),
       };
     } catch (err) {
-      if ((err as AxiosError).response?.status === 404) {
-        return null;
-      }
+      const error = err as AxiosError;
       this.logError(err);
-      throw new Error('Case could not be fetched.');
+      throw error; // keep original context
     }
   }
 
