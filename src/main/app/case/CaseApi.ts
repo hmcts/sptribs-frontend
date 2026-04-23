@@ -68,9 +68,8 @@ export class CaseApi {
         ...fromApiFormat(response.data.data),
       };
     } catch (err) {
-      const error = err as AxiosError;
       this.logError(err);
-      throw error; // keep original context
+      throw err; // keep original context
     }
   }
 

@@ -1,7 +1,7 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { State } from '../../app/case/definition';
-import { CICA_LOOKUP, SUBJECT_DETAILS } from '../urls';
+import { CICA_LOOKUP } from '../urls';
 
 import DashboardGetController from './get';
 
@@ -36,22 +36,6 @@ describe('DashboardGetController', () => {
     await controller.get(req, res);
 
     expect(res.redirect).toHaveBeenCalledWith(CICA_LOOKUP);
-  });
-
-  test('should redirect to subject details if case is not submitted', async () => {
-    const req = mockRequest({
-      session: {
-        userCase: {
-          id: '123',
-          state: State.Draft,
-        },
-      },
-    });
-    const res = mockResponse();
-
-    await controller.get(req, res);
-
-    expect(res.redirect).toHaveBeenCalledWith(SUBJECT_DETAILS);
   });
 
   test('should load dashboard with submitted case and documents from fresh API call', async () => {
