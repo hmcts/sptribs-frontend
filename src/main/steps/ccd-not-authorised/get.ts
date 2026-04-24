@@ -5,8 +5,8 @@ import { GetController } from '../../app/controller/GetController';
 import { generateContent } from './content';
 
 @autobind
-export default class CCDLookupGetController extends GetController {
+export default class CCDNotAuthorisedGetController extends GetController {
   constructor() {
-    super('cica-lookup/template', generateContent);
+    super('ccd-not-authorised/template', generateContent);
   }
 }

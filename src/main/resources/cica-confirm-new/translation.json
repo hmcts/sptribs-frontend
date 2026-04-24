@@ -3,12 +3,12 @@
     "en": {
       "continue": "Continue",
       "serviceName": "Appeal to the First-tier Tribunal",
-      "title": "Your CICA reference number doesn't match an existing case",
+      "title": "Your CCD reference number doesn't match an existing case",
       "line1Part1": "The reference number you entered (",
       "line1Part2": ") does not match any case in our records.",
       "label": "Do you want to start a new appeal?",
       "one": "Yes, start a new appeal",
-      "two": "No, let me re-enter my CICA reference number"
+      "two": "No, let me re-enter my CCD reference number"
     },
     "cy": {
       "continue": "Parhau",
@@ -34,6 +34,3 @@
     }
   }
 }
-
-
-

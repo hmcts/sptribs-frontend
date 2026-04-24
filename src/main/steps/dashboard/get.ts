@@ -1,7 +1,7 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { CaseworkerCICDocument, ListValue, State } from '../../app/case/definition';
+import { CaseworkerCICDocument, ListValue } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { GetController } from '../../app/controller/GetController';
 import { CICA_LOOKUP } from '../urls';
@@ -30,11 +30,6 @@ export default class DashboardGetController extends GetController {
       // If no case in session or case is not submitted, redirect to CICA lookup
       if (!sessionCase || !sessionCase.id) {
         return res.redirect(CICA_LOOKUP);
-      }
-
-      const isSubmitted = sessionCase.state === State.Submitted || sessionCase.state === State.DSS_Submitted;
-      if (!isSubmitted) {
-        return res.redirect('/subject-details');
       }
 
       // Fetch fresh case data from API to get the latest documents
