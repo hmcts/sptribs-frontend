@@ -1,4 +1,4 @@
-import { v4 as uuid } from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 
 import { CHECK_YOUR_ANSWERS } from '../../urls';
 
@@ -8,7 +8,7 @@ describe('createToken', () => {
   const params = {
     serviceId: 'SpecialTribunals_CIC',
     actor: 'APPLICANT',
-    pcqId: uuid(),
+    pcqId: uuidv4(),
     partyId: 'test@email.com',
     returnUrl: CHECK_YOUR_ANSWERS,
     language: 'en',

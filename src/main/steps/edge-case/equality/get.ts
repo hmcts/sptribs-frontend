@@ -2,7 +2,7 @@ import autobind from 'autobind-decorator';
 import axios, { AxiosResponse } from 'axios';
 import config from 'config';
 import { Response } from 'express';
-import { v4 as uuid } from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 
 import { CaseDate } from '../../../app/case/case';
 import { AppRequest } from '../../../app/controller/AppRequest';
@@ -25,7 +25,7 @@ export default class PCQGetController {
         const response: AxiosResponse<StatusResponse> = await axios.get(pcqUrl + '/health');
         const equalityHealth = response.data && response.data.status === 'UP';
         if (equalityHealth) {
-          req.session.userCase.pcqId = uuid();
+          req.session.userCase.pcqId = uuidv4();
           const pcqParams = this.gatherPcqParams(req, res, ageCheckValue);
           const path: string = config.get('services.equalityAndDiversity.path');
           const qs = Object.keys(pcqParams)
