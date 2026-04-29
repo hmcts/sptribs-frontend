@@ -76,6 +76,7 @@ export interface Case {
   representativeContactNumber: string;
   representativeEmailAddress: string;
   cicaReferenceNumber: string;
+  ccdReferenceNumber: string;
   editCicaCaseDetails: EditCicaCaseDetails;
   initialCicaDecisionDate: CaseDate;
   pcqId: string;

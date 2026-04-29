@@ -28,10 +28,10 @@ export default class CicaConfirmNewPostController extends PostController<AnyObje
     const startNewAppeal = req.body.startNewAppeal as string;
 
     if (startNewAppeal === YesOrNo.YES) {
-      // Start a new appeal - keep the CICA reference in session and go to start
+      // Start a new appeal - keep the CCD reference in session and go to start
       return this.redirect(req, res, SUBJECT_DETAILS);
     } else {
-      // User wants to re-enter their CICA reference - clear session and go back
+      // User wants to re-enter their CCD reference - clear session and go back
       req.session.userCase = { id: '', state: '' } as any;
       return this.redirect(req, res, CICA_LOOKUP);
     }
