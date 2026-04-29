@@ -18,9 +18,9 @@ services:
   sptribs:
     url: 'https://sptribs-case-api-pr-2492.preview.platform.hmcts.net'
   ccd:
-    url: 'https://ccd-data-store-api-pr-2492.preview.platform.hmcts.net'
+    url: 'https://ccd-data-store-api-sptribs-case-api-pr-2492.preview.platform.hmcts.net'
   cdam:
-    url: 'https://ccd-case-document-am-api-pr-2492.preview.platform.hmcts.net'
+    url: 'https://ccd-case-document-am-api-sptribs-case-api-pr-2492.preview.platform.hmcts.net'
   equalityAndDiversity:
     url: 'https://pcq.aat.platform.hmcts.net'
     path: '/service-endpoint'
