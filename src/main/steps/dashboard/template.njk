@@ -1,0 +1,81 @@
+{% from "govuk/components/panel/macro.njk" import govukPanel %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "govuk/components/tag/macro.njk" import govukTag %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+{% extends "common/page.njk" %}
+
+{% block backLink %}{% endblock %}
+
+{% block page_content %}
+  <div class="govuk-width-container">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-full">
+        {% if caseNumber %}
+          {{ govukPanel({
+            titleText: caseNumberLabel,
+            html: "<strong>" + caseNumber + "</strong>"
+          }) }}
+        {% endif %}
+
+        <h2 class="govuk-heading-m govuk-!-margin-top-6">{{ documentsHeading }}</h2>
+
+        {% if hasDocuments and documents.length > 0 %}
+          {% set tableRows = [] %}
+          {% for document in documents %}
+            {% set statusTag %}
+              {% if document.isLatest %}
+                {{ govukTag({
+                  text: latestTag,
+                  classes: "govuk-tag--blue"
+                }) }}
+              {% endif %}
+            {% endset %}
+            {% set downloadLink %}
+              <a class="govuk-link" href="{{ document.downloadUrl | escape }}" download="{{ document.name | escape }}">{{ download }}</a>
+            {% endset %}
+            {% set tableRows = (tableRows.push([
+              {
+                text: document.name
+              },
+              {
+                text: document.date
+              },
+              {
+                html: statusTag
+              },
+              {
+                html: downloadLink
+              }
+            ]), tableRows) %}
+          {% endfor %}
+
+          {{ govukTable({
+            head: [
+              {
+                text: documentName
+              },
+              {
+                text: date
+              },
+              {
+                text: status
+              },
+              {
+                text: action
+              }
+            ],
+            rows: tableRows
+          }) }}
+        {% else %}
+          {{ govukInsetText({
+            text: noDocumentsMessage
+          }) }}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+
+
+

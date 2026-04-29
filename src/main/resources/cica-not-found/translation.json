@@ -1,0 +1,35 @@
+{
+  "translations": {
+    "en": {
+      "continue": "Continue",
+      "serviceName": "Appeal to the First-tier Tribunal",
+      "title": "We could not find a case with that CICA reference number",
+      "line1": "The CICA reference number you entered does not match any existing cases.",
+      "label": "Would you like to start a new appeal?",
+      "one": "Yes",
+      "two": "No, let me re-enter my CICA reference number"
+    },
+    "cy": {
+      "continue": "Parhau",
+      "serviceName": "Apelio i'r Tribiwnlys Haen Gyntaf",
+      "title": "Ni allem ddod o hyd i achos gyda'r cyfeirnod ADAT hwnnw",
+      "line1": "Nid yw'r cyfeirnod ADAT a nodwyd gennych yn cyfateb i unrhyw achosion presennol.",
+      "label": "Hoffech chi ddechrau apêl newydd?",
+      "one": "Hoffwn",
+      "two": "Na, gadewch i mi ail-nodi fy nghyfeirnod ADAT"
+    }
+  },
+  "errors": {
+    "en": {
+      "startNewAppeal": {
+        "required": "Select yes if you want to start a new appeal"
+      }
+    },
+    "cy": {
+      "startNewAppeal": {
+        "required": "Dewiswch oes os ydych am ddechrau apêl newydd"
+      }
+    }
+  }
+}
+
