@@ -4,12 +4,14 @@ module.exports = {
   testEnvironment: 'node',
   transform: {
     '^.+\\.ts$': 'ts-jest',
+    '^.+\\.js$': 'babel-jest',
   },
+  transformIgnorePatterns: ['node_modules/(?!uuid)'],
   moduleFileExtensions: ['ts', 'js', 'json'],
   setupFilesAfterEnv: ['jest-extended'],
   moduleNameMapper: {
     '@hmcts/nodejs-logging': '<rootDir>/src/test/unit/mocks/hmcts/nodejs-logging',
-    "/axios/": "axios/dist/node/axios.cjs"
+    '/axios/': 'axios/dist/node/axios.cjs',
   },
   coverageThreshold: {
     global: {

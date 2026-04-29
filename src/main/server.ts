@@ -1,9 +1,8 @@
 import * as path from 'path';
 
-import * as bodyParser from 'body-parser';
 import config from 'config';
 import cors from 'cors';
-import express from 'express';
+import express, { RequestHandler } from 'express';
 import { rateLimit } from 'express-rate-limit';
 import favicon from 'serve-favicon';
 import toobusy from 'toobusy-js';
@@ -53,8 +52,8 @@ if (!rateLimiterDisabled) {
 app.locals.developmentMode = process.env.NODE_ENV !== 'production';
 app.use('/assets', express.static(path.join(__dirname, 'public/assets')));
 app.use(favicon(path.join(__dirname, 'public/assets/images/favicon.ico')));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.json() as RequestHandler);
+app.use(express.urlencoded({ extended: false }) as RequestHandler);
 app.use(express.static(path.join(__dirname, 'public')));
 app.use((req, res, next) => {
   res.setHeader('Cache-Control', 'no-cache, max-age=0, must-revalidate, no-store');
