@@ -22,7 +22,7 @@ export default class DocumentDownloadController {
       const contentType = documentResponse.headers['content-type'] || 'application/octet-stream';
       const originalFilename = documentResponse.headers['original-file-name'] || filename || 'document';
 
-      res.setHeader('Content-Type', contentType);
+      res.setHeader('Content-Type', contentType.toString());
       res.setHeader('Content-Disposition', `attachment; filename="${originalFilename}"`);
 
       // Pipe the document stream to response
