@@ -102,6 +102,6 @@ function extractDocumentId(documentUrl: string): string | null {
   }
   // Match UUID pattern in the URL (after /documents/)
   const uuidPattern = /\/documents\/([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})/i;
-  const match = documentUrl.match(uuidPattern);
+  const match = uuidPattern.exec(documentUrl);
   return match ? match[1] : null;
 }
