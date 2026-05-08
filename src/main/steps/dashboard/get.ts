@@ -28,7 +28,7 @@ export default class DashboardGetController extends GetController {
       const sessionCase = req.session.userCase;
 
       // If no case in session or case is not submitted, redirect to CICA lookup
-      if (!sessionCase || !sessionCase.id) {
+      if (!sessionCase?.id) {
         return res.redirect(CICA_LOOKUP);
       }
 
