@@ -40,7 +40,7 @@ export default class CCDLookupPostController extends PostController<AnyObject> {
     } catch (error: any) {
       const status = error?.response?.status;
 
-      req.locals.logger.error('Error looking up case by CCD reference:', {
+      req.locals.logger.error('Error looking up case by HMCTS reference:', {
         status,
         message: error?.message,
       });
