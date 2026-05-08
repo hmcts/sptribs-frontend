@@ -19,10 +19,10 @@ export default class DocumentDownloadController {
       const documentResponse = await req.locals.api.downloadDocument(documentId);
 
       // Set headers for file download
-      const contentType = documentResponse.headers['content-type'] || 'application/octet-stream';
+      const contentType = documentResponse.headers['content-type']?.toString() || 'application/octet-stream';
       const originalFilename = documentResponse.headers['original-file-name'] || filename || 'document';
 
-      res.setHeader('Content-Type', contentType.toString());
+      res.setHeader('Content-Type', contentType);
       res.setHeader('Content-Disposition', `attachment; filename="${originalFilename}"`);
 
       // Pipe the document stream to response

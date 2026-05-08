@@ -12,7 +12,7 @@ import { form } from './content';
 @autobind
 export default class CicaConfirmNewPostController extends PostController<AnyObject> {
   constructor() {
-    super(form.fields as FormFields);
+    super(form.fields);
   }
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {

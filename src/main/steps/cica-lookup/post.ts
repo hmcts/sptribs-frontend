@@ -11,7 +11,7 @@ import { form } from './content';
 @autobind
 export default class CCDLookupPostController extends PostController<AnyObject> {
   constructor() {
-    super(form.fields as FormFields);
+    super(form.fields);
   }
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
