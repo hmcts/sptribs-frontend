@@ -1,10 +1,11 @@
-import type { Document } from 'app/case/definition';
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
 import config from 'config';
 import FormData from 'form-data';
 
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import type { UserDetails } from '../controller/AppRequest';
+
+import type { Document } from 'app/case/definition';
 
 export class CaseDocumentManagementClient {
   client: AxiosInstance;

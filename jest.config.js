@@ -4,7 +4,11 @@ module.exports = {
   testEnvironment: 'node',
   transform: {
     '^.+\\.ts$': 'ts-jest',
+    '^.+\\.js$': 'babel-jest',
   },
+  transformIgnorePatterns: [
+    'node_modules/(?!uuid)'
+  ],
   moduleFileExtensions: ['ts', 'js', 'json'],
   setupFilesAfterEnv: ['jest-extended'],
   moduleNameMapper: {
