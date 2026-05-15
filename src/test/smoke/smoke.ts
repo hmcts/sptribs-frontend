@@ -31,14 +31,22 @@ describe.each(servicesToCheck)('Required services should return 200 status UP', 
 
 describe('Start now should redirect to IDAM', () => {
   test('Start Now', async () => {
-    const url = `${process.env.TEST_URL}/o/authorize`;
+    const baseUrl = process.env.TEST_URL;
 
-    const response = await axios.get(url, {
-      maxRedirects: 0, // don't follow redirects
-      validateStatus: null, // allow 302 responses
+    const first = await axios.get(`${baseUrl}/o/authorize`, {
+      maxRedirects: 0,
+      validateStatus: null,
     });
 
-    expect([301, 302, 303, 307, 308]).toContain(response.status);
-    expect(response.headers.location).toContain('idam');
+    expect(first.status).toBe(302);
+    expect(first.headers.location).toBe('/login');
+
+    const second = await axios.get(`${baseUrl}/login`, {
+      maxRedirects: 0,
+      validateStatus: null,
+    });
+
+    expect(second.status).toBe(302);
+    expect(second.headers.location).toContain('idam');
   });
 });
