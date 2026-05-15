@@ -11,6 +11,7 @@ const servicesToCheck = [
   { name: 'IDAM API', url: config.get('services.idam.tokenURL') },
   { name: 'Auth Provider', url: config.get('services.authProvider.url') },
   { name: 'Equality and Diversity', url: config.get('services.equalityAndDiversity.url') },
+  { name: 'IDAM new hmcts web', url: config.get('services.idam.hmctsToken') },
 ];
 
 const checkService = async (url: string) => {
