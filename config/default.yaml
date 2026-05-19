@@ -16,6 +16,7 @@ services:
     clientSecret: 'NEED TO INSERT SECRET'
     systemUsername: 'dummy_user'
     systemPassword: 'dummy_password'
+    scope: 'openid profile roles'
   sptribs:
     url: 'http://sptribs-case-api-aat.service.core-compute-aat.internal'
   ccd:
