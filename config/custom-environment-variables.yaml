@@ -13,7 +13,6 @@ services:
     clientID: IDAM_CLIENT_ID
     clientSecret: IDAM_SECRET
     hmctsToken: IDAM_HMCTS_URL
-    scope: SCOPE
   case:
     url: CCD_URL
   payments:

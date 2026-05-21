@@ -8,10 +8,9 @@ import { UserDetails } from '../../controller/AppRequest';
 export const getRedirectUrl = (serviceUrl: string, callbackUrlPageLink: PageLink): string => {
   const id: string = config.get('services.idam.clientID');
   const loginUrl: string = config.get('services.idam.authorizationURL');
-  const scope: string = config.get('services.idam.scope');
   const callbackUrl = encodeURI(serviceUrl + callbackUrlPageLink);
 
-  return `${loginUrl}?client_id=${id}&response_type=code&redirect_uri=${callbackUrl}&scope=${encodeURIComponent(scope)}`;
+  return `${loginUrl}?client_id=${id}&response_type=code&redirect_uri=${callbackUrl}&scope=${encodeURIComponent('openid profile roles')}`;
 };
 
 export const getUserDetails = async (
