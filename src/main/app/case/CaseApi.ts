@@ -2,12 +2,12 @@ import axios, { AxiosError, AxiosInstance, AxiosResponse } from 'axios';
 import config from 'config';
 import { LoggerInstance } from 'winston';
 
+import { CITIZEN_CIC_CREATE_CASE, CaseData, CaseworkerCICDocument, YesOrNo } from '../../app/case/definition';
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import { UserDetails } from '../controller/AppRequest';
 
 import { Case, CaseWithId } from './case';
 import { CaseAssignedUserRoles } from './case-roles';
-import { CITIZEN_CIC_CREATE_CASE, CaseData, YesOrNo } from './definition';
 import { fromApiFormat } from './from-api-format';
 import { toApiFormat } from './to-api-format';
 
@@ -79,7 +79,7 @@ export class CaseApi {
     }
 
     try {
-      const response = await this.sptribsClient.get(`/case/document/downloadDocument/${documentId}`, {
+      const response = await this.sptribsClient.get(`/cases/CIC/downloadDocument/${documentId}`, {
         responseType: 'stream',
       });
       return response;
@@ -93,13 +93,18 @@ export class CaseApi {
     }
   }
 
-  public async getCaseById(caseId: string): Promise<CaseWithId> {
+  public async getDocumentsByCaseId(ccdReference: string): Promise<DocumentResponse> {
+    if (!this.sptribsClient) {
+      throw new Error('Sptribs backend client not configured');
+    }
+
     try {
-      const response = await this.client.get<CcdV2Response>(`/cases/${caseId}`);
-      return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data.data) };
+      const response = await this.sptribsClient.get<DocumentResponse>(`/cases/CIC/${ccdReference}/documents`);
+
+      return response.data;
     } catch (err) {
       this.logError(err);
-      throw new Error('Case could not be fetched.');
+      throw new Error('Documents could not be fetched.');
     }
   }
 
@@ -202,4 +207,10 @@ interface SptribsCaseResponse {
   id: string;
   state: string;
   data: CaseData;
+}
+
+interface DocumentResponse {
+  latestCaseBundleDocuments: CaseworkerCICDocument[];
+  contactPartiesDocuments: CaseworkerCICDocument[];
+  orderAndDecisionDocuments: CaseworkerCICDocument[];
 }

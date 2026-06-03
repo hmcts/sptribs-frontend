@@ -19,58 +19,204 @@
 
         <h2 class="govuk-heading-m govuk-!-margin-top-6">{{ documentsHeading }}</h2>
 
-        {% if hasDocuments and documents.length > 0 %}
-          {% set tableRows = [] %}
-          {% for document in documents %}
-            {% set statusTag %}
-              {% if document.isLatest %}
-                {{ govukTag({
-                  text: latestTag,
-                  classes: "govuk-tag--blue"
-                }) }}
-              {% endif %}
-            {% endset %}
-            {% set downloadLink %}
-              <a class="govuk-link" href="{{ document.downloadUrl | escape }}" download="{{ document.name | escape }}">{{ download }}</a>
-            {% endset %}
-            {% set tableRows = (tableRows.push([
-              {
-                text: document.name
-              },
-              {
-                text: document.date
-              },
-              {
-                html: statusTag
-              },
-              {
-                html: downloadLink
-              }
-            ]), tableRows) %}
-          {% endfor %}
+       {% if hasDocuments %}
 
-          {{ govukTable({
-            head: [
-              {
-                text: documentName
-              },
-              {
-                text: date
-              },
-              {
-                text: status
-              },
-              {
-                text: action
-              }
-            ],
-            rows: tableRows
-          }) }}
-        {% else %}
-          {{ govukInsetText({
-            text: noDocumentsMessage
-          }) }}
-        {% endif %}
+         {% if contactPartiesDocuments.length > 0 %}
+
+           {% set tableRows = [] %}
+
+           {% for document in contactPartiesDocuments %}
+
+             {% set statusTag %}
+               {% if document.isLatest %}
+                 {{ govukTag({
+                   text: latestTag,
+                   classes: "govuk-tag--blue"
+                 }) }}
+               {% endif %}
+             {% endset %}
+
+             {% set downloadLink %}
+               <a class="govuk-link"
+                  href="{{ document.downloadUrl | escape }}"
+                  download="{{ document.name | escape }}">
+                 {{ download }}
+               </a>
+             {% endset %}
+
+             {% set tableRows = (tableRows.push([
+               {
+                 text: document.name
+               },
+               {
+                 text: document.date
+               },
+               {
+                 html: statusTag
+               },
+               {
+                 html: downloadLink
+               }
+             ]), tableRows) %}
+
+           {% endfor %}
+
+           {{ govukTable({
+             head: [
+               {
+                 text: documentName
+               },
+               {
+                 text: date
+               },
+               {
+                 text: status
+               },
+               {
+                 text: action
+               }
+             ],
+             rows: tableRows
+           }) }}
+
+         {% endif %}
+
+         {% if orderAndDecisionDocuments.length > 0 %}
+
+           <h3 class="govuk-heading-m govuk-!-margin-top-6">
+             Orders and decisions
+           </h3>
+
+           {% set tableRows = [] %}
+
+           {% for document in orderAndDecisionDocuments %}
+
+             {% set statusTag %}
+               {% if document.isLatest %}
+                 {{ govukTag({
+                   text: latestTag,
+                   classes: "govuk-tag--blue"
+                 }) }}
+               {% endif %}
+             {% endset %}
+
+             {% set downloadLink %}
+               <a class="govuk-link"
+                  href="{{ document.downloadUrl | escape }}"
+                  download="{{ document.name | escape }}">
+                 {{ download }}
+               </a>
+             {% endset %}
+
+             {% set tableRows = (tableRows.push([
+               {
+                 text: document.name
+               },
+               {
+                 text: document.date
+               },
+               {
+                 html: statusTag
+               },
+               {
+                 html: downloadLink
+               }
+             ]), tableRows) %}
+
+           {% endfor %}
+
+           {{ govukTable({
+             head: [
+               {
+                 text: documentName
+               },
+               {
+                 text: date
+               },
+               {
+                 text: status
+               },
+               {
+                 text: action
+               }
+             ],
+             rows: tableRows
+           }) }}
+
+         {% endif %}
+
+         {% if latestCaseBundleDocuments.length > 0 %}
+
+           <h3 class="govuk-heading-m govuk-!-margin-top-6">
+             Latest case bundle documents
+           </h3>
+
+           {% set tableRows = [] %}
+
+           {% for document in latestCaseBundleDocuments %}
+
+             {% set statusTag %}
+               {% if document.isLatest %}
+                 {{ govukTag({
+                   text: latestTag,
+                   classes: "govuk-tag--blue"
+                 }) }}
+               {% endif %}
+             {% endset %}
+
+             {% set downloadLink %}
+               <a class="govuk-link"
+                  href="{{ document.downloadUrl | escape }}"
+                  download="{{ document.name | escape }}">
+                 {{ download }}
+               </a>
+             {% endset %}
+
+             {% set tableRows = (tableRows.push([
+               {
+                 text: document.name
+               },
+               {
+                 text: document.date
+               },
+               {
+                 html: statusTag
+               },
+               {
+                 html: downloadLink
+               }
+             ]), tableRows) %}
+
+           {% endfor %}
+
+           {{ govukTable({
+             head: [
+               {
+                 text: documentName
+               },
+               {
+                 text: date
+               },
+               {
+                 text: status
+               },
+               {
+                 text: action
+               }
+             ],
+             rows: tableRows
+           }) }}
+
+         {% endif %}
+
+       {% else %}
+
+         {{ govukInsetText({
+           text: noDocumentsMessage
+         }) }}
+
+         {% endif %}
+
       </div>
     </div>
   </div>
