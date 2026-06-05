@@ -1,0 +1,25 @@
+{% extends "../common/template.njk" %}
+
+{% block content %}
+  <div class="govuk-width-container">
+
+    <main class="govuk-main-wrapper govuk-!-padding-top-2">
+
+      <h1 class="govuk-heading-l">{{ heading }}</h1>
+
+      <p class="govuk-body">{{ line1 }}</p>
+
+      <p class="govuk-body">{{ line2 }}</p>
+
+      <ul class="govuk-list govuk-list--bullet">
+        <li>{{ bullet1 }}</li>
+        <li>{{ bullet2 }}</li>
+      </ul>
+
+      <p class="govuk-body">{{ line3 }}</p>
+
+      <a href="/cica-lookup" class="govuk-link">{{ tryAgain }}</a>
+
+    </main>
+  </div>
+{% endblock %}
