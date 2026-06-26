@@ -7,59 +7,56 @@
 {% block backLink %}{% endblock %}
 
 {% block page_content %}
-<div class="govuk-width-container">
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-full">
-      {% if caseNumber %}
-      {{ govukPanel({
+  <div class="govuk-width-container">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-full">
+        {% if caseNumber %}
+          {{ govukPanel({
       titleText: caseNumberLabel,
       html: "<strong>" + caseNumber + "</strong>"
       }) }}
-      {% endif %}
+        {% endif %}
 
-      <h2 class="govuk-heading-m govuk-!-margin-top-6">{{ documentsHeading }}</h2>
+        <h2 class="govuk-heading-m govuk-!-margin-top-6">{{ documentsHeading }}</h2>
 
-      {% if hasDocuments %}
+        {% if hasDocuments %}
 
-      {% if contactPartiesDocuments.length > 0 %}
+          {% if contactPartiesDocuments.length > 0 %}
 
-      {% set tableRows = [] %}
+            {% set tableRows = [] %}
 
-      {% for document in contactPartiesDocuments %}
+            {% for document in contactPartiesDocuments %}
 
-      {% set statusTag %}
-      {% if document.isLatest %}
-      {{ govukTag({
+              {% set statusTag %}
+              {% if document.isLatest %}
+                {{ govukTag({
       text: latestTag,
       classes: "govuk-tag--blue"
       }) }}
-      {% endif %}
-      {% endset %}
+              {% endif %}
+              {% endset %}
 
-      {% set downloadLink %}
-      <a class="govuk-link" href="{{ document.downloadUrl | escape }}" download="{{ document.name | escape }}">
-        {{ download }}
-      </a>
-      {% endset %}
+              {% set downloadLink %}
+              <a class="govuk-link" href="{{ document.downloadUrl | escape }}" download="{{ document.name | escape }}">
+                {{ download }}
+              </a>
+              {% endset %}
 
-      {% set tableRows = (tableRows.push([
-      {
-      text: document.name
-      },
-      {
-      text: document.date
-      },
-      {
-      html: statusTag
-      },
-      {
-      html: downloadLink
-      }
-      ]), tableRows) %}
+              {% set tableRows = (tableRows.push([
+                {
+                  text: document.name
+                }, {
+                  text: document.date
+                }, {
+                  html: statusTag
+                }, {
+                  html: downloadLink
+                }
+              ]), tableRows) %}
 
-      {% endfor %}
+            {% endfor %}
 
-      {{ govukTable({
+            {{ govukTable({
       head: [
       {
       text: documentName
@@ -77,51 +74,48 @@
       rows: tableRows
       }) }}
 
-      {% endif %}
+          {% endif %}
 
-      {% if orderAndDecisionDocuments.length > 0 %}
+          {% if orderAndDecisionDocuments.length > 0 %}
 
-      <h3 class="govuk-heading-m govuk-!-margin-top-6">
+            <h3 class="govuk-heading-m govuk-!-margin-top-6">
         Orders and decisions
       </h3>
 
-      {% set tableRows = [] %}
+            {% set tableRows = [] %}
 
-      {% for document in orderAndDecisionDocuments %}
+            {% for document in orderAndDecisionDocuments %}
 
-      {% set statusTag %}
-      {% if document.isLatest %}
-      {{ govukTag({
+              {% set statusTag %}
+              {% if document.isLatest %}
+                {{ govukTag({
       text: latestTag,
       classes: "govuk-tag--blue"
       }) }}
-      {% endif %}
-      {% endset %}
+              {% endif %}
+              {% endset %}
 
-      {% set downloadLink %}
-      <a class="govuk-link" href="{{ document.downloadUrl | escape }}" download="{{ document.name | escape }}">
-        {{ download }}
-      </a>
-      {% endset %}
+              {% set downloadLink %}
+              <a class="govuk-link" href="{{ document.downloadUrl | escape }}" download="{{ document.name | escape }}">
+                {{ download }}
+              </a>
+              {% endset %}
 
-      {% set tableRows = (tableRows.push([
-      {
-      text: document.name
-      },
-      {
-      text: document.date
-      },
-      {
-      html: statusTag
-      },
-      {
-      html: downloadLink
-      }
-      ]), tableRows) %}
+              {% set tableRows = (tableRows.push([
+                {
+                  text: document.name
+                }, {
+                  text: document.date
+                }, {
+                  html: statusTag
+                }, {
+                  html: downloadLink
+                }
+              ]), tableRows) %}
 
-      {% endfor %}
+            {% endfor %}
 
-      {{ govukTable({
+            {{ govukTable({
       head: [
       {
       text: documentName
@@ -139,47 +133,46 @@
       rows: tableRows
       }) }}
 
-      {% endif %}
+          {% endif %}
 
-      {% if latestCaseBundleDocuments.length > 0 %}
+          {% if latestCaseBundleDocuments.length > 0 %}
 
-      <h3 class="govuk-heading-m govuk-!-margin-top-6">
+            <h3 class="govuk-heading-m govuk-!-margin-top-6">
         Latest case bundle documents
       </h3>
 
-      {% set document = latestCaseBundleDocuments[0] %}
+            {% set document = latestCaseBundleDocuments[0] %}
 
-      {% set statusTag %}
-      {% if document.isLatest %}
-      {{ govukTag({
+            {% set statusTag %}
+            {% if document.isLatest %}
+              {{ govukTag({
       text: latestTag,
       classes: "govuk-tag--blue"
       }) }}
-      {% endif %}
-      {% endset %}
+            {% endif %}
+            {% endset %}
 
-      {% set downloadLink %}
-      <a class="govuk-link" href="{{ document.downloadUrl | escape }}" download="{{ document.name | escape }}">
-        {{ download }}
-      </a>
-      {% endset %}
+            {% set downloadLink %}
+            <a class="govuk-link" href="{{ document.downloadUrl | escape }}" download="{{ document.name | escape }}">
+              {{ download }}
+            </a>
+            {% endset %}
 
-      {% set tableRows = [[
-      {
-      text: document.name
-      },
-      {
-      text: document.date
-      },
-      {
-      html: statusTag
-      },
-      {
-      html: downloadLink
-      }
-      ]] %}
+            {% set tableRows = [
+              [
+                {
+                  text: document.name
+                }, {
+                  text: document.date
+                }, {
+                  html: statusTag
+                }, {
+                  html: downloadLink
+                }
+              ]
+            ] %}
 
-      {{ govukTable({
+            {{ govukTable({
       head: [
       {
       text: documentName
@@ -197,17 +190,17 @@
       rows: tableRows
       }) }}
 
-      {% endif %}
+          {% endif %}
 
-      {% else %}
+        {% else %}
 
-      {{ govukInsetText({
+          {{ govukInsetText({
       text: noDocumentsMessage
       }) }}
 
-      {% endif %}
+        {% endif %}
 
+      </div>
     </div>
   </div>
-</div>
 {% endblock %}
