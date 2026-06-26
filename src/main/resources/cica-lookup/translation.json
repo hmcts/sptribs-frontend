@@ -1,0 +1,38 @@
+{
+  "translations": {
+    "en": {
+      "continue": "Continue",
+      "serviceName": "Appeal to the First-tier Tribunal",
+      "title": "Enter your HMCTS reference number",
+      "line1": "If you have an existing case, entering your HMCTS reference number will take you to it. Otherwise, a new application will be started.",
+      "line2": "You can find this on any correspondence that you've received from HMCTS. HMCTS reference numbers are 16 digits long.",
+      "ccdReferenceLabel": "HMCTS reference number"
+    },
+    "cy": {
+      "continue": "Parhau",
+      "serviceName": "Apelio i'r Tribiwnlys Haen Gyntaf",
+      "title": "Nodwch eich cyfeirnod HMCTS",
+      "line1": "Os oes gennych achos presennol, bydd nodi eich cyfeirnod HMCTS yn mynd â chi ato. Fel arall, bydd cais newydd yn cael ei ddechrau.",
+      "line2": "Gallwch ddod o hyd i hwn ar unrhyw ohebiaeth rydych wedi'i derbyn gan HMCTS. Mae cyfeirnodau ADAT yn dechrau gyda'r lythyren X neu G.",
+      "ccdReferenceLabel": "Cyfeirnod HMCTS"
+    }
+  },
+  "errors": {
+    "en": {
+      "ccdReference": {
+        "required": "Enter your HMCTS reference number",
+        "containsMarkdownLink": "HMCTS reference number must not include a link",
+        "containsInvalidCharacters": "HMCTS reference number must not include HTML",
+        "invalid": "HMCTS reference number must be 16 digits long"
+      }
+    },
+    "cy": {
+      "ccdReference": {
+        "required": "Nodwch eich cyfeirnod HMCTS",
+        "containsMarkdownLink": "Ni ddylai cyfeirnod HMCTS gynnwys dolen",
+        "containsInvalidCharacters": "Ni ddylai cyfeirnod HMCTS gynnwys HTML",
+        "invalid": "Rhaid i gyfeirnod HMCTS ddechrau gyda llythyren X neu G"
+      }
+    }
+  }
+}

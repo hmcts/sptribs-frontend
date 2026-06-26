@@ -31,6 +31,12 @@ export const isCICAReferenceNumberAcceptable: Validator = value => {
   }
 };
 
+export const isCCDReferenceNumberAcceptable: Validator = value => {
+  if (typeof value !== 'string' || !/^\d{16}$/.test(value)) {
+    return ValidationError.INVALID;
+  }
+};
+
 export const atLeastOneFieldIsChecked: Validator = fields => {
   if (!fields || (fields as []).length === 0) {
     return ValidationError.REQUIRED;

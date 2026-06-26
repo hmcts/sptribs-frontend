@@ -1,0 +1,24 @@
+{
+  "translations": {
+    "en": {
+      "title": "You are not authorised to view this case",
+      "heading": "You are not authorised to view this case",
+      "line1": "The reference number you entered exists, but you do not have permission to access it.",
+      "line2": "This might be because:",
+      "bullet1": "the case belongs to someone else",
+      "bullet2": "you are using a different account",
+      "line3": "You can try another reference number or contact support if you think this is a mistake.",
+      "tryAgain": "Try another reference number"
+    },
+    "cy": {
+      "title": "Nid ydych wedi'ch awdurdodi i weld yr achos hwn",
+      "heading": "Nid ydych wedi'ch awdurdodi i weld yr achos hwn",
+      "line1": "Mae'r rhif cyfeirnod rydych wedi'i nodi yn bodoli, ond nid oes gennych ganiatâd i'w weld.",
+      "line2": "Gallai hyn fod oherwydd:",
+      "bullet1": "mae'r achos yn perthyn i rywun arall",
+      "bullet2": "rydych yn defnyddio cyfrif gwahanol",
+      "line3": "Gallwch roi cynnig ar rif cyfeirnod arall neu gysylltu â chymorth os ydych yn credu mai camgymeriad yw hyn.",
+      "tryAgain": "Rhoi cynnig ar rif cyfeirnod arall"
+    }
+  }
+}

@@ -1,13 +1,13 @@
 import axios from 'axios';
 import { LoggerInstance } from 'winston';
 
-import { UserDetails } from '../controller/AppRequest';
-
 import { CaseApi } from './CaseApi';
+import { fromApiFormat } from './from-api-format';
 
 const { Logger } = require('@hmcts/nodejs-logging');
 const logger: LoggerInstance = Logger.getLogger('app');
 jest.mock('axios');
+jest.mock('./from-api-format');
 
 test('Should return case roles for userId and caseId passed', async () => {
   const mockedAxios = axios as jest.Mocked<typeof axios>;
@@ -22,18 +22,11 @@ test('Should return case roles for userId and caseId passed', async () => {
       ],
     },
   });
-  const userDetails: UserDetails = {
-    accessToken: 'string',
-    id: '372ff9c1-9930-46d9-8bd2-88dd26ba2475',
-    email: 'harry@hog.com',
-    givenName: 'harry',
-    familyName: 'potter',
-    roles: ['citizen'],
-  };
 
   const case_id = '1624351572550045';
+  const user_id = '372ff9c1-9930-46d9-8bd2-88dd26ba2475';
   const caseApiInstance: CaseApi = new CaseApi(mockedAxios, logger);
-  const result = await caseApiInstance.getCaseUserRoles(case_id, userDetails.id);
+  const result = await caseApiInstance.getCaseUserRoles(case_id, user_id);
   expect(result).toEqual({
     case_users: [
       {
@@ -61,4 +54,180 @@ test('Should throw error when case roles could not be fetched', async () => {
   const expectedError = 'Case roles could not be fetched.';
 
   await expect(caseApiInstance.getCaseUserRoles(case_id, user_id)).rejects.toThrow(expectedError);
+});
+
+test('Should return case by CCD reference', async () => {
+  const mockedAxios = axios as jest.Mocked<typeof axios>;
+  const mockedSptribsAxios = axios as jest.Mocked<typeof axios>;
+  const mockedFromApiFormat = fromApiFormat as jest.MockedFunction<typeof fromApiFormat>;
+
+  mockedFromApiFormat.mockReturnValueOnce({
+    tribunalFormDocuments: [],
+    supportingDocuments: [],
+    otherInfoDocuments: [],
+  } as any);
+
+  mockedSptribsAxios.get.mockResolvedValueOnce({
+    data: {
+      id: '1624351572550045',
+      state: 'Submitted',
+      data: {
+        dssCaseDataTribunalFormDocuments: [],
+        dssCaseDataSupportingDocuments: [],
+        dssCaseDataOtherInfoDocuments: [],
+      },
+    },
+  });
+
+  const ccdReference = '1624351572550045';
+  const caseApiInstance: CaseApi = new CaseApi(mockedAxios, logger, mockedSptribsAxios);
+  const result = await caseApiInstance.getCaseByCCDReference(ccdReference);
+
+  expect(result).not.toBeNull();
+  expect(result!.id).toBe('1624351572550045');
+  expect(result!.state).toBe('Submitted');
+  expect(mockedSptribsAxios.get).toHaveBeenCalledWith(`/cases/cica/${ccdReference}`);
+});
+
+test('Should throw error when case lookup by CCD reference fails', async () => {
+  const mockedAxios = axios as jest.Mocked<typeof axios>;
+  const mockedSptribsAxios = axios as jest.Mocked<typeof axios>;
+
+  mockedSptribsAxios.get.mockRejectedValueOnce({
+    response: { status: 500 },
+    config: { method: 'GET', url: 'https://example.com/cases/cica/9999955555555555' },
+  });
+
+  const ccdReference = '9999955555555555';
+  const caseApiInstance: CaseApi = new CaseApi(mockedAxios, logger, mockedSptribsAxios);
+
+  await expect(caseApiInstance.getCaseByCCDReference(ccdReference)).rejects.toMatchObject({
+    response: { status: 500 },
+  });
+});
+
+test('Should throw error when sptribs client not configured', async () => {
+  const mockedAxios = axios as jest.Mocked<typeof axios>;
+
+  const ccdReference = '9999955555555555';
+  const caseApiInstance: CaseApi = new CaseApi(mockedAxios, logger);
+  const expectedError = 'Sptribs backend client not configured';
+
+  await expect(caseApiInstance.getCaseByCCDReference(ccdReference)).rejects.toThrow(expectedError);
+});
+
+test('should return documents by case ID', async () => {
+  const mockedCcdClient = axios as jest.Mocked<typeof axios>;
+  const mockedSptribsClient = axios as jest.Mocked<typeof axios>;
+
+  const documentsResponse = {
+    contactPartiesDocuments: [],
+    latestCaseBundleDocuments: [],
+    orderAndDecisionDocuments: [],
+  };
+
+  mockedSptribsClient.get.mockResolvedValue({
+    data: documentsResponse,
+  });
+
+  const caseId = '1624351572550045';
+
+  const caseApiInstance = new CaseApi(mockedCcdClient, logger, mockedSptribsClient);
+
+  const result = await caseApiInstance.getDocumentsByCaseId(caseId);
+
+  expect(result).toEqual(documentsResponse);
+
+  expect(mockedSptribsClient.get).toHaveBeenCalledWith(`/cases/CIC/${caseId}/documents`);
+});
+
+test('Should throw error when documents could not be fetched by ID', async () => {
+  const mockedCcdClient = axios as jest.Mocked<typeof axios>;
+  const mockedSptribsClient = axios as jest.Mocked<typeof axios>;
+
+  mockedSptribsClient.get.mockRejectedValue({
+    config: { method: 'GET', url: 'https://example.com/cases/CIC/123/documents' },
+    request: 'mock request',
+  });
+
+  const case_id = '123';
+  const caseApiInstance: CaseApi = new CaseApi(mockedCcdClient, logger, mockedSptribsClient);
+  const expectedError = 'Documents could not be fetched.';
+
+  await expect(caseApiInstance.getDocumentsByCaseId(case_id)).rejects.toThrow(expectedError);
+});
+
+test('should download document', async () => {
+  const mockedCcdClient = axios as jest.Mocked<typeof axios>;
+  const mockedSptribsClient = axios as jest.Mocked<typeof axios>;
+
+  const response = {
+    data: 'stream',
+    headers: {
+      'content-type': 'application/pdf',
+    },
+  };
+
+  mockedSptribsClient.get.mockResolvedValue(response);
+
+  const caseApi = new CaseApi(mockedCcdClient, logger, mockedSptribsClient);
+
+  const result = await caseApi.downloadDocument('1234');
+
+  expect(result).toEqual(response);
+  expect(mockedSptribsClient.get).toHaveBeenCalledWith('/cases/CIC/downloadDocument/1234', {
+    responseType: 'stream',
+  });
+});
+
+test('should throw error when document download fails', async () => {
+  const mockedCcdClient = axios as jest.Mocked<typeof axios>;
+  const mockedSptribsClient = axios as jest.Mocked<typeof axios>;
+
+  mockedSptribsClient.get.mockRejectedValue({
+    message: 'boom',
+    response: {
+      status: 500,
+    },
+  });
+
+  const caseApi = new CaseApi(mockedCcdClient, logger, mockedSptribsClient);
+
+  await expect(caseApi.downloadDocument('1234')).rejects.toThrow('Document could not be downloaded.');
+});
+
+test('should return event trigger', async () => {
+  const mockedAxios = axios as jest.Mocked<typeof axios>;
+
+  mockedAxios.get.mockResolvedValue({
+    data: {
+      token: 'abc123',
+    },
+  });
+
+  const caseApi = new CaseApi(mockedAxios, logger);
+
+  const result = await caseApi.getEventTrigger('123', 'submit');
+
+  expect(result).toEqual({
+    token: 'abc123',
+  });
+
+  expect(mockedAxios.get).toHaveBeenCalledWith('/cases/123/event-triggers/submit');
+});
+
+test('should throw error when event trigger could not be fetched', async () => {
+  const mockedAxios = axios as jest.Mocked<typeof axios>;
+
+  mockedAxios.get.mockRejectedValue({
+    config: {
+      method: 'GET',
+      url: '/cases/123/event-triggers/submit',
+    },
+    request: 'mock request',
+  });
+
+  const caseApi = new CaseApi(mockedAxios, logger);
+
+  await expect(caseApi.getEventTrigger('123', 'submit')).rejects.toThrow('Case event trigger could not be fetched.');
 });

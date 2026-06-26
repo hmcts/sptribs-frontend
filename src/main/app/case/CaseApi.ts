@@ -2,12 +2,12 @@ import axios, { AxiosError, AxiosInstance, AxiosResponse } from 'axios';
 import config from 'config';
 import { LoggerInstance } from 'winston';
 
+import { CITIZEN_CIC_CREATE_CASE, CaseData, CaseworkerCICDocument, YesOrNo } from '../../app/case/definition';
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import { UserDetails } from '../controller/AppRequest';
 
 import { Case, CaseWithId } from './case';
 import { CaseAssignedUserRoles } from './case-roles';
-import { CITIZEN_CIC_CREATE_CASE, CaseData, YesOrNo } from './definition';
 import { fromApiFormat } from './from-api-format';
 import { toApiFormat } from './to-api-format';
 
@@ -17,7 +17,8 @@ export class CaseApi {
 
   constructor(
     private readonly client: AxiosInstance,
-    private readonly logger: LoggerInstance
+    private readonly logger: LoggerInstance,
+    private readonly sptribsClient?: AxiosInstance
   ) {}
 
   public async createCase(data: Partial<Case>): Promise<CaseWithId> {
@@ -49,6 +50,61 @@ export class CaseApi {
     } catch (err) {
       this.logError(err);
       throw new Error('Case roles could not be fetched.');
+    }
+  }
+
+  public async getCaseByCCDReference(ccdReference: string): Promise<CaseWithId | null> {
+    if (!this.sptribsClient) {
+      throw new Error('Sptribs backend client not configured');
+    }
+
+    try {
+      const response = await this.sptribsClient.get<SptribsCaseResponse>(
+        `/cases/cica/${encodeURIComponent(ccdReference)}`
+      );
+      return {
+        id: response.data.id,
+        state: response.data.state,
+        ...fromApiFormat(response.data.data),
+      };
+    } catch (err) {
+      this.logError(err);
+      throw err; // keep original context
+    }
+  }
+
+  public async downloadDocument(documentId: string): Promise<AxiosResponse> {
+    if (!this.sptribsClient) {
+      throw new Error('Sptribs backend client not configured');
+    }
+
+    try {
+      const response = await this.sptribsClient.get(`/cases/CIC/downloadDocument/${documentId}`, {
+        responseType: 'stream',
+      });
+      return response;
+    } catch (err) {
+      const error = err as AxiosError;
+      // Extract only primitive values to avoid circular reference issues when logging
+      const status = error.response?.status || 'unknown';
+      const message = error.message || 'Unknown error';
+      this.logger.error(`Document download failed for documentId=${documentId}: status=${status}, message=${message}`);
+      throw new Error('Document could not be downloaded.');
+    }
+  }
+
+  public async getDocumentsByCaseId(ccdReference: string): Promise<DocumentResponse> {
+    if (!this.sptribsClient) {
+      throw new Error('Sptribs backend client not configured');
+    }
+
+    try {
+      const response = await this.sptribsClient.get<DocumentResponse>(`/cases/CIC/${ccdReference}/documents`);
+
+      return response.data;
+    } catch (err) {
+      this.logError(err);
+      throw new Error('Documents could not be fetched.');
     }
   }
 
@@ -106,18 +162,26 @@ export class CaseApi {
 }
 
 export const getCaseApi = (userDetails: UserDetails, logger: LoggerInstance): CaseApi => {
+  const authHeaders = {
+    Authorization: 'Bearer ' + userDetails.accessToken,
+    ServiceAuthorization: getServiceAuthToken(),
+    Accept: '*/*',
+    'Content-Type': 'application/json',
+  };
+
   return new CaseApi(
     axios.create({
       baseURL: config.get('services.ccd.url'),
       headers: {
-        Authorization: 'Bearer ' + userDetails.accessToken,
-        ServiceAuthorization: getServiceAuthToken(),
+        ...authHeaders,
         experimental: 'true',
-        Accept: '*/*',
-        'Content-Type': 'application/json',
       },
     }),
-    logger
+    logger,
+    axios.create({
+      baseURL: config.get('services.sptribs.url'),
+      headers: authHeaders,
+    })
   );
 };
 
@@ -137,4 +201,16 @@ interface CcdEventTriggerResponse extends CcdTokenResponse {
     state: string;
     data: CaseData;
   };
+}
+
+interface SptribsCaseResponse {
+  id: string;
+  state: string;
+  data: CaseData;
+}
+
+interface DocumentResponse {
+  latestCaseBundleDocuments: CaseworkerCICDocument[];
+  contactPartiesDocuments: CaseworkerCICDocument[];
+  orderAndDecisionDocuments: CaseworkerCICDocument[];
 }
