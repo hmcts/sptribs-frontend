@@ -156,3 +156,78 @@ test('Should throw error when documents could not be fetched by ID', async () =>
 
   await expect(caseApiInstance.getDocumentsByCaseId(case_id)).rejects.toThrow(expectedError);
 });
+
+test('should download document', async () => {
+  const mockedCcdClient = axios as jest.Mocked<typeof axios>;
+  const mockedSptribsClient = axios as jest.Mocked<typeof axios>;
+
+  const response = {
+    data: 'stream',
+    headers: {
+      'content-type': 'application/pdf',
+    },
+  };
+
+  mockedSptribsClient.get.mockResolvedValue(response);
+
+  const caseApi = new CaseApi(mockedCcdClient, logger, mockedSptribsClient);
+
+  const result = await caseApi.downloadDocument('1234');
+
+  expect(result).toEqual(response);
+  expect(mockedSptribsClient.get).toHaveBeenCalledWith('/cases/CIC/downloadDocument/1234', {
+    responseType: 'stream',
+  });
+});
+
+test('should throw error when document download fails', async () => {
+  const mockedCcdClient = axios as jest.Mocked<typeof axios>;
+  const mockedSptribsClient = axios as jest.Mocked<typeof axios>;
+
+  mockedSptribsClient.get.mockRejectedValue({
+    message: 'boom',
+    response: {
+      status: 500,
+    },
+  });
+
+  const caseApi = new CaseApi(mockedCcdClient, logger, mockedSptribsClient);
+
+  await expect(caseApi.downloadDocument('1234')).rejects.toThrow('Document could not be downloaded.');
+});
+
+test('should return event trigger', async () => {
+  const mockedAxios = axios as jest.Mocked<typeof axios>;
+
+  mockedAxios.get.mockResolvedValue({
+    data: {
+      token: 'abc123',
+    },
+  });
+
+  const caseApi = new CaseApi(mockedAxios, logger);
+
+  const result = await caseApi.getEventTrigger('123', 'submit');
+
+  expect(result).toEqual({
+    token: 'abc123',
+  });
+
+  expect(mockedAxios.get).toHaveBeenCalledWith('/cases/123/event-triggers/submit');
+});
+
+test('should throw error when event trigger could not be fetched', async () => {
+  const mockedAxios = axios as jest.Mocked<typeof axios>;
+
+  mockedAxios.get.mockRejectedValue({
+    config: {
+      method: 'GET',
+      url: '/cases/123/event-triggers/submit',
+    },
+    request: 'mock request',
+  });
+
+  const caseApi = new CaseApi(mockedAxios, logger);
+
+  await expect(caseApi.getEventTrigger('123', 'submit')).rejects.toThrow('Case event trigger could not be fetched.');
+});

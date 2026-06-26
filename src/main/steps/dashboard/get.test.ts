@@ -38,50 +38,7 @@ describe('DashboardGetController', () => {
     expect(res.redirect).toHaveBeenCalledWith(CICA_LOOKUP);
   });
 
-  test('should load dashboard with submitted case and documents from fresh API call', async () => {
-    const mockApplicantDocuments = [
-      {
-        documentLink: {
-          document_url: 'http://dm-store/documents/12345678-1234-1234-1234-123456789012',
-          document_filename: 'test-document.pdf',
-          document_binary_url: 'http://dm-store/documents/12345678-1234-1234-1234-123456789012/binary',
-        },
-        documentCategory: 'ApplicationForm',
-        date: '2024-01-15',
-      },
-    ];
-
-    const req = mockRequest({
-      session: {
-        userCase: {
-          id: '1624351572550045',
-          state: State.Submitted,
-        },
-      },
-    });
-
-    req.locals.api.getDocumentsByCaseId = jest.fn().mockResolvedValue({
-      latestCaseBundleDocuments: [],
-      contactPartiesDocuments: mockApplicantDocuments,
-      orderAndDecisionDocuments: [],
-    });
-
-    const res = mockResponse();
-    res.locals = {};
-    res.render = jest.fn().mockImplementation(() => {});
-
-    await controller.get(req, res);
-
-    expect(req.locals.api.getDocumentsByCaseId).toHaveBeenCalledWith('1624351572550045');
-    expect(res.locals.contactPartiesDocuments).toBeDefined();
-    expect(res.locals.contactPartiesDocuments).toHaveLength(1);
-    expect(res.locals.contactPartiesDocuments[0].name).toBe('test-document.pdf');
-    expect(res.locals.contactPartiesDocuments[0].date).toBe('15/01/2024');
-    expect(res.locals.hasDocuments).toBe(true);
-    expect(res.locals.caseNumber).toBeDefined();
-  });
-
-  test('should load dashboard with DSS_Submitted case', async () => {
+  test('should load empty dashboard with no docs returned', async () => {
     const req = mockRequest({
       session: {
         userCase: {
@@ -304,6 +261,46 @@ describe('DashboardGetController', () => {
     expect(res.locals.latestCaseBundleDocuments).toHaveLength(0);
 
     expect(res.locals.hasDocuments).toBe(false);
+  });
+
+  test('should use "Unknown document" when document filename is missing', async () => {
+    const documentId = '12345678-1234-1234-1234-123456789012';
+
+    const req = mockRequest({
+      session: {
+        userCase: {
+          id: '123',
+          state: State.Submitted,
+        },
+      },
+    });
+
+    req.locals.api.getDocumentsByCaseId = jest.fn().mockResolvedValue({
+      latestCaseBundleDocuments: [],
+      orderAndDecisionDocuments: [],
+      contactPartiesDocuments: [
+        {
+          documentLink: {
+            document_url: `http://dm-store/documents/${documentId}`,
+            document_binary_url: `http://dm-store/documents/${documentId}/binary`,
+            // document_filename intentionally omitted
+          },
+          documentCategory: 'ApplicationForm',
+          date: '2024-01-01',
+        },
+      ],
+    });
+
+    const res = mockResponse();
+    res.locals = {};
+    res.render = jest.fn().mockImplementation(() => {});
+
+    await controller.get(req, res);
+
+    expect(res.locals.contactPartiesDocuments).toHaveLength(1);
+    expect(res.locals.contactPartiesDocuments[0].name).toBe('Unknown document');
+    expect(res.locals.contactPartiesDocuments[0].downloadUrl).toContain(`documentId=${documentId}`);
+    expect(res.locals.hasDocuments).toBe(true);
   });
 
   test('should extract document ID from URL without /binary suffix', async () => {

@@ -55,7 +55,7 @@ export default class DashboardGetController extends GetController {
         contactPartiesDocuments.length > 0 ||
         orderAndDecisionDocuments.length > 0;
 
-      res.locals.caseNumber = sessionCase.id?.toString().replace(/.{4}/g, '$& - ').substring(0, 25);
+      res.locals.caseNumber = sessionCase.id?.toString();
 
       return super.get(req, res);
     } catch (error) {
@@ -88,6 +88,10 @@ function mapDocument(doc: CaseworkerCICDocument): DashboardDocument | null {
       `?documentId=${encodeURIComponent(documentId)}` +
       `&filename=${encodeURIComponent(filename)}`,
     isLatest: false,
+    //need to update to issued date not the date when the doc was created
+    //for bundles its just when bundle created
+    //for orders its when order was sent out (draft to not)
+    //for rest its when correspondence eas sent out
     date: doc.date ? formatDate(doc.date) : undefined,
     category: doc.documentCategory || undefined,
   };
