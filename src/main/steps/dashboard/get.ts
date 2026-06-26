@@ -1,7 +1,7 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { CaseworkerCICDocument, ListValue } from '../../app/case/definition';
+import { CaseworkerCICDocument } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { GetController } from '../../app/controller/GetController';
 import { CICA_LOOKUP } from '../urls';
@@ -24,84 +24,108 @@ export default class DashboardGetController extends GetController {
 
   public async get(req: AppRequest, res: Response): Promise<void> {
     try {
-      // Use the case from session to get case ID and check submission status
       const sessionCase = req.session.userCase;
 
-      // If no case in session or case is not submitted, redirect to CICA lookup
       if (!sessionCase?.id) {
         return res.redirect(CICA_LOOKUP);
       }
 
-      // Fetch fresh case data from API to get the latest documents
-      // cicCaseApplicantDocuments is only populated after a fresh API call
-      //replace call to us and not ccd, then we can load the docs through our own database layer....
-      const freshCase = await req.locals.api.getCaseById(sessionCase.id);
+      const documentsResponse = await req.locals.api.getDocumentsByCaseId(sessionCase.id);
 
-      // Extract and format documents from cicCaseApplicantDocuments
-      const allDocuments: DashboardDocument[] = [];
-      const applicantDocuments: ListValue<CaseworkerCICDocument>[] = freshCase.applicantDocuments || [];
+      const latestCaseBundleDocuments = (documentsResponse.latestCaseBundleDocuments || [])
+        .map(mapDocument)
+        .filter(Boolean);
 
-      applicantDocuments.forEach(doc => {
-        if (doc.value?.documentLink) {
-          const filename = doc.value.documentLink.document_filename || 'Unknown document';
-          const documentUrl = doc.value.documentLink.document_url || '';
-          // Extract document ID (UUID) from the document URL
-          // URL format: http://dm-store/documents/{uuid} or http://dm-store/documents/{uuid}/binary
-          const documentId = extractDocumentId(documentUrl);
+      const contactPartiesDocuments = (documentsResponse.contactPartiesDocuments || [])
+        .map(mapDocument)
+        .filter(Boolean);
 
-          if (documentId) {
-            // Create download URL that proxies through sptribs-case-api
-            const downloadUrl = `/dashboard/document/download?documentId=${encodeURIComponent(documentId)}&filename=${encodeURIComponent(filename)}`;
+      const orderAndDecisionDocuments = (documentsResponse.orderAndDecisionDocuments || [])
+        .map(mapDocument)
+        .filter(Boolean);
 
-            allDocuments.push({
-              name: filename,
-              downloadUrl,
-              isLatest: false,
-              date: doc.value.date ? formatDate(doc.value.date) : undefined,
-              category: doc.value.documentCategory || undefined,
-            });
-          }
-        }
-      });
+      res.locals.latestCaseBundleDocuments = latestCaseBundleDocuments;
 
-      // Store documents in res.locals for template access
-      res.locals.documents = allDocuments;
-      res.locals.hasDocuments = allDocuments.length > 0;
-      res.locals.caseNumber = sessionCase.id?.toString().replace(/.{4}/g, '$& - ').substring(0, 25);
+      res.locals.contactPartiesDocuments = contactPartiesDocuments;
 
-      // Call parent get method to render
+      res.locals.orderAndDecisionDocuments = orderAndDecisionDocuments;
+
+      res.locals.hasDocuments =
+        latestCaseBundleDocuments.length > 0 ||
+        contactPartiesDocuments.length > 0 ||
+        orderAndDecisionDocuments.length > 0;
+
+      res.locals.caseNumber = sessionCase.id?.toString();
+
       return super.get(req, res);
     } catch (error) {
       req.locals.logger.error('Error loading dashboard:', error);
+
       return res.redirect(CICA_LOOKUP);
     }
   }
 }
 
+function mapDocument(doc: CaseworkerCICDocument): DashboardDocument | null {
+  if (!doc.documentLink?.document_url) {
+    return null;
+  }
+
+  const filename = doc.documentLink.document_filename || 'Unknown document';
+
+  const documentUrl = doc.documentLink.document_url;
+
+  const documentId = extractDocumentId(documentUrl);
+
+  if (!documentId) {
+    return null;
+  }
+
+  return {
+    name: filename,
+    downloadUrl:
+      '/dashboard/document/download' +
+      `?documentId=${encodeURIComponent(documentId)}` +
+      `&filename=${encodeURIComponent(filename)}`,
+    isLatest: false,
+    //need to update to issued date not the date when the doc was created
+    //for bundles its just when bundle created
+    //for orders its when order was sent out (draft to not)
+    //for rest its when correspondence eas sent out
+    date: doc.date ? formatDate(doc.date) : undefined,
+    category: doc.documentCategory || undefined,
+  };
+}
+
 /**
- * Format a date string from API format (YYYY-MM-DD) to display format (DD/MM/YYYY)
+ * Format a date string from API format
+ * YYYY-MM-DD -> DD/MM/YYYY
  */
 function formatDate(dateString: string): string {
   if (!dateString) {
     return '';
   }
+
   const [year, month, day] = dateString.split('-');
+
   if (!year || !month || !day) {
     return dateString;
   }
+
   return `${day}/${month}/${year}`;
 }
 
 /**
- * Extract document ID (UUID) from a document URL
- * URL format: http://dm-store/documents/{uuid} or http://dm-store/documents/{uuid}/binary
+ * Extract document UUID from DM store URL
  */
 function extractDocumentId(documentUrl: string): string | null {
   if (!documentUrl) {
     return null;
   }
-  // Match UUID pattern in the URL (after /documents/)
-  const uuidPattern = /\/documents\/([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})/i;
+
+  const uuidPattern = /\/documents\/([0-9a-f-]{36})/i;
+
   const match = uuidPattern.exec(documentUrl);
+
   return match ? match[1] : null;
 }
