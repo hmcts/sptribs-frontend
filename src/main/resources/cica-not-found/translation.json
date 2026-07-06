@@ -3,8 +3,8 @@
     "en": {
       "continue": "Continue",
       "serviceName": "Appeal to the First-tier Tribunal",
-      "title": "We could not find a case with that CICA reference number",
-      "line1": "The CICA reference number you entered does not match any existing cases.",
+      "title": "We could not find an appeal with that CICA reference number",
+      "line1": "The CICA reference number you entered does not match any existing appeals.",
       "label": "Would you like to start a new appeal?",
       "one": "Yes",
       "two": "No, let me re-enter my CICA reference number"
