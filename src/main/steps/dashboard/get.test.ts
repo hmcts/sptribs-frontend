@@ -96,6 +96,7 @@ describe('DashboardGetController', () => {
         userCase: {
           id: '123',
           state: State.Submitted,
+          subjectFullName: 'Jane Doe',
         },
       },
     });
@@ -154,6 +155,8 @@ describe('DashboardGetController', () => {
 
     expect(res.locals.latestCaseBundleDocuments[0].name).toBe('document-three.pdf');
     expect(res.locals.latestCaseBundleDocuments[0].date).toBeUndefined();
+
+    expect(res.locals.userFullName).toBe('Jane Doe');
 
     expect(res.locals.hasDocuments).toBe(true);
   });

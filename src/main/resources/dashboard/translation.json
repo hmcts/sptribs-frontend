@@ -3,10 +3,9 @@
     "en": {
       "title": "Your documents",
       "serviceName": "Appeal to the First-tier Tribunal",
-      "caseNumberLabel": "Case Number",
       "documentsHeading": "Documents",
       "documentName": "Document name",
-      "date": "Date",
+      "date": "Issued date",
       "status": "Status",
       "action": "Action",
       "latestTag": "Latest",
