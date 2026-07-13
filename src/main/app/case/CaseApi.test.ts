@@ -161,7 +161,7 @@ test('Should throw error when documents could not be fetched by ID', async () =>
   await expect(caseApiInstance.getDocumentsByCaseId(case_id, 'SW1A 1AA')).rejects.toThrow(expectedError);
 });
 
-test('should download document', async () => {
+test('should download document with and without postcode', async () => {
   const mockedCcdClient = axios as jest.Mocked<typeof axios>;
   const mockedSptribsClient = axios as jest.Mocked<typeof axios>;
 
@@ -176,11 +176,22 @@ test('should download document', async () => {
 
   const caseApi = new CaseApi(mockedCcdClient, logger, mockedSptribsClient);
 
-  const result = await caseApi.downloadDocument('1234');
+  const resultWithoutPostcode = await caseApi.downloadDocument('1234');
 
-  expect(result).toEqual(response);
+  expect(resultWithoutPostcode).toEqual(response);
   expect(mockedSptribsClient.get).toHaveBeenCalledWith('/cases/CIC/downloadDocument/1234', {
     responseType: 'stream',
+    headers: undefined,
+  });
+
+  const resultWithPostcode = await caseApi.downloadDocument('1234', 'SW1A 1AA');
+
+  expect(resultWithPostcode).toEqual(response);
+  expect(mockedSptribsClient.get).toHaveBeenCalledWith('/cases/CIC/downloadDocument/1234', {
+    responseType: 'stream',
+    headers: {
+      'X-Postcode': 'SW1A 1AA',
+    },
   });
 });
 

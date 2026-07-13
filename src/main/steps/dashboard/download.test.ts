@@ -15,6 +15,9 @@ describe('DocumentDownloadController', () => {
         documentId: '12345678-1234-1234-1234-123456789012',
         filename: 'test-document.pdf',
       },
+      session: {
+        validatedPostcode: 'SW1A 1AA',
+      },
     });
 
     // Set up the API mock after creating the request
@@ -33,7 +36,7 @@ describe('DocumentDownloadController', () => {
 
     await controller.get(req, res);
 
-    expect(req.locals.api.downloadDocument).toHaveBeenCalledWith('12345678-1234-1234-1234-123456789012');
+    expect(req.locals.api.downloadDocument).toHaveBeenCalledWith('12345678-1234-1234-1234-123456789012', 'SW1A 1AA');
     expect(res.setHeader).toHaveBeenCalledWith('Content-Type', 'application/pdf');
     expect(res.setHeader).toHaveBeenCalledWith('Content-Disposition', 'attachment; filename="test-document.pdf"');
     expect(mockStream.pipe).toHaveBeenCalledWith(res);
@@ -61,6 +64,9 @@ describe('DocumentDownloadController', () => {
         documentId: '12345678-1234-1234-1234-123456789012',
         filename: 'test-document.pdf',
       },
+      session: {
+        validatedPostcode: 'SW1A 1AA',
+      },
     });
 
     // Set up the API mock to reject
@@ -84,6 +90,9 @@ describe('DocumentDownloadController', () => {
     const req = mockRequest({
       query: {
         documentId: '12345678-1234-1234-1234-123456789012',
+      },
+      session: {
+        validatedPostcode: 'SW1A 1AA',
       },
     });
 
@@ -117,6 +126,9 @@ describe('DocumentDownloadController', () => {
       query: {
         documentId: '12345678-1234-1234-1234-123456789012',
       },
+      session: {
+        validatedPostcode: 'SW1A 1AA',
+      },
     });
 
     // Set up the API mock after creating the request
@@ -145,6 +157,9 @@ describe('DocumentDownloadController', () => {
       query: {
         documentId: '12345678-1234-1234-1234-123456789012',
         filename: 'test-document.pdf',
+      },
+      session: {
+        validatedPostcode: 'SW1A 1AA',
       },
     });
 

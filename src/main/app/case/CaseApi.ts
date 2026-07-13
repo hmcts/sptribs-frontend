@@ -94,14 +94,16 @@ export class CaseApi {
     }
   }
 
-  public async downloadDocument(documentId: string): Promise<AxiosResponse> {
+  public async downloadDocument(documentId: string, postcode?: string): Promise<AxiosResponse> {
     if (!this.sptribsClient) {
       throw new Error('Sptribs backend client not configured');
     }
 
     try {
+      const headers = postcode ? { 'X-Postcode': postcode } : undefined;
       return await this.sptribsClient.get(`/cases/CIC/downloadDocument/${documentId}`, {
         responseType: 'stream',
+        headers,
       });
     } catch (err) {
       const error = err as AxiosError;

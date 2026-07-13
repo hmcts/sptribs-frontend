@@ -16,7 +16,7 @@ export default class DocumentDownloadController {
       }
 
       // Download document via sptribs-case-api
-      const documentResponse = await req.locals.api.downloadDocument(documentId);
+      const documentResponse = await req.locals.api.downloadDocument(documentId, req.session.validatedPostcode);
 
       // Set headers for file download
       const contentType = (documentResponse.headers['content-type'] as string) || 'application/octet-stream';
