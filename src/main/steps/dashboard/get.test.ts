@@ -1,7 +1,7 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { State } from '../../app/case/definition';
-import { CICA_LOOKUP } from '../urls';
+import { CICA_LOOKUP, CICA_POSTCODE_VERIFICATION } from '../urls';
 
 import DashboardGetController from './get';
 
@@ -38,6 +38,23 @@ describe('DashboardGetController', () => {
     expect(res.redirect).toHaveBeenCalledWith(CICA_LOOKUP);
   });
 
+  test('should redirect to CICA postcode verification if case has id but no postcode in session', async () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          id: '1624351572550046',
+          state: State.Submitted,
+        },
+        validatedPostcode: undefined,
+      },
+    });
+    const res = mockResponse();
+
+    await controller.get(req, res);
+
+    expect(res.redirect).toHaveBeenCalledWith(CICA_POSTCODE_VERIFICATION);
+  });
+
   test('should load empty dashboard with no docs returned', async () => {
     const req = mockRequest({
       session: {
@@ -45,6 +62,7 @@ describe('DashboardGetController', () => {
           id: '1624351572550046',
           state: State.DSS_Submitted,
         },
+        validatedPostcode: 'SW1A 1AA',
       },
     });
 
@@ -60,7 +78,7 @@ describe('DashboardGetController', () => {
 
     await controller.get(req, res);
 
-    expect(req.locals.api.getDocumentsByCaseId).toHaveBeenCalledWith('1624351572550046');
+    expect(req.locals.api.getDocumentsByCaseId).toHaveBeenCalledWith('1624351572550046', 'SW1A 1AA');
 
     expect(res.locals.contactPartiesDocuments).toEqual([]);
     expect(res.locals.orderAndDecisionDocuments).toEqual([]);
@@ -76,6 +94,7 @@ describe('DashboardGetController', () => {
           id: '123',
           state: State.Submitted,
         },
+        validatedPostcode: 'SW1A 1AA',
       },
     });
 
@@ -97,6 +116,7 @@ describe('DashboardGetController', () => {
           id: '123',
           state: State.Submitted,
         },
+        validatedPostcode: 'SW1A 1AA',
       },
     });
 
@@ -165,6 +185,7 @@ describe('DashboardGetController', () => {
           id: '123',
           state: State.Submitted,
         },
+        validatedPostcode: 'SW1A 1AA',
       },
     });
 
@@ -192,6 +213,7 @@ describe('DashboardGetController', () => {
           id: '123',
           state: State.Submitted,
         },
+        validatedPostcode: 'SW1A 1AA',
       },
     });
 
@@ -231,6 +253,7 @@ describe('DashboardGetController', () => {
           id: '123',
           state: State.Submitted,
         },
+        validatedPostcode: 'SW1A 1AA',
       },
     });
 
@@ -272,6 +295,7 @@ describe('DashboardGetController', () => {
           id: '123',
           state: State.Submitted,
         },
+        validatedPostcode: 'SW1A 1AA',
       },
     });
 
@@ -312,6 +336,7 @@ describe('DashboardGetController', () => {
           id: '123',
           state: State.Submitted,
         },
+        validatedPostcode: 'SW1A 1AA',
       },
     });
 

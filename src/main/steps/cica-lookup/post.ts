@@ -4,7 +4,7 @@ import { Response } from 'express';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../app/controller/PostController';
 import { Form, FormFields } from '../../app/form/Form';
-import { CICA_CONFIRM_NEW, CICA_LOOKUP, DASHBOARD_URL, NOT_AUTHORISED } from '../urls';
+import { CICA_CONFIRM_NEW, CICA_LOOKUP, CICA_POSTCODE_VERIFICATION, NOT_AUTHORISED } from '../urls';
 
 import { form } from './content';
 
@@ -25,6 +25,8 @@ export default class CCDLookupPostController extends PostController<AnyObject> {
 
     const ccdReference = req.body.ccdReference as string;
 
+    req.session.validatedPostcode = undefined;
+
     try {
       const foundCase = await req.locals.api.getCaseByCCDReference(ccdReference);
 
@@ -34,9 +36,9 @@ export default class CCDLookupPostController extends PostController<AnyObject> {
         return this.redirect(req, res, CICA_CONFIRM_NEW);
       }
 
-      // case found → always go to dashboard
+      // case found → redirect to postcode challenge page
       req.session.userCase = foundCase;
-      return this.redirect(req, res, DASHBOARD_URL);
+      return this.redirect(req, res, CICA_POSTCODE_VERIFICATION);
     } catch (error: any) {
       const status = error?.response?.status;
 

@@ -55,4 +55,11 @@ describe('from-api-format', () => {
       });
     });
   });
+
+  describe('handling null or empty case data gracefully', () => {
+    test('should return empty object when data is null', () => {
+      const result = fromApiFormat(null as unknown as CaseData);
+      expect(result).toStrictEqual({});
+    });
+  });
 });

@@ -134,11 +134,15 @@ test('should return documents by case ID', async () => {
 
   const caseApiInstance = new CaseApi(mockedCcdClient, logger, mockedSptribsClient);
 
-  const result = await caseApiInstance.getDocumentsByCaseId(caseId);
+  const result = await caseApiInstance.getDocumentsByCaseId(caseId, 'SW1A 1AA');
 
   expect(result).toEqual(documentsResponse);
 
-  expect(mockedSptribsClient.get).toHaveBeenCalledWith(`/cases/CIC/${caseId}/documents`);
+  expect(mockedSptribsClient.get).toHaveBeenCalledWith(`/cases/CIC/${caseId}/documents`, {
+    headers: {
+      'X-Postcode': 'SW1A 1AA',
+    },
+  });
 });
 
 test('Should throw error when documents could not be fetched by ID', async () => {
@@ -154,7 +158,7 @@ test('Should throw error when documents could not be fetched by ID', async () =>
   const caseApiInstance: CaseApi = new CaseApi(mockedCcdClient, logger, mockedSptribsClient);
   const expectedError = 'Documents could not be fetched.';
 
-  await expect(caseApiInstance.getDocumentsByCaseId(case_id)).rejects.toThrow(expectedError);
+  await expect(caseApiInstance.getDocumentsByCaseId(case_id, 'SW1A 1AA')).rejects.toThrow(expectedError);
 });
 
 test('should download document', async () => {
@@ -230,4 +234,46 @@ test('should throw error when event trigger could not be fetched', async () => {
   const caseApi = new CaseApi(mockedAxios, logger);
 
   await expect(caseApi.getEventTrigger('123', 'submit')).rejects.toThrow('Case event trigger could not be fetched.');
+});
+
+test('should validate postcode successfully', async () => {
+  const mockedCcdClient = axios as jest.Mocked<typeof axios>;
+  const mockedSptribsClient = axios as jest.Mocked<typeof axios>;
+
+  mockedSptribsClient.post.mockResolvedValueOnce({
+    data: {
+      id: '1624351572550045',
+      state: 'Submitted',
+      data: {
+        dssCaseDataSubjectFullName: 'John Doe',
+      },
+    },
+  });
+
+  const ccdReference = '1624351572550045';
+  const postcode = 'SW1A 1AA';
+  const caseApiInstance = new CaseApi(mockedCcdClient, logger, mockedSptribsClient);
+  const result = await caseApiInstance.validatePostcode(ccdReference, postcode);
+
+  expect(result).not.toBeNull();
+  expect(result.id).toBe('1624351572550045');
+  expect(result.state).toBe('Submitted');
+  expect(mockedSptribsClient.post).toHaveBeenCalledWith(`/cases/cica/${ccdReference}/validate-postcode`, { postcode });
+});
+
+test('should throw error when postcode validation fails', async () => {
+  const mockedCcdClient = axios as jest.Mocked<typeof axios>;
+  const mockedSptribsClient = axios as jest.Mocked<typeof axios>;
+
+  mockedSptribsClient.post.mockRejectedValueOnce({
+    response: { status: 403 },
+  });
+
+  const ccdReference = '1624351572550045';
+  const postcode = 'SW1A 1AA';
+  const caseApiInstance = new CaseApi(mockedCcdClient, logger, mockedSptribsClient);
+
+  await expect(caseApiInstance.validatePostcode(ccdReference, postcode)).rejects.toMatchObject({
+    response: { status: 403 },
+  });
 });

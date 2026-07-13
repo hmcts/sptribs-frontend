@@ -1,7 +1,7 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { Form } from '../../app/form/Form';
-import { CICA_CONFIRM_NEW, CICA_LOOKUP, DASHBOARD_URL, NOT_AUTHORISED } from '../urls';
+import { CICA_CONFIRM_NEW, CICA_LOOKUP, CICA_POSTCODE_VERIFICATION, NOT_AUTHORISED } from '../urls';
 
 import CicaLookupPostController from './post';
 
@@ -61,7 +61,7 @@ describe('CicaLookupPostController', () => {
       state: 'Submitted',
     });
 
-    expect(res.redirect).toHaveBeenCalledWith(DASHBOARD_URL);
+    expect(res.redirect).toHaveBeenCalledWith(CICA_POSTCODE_VERIFICATION);
   });
 
   test('should redirect to confirm new on 404', async () => {

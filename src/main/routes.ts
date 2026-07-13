@@ -12,6 +12,8 @@ import CicaConfirmNewGetController from './steps/cica-confirm-new/get';
 import CicaConfirmNewPostController from './steps/cica-confirm-new/post';
 import CCDLookupGetController from './steps/cica-lookup/get';
 import CCDLookupPostController from './steps/cica-lookup/post';
+import PostcodeVerificationGetController from './steps/cica-postcode-verification/get';
+import PostcodeVerificationPostController from './steps/cica-postcode-verification/post';
 import { ContactUsGetController } from './steps/contact-us/get';
 import DocumentDownloadController from './steps/dashboard/download';
 import DashboardGetController from './steps/dashboard/get';
@@ -25,6 +27,7 @@ import {
   ACCESSIBILITY_STATEMENT,
   CICA_CONFIRM_NEW,
   CICA_LOOKUP,
+  CICA_POSTCODE_VERIFICATION,
   CONTACT_US,
   CSRF_TOKEN_ERROR_URL,
   DASHBOARD_URL,
@@ -72,6 +75,8 @@ export class Routes {
     app.post(CICA_LOOKUP, errorHandler(new CCDLookupPostController().post));
     app.get(CICA_CONFIRM_NEW, errorHandler(new CicaConfirmNewGetController().get));
     app.post(CICA_CONFIRM_NEW, errorHandler(new CicaConfirmNewPostController().post));
+    app.get(CICA_POSTCODE_VERIFICATION, errorHandler(new PostcodeVerificationGetController().get));
+    app.post(CICA_POSTCODE_VERIFICATION, errorHandler(new PostcodeVerificationPostController().post));
     app.get(NOT_AUTHORISED, errorHandler(new CCDNotAuthorisedGetController().get));
 
     for (const step of stepsWithContent) {

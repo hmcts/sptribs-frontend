@@ -73,19 +73,38 @@ export class CaseApi {
     }
   }
 
+  public async validatePostcode(ccdReference: string, postcode: string): Promise<CaseWithId> {
+    if (!this.sptribsClient) {
+      throw new Error('Sptribs backend client not configured');
+    }
+
+    try {
+      const response = await this.sptribsClient.post<SptribsCaseResponse>(
+        `/cases/cica/${encodeURIComponent(ccdReference)}/validate-postcode`,
+        { postcode }
+      );
+      return {
+        id: response.data.id,
+        state: response.data.state,
+        ...fromApiFormat(response.data.data),
+      };
+    } catch (err) {
+      this.logError(err);
+      throw err;
+    }
+  }
+
   public async downloadDocument(documentId: string): Promise<AxiosResponse> {
     if (!this.sptribsClient) {
       throw new Error('Sptribs backend client not configured');
     }
 
     try {
-      const response = await this.sptribsClient.get(`/cases/CIC/downloadDocument/${documentId}`, {
+      return await this.sptribsClient.get(`/cases/CIC/downloadDocument/${documentId}`, {
         responseType: 'stream',
       });
-      return response;
     } catch (err) {
       const error = err as AxiosError;
-      // Extract only primitive values to avoid circular reference issues when logging
       const status = error.response?.status || 'unknown';
       const message = error.message || 'Unknown error';
       this.logger.error(`Document download failed for documentId=${documentId}: status=${status}, message=${message}`);
@@ -93,13 +112,17 @@ export class CaseApi {
     }
   }
 
-  public async getDocumentsByCaseId(ccdReference: string): Promise<DocumentResponse> {
+  public async getDocumentsByCaseId(ccdReference: string, postcode: string): Promise<DocumentResponse> {
     if (!this.sptribsClient) {
       throw new Error('Sptribs backend client not configured');
     }
 
     try {
-      const response = await this.sptribsClient.get<DocumentResponse>(`/cases/CIC/${ccdReference}/documents`);
+      const response = await this.sptribsClient.get<DocumentResponse>(`/cases/CIC/${ccdReference}/documents`, {
+        headers: {
+          'X-Postcode': postcode,
+        },
+      });
 
       return response.data;
     } catch (err) {
