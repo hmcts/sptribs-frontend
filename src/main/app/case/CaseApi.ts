@@ -94,14 +94,14 @@ export class CaseApi {
     }
   }
 
-  public async downloadDocument(documentId: string, postcode?: string): Promise<AxiosResponse> {
+  public async downloadDocument(ccdReference: string, documentId: string, postcode?: string): Promise<AxiosResponse> {
     if (!this.sptribsClient) {
       throw new Error('Sptribs backend client not configured');
     }
 
     try {
       const headers = postcode ? { 'X-Postcode': postcode } : undefined;
-      return await this.sptribsClient.get(`/cases/CIC/downloadDocument/${documentId}`, {
+      return await this.sptribsClient.get(`/cases/CIC/${ccdReference}/documents/${documentId}/download`, {
         responseType: 'stream',
         headers,
       });
@@ -109,7 +109,9 @@ export class CaseApi {
       const error = err as AxiosError;
       const status = error.response?.status || 'unknown';
       const message = error.message || 'Unknown error';
-      this.logger.error(`Document download failed for documentId=${documentId}: status=${status}, message=${message}`);
+      this.logger.error(
+        `Document download failed for documentId=${documentId} (Case ${ccdReference}): status=${status}, message=${message}`
+      );
       throw new Error('Document could not be downloaded.');
     }
   }

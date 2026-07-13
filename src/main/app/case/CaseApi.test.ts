@@ -176,18 +176,18 @@ test('should download document with and without postcode', async () => {
 
   const caseApi = new CaseApi(mockedCcdClient, logger, mockedSptribsClient);
 
-  const resultWithoutPostcode = await caseApi.downloadDocument('1234');
+  const resultWithoutPostcode = await caseApi.downloadDocument('1740138704453399', '1234');
 
   expect(resultWithoutPostcode).toEqual(response);
-  expect(mockedSptribsClient.get).toHaveBeenCalledWith('/cases/CIC/downloadDocument/1234', {
+  expect(mockedSptribsClient.get).toHaveBeenCalledWith('/cases/CIC/1740138704453399/documents/1234/download', {
     responseType: 'stream',
     headers: undefined,
   });
 
-  const resultWithPostcode = await caseApi.downloadDocument('1234', 'SW1A 1AA');
+  const resultWithPostcode = await caseApi.downloadDocument('1740138704453399', '1234', 'SW1A 1AA');
 
   expect(resultWithPostcode).toEqual(response);
-  expect(mockedSptribsClient.get).toHaveBeenCalledWith('/cases/CIC/downloadDocument/1234', {
+  expect(mockedSptribsClient.get).toHaveBeenCalledWith('/cases/CIC/1740138704453399/documents/1234/download', {
     responseType: 'stream',
     headers: {
       'X-Postcode': 'SW1A 1AA',
@@ -208,7 +208,9 @@ test('should throw error when document download fails', async () => {
 
   const caseApi = new CaseApi(mockedCcdClient, logger, mockedSptribsClient);
 
-  await expect(caseApi.downloadDocument('1234')).rejects.toThrow('Document could not be downloaded.');
+  await expect(caseApi.downloadDocument('1740138704453399', '1234')).rejects.toThrow(
+    'Document could not be downloaded.'
+  );
 });
 
 test('should return event trigger', async () => {
