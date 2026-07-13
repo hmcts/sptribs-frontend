@@ -12,7 +12,7 @@
       <div class="govuk-grid-column-full">
         {% if caseNumber %}
           {{ govukPanel({
-              titleText: caseNumberLabel,
+              titleText: userFullName,
               html: "<strong>" + caseNumber + "</strong>"
               }) }}
         {% endif %}
@@ -135,7 +135,7 @@
 
           {% if latestCaseBundleDocuments.length > 0 %}
 
-            <h3 class="govuk-heading-m govuk-!-margin-top-6">Latest case bundle documents</h3>
+            <h3 class="govuk-heading-m govuk-!-margin-top-6">Latest appeal bundle documents</h3>
 
             {% set document = latestCaseBundleDocuments[0] %}
 

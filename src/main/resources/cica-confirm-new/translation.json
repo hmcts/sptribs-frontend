@@ -3,9 +3,9 @@
     "en": {
       "continue": "Continue",
       "serviceName": "Appeal to the First-tier Tribunal",
-      "title": "Your HMCTS reference number doesn't match an existing case",
+      "title": "Your HMCTS reference number doesn't match an existing appeal",
       "line1Part1": "The reference number you entered (",
-      "line1Part2": ") does not match any case in our records.",
+      "line1Part2": ") does not match any appeal in our records.",
       "label": "Do you want to start a new appeal?",
       "one": "Yes, start a new appeal",
       "two": "No, let me re-enter my HMCTS reference number"

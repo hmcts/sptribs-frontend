@@ -1,14 +1,15 @@
 {
   "translations": {
     "en": {
-      "title": "You are not authorised to view this case",
-      "heading": "You are not authorised to view this case",
+      "title": "You are not authorised to view this appeal",
+      "heading": "You are not authorised to view this appeal",
       "line1": "The reference number you entered exists, but you do not have permission to access it.",
       "line2": "This might be because:",
-      "bullet1": "the case belongs to someone else",
+      "bullet1": "the appeal belongs to someone else",
       "bullet2": "you are using a different account",
-      "line3": "You can try another reference number or contact support if you think this is a mistake.",
-      "tryAgain": "Try another reference number"
+      "line3": "If you think this is a mistake, you can:",
+      "tryAgain": "Try another reference number",
+      "contactSupport": "Contact support"
     },
     "cy": {
       "title": "Nid ydych wedi'ch awdurdodi i weld yr achos hwn",

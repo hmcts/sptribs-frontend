@@ -60,7 +60,9 @@ export default class DashboardGetController extends GetController {
         contactPartiesDocuments.length > 0 ||
         orderAndDecisionDocuments.length > 0;
 
-      res.locals.caseNumber = sessionCase.id?.toString();
+      res.locals.caseNumber = sessionCase.id?.toString().replace('-', '');
+
+      res.locals.userFullName = req.session.userCase.subjectFullName;
 
       return super.get(req, res);
     } catch (error) {
