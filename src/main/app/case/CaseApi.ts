@@ -131,7 +131,7 @@ export class CaseApi {
       return response.data;
     } catch (err) {
       this.logError(err);
-      throw new Error('Documents could not be fetched.');
+      throw err;
     }
   }
 

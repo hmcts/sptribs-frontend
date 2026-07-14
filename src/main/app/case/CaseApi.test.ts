@@ -149,16 +149,17 @@ test('Should throw error when documents could not be fetched by ID', async () =>
   const mockedCcdClient = axios as jest.Mocked<typeof axios>;
   const mockedSptribsClient = axios as jest.Mocked<typeof axios>;
 
-  mockedSptribsClient.get.mockRejectedValue({
+  const mockError = {
     config: { method: 'GET', url: 'https://example.com/cases/CIC/123/documents' },
     request: 'mock request',
-  });
+  };
+
+  mockedSptribsClient.get.mockRejectedValue(mockError);
 
   const case_id = '123';
   const caseApiInstance: CaseApi = new CaseApi(mockedCcdClient, logger, mockedSptribsClient);
-  const expectedError = 'Documents could not be fetched.';
 
-  await expect(caseApiInstance.getDocumentsByCaseId(case_id, 'SW1A 1AA')).rejects.toThrow(expectedError);
+  await expect(caseApiInstance.getDocumentsByCaseId(case_id, 'SW1A 1AA')).rejects.toEqual(mockError);
 });
 
 test('should download document with and without postcode', async () => {

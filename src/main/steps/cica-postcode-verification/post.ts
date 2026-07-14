@@ -4,7 +4,7 @@ import { Response } from 'express';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../app/controller/PostController';
 import { Form, FormFields } from '../../app/form/Form';
-import { CICA_LOOKUP, CICA_POSTCODE_VERIFICATION, DASHBOARD_URL, NOT_AUTHORISED } from '../urls';
+import { CICA_LOOKUP, CICA_POSTCODE_VERIFICATION, DASHBOARD_URL } from '../urls';
 
 import { form } from './content';
 
@@ -30,21 +30,8 @@ export default class PostcodeVerificationPostController extends PostController<A
       return this.redirect(req, res, CICA_LOOKUP);
     }
 
-    try {
-      req.session.userCase = await req.locals.api.validatePostcode(ccdReference, postcode);
-      req.session.validatedPostcode = postcode;
+    req.session.validatedPostcode = postcode;
 
-      return this.redirect(req, res, DASHBOARD_URL);
-    } catch (error: any) {
-      const status = error?.response?.status;
-
-      req.locals.logger.error('Error validating postcode for case reference:', {
-        ccdReference,
-        status,
-        message: error?.message,
-      });
-
-      return this.redirect(req, res, NOT_AUTHORISED);
-    }
+    return this.redirect(req, res, DASHBOARD_URL);
   }
 }
