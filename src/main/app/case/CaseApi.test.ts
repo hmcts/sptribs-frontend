@@ -2,7 +2,6 @@ import axios from 'axios';
 import { LoggerInstance } from 'winston';
 
 import { CaseApi } from './CaseApi';
-import { fromApiFormat } from './from-api-format';
 
 const { Logger } = require('@hmcts/nodejs-logging');
 const logger: LoggerInstance = Logger.getLogger('app');
@@ -56,64 +55,43 @@ test('Should throw error when case roles could not be fetched', async () => {
   await expect(caseApiInstance.getCaseUserRoles(case_id, user_id)).rejects.toThrow(expectedError);
 });
 
-test('Should return case by CCD reference', async () => {
+test('should check case access successfully', async () => {
   const mockedAxios = axios as jest.Mocked<typeof axios>;
   const mockedSptribsAxios = axios as jest.Mocked<typeof axios>;
-  const mockedFromApiFormat = fromApiFormat as jest.MockedFunction<typeof fromApiFormat>;
 
-  mockedFromApiFormat.mockReturnValueOnce({
-    tribunalFormDocuments: [],
-    supportingDocuments: [],
-    otherInfoDocuments: [],
-  } as any);
-
-  mockedSptribsAxios.get.mockResolvedValueOnce({
-    data: {
-      id: '1624351572550045',
-      state: 'Submitted',
-      data: {
-        dssCaseDataTribunalFormDocuments: [],
-        dssCaseDataSupportingDocuments: [],
-        dssCaseDataOtherInfoDocuments: [],
-      },
-    },
-  });
+  mockedSptribsAxios.get.mockResolvedValueOnce({ status: 200 });
 
   const ccdReference = '1624351572550045';
   const caseApiInstance: CaseApi = new CaseApi(mockedAxios, logger, mockedSptribsAxios);
-  const result = await caseApiInstance.getCaseByCCDReference(ccdReference);
+  await expect(caseApiInstance.checkCaseAccess(ccdReference)).resolves.not.toThrow();
 
-  expect(result).not.toBeNull();
-  expect(result!.id).toBe('1624351572550045');
-  expect(result!.state).toBe('Submitted');
-  expect(mockedSptribsAxios.get).toHaveBeenCalledWith(`/cases/cica/${ccdReference}`);
+  expect(mockedSptribsAxios.get).toHaveBeenCalledWith(`/cases/cica/${ccdReference}/access`);
 });
 
-test('Should throw error when case lookup by CCD reference fails', async () => {
+test('should throw error when case access check fails', async () => {
   const mockedAxios = axios as jest.Mocked<typeof axios>;
   const mockedSptribsAxios = axios as jest.Mocked<typeof axios>;
 
   mockedSptribsAxios.get.mockRejectedValueOnce({
-    response: { status: 500 },
-    config: { method: 'GET', url: 'https://example.com/cases/cica/9999955555555555' },
+    response: { status: 403 },
   });
 
-  const ccdReference = '9999955555555555';
+  const ccdReference = '1624351572550045';
   const caseApiInstance: CaseApi = new CaseApi(mockedAxios, logger, mockedSptribsAxios);
 
-  await expect(caseApiInstance.getCaseByCCDReference(ccdReference)).rejects.toMatchObject({
-    response: { status: 500 },
+  await expect(caseApiInstance.checkCaseAccess(ccdReference)).rejects.toMatchObject({
+    response: { status: 403 },
   });
 });
 
-test('Should throw error when sptribs client not configured', async () => {
+test('should throw error when sptribs client not configured for case access check', async () => {
   const mockedAxios = axios as jest.Mocked<typeof axios>;
 
-  const ccdReference = '9999955555555555';
+  const ccdReference = '1624351572550045';
   const caseApiInstance: CaseApi = new CaseApi(mockedAxios, logger);
   const expectedError = 'Sptribs backend client not configured';
 
-  await expect(caseApiInstance.getCaseByCCDReference(ccdReference)).rejects.toThrow(expectedError);
+  await expect(caseApiInstance.checkCaseAccess(ccdReference)).rejects.toThrow(expectedError);
 });
 
 test('should return documents by case ID', async () => {
@@ -248,46 +226,4 @@ test('should throw error when event trigger could not be fetched', async () => {
   const caseApi = new CaseApi(mockedAxios, logger);
 
   await expect(caseApi.getEventTrigger('123', 'submit')).rejects.toThrow('Case event trigger could not be fetched.');
-});
-
-test('should validate postcode successfully', async () => {
-  const mockedCcdClient = axios as jest.Mocked<typeof axios>;
-  const mockedSptribsClient = axios as jest.Mocked<typeof axios>;
-
-  mockedSptribsClient.post.mockResolvedValueOnce({
-    data: {
-      id: '1624351572550045',
-      state: 'Submitted',
-      data: {
-        dssCaseDataSubjectFullName: 'John Doe',
-      },
-    },
-  });
-
-  const ccdReference = '1624351572550045';
-  const postcode = 'SW1A 1AA';
-  const caseApiInstance = new CaseApi(mockedCcdClient, logger, mockedSptribsClient);
-  const result = await caseApiInstance.validatePostcode(ccdReference, postcode);
-
-  expect(result).not.toBeNull();
-  expect(result.id).toBe('1624351572550045');
-  expect(result.state).toBe('Submitted');
-  expect(mockedSptribsClient.post).toHaveBeenCalledWith(`/cases/cica/${ccdReference}/validate-postcode`, { postcode });
-});
-
-test('should throw error when postcode validation fails', async () => {
-  const mockedCcdClient = axios as jest.Mocked<typeof axios>;
-  const mockedSptribsClient = axios as jest.Mocked<typeof axios>;
-
-  mockedSptribsClient.post.mockRejectedValueOnce({
-    response: { status: 403 },
-  });
-
-  const ccdReference = '1624351572550045';
-  const postcode = 'SW1A 1AA';
-  const caseApiInstance = new CaseApi(mockedCcdClient, logger, mockedSptribsClient);
-
-  await expect(caseApiInstance.validatePostcode(ccdReference, postcode)).rejects.toMatchObject({
-    response: { status: 403 },
-  });
 });

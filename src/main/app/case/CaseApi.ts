@@ -53,41 +53,13 @@ export class CaseApi {
     }
   }
 
-  public async getCaseByCCDReference(ccdReference: string): Promise<CaseWithId | null> {
+  public async checkCaseAccess(ccdReference: string): Promise<void> {
     if (!this.sptribsClient) {
       throw new Error('Sptribs backend client not configured');
     }
 
     try {
-      const response = await this.sptribsClient.get<SptribsCaseResponse>(
-        `/cases/cica/${encodeURIComponent(ccdReference)}`
-      );
-      return {
-        id: response.data.id,
-        state: response.data.state,
-        ...fromApiFormat(response.data.data),
-      };
-    } catch (err) {
-      this.logError(err);
-      throw err; // keep original context
-    }
-  }
-
-  public async validatePostcode(ccdReference: string, postcode: string): Promise<CaseWithId> {
-    if (!this.sptribsClient) {
-      throw new Error('Sptribs backend client not configured');
-    }
-
-    try {
-      const response = await this.sptribsClient.post<SptribsCaseResponse>(
-        `/cases/cica/${encodeURIComponent(ccdReference)}/validate-postcode`,
-        { postcode }
-      );
-      return {
-        id: response.data.id,
-        state: response.data.state,
-        ...fromApiFormat(response.data.data),
-      };
+      await this.sptribsClient.get(`/cases/cica/${encodeURIComponent(ccdReference)}/access`);
     } catch (err) {
       this.logError(err);
       throw err;
@@ -228,12 +200,6 @@ interface CcdEventTriggerResponse extends CcdTokenResponse {
     state: string;
     data: CaseData;
   };
-}
-
-interface SptribsCaseResponse {
-  id: string;
-  state: string;
-  data: CaseData;
 }
 
 interface DocumentResponse {
