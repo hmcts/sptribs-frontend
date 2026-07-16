@@ -1,7 +1,7 @@
 import config from 'config';
 import { Application, NextFunction, Response } from 'express';
 
-import { getRedirectUrl, getUserDetails } from '../../app/auth/user/oidc';
+import { getEndSessionUrl, getRedirectUrl, getUserDetails } from '../../app/auth/user/oidc';
 import { getCaseApi } from '../../app/case/CaseApi';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { CaseDocumentManagementClient } from '../../app/document/CaseDocumentManagementClient';
@@ -21,7 +21,12 @@ export class OidcMiddleware {
       res.redirect(getRedirectUrl(`${protocol}${res.locals.host}${port}`, CALLBACK_URL))
     );
 
-    app.get(SIGN_OUT_URL, (req, res) => req.session.destroy(() => res.redirect('/')));
+    app.get(SIGN_OUT_URL, (req, res) => {
+      const serviceUrl = `${protocol}${res.locals.host}${port}`;
+      const endSessionUrl = getEndSessionUrl(serviceUrl);
+
+      req.session.destroy(() => res.redirect(endSessionUrl));
+    });
 
     app.get(
       CALLBACK_URL,

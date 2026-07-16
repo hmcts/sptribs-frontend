@@ -11,6 +11,7 @@ services:
   idam:
     authorizationURL: 'https://idam-web-public.aat.platform.hmcts.net/o/authorize'
     tokenURL: 'https://idam-web-public.aat.platform.hmcts.net/o/token'
+    endSessionURL: 'https://idam-web-public.aat.platform.hmcts.net/o/endSession'
     hmctsToken: 'https://hmcts-access.aat.platform.hmcts.net'
     clientID: 'sptribs-frontend'
     clientSecret: 'NEED TO INSERT SECRET'
