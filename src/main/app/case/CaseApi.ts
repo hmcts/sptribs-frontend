@@ -66,13 +66,17 @@ export class CaseApi {
     }
   }
 
-  public async downloadDocument(ccdReference: string, documentId: string, postcode?: string): Promise<AxiosResponse> {
+  public async downloadDocument(ccdReference: string, documentId: string, postcode: string): Promise<AxiosResponse> {
     if (!this.sptribsClient) {
       throw new Error('Sptribs backend client not configured');
     }
 
+    if (!postcode) {
+      throw new Error('Postcode is required to download documents');
+    }
+
     try {
-      const headers = postcode ? { 'X-Postcode': postcode } : undefined;
+      const headers = { 'X-Postcode': postcode };
       return await this.sptribsClient.get(`/cases/CIC/${ccdReference}/documents/${documentId}/download`, {
         responseType: 'stream',
         headers,
