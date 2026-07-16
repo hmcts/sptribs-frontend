@@ -2,7 +2,7 @@ import axios, { AxiosStatic } from 'axios';
 
 import { CALLBACK_URL } from '../../../steps/urls';
 
-import { getRedirectUrl, getSystemUser, getUserDetails } from './oidc';
+import { getEndSessionUrl, getRedirectUrl, getSystemUser, getUserDetails } from './oidc';
 
 jest.mock('axios');
 
@@ -15,6 +15,14 @@ describe('getRedirectUrl', () => {
   test('should create a valid URL to redirect to the new login screen', () => {
     expect(getRedirectUrl('http://localhost', CALLBACK_URL)).toBe(
       'https://idam-web-public.aat.platform.hmcts.net/o/authorize?client_id=sptribs-frontend&response_type=code&redirect_uri=http://localhost/receiver&scope=openid%20profile%20roles'
+    );
+  });
+});
+
+describe('getEndSessionUrl', () => {
+  test('should create a valid URL to redirect to the IDAM endSession endpoint', () => {
+    expect(getEndSessionUrl('http://localhost')).toBe(
+      'https://idam-web-public.aat.platform.hmcts.net/o/endSession?post_logout_redirect_uri=http://localhost/login'
     );
   });
 });

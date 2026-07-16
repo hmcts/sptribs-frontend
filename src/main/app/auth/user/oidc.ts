@@ -15,7 +15,7 @@ export const getRedirectUrl = (serviceUrl: string, callbackUrlPageLink: PageLink
 
 export const getEndSessionUrl = (serviceUrl: string): string => {
   const endSessionUrl: string = config.get('services.idam.endSessionURL');
-  const postLogoutRedirectUri = encodeURIComponent(serviceUrl);
+  const postLogoutRedirectUri = new URL(serviceUrl).origin + '/login';
 
   return `${endSessionUrl}?post_logout_redirect_uri=${postLogoutRedirectUri}`;
 };
