@@ -10,6 +10,7 @@ export default class DocumentDownloadController {
       const documentId = req.query.documentId as string;
       const filename = req.query.filename as string;
       const ccdReference = req.session.userCase?.id;
+      const postcode = req.session.validatedPostcode;
 
       if (!ccdReference) {
         res.status(400).send('Case reference is required');
@@ -21,12 +22,13 @@ export default class DocumentDownloadController {
         return;
       }
 
+      if (!postcode) {
+        res.status(401).send('Unauthorized');
+        return;
+      }
+
       // Download document via sptribs-case-api
-      const documentResponse = await req.locals.api.downloadDocument(
-        ccdReference,
-        documentId,
-        req.session.validatedPostcode
-      );
+      const documentResponse = await req.locals.api.downloadDocument(ccdReference, documentId, postcode);
 
       // Set headers for file download
       const contentType = (documentResponse.headers['content-type'] as string) || 'application/octet-stream';

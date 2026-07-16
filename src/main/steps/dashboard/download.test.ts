@@ -82,6 +82,26 @@ describe('DocumentDownloadController', () => {
     expect(res.send).toHaveBeenCalledWith('Case reference is required');
   });
 
+  test('should return 401 if validatedPostcode is missing', async () => {
+    const req = mockRequest({
+      query: {
+        documentId: '12345678-1234-1234-1234-123456789012',
+        filename: 'test-document.pdf',
+      },
+      session: {
+        validatedPostcode: undefined,
+      },
+    });
+    const res = mockResponse();
+    res.status = jest.fn().mockReturnValue(res);
+    res.send = jest.fn();
+
+    await controller.get(req, res);
+
+    expect(res.status).toHaveBeenCalledWith(401);
+    expect(res.send).toHaveBeenCalledWith('Unauthorized');
+  });
+
   test('should handle download errors', async () => {
     const req = mockRequest({
       query: {
