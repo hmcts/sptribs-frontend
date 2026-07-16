@@ -143,8 +143,6 @@ describe('CaseApi', () => {
     expect(result).toEqual(documentsResponse);
     expect(mockedSptribsClient.get).toHaveBeenCalledWith(`/cases/CIC/${caseId}/documents`, {
       headers: {
-        Authorization: 'Bearer user-access-token',
-        ServiceAuthorization: 'mock-service-token',
         'X-Postcode': 'SW1A 1AA',
       },
     });
@@ -195,8 +193,6 @@ describe('CaseApi', () => {
     expect(mockedSptribsClient.get).toHaveBeenCalledWith('/cases/CIC/1740138704453399/documents/1234/download', {
       responseType: 'stream',
       headers: {
-        Authorization: 'Bearer user-access-token',
-        ServiceAuthorization: 'mock-service-token',
         'X-Postcode': 'SW1A 1AA',
       },
     });
