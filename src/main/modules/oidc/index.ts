@@ -25,7 +25,13 @@ export class OidcMiddleware {
       const serviceUrl = `${protocol}${res.locals.host}${port}`;
       const endSessionUrl = getEndSessionUrl(serviceUrl);
 
-      req.session.destroy(() => res.redirect(endSessionUrl));
+      req.session.destroy(err => {
+        if (err) {
+          throw err;
+        }
+
+        res.redirect(endSessionUrl);
+      });
     });
 
     app.get(
