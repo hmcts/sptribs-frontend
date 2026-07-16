@@ -76,14 +76,11 @@ export class CaseApi {
     }
 
     try {
-      const headers = {
-        Authorization: this.sptribsClient.defaults.headers.Authorization,
-        ServiceAuthorization: this.sptribsClient.defaults.headers.ServiceAuthorization,
-        'X-Postcode': postcode,
-      };
       return await this.sptribsClient.get(`/cases/CIC/${ccdReference}/documents/${documentId}/download`, {
         responseType: 'stream',
-        headers,
+        headers: {
+          'X-Postcode': postcode,
+        },
       });
     } catch (err) {
       const error = err as AxiosError;
@@ -104,8 +101,6 @@ export class CaseApi {
     try {
       const response = await this.sptribsClient.get<DocumentResponse>(`/cases/CIC/${ccdReference}/documents`, {
         headers: {
-          Authorization: this.sptribsClient.defaults.headers.Authorization,
-          ServiceAuthorization: this.sptribsClient.defaults.headers.ServiceAuthorization,
           'X-Postcode': postcode,
         },
       });
