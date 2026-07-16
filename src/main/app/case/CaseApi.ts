@@ -76,7 +76,11 @@ export class CaseApi {
     }
 
     try {
-      const headers = { 'X-Postcode': postcode };
+      const headers = {
+        Authorization: this.sptribsClient.defaults.headers.Authorization,
+        ServiceAuthorization: this.sptribsClient.defaults.headers.ServiceAuthorization,
+        'X-Postcode': postcode,
+      };
       return await this.sptribsClient.get(`/cases/CIC/${ccdReference}/documents/${documentId}/download`, {
         responseType: 'stream',
         headers,
@@ -100,6 +104,8 @@ export class CaseApi {
     try {
       const response = await this.sptribsClient.get<DocumentResponse>(`/cases/CIC/${ccdReference}/documents`, {
         headers: {
+          Authorization: this.sptribsClient.defaults.headers.Authorization,
+          ServiceAuthorization: this.sptribsClient.defaults.headers.ServiceAuthorization,
           'X-Postcode': postcode,
         },
       });
