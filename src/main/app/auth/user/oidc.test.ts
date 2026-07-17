@@ -22,7 +22,7 @@ describe('getRedirectUrl', () => {
 describe('getEndSessionUrl', () => {
   test('should create a valid URL to redirect to the IDAM endSession endpoint', () => {
     expect(getEndSessionUrl('http://localhost')).toBe(
-      'https://idam-web-public.aat.platform.hmcts.net/o/endSession?post_logout_redirect_uri=http://localhost/login'
+      'https://idam-web-public.aat.platform.hmcts.net/o/endSession?post_logout_redirect_uri=http://localhost'
     );
   });
 });
