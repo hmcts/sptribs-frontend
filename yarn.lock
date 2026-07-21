@@ -13616,6 +13616,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"sass-mq@npm:^7.0.0":
+  version: 7.0.1
+  resolution: "sass-mq@npm:7.0.1"
+  checksum: 10c0/144597b3b801b2317c779a253c32e560b813cdaddd063385f1cd10cd3fce3a020371356c143ddf1cf13fa0fc441e0c18e6cd30f4168945cfd18373fe5eebae06
+  languageName: node
+  linkType: hard
+
 "sass@npm:^1.88.0":
   version: 1.100.0
   resolution: "sass@npm:1.100.0"
@@ -14239,6 +14246,7 @@ __metadata:
     require-directory: "npm:^2.1.1"
     sass: "npm:^1.88.0"
     sass-loader: "npm:^16.0.0"
+    sass-mq: "npm:^7.0.0"
     semver: "npm:^7.5.2"
     serve-favicon: "npm:^2.5.0"
     session-file-store: "npm:^1.5.0"
