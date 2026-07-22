@@ -9,6 +9,8 @@
       "status": "Status",
       "action": "Action",
       "latestTag": "Latest",
+      "newTag": "New",
+      "downloadedTag": "Downloaded",
       "download": "Download",
       "noDocuments": "No documents available",
       "noDocumentsMessage": "There are no documents available for this case."
@@ -23,15 +25,11 @@
       "status": "Statws",
       "action": "Gweithred",
       "latestTag": "Diweddaraf",
+      "newTag": "Newydd",
+      "downloadedTag": "Wedi'i lawrlwytho",
       "download": "Lawrlwytho",
       "noDocuments": "Nid oes dogfennau ar gael",
       "noDocumentsMessage": "Nid oes dogfennau ar gael ar gyfer yr achos hwn."
     }
   }
 }
-
-
-
-
-
-

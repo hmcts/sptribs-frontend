@@ -27,6 +27,21 @@
 
             {% for document in contactPartiesDocuments %}
 
+              {% set documentNameHtml %}
+                {% if document.downloaded %}
+                  {{ govukTag({
+                    text: downloadedTag,
+                    classes: "govuk-tag--grey govuk-!-margin-right-2"
+                  }) }}
+                {% else %}
+                  {{ govukTag({
+                    text: newTag,
+                    classes: "govuk-tag--green govuk-!-margin-right-2"
+                  }) }}
+                {% endif %}
+                {{ document.name }}
+              {% endset %}
+
               {% set statusTag %}
                 {% if document.isLatest %}
                   {{ govukTag({
@@ -44,7 +59,7 @@
 
               {% set tableRows = (tableRows.push([
                 {
-                  text: document.name
+                  html: documentNameHtml
                 }, {
                   text: document.date
                 }, {
@@ -84,6 +99,21 @@
 
             {% for document in orderAndDecisionDocuments %}
 
+              {% set documentNameHtml %}
+                {% if document.downloaded %}
+                  {{ govukTag({
+                    text: downloadedTag,
+                    classes: "govuk-tag--grey govuk-!-margin-right-2"
+                  }) }}
+                {% else %}
+                  {{ govukTag({
+                    text: newTag,
+                    classes: "govuk-tag--green govuk-!-margin-right-2"
+                  }) }}
+                {% endif %}
+                {{ document.name }}
+              {% endset %}
+
               {% set statusTag %}
                 {% if document.isLatest %}
                   {{ govukTag({
@@ -101,7 +131,7 @@
 
               {% set tableRows = (tableRows.push([
                 {
-                  text: document.name
+                  html: documentNameHtml
                 }, {
                   text: document.date
                 }, {
@@ -139,6 +169,21 @@
 
             {% set document = latestCaseBundleDocuments[0] %}
 
+            {% set documentNameHtml %}
+              {% if document.downloaded %}
+                {{ govukTag({
+                  text: downloadedTag,
+                  classes: "govuk-tag--grey govuk-!-margin-right-2"
+                }) }}
+              {% else %}
+                {{ govukTag({
+                  text: newTag,
+                  classes: "govuk-tag--green govuk-!-margin-right-2"
+                }) }}
+              {% endif %}
+              {{ document.name }}
+            {% endset %}
+
             {% set statusTag %}
               {% if document.isLatest %}
                 {{ govukTag({
@@ -157,7 +202,7 @@
             {% set tableRows = [
               [
                 {
-                  text: document.name
+                  html: documentNameHtml
                 }, {
                   text: document.date
                 }, {

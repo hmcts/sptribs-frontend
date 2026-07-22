@@ -176,35 +176,44 @@ describe('DashboardGetController', () => {
     req.locals.api.getDocumentsByCaseId = jest.fn().mockResolvedValue({
       contactPartiesDocuments: [
         {
-          documentLink: {
-            document_url: 'http://dm-store/documents/11111111-1111-1111-1111-111111111111',
-            document_filename: 'document-one.pdf',
-            document_binary_url: 'http://dm-store/documents/11111111-1111-1111-1111-111111111111/binary',
+          document: {
+            documentLink: {
+              document_url: 'http://dm-store/documents/11111111-1111-1111-1111-111111111111',
+              document_filename: 'document-one.pdf',
+              document_binary_url: 'http://dm-store/documents/11111111-1111-1111-1111-111111111111/binary',
+            },
+            documentCategory: 'ApplicationForm',
+            date: '2024-03-10',
           },
-          documentCategory: 'ApplicationForm',
-          date: '2024-03-10',
+          downloaded: false,
         },
       ],
       orderAndDecisionDocuments: [
         {
-          documentLink: {
-            document_url: 'http://dm-store/documents/22222222-2222-2222-2222-222222222222',
-            document_filename: 'document-two.pdf',
-            document_binary_url: 'http://dm-store/documents/22222222-2222-2222-2222-222222222222/binary',
+          document: {
+            documentLink: {
+              document_url: 'http://dm-store/documents/22222222-2222-2222-2222-222222222222',
+              document_filename: 'document-two.pdf',
+              document_binary_url: 'http://dm-store/documents/22222222-2222-2222-2222-222222222222/binary',
+            },
+            documentCategory: 'Evidence',
+            date: '2024-03-12',
           },
-          documentCategory: 'Evidence',
-          date: '2024-03-12',
+          downloaded: true,
         },
       ],
       latestCaseBundleDocuments: [
         {
-          documentLink: {
-            document_url: 'http://dm-store/documents/33333333-3333-3333-3333-333333333333',
-            document_filename: 'document-three.pdf',
-            document_binary_url: 'http://dm-store/documents/33333333-3333-3333-3333-333333333333/binary',
+          document: {
+            documentLink: {
+              document_url: 'http://dm-store/documents/33333333-3333-3333-3333-333333333333',
+              document_filename: 'document-three.pdf',
+              document_binary_url: 'http://dm-store/documents/33333333-3333-3333-3333-333333333333/binary',
+            },
+            documentCategory: 'Decision',
+            date: null,
           },
-          documentCategory: 'Decision',
-          date: null,
+          downloaded: false,
         },
       ],
     });
@@ -221,12 +230,15 @@ describe('DashboardGetController', () => {
 
     expect(res.locals.contactPartiesDocuments[0].name).toBe('document-one.pdf');
     expect(res.locals.contactPartiesDocuments[0].date).toBe('10/03/2024');
+    expect(res.locals.contactPartiesDocuments[0].downloaded).toBe(false);
 
     expect(res.locals.orderAndDecisionDocuments[0].name).toBe('document-two.pdf');
     expect(res.locals.orderAndDecisionDocuments[0].date).toBe('12/03/2024');
+    expect(res.locals.orderAndDecisionDocuments[0].downloaded).toBe(true);
 
     expect(res.locals.latestCaseBundleDocuments[0].name).toBe('document-three.pdf');
     expect(res.locals.latestCaseBundleDocuments[0].date).toBeUndefined();
+    expect(res.locals.latestCaseBundleDocuments[0].downloaded).toBe(false);
 
     expect(res.locals.userFullName).toBe('Jane Doe');
 
@@ -277,13 +289,16 @@ describe('DashboardGetController', () => {
       orderAndDecisionDocuments: [],
       contactPartiesDocuments: [
         {
-          documentLink: {
-            document_url: `http://dm-store/documents/${documentId}`,
-            document_filename: 'my file.pdf',
-            document_binary_url: `http://dm-store/documents/${documentId}/binary`,
+          document: {
+            documentLink: {
+              document_url: `http://dm-store/documents/${documentId}`,
+              document_filename: 'my file.pdf',
+              document_binary_url: `http://dm-store/documents/${documentId}/binary`,
+            },
+            documentCategory: 'ApplicationForm',
+            date: '2024-01-01',
           },
-          documentCategory: 'ApplicationForm',
-          date: '2024-01-01',
+          downloaded: false,
         },
       ],
     });
@@ -317,12 +332,15 @@ describe('DashboardGetController', () => {
       orderAndDecisionDocuments: [],
       contactPartiesDocuments: [
         {
-          documentLink: {
-            document_url: 'http://dm-store/invalid-url',
-            document_filename: 'test.pdf',
+          document: {
+            documentLink: {
+              document_url: 'http://dm-store/invalid-url',
+              document_filename: 'test.pdf',
+            },
+            documentCategory: 'ApplicationForm',
+            date: '2024-01-01',
           },
-          documentCategory: 'ApplicationForm',
-          date: '2024-01-01',
+          downloaded: false,
         },
       ],
     });
@@ -359,13 +377,16 @@ describe('DashboardGetController', () => {
       orderAndDecisionDocuments: [],
       contactPartiesDocuments: [
         {
-          documentLink: {
-            document_url: `http://dm-store/documents/${documentId}`,
-            document_binary_url: `http://dm-store/documents/${documentId}/binary`,
-            // document_filename intentionally omitted
+          document: {
+            documentLink: {
+              document_url: `http://dm-store/documents/${documentId}`,
+              document_binary_url: `http://dm-store/documents/${documentId}/binary`,
+              // document_filename intentionally omitted
+            },
+            documentCategory: 'ApplicationForm',
+            date: '2024-01-01',
           },
-          documentCategory: 'ApplicationForm',
-          date: '2024-01-01',
+          downloaded: false,
         },
       ],
     });
@@ -400,12 +421,15 @@ describe('DashboardGetController', () => {
       orderAndDecisionDocuments: [],
       contactPartiesDocuments: [
         {
-          documentLink: {
-            document_url: `http://dm-store/documents/${documentId}`,
-            document_filename: 'test.pdf',
+          document: {
+            documentLink: {
+              document_url: `http://dm-store/documents/${documentId}`,
+              document_filename: 'test.pdf',
+            },
+            documentCategory: 'ApplicationForm',
+            date: '2024-01-01',
           },
-          documentCategory: 'ApplicationForm',
-          date: '2024-01-01',
+          downloaded: false,
         },
       ],
     });
