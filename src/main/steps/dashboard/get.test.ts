@@ -1,7 +1,7 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { State } from '../../app/case/definition';
-import { CICA_LOOKUP } from '../urls';
+import { CICA_LOOKUP, CICA_POSTCODE_VERIFICATION, NOT_AUTHORISED } from '../urls';
 
 import DashboardGetController from './get';
 
@@ -38,6 +38,23 @@ describe('DashboardGetController', () => {
     expect(res.redirect).toHaveBeenCalledWith(CICA_LOOKUP);
   });
 
+  test('should redirect to CICA postcode verification if case has id but no postcode in session', async () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          id: '1624351572550046',
+          state: State.Submitted,
+        },
+        validatedPostcode: undefined,
+      },
+    });
+    const res = mockResponse();
+
+    await controller.get(req, res);
+
+    expect(res.redirect).toHaveBeenCalledWith(CICA_POSTCODE_VERIFICATION);
+  });
+
   test('should load empty dashboard with no docs returned', async () => {
     const req = mockRequest({
       session: {
@@ -45,6 +62,7 @@ describe('DashboardGetController', () => {
           id: '1624351572550046',
           state: State.DSS_Submitted,
         },
+        validatedPostcode: 'SW1A 1AA',
       },
     });
 
@@ -60,7 +78,7 @@ describe('DashboardGetController', () => {
 
     await controller.get(req, res);
 
-    expect(req.locals.api.getDocumentsByCaseId).toHaveBeenCalledWith('1624351572550046');
+    expect(req.locals.api.getDocumentsByCaseId).toHaveBeenCalledWith('1624351572550046', 'SW1A 1AA');
 
     expect(res.locals.contactPartiesDocuments).toEqual([]);
     expect(res.locals.orderAndDecisionDocuments).toEqual([]);
@@ -76,6 +94,7 @@ describe('DashboardGetController', () => {
           id: '123',
           state: State.Submitted,
         },
+        validatedPostcode: 'SW1A 1AA',
       },
     });
 
@@ -90,6 +109,58 @@ describe('DashboardGetController', () => {
     expect(req.locals.logger.error).toHaveBeenCalled();
   });
 
+  test('should handle 401 errors, clear postcode and redirect to NOT_AUTHORISED', async () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          id: '123',
+          state: State.Submitted,
+        },
+        validatedPostcode: 'SW1A 1AA',
+      },
+    });
+
+    const mockError = {
+      response: { status: 401 },
+      message: 'Unauthorized',
+    };
+    req.locals.api.getDocumentsByCaseId = jest.fn().mockRejectedValue(mockError);
+
+    const res = mockResponse();
+
+    await controller.get(req, res);
+
+    expect(req.session.validatedPostcode).toBeUndefined();
+    expect(res.redirect).toHaveBeenCalledWith(NOT_AUTHORISED);
+    expect(req.locals.logger.error).toHaveBeenCalled();
+  });
+
+  test('should handle 403 errors, clear postcode and redirect to NOT_AUTHORISED', async () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          id: '123',
+          state: State.Submitted,
+        },
+        validatedPostcode: 'SW1A 1AA',
+      },
+    });
+
+    const mockError = {
+      response: { status: 403 },
+      message: 'Forbidden',
+    };
+    req.locals.api.getDocumentsByCaseId = jest.fn().mockRejectedValue(mockError);
+
+    const res = mockResponse();
+
+    await controller.get(req, res);
+
+    expect(req.session.validatedPostcode).toBeUndefined();
+    expect(res.redirect).toHaveBeenCalledWith(NOT_AUTHORISED);
+    expect(req.locals.logger.error).toHaveBeenCalled();
+  });
+
   test('should extract and format multiple documents from fresh API call', async () => {
     const req = mockRequest({
       session: {
@@ -98,6 +169,7 @@ describe('DashboardGetController', () => {
           state: State.Submitted,
           subjectFullName: 'Jane Doe',
         },
+        validatedPostcode: 'SW1A 1AA',
       },
     });
 
@@ -168,6 +240,7 @@ describe('DashboardGetController', () => {
           id: '123',
           state: State.Submitted,
         },
+        validatedPostcode: 'SW1A 1AA',
       },
     });
 
@@ -195,6 +268,7 @@ describe('DashboardGetController', () => {
           id: '123',
           state: State.Submitted,
         },
+        validatedPostcode: 'SW1A 1AA',
       },
     });
 
@@ -234,6 +308,7 @@ describe('DashboardGetController', () => {
           id: '123',
           state: State.Submitted,
         },
+        validatedPostcode: 'SW1A 1AA',
       },
     });
 
@@ -275,6 +350,7 @@ describe('DashboardGetController', () => {
           id: '123',
           state: State.Submitted,
         },
+        validatedPostcode: 'SW1A 1AA',
       },
     });
 
@@ -315,6 +391,7 @@ describe('DashboardGetController', () => {
           id: '123',
           state: State.Submitted,
         },
+        validatedPostcode: 'SW1A 1AA',
       },
     });
 

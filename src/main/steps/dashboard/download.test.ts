@@ -15,6 +15,9 @@ describe('DocumentDownloadController', () => {
         documentId: '12345678-1234-1234-1234-123456789012',
         filename: 'test-document.pdf',
       },
+      session: {
+        validatedPostcode: 'SW1A 1AA',
+      },
     });
 
     // Set up the API mock after creating the request
@@ -33,7 +36,11 @@ describe('DocumentDownloadController', () => {
 
     await controller.get(req, res);
 
-    expect(req.locals.api.downloadDocument).toHaveBeenCalledWith('12345678-1234-1234-1234-123456789012');
+    expect(req.locals.api.downloadDocument).toHaveBeenCalledWith(
+      '1234',
+      '12345678-1234-1234-1234-123456789012',
+      'SW1A 1AA'
+    );
     expect(res.setHeader).toHaveBeenCalledWith('Content-Type', 'application/pdf');
     expect(res.setHeader).toHaveBeenCalledWith('Content-Disposition', 'attachment; filename="test-document.pdf"');
     expect(mockStream.pipe).toHaveBeenCalledWith(res);
@@ -55,11 +62,54 @@ describe('DocumentDownloadController', () => {
     expect(res.send).toHaveBeenCalledWith('Document ID is required');
   });
 
+  test('should return 400 if userCase.id (ccdReference) is missing', async () => {
+    const req = mockRequest({
+      query: {
+        documentId: '12345678-1234-1234-1234-123456789012',
+        filename: 'test-document.pdf',
+      },
+      session: {
+        userCase: null as any,
+      },
+    });
+    const res = mockResponse();
+    res.status = jest.fn().mockReturnValue(res);
+    res.send = jest.fn();
+
+    await controller.get(req, res);
+
+    expect(res.status).toHaveBeenCalledWith(400);
+    expect(res.send).toHaveBeenCalledWith('Case reference is required');
+  });
+
+  test('should return 401 if validatedPostcode is missing', async () => {
+    const req = mockRequest({
+      query: {
+        documentId: '12345678-1234-1234-1234-123456789012',
+        filename: 'test-document.pdf',
+      },
+      session: {
+        validatedPostcode: undefined,
+      },
+    });
+    const res = mockResponse();
+    res.status = jest.fn().mockReturnValue(res);
+    res.send = jest.fn();
+
+    await controller.get(req, res);
+
+    expect(res.status).toHaveBeenCalledWith(401);
+    expect(res.send).toHaveBeenCalledWith('Unauthorized');
+  });
+
   test('should handle download errors', async () => {
     const req = mockRequest({
       query: {
         documentId: '12345678-1234-1234-1234-123456789012',
         filename: 'test-document.pdf',
+      },
+      session: {
+        validatedPostcode: 'SW1A 1AA',
       },
     });
 
@@ -84,6 +134,9 @@ describe('DocumentDownloadController', () => {
     const req = mockRequest({
       query: {
         documentId: '12345678-1234-1234-1234-123456789012',
+      },
+      session: {
+        validatedPostcode: 'SW1A 1AA',
       },
     });
 
@@ -117,6 +170,9 @@ describe('DocumentDownloadController', () => {
       query: {
         documentId: '12345678-1234-1234-1234-123456789012',
       },
+      session: {
+        validatedPostcode: 'SW1A 1AA',
+      },
     });
 
     // Set up the API mock after creating the request
@@ -145,6 +201,9 @@ describe('DocumentDownloadController', () => {
       query: {
         documentId: '12345678-1234-1234-1234-123456789012',
         filename: 'test-document.pdf',
+      },
+      session: {
+        validatedPostcode: 'SW1A 1AA',
       },
     });
 

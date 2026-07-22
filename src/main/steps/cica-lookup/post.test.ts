@@ -1,7 +1,7 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { Form } from '../../app/form/Form';
-import { CICA_CONFIRM_NEW, CICA_LOOKUP, DASHBOARD_URL, NOT_AUTHORISED } from '../urls';
+import { CICA_CONFIRM_NEW, CICA_LOOKUP, CICA_POSTCODE_VERIFICATION, NOT_AUTHORISED } from '../urls';
 
 import CicaLookupPostController from './post';
 
@@ -10,12 +10,12 @@ jest.mock('../../app/form/Form');
 describe('CicaLookupPostController', () => {
   const controller = new CicaLookupPostController();
 
-  const mockGetCase = jest.fn();
+  const mockCheckCaseAccess = jest.fn();
 
   const req = mockRequest({
     locals: {
       api: {
-        getCaseByCCDReference: mockGetCase,
+        checkCaseAccess: mockCheckCaseAccess,
       },
       logger: {
         error: jest.fn(),
@@ -46,26 +46,24 @@ describe('CicaLookupPostController', () => {
     expect(res.redirect).toHaveBeenCalledWith(CICA_LOOKUP);
   });
 
-  test('should redirect to dashboard on success', async () => {
-    mockGetCase.mockResolvedValue({
-      id: '123',
-      state: 'Submitted',
-    });
+  test('should redirect to postcode verification on success', async () => {
+    mockCheckCaseAccess.mockResolvedValue(undefined);
 
     req.body = { ccdReference: '1234567890123456' } as any;
 
     await controller.post(req, res);
 
     expect(req.session.userCase).toEqual({
-      id: '123',
-      state: 'Submitted',
+      id: '1234567890123456',
+      state: '',
+      ccdReferenceNumber: '1234567890123456',
     });
 
-    expect(res.redirect).toHaveBeenCalledWith(DASHBOARD_URL);
+    expect(res.redirect).toHaveBeenCalledWith(CICA_POSTCODE_VERIFICATION);
   });
 
   test('should redirect to confirm new on 404', async () => {
-    mockGetCase.mockRejectedValue({
+    mockCheckCaseAccess.mockRejectedValue({
       response: { status: 404 },
     });
 
@@ -77,7 +75,7 @@ describe('CicaLookupPostController', () => {
   });
 
   test('should redirect to not authorised on 403', async () => {
-    mockGetCase.mockRejectedValue({
+    mockCheckCaseAccess.mockRejectedValue({
       response: { status: 403 },
     });
 
@@ -89,7 +87,7 @@ describe('CicaLookupPostController', () => {
   });
 
   test('should fallback to confirm new on unknown error', async () => {
-    mockGetCase.mockRejectedValue({
+    mockCheckCaseAccess.mockRejectedValue({
       response: { status: 500 },
     });
 

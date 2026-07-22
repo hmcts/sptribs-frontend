@@ -4,7 +4,7 @@ import { Response } from 'express';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../app/controller/PostController';
 import { Form, FormFields } from '../../app/form/Form';
-import { CICA_CONFIRM_NEW, CICA_LOOKUP, DASHBOARD_URL, NOT_AUTHORISED } from '../urls';
+import { CICA_CONFIRM_NEW, CICA_LOOKUP, CICA_POSTCODE_VERIFICATION, NOT_AUTHORISED } from '../urls';
 
 import { form } from './content';
 
@@ -25,22 +25,23 @@ export default class CCDLookupPostController extends PostController<AnyObject> {
 
     const ccdReference = req.body.ccdReference as string;
 
+    req.session.validatedPostcode = undefined;
+
     try {
-      const foundCase = await req.locals.api.getCaseByCCDReference(ccdReference);
+      await req.locals.api.checkCaseAccess(ccdReference);
 
-      if (!foundCase) {
-        // No case found - ask user if they want to start a new application
-        req.session.userCase = { id: '', state: '', ccdReferenceNumber: ccdReference } as any;
-        return this.redirect(req, res, CICA_CONFIRM_NEW);
-      }
+      // Access granted (200 OK) -> we update session.userCase with the inputted value ourselves.
+      req.session.userCase = {
+        id: ccdReference,
+        state: '',
+        ccdReferenceNumber: ccdReference,
+      } as any;
 
-      // case found → always go to dashboard
-      req.session.userCase = foundCase;
-      return this.redirect(req, res, DASHBOARD_URL);
+      return this.redirect(req, res, CICA_POSTCODE_VERIFICATION);
     } catch (error: any) {
       const status = error?.response?.status;
 
-      req.locals.logger.error('Error looking up case by HMCTS reference:', {
+      req.locals.logger.error('Error verifying case access by HMCTS reference:', {
         status,
         message: error?.message,
       });

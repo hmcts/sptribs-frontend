@@ -4,7 +4,7 @@ import { Response } from 'express';
 import { CaseworkerCICDocument } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { GetController } from '../../app/controller/GetController';
-import { CICA_LOOKUP } from '../urls';
+import { CICA_LOOKUP, CICA_POSTCODE_VERIFICATION, NOT_AUTHORISED } from '../urls';
 
 import { generateContent } from './content';
 
@@ -30,7 +30,12 @@ export default class DashboardGetController extends GetController {
         return res.redirect(CICA_LOOKUP);
       }
 
-      const documentsResponse = await req.locals.api.getDocumentsByCaseId(sessionCase.id);
+      const postcode = req.session.validatedPostcode;
+      if (!postcode) {
+        return res.redirect(CICA_POSTCODE_VERIFICATION);
+      }
+
+      const documentsResponse = await req.locals.api.getDocumentsByCaseId(sessionCase.id, postcode);
 
       const latestCaseBundleDocuments = (documentsResponse.latestCaseBundleDocuments || [])
         .map(mapDocument)
@@ -60,8 +65,14 @@ export default class DashboardGetController extends GetController {
       res.locals.userFullName = req.session.userCase.subjectFullName;
 
       return super.get(req, res);
-    } catch (error) {
+    } catch (error: any) {
       req.locals.logger.error('Error loading dashboard:', error);
+
+      const status = error?.response?.status;
+      if (status === 401 || status === 403) {
+        req.session.validatedPostcode = undefined;
+        return res.redirect(NOT_AUTHORISED);
+      }
 
       return res.redirect(CICA_LOOKUP);
     }
