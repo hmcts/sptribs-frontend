@@ -31,12 +31,12 @@
                 {% if document.downloaded %}
                   {{ govukTag({
                     text: downloadedTag,
-                    classes: "govuk-tag--grey govuk-!-margin-right-2"
+                    classes: "govuk-tag--grey govuk-!-margin-right-2 document-tag"
                   }) }}
                 {% else %}
                   {{ govukTag({
                     text: newTag,
-                    classes: "govuk-tag--green govuk-!-margin-right-2"
+                    classes: "govuk-tag--green govuk-!-margin-right-2 document-tag"
                   }) }}
                 {% endif %}
                 {{ document.name }}
@@ -52,7 +52,7 @@
               {% endset %}
 
               {% set downloadLink %}
-                <a class="govuk-link" href="{{ document.downloadUrl | escape }}" download="{{ document.name | escape }}">
+                <a class="govuk-link download-link" href="{{ document.downloadUrl | escape }}" download="{{ document.name | escape }}" data-downloaded-text="{{ downloadedTag }}">
                   {{ download }}
                 </a>
               {% endset %}
@@ -103,12 +103,12 @@
                 {% if document.downloaded %}
                   {{ govukTag({
                     text: downloadedTag,
-                    classes: "govuk-tag--grey govuk-!-margin-right-2"
+                    classes: "govuk-tag--grey govuk-!-margin-right-2 document-tag"
                   }) }}
                 {% else %}
                   {{ govukTag({
                     text: newTag,
-                    classes: "govuk-tag--green govuk-!-margin-right-2"
+                    classes: "govuk-tag--green govuk-!-margin-right-2 document-tag"
                   }) }}
                 {% endif %}
                 {{ document.name }}
@@ -124,7 +124,7 @@
               {% endset %}
 
               {% set downloadLink %}
-                <a class="govuk-link" href="{{ document.downloadUrl | escape }}" download="{{ document.name | escape }}">
+                <a class="govuk-link download-link" href="{{ document.downloadUrl | escape }}" download="{{ document.name | escape }}" data-downloaded-text="{{ downloadedTag }}">
                   {{ download }}
                 </a>
               {% endset %}
@@ -173,12 +173,12 @@
               {% if document.downloaded %}
                 {{ govukTag({
                   text: downloadedTag,
-                  classes: "govuk-tag--grey govuk-!-margin-right-2"
+                  classes: "govuk-tag--grey govuk-!-margin-right-2 document-tag"
                 }) }}
               {% else %}
                 {{ govukTag({
                   text: newTag,
-                  classes: "govuk-tag--green govuk-!-margin-right-2"
+                  classes: "govuk-tag--green govuk-!-margin-right-2 document-tag"
                 }) }}
               {% endif %}
               {{ document.name }}
@@ -194,7 +194,7 @@
             {% endset %}
 
             {% set downloadLink %}
-              <a class="govuk-link" href="{{ document.downloadUrl | escape }}" download="{{ document.name | escape }}">
+              <a class="govuk-link download-link" href="{{ document.downloadUrl | escape }}" download="{{ document.name | escape }}" data-downloaded-text="{{ downloadedTag }}">
                 {{ download }}
               </a>
             {% endset %}
@@ -244,4 +244,22 @@
       </div>
     </div>
   </div>
+
+  <script type="text/javascript">
+    (function() {
+      document.querySelectorAll('.download-link').forEach(function(link) {
+        link.addEventListener('click', function() {
+          var row = link.closest('tr');
+          if (row) {
+            var tag = row.querySelector('.document-tag');
+            if (tag && tag.classList.contains('govuk-tag--green')) {
+              tag.classList.remove('govuk-tag--green');
+              tag.classList.add('govuk-tag--grey');
+              tag.textContent = link.getAttribute('data-downloaded-text') || 'Downloaded';
+            }
+          }
+        });
+      });
+    })();
+  </script>
 {% endblock %}
