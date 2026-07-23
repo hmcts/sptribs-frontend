@@ -244,22 +244,4 @@
       </div>
     </div>
   </div>
-
-  <script type="text/javascript">
-    (function() {
-      document.querySelectorAll('.download-link').forEach(function(link) {
-        link.addEventListener('click', function() {
-          var row = link.closest('tr');
-          if (row) {
-            var tag = row.querySelector('.document-tag');
-            if (tag && tag.classList.contains('govuk-tag--green')) {
-              tag.classList.remove('govuk-tag--green');
-              tag.classList.add('govuk-tag--grey');
-              tag.textContent = link.getAttribute('data-downloaded-text') || 'Downloaded';
-            }
-          }
-        });
-      });
-    })();
-  </script>
 {% endblock %}
