@@ -10,7 +10,14 @@ export const getRedirectUrl = (serviceUrl: string, callbackUrlPageLink: PageLink
   const loginUrl: string = config.get('services.idam.authorizationURL');
   const callbackUrl = encodeURI(serviceUrl + callbackUrlPageLink);
 
-  return `${loginUrl}?client_id=${id}&response_type=code&redirect_uri=${callbackUrl}`;
+  return `${loginUrl}?client_id=${id}&response_type=code&redirect_uri=${callbackUrl}&scope=${encodeURIComponent('openid profile roles')}`;
+};
+
+export const getEndSessionUrl = (serviceUrl: string): string => {
+  const endSessionUrl: string = config.get('services.idam.endSessionURL');
+  const postLogoutRedirectUri = new URL(serviceUrl).origin;
+
+  return `${endSessionUrl}?post_logout_redirect_uri=${postLogoutRedirectUri}`;
 };
 
 export const getUserDetails = async (

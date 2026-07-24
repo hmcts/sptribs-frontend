@@ -21,6 +21,7 @@ export class HealthCheck {
         'rpe-auth-service-api': healthcheck.web(new URL('/health', config.get('services.authProvider.url'))),
         'idam-api': healthcheck.web(new URL('/health', idamUrl.replace('/o/token', ''))),
         'ccd-data-store-api': healthcheck.web(new URL('/health', config.get('services.ccd.url'))),
+        'hmcts-idam-api': healthcheck.web(new URL('/health', config.get('services.idam.hmctsToken'))),
       },
       buildInfo: {
         name: 'sptribs-frontend',
