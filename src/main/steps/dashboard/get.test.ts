@@ -186,6 +186,7 @@ describe('DashboardGetController', () => {
         state: State.Submitted,
         data: {
           dssCaseDataSubjectFullName: 'Jane Doe',
+          cicCaseFullName: 'Jane Doe',
         },
       },
       documentResponse: {
