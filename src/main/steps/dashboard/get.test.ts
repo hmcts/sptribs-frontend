@@ -67,9 +67,16 @@ describe('DashboardGetController', () => {
     });
 
     req.locals.api.getDocumentsByCaseId = jest.fn().mockResolvedValue({
-      latestCaseBundleDocuments: [],
-      contactPartiesDocuments: [],
-      orderAndDecisionDocuments: [],
+      cicaCaseResponse: {
+        id: '1624351572550046',
+        state: State.DSS_Submitted,
+        data: {},
+      },
+      documentResponse: {
+        latestCaseBundleDocuments: [],
+        contactPartiesDocuments: [],
+        orderAndDecisionDocuments: [],
+      },
     });
 
     const res = mockResponse();
@@ -174,39 +181,48 @@ describe('DashboardGetController', () => {
     });
 
     req.locals.api.getDocumentsByCaseId = jest.fn().mockResolvedValue({
-      contactPartiesDocuments: [
-        {
-          documentLink: {
-            document_url: 'http://dm-store/documents/11111111-1111-1111-1111-111111111111',
-            document_filename: 'document-one.pdf',
-            document_binary_url: 'http://dm-store/documents/11111111-1111-1111-1111-111111111111/binary',
-          },
-          documentCategory: 'ApplicationForm',
-          date: '2024-03-10',
+      cicaCaseResponse: {
+        id: '123',
+        state: State.Submitted,
+        data: {
+          dssCaseDataSubjectFullName: 'Jane Doe',
         },
-      ],
-      orderAndDecisionDocuments: [
-        {
-          documentLink: {
-            document_url: 'http://dm-store/documents/22222222-2222-2222-2222-222222222222',
-            document_filename: 'document-two.pdf',
-            document_binary_url: 'http://dm-store/documents/22222222-2222-2222-2222-222222222222/binary',
+      },
+      documentResponse: {
+        contactPartiesDocuments: [
+          {
+            documentLink: {
+              document_url: 'http://dm-store/documents/11111111-1111-1111-1111-111111111111',
+              document_filename: 'document-one.pdf',
+              document_binary_url: 'http://dm-store/documents/11111111-1111-1111-1111-111111111111/binary',
+            },
+            documentCategory: 'ApplicationForm',
+            date: '2024-03-10',
           },
-          documentCategory: 'Evidence',
-          date: '2024-03-12',
-        },
-      ],
-      latestCaseBundleDocuments: [
-        {
-          documentLink: {
-            document_url: 'http://dm-store/documents/33333333-3333-3333-3333-333333333333',
-            document_filename: 'document-three.pdf',
-            document_binary_url: 'http://dm-store/documents/33333333-3333-3333-3333-333333333333/binary',
+        ],
+        orderAndDecisionDocuments: [
+          {
+            documentLink: {
+              document_url: 'http://dm-store/documents/22222222-2222-2222-2222-222222222222',
+              document_filename: 'document-two.pdf',
+              document_binary_url: 'http://dm-store/documents/22222222-2222-2222-2222-222222222222/binary',
+            },
+            documentCategory: 'Evidence',
+            date: '2024-03-12',
           },
-          documentCategory: 'Decision',
-          date: null,
-        },
-      ],
+        ],
+        latestCaseBundleDocuments: [
+          {
+            documentLink: {
+              document_url: 'http://dm-store/documents/33333333-3333-3333-3333-333333333333',
+              document_filename: 'document-three.pdf',
+              document_binary_url: 'http://dm-store/documents/33333333-3333-3333-3333-333333333333/binary',
+            },
+            documentCategory: 'Decision',
+            date: null,
+          },
+        ],
+      },
     });
 
     const res = mockResponse();
@@ -244,7 +260,14 @@ describe('DashboardGetController', () => {
       },
     });
 
-    req.locals.api.getDocumentsByCaseId = jest.fn().mockResolvedValue({});
+    req.locals.api.getDocumentsByCaseId = jest.fn().mockResolvedValue({
+      cicaCaseResponse: {
+        id: '123',
+        state: State.Submitted,
+        data: {},
+      },
+      documentResponse: {},
+    });
 
     const res = mockResponse();
     res.locals = {};
@@ -273,19 +296,26 @@ describe('DashboardGetController', () => {
     });
 
     req.locals.api.getDocumentsByCaseId = jest.fn().mockResolvedValue({
-      latestCaseBundleDocuments: [],
-      orderAndDecisionDocuments: [],
-      contactPartiesDocuments: [
-        {
-          documentLink: {
-            document_url: `http://dm-store/documents/${documentId}`,
-            document_filename: 'my file.pdf',
-            document_binary_url: `http://dm-store/documents/${documentId}/binary`,
+      cicaCaseResponse: {
+        id: '123',
+        state: State.Submitted,
+        data: {},
+      },
+      documentResponse: {
+        latestCaseBundleDocuments: [],
+        orderAndDecisionDocuments: [],
+        contactPartiesDocuments: [
+          {
+            documentLink: {
+              document_url: `http://dm-store/documents/${documentId}`,
+              document_filename: 'my file.pdf',
+              document_binary_url: `http://dm-store/documents/${documentId}/binary`,
+            },
+            documentCategory: 'ApplicationForm',
+            date: '2024-01-01',
           },
-          documentCategory: 'ApplicationForm',
-          date: '2024-01-01',
-        },
-      ],
+        ],
+      },
     });
 
     const res = mockResponse();
@@ -313,18 +343,25 @@ describe('DashboardGetController', () => {
     });
 
     req.locals.api.getDocumentsByCaseId = jest.fn().mockResolvedValue({
-      latestCaseBundleDocuments: [],
-      orderAndDecisionDocuments: [],
-      contactPartiesDocuments: [
-        {
-          documentLink: {
-            document_url: 'http://dm-store/invalid-url',
-            document_filename: 'test.pdf',
+      cicaCaseResponse: {
+        id: '123',
+        state: State.Submitted,
+        data: {},
+      },
+      documentResponse: {
+        latestCaseBundleDocuments: [],
+        orderAndDecisionDocuments: [],
+        contactPartiesDocuments: [
+          {
+            documentLink: {
+              document_url: 'http://dm-store/invalid-url',
+              document_filename: 'test.pdf',
+            },
+            documentCategory: 'ApplicationForm',
+            date: '2024-01-01',
           },
-          documentCategory: 'ApplicationForm',
-          date: '2024-01-01',
-        },
-      ],
+        ],
+      },
     });
 
     const res = mockResponse();
@@ -355,19 +392,26 @@ describe('DashboardGetController', () => {
     });
 
     req.locals.api.getDocumentsByCaseId = jest.fn().mockResolvedValue({
-      latestCaseBundleDocuments: [],
-      orderAndDecisionDocuments: [],
-      contactPartiesDocuments: [
-        {
-          documentLink: {
-            document_url: `http://dm-store/documents/${documentId}`,
-            document_binary_url: `http://dm-store/documents/${documentId}/binary`,
-            // document_filename intentionally omitted
+      cicaCaseResponse: {
+        id: '123',
+        state: State.Submitted,
+        data: {},
+      },
+      documentResponse: {
+        latestCaseBundleDocuments: [],
+        orderAndDecisionDocuments: [],
+        contactPartiesDocuments: [
+          {
+            documentLink: {
+              document_url: `http://dm-store/documents/${documentId}`,
+              document_binary_url: `http://dm-store/documents/${documentId}/binary`,
+              // document_filename intentionally omitted
+            },
+            documentCategory: 'ApplicationForm',
+            date: '2024-01-01',
           },
-          documentCategory: 'ApplicationForm',
-          date: '2024-01-01',
-        },
-      ],
+        ],
+      },
     });
 
     const res = mockResponse();
@@ -396,18 +440,25 @@ describe('DashboardGetController', () => {
     });
 
     req.locals.api.getDocumentsByCaseId = jest.fn().mockResolvedValue({
-      latestCaseBundleDocuments: [],
-      orderAndDecisionDocuments: [],
-      contactPartiesDocuments: [
-        {
-          documentLink: {
-            document_url: `http://dm-store/documents/${documentId}`,
-            document_filename: 'test.pdf',
+      cicaCaseResponse: {
+        id: '123',
+        state: State.Submitted,
+        data: {},
+      },
+      documentResponse: {
+        latestCaseBundleDocuments: [],
+        orderAndDecisionDocuments: [],
+        contactPartiesDocuments: [
+          {
+            documentLink: {
+              document_url: `http://dm-store/documents/${documentId}`,
+              document_filename: 'test.pdf',
+            },
+            documentCategory: 'ApplicationForm',
+            date: '2024-01-01',
           },
-          documentCategory: 'ApplicationForm',
-          date: '2024-01-01',
-        },
-      ],
+        ],
+      },
     });
 
     const res = mockResponse();
