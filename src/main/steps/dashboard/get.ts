@@ -38,6 +38,8 @@ export default class DashboardGetController extends GetController {
 
       const dashboardResponse = await req.locals.api.getDocumentsByCaseId(sessionCase.id, postcode);
 
+      req.locals.logger.info(`Backend dashboard response: ${JSON.stringify(dashboardResponse)}`);
+
       if (dashboardResponse?.cicaCaseResponse) {
         req.session.userCase = {
           ...req.session.userCase,
@@ -75,6 +77,8 @@ export default class DashboardGetController extends GetController {
       res.locals.caseNumber = req.session.userCase.id?.toString().replace('-', '');
 
       res.locals.userFullName = req.session.userCase.subjectFullName;
+
+      res.locals.rawDashboardResponse = dashboardResponse ? JSON.stringify(dashboardResponse) : 'null';
 
       return super.get(req, res);
     } catch (error: any) {
