@@ -93,13 +93,13 @@ export class CaseApi {
     }
   }
 
-  public async getDocumentsByCaseId(ccdReference: string, postcode: string): Promise<DocumentResponse> {
+  public async getDocumentsByCaseId(ccdReference: string, postcode: string): Promise<DashboardResponse> {
     if (!this.sptribsClient) {
       throw new Error('Sptribs backend client not configured');
     }
 
     try {
-      const response = await this.sptribsClient.get<DocumentResponse>(`/cases/CIC/${ccdReference}/documents`, {
+      const response = await this.sptribsClient.get<DashboardResponse>(`/cases/CIC/${ccdReference}/documents`, {
         headers: {
           'X-Postcode': postcode,
         },
@@ -189,7 +189,7 @@ export const getCaseApi = (userDetails: UserDetails, logger: LoggerInstance): Ca
   );
 };
 
-interface CcdV2Response {
+export interface CcdV2Response {
   id: string;
   state: string;
   data: CaseData;
@@ -211,4 +211,9 @@ interface DocumentResponse {
   latestCaseBundleDocuments: CaseworkerCICDocument[];
   contactPartiesDocuments: CaseworkerCICDocument[];
   orderAndDecisionDocuments: CaseworkerCICDocument[];
+}
+
+export interface DashboardResponse {
+  cicaCaseResponse: CcdV2Response;
+  documentResponse: DocumentResponse;
 }

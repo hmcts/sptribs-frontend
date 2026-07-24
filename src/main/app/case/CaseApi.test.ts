@@ -127,9 +127,16 @@ describe('CaseApi', () => {
       },
     } as any;
     const documentsResponse = {
-      contactPartiesDocuments: [],
-      latestCaseBundleDocuments: [],
-      orderAndDecisionDocuments: [],
+      cicaCaseResponse: {
+        id: '1624351572550045',
+        state: 'Submitted',
+        data: {},
+      },
+      documentResponse: {
+        contactPartiesDocuments: [],
+        latestCaseBundleDocuments: [],
+        orderAndDecisionDocuments: [],
+      },
     };
 
     mockedSptribsClient.get.mockResolvedValueOnce({

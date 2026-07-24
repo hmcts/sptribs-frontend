@@ -62,4 +62,21 @@ describe('from-api-format', () => {
       expect(result).toStrictEqual({});
     });
   });
+
+  describe('mapping caseworker-side subject details', () => {
+    test('converts cicCase fields to frontend subject fields', () => {
+      const formatted = fromApiFormat({
+        ...results,
+        cicCaseFullName: 'Jane Doe',
+        cicCaseEmail: 'jane@example.com',
+        cicCasePhoneNumber: '07123456789',
+      } as unknown as CaseData);
+
+      expect(formatted).toMatchObject({
+        subjectFullName: 'Jane Doe',
+        subjectEmailAddress: 'jane@example.com',
+        subjectContactNumber: '07123456789',
+      });
+    });
+  });
 });
