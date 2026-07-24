@@ -49,10 +49,7 @@ module.exports = {
     'jest/prefer-to-have-length': 'error',
     'jest/valid-expect': 'off',
     'linebreak-style': ['error', 'unix'],
-    'no-console':  [
-      "warn",
-        { "allow": ["log", "error", "info"] }
-    ],
+    'no-console': ['warn', { allow: ['log', 'error', 'info'] }],
     'no-prototype-builtins': 'off',
     'no-return-await': 'error',
     'no-unneeded-ternary': [
@@ -81,13 +78,16 @@ module.exports = {
         ignoreMemberSort: false,
       },
     ],
-  },  
+  },
   overrides: [
     {
       files: [
         'src/main/steps/contact-us/content.test.ts',
         'src/main/steps/common/components/common/component.test.ts',
         'src/main/steps/accessibility-statement/content.test.ts',
+        'src/main/steps/ccd-not-authorised/content.test.ts',
+        'src/main/steps/cica-confirm-new/content.test.ts',
+        'src/main/steps/cica-lookup/content.test.ts',
         'src/main/steps/edge-case/cookies/content.test.ts',
         'src/main/steps/edge-case/subject-contact-details/content.test.ts',
         'src/main/steps/edge-case/upload-appeal-form/content.test.ts',

@@ -6,6 +6,7 @@ import {
   containsInvalidCharacters,
   doesArrayHaveValues,
   isAddressSelected,
+  isCCDReferenceNumberAcceptable,
   isCICAReferenceNumberAcceptable,
   isDateInputInvalid,
   isDateInputNotFilled,
@@ -536,6 +537,18 @@ describe('isMarkDownLinkIncluded()', () => {
   test('should return null if value passed is undefined', async () => {
     const isValid = isMarkDownLinkIncluded(undefined);
     expect(isValid).toStrictEqual(undefined);
+  });
+});
+
+describe('isCCDReferenceNumberAcceptable()', () => {
+  test('should return error if value is less than 16 digits', async () => {
+    const isValid = isCCDReferenceNumberAcceptable('12345678');
+    expect(isValid).toStrictEqual('invalid');
+  });
+
+  test('should return error if value has gaps and - in', async () => {
+    const isValid = isCCDReferenceNumberAcceptable('1234 - 1234 - 1234 -1234');
+    expect(isValid).toStrictEqual('invalid');
   });
 });
 

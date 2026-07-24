@@ -7,7 +7,16 @@ import { PostController } from './app/controller/PostController';
 import { KeepAliveController } from './app/keepalive/KeepAliveController';
 import { stepsWithContent } from './steps';
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
+import CCDNotAuthorisedGetController from './steps/ccd-not-authorised/get';
+import CicaConfirmNewGetController from './steps/cica-confirm-new/get';
+import CicaConfirmNewPostController from './steps/cica-confirm-new/post';
+import CCDLookupGetController from './steps/cica-lookup/get';
+import CCDLookupPostController from './steps/cica-lookup/post';
+import PostcodeVerificationGetController from './steps/cica-postcode-verification/get';
+import PostcodeVerificationPostController from './steps/cica-postcode-verification/post';
 import { ContactUsGetController } from './steps/contact-us/get';
+import DocumentDownloadController from './steps/dashboard/download';
+import DashboardGetController from './steps/dashboard/get';
 import { ErrorController } from './steps/error/error.controller';
 import { HomeGetController } from './steps/home/get';
 import { PrivacyPolicyGetController } from './steps/privacy-policy/get';
@@ -16,10 +25,16 @@ import { TermsAndConditionsGetController } from './steps/terms-and-conditions/ge
 import { TimedOutGetController } from './steps/timed-out/get';
 import {
   ACCESSIBILITY_STATEMENT,
+  CICA_CONFIRM_NEW,
+  CICA_LOOKUP,
+  CICA_POSTCODE_VERIFICATION,
   CONTACT_US,
   CSRF_TOKEN_ERROR_URL,
+  DASHBOARD_URL,
+  DOCUMENT_DOWNLOAD_URL,
   HOME_URL,
   KEEP_ALIVE_URL,
+  NOT_AUTHORISED,
   PRIVACY_POLICY,
   SAVE_AND_SIGN_OUT,
   TERMS_AND_CONDITIONS,
@@ -54,6 +69,15 @@ export class Routes {
     app.get(TERMS_AND_CONDITIONS, errorHandler(new TermsAndConditionsGetController().get));
     app.get(ACCESSIBILITY_STATEMENT, errorHandler(new AccessibilityStatementGetController().get));
     app.get(CONTACT_US, errorHandler(new ContactUsGetController().get));
+    app.get(DASHBOARD_URL, errorHandler(new DashboardGetController().get));
+    app.get(DOCUMENT_DOWNLOAD_URL, errorHandler(new DocumentDownloadController().get));
+    app.get(CICA_LOOKUP, errorHandler(new CCDLookupGetController().get));
+    app.post(CICA_LOOKUP, errorHandler(new CCDLookupPostController().post));
+    app.get(CICA_CONFIRM_NEW, errorHandler(new CicaConfirmNewGetController().get));
+    app.post(CICA_CONFIRM_NEW, errorHandler(new CicaConfirmNewPostController().post));
+    app.get(CICA_POSTCODE_VERIFICATION, errorHandler(new PostcodeVerificationGetController().get));
+    app.post(CICA_POSTCODE_VERIFICATION, errorHandler(new PostcodeVerificationPostController().post));
+    app.get(NOT_AUTHORISED, errorHandler(new CCDNotAuthorisedGetController().get));
 
     for (const step of stepsWithContent) {
       const files = fs.readdirSync(`${step.stepDir}`);
