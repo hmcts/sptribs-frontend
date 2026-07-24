@@ -2,6 +2,7 @@ import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
 import { BackendDashboardDocument } from '../../app/case/CaseApi';
+import { fromApiFormat } from '../../app/case/from-api-format';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { GetController } from '../../app/controller/GetController';
 import { CICA_LOOKUP, CICA_POSTCODE_VERIFICATION, NOT_AUTHORISED } from '../urls';
@@ -36,7 +37,18 @@ export default class DashboardGetController extends GetController {
         return res.redirect(CICA_POSTCODE_VERIFICATION);
       }
 
-      const documentsResponse = await req.locals.api.getDocumentsByCaseId(sessionCase.id, postcode);
+      const dashboardResponse = await req.locals.api.getDocumentsByCaseId(sessionCase.id, postcode);
+
+      if (dashboardResponse?.cicaCaseResponse) {
+        req.session.userCase = {
+          ...req.session.userCase,
+          id: dashboardResponse.cicaCaseResponse.id,
+          state: dashboardResponse.cicaCaseResponse.state as any,
+          ...fromApiFormat(dashboardResponse.cicaCaseResponse.data),
+        };
+      }
+
+      const documentsResponse = dashboardResponse?.documentResponse || {};
 
       const latestCaseBundleDocuments = (documentsResponse.latestCaseBundleDocuments || [])
         .map(mapDocument)
@@ -61,7 +73,7 @@ export default class DashboardGetController extends GetController {
         contactPartiesDocuments.length > 0 ||
         orderAndDecisionDocuments.length > 0;
 
-      res.locals.caseNumber = sessionCase.id?.toString().replace('-', '');
+      res.locals.caseNumber = req.session.userCase.id?.toString().replace('-', '');
 
       res.locals.userFullName = req.session.userCase.subjectFullName;
 
