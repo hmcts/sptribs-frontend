@@ -27,26 +27,22 @@
 
             {% for document in contactPartiesDocuments %}
 
-              {% set documentNameHtml %}
-                {% if document.downloaded %}
-                  {{ govukTag({
-                    text: downloadedTag,
-                    classes: "govuk-tag--grey govuk-!-margin-right-2 document-tag"
-                  }) }}
-                {% else %}
-                  {{ govukTag({
-                    text: newTag,
-                    classes: "govuk-tag--green govuk-!-margin-right-2 document-tag"
-                  }) }}
-                {% endif %}
-                {{ document.name }}
-              {% endset %}
-
               {% set statusTag %}
                 {% if document.isLatest %}
                   {{ govukTag({
                       text: latestTag,
-                      classes: "govuk-tag--blue"
+                      classes: "govuk-tag--blue govuk-!-margin-right-2"
+                  }) }}
+                {% endif %}
+                {% if document.downloaded %}
+                  {{ govukTag({
+                    text: downloadedTag,
+                    classes: "govuk-tag--grey document-tag"
+                  }) }}
+                {% else %}
+                  {{ govukTag({
+                    text: newTag,
+                    classes: "govuk-tag--green document-tag"
                   }) }}
                 {% endif %}
               {% endset %}
@@ -59,9 +55,15 @@
 
               {% set tableRows = (tableRows.push([
                 {
-                  html: documentNameHtml
+                  text: document.name
                 }, {
                   text: document.date
+                }, {
+                  html: statusTag
+                }, {
+                  html: downloadLink
+                }
+              ]), tableRows) %}
                 }, {
                   html: statusTag
                 }, {
@@ -99,26 +101,22 @@
 
             {% for document in orderAndDecisionDocuments %}
 
-              {% set documentNameHtml %}
-                {% if document.downloaded %}
-                  {{ govukTag({
-                    text: downloadedTag,
-                    classes: "govuk-tag--grey govuk-!-margin-right-2 document-tag"
-                  }) }}
-                {% else %}
-                  {{ govukTag({
-                    text: newTag,
-                    classes: "govuk-tag--green govuk-!-margin-right-2 document-tag"
-                  }) }}
-                {% endif %}
-                {{ document.name }}
-              {% endset %}
-
               {% set statusTag %}
                 {% if document.isLatest %}
                   {{ govukTag({
                     text: latestTag,
-                    classes: "govuk-tag--blue"
+                    classes: "govuk-tag--blue govuk-!-margin-right-2"
+                  }) }}
+                {% endif %}
+                {% if document.downloaded %}
+                  {{ govukTag({
+                    text: downloadedTag,
+                    classes: "govuk-tag--grey document-tag"
+                  }) }}
+                {% else %}
+                  {{ govukTag({
+                    text: newTag,
+                    classes: "govuk-tag--green document-tag"
                   }) }}
                 {% endif %}
               {% endset %}
@@ -131,7 +129,7 @@
 
               {% set tableRows = (tableRows.push([
                 {
-                  html: documentNameHtml
+                  text: document.name
                 }, {
                   text: document.date
                 }, {
@@ -169,26 +167,22 @@
 
             {% set document = latestCaseBundleDocuments[0] %}
 
-            {% set documentNameHtml %}
-              {% if document.downloaded %}
-                {{ govukTag({
-                  text: downloadedTag,
-                  classes: "govuk-tag--grey govuk-!-margin-right-2 document-tag"
-                }) }}
-              {% else %}
-                {{ govukTag({
-                  text: newTag,
-                  classes: "govuk-tag--green govuk-!-margin-right-2 document-tag"
-                }) }}
-              {% endif %}
-              {{ document.name }}
-            {% endset %}
-
             {% set statusTag %}
               {% if document.isLatest %}
                 {{ govukTag({
                     text: latestTag,
-                    classes: "govuk-tag--blue"
+                    classes: "govuk-tag--blue govuk-!-margin-right-2"
+                }) }}
+              {% endif %}
+              {% if document.downloaded %}
+                {{ govukTag({
+                  text: downloadedTag,
+                  classes: "govuk-tag--grey document-tag"
+                }) }}
+              {% else %}
+                {{ govukTag({
+                  text: newTag,
+                  classes: "govuk-tag--green document-tag"
                 }) }}
               {% endif %}
             {% endset %}
@@ -202,7 +196,7 @@
             {% set tableRows = [
               [
                 {
-                  html: documentNameHtml
+                  text: document.name
                 }, {
                   text: document.date
                 }, {
