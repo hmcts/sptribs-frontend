@@ -27,6 +27,21 @@
 
             {% for document in contactPartiesDocuments %}
 
+              {% set documentNameHtml %}
+                {% if document.downloaded %}
+                  {{ govukTag({
+                    text: downloadedTag,
+                    classes: "govuk-tag--grey govuk-!-margin-right-2 document-tag"
+                  }) }}
+                {% else %}
+                  {{ govukTag({
+                    text: newTag,
+                    classes: "govuk-tag--green govuk-!-margin-right-2 document-tag"
+                  }) }}
+                {% endif %}
+                {{ document.name }}
+              {% endset %}
+
               {% set statusTag %}
                 {% if document.isLatest %}
                   {{ govukTag({
@@ -37,14 +52,14 @@
               {% endset %}
 
               {% set downloadLink %}
-                <a class="govuk-link" href="{{ document.downloadUrl | escape }}" download="{{ document.name | escape }}">
+                <a class="govuk-link download-link" href="{{ document.downloadUrl | escape }}" download="{{ document.name | escape }}" data-downloaded-text="{{ downloadedTag }}">
                   {{ download }}
                 </a>
               {% endset %}
 
               {% set tableRows = (tableRows.push([
                 {
-                  text: document.name
+                  html: documentNameHtml
                 }, {
                   text: document.date
                 }, {
@@ -84,6 +99,21 @@
 
             {% for document in orderAndDecisionDocuments %}
 
+              {% set documentNameHtml %}
+                {% if document.downloaded %}
+                  {{ govukTag({
+                    text: downloadedTag,
+                    classes: "govuk-tag--grey govuk-!-margin-right-2 document-tag"
+                  }) }}
+                {% else %}
+                  {{ govukTag({
+                    text: newTag,
+                    classes: "govuk-tag--green govuk-!-margin-right-2 document-tag"
+                  }) }}
+                {% endif %}
+                {{ document.name }}
+              {% endset %}
+
               {% set statusTag %}
                 {% if document.isLatest %}
                   {{ govukTag({
@@ -94,14 +124,14 @@
               {% endset %}
 
               {% set downloadLink %}
-                <a class="govuk-link" href="{{ document.downloadUrl | escape }}" download="{{ document.name | escape }}">
+                <a class="govuk-link download-link" href="{{ document.downloadUrl | escape }}" download="{{ document.name | escape }}" data-downloaded-text="{{ downloadedTag }}">
                   {{ download }}
                 </a>
               {% endset %}
 
               {% set tableRows = (tableRows.push([
                 {
-                  text: document.name
+                  html: documentNameHtml
                 }, {
                   text: document.date
                 }, {
@@ -139,6 +169,21 @@
 
             {% set document = latestCaseBundleDocuments[0] %}
 
+            {% set documentNameHtml %}
+              {% if document.downloaded %}
+                {{ govukTag({
+                  text: downloadedTag,
+                  classes: "govuk-tag--grey govuk-!-margin-right-2 document-tag"
+                }) }}
+              {% else %}
+                {{ govukTag({
+                  text: newTag,
+                  classes: "govuk-tag--green govuk-!-margin-right-2 document-tag"
+                }) }}
+              {% endif %}
+              {{ document.name }}
+            {% endset %}
+
             {% set statusTag %}
               {% if document.isLatest %}
                 {{ govukTag({
@@ -149,7 +194,7 @@
             {% endset %}
 
             {% set downloadLink %}
-              <a class="govuk-link" href="{{ document.downloadUrl | escape }}" download="{{ document.name | escape }}">
+              <a class="govuk-link download-link" href="{{ document.downloadUrl | escape }}" download="{{ document.name | escape }}" data-downloaded-text="{{ downloadedTag }}">
                 {{ download }}
               </a>
             {% endset %}
@@ -157,7 +202,7 @@
             {% set tableRows = [
               [
                 {
-                  text: document.name
+                  html: documentNameHtml
                 }, {
                   text: document.date
                 }, {

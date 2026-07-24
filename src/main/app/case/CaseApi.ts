@@ -207,8 +207,13 @@ interface CcdEventTriggerResponse extends CcdTokenResponse {
   };
 }
 
-interface DocumentResponse {
-  latestCaseBundleDocuments: CaseworkerCICDocument[];
-  contactPartiesDocuments: CaseworkerCICDocument[];
-  orderAndDecisionDocuments: CaseworkerCICDocument[];
+export interface BackendDashboardDocument {
+  document: CaseworkerCICDocument;
+  downloaded: boolean;
+}
+
+export interface DocumentResponse {
+  latestCaseBundleDocuments: BackendDashboardDocument[];
+  contactPartiesDocuments: BackendDashboardDocument[];
+  orderAndDecisionDocuments: BackendDashboardDocument[];
 }
