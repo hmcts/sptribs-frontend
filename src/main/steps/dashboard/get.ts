@@ -87,8 +87,7 @@ export default class DashboardGetController extends GetController {
           req.session.userCase['postcode'] = undefined;
         }
 
-        const errorMessage = error?.response?.data?.message || error?.response?.data || error?.message;
-        if (status === 401 && errorMessage === 'Submitted postcode does not match the postcode held in case data') {
+        if (status === 401) {
           return res.redirect(POSTCODE_ERROR_URL);
         }
 

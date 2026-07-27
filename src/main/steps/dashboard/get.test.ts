@@ -156,9 +156,6 @@ describe('DashboardGetController', () => {
     const mockError = {
       response: {
         status: 401,
-        data: {
-          message: 'Submitted postcode does not match the postcode held in case data',
-        },
       },
       message: 'Unauthorized',
     };
