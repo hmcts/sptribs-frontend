@@ -20,6 +20,11 @@ export default class PostcodeVerificationGetController extends GetController {
       return res.redirect(CICA_LOOKUP);
     }
 
+    req.session.validatedPostcode = undefined;
+    if (req.session.userCase) {
+      req.session.userCase['postcode'] = undefined;
+    }
+
     await super.get(req, res);
   }
 }

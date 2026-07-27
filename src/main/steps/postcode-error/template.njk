@@ -1,0 +1,28 @@
+{% extends "../common/template.njk" %}
+
+{% block backLink %}
+  <a href="/cica-postcode-verification" class="govuk-back-link">{{ back }}</a>
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-width-container">
+    <main class="govuk-main-wrapper govuk-!-padding-top-2">
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+          <h1 class="govuk-heading-l">{{ heading }}</h1>
+
+          <p class="govuk-body">{{ line1 }}</p>
+
+          <ul class="govuk-list govuk-list--bullet">
+            <li>{{ bullet1 }}</li>
+            <li>{{ bullet2 }}</li>
+          </ul>
+
+          <p class="govuk-body">
+            {{ tryAgainText1 }}<a href="/cica-postcode-verification" class="govuk-link">{{ tryAgainLink }}</a>{{ tryAgainText2 }}<a href="/contact-us" class="govuk-link">{{ contactSupportLink }}</a>{{ tryAgainText3 }}
+          </p>
+        </div>
+      </div>
+    </main>
+  </div>
+{% endblock %}

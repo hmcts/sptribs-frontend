@@ -1,0 +1,30 @@
+{
+  "translations": {
+    "en": {
+      "title": "You are not authorised to view this appeal",
+      "heading": "You are not authorised to view this appeal",
+      "line1": "The postcode entered does not match our records. This might be because:",
+      "bullet1": "the appeal belongs to someone else",
+      "bullet2": "you are not using the postcode provided when the appeal was registered. If you are a representative, ensure you're using the postcode for the person who the appeal is about",
+      "tryAgainText1": "You can ",
+      "tryAgainLink": "try another postcode",
+      "tryAgainText2": " or ",
+      "contactSupportLink": "contact support",
+      "tryAgainText3": " if you think this is a mistake.",
+      "back": "Back"
+    },
+    "cy": {
+      "title": "Nid ydych wedi'ch awdurdodi i weld yr apêl hon",
+      "heading": "Nid ydych wedi'ch awdurdodi i weld yr apêl hon",
+      "line1": "Nid yw'r cod post a nodwyd yn cyfateb i'n cofnodion. Gallai hyn fod oherwydd:",
+      "bullet1": "mae'r apêl yn perthyn i rywun arall",
+      "bullet2": "nid ydych yn defnyddio'r cod post a ddarparwyd pan gofrestrwyd yr apêl. Os ydych yn gynrychiolydd, sicrhewch eich bod yn defnyddio'r cod post ar gyfer y person y mae'r apêl yn ei gylch",
+      "tryAgainText1": "Gallwch ",
+      "tryAgainLink": "roi cynnig ar god post arall",
+      "tryAgainText2": " neu ",
+      "contactSupportLink": "gysylltu â chymorth",
+      "tryAgainText3": " os ydych yn credu bod hyn yn gamgymeriad.",
+      "back": "Yn ôl"
+    }
+  }
+}

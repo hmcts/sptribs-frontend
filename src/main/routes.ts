@@ -19,6 +19,7 @@ import DocumentDownloadController from './steps/dashboard/download';
 import DashboardGetController from './steps/dashboard/get';
 import { ErrorController } from './steps/error/error.controller';
 import { HomeGetController } from './steps/home/get';
+import PostcodeErrorGetController from './steps/postcode-error/get';
 import { PrivacyPolicyGetController } from './steps/privacy-policy/get';
 import { SaveSignOutGetController } from './steps/save-sign-out/get';
 import { TermsAndConditionsGetController } from './steps/terms-and-conditions/get';
@@ -35,6 +36,7 @@ import {
   HOME_URL,
   KEEP_ALIVE_URL,
   NOT_AUTHORISED,
+  POSTCODE_ERROR_URL,
   PRIVACY_POLICY,
   SAVE_AND_SIGN_OUT,
   TERMS_AND_CONDITIONS,
@@ -78,6 +80,7 @@ export class Routes {
     app.get(CICA_POSTCODE_VERIFICATION, errorHandler(new PostcodeVerificationGetController().get));
     app.post(CICA_POSTCODE_VERIFICATION, errorHandler(new PostcodeVerificationPostController().post));
     app.get(NOT_AUTHORISED, errorHandler(new CCDNotAuthorisedGetController().get));
+    app.get(POSTCODE_ERROR_URL, errorHandler(new PostcodeErrorGetController().get));
 
     for (const step of stepsWithContent) {
       const files = fs.readdirSync(`${step.stepDir}`);
