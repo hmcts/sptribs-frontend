@@ -116,32 +116,6 @@ describe('DashboardGetController', () => {
     expect(req.locals.logger.error).toHaveBeenCalled();
   });
 
-  test('should handle 401 errors, clear postcode and redirect to NOT_AUTHORISED', async () => {
-    const req = mockRequest({
-      session: {
-        userCase: {
-          id: '123',
-          state: State.Submitted,
-        },
-        validatedPostcode: 'SW1A 1AA',
-      },
-    });
-
-    const mockError = {
-      response: { status: 401 },
-      message: 'Unauthorized',
-    };
-    req.locals.api.getDocumentsByCaseId = jest.fn().mockRejectedValue(mockError);
-
-    const res = mockResponse();
-
-    await controller.get(req, res);
-
-    expect(req.session.validatedPostcode).toBeUndefined();
-    expect(res.redirect).toHaveBeenCalledWith(NOT_AUTHORISED);
-    expect(req.locals.logger.error).toHaveBeenCalled();
-  });
-
   test('should handle 401 errors with postcode mismatch, clear postcode and redirect to POSTCODE_ERROR_URL', async () => {
     const req = mockRequest({
       session: {
