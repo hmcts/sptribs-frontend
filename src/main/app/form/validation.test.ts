@@ -352,7 +352,7 @@ describe('Validation', () => {
       { mockRef: '1', expected: undefined },
       { mockRef: '12345', expected: undefined },
       { mockRef: '@£$£@$%', expected: 'invalid' },
-      { mockRef: 'not a postcode', expected: undefined },
+      { mockRef: 'not a postcode', expected: 'invalid' },
       { mockRef: 'SW1A 1AA', expected: undefined },
       { mockRef: 'SW1A1AA', expected: undefined },
       { mockRef: 'sw1a1aa', expected: undefined },
