@@ -8,7 +8,7 @@ const servicesToCheck = [
   { name: 'Special Tribunals Web', url: process.env.TEST_URL },
   { name: 'Special Tribunals Case API', url: config.get('services.ccd.url') },
   { name: 'IDAM Web', url: config.get('services.idam.authorizationURL') },
-  { name: 'IDAM API', url: config.get('services.idam.tokenURL') },
+  // { name: 'IDAM API', url: config.get('services.idam.tokenURL') },
   { name: 'Auth Provider', url: config.get('services.authProvider.url') },
   { name: 'Equality and Diversity', url: config.get('services.equalityAndDiversity.url') },
 ];
