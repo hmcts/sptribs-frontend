@@ -12,7 +12,6 @@ import { generateContent } from './content';
 interface DashboardDocument {
   name: string;
   downloadUrl: string;
-  isLatest: boolean;
   date?: string;
   category?: string;
   downloaded: boolean;
@@ -114,7 +113,6 @@ function mapDocument(doc: BackendDashboardDocument): DashboardDocument | null {
       '/dashboard/document/download' +
       `?documentId=${encodeURIComponent(documentId)}` +
       `&filename=${encodeURIComponent(filename)}`,
-    isLatest: false,
     //need to update to issued date not the date when the doc was created
     //for bundles its just when bundle created
     //for orders its when order was sent out (draft to not)
