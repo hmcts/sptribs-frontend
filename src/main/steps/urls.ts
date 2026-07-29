@@ -46,6 +46,7 @@ export const CICA_LOOKUP: PageLink = '/cica-lookup';
 export const CICA_CONFIRM_NEW: PageLink = '/cica-confirm-new';
 export const CICA_POSTCODE_VERIFICATION: PageLink = '/cica-postcode-verification';
 export const NOT_AUTHORISED: PageLink = '/not-authorised';
+export const POSTCODE_ERROR_URL: PageLink = '/postcode-error';
 
 export const CHECK_JURISDICTION: PageLink = '/check-jurisdiction';
 export const WHERE_YOUR_LIVES_ARE_BASED_URL: PageLink = '/where-your-lives-are-based';

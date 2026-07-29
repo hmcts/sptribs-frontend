@@ -76,4 +76,23 @@ describe('PostcodeVerificationGetController', () => {
       })
     );
   });
+
+  test('Should clear validatedPostcode and userCase.postcode when loading the postcode page', async () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          id: '1234567890123456',
+          state: 'Submitted',
+          postcode: 'SW1A 1AA',
+        } as any,
+        validatedPostcode: 'SW1A 1AA',
+      },
+    });
+    const res = mockResponse();
+
+    await controller.get(req, res);
+
+    expect(req.session.validatedPostcode).toBeUndefined();
+    expect(req.session.userCase['postcode']).toBeUndefined();
+  });
 });

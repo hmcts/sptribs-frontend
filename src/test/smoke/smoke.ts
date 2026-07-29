@@ -28,15 +28,37 @@ describe.each(servicesToCheck)('Required services should return 200 status UP', 
   });
 });
 
+// describe('Start now should redirect to IDAM', () => {
+//   test('Start Now', async () => {
+//     const checkStartNow = async () => {
+//       const url: string = process.env.TEST_URL + '/login';
+//       const response = await axios.get(url as string);
+//       if (response.status !== 200 || !response.data.includes('password')) {
+//         throw new Error(`Status: ${response.status} Data: '${JSON.stringify(response.data)}'`);
+//       }
+//     };
+//     await expect(checkStartNow()).resolves.not.toThrow();
+//   });
+// });
+
 describe('Start now should redirect to IDAM', () => {
   test('Start Now', async () => {
-    const checkStartNow = async () => {
-      const url: string = process.env.TEST_URL + '/login';
-      const response = await axios.get(url as string);
-      if (response.status !== 200 || !response.data.includes('password')) {
-        throw new Error(`Status: ${response.status} Data: '${JSON.stringify(response.data)}'`);
-      }
-    };
-    await expect(checkStartNow()).resolves.not.toThrow();
+    const baseUrl = process.env.TEST_URL;
+
+    const first = await axios.get(`${baseUrl}/o/authorize`, {
+      maxRedirects: 0,
+      validateStatus: null,
+    });
+
+    expect(first.status).toBe(302);
+    expect(first.headers.location).toBe('/login');
+
+    const second = await axios.get(`${baseUrl}/login`, {
+      maxRedirects: 0,
+      validateStatus: null,
+    });
+
+    expect(second.status).toBe(302);
+    expect(second.headers.location).toContain('idam');
   });
 });

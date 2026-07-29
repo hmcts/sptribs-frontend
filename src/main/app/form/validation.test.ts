@@ -349,8 +349,8 @@ describe('Validation', () => {
   describe('isInvalidPostcode()', () => {
     it.each([
       { mockRef: '', expected: 'required' },
-      { mockRef: '1', expected: 'invalid' },
-      { mockRef: '12345', expected: 'invalid' },
+      { mockRef: '1', expected: undefined },
+      { mockRef: '12345', expected: undefined },
       { mockRef: '@£$£@$%', expected: 'invalid' },
       { mockRef: 'not a postcode', expected: 'invalid' },
       { mockRef: 'SW1A 1AA', expected: undefined },

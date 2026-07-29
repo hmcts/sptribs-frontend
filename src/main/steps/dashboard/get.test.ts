@@ -1,7 +1,7 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { State } from '../../app/case/definition';
-import { CICA_LOOKUP, CICA_POSTCODE_VERIFICATION, NOT_AUTHORISED } from '../urls';
+import { CICA_LOOKUP, CICA_POSTCODE_VERIFICATION, NOT_AUTHORISED, POSTCODE_ERROR_URL } from '../urls';
 
 import DashboardGetController from './get';
 
@@ -116,7 +116,7 @@ describe('DashboardGetController', () => {
     expect(req.locals.logger.error).toHaveBeenCalled();
   });
 
-  test('should handle 401 errors, clear postcode and redirect to NOT_AUTHORISED', async () => {
+  test('should handle 401 errors with postcode mismatch, clear postcode and redirect to POSTCODE_ERROR_URL', async () => {
     const req = mockRequest({
       session: {
         userCase: {
@@ -128,7 +128,9 @@ describe('DashboardGetController', () => {
     });
 
     const mockError = {
-      response: { status: 401 },
+      response: {
+        status: 401,
+      },
       message: 'Unauthorized',
     };
     req.locals.api.getDocumentsByCaseId = jest.fn().mockRejectedValue(mockError);
@@ -138,7 +140,7 @@ describe('DashboardGetController', () => {
     await controller.get(req, res);
 
     expect(req.session.validatedPostcode).toBeUndefined();
-    expect(res.redirect).toHaveBeenCalledWith(NOT_AUTHORISED);
+    expect(res.redirect).toHaveBeenCalledWith(POSTCODE_ERROR_URL);
     expect(req.locals.logger.error).toHaveBeenCalled();
   });
 

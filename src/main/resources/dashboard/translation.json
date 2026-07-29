@@ -12,7 +12,7 @@
       "downloadedTag": "Downloaded",
       "download": "Download",
       "noDocuments": "No documents available",
-      "noDocumentsMessage": "There are no documents available for this case."
+      "noDocumentsMessage": "There are no documents available for this appeal."
     },
     "cy": {
       "title": "Eich dogfennau",
@@ -27,7 +27,7 @@
       "downloadedTag": "Wedi'i lawrlwytho",
       "download": "Lawrlwytho",
       "noDocuments": "Nid oes dogfennau ar gael",
-      "noDocumentsMessage": "Nid oes dogfennau ar gael ar gyfer yr achos hwn."
+      "noDocumentsMessage": "Nid oes dogfennau ar gael ar gyfer yr apêl hon."
     }
   }
 }

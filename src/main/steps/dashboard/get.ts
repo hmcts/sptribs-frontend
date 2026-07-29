@@ -5,7 +5,7 @@ import { BackendDashboardDocument } from '../../app/case/CaseApi';
 import { fromApiFormat } from '../../app/case/from-api-format';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { GetController } from '../../app/controller/GetController';
-import { CICA_LOOKUP, CICA_POSTCODE_VERIFICATION, NOT_AUTHORISED } from '../urls';
+import { CICA_LOOKUP, CICA_POSTCODE_VERIFICATION, NOT_AUTHORISED, POSTCODE_ERROR_URL } from '../urls';
 
 import { generateContent } from './content';
 
@@ -83,6 +83,14 @@ export default class DashboardGetController extends GetController {
       const status = error?.response?.status;
       if (status === 401 || status === 403) {
         req.session.validatedPostcode = undefined;
+        if (req.session.userCase) {
+          req.session.userCase['postcode'] = undefined;
+        }
+
+        if (status === 401) {
+          return res.redirect(POSTCODE_ERROR_URL);
+        }
+
         return res.redirect(NOT_AUTHORISED);
       }
 
