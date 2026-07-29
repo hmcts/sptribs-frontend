@@ -192,7 +192,9 @@ export const isInvalidPostcode: Validator = value => {
     return fieldNotFilledIn;
   }
 
-  if (!(value as string).match(/^[a-zA-Z0-9]+(?: [a-zA-Z0-9]+)?$/)) {
+  const trimmedPostcode = (value as string).trim();
+
+  if (!trimmedPostcode.match(/^(?=.*\d)[a-zA-Z0-9]+(?:[\s-]+[a-zA-Z0-9]+)*$/)) {
     return 'invalid';
   }
 };
