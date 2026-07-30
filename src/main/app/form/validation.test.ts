@@ -364,6 +364,8 @@ describe('Validation', () => {
       { mockRef: ' sw1a 1aa ', expected: undefined },
       { mockRef: 'SW1A   1AA', expected: undefined },
       { mockRef: 'SW1A!1AA', expected: 'invalid' },
+      { mockRef: '<script>test</script>', expected: 'invalid' },
+      { mockRef: '[me]google.com[me]', expected: 'invalid' },
     ])('validates the help with fees ref when %o', ({ mockRef, expected }) => {
       expect(isInvalidPostcode(mockRef)).toEqual(expected);
     });
