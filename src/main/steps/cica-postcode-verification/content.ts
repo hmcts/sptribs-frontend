@@ -1,6 +1,6 @@
 import { TranslationFn } from '../../app/controller/GetController';
 import { FormContent } from '../../app/form/Form';
-import { isInvalidPostcode } from '../../app/form/validation';
+import { isInvalidPostcode, isMarkDownLinkIncluded } from '../../app/form/validation';
 import { ResourceReader } from '../../modules/resourcereader/ResourceReader';
 
 export const form: FormContent = {
@@ -9,7 +9,7 @@ export const form: FormContent = {
       type: 'text',
       classes: 'govuk-input govuk-input--width-10',
       label: l => l.postcodeLabel,
-      validator: isInvalidPostcode,
+      validator: input => isMarkDownLinkIncluded(input) || isInvalidPostcode(input),
     },
   },
   submit: {
