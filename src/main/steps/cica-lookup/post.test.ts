@@ -1,7 +1,7 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { Form } from '../../app/form/Form';
-import { CICA_CONFIRM_NEW, CICA_LOOKUP, CICA_POSTCODE_VERIFICATION, NOT_AUTHORISED } from '../urls';
+import { CICA_CONFIRM_NEW, CICA_LOOKUP, CICA_POSTCODE_VERIFICATION, NOT_AUTHORISED, SUBJECT_DETAILS } from '../urls';
 
 import CicaLookupPostController from './post';
 
@@ -31,6 +31,18 @@ describe('CicaLookupPostController', () => {
     (Form as jest.Mock).mockImplementation(() => ({
       getErrors: jest.fn().mockReturnValue([]), // default: no errors
     }));
+  });
+
+  test('should redirect to subject-details when startNewAppeal selected', async () => {
+    req.session.userCase.id = '';
+    req.body['ccdReference'] = '1234';
+    req.body['cancel'] = true;
+
+    await controller.post(req, res);
+
+    expect(req.session.userCase.id).toEqual('');
+    expect(req.body['ccdReference']).toEqual('');
+    expect(res.redirect).toHaveBeenCalledWith(SUBJECT_DETAILS);
   });
 
   test('should redirect back to lookup when validation fails', async () => {
