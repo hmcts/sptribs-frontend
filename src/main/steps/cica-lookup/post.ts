@@ -16,7 +16,7 @@ export default class CCDLookupPostController extends PostController<AnyObject> {
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     if (req.body.cancel) {
-      req.session.userCase = { id: '', state: '' } as any;
+      req.body.ccdReference = '';
       return this.redirect(req, res, SUBJECT_DETAILS);
     }
 
