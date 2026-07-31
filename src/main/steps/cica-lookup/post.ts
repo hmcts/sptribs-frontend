@@ -4,7 +4,7 @@ import { Response } from 'express';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../app/controller/PostController';
 import { Form, FormFields } from '../../app/form/Form';
-import { CICA_CONFIRM_NEW, CICA_LOOKUP, CICA_POSTCODE_VERIFICATION, NOT_AUTHORISED } from '../urls';
+import { CICA_CONFIRM_NEW, CICA_LOOKUP, CICA_POSTCODE_VERIFICATION, NOT_AUTHORISED, SUBJECT_DETAILS } from '../urls';
 
 import { form } from './content';
 
@@ -15,6 +15,11 @@ export default class CCDLookupPostController extends PostController<AnyObject> {
   }
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
+    if (req.body.cancel) {
+      req.session.userCase = { id: '', state: '' } as any;
+      return this.redirect(req, res, SUBJECT_DETAILS);
+    }
+
     const formInstance = new Form(this.fields as FormFields);
     const formErrors = formInstance.getErrors(req.body);
 
