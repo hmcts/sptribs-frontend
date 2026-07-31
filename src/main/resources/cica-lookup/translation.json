@@ -11,6 +11,7 @@
     },
     "cy": {
       "continue": "Parhau",
+      "startNewAppeal": "Dechrau apel newydd",
       "serviceName": "Apelio i'r Tribiwnlys Haen Gyntaf",
       "title": "Nodwch eich cyfeirnod HMCTS",
       "line1": "Os oes gennych achos presennol, bydd nodi eich cyfeirnod HMCTS yn mynd â chi ato. Fel arall, bydd cais newydd yn cael ei ddechrau.",
