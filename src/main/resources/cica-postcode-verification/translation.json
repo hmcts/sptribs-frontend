@@ -18,13 +18,13 @@
   "errors": {
     "en": {
       "postcode": {
-        "required": "Enter a real postcode",
+        "required": "You must provide a postcode",
         "invalid": "Enter a real postcode"
       }
     },
     "cy": {
       "postcode": {
-        "required": "Nodwch god post go iawn",
+        "required": "Mae'n rhaid i chi ddarparu cod post",
         "invalid": "Nodwch god post go iawn"
       }
     }
