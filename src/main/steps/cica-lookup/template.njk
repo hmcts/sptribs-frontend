@@ -1,3 +1,8 @@
 {% extends "../common/template.njk" %}
 
 {% block backLink %}{% endblock %}
+{{ govukButton({
+  text: {% startNewAppeal %},
+  href: "/subject-details",
+  classes: "govuk-button--secondary"
+}) }}
