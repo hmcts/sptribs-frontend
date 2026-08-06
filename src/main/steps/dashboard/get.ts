@@ -1,7 +1,7 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { CaseworkerCICDocument } from '../../app/case/definition';
+import { BackendDashboardDocument } from '../../app/case/CaseApi';
 import { fromApiFormat } from '../../app/case/from-api-format';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { GetController } from '../../app/controller/GetController';
@@ -12,9 +12,9 @@ import { generateContent } from './content';
 interface DashboardDocument {
   name: string;
   downloadUrl: string;
-  isLatest: boolean;
   date?: string;
   category?: string;
+  downloaded: boolean;
 }
 
 @autobind
@@ -99,14 +99,15 @@ export default class DashboardGetController extends GetController {
   }
 }
 
-function mapDocument(doc: CaseworkerCICDocument): DashboardDocument | null {
-  if (!doc.documentLink?.document_url) {
+function mapDocument(doc: BackendDashboardDocument): DashboardDocument | null {
+  const caseworkerDoc = doc.document;
+  if (!caseworkerDoc?.documentLink?.document_url) {
     return null;
   }
 
-  const filename = doc.documentLink.document_filename || 'Unknown document';
+  const filename = caseworkerDoc.documentLink.document_filename || 'Unknown document';
 
-  const documentUrl = doc.documentLink.document_url;
+  const documentUrl = caseworkerDoc.documentLink.document_url;
 
   const documentId = extractDocumentId(documentUrl);
 
@@ -120,13 +121,13 @@ function mapDocument(doc: CaseworkerCICDocument): DashboardDocument | null {
       '/dashboard/document/download' +
       `?documentId=${encodeURIComponent(documentId)}` +
       `&filename=${encodeURIComponent(filename)}`,
-    isLatest: false,
     //need to update to issued date not the date when the doc was created
     //for bundles its just when bundle created
     //for orders its when order was sent out (draft to not)
     //for rest its when correspondence eas sent out
-    date: doc.date ? formatDate(doc.date) : undefined,
-    category: doc.documentCategory || undefined,
+    date: caseworkerDoc.date ? formatDate(caseworkerDoc.date) : undefined,
+    category: caseworkerDoc.documentCategory || undefined,
+    downloaded: doc.downloaded,
   };
 }
 
