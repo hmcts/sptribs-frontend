@@ -2,14 +2,16 @@
   "translations": {
     "en": {
       "continue": "Continue",
+      "startNewAppeal": "Start a new appeal",
       "serviceName": "Appeal to the First-tier Tribunal",
       "title": "Enter your HMCTS reference number",
-      "line1": "If you have an existing appeal, entering your HMCTS reference number will take you to it. Otherwise, a new application will be started.",
+      "line1": "If you have an existing appeal, entering your HMCTS reference number will take you to it. If you do not have a reference number, a new appeal will need to be submitted.",
       "line2": "You can find this on any correspondence that you've received from HMCTS. HMCTS reference numbers are 16 digits long.",
       "ccdReferenceLabel": "HMCTS reference number"
     },
     "cy": {
       "continue": "Parhau",
+      "startNewAppeal": "Dechrau apel newydd",
       "serviceName": "Apelio i'r Tribiwnlys Haen Gyntaf",
       "title": "Nodwch eich cyfeirnod HMCTS",
       "line1": "Os oes gennych achos presennol, bydd nodi eich cyfeirnod HMCTS yn mynd â chi ato. Fel arall, bydd cais newydd yn cael ei ddechrau.",

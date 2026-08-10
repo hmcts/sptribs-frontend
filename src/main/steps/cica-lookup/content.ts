@@ -24,6 +24,9 @@ export const form: FormContent = {
   submit: {
     text: l => l.continue,
   },
+  cancel: {
+    text: l => l.startNewAppeal,
+  },
 };
 
 export const generateContent: TranslationFn = content => {
