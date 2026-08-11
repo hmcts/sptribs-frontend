@@ -1,4 +1,4 @@
-import csurf from 'csurf';
+import csurf from '@dr.pogodin/csurf';
 import type { Application } from 'express';
 import type { LoggerInstance } from 'winston';
 

@@ -1,10 +1,11 @@
 import { Logger } from '@hmcts/nodejs-logging';
 import axios from 'axios';
 import config from 'config';
-import { authenticator } from 'otplib';
+import { createGuardrails, generateSync } from 'otplib';
 
 const logger = Logger.getLogger('service-auth-token');
 let token;
+const otpGuardrails = createGuardrails({ MIN_SECRET_BYTES: 1 });
 
 export const getTokenFromApi = async (): Promise<void> => {
   logger.info('Refreshing service auth token');
@@ -12,7 +13,7 @@ export const getTokenFromApi = async (): Promise<void> => {
   const url: string = config.get('services.authProvider.url') + '/lease';
   const microservice: string = config.get('services.authProvider.microservice');
   const secret: string = config.get('services.authProvider.secret');
-  const oneTimePassword = authenticator.generate(secret);
+  const oneTimePassword = generateSync({ secret, guardrails: otpGuardrails });
   const body = { microservice, oneTimePassword };
 
   try {
