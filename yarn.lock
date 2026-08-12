@@ -3692,9 +3692,9 @@ __metadata:
   linkType: hard
 
 "@types/negotiator@npm:^0.6.1":
-  version: 0.6.4
-  resolution: "@types/negotiator@npm:0.6.4"
-  checksum: 10c0/b3b65c30be158d9ae65f4048153a13fd9a9ad2dce4df8d36d4e3aaa6f047ac0eab58286837bb3afbb617f95273f29b45f804d772485f5717c651e56f449e1ddd
+  version: 0.6.5
+  resolution: "@types/negotiator@npm:0.6.5"
+  checksum: 10c0/4b228d0d74bf190e8c0853712d5cfca685735bacebbb532c52ecf260fbfa6a0fc578cfcea8f6e39538aa7f62027b24c5fddc1135068be21f7dd28e8f60be58fe
   languageName: node
   linkType: hard
 
