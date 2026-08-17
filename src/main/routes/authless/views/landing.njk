@@ -1,6 +1,7 @@
 {% extends "authless-templates.njk" %}
 {% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
 {% from "govuk/components/footer/macro.njk" import govukFooter %}
+{% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
 
 {% block header %}
   {{ govukHeader({
@@ -27,6 +28,10 @@
     text: "BETA"
   },
   html: content.banner|replace("currentUrl",currentUrl) +'<span class="float-right"><a href="?lang='+ToggleLanguage+'" class="govuk-link ">'+language+'</a></span>'
+}) }}
+{{ govukNotificationBanner({
+  titleText: content.idamAlertTitle,
+  text: content.idamAlert
 }) }}
 {% endblock %}
 
