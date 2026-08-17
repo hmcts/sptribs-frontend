@@ -43,7 +43,7 @@ describe.each(servicesToCheck)('Required services should return 200 status UP', 
 
 describe('Start now should redirect to IDAM', () => {
   test('Start Now', async () => {
-    const checkStartNow = async () => {  
+    const checkStartNow = async () => {
       const url = new URL('/login', process.env.TEST_URL as string).toString();
       const expectedRedirectBase = config.get('services.idam.authorizationURL') as string;
       const response = await axios.get(url, {
