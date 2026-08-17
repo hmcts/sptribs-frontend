@@ -10,6 +10,9 @@ const en = {
   serviceName: 'Appeal to the First-tier Tribunal',
   feedback:
     "<b> Help us improve this service </b><br>This is a new service. Help us for others to improve it by <a  class='govuk-link' href='https://www.smartsurvey.co.uk/s/Specials_Feedback?pageurl=currentUrl'target=_blank>giving your feedback</a>",
+  idamAlertTitle: 'Important',
+  idamAlert:
+    'The sign in screen will have a new look soon. This will not affect your case details or how you access this service.',
   languageToggle: '<a href="?lng=cy" class="govuk-link language">Cymraeg</a>',
   govUk: 'GOV.UK',
   errorPrefix: 'Error:',
@@ -126,6 +129,9 @@ const cy: typeof en = {
   serviceName: 'Apelio i’r Tribiwnlys Haen Gyntaf',
   feedback:
     "<b>Helpwch ni i wella’r gwasanaeth hwn</b><br> Mae hwn yn wasanaeth newydd. Helpwch ni ei wella i bobl eraill trwy <a class='govuk-link' href='https://www.smartsurvey.co.uk/s/Specials_Feedback/?pageurl=currentUrl' target=_blank>roi eich adborth</a>",
+  idamAlertTitle: 'Pwysig',
+  idamAlert:
+    "Bydd y sgrin mewngofnodi yn cael golwg newydd yn fuan. Ni fydd hyn yn effeithio ar fanylion eich achos na sut rydych yn defnyddio'r gwasanaeth hwn.",
   languageToggle: '<a href="?lng=en" class="govuk-link language">English</a>',
   govUk: 'GOV.UK',
   errorPrefix: 'Gwall:',
