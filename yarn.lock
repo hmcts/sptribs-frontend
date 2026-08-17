@@ -3639,9 +3639,9 @@ __metadata:
   linkType: hard
 
 "@types/lodash@npm:^4.14.201":
-  version: 4.17.24
-  resolution: "@types/lodash@npm:4.17.24"
-  checksum: 10c0/b72f60d4daacdad1fa643edb3faba204c02a01eb1ac00a83ff73496a6d236fc55e459c06106e8ced42277dba932d087d8fc090f8de4ef590d3f91e6d6f7ce85a
+  version: 4.17.25
+  resolution: "@types/lodash@npm:4.17.25"
+  checksum: 10c0/ca2049f16bf527e04d6e27702e3912a484faaff587de77a5c58e0d243b9292a655e1d7f7e5bdf2ffdf49a76da10673097f8dd4901990679058d47ccd99051877
   languageName: node
   linkType: hard
 
@@ -3692,9 +3692,9 @@ __metadata:
   linkType: hard
 
 "@types/negotiator@npm:^0.6.1":
-  version: 0.6.4
-  resolution: "@types/negotiator@npm:0.6.4"
-  checksum: 10c0/b3b65c30be158d9ae65f4048153a13fd9a9ad2dce4df8d36d4e3aaa6f047ac0eab58286837bb3afbb617f95273f29b45f804d772485f5717c651e56f449e1ddd
+  version: 0.6.5
+  resolution: "@types/negotiator@npm:0.6.5"
+  checksum: 10c0/4b228d0d74bf190e8c0853712d5cfca685735bacebbb532c52ecf260fbfa6a0fc578cfcea8f6e39538aa7f62027b24c5fddc1135068be21f7dd28e8f60be58fe
   languageName: node
   linkType: hard
 
@@ -6446,8 +6446,8 @@ __metadata:
   linkType: hard
 
 "compressing@npm:^1.10.3":
-  version: 1.10.5
-  resolution: "compressing@npm:1.10.5"
+  version: 1.10.6
+  resolution: "compressing@npm:1.10.6"
   dependencies:
     "@eggjs/yauzl": "npm:^2.11.0"
     flushwritable: "npm:^1.0.0"
@@ -6458,7 +6458,7 @@ __metadata:
     streamifier: "npm:^0.1.1"
     tar-stream: "npm:^1.5.2"
     yazl: "npm:^2.4.2"
-  checksum: 10c0/3a2efac4932171dcaa576e445ac907906e26a0e9c5d8e653a3acb105fae63fba49647ebb412a0ceb56b568454a0dac307348522da28a2adc9c072d3c79acbc20
+  checksum: 10c0/69af5141bc0c226390acb42d99f574b575455d6ec9964f230931c422afd872c4d5b49787fe4177f5dd3dcdb58e9d62d87eae509d4a8baa7867bb7df0cafd91e0
   languageName: node
   linkType: hard
 
@@ -6475,19 +6475,19 @@ __metadata:
   linkType: hard
 
 "concurrently@npm:^10.0.3":
-  version: 10.0.3
-  resolution: "concurrently@npm:10.0.3"
+  version: 10.0.4
+  resolution: "concurrently@npm:10.0.4"
   dependencies:
     chalk: "npm:5.6.2"
     rxjs: "npm:7.8.2"
-    shell-quote: "npm:1.8.4"
+    shell-quote: "npm:1.9.0"
     supports-color: "npm:10.2.2"
     tree-kill: "npm:1.2.2"
     yargs: "npm:18.0.0"
   bin:
     conc: dist/bin/index.js
     concurrently: dist/bin/index.js
-  checksum: 10c0/59a4d9a7946fdbfbfa380543e5e5a40eb5b993cde18862126e8c7fe117813ebd26d67aa67b64781543c0e357eb23fb551f303b622e439354398ff0d7d71735b6
+  checksum: 10c0/8f4c1380541230425350cba407df59728532728105a1575cba3d9fae97e13621b905cde0f03f22f26be21505544b3b1e10a45080db27330bb1891495c019a8df
   languageName: node
   linkType: hard
 
@@ -9414,8 +9414,8 @@ __metadata:
   linkType: hard
 
 "html-webpack-plugin@npm:^5.5.3":
-  version: 5.6.7
-  resolution: "html-webpack-plugin@npm:5.6.7"
+  version: 5.6.8
+  resolution: "html-webpack-plugin@npm:5.6.8"
   dependencies:
     "@types/html-minifier-terser": "npm:^6.0.0"
     html-minifier-terser: "npm:^6.0.2"
@@ -9423,14 +9423,14 @@ __metadata:
     pretty-error: "npm:^4.0.0"
     tapable: "npm:^2.0.0"
   peerDependencies:
-    "@rspack/core": 0.x || 1.x
+    "@rspack/core": 0.x || 1.x || 2.x
     webpack: ^5.20.0
   peerDependenciesMeta:
     "@rspack/core":
       optional: true
     webpack:
       optional: true
-  checksum: 10c0/bc0496defbe59a9dc3c7806dc591c53142df1f9c6ed7110cddce00dd9aa733ca0df84fd69247bdb4b1c6f9e0fb3b37a6f007f9dd29e86658ed36e8866e760169
+  checksum: 10c0/230c5626a083c0f3d8173f0b047ca043a69d6613f9b96243d9e5ea63ebfaf7d0758ecff35f92b8bafa66717a9fed8d8a936abf2774d34449530c87d1114b14d4
   languageName: node
   linkType: hard
 
