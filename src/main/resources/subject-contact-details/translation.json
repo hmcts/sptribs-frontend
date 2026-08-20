@@ -4,13 +4,13 @@
       "continue": "Continue",
       "serviceName": "Appeal to the First-tier Tribunal",
       "title": "Enter contact information",
-      "line1": "Please enter your contact details to use for this case.",
+      "line1": "Please enter your contact details to use for this appeal.",
       "emailAddressLabel": "Email address",
       "emailAddressHint": "Enter an email address in the correct format, like name@example.com",
       "emailAddress": "Insert email address",
       "contactNumberLabel": "Contact number",
       "contactNumberHint": "Enter a contact number in the correct format, like 01632 960 001 or 07700 900 982",
-      "agreeContactLabel": "I agree to be contacted about this case using the details I have provided"
+      "agreeContactLabel": "I agree to be contacted about this appeal using the details I have provided"
     },
     "cy": {
       "continue": "Parhau",
