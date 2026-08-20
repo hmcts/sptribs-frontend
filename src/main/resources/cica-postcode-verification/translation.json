@@ -1,0 +1,32 @@
+{
+  "translations": {
+    "en": {
+      "continue": "Continue",
+      "title": "Enter the postcode for the appeal",
+      "line1": "This is the postcode used when the appeal was registered",
+      "postcodeLabel": "Postcode",
+      "back": "Back"
+    },
+    "cy": {
+      "continue": "Parhau",
+      "title": "Nodwch y cod post ar gyfer yr apêl",
+      "line1": "Dyma'r cod post a ddefnyddiwyd pan gofrestrwyd yr apêl",
+      "postcodeLabel": "Cod post",
+      "back": "Yn ôl"
+    }
+  },
+  "errors": {
+    "en": {
+      "postcode": {
+        "required": "Enter a real postcode",
+        "invalid": "Enter a real postcode"
+      }
+    },
+    "cy": {
+      "postcode": {
+        "required": "Nodwch god post go iawn",
+        "invalid": "Nodwch god post go iawn"
+      }
+    }
+  }
+}

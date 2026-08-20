@@ -28,6 +28,19 @@ describe.each(servicesToCheck)('Required services should return 200 status UP', 
   });
 });
 
+// describe('Start now should redirect to IDAM', () => {
+//   test('Start Now', async () => {
+//     const checkStartNow = async () => {
+//       const url: string = process.env.TEST_URL + '/login';
+//       const response = await axios.get(url as string);
+//       if (response.status !== 200 || !response.data.includes('password')) {
+//         throw new Error(`Status: ${response.status} Data: '${JSON.stringify(response.data)}'`);
+//       }
+//     };
+//     await expect(checkStartNow()).resolves.not.toThrow();
+//   });
+// });
+
 describe('Start now should redirect to IDAM', () => {
   test('Start Now', async () => {
     const checkStartNow = async () => {

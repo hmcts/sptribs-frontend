@@ -55,4 +55,28 @@ describe('from-api-format', () => {
       });
     });
   });
+
+  describe('handling null or empty case data gracefully', () => {
+    test('should return empty object when data is null', () => {
+      const result = fromApiFormat(null as unknown as CaseData);
+      expect(result).toStrictEqual({});
+    });
+  });
+
+  describe('mapping caseworker-side subject details', () => {
+    test('converts cicCase fields to frontend subject fields', () => {
+      const formatted = fromApiFormat({
+        ...results,
+        cicCaseFullName: 'Jane Doe',
+        cicCaseEmail: 'jane@example.com',
+        cicCasePhoneNumber: '07123456789',
+      } as unknown as CaseData);
+
+      expect(formatted).toMatchObject({
+        subjectFullName: 'Jane Doe',
+        subjectEmailAddress: 'jane@example.com',
+        subjectContactNumber: '07123456789',
+      });
+    });
+  });
 });

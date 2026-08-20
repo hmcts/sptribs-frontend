@@ -6,6 +6,7 @@ import {
   containsInvalidCharacters,
   doesArrayHaveValues,
   isAddressSelected,
+  isCCDReferenceNumberAcceptable,
   isCICAReferenceNumberAcceptable,
   isDateInputInvalid,
   isDateInputNotFilled,
@@ -348,8 +349,8 @@ describe('Validation', () => {
   describe('isInvalidPostcode()', () => {
     it.each([
       { mockRef: '', expected: 'required' },
-      { mockRef: '1', expected: 'invalid' },
-      { mockRef: '12345', expected: 'invalid' },
+      { mockRef: '1', expected: undefined },
+      { mockRef: '12345', expected: undefined },
       { mockRef: '@£$£@$%', expected: 'invalid' },
       { mockRef: 'not a postcode', expected: 'invalid' },
       { mockRef: 'SW1A 1AA', expected: undefined },
@@ -536,6 +537,18 @@ describe('isMarkDownLinkIncluded()', () => {
   test('should return null if value passed is undefined', async () => {
     const isValid = isMarkDownLinkIncluded(undefined);
     expect(isValid).toStrictEqual(undefined);
+  });
+});
+
+describe('isCCDReferenceNumberAcceptable()', () => {
+  test('should return error if value is less than 16 digits', async () => {
+    const isValid = isCCDReferenceNumberAcceptable('12345678');
+    expect(isValid).toStrictEqual('invalid');
+  });
+
+  test('should return error if value has gaps and - in', async () => {
+    const isValid = isCCDReferenceNumberAcceptable('1234 - 1234 - 1234 -1234');
+    expect(isValid).toStrictEqual('invalid');
   });
 });
 

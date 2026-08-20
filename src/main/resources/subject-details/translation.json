@@ -3,8 +3,8 @@
     "en": {
       "continue": "Continue",
       "serviceName": "Appeal to the First-tier Tribunal",
-      "title": "Who is the subject of this case?",
-      "line1": "The subject of a case may be you, or the person who you are submitting this tribunal form on behalf of.",
+      "title": "Who is the subject of this appeal?",
+      "line1": "The subject of an appeal may be you, or the person who you are submitting this tribunal form on behalf of.",
       "subjectFullNameLabel": "Full name",
       "subjectDateOfBirthLabel": "Date of birth",
       "hint": "For example, 31 3 1980",
