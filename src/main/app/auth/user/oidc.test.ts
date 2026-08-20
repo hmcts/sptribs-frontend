@@ -2,7 +2,7 @@ import axios, { AxiosStatic } from 'axios';
 
 import { CALLBACK_URL } from '../../../steps/urls';
 
-import { getRedirectUrl, getSystemUser, getUserDetails } from './oidc';
+import { getEndSessionUrl, getRedirectUrl, getSystemUser, getUserDetails } from './oidc';
 
 jest.mock('axios');
 
@@ -12,9 +12,17 @@ const token =
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0QHRlc3QuY29tIiwiZ2l2ZW5fbmFtZSI6IkpvaG4iLCJmYW1pbHlfbmFtZSI6IkRvcmlhbiIsInVpZCI6IjEyMyIsInJvbGVzIjpbImNpdGl6ZW4iXX0.rxjx6XsSNNYavVppwKAqWiNWT_GxN4vjVzdLRe6q14I';
 
 describe('getRedirectUrl', () => {
-  test('should create a valid URL to redirect to the login screen', () => {
+  test('should create a valid URL to redirect to the new login screen', () => {
     expect(getRedirectUrl('http://localhost', CALLBACK_URL)).toBe(
-      'https://idam-web-public.aat.platform.hmcts.net/login?client_id=sptribs-frontend&response_type=code&redirect_uri=http://localhost/receiver'
+      'https://idam-web-public.aat.platform.hmcts.net/o/authorize?client_id=sptribs-frontend&response_type=code&redirect_uri=http://localhost/receiver&scope=openid%20profile%20roles'
+    );
+  });
+});
+
+describe('getEndSessionUrl', () => {
+  test('should create a valid URL to redirect to the IDAM endSession endpoint', () => {
+    expect(getEndSessionUrl('http://localhost')).toBe(
+      'https://idam-web-public.aat.platform.hmcts.net/o/endSession?post_logout_redirect_uri=http://localhost'
     );
   });
 });
