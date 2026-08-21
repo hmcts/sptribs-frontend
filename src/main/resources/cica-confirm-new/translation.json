@@ -13,12 +13,12 @@
     "cy": {
       "continue": "Parhau",
       "serviceName": "Apelio i'r Tribiwnlys Haen Gyntaf",
-      "title": "Nid yw eich cyfeirnod HMCTS yn cyfateb i achos presennol",
+      "title": "Nid yw eich cyfeirnod GLlTEF yn cyfateb i apêl sy'n bodoli eisoes",
       "line1Part1": "Nid yw'r cyfeirnod a nodwyd gennych (",
       "line1Part2": ") yn cyfateb i unrhyw achos yn ein cofnodion.",
-      "label": "Ydych chi am ddechrau apêl newydd?",
-      "one": "Ydw, dechrau apêl newydd",
-      "two": "Na, gadewch i mi ail-nodi fy nghyfeirnod HMCTS"
+      "label": "Ydych chi eisiau dechrau apêl newydd?",
+      "one": "Oes, dechrau apêl newydd",
+      "two": "Nac oes, gadewch imi nodi fy nghyfeirnod GLlTEF eto"
     }
   },
   "errors": {
@@ -29,7 +29,7 @@
     },
     "cy": {
       "startNewAppeal": {
-        "required": "Dewiswch oes os ydych am ddechrau apêl newydd"
+        "required": "Dewiswch oes os ydych chi eisiau dechrau apêl newydd"
       }
     }
   }

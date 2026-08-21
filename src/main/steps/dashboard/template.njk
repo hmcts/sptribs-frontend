@@ -83,7 +83,7 @@
 
           {% if orderAndDecisionDocuments.length > 0 %}
 
-            <h3 class="govuk-heading-m govuk-!-margin-top-6">Orders and decisions</h3>
+            <h3 class="govuk-heading-m govuk-!-margin-top-6">{{ ordersAndDecisionsHeading }}</h3>
 
             {% set tableRows = [] %}
 
@@ -145,7 +145,7 @@
 
           {% if latestCaseBundleDocuments.length > 0 %}
 
-            <h3 class="govuk-heading-m govuk-!-margin-top-6">Latest appeal bundle documents</h3>
+            <h3 class="govuk-heading-m govuk-!-margin-top-6">{{ bundleDocumentsHeading }}</h3>
 
             {% set document = latestCaseBundleDocuments[0] %}
 
