@@ -4,6 +4,8 @@
       "title": "Your documents",
       "serviceName": "Appeal to the First-tier Tribunal",
       "documentsHeading": "Documents",
+      "ordersAndDecisionsHeading": "Orders and decisions",
+      "bundleDocumentsHeading": "Latest appeal bundle documents",
       "documentName": "Document name",
       "date": "Issued date",
       "status": "Status",
@@ -16,18 +18,19 @@
     },
     "cy": {
       "title": "Eich dogfennau",
-      "serviceName": "Apelio i'r Tribiwnlys Haen Gyntaf",
-      "caseNumberLabel": "Rhif Achos",
+      "serviceName": "Apelio i’r Tribiwnlys Haen Gyntaf",
       "documentsHeading": "Dogfennau",
+      "ordersAndDecisionsHeading": "Gorchmynion a phenderfyniadau",
+      "bundleDocumentsHeading": "Dogfennau diweddaraf o fwndel yr apêl",
       "documentName": "Enw'r ddogfen",
-      "date": "Dyddiad",
+      "date": "Dyddiad cyhoeddi",
       "status": "Statws",
-      "action": "Gweithred",
+      "action": "Cam Gweithredu",
       "newTag": "Newydd",
       "downloadedTag": "Wedi'i lawrlwytho",
       "download": "Lawrlwytho",
       "noDocuments": "Nid oes dogfennau ar gael",
-      "noDocumentsMessage": "Nid oes dogfennau ar gael ar gyfer yr apêl hon."
+      "noDocumentsMessage": "Nid oes unrhyw ddogfennau ar gael ar gyfer yr apêl hon."
     }
   }
 }
