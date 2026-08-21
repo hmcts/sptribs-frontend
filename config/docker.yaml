@@ -2,6 +2,7 @@ services:
   idam:
     authorizationURL: 'http://localhost:3501/login'
     tokenURL: 'http://localhost:5000/o/token'
+    hmctsToken: 'http://localhost:50000'
   case:
     url: 'http://localhost:4452'
   payments:

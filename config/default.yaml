@@ -9,8 +9,10 @@ services:
     microservice: 'sptribs_case_api'
     secret: 'NEED TO INSERT SECRET'
   idam:
-    authorizationURL: 'https://idam-web-public.aat.platform.hmcts.net/login'
-    tokenURL: 'https://idam-api.aat.platform.hmcts.net/o/token'
+    authorizationURL: 'https://idam-web-public.aat.platform.hmcts.net/o/authorize'
+    tokenURL: 'https://idam-web-public.aat.platform.hmcts.net/o/token'
+    endSessionURL: 'https://idam-web-public.aat.platform.hmcts.net/o/endSession'
+    hmctsToken: 'https://hmcts-access.aat.platform.hmcts.net'
     clientID: 'sptribs-frontend'
     clientSecret: 'NEED TO INSERT SECRET'
     systemUsername: 'dummy_user'
