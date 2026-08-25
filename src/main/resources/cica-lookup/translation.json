@@ -23,7 +23,7 @@
     "en": {
       "ccdReference": {
         "required": "Enter your HMCTS reference number",
-        "containsMarkdownLink": "HMCTS reference number must not include a link",
+        "containsMarkdownLink": "HMCTS number must not include a link",
         "containsInvalidCharacters": "HMCTS reference number must not include HTML",
         "invalid": "HMCTS reference number must be 16 digits long"
       }
@@ -32,7 +32,7 @@
       "ccdReference": {
         "required": "Nodwch eich cyfeirnod GLlTEF",
         "containsMarkdownLink": "Ni ddylai’r rhif GLlTEF gynnwys dolen",
-        "containsInvalidCharacters": "Ni ddylai’r rhif GLlTEF gynnwys HTML",
+        "containsInvalidCharacters": "Ni ddylai cyfeirnod GLlTEF gynnwys HTML",
         "invalid": "Rhaid i gyfeirnod GLlTEF fod yn 16 digid o hyd"
       }
     }
