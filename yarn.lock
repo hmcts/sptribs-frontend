@@ -2839,13 +2839,13 @@ __metadata:
   linkType: hard
 
 "@opentelemetry/core@npm:^2.8.0":
-  version: 2.8.0
-  resolution: "@opentelemetry/core@npm:2.8.0"
+  version: 2.10.0
+  resolution: "@opentelemetry/core@npm:2.10.0"
   dependencies:
     "@opentelemetry/semantic-conventions": "npm:^1.29.0"
   peerDependencies:
     "@opentelemetry/api": ">=1.0.0 <1.10.0"
-  checksum: 10c0/35b8a464b359a0699fcbcea8c11a883f0f634ee7638719b89fa0c0cbbaaa38c57db22e9ac19ffb15ce18014751dc7db11a26d7fb6ad6259f89a26bdc4d167e4b
+  checksum: 10c0/fe79c3f77881c5cdd5cff17825f847536fb7882d8c7e26356081ab20c1a16910ae54ffb1deb49ec34293cc2da5bf8501f30acb51e7e159184f2320ebba958c3f
   languageName: node
   linkType: hard
 
@@ -3672,11 +3672,11 @@ __metadata:
   linkType: hard
 
 "@types/node@npm:*":
-  version: 25.9.3
-  resolution: "@types/node@npm:25.9.3"
+  version: 26.3.0
+  resolution: "@types/node@npm:26.3.0"
   dependencies:
-    undici-types: "npm:>=7.24.0 <7.24.7"
-  checksum: 10c0/72d3aece9d42c2c641bcd3f3cb2dc2828b4bd384dfcbd910c404b8859a68bd69d50c4769ce7defd4ff5e049768e23e615f09407ea2cbbb5f44b90d75a7c6b8ca
+    undici-types: "npm:~8.3.0"
+  checksum: 10c0/b1b71d722cea67807abde4993d71aa6e4e24ae3072635ff5fbca3e5fbe7f0d4adc20507ab3f1e14b13720d742fb5cae4b12c7326fbe706fcda24e2aab8306374
   languageName: node
   linkType: hard
 
@@ -3690,11 +3690,11 @@ __metadata:
   linkType: hard
 
 "@types/node@npm:^22.0.0":
-  version: 22.19.21
-  resolution: "@types/node@npm:22.19.21"
+  version: 22.20.1
+  resolution: "@types/node@npm:22.20.1"
   dependencies:
     undici-types: "npm:~6.21.0"
-  checksum: 10c0/9a18a5fabaf75a55d63796d6086029c4f9fdd1c026a26d629804f5cc99b3302c749be321df29d7a7141dc227501ed645b5f9d01095d926f5d2c0e2230fcd3f59
+  checksum: 10c0/f2ba54d3d1fb92e1c57c78d32c3a17655b1e87363b707136f55c422b4838d4054901ce5d27f75bb0e5ecb7ebfee3804e0987822d22b473473008091857a09353
   languageName: node
   linkType: hard
 
@@ -6754,9 +6754,9 @@ __metadata:
   linkType: hard
 
 "dayjs@npm:^1.11.1":
-  version: 1.11.21
-  resolution: "dayjs@npm:1.11.21"
-  checksum: 10c0/bd97dfdc4bfea3c66268635690313828b386faa040fbc1f829ff42a2bd748b72c9d9b3c8f9616ce9e61fcb78923f1461a462c969c54b1084458ae1b715898fb0
+  version: 1.11.23
+  resolution: "dayjs@npm:1.11.23"
+  checksum: 10c0/69ab04bf19c676e44ab50cc2fca223d265f3dafd107151ef3b0f3ad74d360c37caa602abe62f87cb25d90bd9f6bee003698af47df5b0dbf10a998b7b5f3bb3f1
   languageName: node
   linkType: hard
 
@@ -8233,9 +8233,9 @@ __metadata:
   linkType: hard
 
 "fast-uri@npm:^3.1.5":
-  version: 3.1.5
-  resolution: "fast-uri@npm:3.1.5"
-  checksum: 10c0/2bf60eb800dd610c65e17be436425dcb21c92aff3a87d442a8bccab0b7b071e88cf1a5d7d1ea946370b937e6fc0375c405c0296c10587e57de4f78be4646d1d0
+  version: 3.1.6
+  resolution: "fast-uri@npm:3.1.6"
+  checksum: 10c0/77fa4f966f7d2cf83c34af2d3eb88882872fe90634f27a6bd309551db65377d3ca55616467c7cb4dcc57e33523d149e2fec1952d51cc2f00bfce68a66c3711ea
   languageName: node
   linkType: hard
 
@@ -8413,9 +8413,9 @@ __metadata:
   linkType: hard
 
 "flatted@npm:^3.4.2":
-  version: 3.4.3
-  resolution: "flatted@npm:3.4.3"
-  checksum: 10c0/0b36eba483a68dda5a2c4dda9cab61dc1c57a3bd9bd6942d1c6fac9c94c86fb6295c7167f33f94f72b5a79ccf95bf5c2a0cf99f73888ef858252439e149bf24b
+  version: 3.4.4
+  resolution: "flatted@npm:3.4.4"
+  checksum: 10c0/a3a52a88ea5a4c333e5a1f097dcd87a037fa31c236a77cf46222c2aa4036ef895ab9bc76138a66d9dc22bdb3652128f9598cd26e7439561bf19f67276e2bc37e
   languageName: node
   linkType: hard
 
@@ -12554,9 +12554,9 @@ __metadata:
   linkType: hard
 
 "picomatch@npm:^4.0.5":
-  version: 4.0.5
-  resolution: "picomatch@npm:4.0.5"
-  checksum: 10c0/947bc6b6e1ff1e6c5aaf95b107a0839d12802f4f7b867663f67d47accba939ca1cb582cf99dfc30438efa1c4648ac5990967e783e8929c36b03e8440704ef1bd
+  version: 4.0.7
+  resolution: "picomatch@npm:4.0.7"
+  checksum: 10c0/beb6ae02c43ae44e84883b90830196d9046b1726ead292adcf7f57945e0bb0d992d68563d87e03b484b6f3c9a5c6defda7523477f047d7f0e663f126cc01787f
   languageName: node
   linkType: hard
 
@@ -14686,15 +14686,15 @@ __metadata:
   linkType: hard
 
 "tar@npm:^7.5.20":
-  version: 7.5.21
-  resolution: "tar@npm:7.5.21"
+  version: 7.5.22
+  resolution: "tar@npm:7.5.22"
   dependencies:
     "@isaacs/fs-minipass": "npm:^4.0.0"
     chownr: "npm:^3.0.0"
     minipass: "npm:^7.1.2"
     minizlib: "npm:^3.1.0"
     yallist: "npm:^5.0.0"
-  checksum: 10c0/bce0e51692356078e6f6a909d5c93f5b4c099c097ffea19b1b1bf10385539a429baba26bca59aabbace68c4519d16f2f1c07afe7eaab55876a449a032480fabc
+  checksum: 10c0/1311f6be85a8157ac4c9147bae43e13923d2a1aae15e4aa1bd5239e4e03d2cf53cfe103dde7f35832fbb4c938b042856bc8e9a0afd29abd05e2d1608788c4fea
   languageName: node
   linkType: hard
 
@@ -15333,17 +15333,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"undici-types@npm:>=7.24.0 <7.24.7":
-  version: 7.24.6
-  resolution: "undici-types@npm:7.24.6"
-  checksum: 10c0/d9cd8befb643ac904615c280a095ba4240531f6bb4a5e75a22a7483630ca8d3f1016d2ab6ace6ceda1f63b3a2db2fe037fafe121d6917a0187573aa548ff78ca
-  languageName: node
-  linkType: hard
-
 "undici-types@npm:~6.21.0":
   version: 6.21.0
   resolution: "undici-types@npm:6.21.0"
   checksum: 10c0/c01ed51829b10aa72fc3ce64b747f8e74ae9b60eafa19a7b46ef624403508a54c526ffab06a14a26b3120d055e1104d7abe7c9017e83ced038ea5cf52f8d5e04
+  languageName: node
+  linkType: hard
+
+"undici-types@npm:~8.3.0":
+  version: 8.3.0
+  resolution: "undici-types@npm:8.3.0"
+  checksum: 10c0/c8aa7e2fbebfce519654dafadc0ece59be888d2ccaf180fb4495da875e7b536d2456345c384069c7e6f3e9c9ab7435f074957da306f142343eee86ff8048855a
   languageName: node
   linkType: hard
 
@@ -15571,11 +15571,11 @@ __metadata:
   linkType: hard
 
 "uuid@npm:^14.0.0":
-  version: 14.0.1
-  resolution: "uuid@npm:14.0.1"
+  version: 14.0.2
+  resolution: "uuid@npm:14.0.2"
   bin:
     uuid: dist-node/bin/uuid
-  checksum: 10c0/2d961289097cb68c37d93d1da0b5c3aafc1eb9948a455cca8d0ae53a099b2fe583b8933254a84097f700e6bac2e23033364904df0467c22551d5d9611febcaf6
+  checksum: 10c0/88906237004db370b013129c8372a2149f6fa1aad7a5f78fa65ddf2ba0a8663097022300d81fa01f551efee9d6bbe8c7ab140dc6d49f1b03d289f855096990c9
   languageName: node
   linkType: hard
 
@@ -16126,8 +16126,8 @@ __metadata:
   linkType: hard
 
 "ws@npm:^8.18.2":
-  version: 8.21.0
-  resolution: "ws@npm:8.21.0"
+  version: 8.21.3
+  resolution: "ws@npm:8.21.3"
   peerDependencies:
     bufferutil: ^4.0.1
     utf-8-validate: ">=5.0.2"
@@ -16136,7 +16136,7 @@ __metadata:
       optional: true
     utf-8-validate:
       optional: true
-  checksum: 10c0/ef4a243476283fc49bc7550966c4af4aa0eef56273837211e700de3b664e08604a760cdddcb5ba43c049140e74ccfec5b0ee0bb439e08c2adf9138902fdde5f9
+  checksum: 10c0/7b28dc2863ea0e2cece68d142a3eee90361021b73f750431e6d8076bb7dede5fdfdb75b3d29534b62f411261147b76b1bc80fb5cc63ab0aabd467280e85b22e0
   languageName: node
   linkType: hard
 
