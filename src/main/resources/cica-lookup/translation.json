@@ -31,9 +31,9 @@
     "cy": {
       "ccdReference": {
         "required": "Nodwch eich cyfeirnod GLlTEF",
-        "containsMarkdownLink": "Ni ddylai cyfeirnod HMCTS gynnwys dolen",
-        "containsInvalidCharacters": "Rhaid i gyfeirnod GLlTEF fod yn 16 digid o hyd.",
-        "invalid": "Rhaid i gyfeirnod HMCTS ddechrau gyda llythyren X neu G"
+        "containsMarkdownLink": "Ni ddylai’r rhif GLlTEF gynnwys dolen",
+        "containsInvalidCharacters": "Ni ddylai’r rhif GLlTEF gynnwys HTML",
+        "invalid": "Rhaid i gyfeirnod GLlTEF fod yn 16 digid o hyd"
       }
     }
   }

@@ -27,9 +27,9 @@
       "status": "Statws",
       "action": "Cam Gweithredu",
       "newTag": "Newydd",
-      "downloadedTag": "Wedi'i lawrlwytho",
+      "downloadedTag": "Wedi’i lawrlwytho",
       "download": "Lawrlwytho",
-      "noDocuments": "Nid oes dogfennau ar gael",
+      "noDocuments": "Dim dogfennau ar gael",
       "noDocumentsMessage": "Nid oes unrhyw ddogfennau ar gael ar gyfer yr apêl hon."
     }
   }
