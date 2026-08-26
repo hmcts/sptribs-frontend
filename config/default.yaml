@@ -16,7 +16,7 @@ services:
     systemUsername: 'dummy_user'
     systemPassword: 'dummy_password'
   sptribs:
-    url: 'https://sptribs-case-api-pr-2511.preview.platform.hmcts.net'
+    url: 'https://xui-sptribs-case-api-pr-2511.preview.platform.hmcts.net'
   ccd:
     url: 'https://ccd-data-store-api-sptribs-case-api-pr-2511.preview.platform.hmcts.net'
   cdam:
