@@ -58,6 +58,7 @@ export type FileMimeTypeInfo = {
 type FileUploadErrorTranslatables = {
   FORMAT_ERROR?: string;
   SIZE_ERROR?: string;
+  MEDIA_SIZE_ERROR?: string;
   TOTAL_FILES_EXCEED_ERROR?: string;
   CONTINUE_WITHOUT_UPLOAD_ERROR?: string;
   NO_FILE_UPLOAD_ERROR?: string;
@@ -82,8 +83,13 @@ export class FileValidations {
     return systemContent;
   }
 
-  static sizeValidation(fileSize: number): boolean {
-    const bytes: number = Number(config.get('documentUpload.validation.sizeInBytes'));
+  static isMediaFile(mimeType: string): boolean {
+    return mimeType.startsWith('audio/') || mimeType.startsWith('video/');
+  }
+
+  static sizeValidation(fileSize: number, mimeType?: string): boolean {
+    const sizeConfig = mimeType && FileValidations.isMediaFile(mimeType) ? 'mediaSizeInBytes' : 'sizeInBytes';
+    const bytes: number = Number(config.get(`documentUpload.validation.${sizeConfig}`));
     return fileSize <= bytes;
   }
 
@@ -253,10 +259,12 @@ export class UploadController extends PostController<AnyObject> {
         documents.mimetype,
         this.getAcceptedFileMimeType()
       );
-      const isValidFileSize: boolean = !documents.truncated && FileValidations.sizeValidation(documents.size);
+      const isValidFileSize: boolean =
+        !documents.truncated && FileValidations.sizeValidation(documents.size, documents.mimetype);
 
       if (!isValidFileSize) {
-        this.createUploadedFileError(req, res, chooseFileLink, 'SIZE_ERROR');
+        const sizeError = FileValidations.isMediaFile(documents.mimetype) ? 'MEDIA_SIZE_ERROR' : 'SIZE_ERROR';
+        this.createUploadedFileError(req, res, chooseFileLink, sizeError);
       }
 
       if (!isValidMimeType) {
@@ -332,6 +340,9 @@ export class UploadController extends PostController<AnyObject> {
         break;
       case 'SIZE_ERROR':
         errorMessage = fileValidation.SIZE_ERROR;
+        break;
+      case 'MEDIA_SIZE_ERROR':
+        errorMessage = fileValidation.MEDIA_SIZE_ERROR;
         break;
       case 'FORMAT_ERROR':
         errorMessage = fileValidation.FORMAT_ERROR;

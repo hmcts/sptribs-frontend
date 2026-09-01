@@ -104,7 +104,7 @@ describe('Document upload controller', () => {
 
     const req = mockRequest({});
     const res = mockResponse();
-    (req.files as any) = { documents: { mimetype: 'text/plain', size: 524288001 } };
+    (req.files as any) = { documents: { mimetype: 'text/plain', size: 1073741825 } };
     req.session.caseDocuments = [];
     req.session.fileErrors = [];
     await controller.post(req, res);
@@ -114,7 +114,36 @@ describe('Document upload controller', () => {
     expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION);
     expect(req.session.fileErrors).toHaveLength(1);
     expect(req.session.fileErrors[0].text).toEqual(
-      'File size exceeds the maximum permitted value. Upload a file that is less than 500 MB'
+      'File size exceeds the maximum permitted value. Upload a file that is less than 1024 MB'
+    );
+  });
+
+  test('Should display the media size error for multimedia files over 500 MB', async () => {
+    const mockForm = {
+      fields: {
+        field: {
+          type: 'file',
+        },
+      },
+      submit: {
+        text: l => l.continue,
+      },
+    };
+    const controller = new UploadDocumentController(mockForm.fields);
+
+    const req = mockRequest({});
+    const res = mockResponse();
+    (req.files as any) = { documents: { mimetype: 'video/mp4', size: 524288001 } };
+    req.session.caseDocuments = [];
+    req.session.fileErrors = [];
+    await controller.post(req, res);
+
+    expect(req.locals.api.triggerEvent).not.toHaveBeenCalled();
+    expect(getNextStepUrlMock).not.toHaveBeenCalled();
+    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION);
+    expect(req.session.fileErrors).toHaveLength(1);
+    expect(req.session.fileErrors[0].text).toEqual(
+      'File size exceeds the maximum permitted value. Upload a multimedia file that is less than 500 MB'
     );
   });
 
@@ -133,7 +162,7 @@ describe('Document upload controller', () => {
 
     const req = mockRequest({});
     const res = mockResponse();
-    (req.files as any) = { documents: { mimetype: 'image/gif', size: 524288001 } };
+    (req.files as any) = { documents: { mimetype: 'image/gif', size: 1073741825 } };
     req.session.caseDocuments = [];
     req.session.fileErrors = [];
     await controller.post(req, res);
@@ -143,7 +172,7 @@ describe('Document upload controller', () => {
     expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION);
     expect(req.session.fileErrors).toHaveLength(2);
     expect(req.session.fileErrors[0].text).toEqual(
-      'File size exceeds the maximum permitted value. Upload a file that is less than 500 MB'
+      'File size exceeds the maximum permitted value. Upload a file that is less than 1024 MB'
     );
     expect(req.session.fileErrors[1].text).toEqual(
       'This service only accepts files in the formats - MS Word, MS Excel, PDF, JPG, PNG, TXT, RTF, MP4, MP3'

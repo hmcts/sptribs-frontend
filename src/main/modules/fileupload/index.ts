@@ -4,10 +4,9 @@ import fileUpload from 'express-fileupload';
 
 export class FileUpload {
   public enableFor(app: Application): void {
-    const DefaultFileUploadSize: number = 500;
     app.use(
       fileUpload({
-        limits: { fileSize: 1024 * 1024 * DefaultFileUploadSize },
+        limits: { fileSize: config.get<number>('documentUpload.validation.sizeInBytes') },
         uploadTimeout: config.get<number>('uploadTimeout'),
       })
     );

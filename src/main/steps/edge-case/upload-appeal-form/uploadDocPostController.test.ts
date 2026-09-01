@@ -121,7 +121,7 @@ describe('Document upload controller', () => {
     expect(res.redirect).toHaveBeenCalledWith(UPLOAD_APPEAL_FORM);
     expect(req.session.fileErrors).toHaveLength(1);
     expect(req.session.fileErrors[0].text).toEqual(
-      'File size exceeds the maximum permitted value. Upload a file that is less than 500 MB'
+      'File size exceeds the maximum permitted value. Upload a file that is less than 1024 MB'
     );
   });
 
@@ -142,7 +142,7 @@ describe('Document upload controller', () => {
 
     const req = mockRequest({});
     const res = mockResponse();
-    (req.files as any) = { documents: { mimetype: 'text/plain', size: 524288001 } };
+    (req.files as any) = { documents: { mimetype: 'text/plain', size: 1073741825 } };
     req.session.caseDocuments = [];
     req.session.fileErrors = [];
     await controller.post(req, res);
@@ -152,7 +152,7 @@ describe('Document upload controller', () => {
     expect(res.redirect).toHaveBeenCalledWith(UPLOAD_APPEAL_FORM);
     expect(req.session.fileErrors).toHaveLength(2);
     expect(req.session.fileErrors[0].text).toEqual(
-      'File size exceeds the maximum permitted value. Upload a file that is less than 500 MB'
+      'File size exceeds the maximum permitted value. Upload a file that is less than 1024 MB'
     );
     expect(req.session.fileErrors[1].text).toEqual('This service only accepts files in the formats - MS Word, PDF');
   });

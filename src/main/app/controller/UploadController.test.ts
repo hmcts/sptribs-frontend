@@ -106,8 +106,10 @@ describe('PostController', () => {
     describe('Checking for file upload size', () => {
       const file1Size = 10000000;
       const file2Size = 20000000;
-      const file3Size = 700000001;
-      const file4Size = 1000000001;
+      const file3Size = 524288001;
+      const file4Size = 1073741824;
+      const file5Size = 1073741825;
+      const mediaMimeType = 'video/mp4';
       it('Checking for file1 size', () => {
         expect(FileValidations.sizeValidation(file1Size)).toBe(true);
       });
@@ -116,16 +118,18 @@ describe('PostController', () => {
         expect(FileValidations.sizeValidation(file2Size)).toBe(true);
       });
 
-      it('Checking for file3 size', () => {
-        expect(FileValidations.sizeValidation(file3Size)).toBe(false);
+      it('allows non-media files up to 1024 MB', () => {
+        expect(FileValidations.sizeValidation(file3Size)).toBe(true);
+        expect(FileValidations.sizeValidation(file4Size)).toBe(true);
       });
 
-      it('Checking for file3 multimedia size', () => {
-        expect(FileValidations.sizeValidation(file4Size)).toBe(false);
+      it('rejects non-media files over 1024 MB', () => {
+        expect(FileValidations.sizeValidation(file5Size)).toBe(false);
       });
 
-      it('Checking for file4 multimedia size', () => {
-        expect(FileValidations.sizeValidation(file4Size)).toBe(false);
+      it('rejects media files over 500 MB', () => {
+        expect(FileValidations.sizeValidation(file3Size, mediaMimeType)).toBe(false);
+        expect(FileValidations.sizeValidation(524288000, mediaMimeType)).toBe(true);
       });
     });
 
