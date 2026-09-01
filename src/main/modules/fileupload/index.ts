@@ -1,3 +1,4 @@
+import config from 'config';
 import { Application } from 'express';
 import fileUpload from 'express-fileupload';
 
@@ -7,6 +8,7 @@ export class FileUpload {
     app.use(
       fileUpload({
         limits: { fileSize: 1024 * 1024 * DefaultFileUploadSize },
+        uploadTimeout: config.get<number>('uploadTimeout'),
       })
     );
   }

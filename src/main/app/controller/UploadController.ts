@@ -253,7 +253,7 @@ export class UploadController extends PostController<AnyObject> {
         documents.mimetype,
         this.getAcceptedFileMimeType()
       );
-      const isValidFileSize: boolean = FileValidations.sizeValidation(documents.size);
+      const isValidFileSize: boolean = !documents.truncated && FileValidations.sizeValidation(documents.size);
 
       if (!isValidFileSize) {
         this.createUploadedFileError(req, res, chooseFileLink, 'SIZE_ERROR');

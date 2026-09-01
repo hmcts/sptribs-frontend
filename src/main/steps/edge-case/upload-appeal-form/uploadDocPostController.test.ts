@@ -111,7 +111,7 @@ describe('Document upload controller', () => {
 
     const req = mockRequest({});
     const res = mockResponse();
-    (req.files as any) = { documents: { mimetype: 'application/pdf', size: 524288001 } };
+    (req.files as any) = { documents: { mimetype: 'application/pdf', size: 524288000, truncated: true } };
     req.session.caseDocuments = [];
     req.session.fileErrors = [];
     await controller.post(req, res);

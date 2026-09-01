@@ -1,3 +1,5 @@
+import { createReadStream } from 'fs';
+
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
 import config from 'config';
 import FormData from 'form-data';
@@ -35,7 +37,15 @@ export class CaseDocumentManagementClient {
     formData.append('classification', classification);
 
     for (const [, file] of Object.entries(files)) {
-      formData.append('files', file.data, file.name);
+      const fileWithTempPath = file as { data: Buffer | string; name: string; size: number; tempFilePath?: string };
+      if (fileWithTempPath.tempFilePath) {
+        formData.append('files', createReadStream(fileWithTempPath.tempFilePath), {
+          filename: fileWithTempPath.name,
+          knownLength: fileWithTempPath.size,
+        });
+      } else {
+        formData.append('files', file.data, file.name);
+      }
     }
 
     const response: AxiosResponse<CaseDocumentManagementResponse> = await this.client.post(
