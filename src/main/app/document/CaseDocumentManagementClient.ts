@@ -57,7 +57,7 @@ export class CaseDocumentManagementClient {
         },
         maxContentLength: Infinity,
         maxBodyLength: Infinity,
-        timeout: config.get<number>('uploadTimeout'),
+        timeout: 600000,
       }
     );
     return response.data?.documents || [];

@@ -90,8 +90,8 @@ const port = config.get('port');
 const server = app.listen(port, () => {
   logger.info(`Application started: http://localhost:${port}`);
 });
-server.requestTimeout = config.get<number>('uploadTimeout');
-server.timeout = config.get<number>('uploadTimeout');
+server.requestTimeout = 600000;
+server.timeout = 600000;
 
 process.on('SIGINT', function () {
   server.close();

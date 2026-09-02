@@ -7,7 +7,7 @@ export class FileUpload {
     app.use(
       fileUpload({
         limits: { fileSize: config.get<number>('documentUpload.validation.sizeInBytes') },
-        uploadTimeout: config.get<number>('uploadTimeout'),
+        uploadTimeout: 600000,
       })
     );
   }
