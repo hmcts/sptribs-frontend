@@ -11,29 +11,29 @@
     },
     "cy": {
       "continue": "Parhau",
-      "startNewAppeal": "Dechrau apel newydd",
-      "serviceName": "Apelio i'r Tribiwnlys Haen Gyntaf",
-      "title": "Nodwch eich cyfeirnod HMCTS",
-      "line1": "Os oes gennych achos presennol, bydd nodi eich cyfeirnod HMCTS yn mynd â chi ato. Fel arall, bydd cais newydd yn cael ei ddechrau.",
-      "line2": "Gallwch ddod o hyd i hwn ar unrhyw ohebiaeth rydych wedi'i derbyn gan HMCTS. Mae cyfeirnodau ADAT yn dechrau gyda'r lythyren X neu G.",
-      "ccdReferenceLabel": "Cyfeirnod HMCTS"
+      "startNewAppeal": "Dechrau apêl newydd",
+      "serviceName": "Apelio i’r Tribiwnlys Haen Gyntaf",
+      "title": "Nodwch eich cyfeirnod GLlTEF",
+      "line1": "Os oes gennych apêl sy'n bodoli eisoes, bydd nodi eich cyfeirnod GLlTEF yn mynd â chi ato. Os nad oes gennych gyfeirnod, bydd angen cyflwyno apêl newydd.",
+      "line2": "Gallwch ddod o hyd i hyn ar unrhyw ohebiaeth rydych chi wedi'i derbyn gan GLlTEF. Mae cyfeirnodau GLlTEF yn 16 rhif o hyd.",
+      "ccdReferenceLabel": "Cyfeirnod GLlTEF"
     }
   },
   "errors": {
     "en": {
       "ccdReference": {
         "required": "Enter your HMCTS reference number",
-        "containsMarkdownLink": "HMCTS reference number must not include a link",
+        "containsMarkdownLink": "HMCTS number must not include a link",
         "containsInvalidCharacters": "HMCTS reference number must not include HTML",
         "invalid": "HMCTS reference number must be 16 digits long"
       }
     },
     "cy": {
       "ccdReference": {
-        "required": "Nodwch eich cyfeirnod HMCTS",
-        "containsMarkdownLink": "Ni ddylai cyfeirnod HMCTS gynnwys dolen",
-        "containsInvalidCharacters": "Ni ddylai cyfeirnod HMCTS gynnwys HTML",
-        "invalid": "Rhaid i gyfeirnod HMCTS ddechrau gyda llythyren X neu G"
+        "required": "Nodwch eich cyfeirnod GLlTEF",
+        "containsMarkdownLink": "Ni ddylai’r rhif GLlTEF gynnwys dolen",
+        "containsInvalidCharacters": "Ni ddylai cyfeirnod GLlTEF gynnwys HTML",
+        "invalid": "Rhaid i gyfeirnod GLlTEF fod yn 16 digid o hyd"
       }
     }
   }

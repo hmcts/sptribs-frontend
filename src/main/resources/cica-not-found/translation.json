@@ -11,11 +11,11 @@
     },
     "cy": {
       "continue": "Parhau",
-      "serviceName": "Apelio i'r Tribiwnlys Haen Gyntaf",
-      "title": "Ni allem ddod o hyd i achos gyda'r cyfeirnod ADAT hwnnw",
-      "line1": "Nid yw'r cyfeirnod ADAT a nodwyd gennych yn cyfateb i unrhyw achosion presennol.",
-      "label": "Hoffech chi ddechrau apêl newydd?",
-      "one": "Hoffwn",
+      "serviceName": "Apelio i’r Tribiwnlys Haen Gyntaf",
+      "title": "Ni allwn ddod o hyd i apêl gyda'r cyfeirnod ADAT hwnnw",
+      "line1": "Nid yw'r cyfeirnod ADAT a nodwyd gennych yn cyfateb i unrhyw apêl yn ein cofnodion.",
+      "label": "A hoffech chi ddechrau apêl newydd?",
+      "one": "Oes",
       "two": "Na, gadewch i mi ail-nodi fy nghyfeirnod ADAT"
     }
   },
@@ -27,7 +27,7 @@
     },
     "cy": {
       "startNewAppeal": {
-        "required": "Dewiswch oes os ydych am ddechrau apêl newydd"
+        "required": "Dewiswch oes os ydych chi eisiau dechrau apêl newydd"
       }
     }
   }

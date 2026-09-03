@@ -12,14 +12,15 @@
       "contactSupport": "Contact support"
     },
     "cy": {
-      "title": "Nid ydych wedi'ch awdurdodi i weld yr achos hwn",
-      "heading": "Nid ydych wedi'ch awdurdodi i weld yr achos hwn",
-      "line1": "Mae'r rhif cyfeirnod rydych wedi'i nodi yn bodoli, ond nid oes gennych ganiatâd i'w weld.",
-      "line2": "Gallai hyn fod oherwydd:",
-      "bullet1": "mae'r achos yn perthyn i rywun arall",
+      "title": "Nid oes gennych awdurdod i weld yr apêl hon",
+      "heading": "Nid oes gennych awdurdod i weld yr apêl hon",
+      "line1": "Mae’r cyfeirnod a nodwyd gennych yn bodoli, ond nid oes gennych ganiatâd i gael mynediad ato.",
+      "line2": "Gall hyn fod oherwydd:",
+      "bullet1": "mae’r apêl yn perthyn i rywun arall",
       "bullet2": "rydych yn defnyddio cyfrif gwahanol",
-      "line3": "Gallwch roi cynnig ar rif cyfeirnod arall neu gysylltu â chymorth os ydych yn credu mai camgymeriad yw hyn.",
-      "tryAgain": "Rhoi cynnig ar rif cyfeirnod arall"
+      "line3": "Os ydych yn meddwl bod hwn yn gamgymeriad, gallwch:",
+      "tryAgain": "Ceisiwch ddefnyddio cyfeirnod arall",
+      "contactSupport": "Cysylltu am gymorth"
     }
   }
 }

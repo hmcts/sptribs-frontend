@@ -9,7 +9,7 @@
     },
     "cy": {
       "continue": "Parhau",
-      "title": "Nodwch y cod post ar gyfer yr apêl",
+      "title": "Nodwch god post ar gyfer yr apêl",
       "line1": "Dyma'r cod post a ddefnyddiwyd pan gofrestrwyd yr apêl",
       "postcodeLabel": "Cod post",
       "back": "Yn ôl"
@@ -24,8 +24,8 @@
     },
     "cy": {
       "postcode": {
-        "required": "Mae'n rhaid i chi ddarparu cod post",
-        "invalid": "Nodwch god post go iawn"
+        "required": "Mae'n rhaid ichi ddarparu cod post",
+        "invalid": "Nodwch god post dilys"
       }
     }
   }
