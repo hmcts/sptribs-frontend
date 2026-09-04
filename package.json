@@ -189,7 +189,7 @@
     "send": "^0.19.0",
     "serialize-javascript": "^7.0.3",
     "shell-quote": "^1.10.0",
-    "socks": "^2.8.9",
+    "socks": "^2.8.10",
     "superagent": "^10.2.2",
     "tar": "^7.5.20",
     "tar-fs": "^3.0.9",
