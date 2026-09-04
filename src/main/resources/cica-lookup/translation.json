@@ -1,0 +1,40 @@
+{
+  "translations": {
+    "en": {
+      "continue": "Continue",
+      "startNewAppeal": "Start a new appeal",
+      "serviceName": "Appeal to the First-tier Tribunal",
+      "title": "Enter your HMCTS reference number",
+      "line1": "If you have an existing appeal, entering your HMCTS reference number will take you to it. If you do not have a reference number, a new appeal will need to be submitted.",
+      "line2": "You can find this on any correspondence that you've received from HMCTS. HMCTS reference numbers are 16 digits long.",
+      "ccdReferenceLabel": "HMCTS reference number"
+    },
+    "cy": {
+      "continue": "Parhau",
+      "startNewAppeal": "Dechrau apêl newydd",
+      "serviceName": "Apelio i’r Tribiwnlys Haen Gyntaf",
+      "title": "Nodwch eich cyfeirnod GLlTEF",
+      "line1": "Os oes gennych apêl sy'n bodoli eisoes, bydd nodi eich cyfeirnod GLlTEF yn mynd â chi ato. Os nad oes gennych gyfeirnod, bydd angen cyflwyno apêl newydd.",
+      "line2": "Gallwch ddod o hyd i hyn ar unrhyw ohebiaeth rydych chi wedi'i derbyn gan GLlTEF. Mae cyfeirnodau GLlTEF yn 16 rhif o hyd.",
+      "ccdReferenceLabel": "Cyfeirnod GLlTEF"
+    }
+  },
+  "errors": {
+    "en": {
+      "ccdReference": {
+        "required": "Enter your HMCTS reference number",
+        "containsMarkdownLink": "HMCTS number must not include a link",
+        "containsInvalidCharacters": "HMCTS reference number must not include HTML",
+        "invalid": "HMCTS reference number must be 16 digits long"
+      }
+    },
+    "cy": {
+      "ccdReference": {
+        "required": "Nodwch eich cyfeirnod GLlTEF",
+        "containsMarkdownLink": "Ni ddylai’r rhif GLlTEF gynnwys dolen",
+        "containsInvalidCharacters": "Ni ddylai cyfeirnod GLlTEF gynnwys HTML",
+        "invalid": "Rhaid i gyfeirnod GLlTEF fod yn 16 digid o hyd"
+      }
+    }
+  }
+}

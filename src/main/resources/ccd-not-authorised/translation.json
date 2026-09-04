@@ -1,0 +1,26 @@
+{
+  "translations": {
+    "en": {
+      "title": "You are not authorised to view this appeal",
+      "heading": "You are not authorised to view this appeal",
+      "line1": "The reference number you entered exists, but you do not have permission to access it.",
+      "line2": "This might be because:",
+      "bullet1": "the appeal belongs to someone else",
+      "bullet2": "you are using a different account",
+      "line3": "If you think this is a mistake, you can:",
+      "tryAgain": "Try another reference number",
+      "contactSupport": "Contact support"
+    },
+    "cy": {
+      "title": "Nid oes gennych awdurdod i weld yr apêl hon",
+      "heading": "Nid oes gennych awdurdod i weld yr apêl hon",
+      "line1": "Mae’r cyfeirnod a nodwyd gennych yn bodoli, ond nid oes gennych ganiatâd i gael mynediad ato.",
+      "line2": "Gall hyn fod oherwydd:",
+      "bullet1": "mae’r apêl yn perthyn i rywun arall",
+      "bullet2": "rydych yn defnyddio cyfrif gwahanol",
+      "line3": "Os ydych yn meddwl bod hwn yn gamgymeriad, gallwch:",
+      "tryAgain": "Ceisiwch ddefnyddio cyfeirnod arall",
+      "contactSupport": "Cysylltu am gymorth"
+    }
+  }
+}
