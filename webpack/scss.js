@@ -29,14 +29,7 @@ module.exports = {
             url: false,
           },
         },
-        {
-          loader: 'sass-loader',
-          options: {
-            sassOptions: {
-              includePaths: ['node_modules'],
-            },
-          },
-        },
+        'sass-loader',
       ],
     },
   ],
