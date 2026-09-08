@@ -74,6 +74,7 @@ describe('Case interface', () => {
       representativeContactNumber: '',
       representativeEmailAddress: '',
       pcqId: '123456',
+      ccdReferenceNumber: '1234567891234567',
       cicaReferenceNumber: 'testCicaRef123',
       editCicaCaseDetails: {
         cicaReferenceNumber: 'testCicaRef123',
@@ -84,6 +85,7 @@ describe('Case interface', () => {
       tribunalFormDocuments: [],
       supportingDocuments: [],
       otherInfoDocuments: [],
+      applicantDocuments: [],
       languagePreference: LanguagePreference.ENGLISH,
     };
 

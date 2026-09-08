@@ -16,9 +16,21 @@ const fields: FromApiConverters = {
   cicCaseInitialCicaDecisionDate: (data: Partial<CaseData>) => ({
     initialCicaDecisionDate: fromApiDate(data.cicCaseInitialCicaDecisionDate),
   }),
+  cicCaseApplicantDocuments: (data: Partial<CaseData>) => ({
+    applicantDocuments: data.cicCaseApplicantDocuments || [],
+  }),
+  cicCaseFullName: (data: Partial<CaseData>) => ({
+    subjectFullName: data.cicCaseFullName,
+  }),
+  cicCaseEmail: (data: Partial<CaseData>) => ({
+    subjectEmailAddress: data.cicCaseEmail,
+  }),
+  cicCasePhoneNumber: (data: Partial<CaseData>) => ({
+    subjectContactNumber: data.cicCasePhoneNumber,
+  }),
 };
 
-export const fromApiFormat = (data: CaseData): Case => formatCase(fields, data);
+export const fromApiFormat = (data: CaseData): Case => formatCase(fields, data || {});
 
 const fromApiDate = (date: string | undefined): CaseDate | undefined => {
   if (!date) {
