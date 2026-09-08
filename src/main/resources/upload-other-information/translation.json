@@ -29,7 +29,7 @@
       "line1": "Efallai y byddwch eisiau cyflwyno dogfennau, ffeiliau neu dystiolaeth arall sy’n rhoi mwy o wybodaeth i’r Tribiwnlys am eich apêl.",
       "line2": "Bydd hyn yn dibynnu ar natur eich apêl, cais neu hawliad. Gellir dod o hyd i enghreifftiau penodol yn y ffurflen tribiwnlys rydych wedi’i llenwi.",
       "line3": "Gallai'r rhain gynnwys:",
-      "line4": "Eglurwch pam eich bod yn teimlo bod y ddogfen hon yn berthnasol i’ch apêl.",
+      "line4": "Eglurwch pam eich bod yn teimlo bod y ddogfen hon yn berthnasol i’ch apêl",
       "uploadExamples": "<div class='govuk-body-m'><ul class=‘govuk-list govuk-list--bullet’><li>copïau o unrhyw ohebiaeth neu ddogfennau perthnasol</li><li>recordiadau sain neu fideo</li><li>datganiadau ysgrifenedig</li><li>adroddiadau perthnasol</li></ul></div>",
       "uploadRequirementHeader": "Gofynion uwchlwytho ffeiliau",
       "uploadRequirement": "<div class='govuk-body-s'><ul class=‘govuk-list govuk-list--bullet’><li>Fformatau ffeiliau: MS Word, MS Excel, PDF, JPG, GIF, PNG, TXT, RTF, MP4, MP3</li><li>Maint ffeil pob dogfen: hyd at 100 megabeit (MB)</li><li>Maint pob ffeil amlgyfrwng: 100 megabeit (MB)</li><li>Ni ellir llwytho ffeiliau sydd wedi’u diogelu â chyfrinair</li></ul><p> Ni allwch lwytho ffeiliau gweithredu (.exe), ffeiliau zip neu ffeiliau eraill oherwydd y risg o firws.</div>",
