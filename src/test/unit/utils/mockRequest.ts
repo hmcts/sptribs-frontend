@@ -22,7 +22,6 @@ export const mockRequest = ({
         ...(locals['api'] ?? {}),
         addPayment: jest.fn(),
         getCaseById: jest.fn(),
-        downloadDocument: jest.fn(),
       },
       logger: {
         info: jest.fn(),

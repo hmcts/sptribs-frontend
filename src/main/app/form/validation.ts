@@ -31,12 +31,6 @@ export const isCICAReferenceNumberAcceptable: Validator = value => {
   }
 };
 
-export const isCCDReferenceNumberAcceptable: Validator = value => {
-  if (typeof value !== 'string' || !/^\d{16}$/.test(value)) {
-    return ValidationError.INVALID;
-  }
-};
-
 export const atLeastOneFieldIsChecked: Validator = fields => {
   if (!fields || (fields as []).length === 0) {
     return ValidationError.REQUIRED;
@@ -192,9 +186,7 @@ export const isInvalidPostcode: Validator = value => {
     return fieldNotFilledIn;
   }
 
-  const trimmedPostcode = (value as string).trim();
-
-  if (!trimmedPostcode.match(/^(?=.*\d)[a-zA-Z0-9]+(?:[\s-]+[a-zA-Z0-9]+)*$/)) {
+  if (!(value as string).match(/^[A-Z]{1,2}[0-9][A-Z0-9]? ?[0-9][A-Z]{2}$/i)) {
     return 'invalid';
   }
 };

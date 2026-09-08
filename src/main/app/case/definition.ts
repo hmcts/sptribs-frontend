@@ -578,7 +578,6 @@ export interface CaseData {
   cicCaseCaseNumber: string;
   cicCaseIsRepresentativePresent: YesOrNo;
   cicCaseApplicantDocumentsUploaded: ListValue<CaseworkerCICDocument>[];
-  cicCaseApplicantDocuments: ListValue<CaseworkerCICDocument>[];
   cicCaseCaseDocumentsUpload: ListValue<CaseworkerCICDocumentUpload>[];
   cicCaseReinstateDocuments: ListValue<CaseworkerCICDocument>[];
   cicCaseReinstateDocumentsUpload: ListValue<CaseworkerCICDocumentUpload>[];
