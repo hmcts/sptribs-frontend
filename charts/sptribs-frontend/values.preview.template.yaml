@@ -12,6 +12,8 @@ nodejs:
         - idam-ui-secret
         - idam-systemupdate-username
         - idam-systemupdate-password
+        - redis-hostname
+        - redis-port
         - redis-access-key
         - s2s-case-api-secret
         - postcode-lookup-token

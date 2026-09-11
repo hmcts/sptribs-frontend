@@ -62,6 +62,7 @@ describe('session', () => {
   let mockLogger: LoggerInstance;
 
   beforeEach(() => {
+    jest.clearAllMocks();
     config.get = jest.fn().mockImplementationOnce(() => 'MOCK_HIDDEN_VALUE'); // silly fortify false positive
     mockApp = {
       locals: {
@@ -72,6 +73,7 @@ describe('session', () => {
     } as unknown as Application;
     mockLogger = {
       error: jest.fn().mockImplementation((message: string) => message),
+      info: jest.fn().mockImplementation((message: string) => message),
     } as unknown as LoggerInstance;
 
     new SessionStorage().enableFor(mockApp, mockLogger);
@@ -103,7 +105,8 @@ describe('session', () => {
       config.get = jest
         .fn()
         .mockImplementationOnce(() => 'MOCK_HIDDEN_VALUE')
-        .mockImplementationOnce(() => 'MOCK_REDIS_HOST')
+        .mockImplementationOnce(() => 'sptribs-frontend-aat.uksouth.redis.azure.net')
+        .mockImplementationOnce(() => '10000')
         .mockImplementationOnce(() => 'MOCK_REDIS_KEY');
       mockApp = {
         use: jest.fn(callback => callback),
@@ -112,6 +115,7 @@ describe('session', () => {
       } as unknown as Application;
       mockLogger = {
         error: jest.fn().mockImplementation((message: string) => message),
+        info: jest.fn().mockImplementation((message: string) => message),
       } as unknown as LoggerInstance;
 
       new SessionStorage().enableFor(mockApp, mockLogger);
@@ -120,8 +124,8 @@ describe('session', () => {
     test('should create redis client', () => {
       expect(mockCreateClient).toHaveBeenCalledWith({
         socket: {
-          host: 'MOCK_REDIS_HOST',
-          port: 6380,
+          host: 'sptribs-frontend-aat.uksouth.redis.azure.net',
+          port: 10000,
           tls: true,
           connectTimeout: 15000,
         },
@@ -132,6 +136,15 @@ describe('session', () => {
     test('should use session middleware with SessionStore', () => {
       expect(mockApp.locals.redisClient).toEqual(mockRedisClient);
       expect(mockApp.use).toHaveBeenNthCalledWith(2, 'MOCK session');
+    });
+
+    test('should log when Azure Managed Redis is configured and connected', () => {
+      expect(mockLogger.info).toHaveBeenCalledWith('Configuring Azure Managed Redis as the session store');
+
+      const readyHandler = mockOn.mock.calls.find(call => call[0] === 'ready')[1];
+      readyHandler();
+
+      expect(mockLogger.info).toHaveBeenCalledWith('Connected to Azure Managed Redis session store');
     });
   });
 });
@@ -144,7 +157,7 @@ describe('SessionStorage getStore error handling', () => {
   it('should call logger.error when redis client emits error', () => {
     // Arrange
     const mockError = new Error('Redis failure');
-    const mockLogger = { error: jest.fn() };
+    const mockLogger = { error: jest.fn(), info: jest.fn() };
 
     jest.mock('redis', () => ({
       __esModule: true,
@@ -155,6 +168,7 @@ describe('SessionStorage getStore error handling', () => {
       .fn()
       .mockImplementationOnce(() => 'MOCK_SECRET')
       .mockImplementationOnce(() => 'MOCK_REDIS_HOST')
+      .mockImplementationOnce(() => '6380')
       .mockImplementationOnce(() => 'MOCK_REDIS_KEY');
 
     const mockApp = {

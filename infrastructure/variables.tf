@@ -44,6 +44,18 @@ variable "common_tags" {
   type = map(string)
 }
 
+variable "private_dns_subscription_id" {
+  description = "Subscription containing the shared Azure Managed Redis private DNS zone."
+  type        = string
+  default     = "1baf5470-1c3e-40d3-a6f7-74bfbce4b348"
+}
+
+variable "managed_redis_sku" {
+  description = "Azure Managed Redis SKU. Override per environment in the corresponding tfvars file."
+  type        = string
+  default     = "Balanced_B0"
+}
+
 variable "family" {
   default     = "C"
   description = "The SKU family/pricing group to use. Valid values are `C` (for Basic/Standard SKU family) and `P` (for Premium). Use P for higher availability, but beware it costs a lot more."
