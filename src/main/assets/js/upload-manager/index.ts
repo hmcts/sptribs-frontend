@@ -30,7 +30,7 @@ const initUploadManager = (): void => {
 
   const uppy = new Uppy({
     restrictions: {
-      maxFileSize: 10197152,
+      maxFileSize: 106954752,
       maxTotalFileSize: 511485760,
       maxNumberOfFiles: 10,
       allowedFileTypes: [
