@@ -34,10 +34,10 @@ export const isFileNameValid = (filename: string | undefined): filename is strin
     return false;
   }
 
-  return filename.split('').every(character => {
-    const characterCode = character.charCodeAt(0);
+  return Array.from(filename).every(character => {
+    const characterCode = character.codePointAt(0);
 
-    return characterCode >= 32 && characterCode !== 127;
+    return characterCode !== undefined && characterCode >= 32 && characterCode !== 127;
   });
 };
 
