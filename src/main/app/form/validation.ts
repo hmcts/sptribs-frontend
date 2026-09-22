@@ -25,6 +25,22 @@ export const isFieldFilledIn: Validator = value => {
   }
 };
 
+export const isFileNameValid = (filename: string | undefined): filename is string => {
+  if (typeof filename !== 'string' || isFieldFilledIn(filename) || filename === '.' || filename === '..') {
+    return false;
+  }
+
+  if (filename.includes('/') || /[<>"\\|?*]/.test(filename)) {
+    return false;
+  }
+
+  return filename.split('').every(character => {
+    const characterCode = character.charCodeAt(0);
+
+    return characterCode >= 32 && characterCode !== 127;
+  });
+};
+
 export const isCICAReferenceNumberAcceptable: Validator = value => {
   if (value && value[0] !== 'G' && value[0] !== 'X') {
     return ValidationError.INVALID;

@@ -2,6 +2,7 @@ import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
 import { AppRequest } from '../../app/controller/AppRequest';
+import { isFileNameValid } from '../../app/form/validation';
 
 @autobind
 export default class DocumentDownloadController {
@@ -9,7 +10,6 @@ export default class DocumentDownloadController {
     try {
       req.locals.logger.info('Commencing GET request for document download');
       const documentId = req.query.documentId as string;
-      const filename = req.query.filename as string;
       const ccdReference = req.session.userCase?.id;
       const postcode = req.session.validatedPostcode;
 
@@ -38,7 +38,8 @@ export default class DocumentDownloadController {
 
       // Set headers for file download
       const contentType = (documentResponse.headers['content-type'] as string) || 'application/octet-stream';
-      const originalFilename = documentResponse.headers['original-file-name'] || filename || 'document';
+      const responseFilename = documentResponse.headers['original-file-name'] as string | undefined;
+      const originalFilename = isFileNameValid(responseFilename) ? responseFilename : 'document';
 
       res.setHeader('Content-Type', contentType);
       res.setHeader('Content-Disposition', `attachment; filename="${originalFilename}"`);

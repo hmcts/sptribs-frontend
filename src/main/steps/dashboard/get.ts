@@ -117,10 +117,7 @@ function mapDocument(doc: BackendDashboardDocument): DashboardDocument | null {
 
   return {
     name: filename,
-    downloadUrl:
-      '/dashboard/document/download' +
-      `?documentId=${encodeURIComponent(documentId)}` +
-      `&filename=${encodeURIComponent(filename)}`,
+    downloadUrl: `/dashboard/document/download?documentId=${encodeURIComponent(documentId)}`,
     //need to update to issued date not the date when the doc was created
     //for bundles its just when bundle created
     //for orders its when order was sent out (draft to not)
