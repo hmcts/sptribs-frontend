@@ -13,6 +13,7 @@ import {
   isEmailValid,
   isFieldFilledIn,
   isFieldLetters,
+  isFileNameValid,
   isFutureDate,
   isInvalidHelpWithFeesRef,
   isInvalidPostcode,
@@ -45,6 +46,23 @@ describe('Validation', () => {
       const isValid = isFieldFilledIn('    ');
 
       expect(isValid).toStrictEqual('required');
+    });
+  });
+
+  describe('isFileNameValid()', () => {
+    test.each([
+      { filename: 'document.pdf', expected: true },
+      { filename: 'my file-[draft].pdf', expected: true },
+      { filename: undefined, expected: false },
+      { filename: '   ', expected: false },
+      { filename: '.', expected: false },
+      { filename: '..', expected: false },
+      { filename: 'folder/document.pdf', expected: false },
+      { filename: 'folder\\document.pdf', expected: false },
+      { filename: 'document?.pdf', expected: false },
+      { filename: 'document\u0000.pdf', expected: false },
+    ])('validates filename when %o', ({ filename, expected }) => {
+      expect(isFileNameValid(filename)).toBe(expected);
     });
   });
 

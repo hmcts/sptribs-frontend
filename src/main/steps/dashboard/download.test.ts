@@ -13,7 +13,6 @@ describe('DocumentDownloadController', () => {
     const req = mockRequest({
       query: {
         documentId: '12345678-1234-1234-1234-123456789012',
-        filename: 'test-document.pdf',
       },
       session: {
         validatedPostcode: 'SW1A 1AA',
@@ -47,11 +46,7 @@ describe('DocumentDownloadController', () => {
   });
 
   test('should return 400 if documentId is missing', async () => {
-    const req = mockRequest({
-      query: {
-        filename: 'test-document.pdf',
-      },
-    });
+    const req = mockRequest({ query: {} });
     const res = mockResponse();
     res.status = jest.fn().mockReturnValue(res);
     res.send = jest.fn();
@@ -66,7 +61,6 @@ describe('DocumentDownloadController', () => {
     const req = mockRequest({
       query: {
         documentId: '12345678-1234-1234-1234-123456789012',
-        filename: 'test-document.pdf',
       },
       session: {
         userCase: null as any,
@@ -86,7 +80,6 @@ describe('DocumentDownloadController', () => {
     const req = mockRequest({
       query: {
         documentId: '12345678-1234-1234-1234-123456789012',
-        filename: 'test-document.pdf',
       },
       session: {
         validatedPostcode: undefined,
@@ -106,7 +99,6 @@ describe('DocumentDownloadController', () => {
     const req = mockRequest({
       query: {
         documentId: '12345678-1234-1234-1234-123456789012',
-        filename: 'test-document.pdf',
       },
       session: {
         validatedPostcode: 'SW1A 1AA',
@@ -162,7 +154,38 @@ describe('DocumentDownloadController', () => {
     );
   });
 
-  test('should use default filename if not provided in query or headers', async () => {
+  test('should use a safe default filename when the API filename contains invalid characters', async () => {
+    const mockStream = {
+      pipe: jest.fn(),
+    };
+    const req = mockRequest({
+      query: {
+        documentId: '12345678-1234-1234-1234-123456789012',
+      },
+      session: {
+        validatedPostcode: 'SW1A 1AA',
+      },
+    });
+
+    req.locals.api.downloadDocument = jest.fn().mockResolvedValue({
+      data: mockStream,
+      headers: {
+        'content-type': 'application/pdf',
+        'original-file-name': 'invalid/name.pdf',
+      },
+    });
+
+    const res = mockResponse();
+    res.setHeader = jest.fn();
+    res.status = jest.fn().mockReturnValue(res);
+    res.send = jest.fn();
+
+    await controller.get(req, res);
+
+    expect(res.setHeader).toHaveBeenCalledWith('Content-Disposition', 'attachment; filename="document"');
+  });
+
+  test('should use default filename if not provided by the API', async () => {
     const mockStream = {
       pipe: jest.fn(),
     };
@@ -200,7 +223,6 @@ describe('DocumentDownloadController', () => {
     const req = mockRequest({
       query: {
         documentId: '12345678-1234-1234-1234-123456789012',
-        filename: 'test-document.pdf',
       },
       session: {
         validatedPostcode: 'SW1A 1AA',

@@ -324,7 +324,7 @@ describe('DashboardGetController', () => {
             document: {
               documentLink: {
                 document_url: `http://dm-store/documents/${documentId}`,
-                document_filename: 'my file.pdf',
+                document_filename: 'my file-[draft].pdf',
                 document_binary_url: `http://dm-store/documents/${documentId}/binary`,
               },
               documentCategory: 'ApplicationForm',
@@ -346,7 +346,9 @@ describe('DashboardGetController', () => {
 
     expect(res.locals.contactPartiesDocuments[0].downloadUrl).toContain(`documentId=${documentId}`);
 
-    expect(res.locals.contactPartiesDocuments[0].downloadUrl).toContain(encodeURIComponent('my file.pdf'));
+    expect(res.locals.contactPartiesDocuments[0].downloadUrl).toBe(
+      `/dashboard/document/download?documentId=${documentId}`
+    );
   });
 
   test('should skip documents without valid document ID in URL', async () => {
