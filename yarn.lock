@@ -3293,22 +3293,22 @@ __metadata:
   linkType: hard
 
 "@sonar/scan@npm:^5.0.0":
-  version: 5.0.0
-  resolution: "@sonar/scan@npm:5.0.0"
+  version: 5.0.1
+  resolution: "@sonar/scan@npm:5.0.1"
   dependencies:
-    adm-zip: "npm:0.6.0"
-    axios: "npm:1.18.1"
+    adm-zip: "npm:0.6.1"
+    axios: "npm:1.20.0"
     commander: "npm:15.0.0"
     hpagent: "npm:1.2.0"
     node-forge: "npm:1.4.0"
-    properties-file: "npm:5.0.5"
+    properties-file: "npm:5.0.7"
     proxy-from-env: "npm:2.1.0"
     semver: "npm:7.8.5"
     slugify: "npm:1.6.9"
-    tar-stream: "npm:3.2.0"
+    tar-stream: "npm:3.2.1"
   bin:
     sonar-scanner-npm: bin/sonar-scanner.js
-  checksum: 10c0/bf8a24f680e12cfd4be21743e4d9a566a5d7e0bca886cd586eeefef796efe717dad36ac316b38d3dcc2d2ab682f6474da19acf3c338c7f43bcf16c195efbedc8
+  checksum: 10c0/1457530e4c227a731fddc625bd650e67e569909efa2612b72ba9e7bf28864d8fd918168f84cf70d1750f3f3384f15a4902f6a29c139663ce9fdbf1be7213a993
   languageName: node
   linkType: hard
 
@@ -4959,10 +4959,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"adm-zip@npm:0.6.0":
-  version: 0.6.0
-  resolution: "adm-zip@npm:0.6.0"
-  checksum: 10c0/440f37590c62255226f1db4cb1a5a618879347f5106ad5b9a24c67c20f9a54bd5b4efcd2b35af858e39c7885d05f4bd35f4c2f42378c98d13f779be380bc9ae4
+"adm-zip@npm:0.6.1":
+  version: 0.6.1
+  resolution: "adm-zip@npm:0.6.1"
+  checksum: 10c0/78233c6fbfd418dd605ef3c4c6a656406a49f81f716f2850d565f5e55915f18b99f4fdaf15436d77c73536da0915eeca33adab8055872a983b0ac7d07664cd25
   languageName: node
   linkType: hard
 
@@ -12371,10 +12371,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"properties-file@npm:5.0.5":
-  version: 5.0.5
-  resolution: "properties-file@npm:5.0.5"
-  checksum: 10c0/168842b2cb6360ad300ff14f47a671bc0c9d8a60605c998080fdb32011b061f665c70ab099ba6a22e864b78affdf995f95c4f6ee6bdb9fede0954c957560171b
+"properties-file@npm:5.0.7":
+  version: 5.0.7
+  resolution: "properties-file@npm:5.0.7"
+  checksum: 10c0/79bc27f2ece5331755a3d18172864354817e65f35ae1a913563573f88a0ca2f99231fc147f19a258377d18ae7f84b817f5991639ed6bdf57df0fd56649f2bd88
   languageName: node
   linkType: hard
 
@@ -14062,15 +14062,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tar-stream@npm:3.2.0":
-  version: 3.2.0
-  resolution: "tar-stream@npm:3.2.0"
+"tar-stream@npm:3.2.1, tar-stream@npm:^3.0.0, tar-stream@npm:^3.1.5":
+  version: 3.2.1
+  resolution: "tar-stream@npm:3.2.1"
   dependencies:
     b4a: "npm:^1.6.4"
     bare-fs: "npm:^4.5.5"
     fast-fifo: "npm:^1.2.0"
     streamx: "npm:^2.15.0"
-  checksum: 10c0/8a06c915f93c9b0906e79867e36a9cfe197da4d41b72e89ec0de99577ae755505d14815c1346b70c2410aa09d3145c3e3af2ff5802b6af84990cdd6c60dbb997
+  checksum: 10c0/0fef57b5e8bf15698f9b4bde4125ab690422cd98ff59cddd76addfb23a6999ad32bddbeeea0858e2756f8a0f36ef4e636a51efe5e8ef4c0a3dac4c2df5714858
   languageName: node
   linkType: hard
 
@@ -14086,18 +14086,6 @@ __metadata:
     to-buffer: "npm:^1.1.1"
     xtend: "npm:^4.0.0"
   checksum: 10c0/ab8528d2cc9ccd0906d1ce6d8089030b2c92a578c57645ff4971452c8c5388b34c7152c04ed64b8510d22a66ffaf0fee58bada7d6ab41ad1e816e31993d59cf3
-  languageName: node
-  linkType: hard
-
-"tar-stream@npm:^3.0.0, tar-stream@npm:^3.1.5":
-  version: 3.2.1
-  resolution: "tar-stream@npm:3.2.1"
-  dependencies:
-    b4a: "npm:^1.6.4"
-    bare-fs: "npm:^4.5.5"
-    fast-fifo: "npm:^1.2.0"
-    streamx: "npm:^2.15.0"
-  checksum: 10c0/0fef57b5e8bf15698f9b4bde4125ab690422cd98ff59cddd76addfb23a6999ad32bddbeeea0858e2756f8a0f36ef4e636a51efe5e8ef4c0a3dac4c2df5714858
   languageName: node
   linkType: hard
 
