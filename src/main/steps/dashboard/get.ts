@@ -5,6 +5,7 @@ import { BackendDashboardDocument } from '../../app/case/CaseApi';
 import { fromApiFormat } from '../../app/case/from-api-format';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { GetController } from '../../app/controller/GetController';
+import { getDashboardJourneyId } from '../dashboard-telemetry';
 import { CICA_LOOKUP, CICA_POSTCODE_VERIFICATION, NOT_AUTHORISED, POSTCODE_ERROR_URL } from '../urls';
 
 import { generateContent } from './content';
@@ -24,15 +25,34 @@ export default class DashboardGetController extends GetController {
   }
 
   public async get(req: AppRequest, res: Response): Promise<void> {
+    const startedAt = Date.now();
+    const journeyId = getDashboardJourneyId(req);
+
     try {
       const sessionCase = req.session.userCase;
 
       if (!sessionCase?.id) {
+        req.locals.logger.info('CICA dashboard journey event', {
+          event: 'dashboard_load_rejected',
+          journey: 'cica_dashboard',
+          journeyId,
+          step: 'dashboard',
+          outcome: 'case_missing',
+          nextStep: 'cica_lookup',
+        });
         return res.redirect(CICA_LOOKUP);
       }
 
       const postcode = req.session.validatedPostcode;
       if (!postcode) {
+        req.locals.logger.info('CICA dashboard journey event', {
+          event: 'dashboard_load_rejected',
+          journey: 'cica_dashboard',
+          journeyId,
+          step: 'dashboard',
+          outcome: 'postcode_missing',
+          nextStep: 'cica_postcode_verification',
+        });
         return res.redirect(CICA_POSTCODE_VERIFICATION);
       }
 
@@ -76,11 +96,36 @@ export default class DashboardGetController extends GetController {
 
       res.locals.userFullName = req.session.userCase.subjectFullName;
 
-      return super.get(req, res);
-    } catch (error: any) {
-      req.locals.logger.error('Error loading dashboard:', error);
+      await super.get(req, res);
 
+      req.locals.logger.info('CICA dashboard journey event', {
+        event: 'dashboard_loaded',
+        journey: 'cica_dashboard',
+        journeyId,
+        step: 'dashboard',
+        outcome: 'success',
+        durationMs: Date.now() - startedAt,
+        hasDocuments: res.locals.hasDocuments,
+        contactDocumentCount: contactPartiesDocuments.length,
+        orderAndDecisionDocumentCount: orderAndDecisionDocuments.length,
+        caseBundleDocumentCount: latestCaseBundleDocuments.length,
+      });
+    } catch (error: any) {
       const status = error?.response?.status;
+      const nextStep = status === 401 ? 'postcode_error' : status === 403 ? 'not_authorised' : 'cica_lookup';
+
+      req.locals.logger.error('CICA dashboard journey event', {
+        event: 'dashboard_load_failed',
+        journey: 'cica_dashboard',
+        journeyId,
+        step: 'dashboard',
+        outcome: status === 401 ? 'postcode_mismatch' : status === 403 ? 'not_authorised' : 'upstream_error',
+        nextStep,
+        upstreamStatus: status,
+        errorType: error?.name,
+        durationMs: Date.now() - startedAt,
+      });
+
       if (status === 401 || status === 403) {
         req.session.validatedPostcode = undefined;
         if (req.session.userCase) {

@@ -18,6 +18,7 @@ describe('CicaLookupPostController', () => {
         checkCaseAccess: mockCheckCaseAccess,
       },
       logger: {
+        info: jest.fn(),
         error: jest.fn(),
       },
     },
@@ -70,7 +71,10 @@ describe('CicaLookupPostController', () => {
       state: '',
       ccdReferenceNumber: '1234567890123456',
     });
-
+    expect(req.locals.logger.info).toHaveBeenCalledWith(
+      'CICA dashboard journey event',
+      expect.objectContaining({ event: 'cica_lookup_succeeded', outcome: 'success', journeyId: expect.any(String) })
+    );
     expect(res.redirect).toHaveBeenCalledWith(CICA_POSTCODE_VERIFICATION);
   });
 

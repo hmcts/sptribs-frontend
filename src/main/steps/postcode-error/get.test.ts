@@ -23,6 +23,10 @@ describe('PostcodeErrorGetController', () => {
         ...translations.en,
       })
     );
+    expect(req.locals.logger.info).toHaveBeenCalledWith(
+      'CICA dashboard journey event',
+      expect.objectContaining({ event: 'postcode_error_shown', outcome: 'shown', journeyId: expect.any(String) })
+    );
   });
 
   test('Should render the postcode error page in Welsh', async () => {

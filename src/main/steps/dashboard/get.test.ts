@@ -5,8 +5,6 @@ import { CICA_LOOKUP, CICA_POSTCODE_VERIFICATION, NOT_AUTHORISED, POSTCODE_ERROR
 
 import DashboardGetController from './get';
 
-jest.mock('../../app/controller/GetController');
-
 describe('DashboardGetController', () => {
   const controller = new DashboardGetController();
 
@@ -92,6 +90,17 @@ describe('DashboardGetController', () => {
     expect(res.locals.latestCaseBundleDocuments).toEqual([]);
 
     expect(res.locals.hasDocuments).toBe(false);
+    expect(req.locals.logger.info).toHaveBeenCalledWith(
+      'CICA dashboard journey event',
+      expect.objectContaining({
+        event: 'dashboard_loaded',
+        outcome: 'success',
+        hasDocuments: false,
+        contactDocumentCount: 0,
+        orderAndDecisionDocumentCount: 0,
+        caseBundleDocumentCount: 0,
+      })
+    );
   });
 
   test('should handle errors and redirect to CICA lookup', async () => {
@@ -262,6 +271,17 @@ describe('DashboardGetController', () => {
     expect(res.locals.userFullName).toBe('Jane Doe');
 
     expect(res.locals.hasDocuments).toBe(true);
+    expect(req.locals.logger.info).toHaveBeenCalledWith(
+      'CICA dashboard journey event',
+      expect.objectContaining({
+        event: 'dashboard_loaded',
+        outcome: 'success',
+        hasDocuments: true,
+        contactDocumentCount: 1,
+        orderAndDecisionDocumentCount: 1,
+        caseBundleDocumentCount: 1,
+      })
+    );
   });
 
   test('should handle case with no document collections', async () => {
