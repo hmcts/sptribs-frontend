@@ -18,6 +18,28 @@ interface DashboardDocument {
   downloaded: boolean;
 }
 
+interface DashboardDocuments {
+  latestCaseBundleDocuments: DashboardDocument[];
+  contactPartiesDocuments: DashboardDocument[];
+  orderAndDecisionDocuments: DashboardDocument[];
+  receivedCount: number;
+  displayedCount: number;
+}
+
+interface DashboardRequestError {
+  name?: string;
+  response?: {
+    status?: number;
+  };
+}
+
+interface DashboardTelemetryContext {
+  attemptId: string;
+  startedAt: number;
+  upstreamStartedAt?: number;
+  upstreamDurationMs?: number;
+}
+
 @autobind
 export default class DashboardGetController extends GetController {
   constructor() {
@@ -25,10 +47,10 @@ export default class DashboardGetController extends GetController {
   }
 
   public async get(req: AppRequest, res: Response): Promise<void> {
-    const startedAt = Date.now();
-    const attemptId = createDashboardAttemptId();
-    let upstreamStartedAt: number | undefined;
-    let upstreamDurationMs: number | undefined;
+    const telemetryContext: DashboardTelemetryContext = {
+      attemptId: createDashboardAttemptId(),
+      startedAt: Date.now(),
+    };
 
     try {
       const sessionCase = req.session.userCase;
@@ -36,7 +58,7 @@ export default class DashboardGetController extends GetController {
       if (!sessionCase?.id) {
         trackDashboardEvent(req, {
           event: 'dashboard_load_rejected',
-          attempt_id: attemptId,
+          attempt_id: telemetryContext.attemptId,
           step: 'dashboard',
           outcome: 'case_missing',
           next_step: 'cica_lookup',
@@ -48,7 +70,7 @@ export default class DashboardGetController extends GetController {
       if (!postcode) {
         trackDashboardEvent(req, {
           event: 'dashboard_load_rejected',
-          attempt_id: attemptId,
+          attempt_id: telemetryContext.attemptId,
           step: 'dashboard',
           outcome: 'postcode_missing',
           next_step: 'cica_postcode_verification',
@@ -56,9 +78,9 @@ export default class DashboardGetController extends GetController {
         return res.redirect(CICA_POSTCODE_VERIFICATION);
       }
 
-      upstreamStartedAt = Date.now();
+      telemetryContext.upstreamStartedAt = Date.now();
       const dashboardResponse = await req.locals.api.getDocumentsByCaseId(sessionCase.id, postcode);
-      upstreamDurationMs = Date.now() - upstreamStartedAt;
+      telemetryContext.upstreamDurationMs = Date.now() - telemetryContext.upstreamStartedAt;
 
       if (dashboardResponse?.cicaCaseResponse) {
         req.session.userCase = {
@@ -69,39 +91,12 @@ export default class DashboardGetController extends GetController {
         };
       }
 
-      const documentsResponse = dashboardResponse?.documentResponse || {};
-
-      const receivedLatestCaseBundleDocuments = documentsResponse.latestCaseBundleDocuments || [];
-      const receivedContactPartiesDocuments = documentsResponse.contactPartiesDocuments || [];
-      const receivedOrderAndDecisionDocuments = documentsResponse.orderAndDecisionDocuments || [];
-
-      const latestCaseBundleDocuments = receivedLatestCaseBundleDocuments.map(mapDocument).filter(Boolean);
-
-      const contactPartiesDocuments = receivedContactPartiesDocuments.map(mapDocument).filter(Boolean);
-
-      const orderAndDecisionDocuments = receivedOrderAndDecisionDocuments.map(mapDocument).filter(Boolean);
-
-      const documentsReceivedCount =
-        receivedLatestCaseBundleDocuments.length +
-        receivedContactPartiesDocuments.length +
-        receivedOrderAndDecisionDocuments.length;
-      const documentsDisplayedCount =
-        latestCaseBundleDocuments.length + contactPartiesDocuments.length + orderAndDecisionDocuments.length;
-
-      res.locals.latestCaseBundleDocuments = latestCaseBundleDocuments;
-
-      res.locals.contactPartiesDocuments = contactPartiesDocuments;
-
-      res.locals.orderAndDecisionDocuments = orderAndDecisionDocuments;
-
-      res.locals.hasDocuments =
-        latestCaseBundleDocuments.length > 0 ||
-        contactPartiesDocuments.length > 0 ||
-        orderAndDecisionDocuments.length > 0;
-
-      res.locals.caseNumber = req.session.userCase.id?.toString().replace('-', '');
-
-      res.locals.userFullName = req.session.userCase.subjectFullName;
+      const documents = buildDashboardDocuments(
+        dashboardResponse?.documentResponse?.latestCaseBundleDocuments,
+        dashboardResponse?.documentResponse?.contactPartiesDocuments,
+        dashboardResponse?.documentResponse?.orderAndDecisionDocuments
+      );
+      setDashboardResponseLocals(req, res, documents);
 
       const renderStartedAt = Date.now();
       await super.get(req, res);
@@ -109,61 +104,129 @@ export default class DashboardGetController extends GetController {
 
       trackDashboardEvent(req, {
         event: 'dashboard_loaded',
-        attempt_id: attemptId,
+        attempt_id: telemetryContext.attemptId,
         step: 'dashboard',
         outcome: 'success',
-        duration_ms: Date.now() - startedAt,
-        upstream_duration_ms: upstreamDurationMs,
+        duration_ms: Date.now() - telemetryContext.startedAt,
+        upstream_duration_ms: telemetryContext.upstreamDurationMs,
         render_duration_ms: renderDurationMs,
         has_documents: res.locals.hasDocuments,
-        documents_received_count: documentsReceivedCount,
-        documents_displayed_count: documentsDisplayedCount,
-        documents_skipped_count: documentsReceivedCount - documentsDisplayedCount,
-        contact_document_count: contactPartiesDocuments.length,
-        order_and_decision_document_count: orderAndDecisionDocuments.length,
-        case_bundle_document_count: latestCaseBundleDocuments.length,
+        documents_received_count: documents.receivedCount,
+        documents_displayed_count: documents.displayedCount,
+        documents_skipped_count: documents.receivedCount - documents.displayedCount,
+        contact_document_count: documents.contactPartiesDocuments.length,
+        order_and_decision_document_count: documents.orderAndDecisionDocuments.length,
+        case_bundle_document_count: documents.latestCaseBundleDocuments.length,
       });
-    } catch (error: any) {
-      const status = error?.response?.status;
-      const nextStep = status === 401 ? 'postcode_error' : status === 403 ? 'not_authorised' : 'cica_lookup';
-
-      if (upstreamStartedAt !== undefined && upstreamDurationMs === undefined) {
-        upstreamDurationMs = Date.now() - upstreamStartedAt;
-      }
-
-      trackDashboardEvent(
-        req,
-        {
-          event: 'dashboard_load_failed',
-          attempt_id: attemptId,
-          step: 'dashboard',
-          outcome:
-            status === 401 ? 'postcode_mismatch' : status === 403 ? 'not_authorised' : classifyDashboardError(error),
-          next_step: nextStep,
-          upstream_status: status,
-          error_type: error?.name,
-          duration_ms: Date.now() - startedAt,
-          upstream_duration_ms: upstreamDurationMs,
-        },
-        'error'
-      );
-
-      if (status === 401 || status === 403) {
-        req.session.validatedPostcode = undefined;
-        if (req.session.userCase) {
-          req.session.userCase['postcode'] = undefined;
-        }
-
-        if (status === 401) {
-          return res.redirect(POSTCODE_ERROR_URL);
-        }
-
-        return res.redirect(NOT_AUTHORISED);
-      }
-
-      return res.redirect(CICA_LOOKUP);
+    } catch (error: unknown) {
+      this.handleDashboardError(req, res, error, telemetryContext);
     }
   }
+
+  private handleDashboardError(
+    req: AppRequest,
+    res: Response,
+    error: unknown,
+    telemetryContext: DashboardTelemetryContext
+  ): void {
+    const requestError = error as DashboardRequestError;
+    const status = requestError?.response?.status;
+    const failure = getDashboardFailure(status, error);
+    const upstreamDurationMs = getUpstreamDuration(telemetryContext);
+
+    trackDashboardEvent(
+      req,
+      {
+        event: 'dashboard_load_failed',
+        attempt_id: telemetryContext.attemptId,
+        step: 'dashboard',
+        outcome: failure.outcome,
+        next_step: failure.nextStep,
+        upstream_status: status,
+        error_type: requestError?.name,
+        duration_ms: Date.now() - telemetryContext.startedAt,
+        upstream_duration_ms: upstreamDurationMs,
+      },
+      'error'
+    );
+
+    if (status !== 401 && status !== 403) {
+      res.redirect(CICA_LOOKUP);
+      return;
+    }
+
+    req.session.validatedPostcode = undefined;
+    if (req.session.userCase) {
+      req.session.userCase['postcode'] = undefined;
+    }
+
+    if (status === 401) {
+      res.redirect(POSTCODE_ERROR_URL);
+      return;
+    }
+
+    res.redirect(NOT_AUTHORISED);
+  }
+}
+
+function buildDashboardDocuments(
+  receivedLatestCaseBundleDocuments: BackendDashboardDocument[] | undefined,
+  receivedContactPartiesDocuments: BackendDashboardDocument[] | undefined,
+  receivedOrderAndDecisionDocuments: BackendDashboardDocument[] | undefined
+): DashboardDocuments {
+  const receivedLatestDocuments = receivedLatestCaseBundleDocuments || [];
+  const receivedContactDocuments = receivedContactPartiesDocuments || [];
+  const receivedOrderDocuments = receivedOrderAndDecisionDocuments || [];
+
+  const latestCaseBundleDocuments = receivedLatestDocuments.map(mapDocument).filter(isDashboardDocument);
+  const contactPartiesDocuments = receivedContactDocuments.map(mapDocument).filter(isDashboardDocument);
+  const orderAndDecisionDocuments = receivedOrderDocuments.map(mapDocument).filter(isDashboardDocument);
+
+  const receivedCount =
+    receivedLatestDocuments.length + receivedContactDocuments.length + receivedOrderDocuments.length;
+  const displayedCount =
+    latestCaseBundleDocuments.length + contactPartiesDocuments.length + orderAndDecisionDocuments.length;
+
+  return {
+    latestCaseBundleDocuments,
+    contactPartiesDocuments,
+    orderAndDecisionDocuments,
+    receivedCount,
+    displayedCount,
+  };
+}
+
+function isDashboardDocument(document: DashboardDocument | null): document is DashboardDocument {
+  return document !== null;
+}
+
+function setDashboardResponseLocals(req: AppRequest, res: Response, documents: DashboardDocuments): void {
+  res.locals.latestCaseBundleDocuments = documents.latestCaseBundleDocuments;
+  res.locals.contactPartiesDocuments = documents.contactPartiesDocuments;
+  res.locals.orderAndDecisionDocuments = documents.orderAndDecisionDocuments;
+  res.locals.hasDocuments = documents.displayedCount > 0;
+  res.locals.caseNumber = req.session.userCase.id?.toString().replace('-', '');
+  res.locals.userFullName = req.session.userCase.subjectFullName;
+}
+
+function getDashboardFailure(status: number | undefined, error: unknown): { nextStep: string; outcome: string } {
+  if (status === 401) {
+    return { nextStep: 'postcode_error', outcome: 'postcode_mismatch' };
+  }
+
+  if (status === 403) {
+    return { nextStep: 'not_authorised', outcome: 'not_authorised' };
+  }
+
+  return { nextStep: 'cica_lookup', outcome: classifyDashboardError(error) };
+}
+
+function getUpstreamDuration(telemetryContext: DashboardTelemetryContext): number | undefined {
+  if (telemetryContext.upstreamStartedAt !== undefined && telemetryContext.upstreamDurationMs === undefined) {
+    return Date.now() - telemetryContext.upstreamStartedAt;
+  }
+
+  return telemetryContext.upstreamDurationMs;
 }
 
 function mapDocument(doc: BackendDashboardDocument): DashboardDocument | null {

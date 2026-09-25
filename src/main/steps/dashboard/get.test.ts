@@ -127,7 +127,14 @@ describe('DashboardGetController', () => {
     await controller.get(req, res);
 
     expect(res.redirect).toHaveBeenCalledWith(CICA_LOOKUP);
-    expect(req.locals.logger.error).toHaveBeenCalled();
+    expect(req.locals.logger.error).toHaveBeenCalledWith(
+      'CICA dashboard journey event',
+      expect.objectContaining({
+        event: 'dashboard_load_failed',
+        outcome: 'unknown_error',
+        next_step: 'cica_lookup',
+      })
+    );
   });
 
   test('should handle 401 errors with postcode mismatch, clear postcode and redirect to POSTCODE_ERROR_URL', async () => {
@@ -155,7 +162,14 @@ describe('DashboardGetController', () => {
 
     expect(req.session.validatedPostcode).toBeUndefined();
     expect(res.redirect).toHaveBeenCalledWith(POSTCODE_ERROR_URL);
-    expect(req.locals.logger.error).toHaveBeenCalled();
+    expect(req.locals.logger.error).toHaveBeenCalledWith(
+      'CICA dashboard journey event',
+      expect.objectContaining({
+        event: 'dashboard_load_failed',
+        outcome: 'postcode_mismatch',
+        next_step: 'postcode_error',
+      })
+    );
   });
 
   test('should handle 403 errors, clear postcode and redirect to NOT_AUTHORISED', async () => {
@@ -181,7 +195,14 @@ describe('DashboardGetController', () => {
 
     expect(req.session.validatedPostcode).toBeUndefined();
     expect(res.redirect).toHaveBeenCalledWith(NOT_AUTHORISED);
-    expect(req.locals.logger.error).toHaveBeenCalled();
+    expect(req.locals.logger.error).toHaveBeenCalledWith(
+      'CICA dashboard journey event',
+      expect.objectContaining({
+        event: 'dashboard_load_failed',
+        outcome: 'not_authorised',
+        next_step: 'not_authorised',
+      })
+    );
   });
 
   test('should extract and format multiple documents from fresh API call', async () => {
