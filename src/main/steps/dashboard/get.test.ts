@@ -95,10 +95,15 @@ describe('DashboardGetController', () => {
       expect.objectContaining({
         event: 'dashboard_loaded',
         outcome: 'success',
-        hasDocuments: false,
-        contactDocumentCount: 0,
-        orderAndDecisionDocumentCount: 0,
-        caseBundleDocumentCount: 0,
+        journey_id: expect.any(String),
+        attempt_id: expect.any(String),
+        has_documents: false,
+        documents_received_count: 0,
+        documents_displayed_count: 0,
+        documents_skipped_count: 0,
+        contact_document_count: 0,
+        order_and_decision_document_count: 0,
+        case_bundle_document_count: 0,
       })
     );
   });
@@ -276,10 +281,15 @@ describe('DashboardGetController', () => {
       expect.objectContaining({
         event: 'dashboard_loaded',
         outcome: 'success',
-        hasDocuments: true,
-        contactDocumentCount: 1,
-        orderAndDecisionDocumentCount: 1,
-        caseBundleDocumentCount: 1,
+        journey_id: expect.any(String),
+        attempt_id: expect.any(String),
+        has_documents: true,
+        documents_received_count: 3,
+        documents_displayed_count: 3,
+        documents_skipped_count: 0,
+        contact_document_count: 1,
+        order_and_decision_document_count: 1,
+        case_bundle_document_count: 1,
       })
     );
   });
@@ -315,6 +325,15 @@ describe('DashboardGetController', () => {
     expect(res.locals.latestCaseBundleDocuments).toHaveLength(0);
 
     expect(res.locals.hasDocuments).toBe(false);
+    expect(req.locals.logger.info).toHaveBeenCalledWith(
+      'CICA dashboard journey event',
+      expect.objectContaining({
+        event: 'dashboard_loaded',
+        documents_received_count: 0,
+        documents_displayed_count: 0,
+        documents_skipped_count: 0,
+      })
+    );
   });
 
   test('should create correct download URLs with document ID', async () => {
@@ -419,6 +438,15 @@ describe('DashboardGetController', () => {
     expect(res.locals.latestCaseBundleDocuments).toHaveLength(0);
 
     expect(res.locals.hasDocuments).toBe(false);
+    expect(req.locals.logger.info).toHaveBeenCalledWith(
+      'CICA dashboard journey event',
+      expect.objectContaining({
+        event: 'dashboard_loaded',
+        documents_received_count: 1,
+        documents_displayed_count: 0,
+        documents_skipped_count: 1,
+      })
+    );
   });
 
   test('should use "Unknown document" when document filename is missing', async () => {

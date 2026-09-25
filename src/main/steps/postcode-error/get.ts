@@ -3,7 +3,7 @@ import { Response } from 'express';
 
 import { AppRequest } from '../../app/controller/AppRequest';
 import { GetController } from '../../app/controller/GetController';
-import { getDashboardJourneyId } from '../dashboard-telemetry';
+import { createDashboardAttemptId, trackDashboardEvent } from '../dashboard-telemetry';
 
 import { generateContent } from './content';
 
@@ -14,12 +14,12 @@ export default class PostcodeErrorGetController extends GetController {
   }
 
   public async get(req: AppRequest, res: Response): Promise<void> {
+    const attemptId = createDashboardAttemptId();
     await super.get(req, res);
 
-    req.locals.logger.info('CICA dashboard journey event', {
+    trackDashboardEvent(req, {
       event: 'postcode_error_shown',
-      journey: 'cica_dashboard',
-      journeyId: getDashboardJourneyId(req),
+      attempt_id: attemptId,
       step: 'postcode_error',
       outcome: 'shown',
     });

@@ -5,7 +5,7 @@ import { BackendDashboardDocument } from '../../app/case/CaseApi';
 import { fromApiFormat } from '../../app/case/from-api-format';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { GetController } from '../../app/controller/GetController';
-import { getDashboardJourneyId } from '../dashboard-telemetry';
+import { classifyDashboardError, createDashboardAttemptId, trackDashboardEvent } from '../dashboard-telemetry';
 import { CICA_LOOKUP, CICA_POSTCODE_VERIFICATION, NOT_AUTHORISED, POSTCODE_ERROR_URL } from '../urls';
 
 import { generateContent } from './content';
@@ -26,37 +26,39 @@ export default class DashboardGetController extends GetController {
 
   public async get(req: AppRequest, res: Response): Promise<void> {
     const startedAt = Date.now();
-    const journeyId = getDashboardJourneyId(req);
+    const attemptId = createDashboardAttemptId();
+    let upstreamStartedAt: number | undefined;
+    let upstreamDurationMs: number | undefined;
 
     try {
       const sessionCase = req.session.userCase;
 
       if (!sessionCase?.id) {
-        req.locals.logger.info('CICA dashboard journey event', {
+        trackDashboardEvent(req, {
           event: 'dashboard_load_rejected',
-          journey: 'cica_dashboard',
-          journeyId,
+          attempt_id: attemptId,
           step: 'dashboard',
           outcome: 'case_missing',
-          nextStep: 'cica_lookup',
+          next_step: 'cica_lookup',
         });
         return res.redirect(CICA_LOOKUP);
       }
 
       const postcode = req.session.validatedPostcode;
       if (!postcode) {
-        req.locals.logger.info('CICA dashboard journey event', {
+        trackDashboardEvent(req, {
           event: 'dashboard_load_rejected',
-          journey: 'cica_dashboard',
-          journeyId,
+          attempt_id: attemptId,
           step: 'dashboard',
           outcome: 'postcode_missing',
-          nextStep: 'cica_postcode_verification',
+          next_step: 'cica_postcode_verification',
         });
         return res.redirect(CICA_POSTCODE_VERIFICATION);
       }
 
+      upstreamStartedAt = Date.now();
       const dashboardResponse = await req.locals.api.getDocumentsByCaseId(sessionCase.id, postcode);
+      upstreamDurationMs = Date.now() - upstreamStartedAt;
 
       if (dashboardResponse?.cicaCaseResponse) {
         req.session.userCase = {
@@ -69,17 +71,22 @@ export default class DashboardGetController extends GetController {
 
       const documentsResponse = dashboardResponse?.documentResponse || {};
 
-      const latestCaseBundleDocuments = (documentsResponse.latestCaseBundleDocuments || [])
-        .map(mapDocument)
-        .filter(Boolean);
+      const receivedLatestCaseBundleDocuments = documentsResponse.latestCaseBundleDocuments || [];
+      const receivedContactPartiesDocuments = documentsResponse.contactPartiesDocuments || [];
+      const receivedOrderAndDecisionDocuments = documentsResponse.orderAndDecisionDocuments || [];
 
-      const contactPartiesDocuments = (documentsResponse.contactPartiesDocuments || [])
-        .map(mapDocument)
-        .filter(Boolean);
+      const latestCaseBundleDocuments = receivedLatestCaseBundleDocuments.map(mapDocument).filter(Boolean);
 
-      const orderAndDecisionDocuments = (documentsResponse.orderAndDecisionDocuments || [])
-        .map(mapDocument)
-        .filter(Boolean);
+      const contactPartiesDocuments = receivedContactPartiesDocuments.map(mapDocument).filter(Boolean);
+
+      const orderAndDecisionDocuments = receivedOrderAndDecisionDocuments.map(mapDocument).filter(Boolean);
+
+      const documentsReceivedCount =
+        receivedLatestCaseBundleDocuments.length +
+        receivedContactPartiesDocuments.length +
+        receivedOrderAndDecisionDocuments.length;
+      const documentsDisplayedCount =
+        latestCaseBundleDocuments.length + contactPartiesDocuments.length + orderAndDecisionDocuments.length;
 
       res.locals.latestCaseBundleDocuments = latestCaseBundleDocuments;
 
@@ -96,35 +103,50 @@ export default class DashboardGetController extends GetController {
 
       res.locals.userFullName = req.session.userCase.subjectFullName;
 
+      const renderStartedAt = Date.now();
       await super.get(req, res);
+      const renderDurationMs = Date.now() - renderStartedAt;
 
-      req.locals.logger.info('CICA dashboard journey event', {
+      trackDashboardEvent(req, {
         event: 'dashboard_loaded',
-        journey: 'cica_dashboard',
-        journeyId,
+        attempt_id: attemptId,
         step: 'dashboard',
         outcome: 'success',
-        durationMs: Date.now() - startedAt,
-        hasDocuments: res.locals.hasDocuments,
-        contactDocumentCount: contactPartiesDocuments.length,
-        orderAndDecisionDocumentCount: orderAndDecisionDocuments.length,
-        caseBundleDocumentCount: latestCaseBundleDocuments.length,
+        duration_ms: Date.now() - startedAt,
+        upstream_duration_ms: upstreamDurationMs,
+        render_duration_ms: renderDurationMs,
+        has_documents: res.locals.hasDocuments,
+        documents_received_count: documentsReceivedCount,
+        documents_displayed_count: documentsDisplayedCount,
+        documents_skipped_count: documentsReceivedCount - documentsDisplayedCount,
+        contact_document_count: contactPartiesDocuments.length,
+        order_and_decision_document_count: orderAndDecisionDocuments.length,
+        case_bundle_document_count: latestCaseBundleDocuments.length,
       });
     } catch (error: any) {
       const status = error?.response?.status;
       const nextStep = status === 401 ? 'postcode_error' : status === 403 ? 'not_authorised' : 'cica_lookup';
 
-      req.locals.logger.error('CICA dashboard journey event', {
-        event: 'dashboard_load_failed',
-        journey: 'cica_dashboard',
-        journeyId,
-        step: 'dashboard',
-        outcome: status === 401 ? 'postcode_mismatch' : status === 403 ? 'not_authorised' : 'upstream_error',
-        nextStep,
-        upstreamStatus: status,
-        errorType: error?.name,
-        durationMs: Date.now() - startedAt,
-      });
+      if (upstreamStartedAt !== undefined && upstreamDurationMs === undefined) {
+        upstreamDurationMs = Date.now() - upstreamStartedAt;
+      }
+
+      trackDashboardEvent(
+        req,
+        {
+          event: 'dashboard_load_failed',
+          attempt_id: attemptId,
+          step: 'dashboard',
+          outcome:
+            status === 401 ? 'postcode_mismatch' : status === 403 ? 'not_authorised' : classifyDashboardError(error),
+          next_step: nextStep,
+          upstream_status: status,
+          error_type: error?.name,
+          duration_ms: Date.now() - startedAt,
+          upstream_duration_ms: upstreamDurationMs,
+        },
+        'error'
+      );
 
       if (status === 401 || status === 403) {
         req.session.validatedPostcode = undefined;

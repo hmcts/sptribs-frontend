@@ -3,18 +3,33 @@ import { Response } from 'express';
 
 import { AppRequest } from '../../app/controller/AppRequest';
 import { isFileNameValid } from '../../app/form/validation';
-import { getDashboardJourneyId } from '../dashboard-telemetry';
+import { classifyDashboardError, createDashboardAttemptId, trackDashboardEvent } from '../dashboard-telemetry';
+
+interface DownloadTelemetryProperties {
+  http_status?: number;
+  upstream_status?: number;
+  upstream_duration_ms?: number;
+  error_type?: string;
+}
+
+type DownloadTerminalEvent =
+  | 'document_download_aborted'
+  | 'document_download_completed'
+  | 'document_download_failed'
+  | 'document_download_rejected';
 
 @autobind
 export default class DocumentDownloadController {
   public async get(req: AppRequest, res: Response): Promise<void> {
     const startedAt = Date.now();
-    const journeyId = getDashboardJourneyId(req);
+    const attemptId = createDashboardAttemptId();
+    let upstreamStartedAt: number | undefined;
+    let upstreamDurationMs: number | undefined;
     let hasTerminalEvent = false;
     const logTerminalEvent = (
-      event: string,
+      event: DownloadTerminalEvent,
       outcome: string,
-      properties: Record<string, unknown> = {},
+      properties: DownloadTelemetryProperties = {},
       isError = false
     ): void => {
       if (hasTerminalEvent) {
@@ -22,27 +37,23 @@ export default class DocumentDownloadController {
       }
 
       hasTerminalEvent = true;
-      const metadata = {
-        event,
-        journey: 'cica_dashboard',
-        journeyId,
-        step: 'document_download',
-        outcome,
-        durationMs: Date.now() - startedAt,
-        ...properties,
-      };
-
-      if (isError) {
-        req.locals.logger.error('CICA dashboard journey event', metadata);
-      } else {
-        req.locals.logger.info('CICA dashboard journey event', metadata);
-      }
+      trackDashboardEvent(
+        req,
+        {
+          event,
+          attempt_id: attemptId,
+          step: 'document_download',
+          outcome,
+          duration_ms: Date.now() - startedAt,
+          ...properties,
+        },
+        isError ? 'error' : 'info'
+      );
     };
 
-    req.locals.logger.info('CICA dashboard journey event', {
+    trackDashboardEvent(req, {
       event: 'document_download_started',
-      journey: 'cica_dashboard',
-      journeyId,
+      attempt_id: attemptId,
       step: 'document_download',
       outcome: 'started',
     });
@@ -53,33 +64,35 @@ export default class DocumentDownloadController {
       const postcode = req.session.validatedPostcode;
 
       if (!ccdReference) {
-        logTerminalEvent('document_download_rejected', 'case_missing', { httpStatus: 400 });
+        logTerminalEvent('document_download_rejected', 'case_missing', { http_status: 400 });
         res.status(400).send('Case reference is required');
         return;
       }
 
       if (!documentId) {
-        logTerminalEvent('document_download_rejected', 'document_id_missing', { httpStatus: 400 });
+        logTerminalEvent('document_download_rejected', 'document_id_missing', { http_status: 400 });
         res.status(400).send('Document ID is required');
         return;
       }
 
       if (!postcode) {
-        logTerminalEvent('document_download_rejected', 'postcode_missing', { httpStatus: 401 });
+        logTerminalEvent('document_download_rejected', 'postcode_missing', { http_status: 401 });
         res.status(401).send('Unauthorized');
         return;
       }
 
       // Download document via sptribs-case-api
+      upstreamStartedAt = Date.now();
       const documentResponse = await req.locals.api.downloadDocument(ccdReference, documentId, postcode);
+      upstreamDurationMs = Date.now() - upstreamStartedAt;
 
-      req.locals.logger.info('CICA dashboard journey event', {
+      trackDashboardEvent(req, {
         event: 'document_download_upstream_response_received',
-        journey: 'cica_dashboard',
-        journeyId,
+        attempt_id: attemptId,
         step: 'document_download',
         outcome: 'success',
-        durationMs: Date.now() - startedAt,
+        duration_ms: Date.now() - startedAt,
+        upstream_duration_ms: upstreamDurationMs,
       });
 
       // Set headers for file download
@@ -91,7 +104,12 @@ export default class DocumentDownloadController {
       res.setHeader('Content-Disposition', `attachment; filename="${originalFilename}"`);
 
       documentResponse.data.once('error', (error: Error) => {
-        logTerminalEvent('document_download_failed', 'stream_error', { errorType: error?.name, httpStatus: 500 }, true);
+        logTerminalEvent(
+          'document_download_failed',
+          'stream_error',
+          { error_type: error?.name, http_status: 500 },
+          true
+        );
 
         if (res.headersSent) {
           res.destroy(error);
@@ -101,7 +119,7 @@ export default class DocumentDownloadController {
       });
 
       res.once('finish', () => {
-        logTerminalEvent('document_download_completed', 'success', { httpStatus: res.statusCode });
+        logTerminalEvent('document_download_completed', 'success', { http_status: res.statusCode });
       });
 
       res.once('close', () => {
@@ -115,13 +133,18 @@ export default class DocumentDownloadController {
       const upstreamStatus = error?.response?.status;
       const responseStatus = upstreamStatus >= 400 && upstreamStatus < 500 ? upstreamStatus : 500;
 
+      if (upstreamStartedAt !== undefined && upstreamDurationMs === undefined) {
+        upstreamDurationMs = Date.now() - upstreamStartedAt;
+      }
+
       logTerminalEvent(
         'document_download_failed',
-        'upstream_error',
+        classifyDashboardError(error),
         {
-          upstreamStatus,
-          httpStatus: responseStatus,
-          errorType: error?.name,
+          upstream_status: upstreamStatus,
+          upstream_duration_ms: upstreamDurationMs,
+          http_status: responseStatus,
+          error_type: error?.name,
         },
         true
       );

@@ -25,7 +25,12 @@ describe('PostcodeErrorGetController', () => {
     );
     expect(req.locals.logger.info).toHaveBeenCalledWith(
       'CICA dashboard journey event',
-      expect.objectContaining({ event: 'postcode_error_shown', outcome: 'shown', journeyId: expect.any(String) })
+      expect.objectContaining({
+        event: 'postcode_error_shown',
+        outcome: 'shown',
+        journey_id: expect.any(String),
+        attempt_id: expect.any(String),
+      })
     );
   });
 

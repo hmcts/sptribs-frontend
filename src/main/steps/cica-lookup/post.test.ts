@@ -73,7 +73,12 @@ describe('CicaLookupPostController', () => {
     });
     expect(req.locals.logger.info).toHaveBeenCalledWith(
       'CICA dashboard journey event',
-      expect.objectContaining({ event: 'cica_lookup_succeeded', outcome: 'success', journeyId: expect.any(String) })
+      expect.objectContaining({
+        event: 'cica_lookup_succeeded',
+        outcome: 'success',
+        journey_id: expect.any(String),
+        attempt_id: expect.any(String),
+      })
     );
     expect(res.redirect).toHaveBeenCalledWith(CICA_POSTCODE_VERIFICATION);
   });

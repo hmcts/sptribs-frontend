@@ -57,9 +57,16 @@ describe('DocumentDownloadController', () => {
       expect.objectContaining({
         event: 'document_download_completed',
         outcome: 'success',
-        journeyId: expect.any(String),
+        journey_id: expect.any(String),
+        attempt_id: expect.any(String),
       })
     );
+
+    const telemetryEvents = (req.locals.logger.info as jest.Mock).mock.calls.map(call => call[1]);
+    const startedEvent = telemetryEvents.find(event => event.event === 'document_download_started');
+    const completedEvent = telemetryEvents.find(event => event.event === 'document_download_completed');
+
+    expect(completedEvent.attempt_id).toBe(startedEvent.attempt_id);
   });
 
   test('should return 400 if documentId is missing', async () => {
@@ -301,7 +308,7 @@ describe('DocumentDownloadController', () => {
     expect(res.status).toHaveBeenCalledWith(500);
     expect(req.locals.logger.error).toHaveBeenCalledWith(
       'CICA dashboard journey event',
-      expect.objectContaining({ event: 'document_download_failed', outcome: 'stream_error', errorType: 'Error' })
+      expect.objectContaining({ event: 'document_download_failed', outcome: 'stream_error', error_type: 'Error' })
     );
   });
 
