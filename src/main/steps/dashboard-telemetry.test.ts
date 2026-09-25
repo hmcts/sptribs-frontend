@@ -49,6 +49,9 @@ describe('dashboard telemetry', () => {
   test.each([
     [{ code: 'ETIMEDOUT' }, 'timeout'],
     [{ code: 'ECONNRESET' }, 'connection_error'],
+    [{ response: { status: 401 } }, 'unauthorised'],
+    [{ response: { status: 403 } }, 'forbidden'],
+    [{ response: { status: 404 } }, 'not_found'],
     [{ response: { status: 429 } }, 'rate_limited'],
     [{ response: { status: 503 } }, 'upstream_5xx'],
     [{ response: { status: 400 } }, 'upstream_4xx'],

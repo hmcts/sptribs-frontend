@@ -143,6 +143,78 @@ describe('DocumentDownloadController', () => {
     expect(req.locals.logger.error).toHaveBeenCalled();
   });
 
+  test('should preserve a 4xx status returned by the download API', async () => {
+    const req = mockRequest({
+      query: {
+        documentId: '12345678-1234-1234-1234-123456789012',
+      },
+      session: {
+        validatedPostcode: 'SW1A 1AA',
+      },
+    });
+    const error = Object.assign(new Error('Document not found'), {
+      response: { status: 404 },
+    });
+    req.locals.api.downloadDocument = jest.fn().mockRejectedValue(error);
+
+    const res = mockResponse();
+
+    await controller.get(req, res);
+
+    expect(res.status).toHaveBeenCalledWith(404);
+    expect(res.send).toHaveBeenCalledWith('Error downloading document');
+    expect(req.locals.logger.error).toHaveBeenCalledWith(
+      'CICA dashboard journey event',
+      expect.objectContaining({
+        event: 'document_download_failed',
+        outcome: 'not_found',
+        upstream_status: 404,
+        upstream_duration_ms: expect.any(Number),
+        http_status: 404,
+        error_type: 'Error',
+      })
+    );
+  });
+
+  test('should retain completed upstream duration when response preparation fails', async () => {
+    const mockStream = {
+      once: jest.fn(),
+      pipe: jest.fn(),
+    };
+    const req = mockRequest({
+      query: {
+        documentId: '12345678-1234-1234-1234-123456789012',
+      },
+      session: {
+        validatedPostcode: 'SW1A 1AA',
+      },
+    });
+    req.locals.api.downloadDocument = jest.fn().mockResolvedValue({
+      data: mockStream,
+      headers: { 'content-type': 'application/pdf' },
+    });
+
+    const res = mockResponse();
+    res.setHeader = jest.fn().mockImplementation(() => {
+      throw new Error('Header failed');
+    });
+
+    await controller.get(req, res);
+
+    expect(res.status).toHaveBeenCalledWith(500);
+    expect(res.send).toHaveBeenCalledWith('Error downloading document');
+    expect(req.locals.logger.error).toHaveBeenCalledWith(
+      'CICA dashboard journey event',
+      expect.objectContaining({
+        event: 'document_download_failed',
+        outcome: 'unknown_error',
+        upstream_duration_ms: expect.any(Number),
+        http_status: 500,
+        error_type: 'Error',
+      })
+    );
+  });
+
   test('should use original-file-name header from API response', async () => {
     const mockStream = {
       once: jest.fn(),
@@ -310,6 +382,74 @@ describe('DocumentDownloadController', () => {
       'CICA dashboard journey event',
       expect.objectContaining({ event: 'document_download_failed', outcome: 'stream_error', error_type: 'Error' })
     );
+  });
+
+  test('should destroy a started response and only trace the first terminal event', async () => {
+    let streamErrorListener: ((error: Error) => void) | undefined;
+    let finishListener: (() => void) | undefined;
+    let closeListener: (() => void) | undefined;
+    const mockStream = {
+      once: jest.fn().mockImplementation((event, listener) => {
+        if (event === 'error') {
+          streamErrorListener = listener;
+        }
+      }),
+      pipe: jest.fn(),
+    };
+    const req = mockRequest({
+      query: { documentId: '12345678-1234-1234-1234-123456789012' },
+      session: { validatedPostcode: 'SW1A 1AA' },
+    });
+    req.locals.api.downloadDocument = jest.fn().mockResolvedValue({
+      data: mockStream,
+      headers: { 'content-type': 'application/pdf' },
+    });
+
+    const res = mockResponse();
+    res.setHeader = jest.fn();
+    res.destroy = jest.fn();
+    (res as any).headersSent = true;
+    (res as any).writableFinished = true;
+    res.once = jest.fn().mockImplementation((event, listener) => {
+      if (event === 'finish') {
+        finishListener = listener;
+      }
+      if (event === 'close') {
+        closeListener = listener;
+      }
+      return res;
+    });
+
+    await controller.get(req, res);
+
+    const streamError = new Error('Stream failed after headers were sent');
+    streamErrorListener?.(streamError);
+    finishListener?.();
+    closeListener?.();
+
+    expect(res.destroy).toHaveBeenCalledWith(streamError);
+    expect(res.status).not.toHaveBeenCalledWith(500);
+    expect(res.send).not.toHaveBeenCalledWith('Error downloading document');
+
+    const infoEvents = (req.locals.logger.info as jest.Mock).mock.calls.map(call => call[1]);
+    const errorEvents = (req.locals.logger.error as jest.Mock).mock.calls.map(call => call[1]);
+    const terminalEvents = [...infoEvents, ...errorEvents].filter(event =>
+      [
+        'document_download_aborted',
+        'document_download_completed',
+        'document_download_failed',
+        'document_download_rejected',
+      ].includes(event.event)
+    );
+
+    expect(terminalEvents).toEqual([
+      expect.objectContaining({
+        event: 'document_download_failed',
+        outcome: 'stream_error',
+        http_status: 500,
+        error_type: 'Error',
+      }),
+    ]);
   });
 
   test('should trace a client disconnect as an aborted download', async () => {

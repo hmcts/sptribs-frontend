@@ -137,6 +137,40 @@ describe('DashboardGetController', () => {
     );
   });
 
+  test('should retain completed upstream duration when rendering fails', async () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          id: '123',
+          state: State.Submitted,
+        },
+        validatedPostcode: 'SW1A 1AA',
+      },
+    });
+
+    req.locals.api.getDocumentsByCaseId = jest.fn().mockResolvedValue({
+      documentResponse: {},
+    });
+
+    const res = mockResponse();
+    res.render = jest.fn().mockImplementation(() => {
+      throw new Error('Render failed');
+    });
+
+    await controller.get(req, res);
+
+    expect(res.render).toHaveBeenCalled();
+    expect(res.redirect).toHaveBeenCalledWith(CICA_LOOKUP);
+    expect(req.locals.logger.error).toHaveBeenCalledWith(
+      'CICA dashboard journey event',
+      expect.objectContaining({
+        event: 'dashboard_load_failed',
+        outcome: 'unknown_error',
+        upstream_duration_ms: expect.any(Number),
+      })
+    );
+  });
+
   test('should handle 401 errors with postcode mismatch, clear postcode and redirect to POSTCODE_ERROR_URL', async () => {
     const req = mockRequest({
       session: {

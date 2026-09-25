@@ -29,7 +29,7 @@ export default class DocumentDownloadController {
     const logTerminalEvent = (
       event: DownloadTerminalEvent,
       outcome: string,
-      properties: DownloadTelemetryProperties = {},
+      properties: DownloadTelemetryProperties,
       isError = false
     ): void => {
       if (hasTerminalEvent) {
