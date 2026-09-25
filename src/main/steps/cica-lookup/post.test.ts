@@ -18,6 +18,7 @@ describe('CicaLookupPostController', () => {
         checkCaseAccess: mockCheckCaseAccess,
       },
       logger: {
+        info: jest.fn(),
         error: jest.fn(),
       },
     },
@@ -70,7 +71,15 @@ describe('CicaLookupPostController', () => {
       state: '',
       ccdReferenceNumber: '1234567890123456',
     });
-
+    expect(req.locals.logger.info).toHaveBeenCalledWith(
+      'CICA dashboard journey event',
+      expect.objectContaining({
+        event: 'cica_lookup_succeeded',
+        outcome: 'success',
+        journey_id: expect.any(String),
+        attempt_id: expect.any(String),
+      })
+    );
     expect(res.redirect).toHaveBeenCalledWith(CICA_POSTCODE_VERIFICATION);
   });
 
@@ -96,6 +105,28 @@ describe('CicaLookupPostController', () => {
     await controller.post(req, res);
 
     expect(res.redirect).toHaveBeenCalledWith(NOT_AUTHORISED);
+  });
+
+  test('should redirect back to lookup on 400', async () => {
+    mockCheckCaseAccess.mockRejectedValueOnce({
+      response: { status: 400 },
+    });
+
+    req.body = { ccdReference: '1234567890123456' } as any;
+
+    await controller.post(req, res);
+
+    expect(req.session.errors).toEqual([{ propertyName: 'ccdReference', errorType: 'invalid' }]);
+    expect(req.locals.logger.error).toHaveBeenCalledWith(
+      'CICA dashboard journey event',
+      expect.objectContaining({
+        event: 'cica_lookup_failed',
+        outcome: 'invalid_reference',
+        next_step: 'cica_lookup',
+        upstream_status: 400,
+      })
+    );
+    expect(res.redirect).toHaveBeenCalledWith(CICA_LOOKUP);
   });
 
   test('should fallback to confirm new on unknown error', async () => {

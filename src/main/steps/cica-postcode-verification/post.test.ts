@@ -14,6 +14,7 @@ describe('PostcodeVerificationPostController', () => {
     locals: {
       api: {},
       logger: {
+        info: jest.fn(),
         error: jest.fn(),
       },
     },
@@ -58,6 +59,15 @@ describe('PostcodeVerificationPostController', () => {
     await controller.post(req, res);
 
     expect(req.session.validatedPostcode).toBe('SW1A 1AA');
+    expect(req.locals.logger.info).toHaveBeenCalledWith(
+      'CICA dashboard journey event',
+      expect.objectContaining({
+        event: 'postcode_submitted',
+        outcome: 'submitted',
+        journey_id: expect.any(String),
+        attempt_id: expect.any(String),
+      })
+    );
     expect(res.redirect).toHaveBeenCalledWith(DASHBOARD_URL);
   });
 });
