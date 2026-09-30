@@ -5,8 +5,6 @@ import { CICA_LOOKUP, CICA_POSTCODE_VERIFICATION, NOT_AUTHORISED, POSTCODE_ERROR
 
 import DashboardGetController from './get';
 
-jest.mock('../../app/controller/GetController');
-
 describe('DashboardGetController', () => {
   const controller = new DashboardGetController();
 
@@ -92,6 +90,22 @@ describe('DashboardGetController', () => {
     expect(res.locals.latestCaseBundleDocuments).toEqual([]);
 
     expect(res.locals.hasDocuments).toBe(false);
+    expect(req.locals.logger.info).toHaveBeenCalledWith(
+      'CICA dashboard journey event',
+      expect.objectContaining({
+        event: 'dashboard_loaded',
+        outcome: 'success',
+        journey_id: expect.any(String),
+        attempt_id: expect.any(String),
+        has_documents: false,
+        documents_received_count: 0,
+        documents_displayed_count: 0,
+        documents_skipped_count: 0,
+        contact_document_count: 0,
+        order_and_decision_document_count: 0,
+        case_bundle_document_count: 0,
+      })
+    );
   });
 
   test('should handle errors and redirect to CICA lookup', async () => {
@@ -113,7 +127,48 @@ describe('DashboardGetController', () => {
     await controller.get(req, res);
 
     expect(res.redirect).toHaveBeenCalledWith(CICA_LOOKUP);
-    expect(req.locals.logger.error).toHaveBeenCalled();
+    expect(req.locals.logger.error).toHaveBeenCalledWith(
+      'CICA dashboard journey event',
+      expect.objectContaining({
+        event: 'dashboard_load_failed',
+        outcome: 'unknown_error',
+        next_step: 'cica_lookup',
+      })
+    );
+  });
+
+  test('should retain completed upstream duration when rendering fails', async () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          id: '123',
+          state: State.Submitted,
+        },
+        validatedPostcode: 'SW1A 1AA',
+      },
+    });
+
+    req.locals.api.getDocumentsByCaseId = jest.fn().mockResolvedValue({
+      documentResponse: {},
+    });
+
+    const res = mockResponse();
+    res.render = jest.fn().mockImplementation(() => {
+      throw new Error('Render failed');
+    });
+
+    await controller.get(req, res);
+
+    expect(res.render).toHaveBeenCalled();
+    expect(res.redirect).toHaveBeenCalledWith(CICA_LOOKUP);
+    expect(req.locals.logger.error).toHaveBeenCalledWith(
+      'CICA dashboard journey event',
+      expect.objectContaining({
+        event: 'dashboard_load_failed',
+        outcome: 'unknown_error',
+        upstream_duration_ms: expect.any(Number),
+      })
+    );
   });
 
   test('should handle 401 errors with postcode mismatch, clear postcode and redirect to POSTCODE_ERROR_URL', async () => {
@@ -141,7 +196,14 @@ describe('DashboardGetController', () => {
 
     expect(req.session.validatedPostcode).toBeUndefined();
     expect(res.redirect).toHaveBeenCalledWith(POSTCODE_ERROR_URL);
-    expect(req.locals.logger.error).toHaveBeenCalled();
+    expect(req.locals.logger.error).toHaveBeenCalledWith(
+      'CICA dashboard journey event',
+      expect.objectContaining({
+        event: 'dashboard_load_failed',
+        outcome: 'postcode_mismatch',
+        next_step: 'postcode_error',
+      })
+    );
   });
 
   test('should handle 403 errors, clear postcode and redirect to NOT_AUTHORISED', async () => {
@@ -167,7 +229,14 @@ describe('DashboardGetController', () => {
 
     expect(req.session.validatedPostcode).toBeUndefined();
     expect(res.redirect).toHaveBeenCalledWith(NOT_AUTHORISED);
-    expect(req.locals.logger.error).toHaveBeenCalled();
+    expect(req.locals.logger.error).toHaveBeenCalledWith(
+      'CICA dashboard journey event',
+      expect.objectContaining({
+        event: 'dashboard_load_failed',
+        outcome: 'not_authorised',
+        next_step: 'not_authorised',
+      })
+    );
   });
 
   test('should extract and format multiple documents from fresh API call', async () => {
@@ -262,6 +331,22 @@ describe('DashboardGetController', () => {
     expect(res.locals.userFullName).toBe('Jane Doe');
 
     expect(res.locals.hasDocuments).toBe(true);
+    expect(req.locals.logger.info).toHaveBeenCalledWith(
+      'CICA dashboard journey event',
+      expect.objectContaining({
+        event: 'dashboard_loaded',
+        outcome: 'success',
+        journey_id: expect.any(String),
+        attempt_id: expect.any(String),
+        has_documents: true,
+        documents_received_count: 3,
+        documents_displayed_count: 3,
+        documents_skipped_count: 0,
+        contact_document_count: 1,
+        order_and_decision_document_count: 1,
+        case_bundle_document_count: 1,
+      })
+    );
   });
 
   test('should handle case with no document collections', async () => {
@@ -295,6 +380,15 @@ describe('DashboardGetController', () => {
     expect(res.locals.latestCaseBundleDocuments).toHaveLength(0);
 
     expect(res.locals.hasDocuments).toBe(false);
+    expect(req.locals.logger.info).toHaveBeenCalledWith(
+      'CICA dashboard journey event',
+      expect.objectContaining({
+        event: 'dashboard_loaded',
+        documents_received_count: 0,
+        documents_displayed_count: 0,
+        documents_skipped_count: 0,
+      })
+    );
   });
 
   test('should create correct download URLs with document ID', async () => {
@@ -399,6 +493,15 @@ describe('DashboardGetController', () => {
     expect(res.locals.latestCaseBundleDocuments).toHaveLength(0);
 
     expect(res.locals.hasDocuments).toBe(false);
+    expect(req.locals.logger.info).toHaveBeenCalledWith(
+      'CICA dashboard journey event',
+      expect.objectContaining({
+        event: 'dashboard_loaded',
+        documents_received_count: 1,
+        documents_displayed_count: 0,
+        documents_skipped_count: 1,
+      })
+    );
   });
 
   test('should use "Unknown document" when document filename is missing', async () => {
