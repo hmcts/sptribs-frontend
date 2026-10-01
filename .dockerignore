@@ -20,3 +20,12 @@
 !.eslintignore
 !.yarnrc.yml
 !node_modules
+!version
+!.yarn/**
+!.yarn/
+!src/
+!src/main/
+!config/
+!webpack/
+.yarn/cache
+.yarn/install-state.gz
