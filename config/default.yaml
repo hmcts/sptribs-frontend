@@ -24,7 +24,7 @@ services:
   cdam:
     url: 'http://ccd-case-document-am-api-aat.service.core-compute-aat.internal'
   equalityAndDiversity:
-    url: 'http://pcq.aat.platform.hmcts.net'
+    url: 'https://pcq.aat.platform.hmcts.net'
     path: '/service-endpoint'
     tokenKey: 'NEED TO INSERT SECRET'
     enabled: true
