@@ -3,7 +3,7 @@
     "en": {
       "continue": "Continue",
       "title": "Enter the postcode for the appeal",
-      "line1": "This is the postcode used when the appeal was registered",
+      "line1": "This is the postcode for the subject of the appeal",
       "postcodeLabel": "Postcode",
       "back": "Back"
     },
