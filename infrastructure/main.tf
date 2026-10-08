@@ -4,10 +4,20 @@ provider "azurerm" {
 
 locals {
   vaultName = "${var.product}-${var.env}"
+  managed_redis_environments = toset(["aat", "demo"])
+  managed_redis_instances    = contains(local.managed_redis_environments, var.env) ? toset([var.env]) : toset([])
 }
 
 data "azurerm_subnet" "core_infra_redis_subnet" {
   name                 = "core-infra-subnet-1-${var.env}"
+  virtual_network_name = "core-infra-vnet-${var.env}"
+  resource_group_name  = "core-infra-${var.env}"
+}
+
+data "azurerm_subnet" "managed_redis_private_endpoint" {
+  for_each = local.managed_redis_instances
+
+  name                 = "core-infra-subnet-2-${var.env}"
   virtual_network_name = "core-infra-vnet-${var.env}"
   resource_group_name  = "core-infra-${var.env}"
 }
@@ -26,6 +36,30 @@ module "sptribs-frontend-session-storage" {
   family                        = var.family
   capacity                      = var.capacity
 
+}
+
+module "sptribs-frontend-managed_redis" {
+  for_each = toset(contains(["sandbox", "aat"], var.env) ? [var.env] : [])
+
+  source = "git@github.com:hmcts/terraform-module-azure-managed-redis?ref=main"
+
+  product     = var.product
+  component   = var.component
+  env         = var.env
+  location    = var.location
+  common_tags = var.common_tags
+
+  sku_name = var.managed_redis_sku
+
+  public_network_access   = "Disabled"
+  create_private_endpoint = true
+  subnet_id = data.azurerm_subnet.managed_redis_private_endpoint[each.key].id
+  private_dns_zone_ids    = [
+    "/subscriptions/${var.private_dns_subscription_id}/resourceGroups/core-infra-intsvc-rg/providers/Microsoft.Network/privateDnsZones/privatelink.redis.azure.net"
+  ]
+
+  access_keys_authentication_enabled = true
+  persistence_rdb_backup_frequency   = "6h"
 }
 
 data "azurerm_key_vault" "sptribs_key_vault" {
