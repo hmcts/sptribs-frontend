@@ -39,7 +39,7 @@ module "sptribs-frontend-session-storage" {
 }
 
 module "sptribs-frontend-managed_redis" {
-  for_each = toset(contains(["sandbox", "aat"], var.env) ? [var.env] : [])
+  for_each = local.managed_redis_instances
 
   source = "git@github.com:hmcts/terraform-module-azure-managed-redis?ref=main"
 
@@ -59,6 +59,7 @@ module "sptribs-frontend-managed_redis" {
   ]
 
   access_keys_authentication_enabled = true
+  clustering_policy                  = "EnterpriseCluster"
   persistence_rdb_backup_frequency   = "6h"
 }
 
