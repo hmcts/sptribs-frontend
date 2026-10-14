@@ -5750,13 +5750,13 @@ __metadata:
   linkType: hard
 
 "bfj@npm:^9.1.3":
-  version: 9.1.3
-  resolution: "bfj@npm:9.1.3"
+  version: 9.1.4
+  resolution: "bfj@npm:9.1.4"
   dependencies:
     check-types: "npm:^11.2.3"
     hoopy: "npm:^0.1.4"
     tryer: "npm:^1.0.1"
-  checksum: 10c0/04ce0002e394922999ba41e372e5ddf77cf080225939149d0c88f5cee9abffe5cc676bab121ec9b19eb5d1e16fe63d97c1dc90e2992666899643e82fc27be9c0
+  checksum: 10c0/d290596620d16a36243d90599efa23fd30ea184b908649bc7bd57974287a5807317fe3ed544baa2c50b6db42dc14c59f1f207e0017be0015a099db8f338fd9b0
   languageName: node
   linkType: hard
 
