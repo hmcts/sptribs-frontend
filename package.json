@@ -193,6 +193,7 @@
     "serialize-javascript": "^7.0.3",
     "shell-quote": "^1.10.0",
     "socks": "^2.8.10",
+    "source-map-js": "^1.2.2",
     "superagent": "^10.2.2",
     "tar": "^7.5.20",
     "tar-fs": "^3.0.9",
