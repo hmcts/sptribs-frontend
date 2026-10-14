@@ -3304,22 +3304,22 @@ __metadata:
   linkType: hard
 
 "@sonar/scan@npm:^5.0.0":
-  version: 5.0.0
-  resolution: "@sonar/scan@npm:5.0.0"
+  version: 5.0.2
+  resolution: "@sonar/scan@npm:5.0.2"
   dependencies:
-    adm-zip: "npm:0.6.0"
-    axios: "npm:1.18.1"
+    adm-zip: "npm:0.6.1"
+    axios: "npm:1.20.0"
     commander: "npm:15.0.0"
     hpagent: "npm:1.2.0"
     node-forge: "npm:1.4.0"
-    properties-file: "npm:5.0.5"
+    properties-file: "npm:5.0.7"
     proxy-from-env: "npm:2.1.0"
     semver: "npm:7.8.5"
     slugify: "npm:1.6.9"
-    tar-stream: "npm:3.2.0"
+    tar-stream: "npm:3.2.2"
   bin:
     sonar-scanner-npm: bin/sonar-scanner.js
-  checksum: 10c0/bf8a24f680e12cfd4be21743e4d9a566a5d7e0bca886cd586eeefef796efe717dad36ac316b38d3dcc2d2ab682f6474da19acf3c338c7f43bcf16c195efbedc8
+  checksum: 10c0/94c58381858824532159ba203b3743e2879b1e95c4783c811323c31642b3e8f391f066004282050c8d168bfb48b9479dc89eee56fe32667bb179070376cabaf8
   languageName: node
   linkType: hard
 
@@ -4970,10 +4970,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"adm-zip@npm:0.6.0":
-  version: 0.6.0
-  resolution: "adm-zip@npm:0.6.0"
-  checksum: 10c0/440f37590c62255226f1db4cb1a5a618879347f5106ad5b9a24c67c20f9a54bd5b4efcd2b35af858e39c7885d05f4bd35f4c2f42378c98d13f779be380bc9ae4
+"adm-zip@npm:0.6.1":
+  version: 0.6.1
+  resolution: "adm-zip@npm:0.6.1"
+  checksum: 10c0/78233c6fbfd418dd605ef3c4c6a656406a49f81f716f2850d565f5e55915f18b99f4fdaf15436d77c73536da0915eeca33adab8055872a983b0ac7d07664cd25
   languageName: node
   linkType: hard
 
@@ -5466,6 +5466,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"b4a@npm:^1.9.0":
+  version: 1.9.0
+  resolution: "b4a@npm:1.9.0"
+  peerDependencies:
+    react-native-b4a: "*"
+  peerDependenciesMeta:
+    react-native-b4a:
+      optional: true
+  checksum: 10c0/6a337fd6d11dc2f110153a38ad9a981081fc28758605eb1c9f49ec9a9ffbe17a6cb96a9d8f440d1def04030ccd41152cde359d35e73ba944583af1687106b6b2
+  languageName: node
+  linkType: hard
+
 "babel-jest@npm:30.5.1":
   version: 30.5.1
   resolution: "babel-jest@npm:30.5.1"
@@ -5655,6 +5667,24 @@ __metadata:
     bare-buffer:
       optional: true
   checksum: 10c0/1f8b31b73848639fff4ab46fb9d8c0477dc571813fd6790ec75edc192abc467310f1082ecb81170aeffca91b4d08f0e9a002d6f9fa6968a07d11ea22be1597ff
+  languageName: node
+  linkType: hard
+
+"bare-fs@npm:^4.8.2":
+  version: 4.8.4
+  resolution: "bare-fs@npm:4.8.4"
+  dependencies:
+    bare-events: "npm:^2.5.4"
+    bare-path: "npm:^3.0.0"
+    bare-stream: "npm:^2.6.4"
+    bare-url: "npm:^2.2.2"
+    fast-fifo: "npm:^1.3.2"
+  peerDependencies:
+    bare-buffer: "*"
+  peerDependenciesMeta:
+    bare-buffer:
+      optional: true
+  checksum: 10c0/c342d872cb27d25ae68af34811c414fd3797d3b9092843a85991fa7b1e2bb5672b3eb0bda8c4303561d6a2358717cbba89696a15a1a8ecd7cbb3045446d36b40
   languageName: node
   linkType: hard
 
@@ -12382,10 +12412,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"properties-file@npm:5.0.5":
-  version: 5.0.5
-  resolution: "properties-file@npm:5.0.5"
-  checksum: 10c0/168842b2cb6360ad300ff14f47a671bc0c9d8a60605c998080fdb32011b061f665c70ab099ba6a22e864b78affdf995f95c4f6ee6bdb9fede0954c957560171b
+"properties-file@npm:5.0.7":
+  version: 5.0.7
+  resolution: "properties-file@npm:5.0.7"
+  checksum: 10c0/79bc27f2ece5331755a3d18172864354817e65f35ae1a913563573f88a0ca2f99231fc147f19a258377d18ae7f84b817f5991639ed6bdf57df0fd56649f2bd88
   languageName: node
   linkType: hard
 
@@ -13757,7 +13787,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"streamx@npm:^2.12.5, streamx@npm:^2.25.0":
+"streamx@npm:^2.12.5, streamx@npm:^2.25.0, streamx@npm:^2.28.1":
   version: 2.28.1
   resolution: "streamx@npm:2.28.1"
   dependencies:
@@ -14073,15 +14103,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tar-stream@npm:3.2.0":
-  version: 3.2.0
-  resolution: "tar-stream@npm:3.2.0"
+"tar-stream@npm:3.2.2":
+  version: 3.2.2
+  resolution: "tar-stream@npm:3.2.2"
   dependencies:
-    b4a: "npm:^1.6.4"
-    bare-fs: "npm:^4.5.5"
-    fast-fifo: "npm:^1.2.0"
-    streamx: "npm:^2.15.0"
-  checksum: 10c0/8a06c915f93c9b0906e79867e36a9cfe197da4d41b72e89ec0de99577ae755505d14815c1346b70c2410aa09d3145c3e3af2ff5802b6af84990cdd6c60dbb997
+    b4a: "npm:^1.9.0"
+    bare-fs: "npm:^4.8.2"
+    fast-fifo: "npm:^1.3.2"
+    streamx: "npm:^2.28.1"
+  checksum: 10c0/58b6774bb76308d76688b9d84ce31bbdd567b1616704a0aab5cc81b8e4cd629f8759697e2e33e34e728b8f96bc76d1b45436da268d8948b63ee0ff17f671eaf4
   languageName: node
   linkType: hard
 
