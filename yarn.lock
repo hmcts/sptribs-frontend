@@ -408,8 +408,8 @@ __metadata:
   linkType: hard
 
 "@babel/eslint-parser@npm:^7.22.15":
-  version: 7.29.7
-  resolution: "@babel/eslint-parser@npm:7.29.7"
+  version: 7.29.9
+  resolution: "@babel/eslint-parser@npm:7.29.9"
   dependencies:
     "@nicolo-ribaudo/eslint-scope-5-internals": "npm:5.1.1-v1"
     eslint-visitor-keys: "npm:^2.1.0"
@@ -417,7 +417,7 @@ __metadata:
   peerDependencies:
     "@babel/core": ^7.11.0
     eslint: ^7.5.0 || ^8.0.0 || ^9.0.0
-  checksum: 10c0/c24dcd941b0a149b197a9e9c3297a01d621775ac71cdf2e1134b1097c1691b46ce969355e1be3676d83b88f62c43ed33cf3a499da21ea11a5eb07339ce64ac20
+  checksum: 10c0/f97d9eb23ad53e9263235e9efe204908494922fb89a4cf623e174d7e62a112c52850990cc19b9ef5043af6e2ca87b1772f998175571ac8cb9967689d6e036bd8
   languageName: node
   linkType: hard
 
@@ -706,6 +706,17 @@ __metadata:
   bin:
     parser: ./bin/babel-parser.js
   checksum: 10c0/65133038f80b54a714d6027cb77cee3f9a6b5c4c6842ce674301e13947cbcbfa8055e63acaf1b84c085d34226a14425b2c2b97b829e0e226d2e8f1299942a51d
+  languageName: node
+  linkType: hard
+
+"@babel/parser@npm:^7.29.9":
+  version: 7.29.9
+  resolution: "@babel/parser@npm:7.29.9"
+  dependencies:
+    "@babel/types": "npm:^7.29.8"
+  bin:
+    parser: ./bin/babel-parser.js
+  checksum: 10c0/171b16eb4527cdbbb72cb98710f91acb22356e2c40196ba3b7a1b84efa8c55d0b0992f399c8c675c3e17f67fd133676c5c4118e5f20db243f427c8b29b0c3f40
   languageName: node
   linkType: hard
 
@@ -1736,17 +1747,17 @@ __metadata:
   linkType: hard
 
 "@babel/traverse@npm:^7.23.2":
-  version: 7.29.8
-  resolution: "@babel/traverse@npm:7.29.8"
+  version: 7.29.10
+  resolution: "@babel/traverse@npm:7.29.10"
   dependencies:
     "@babel/code-frame": "npm:^7.29.7"
     "@babel/generator": "npm:^7.29.8"
     "@babel/helper-globals": "npm:^7.29.7"
-    "@babel/parser": "npm:^7.29.8"
+    "@babel/parser": "npm:^7.29.9"
     "@babel/template": "npm:^7.29.7"
     "@babel/types": "npm:^7.29.8"
     debug: "npm:^4.3.1"
-  checksum: 10c0/87a28989c434add26d787776ac6d30f749b89cb030f2a605c89f671a516a6fa165ac0476f07e2b69feed70128b2734cae1cbbf41dfe95ccf22081bd8f8b91923
+  checksum: 10c0/dc97fc5ac9778ba3fa7df2dcff0811bca4466173ad710d9be94ffd82c9944cfa962df33d144fd59b6256fc7ab895aad30d830aade8a8a96327c8f49fbb487fda
   languageName: node
   linkType: hard
 
