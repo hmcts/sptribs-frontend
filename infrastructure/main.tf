@@ -38,7 +38,7 @@ module "sptribs-frontend-session-storage" {
 
 }
 
-module "sptribs-frontend-managed_redis" {
+module "sptribs_frontend_managed_redis" {
   for_each = local.managed_redis_instances
 
   source = "git@github.com:hmcts/terraform-module-azure-managed-redis?ref=main"
