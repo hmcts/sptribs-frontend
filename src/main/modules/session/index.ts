@@ -50,12 +50,9 @@ export class SessionStorage {
         password: config.get('session.redis.key') as string,
       });
 
-
       client.on('error', err => logger.error('Redis Client Error', err));
       client.on('ready', () => logger.info(`Connected to ${redisService} session store`));
       client.connect().catch(logger.error);
-
-
 
       app.locals.redisClient = client;
       return new RedisStore({ client });
@@ -64,7 +61,7 @@ export class SessionStorage {
     return new FileStore({ path: '/tmp' });
   }
 
-private getRedisService(redisHost: string): string {
+  private getRedisService(redisHost: string): string {
     if (redisHost.endsWith('.redis.azure.net')) {
       return 'Azure Managed Redis';
     }
