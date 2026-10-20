@@ -8,7 +8,7 @@ locals {
     managed_redis_secret_environments = toset(["aat"])
     managed_redis_instances         = contains(local.managed_redis_environments, var.env) ? toset([var.env]) : toset([])
    }
-}
+
 
 data "azurerm_subnet" "core_infra_redis_subnet" {
   name                 = "core-infra-subnet-1-${var.env}"
