@@ -42,6 +42,7 @@ session:
   secret: 'local'
   redis:
     host:
+    port: 6380
     key:
 e2e:
   userTestPassword: ''
