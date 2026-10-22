@@ -17,6 +17,12 @@
   padding: govuk-spacing(3) 0;
 }
 
+.app-header__container > .govuk-header {
+  @include govuk-media-query($from: tablet) {
+    flex: 0 0 33.333%;
+  }
+}
+
 .app-header__service-name {
   font-weight: bold;
 }

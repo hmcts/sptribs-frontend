@@ -2,6 +2,8 @@ import path from 'path';
 
 import { Environment, FileSystemLoader } from 'nunjucks';
 
+import landingTranslations from '../../resources/landing/translation.json';
+
 const root = path.join(__dirname, '..', '..');
 const templates = new Environment(
   new FileSystemLoader([
@@ -55,7 +57,7 @@ describe('GOV.UK page templates', () => {
     expect(header.indexOf('govuk-header__logo')).toBeLessThan(header.indexOf('app-header__service-name'));
     expect(header.indexOf('app-header__service-name')).toBeLessThan(header.indexOf('app-header__account-link'));
     expect(header).toContain('class="govuk-link govuk-link--inverse app-header__service-name" href="/"');
-    expect(header).toContain('href="/logout"');
+    expect(header).toMatch(/<nav class="app-header__navigation"[^>]*>[\s\S]*?href="\/logout"/);
     expect(header).not.toContain('govuk-service-navigation');
     expect(header).toContain('govuk-phase-banner');
     expect(html.indexOf('govuk-back-link')).toBeGreaterThan(html.indexOf('</header>'));
@@ -101,11 +103,18 @@ describe('GOV.UK page templates', () => {
     expect(header).not.toContain('govuk-service-navigation');
   });
 
-  test('the authless landing keeps its service name and language link', () => {
-    const html = templates.render('landing.njk', page);
+  test('the authless landing keeps its service name in the blue header and the language link below it', () => {
+    const html = templates.render('landing.njk', { ...page, content: landingTranslations.translations.en });
+    const header = html.slice(html.indexOf('<header'), html.indexOf('</header>'));
 
-    expect(html).toContain('govuk-service-navigation__service-name');
-    expect(html).toContain('href="?lang=cy"');
+    expect(header).toContain('app-header__container');
+    expect(header.indexOf('govuk-header__logo')).toBeLessThan(header.indexOf('app-header__service-name'));
+    expect(header).toContain('class="govuk-link govuk-link--inverse app-header__service-name" href="/"');
+    expect(header).toContain(landingTranslations.translations.en.serviceTitle);
+    expect(header).not.toContain('govuk-service-navigation');
+    expect(header).not.toContain('app-header__account-link');
+    expect(header.indexOf('app-header__service-name')).toBeLessThan(header.indexOf('govuk-phase-banner'));
+    expect(header).toContain('href="?lang=cy"');
   });
 
   test('the authless base template renders the fallback phase banner', () => {

@@ -2,12 +2,18 @@
 {% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
 {% from "govuk/components/footer/macro.njk" import govukFooter %}
 
-{% block govukServiceNavigation %}
-  {{ govukServiceNavigation({
-    serviceName: content.serviceTitle,
-    serviceUrl: "/"
-  }) }}
+{% block govukHeader %}
+  <div class="app-header">
+    <div class="govuk-width-container app-header__container">
+      {{ govukHeader({ containerClasses: "app-header__logo-container" }) }}
+      <nav class="app-header__navigation" aria-label="{{ content.serviceTitle }}">
+        <a class="govuk-link govuk-link--inverse app-header__service-name" href="/">{{ content.serviceTitle }}</a>
+      </nav>
+    </div>
+  </div>
 {% endblock %}
+
+{% block govukServiceNavigation %}{% endblock %}
 
 
 {%set language = "Cymraeg"%}
