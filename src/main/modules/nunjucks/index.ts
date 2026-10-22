@@ -10,13 +10,12 @@ export class Nunjucks {
   enableFor(app: express.Express): void {
     app.set('view engine', 'njk');
     const govUkFrontendPath = path.join(__dirname, '..', '..', '..', '..', 'node_modules', 'govuk-frontend', 'dist');
-    const hmctsFrontendPath = path.join(__dirname, '..', '..', '..', '..', 'node_modules', '@hmcts', 'frontend');
 
     const authLessPath = path.join(__dirname, '..', '..', 'routes', 'authless', 'views');
     const GeneralViewPath = path.join(__dirname, '..', '..', 'views');
 
     const env = nunjucks.configure(
-      [path.join(__dirname, '..', '..', 'steps'), govUkFrontendPath, GeneralViewPath, hmctsFrontendPath, authLessPath],
+      [path.join(__dirname, '..', '..', 'steps'), govUkFrontendPath, GeneralViewPath, authLessPath],
       {
         autoescape: true,
         watch: app.locals.developmentMode,
@@ -27,8 +26,6 @@ export class Nunjucks {
     env.addGlobal('getContent', function (prop): string {
       return typeof prop === 'function' ? prop(this.ctx) : prop;
     });
-
-    env.addGlobal('govukRebrand', true);
 
     env.addGlobal('getError', function (fieldName: string): { text?: string } | boolean {
       const { /*form,*/ sessionErrors, errors } = this.ctx;

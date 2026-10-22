@@ -1946,13 +1946,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@hmcts/frontend@npm:^0.0.50-alpha":
-  version: 0.0.50-alpha
-  resolution: "@hmcts/frontend@npm:0.0.50-alpha"
-  checksum: 10c0/626b57d73769f1786c994301cae67ae0417677bd34908b152ba0a575b99c24706f83d27e1659aeee7f6ad0eaa982a12be0491e73f80866c3d35883074c031707
-  languageName: node
-  linkType: hard
-
 "@hmcts/nodejs-healthcheck@npm:^1.8.0":
   version: 1.8.6
   resolution: "@hmcts/nodejs-healthcheck@npm:1.8.6"
@@ -8884,10 +8877,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"govuk-frontend@npm:^5.10.0":
-  version: 5.14.0
-  resolution: "govuk-frontend@npm:5.14.0"
-  checksum: 10c0/dcb1116003bb4a8ff167434bb30a779d6deafecb10687d044d5c560c0a7ff2053b8666000831c18ad3bcf4aa310678bf3c0cc40d734570b2b81c44853ddd388a
+"govuk-frontend@npm:6.6.0":
+  version: 6.6.0
+  resolution: "govuk-frontend@npm:6.6.0"
+  checksum: 10c0/7fb983ee21e97f19df9b980301a05e24a11f3301fcb8ecf5bc8f956b54bd61d55255b2c16fa9d60cf59fd984583b368e128075ea7348e74971e742adcc86a366
   languageName: node
   linkType: hard
 
@@ -13615,7 +13608,6 @@ __metadata:
     "@babel/preset-env": "npm:^7.23.2"
     "@babel/preset-typescript": "npm:^7.23.2"
     "@hmcts/cookie-manager": "npm:^1.0.0"
-    "@hmcts/frontend": "npm:^0.0.50-alpha"
     "@hmcts/nodejs-healthcheck": "npm:^1.8.0"
     "@hmcts/nodejs-logging": "npm:^4.0.4"
     "@hmcts/properties-volume": "npm:^1.0.0"
@@ -13682,7 +13674,7 @@ __metadata:
     follow-redirects: "npm:^1.15.6"
     form-data: "npm:^4.0.0"
     glob: "npm:^13.0.0"
-    govuk-frontend: "npm:^5.10.0"
+    govuk-frontend: "npm:6.6.0"
     helmet: "npm:^4.6.0"
     html-webpack-plugin: "npm:^5.5.3"
     http-cache-semantics: "npm:^4.1.1"

@@ -2,10 +2,10 @@
 {% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
 {% from "govuk/components/footer/macro.njk" import govukFooter %}
 
-{% block header %}
-  {{ govukHeader({
+{% block govukServiceNavigation %}
+  {{ govukServiceNavigation({
     serviceName: content.serviceTitle,
-    rebrand: true
+    serviceUrl: "/"
   }) }}
 {% endblock %}
 
@@ -21,7 +21,7 @@
 {% endif %}
 
 
-{% block beforeContent %}
+{% block headerEnd %}
 {{ govukPhaseBanner({
   tag: {
     text: "BETA"
@@ -46,7 +46,7 @@
   }) }}
 {% endblock %}
 
-{% block footer %}
+{% block govukFooter %}
   {{ govukFooter({
     copyright: {
       text: content.copyright | safe
@@ -77,7 +77,6 @@
           text: content.contactUs
         }
       ]
-    },
-    rebrand: true
+    }
   }) }}
 {% endblock %}

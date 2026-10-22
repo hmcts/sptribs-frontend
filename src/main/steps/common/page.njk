@@ -12,10 +12,8 @@
 <!-- End Dynatrace -->
 {% endblock %}
 
-{% block header %}
-  {% include "../cookie-banner/template.njk" %}
-  {{ govukHeader({
-    containerClasses: "govuk-width-container",
+{% block govukServiceNavigation %}
+  {{ govukServiceNavigation({
     serviceName: serviceName,
     serviceUrl: (globals.basePath if globals.basePath) + "/",
     navigation: [
@@ -24,6 +22,15 @@
         text: signOut if isLoggedIn else signIn
       }
     ]
+  }) }}
+{% endblock %}
+
+{% block headerEnd %}
+  {{ govukPhaseBanner({
+    tag: {
+      text: phase
+    },
+    html: feedback |replace("currentUrl",currentUrl) + languageToggle
   }) }}
 {% endblock %}
 
@@ -37,15 +44,10 @@
 
 {% block bodyStart %}
 {% include "./webpack/gtm-noscript.njk" %}
+{% include "../cookie-banner/template.njk" %}
 {% endblock %}
 
 {% block beforeContent %}
-  {{ govukPhaseBanner({
-    tag: {
-      text: phase
-    },
-    html: feedback |replace("currentUrl",currentUrl)  + languageToggle
-  }) }}
   {% block backLink %}
     <a href="#" class="govuk-back-link">{{ back }}</a>
   {% endblock %}
@@ -78,7 +80,7 @@
   </div>
 {% endblock %}
 
-{% block footer %}
+{% block govukFooter %}
   {{ govukFooter({
     copyright: {
       text: copyright | safe
