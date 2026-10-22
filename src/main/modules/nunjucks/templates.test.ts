@@ -41,16 +41,27 @@ describe('GOV.UK page templates', () => {
     }
   );
 
-  test('the main page keeps navigation and the phase banner in the header, with cookies before it', () => {
+  test('the main page keeps navigation and the phase banner in the header', () => {
     const html = templates.render('common/page.njk', page);
     const header = html.slice(html.indexOf('<header'), html.indexOf('</header>'));
 
-    expect(html.indexOf('govuk-cookie-banner')).toBeLessThan(html.indexOf('<header'));
     expect(header).toContain('govuk-service-navigation');
     expect(header).toContain('href="/logout"');
     expect(header).toContain('govuk-phase-banner');
     expect(html.indexOf('govuk-back-link')).toBeGreaterThan(html.indexOf('</header>'));
   });
+
+  test.each(['common/page.njk', 'timed-out/template.njk', 'save-sign-out/template.njk'])(
+    '%s places the skip link before the cookie banner and the header',
+    template => {
+      const html = templates.render(template, page);
+
+      expect(html).toContain('govuk-skip-link');
+      expect(html).toContain('govuk-cookie-banner');
+      expect(html.indexOf('govuk-skip-link')).toBeLessThan(html.indexOf('govuk-cookie-banner'));
+      expect(html.indexOf('govuk-cookie-banner')).toBeLessThan(html.indexOf('<header'));
+    }
+  );
 
   test('the timed-out page has a service name but no sign-out link', () => {
     const html = templates.render('timed-out/template.njk', page);

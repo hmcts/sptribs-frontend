@@ -1,4 +1,5 @@
-.govuk-header nav {
-  float: right;
-  margin: 0;
+.govuk-service-navigation__list {
+  @include govuk-media-query($from: tablet) {
+    justify-content: flex-end;
+  }
 }
