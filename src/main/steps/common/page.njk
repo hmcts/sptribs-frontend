@@ -12,18 +12,21 @@
 <!-- End Dynatrace -->
 {% endblock %}
 
-{% block govukServiceNavigation %}
-  {{ govukServiceNavigation({
-    serviceName: serviceName,
-    serviceUrl: (globals.basePath if globals.basePath) + "/",
-    navigation: [
-      {
-        href: "/logout" if isLoggedIn else "/",
-        text: signOut if isLoggedIn else signIn
-      }
-    ]
-  }) }}
+{% block govukHeader %}
+  <div class="app-header">
+    <div class="govuk-width-container app-header__container">
+      {{ govukHeader({ containerClasses: "app-header__logo-container" }) }}
+      {% block serviceHeader %}
+        <nav class="app-header__navigation" aria-label="{{ serviceName }}">
+          <a class="govuk-link govuk-link--inverse app-header__service-name" href="{{ (globals.basePath if globals.basePath) + '/' }}">{{ serviceName }}</a>
+          <a class="govuk-link govuk-link--inverse app-header__account-link" href="{{ '/logout' if isLoggedIn else '/' }}">{{ signOut if isLoggedIn else signIn }}</a>
+        </nav>
+      {% endblock %}
+    </div>
+  </div>
 {% endblock %}
+
+{% block govukServiceNavigation %}{% endblock %}
 
 {% block headerEnd %}
   {{ govukPhaseBanner({
