@@ -2,7 +2,7 @@ import path from 'path';
 
 import config from 'config';
 import express from 'express';
-import nunjucks from 'nunjucks';
+import { configure, runtime } from 'nunjucks';
 
 import { FormInput } from '../../app/form/Form';
 
@@ -14,7 +14,7 @@ export class Nunjucks {
     const authLessPath = path.join(__dirname, '..', '..', 'routes', 'authless', 'views');
     const GeneralViewPath = path.join(__dirname, '..', '..', 'views');
 
-    const env = nunjucks.configure(
+    const env = configure(
       [path.join(__dirname, '..', '..', 'steps'), govUkFrontendPath, GeneralViewPath, authLessPath],
       {
         autoescape: true,
@@ -100,11 +100,11 @@ export class Nunjucks {
     });
 
     env.addFilter('json', function (value, spaces) {
-      if (value instanceof nunjucks.runtime.SafeString) {
+      if (value instanceof runtime.SafeString) {
         value = value.toString();
       }
       const jsonString = JSON.stringify(value, null, spaces).replace(/</g, '\\u003c');
-      return new nunjucks.runtime.SafeString(jsonString);
+      return new runtime.SafeString(jsonString);
     });
 
     env.addFilter('split', function (array, cursor) {
