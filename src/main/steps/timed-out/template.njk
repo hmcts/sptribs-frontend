@@ -1,11 +1,9 @@
 {% extends "common/page.njk" %}
 
-{% block header %}
-  {{ govukHeader({
-    containerClasses: "govuk-width-container",
-    serviceName: serviceName,
-    serviceUrl: (globals.basePath if globals.basePath) + "/"
-  }) }}
+{% block serviceHeader %}
+  <nav class="app-header__navigation" aria-label="{{ serviceName }}">
+    <a class="govuk-link govuk-link--inverse app-header__service-name" href="{{ (globals.basePath if globals.basePath) + '/' }}">{{ serviceName }}</a>
+  </nav>
 {% endblock %}
 
 {% block backLink %}{% endblock %}
