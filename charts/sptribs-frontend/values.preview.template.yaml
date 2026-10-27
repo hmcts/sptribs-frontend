@@ -3,6 +3,9 @@ nodejs:
   image: ${IMAGE_NAME}
   ingressHost: ${SERVICE_FQDN}
   environment:
+    CCD_API_URL: 'https://ccd-data-store-api-sptribs-case-api-pr-2703.preview.platform.hmcts.net'
+    CASE_DOCUMENT_API_URL: 'https://ccd-case-document-am-api-sptribs-case-api-pr-2703.preview.platform.hmcts.net'
+    SPTRIBS_CASE_API_URL: 'https://sptribs-case-api-sptribs-case-api-pr-2703.preview.platform.hmcts.net'
     RATE_LIMITER_DISABLED: true
   keyVaults:
     sptribs:
