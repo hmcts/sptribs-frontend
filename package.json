@@ -171,7 +171,7 @@
     "compressing": "^1.10.3",
     "cross-spawn": "^7.0.5",
     "diff": "^8.0.2",
-    "fast-uri": "^3.1.5",
+    "fast-uri": "^3.1.9",
     "fast-xml-parser": "^5.10.1",
     "flatted": "^3.4.2",
     "follow-redirects": "^1.15.6",
