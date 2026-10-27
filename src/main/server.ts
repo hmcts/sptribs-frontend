@@ -50,11 +50,14 @@ if (!rateLimiterDisabled) {
 }
 
 app.locals.developmentMode = process.env.NODE_ENV !== 'production';
-app.use('/assets', express.static(path.join(__dirname, 'public/assets'), { dotfiles: 'allow' /* Express 5: preserve v4 behavior */ }));
+app.use(
+  '/assets',
+  express.static(path.join(__dirname, 'public/assets'), { dotfiles: 'allow' })
+);
 app.use(favicon(path.join(__dirname, 'public/assets/images/favicon.ico')));
 app.use(express.json() as RequestHandler);
 app.use(express.urlencoded({ extended: false }) as RequestHandler);
-app.use(express.static(path.join(__dirname, 'public'), { dotfiles: 'allow' /* Express 5: preserve v4 behavior */ }));
+app.use(express.static(path.join(__dirname, 'public'), { dotfiles: 'allow' }));
 app.use((req, res, next) => {
   res.setHeader('Cache-Control', 'no-cache, max-age=0, must-revalidate, no-store');
   next();
