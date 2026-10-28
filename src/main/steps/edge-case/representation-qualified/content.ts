@@ -12,6 +12,7 @@ export const form: FormContent = {
       representationQualified: {
         type: 'radios',
         classes: 'govuk-radios',
+        labelSize: 'l',
         label: l => l.label,
         hint: h => h.hint,
         selected: false,
