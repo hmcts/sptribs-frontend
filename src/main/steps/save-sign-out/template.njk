@@ -2,12 +2,7 @@
 
 {% block pageTitle %}{{ title }} - {{ govUk }}{% endblock %}
 
-{% block header %}
-  {{ govukHeader({
-    containerClasses: "govuk-width-container",
-    serviceUrl: (globals.basePath if globals.basePath) + "/"
-  }) }}
-{% endblock %}
+{% block serviceHeader %}{% endblock %}
 
 {% block backLink %}{% endblock %}
 
