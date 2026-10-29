@@ -208,7 +208,9 @@ export class UploadController extends PostController<AnyObject> {
   public async submit(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const chooseFileLink = '#file-upload-1';
     const filesUploadedLink = '#filesUploaded';
-    const saveAndContinue = JSON.parse(JSON.stringify(req.body)).hasOwnProperty('saveAndContinue');
+    // File-only multipart uploads can have no body fields after parsing.
+    req.body = req.body ?? {};
+    const saveAndContinue = Object.prototype.hasOwnProperty.call(req.body, 'saveAndContinue');
 
     if (this.shouldSetUpFormData()) {
       this.setUpForm(req);

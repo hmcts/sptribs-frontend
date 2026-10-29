@@ -50,7 +50,7 @@ export class OidcMiddleware {
 
     app.use(
       errorHandler(async (req: AppRequest, res: Response, next: NextFunction) => {
-        if (req.session?.user?.roles.includes('citizen')) {
+        if (req.session?.user) {
           res.locals.isLoggedIn = true;
           req.locals.api = getCaseApi(req.session.user, req.locals.logger);
           req.locals.documentApi = new CaseDocumentManagementClient(req.session.user);
