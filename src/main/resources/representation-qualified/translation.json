@@ -3,7 +3,7 @@
     "en": {
       "continue": "Continue",
       "serviceName": "Appeal to the First-tier Tribunal",
-      "title": "Is the named representative legally qualified?",
+      "label": "Is the named representative legally qualified?",
       "hint": "A solicitor or a barrister are legally qualified representatives.",
       "one": "Yes",
       "two": "No"
@@ -11,7 +11,7 @@
     "cy": {
       "continue": "Parhau",
       "serviceName": "Apelio i’r Tribiwnlys Haen Gyntaf",
-      "title": "A yw’r cynrychiolydd a enwyd wedi cymhwyso yn y gyfraith?",
+      "label": "A yw’r cynrychiolydd a enwyd wedi cymhwyso yn y gyfraith?",
       "hint": "Mae cyfreithwyr neu fargyfreithwyr yn gynrychiolwyr sydd wedi cymhwyso yn y gyfraith.",
       "one": "Ydy",
       "two": "Nac ydy"
