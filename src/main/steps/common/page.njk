@@ -39,9 +39,9 @@
 
 {% block pageTitle %}
   {% if (sessionErrors and (sessionErrors.length > 0)) or (FileErrors and (FileErrors.length > 0)) %}
-    {{errorPrefix}} {{ serviceName }} - {{ title }} - {{ govUk }}
+    {{errorPrefix}} {{ title }} - {{ serviceName }} - {{ govUk }}
   {% else %}
-    {{ serviceName }} - {{ title }} - {{ govUk }}
+    {{ title }} - {{ serviceName }} - {{ govUk }}
   {% endif %}
 {% endblock %}
 
