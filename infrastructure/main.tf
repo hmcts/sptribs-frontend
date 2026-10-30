@@ -6,6 +6,7 @@ locals {
   vaultName = "${var.product}-${var.env}"
   managed_redis_environments = toset(["aat", "demo"])
   managed_redis_instances    = contains(local.managed_redis_environments, var.env) ? toset([var.env]) : toset([])
+  managed_redis_secret_environments = toset(["aat"])
 }
 
 data "azurerm_subnet" "core_infra_redis_subnet" {
@@ -112,6 +113,20 @@ resource "azurerm_key_vault_secret" "redis_access_key" {
 
   tags = merge(var.common_tags, {
     "source" : "redis ${module.sptribs-frontend-session-storage.host_name}"
+  })
+
+  key_vault_id = data.azurerm_key_vault.sptribs_key_vault.id
+}
+
+resource "azurerm_key_vault_secret" "managed_redis_access_key" {
+  for_each = contains(local.managed_redis_secret_environments, var.env) ? module.sptribs_frontend_managed_redis : {}
+
+  name         = "redis-new"
+  value        = each.value.primary_access_key
+  content_type = "terraform-managed"
+
+  tags = merge(var.common_tags, {
+    "source" : "azure managed redis ${each.value.hostname}"
   })
 
   key_vault_id = data.azurerm_key_vault.sptribs_key_vault.id
