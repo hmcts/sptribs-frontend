@@ -11,7 +11,7 @@ parameters([
   ])
 ])
 
-@Library("Infrastructure@2.7.2")
+@Library("Infrastructure@2.13.4")
 import uk.gov.hmcts.contino.AppPipelineConfig
 
 def type = "nodejs"
