@@ -19,7 +19,10 @@ templates.addGlobal('globals', { basePath: '', dynatrace: { dynatraceUrl: '/moni
 templates.addGlobal('getError', () => false);
 
 const page = {
+  title: 'What is your date of birth?',
   serviceName: 'Example service',
+  govUk: 'GOV.UK',
+  errorPrefix: 'Error:',
   isLoggedIn: true,
   signOut: 'Sign out',
   signIn: 'Sign in',
@@ -33,6 +36,35 @@ const page = {
 };
 
 describe('GOV.UK page templates', () => {
+  test.each([
+    ['common/page.njk', 'What is your date of birth?'],
+    ['timed-out/template.njk', 'You have been signed out'],
+    ['save-sign-out/template.njk', 'Your application has been saved'],
+  ])('%s puts the page title before the service name and GOV.UK', (template, title) => {
+    const html = templates.render(template, { ...page, title });
+
+    expect(html.match(/<title>([\s\S]*?)<\/title>/)?.[1].trim()).toBe(`${title} - Example service - GOV.UK`);
+  });
+
+  test.each([
+    { sessionErrors: [{ propertyName: 'applicantDateOfBirth', errorType: 'required' }] },
+    { FileErrors: [{ propertyName: 'documents', errorType: 'required' }] },
+  ])('keeps the error prefix before the page title for %o', errors => {
+    const html = templates.render('common/page.njk', { ...page, ...errors });
+
+    expect(html.match(/<title>([\s\S]*?)<\/title>/)?.[1].trim()).toBe(
+      'Error: What is your date of birth? - Example service - GOV.UK'
+    );
+  });
+
+  test('does not add an error prefix for empty error lists', () => {
+    const html = templates.render('common/page.njk', { ...page, sessionErrors: [], FileErrors: [] });
+
+    expect(html.match(/<title>([\s\S]*?)<\/title>/)?.[1].trim()).toBe(
+      'What is your date of birth? - Example service - GOV.UK'
+    );
+  });
+
   test.each([
     'common/page.njk',
     'timed-out/template.njk',
