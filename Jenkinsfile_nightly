@@ -18,10 +18,6 @@ def type = "nodejs"
 def product = "sptribs"
 def component = "frontend"
 
-// SAUCELABS config - configured on Jenkins
-env.SAUCE_USERNAME = 'username'
-env.SAUCE_ACCESS_KEY = 'privatekey'
-
 def yarnBuilder = new uk.gov.hmcts.contino.YarnBuilder(this)
 
 static Map<String, Object> secret(String secretName, String envVariable) {
@@ -61,5 +57,4 @@ withNightlyPipeline(type, product, component) {
   }
 
 }
-
 
