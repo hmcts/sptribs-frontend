@@ -43,7 +43,7 @@ describe('CicaLookupPostController', () => {
 
     expect(req.session.userCase.id).toEqual('');
     expect(req.body['ccdReference']).toEqual('');
-    expect(res.redirect).toHaveBeenCalledWith(SUBJECT_DETAILS);
+    expect(res.redirect).toHaveBeenCalledWith(SUBJECT_DETAILS + '#');
   });
 
   test('should redirect back to lookup when validation fails', async () => {
@@ -56,7 +56,7 @@ describe('CicaLookupPostController', () => {
 
     await controller.post(req, res);
 
-    expect(res.redirect).toHaveBeenCalledWith(CICA_LOOKUP);
+    expect(res.redirect).toHaveBeenCalledWith(CICA_LOOKUP + '#');
   });
 
   test('should redirect to postcode verification on success', async () => {
@@ -80,7 +80,7 @@ describe('CicaLookupPostController', () => {
         attempt_id: expect.any(String),
       })
     );
-    expect(res.redirect).toHaveBeenCalledWith(CICA_POSTCODE_VERIFICATION);
+    expect(res.redirect).toHaveBeenCalledWith(CICA_POSTCODE_VERIFICATION + '#');
   });
 
   test('should redirect to confirm new on 404', async () => {
@@ -92,7 +92,7 @@ describe('CicaLookupPostController', () => {
 
     await controller.post(req, res);
 
-    expect(res.redirect).toHaveBeenCalledWith(CICA_CONFIRM_NEW);
+    expect(res.redirect).toHaveBeenCalledWith(CICA_CONFIRM_NEW + '#');
   });
 
   test('should redirect to not authorised on 403', async () => {
@@ -104,7 +104,7 @@ describe('CicaLookupPostController', () => {
 
     await controller.post(req, res);
 
-    expect(res.redirect).toHaveBeenCalledWith(NOT_AUTHORISED);
+    expect(res.redirect).toHaveBeenCalledWith(NOT_AUTHORISED + '#');
   });
 
   test('should redirect back to lookup on 400', async () => {
@@ -126,7 +126,7 @@ describe('CicaLookupPostController', () => {
         upstream_status: 400,
       })
     );
-    expect(res.redirect).toHaveBeenCalledWith(CICA_LOOKUP);
+    expect(res.redirect).toHaveBeenCalledWith(CICA_LOOKUP + '#');
   });
 
   test('should fallback to confirm new on unknown error', async () => {
@@ -138,6 +138,6 @@ describe('CicaLookupPostController', () => {
 
     await controller.post(req, res);
 
-    expect(res.redirect).toHaveBeenCalledWith(CICA_CONFIRM_NEW);
+    expect(res.redirect).toHaveBeenCalledWith(CICA_CONFIRM_NEW + '#');
   });
 });

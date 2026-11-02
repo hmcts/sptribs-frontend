@@ -68,7 +68,7 @@ describe('Submit case controller', () => {
       'mock-event-token'
     );
     expect(getNextStepUrlMock).not.toHaveBeenCalled();
-    expect(res.redirect).toHaveBeenCalledWith(CHECK_YOUR_ANSWERS);
+    expect(res.redirect).toHaveBeenCalledWith(CHECK_YOUR_ANSWERS + '#');
     expect(req.session.errors).not.toEqual(errors);
   });
 

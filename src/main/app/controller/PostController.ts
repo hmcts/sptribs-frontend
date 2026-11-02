@@ -162,7 +162,6 @@ export class PostController<T extends AnyObject> {
   }
 }
 
-const withEmptyFragment = (url: string) => (url.includes('#') ? url : `${url}#`);
-
+const withEmptyFragment = (url: string) => (url?.includes('#') ? url : `${url}#`);
 
 export type AnyObject = Record<string, unknown>;
