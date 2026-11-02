@@ -33,15 +33,17 @@ if (backLink) {
           break;
         }
       }
+
       if (previousPage) {
-        location.pathname = previousPage;
+        const url = new URL(previousPage, window.location.origin);
+        location.assign(url.toString());
       } else {
         // Should not occur unless the user has directly typed the url, for example
-        location.pathname = '/';
+        location.assign('/');
       }
     } else {
       // Should not occur unless the user has directly typed the url, for example
-      location.pathname = '/';
+      location.assign('/');
     }
   };
 }
