@@ -2,7 +2,7 @@ import path from 'path';
 
 import config from 'config';
 import express from 'express';
-import nunjucks from 'nunjucks';
+import { configure, runtime } from 'nunjucks';
 
 import { FormInput } from '../../app/form/Form';
 
@@ -10,13 +10,12 @@ export class Nunjucks {
   enableFor(app: express.Express): void {
     app.set('view engine', 'njk');
     const govUkFrontendPath = path.join(__dirname, '..', '..', '..', '..', 'node_modules', 'govuk-frontend', 'dist');
-    const hmctsFrontendPath = path.join(__dirname, '..', '..', '..', '..', 'node_modules', '@hmcts', 'frontend');
 
     const authLessPath = path.join(__dirname, '..', '..', 'routes', 'authless', 'views');
     const GeneralViewPath = path.join(__dirname, '..', '..', 'views');
 
-    const env = nunjucks.configure(
-      [path.join(__dirname, '..', '..', 'steps'), govUkFrontendPath, GeneralViewPath, hmctsFrontendPath, authLessPath],
+    const env = configure(
+      [path.join(__dirname, '..', '..', 'steps'), govUkFrontendPath, GeneralViewPath, authLessPath],
       {
         autoescape: true,
         watch: app.locals.developmentMode,
@@ -27,8 +26,6 @@ export class Nunjucks {
     env.addGlobal('getContent', function (prop): string {
       return typeof prop === 'function' ? prop(this.ctx) : prop;
     });
-
-    env.addGlobal('govukRebrand', true);
 
     env.addGlobal('getError', function (fieldName: string): { text?: string } | boolean {
       const { /*form,*/ sessionErrors, errors } = this.ctx;
@@ -103,11 +100,11 @@ export class Nunjucks {
     });
 
     env.addFilter('json', function (value, spaces) {
-      if (value instanceof nunjucks.runtime.SafeString) {
+      if (value instanceof runtime.SafeString) {
         value = value.toString();
       }
       const jsonString = JSON.stringify(value, null, spaces).replace(/</g, '\\u003c');
-      return new nunjucks.runtime.SafeString(jsonString);
+      return new runtime.SafeString(jsonString);
     });
 
     env.addFilter('split', function (array, cursor) {

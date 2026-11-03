@@ -1,4 +1,5 @@
 {% extends "govuk/template.njk" %}
+{% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
 
 {% block head %}
   {% include "webpack/css.njk" %}
@@ -9,14 +10,14 @@
   {% include "webpack/js.njk" %}
 {% endblock %}
 
-{% block header %}
-  {{ govukHeader({
+{% block govukServiceNavigation %}
+  {{ govukServiceNavigation({
     serviceName: content.serviceTitle,
-    rebrand: true
+    serviceUrl: "/"
   }) }}
 {% endblock %}
 
-{% block beforeContent %}
+{% block headerEnd %}
 {{ govukPhaseBanner({
   tag: {
     text: "BETA"
