@@ -34,7 +34,8 @@
       <li class="uploadedFile govuk-!-padding-top-2 govuk-!-padding-bottom-3 govuk-section-break govuk-section-break--visible">
         {{ file.name }}
         {% set documentId = file.id %}
-        <a href="/upload-appeal-form?query=delete&docId={{documentId}}&documentType={{file.documentType}}" class="govuk-link--no-visited-state float-right ">{{ delete }}</a>
+        <a href="/upload-appeal-form?query=delete&docId={{documentId}}&documentType={{file.documentType}}" class="govuk-link--no-visited-state float-right "
+        aria-label= "Delete {{ file.name}}">{{ delete }}</a>
       </li>
     {% endfor %}
     {% endif %}

@@ -1,7 +1,5 @@
-@import './_ie8';
 @import 'sass-mq';
-@import 'govuk-frontend/dist/govuk/all';
-@import '@hmcts/frontend/all';
+@import 'govuk-frontend/dist/govuk/index';
 
 @import './banner';
 @import './header';
@@ -16,7 +14,7 @@
   @include govuk-link-style-default;
 
   background: none;
-  color: $govuk-link-colour;
+  color: govuk-functional-colour(link);
   border: none;
   padding: 0;
   text-decoration: underline;
