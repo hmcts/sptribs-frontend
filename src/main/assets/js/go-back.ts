@@ -33,10 +33,8 @@ if (backLink) {
           break;
         }
       }
-
       if (previousPage) {
-        const url = new URL(previousPage, window.location.origin);
-        location.assign(url.toString());
+        location.assign(previousPage);
       } else {
         // Should not occur unless the user has directly typed the url, for example
         location.assign('/');
