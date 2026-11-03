@@ -14,7 +14,8 @@ nodejs:
         - idam-ui-secret
         - idam-systemupdate-username
         - idam-systemupdate-password
-        - redis-access-key
+        - name: redis-new
+          alias: redis-access-key
         - s2s-case-api-secret
         - postcode-lookup-token
         - specialTribunals-cic-pcq-token
