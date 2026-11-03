@@ -3,14 +3,14 @@
     "en": {
       "continue": "Continue",
       "serviceName": "Appeal to the First-tier Tribunal",
-      "title": "Is there a representative named on completed tribunal form?",
+      "label": "Is there a representative named on completed tribunal form?",
       "one": "Yes",
       "two": "No"
     },
     "cy": {
       "continue": "Parhau",
       "serviceName": "Apelio i’r Tribiwnlys Haen Gyntaf",
-      "title": "A oes cynrychiolydd wedi’i enwi ar y ffurflen tribiwnlys sydd wedi’i llenwi?",
+      "label": "A oes cynrychiolydd wedi’i enwi ar y ffurflen tribiwnlys sydd wedi’i llenwi?",
       "one": "Oes",
       "two": "Nac oes"
     }
