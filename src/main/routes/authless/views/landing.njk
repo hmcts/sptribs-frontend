@@ -50,6 +50,14 @@
     href: loginURL,
     isStartButton: true
   }) }}
+
+  <h2 class="govuk-heading-m">{{ content['accessHeading'] }}</h2>
+  <p class="govuk-body">{{ content['accessBody'] }}</p>
+  <p class="govuk-body"><a href="{{ dashboardURL }}" class="govuk-link">{{ content['dashboardLink'] }}</a></p>
+
+  <h2 class="govuk-heading-m">{{ content['uploadHeading'] }}</h2>
+  <p class="govuk-body">{{ content['uploadBody'] }}</p>
+  <p class="govuk-body"><a href="{{ dssUpdateURL }}" class="govuk-link">{{ content['updateLink'] }}</a></p>
 {% endblock %}
 
 {% block govukFooter %}
