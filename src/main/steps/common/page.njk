@@ -12,18 +12,28 @@
 <!-- End Dynatrace -->
 {% endblock %}
 
-{% block header %}
-  {% include "../cookie-banner/template.njk" %}
-  {{ govukHeader({
-    containerClasses: "govuk-width-container",
-    serviceName: serviceName,
-    serviceUrl: (globals.basePath if globals.basePath) + "/",
-    navigation: [
-      {
-        href: "/logout" if isLoggedIn else "/",
-        text: signOut if isLoggedIn else signIn
-      }
-    ]
+{% block govukHeader %}
+  <div class="app-header">
+    <div class="govuk-width-container app-header__container">
+      {{ govukHeader({ containerClasses: "app-header__logo-container" }) }}
+      {% block serviceHeader %}
+        <nav class="app-header__navigation" aria-label="{{ serviceName }}">
+          <a class="govuk-link govuk-link--inverse app-header__service-name" href="{{ (globals.basePath if globals.basePath) + '/' }}">{{ serviceName }}</a>
+          <a class="govuk-link govuk-link--inverse app-header__account-link" href="{{ '/logout' if isLoggedIn else '/' }}">{{ signOut if isLoggedIn else signIn }}</a>
+        </nav>
+      {% endblock %}
+    </div>
+  </div>
+{% endblock %}
+
+{% block govukServiceNavigation %}{% endblock %}
+
+{% block headerEnd %}
+  {{ govukPhaseBanner({
+    tag: {
+      text: phase
+    },
+    html: feedback |replace("currentUrl",currentUrl) + languageToggle
   }) }}
 {% endblock %}
 
@@ -39,13 +49,12 @@
 {% include "./webpack/gtm-noscript.njk" %}
 {% endblock %}
 
+{% block govukSkipLink %}
+{{ super() }}
+{% include "../cookie-banner/template.njk" %}
+{% endblock %}
+
 {% block beforeContent %}
-  {{ govukPhaseBanner({
-    tag: {
-      text: phase
-    },
-    html: feedback |replace("currentUrl",currentUrl)  + languageToggle
-  }) }}
   {% block backLink %}
     <a href="#" class="govuk-back-link">{{ back }}</a>
   {% endblock %}
@@ -78,7 +87,7 @@
   </div>
 {% endblock %}
 
-{% block footer %}
+{% block govukFooter %}
   {{ govukFooter({
     copyright: {
       text: copyright | safe

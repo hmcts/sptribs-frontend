@@ -3,8 +3,10 @@ import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { mockUserCase4 } from '../../../test/unit/utils/mockUserCase';
 import * as steps from '../../steps';
+import UploadAppealFormController from '../../steps/edge-case/upload-appeal-form/uploadDocPostController';
 import UploadDocumentController from '../../steps/edge-case/upload-other-information/uploadDocPostController';
-import { UPLOAD_OTHER_INFORMATION } from '../../steps/urls';
+import UploadSupportingDocumentsController from '../../steps/edge-case/upload-supporting-documents/uploadDocPostController';
+import { UPLOAD_APPEAL_FORM, UPLOAD_OTHER_INFORMATION, UPLOAD_SUPPORTING_DOCUMENTS } from '../../steps/urls';
 import { YesOrNo } from '../case/definition';
 import { DocumentManagementFile } from '../document/CaseDocumentManagementClient';
 import { isFieldFilledIn } from '../form/validation';
@@ -19,6 +21,63 @@ describe('PostController', () => {
   });
 
   const testCurrentPageRedirectUrl = 'upload-appeal-form';
+
+  describe.each([
+    [UPLOAD_APPEAL_FORM, UploadAppealFormController, 'caseDocuments'],
+    [UPLOAD_SUPPORTING_DOCUMENTS, UploadSupportingDocumentsController, 'supportingCaseDocuments'],
+    [UPLOAD_OTHER_INFORMATION, UploadDocumentController, 'otherCaseInformation'],
+  ] as const)('%s without text fields', (url, Controller, sessionProperty) => {
+    test.each([undefined, null])('uploads a document when the request body is %s', async body => {
+      const document = {
+        originalDocumentName: 'test.pdf',
+        _links: {
+          self: { href: 'http://localhost:8080/documents/1234' },
+          binary: { href: 'http://localhost:8080/documents/1234/binary' },
+        },
+      };
+      const create = jest.fn().mockResolvedValue([document]);
+      const req = mockRequest({ locals: { documentApi: { create } } });
+      const res = mockResponse();
+      const controller = new Controller({});
+      Object.assign(req, { body });
+      (req.files as any) = { documents: { mimetype: 'application/pdf', size: 1024 } };
+
+      await controller.post(req, res);
+
+      expect(create).toHaveBeenCalledWith({ files: req.files, classification: 'PUBLIC' });
+      expect(req.session[sessionProperty]).toEqual([document]);
+      expect(req.session.fileErrors).toHaveLength(0);
+      expect(res.redirect).toHaveBeenCalledWith(url);
+    });
+
+    test('shows the existing validation error when neither text fields nor a file are provided', async () => {
+      const req = mockRequest({ locals: { documentApi: { create: jest.fn() } } });
+      const res = mockResponse();
+      const controller = new Controller({});
+      Object.assign(req, { body: undefined, files: null });
+
+      await controller.post(req, res);
+
+      expect(req.locals.documentApi.create).not.toHaveBeenCalled();
+      expect(req.session.fileErrors).toHaveLength(1);
+      expect(req.session.fileErrors[0].href).toBe('#file-upload-1');
+      expect(res.redirect).toHaveBeenCalledWith(url);
+    });
+  });
+
+  test.each([
+    Object.assign(Object.create(null), { saveAndContinue: '' }),
+    { saveAndContinue: '', hasOwnProperty: 'submitted field' },
+  ])('recognises the continue button without relying on the body prototype: %p', async body => {
+    const controller = new UploadController({});
+    const req = mockRequest({ body });
+    const res = mockResponse();
+    const continueMock = jest.spyOn(controller, 'postDocumentUploader').mockResolvedValue();
+
+    await controller.post(req, res);
+
+    expect(continueMock).toHaveBeenCalledWith(req, res);
+  });
 
   describe('All of the listed Validation for files should be in place', () => {
     const allTypes = {

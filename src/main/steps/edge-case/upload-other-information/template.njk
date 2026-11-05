@@ -49,7 +49,8 @@
             {%endif%}
             </td>
             {% set documentId = file.id %}
-            <td class="documentRelevanceAndDeletionAlignment"><a href="/upload-other-information?query=delete&docId={{ documentId }}&documentType={{ file.documentType }}" class="govuk-link--no-visited-state float-right ">{{ delete }}</a></td>
+            <td class="documentRelevanceAndDeletionAlignment"><a href="/upload-other-information?query=delete&docId={{ documentId }}&documentType={{ file.documentType }}" class="govuk-link--no-visited-state float-right "
+            aria-label= "Delete {{ file.name}}">{{ delete }}</a></td>
           </tr>
         </table>
       </li>

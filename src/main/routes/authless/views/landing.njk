@@ -2,12 +2,18 @@
 {% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
 {% from "govuk/components/footer/macro.njk" import govukFooter %}
 
-{% block header %}
-  {{ govukHeader({
-    serviceName: content.serviceTitle,
-    rebrand: true
-  }) }}
+{% block govukHeader %}
+  <div class="app-header">
+    <div class="govuk-width-container app-header__container">
+      {{ govukHeader({ containerClasses: "app-header__logo-container" }) }}
+      <nav class="app-header__navigation" aria-label="{{ content.serviceTitle }}">
+        <a class="govuk-link govuk-link--inverse app-header__service-name" href="/">{{ content.serviceTitle }}</a>
+      </nav>
+    </div>
+  </div>
 {% endblock %}
+
+{% block govukServiceNavigation %}{% endblock %}
 
 
 {%set language = "Cymraeg"%}
@@ -21,7 +27,7 @@
 {% endif %}
 
 
-{% block beforeContent %}
+{% block headerEnd %}
 {{ govukPhaseBanner({
   tag: {
     text: "BETA"
@@ -46,7 +52,7 @@
   }) }}
 {% endblock %}
 
-{% block footer %}
+{% block govukFooter %}
   {{ govukFooter({
     copyright: {
       text: content.copyright | safe
@@ -77,7 +83,6 @@
           text: content.contactUs
         }
       ]
-    },
-    rebrand: true
+    }
   }) }}
 {% endblock %}
