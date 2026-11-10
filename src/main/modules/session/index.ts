@@ -34,26 +34,40 @@ export class SessionStorage {
   }
 
   private getStore(app: Application, logger: Logger) {
-    const redisHost = config.get('session.redis.host');
+    const redisHost = config.get('session.redis.host') as string;
     if (redisHost) {
+      const redisPort = config.get('session.redis.port') as number;
+      const redisService = this.getRedisService(redisHost);
+      logger.info(`Using ${redisService} for session storage`);
+
       const client = createClient({
         socket: {
-          host: redisHost as string,
-          port: 6380,
+          host: redisHost,
+          port: redisPort,
           tls: true,
           connectTimeout: 15000,
         },
         password: config.get('session.redis.key') as string,
       });
 
-      client.connect().catch(logger.error);
-
       client.on('error', err => logger.error('Redis Client Error', err));
+      client.on('ready', () => logger.info(`Redis Client connected to ${redisService}`));
+      client.connect().catch(logger.error);
 
       app.locals.redisClient = client;
       return new RedisStore({ client });
     }
 
     return new FileStore({ path: '/tmp' });
+  }
+
+  private getRedisService(redisHost: string): string {
+    if (redisHost.includes('redis.cache.windows.net')) {
+      return 'Azure Cache for Redis';
+    }
+    if (redisHost.endsWith('.redis.azure.net')) {
+      return 'Azure Managed Redis';
+    }
+    return 'Redis';
   }
 }
