@@ -45,13 +45,13 @@ export const en = {
   contactInductionLoops:
     'Our offices have audio induction loops, or if you contact us before your visit we can arrange a British Sign Language (BSL) interpreter.',
   contactCourtDirectly:
-    'Find out how to contact us at: <a href="https://www.find-court-tribunal.service.gov.uk" class="govuk-link" target="blank">Find a Court or Tribunal - GOV.UK (find-court-tribunal.service.gov.uk)</a>.',
+    'Find out how to contact us at: <a href="https://www.find-court-tribunal.service.gov.uk" class="govuk-link" target="blank">Find a Court or Tribunal - GOV.UK (find-court-tribunal.service.gov.uk) (opens in a new tab)</a>.',
   technicalInfo: 'Technical information about this website’s accessibility',
   hmctsIsCommitted:
     'HMCTS is committed to making its website accessible, in accordance with the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018.',
   complianceStatus: 'Compliance status',
   partiallyCompliant:
-    'This website is partially compliant with the <a href="https://www.w3.org/TR/WCAG21/" class="govuk-link" target="blank">Web Content Accessibility Guidelines version 2.1</a> AA standard, due to the non-compliances and exemptions listed below.',
+    'This website is partially compliant with the <a href="https://www.w3.org/TR/WCAG21/" class="govuk-link" target="blank">Web Content Accessibility Guidelines version 2.1 (opens in a new tab)</a> AA standard, due to the non-compliances and exemptions listed below.',
   nonAccessibleContent: 'Non-accessible content',
   nonAccessibleReasons: 'The content listed below is non-accessible for the following reasons.',
   nonComplianceAccessibility: 'Non-compliance with the accessibility regulations',
