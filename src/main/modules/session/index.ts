@@ -36,7 +36,7 @@ export class SessionStorage {
   private getStore(app: Application, logger: Logger) {
     const redisHost = config.get('session.redis.host') as string;
     if (redisHost) {
-      const redisPort = config.get('session.redis.port') as number;
+      const redisPort = Number(config.get('session.redis.port'));
       const redisService = this.getRedisService(redisHost);
       logger.info(`Using ${redisService} for session storage`);
 
