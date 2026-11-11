@@ -37,6 +37,7 @@ describe('cica-reference-number-content', () => {
     expect(generatedContent.continue).toEqual(enContent.continue);
     expect(generatedContent.serviceName).toEqual(enContent.serviceName);
     expect(generatedContent.cicaReferenceNumberLabel).toEqual(enContent.cicaReferenceNumberLabel);
+    expect(generatedContent.cicaReferenceNumberHint).toEqual(enContent.cicaReferenceNumberHint);
     expect(generatedContent.line1).toEqual(enContent.line1);
     expect(generatedContent.title).toEqual(enContent.title);
     expect(generatedContent.errors).toEqual(enContent.errors);
@@ -47,6 +48,7 @@ describe('cica-reference-number-content', () => {
     expect(generatedContent.continue).toEqual(cyContent.continue);
     expect(generatedContent.serviceName).toEqual(cyContent.serviceName);
     expect(generatedContent.cicaReferenceNumberLabel).toEqual(cyContent.cicaReferenceNumberLabel);
+    expect(generatedContent.cicaReferenceNumberHint).toEqual(cyContent.cicaReferenceNumberHint);
     expect(generatedContent.line1).toEqual(cyContent.line1);
     expect(generatedContent.errors).toEqual(cyContent.errors);
   });
@@ -72,6 +74,7 @@ describe('cica-reference-number-content', () => {
     const cicaReferenceNumber = fields.cicaReferenceNumber;
     expect(cicaReferenceNumber.classes).toBe('govuk-input');
     expect((cicaReferenceNumber.label as Function)(generatedContent)).toBe(enContent.cicaReferenceNumberLabel);
+    expect((cicaReferenceNumber.hint as Function)(generatedContent)).toBe(enContent.cicaReferenceNumberHint);
     expect(cicaReferenceNumber.type).toBe('text');
   });
 
