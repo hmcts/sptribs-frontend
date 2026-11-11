@@ -4,9 +4,9 @@ provider "azurerm" {
 
 locals {
   vaultName = "${var.product}-${var.env}"
-  managed_redis_environments = toset(["aat", "demo"])
+  managed_redis_environments = toset(["aat", "demo", "ithc", "perftest"])
   managed_redis_instances    = contains(local.managed_redis_environments, var.env) ? toset([var.env]) : toset([])
-  managed_redis_secret_environments = toset(["aat"])
+  managed_redis_secret_environments = toset(["aat", "demo", "ithc", "perftest"])
 }
 
 data "azurerm_subnet" "core_infra_redis_subnet" {
