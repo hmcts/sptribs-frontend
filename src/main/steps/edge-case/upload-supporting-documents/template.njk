@@ -33,7 +33,7 @@
       <li class="uploadedFile govuk-!-padding-top-2 govuk-!-padding-bottom-3 govuk-section-break govuk-section-break--visible">
         {{ file.name }}
         {% set documentId = file.id %}
-        <a href="/upload-supporting-documents?query=delete&docId={{documentId}}&documentType={{file.documentType}}" class="govuk-link--no-visited-state float-right " 
+        <a href="/upload-supporting-documents?query=delete&docId={{documentId}}&documentType={{file.documentType}}" class="govuk-link--no-visited-state float-right "
         aria-label= "Delete {{ file.name}}">{{ delete }}</a>
       </li>
     {% endfor %}
@@ -47,6 +47,10 @@
 </p>
 
 <form class="formRow" action="/upload-supporting-documents?_csrf={{ csrfToken }}" method="post" enctype="multipart/form-data">
+
+  {# Workaround to some browsers not correctly reading out the currently selected file. See file-input-selected-file-description.js #}
+  <div id="file-upload-1-status" class="govuk-visually-hidden" role="status" data-selected-file-description></div>
+
   {% if FileErrors.length > 0 %}
     {{ govukFileUpload({
       id: "file-upload-1",
@@ -57,7 +61,8 @@
       },
       errorMessage: {
         text: FileErrors[0].text
-      }
+      },
+      javascript: true
     }) }}
   {% else %}
     {{ govukFileUpload({
@@ -66,7 +71,9 @@
       classes: "govuk-!-margin-bottom-1",
       label: {
         text: uploadAFile
-      }
+      },
+      javascript: true,
+      describedBy: "file-upload-1-status"
     }) }}
   {% endif %}
   <p class="govuk-body">{{ uploadGuidance }}</p>
