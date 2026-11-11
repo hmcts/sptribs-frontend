@@ -34,6 +34,7 @@ describe('Representation legally qualified', () => {
   test('should return correct english content', () => {
     const generatedContent = generateContent(commonContent);
     expect(generatedContent.continue).toEqual(enContent.continue);
+    expect(generatedContent.title).toEqual(enContent.title);
     expect(generatedContent.label).toEqual(enContent.label);
     expect(generatedContent.serviceName).toEqual(enContent.serviceName);
     expect(generatedContent.one).toEqual(enContent.one);
@@ -44,6 +45,7 @@ describe('Representation legally qualified', () => {
   test('should return correct welsh content', () => {
     const generatedContent = generateContent({ ...commonContent, language: CY });
     expect(generatedContent.continue).toEqual(cyContent.continue);
+    expect(generatedContent.title).toEqual(cyContent.title);
     expect(generatedContent.label).toEqual(cyContent.label);
     expect(generatedContent.serviceName).toEqual(cyContent.serviceName);
     expect(generatedContent.one).toEqual(cyContent.one);
@@ -59,6 +61,7 @@ describe('Representation legally qualified', () => {
     expect(representationQualifiedField.type).toBe('radios');
     expect(representationQualifiedField.classes).toBe('govuk-radios');
     expect((representationQualifiedField.label as Function)(generatedContent)).toBe(enContent.label);
+    expect(representationQualifiedField.isPageHeading).toBeTruthy();
     expect((representationQualifiedField.values[0].label as Function)(generatedContent)).toBe(enContent.one);
     expect((representationQualifiedField.values[1].label as Function)(generatedContent)).toBe(enContent.two);
   });

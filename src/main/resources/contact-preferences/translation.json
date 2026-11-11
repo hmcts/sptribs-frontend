@@ -1,34 +1,36 @@
 {
-    "translations": {
-        "en": {
-            "continue": "Continue",
-            "serviceName": "Contact preferences",
-            "label": "Where should we send emails about this application?",
-            "hint": "We will only email important updates.",
-            "accountOwner": "The account owner",
-            "namedPerson": "The person named on this application",
-            "bothReceiveEmail": "Both the account owner and the person named on this application"
-        },
-        "cy": {
-            "continue": "Parhau",
-            "serviceName": "Dewisiadau cyswllt",
-            "label": "I ble dylwn ni anfon negeseuon e-bost am y cais hwn?",
-            "hint": "Byddwn ond yn anfon negeseuon e-bost gyda diweddariadau pwysig.",
-            "accountOwner": "Perchennog y cyfrif",
-            "namedPerson": "Yr unigolyn a enwir yn y cais hwn",
-            "bothReceiveEmail": "Perchennog y cyfrif a’r unigolyn a enwir yn y cais hwn"
-        }
+  "translations": {
+    "en": {
+      "continue": "Continue",
+      "serviceName": "Contact preferences",
+      "title": "Where should we send emails about this application?",
+      "label": "Where should we send emails about this application?",
+      "hint": "We will only email important updates.",
+      "accountOwner": "The account owner",
+      "namedPerson": "The person named on this application",
+      "bothReceiveEmail": "Both the account owner and the person named on this application"
     },
-    "errors":{
-        "en": {
-            "contactPreferenceType": {
-                "required": "Select an option"
-            }
-        },
-        "cy": {
-            "contactPreferenceType": {
-                "required": "Dewiswch opsiwn"
-            }
-        }
+    "cy": {
+      "continue": "Parhau",
+      "serviceName": "Dewisiadau cyswllt",
+      "title": "I ble dylwn ni anfon negeseuon e-bost am y cais hwn?",
+      "label": "I ble dylwn ni anfon negeseuon e-bost am y cais hwn?",
+      "hint": "Byddwn ond yn anfon negeseuon e-bost gyda diweddariadau pwysig.",
+      "accountOwner": "Perchennog y cyfrif",
+      "namedPerson": "Yr unigolyn a enwir yn y cais hwn",
+      "bothReceiveEmail": "Perchennog y cyfrif a’r unigolyn a enwir yn y cais hwn"
     }
+  },
+  "errors": {
+    "en": {
+      "contactPreferenceType": {
+        "required": "Select an option"
+      }
+    },
+    "cy": {
+      "contactPreferenceType": {
+        "required": "Dewiswch opsiwn"
+      }
+    }
+  }
 }

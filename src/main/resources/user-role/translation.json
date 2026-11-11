@@ -3,6 +3,7 @@
     "en": {
       "continue": "Continue",
       "serviceName": "Determine user's role",
+      "title": "Are you applying for yourself or someone else?",
       "label": "Are you applying for yourself or someone else?",
       "one": " I am applying for myself",
       "two": " I am applying for someone else"
@@ -10,6 +11,7 @@
     "cy": {
       "continue": "Parhau",
       "serviceName": "Pennu rôl y defnyddiwr",
+      "title": "Ydych chi’n gwneud cais dros eich hun neu ar ran rhywun arall?",
       "label": "Ydych chi’n gwneud cais dros eich hun neu ar ran rhywun arall?",
       "one": "Rwy’n gwneud cais dros fy hun",
       "two": "Rwy’n gwneud cais ar ran rhywun arall"

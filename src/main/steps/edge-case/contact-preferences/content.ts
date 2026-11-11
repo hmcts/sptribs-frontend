@@ -11,6 +11,8 @@ export const form: FormContent = {
     contactPreferenceType: {
       type: 'radios',
       classes: 'govuk-radios',
+      labelSize: 'l',
+      isPageHeading: true,
       label: l => l.label,
       hint: h => h.hint,
       values: [
