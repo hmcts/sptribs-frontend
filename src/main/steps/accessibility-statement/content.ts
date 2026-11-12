@@ -28,7 +28,7 @@ export const en = {
   needMoreInformation:
     'If you need information on this website in a different format like accessible PDF, large print, easy read, audio recording or braille:',
   email:
-    'email <a href="mailto:HMCTSforms@justice.gov.uk" class="govuk-link" aria-label="This link will open in a new email to HMCTSforms@justice.gov.uk">HMCTSforms@justice.gov.uk (opens in a new tab)</a>',
+    'email <a href="mailto:HMCTSforms@justice.gov.uk" class="govuk-link" aria-label="This link will open in a new email to HMCTSforms@justice.gov.uk">HMCTSforms@justice.gov.uk (opens in a new email)</a>',
   phone: 'call 0300 790 6234',
   tribunalsCentre: 'Glasgow Tribunals Centre 20 York Street Glasgow G2 8GT',
   considerYourRequest: 'We’ll consider your request and get back to you in 10 days.',
