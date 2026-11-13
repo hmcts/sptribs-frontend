@@ -2,10 +2,11 @@ import config from 'config';
 import { Request, Response } from 'express';
 
 import { ResourceReader } from '../../../modules/resourcereader/ResourceReader';
-import { SIGN_IN_URL, SUBJECT_DETAILS } from '../../../steps/urls';
+import { DASHBOARD_URL, SIGN_IN_URL, SUBJECT_DETAILS } from '../../../steps/urls';
 
 /*** query params for @edgeCaseType */
 const edgeCaseTypeQueryValidations = (req: Request, res: Response, loginURL, SystemContent, ToggleLanguage) => {
+  const dssUpdateURL = config.get('services.dssUpdate.url');
   if (req.query.hasOwnProperty('edgecaseType')) {
     /** validation need to be done */
     const ValidqueryParams: [] = config.get('queryParamsforApp.query');
@@ -15,12 +16,24 @@ const edgeCaseTypeQueryValidations = (req: Request, res: Response, loginURL, Sys
       const findRespectiveValueToQuery =
         Object.values(ValidqueryParams)[Object.keys(ValidqueryParams).indexOf(queryElement)];
       req.session['edgecaseType'] = findRespectiveValueToQuery;
-      res.render('landing.njk', { loginURL, content: SystemContent, ToggleLanguage });
+      res.render('landing.njk', {
+        loginURL,
+        dashboardURL: DASHBOARD_URL,
+        dssUpdateURL,
+        content: SystemContent,
+        ToggleLanguage,
+      });
     } else {
       res.render('error.njk');
     }
   } else {
-    res.render('landing.njk', { loginURL, content: SystemContent, ToggleLanguage });
+    res.render('landing.njk', {
+      loginURL,
+      dashboardURL: DASHBOARD_URL,
+      dssUpdateURL,
+      content: SystemContent,
+      ToggleLanguage,
+    });
   }
 };
 
