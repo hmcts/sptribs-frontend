@@ -51,7 +51,7 @@ export class PostController<T extends AnyObject> {
     } catch {
       // ignore
     }
-    res.redirect(SAVE_AND_SIGN_OUT);
+    res.redirect(withEmptyFragment(SAVE_AND_SIGN_OUT));
   }
 
   private async saveBeforeSessionTimeout(req: AppRequest<T>, res: Response, formData: Partial<Case>): Promise<void> {
@@ -95,7 +95,7 @@ export class PostController<T extends AnyObject> {
 
   private async cancel(res: Response): Promise<void> {
     const hmctsHomePage: string = config.get('services.hmctsHomePage.url');
-    res.redirect(hmctsHomePage);
+    res.redirect(withEmptyFragment(hmctsHomePage));
   }
 
   protected filterErrorsForSaveAsDraft(req: AppRequest<T>): void {
@@ -132,7 +132,9 @@ export class PostController<T extends AnyObject> {
       if (err) {
         throw err;
       }
-      res.redirect(nextUrl!);
+
+      // When redirecting, don't keep fragment data of the page we're redirecting from.
+      res.redirect(withEmptyFragment(nextUrl!));
     });
   }
 
@@ -159,5 +161,7 @@ export class PostController<T extends AnyObject> {
     }
   }
 }
+
+const withEmptyFragment = (url: string) => (url?.includes('#') ? url : `${url}#`);
 
 export type AnyObject = Record<string, unknown>;

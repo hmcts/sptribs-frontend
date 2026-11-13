@@ -34,7 +34,7 @@ describe('CicaConfirmNewPostController', () => {
 
     await controller.post(req, res);
 
-    expect(res.redirect).toHaveBeenCalledWith(CICA_CONFIRM_NEW);
+    expect(res.redirect).toHaveBeenCalledWith(CICA_CONFIRM_NEW + '#');
   });
 
   test('should redirect to subject details when YES selected', async () => {
@@ -42,7 +42,7 @@ describe('CicaConfirmNewPostController', () => {
 
     await controller.post(req, res);
 
-    expect(res.redirect).toHaveBeenCalledWith(SUBJECT_DETAILS);
+    expect(res.redirect).toHaveBeenCalledWith(SUBJECT_DETAILS + '#');
   });
 
   test('should redirect to lookup and clear session when NO selected', async () => {
@@ -51,6 +51,6 @@ describe('CicaConfirmNewPostController', () => {
     await controller.post(req, res);
 
     expect(req.session.userCase).toEqual({ id: '', state: '' });
-    expect(res.redirect).toHaveBeenCalledWith(CICA_LOOKUP);
+    expect(res.redirect).toHaveBeenCalledWith(CICA_LOOKUP + '#');
   });
 });

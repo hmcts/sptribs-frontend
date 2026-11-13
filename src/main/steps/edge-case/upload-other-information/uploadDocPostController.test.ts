@@ -82,7 +82,7 @@ describe('Document upload controller', () => {
 
     expect(req.locals.api.triggerEvent).not.toHaveBeenCalled();
     expect(getNextStepUrlMock).not.toHaveBeenCalled();
-    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION);
+    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION + '#');
     expect(req.session.fileErrors).toHaveLength(1);
     expect(req.session.fileErrors[0].text).toEqual(
       'This service only accepts files in the formats - MS Word, MS Excel, PDF, JPG, PNG, TXT, RTF, MP4, MP3'
@@ -111,7 +111,7 @@ describe('Document upload controller', () => {
 
     expect(req.locals.api.triggerEvent).not.toHaveBeenCalled();
     expect(getNextStepUrlMock).not.toHaveBeenCalled();
-    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION);
+    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION + '#');
     expect(req.session.fileErrors).toHaveLength(1);
     expect(req.session.fileErrors[0].text).toEqual(
       'File size exceeds the maximum permitted value. Upload a file that is less than 100 MB'
@@ -140,7 +140,7 @@ describe('Document upload controller', () => {
 
     expect(req.locals.api.triggerEvent).not.toHaveBeenCalled();
     expect(getNextStepUrlMock).not.toHaveBeenCalled();
-    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION);
+    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION + '#');
     expect(req.session.fileErrors).toHaveLength(2);
     expect(req.session.fileErrors[0].text).toEqual(
       'File size exceeds the maximum permitted value. Upload a file that is less than 100 MB'
@@ -187,7 +187,7 @@ describe('Document upload controller', () => {
     req.body['documentUploadProceed'] = false;
 
     await controller.post(req, res);
-    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION);
+    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION + '#');
     expect(req.session.fileErrors).toHaveLength(0);
     expect(req.session.otherCaseInformation).toHaveLength(1);
     expect(req.session.otherCaseInformation[0].originalDocumentName).toEqual('test.pdf');
@@ -220,7 +220,7 @@ describe('Document upload controller', () => {
     req.body['documentUploadProceed'] = false;
 
     await controller.post(req, res);
-    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION);
+    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION + '#');
     expect(req.session.fileErrors[0].text).toEqual('Document upload or deletion has failed. Try again');
   });
 
@@ -459,7 +459,7 @@ describe('checking for the redirect of post document upload', () => {
     ];
 
     await postingController.postDocumentUploader(req, res);
-    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION);
+    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION + '#');
     expect(req.session.fileErrors).toHaveLength(1);
     expect(req.session.fileErrors[0].text).toEqual('Document upload or deletion has failed. Try again');
   });
@@ -475,7 +475,7 @@ describe('checking for the redirect of post document upload', () => {
     delete req.body['saveAndContinue'];
 
     await postingController.post(req, res);
-    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION);
+    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION + '#');
     expect(req.session.fileErrors[0].text).toEqual('Choose a file to upload');
   });
 
@@ -709,7 +709,7 @@ describe('checking for the redirect of post document upload', () => {
     delete req.body['saveAndContinue'];
 
     await postingController.post(req, res);
-    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION);
+    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION + '#');
     expect(req.session.fileErrors[0].text).toEqual(
       'You can upload 20 files only. Delete one of the uploaded files and retry'
     );

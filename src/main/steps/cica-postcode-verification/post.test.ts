@@ -40,7 +40,7 @@ describe('PostcodeVerificationPostController', () => {
 
     await controller.post(req, res);
 
-    expect(res.redirect).toHaveBeenCalledWith(CICA_POSTCODE_VERIFICATION);
+    expect(res.redirect).toHaveBeenCalledWith(CICA_POSTCODE_VERIFICATION + '#');
   });
 
   test('should redirect to lookup if no case id in session', async () => {
@@ -49,7 +49,7 @@ describe('PostcodeVerificationPostController', () => {
 
     await controller.post(req, res);
 
-    expect(res.redirect).toHaveBeenCalledWith(CICA_LOOKUP);
+    expect(res.redirect).toHaveBeenCalledWith(CICA_LOOKUP + '#');
   });
 
   test('should set validatedPostcode directly and redirect to dashboard on success', async () => {
@@ -68,6 +68,6 @@ describe('PostcodeVerificationPostController', () => {
         attempt_id: expect.any(String),
       })
     );
-    expect(res.redirect).toHaveBeenCalledWith(DASHBOARD_URL);
+    expect(res.redirect).toHaveBeenCalledWith(DASHBOARD_URL + '#');
   });
 });
