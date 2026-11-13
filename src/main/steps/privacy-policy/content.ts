@@ -204,7 +204,7 @@ export const cy: typeof en = {
   howWeCheck: 'sut rydym yn gwirio bod yr wybodaeth sydd gennym yn gywir ac yn gyfredol',
   howToComplain: 'Sut i wneud cwyn',
   seeOurComplaints:
-    "Gweler ein <a class='govuk-link' target='blank' href='https://www.gov.uk/government/organisations/hm-courts-and-tribunals-service/about/complaints-procedure.cy'>trefn gwyno (yn agor mewn ffenestr newydd)</a> os ydych eisiau cwyno am sut rydym wedi trin eich data personol.",
+    "Gweler ein <a class='govuk-link' target='_blank' href='https://www.gov.uk/government/organisations/hm-courts-and-tribunals-service/about/complaints-procedure.cy'>trefn gwyno (yn agor mewn ffenestr newydd)</a> os ydych eisiau cwyno am sut rydym wedi trin eich data personol.",
   concernsDataProtection:
     "Os oes gennych unrhyw bryderon am ein defnydd o'ch data personol, gallwch gysylltu â swyddog diogelu data'r MoJ:",
   mojAddress:
