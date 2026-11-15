@@ -108,22 +108,29 @@ describe('cica-decision-date-content', () => {
     expect(initialCicaDecisionDateField.values[2].classes).toBe('govuk-input--width-4');
     expect(initialCicaDecisionDateField.values[2].attributes?.maxLength).toBe(4);
 
+    const parser = initialCicaDecisionDateField.parser!;
     expect(
-      (initialCicaDecisionDateField.parser as Function)({
+      parser({
         'initialCicaDecisionDate-day': '21',
         'initialCicaDecisionDate-month': '12',
         'initialCicaDecisionDate-year': '2018',
       })
     ).toEqual({ day: '21', month: '12', year: '2018' });
-    expect((initialCicaDecisionDateField.validator as Function)({ day: '21', month: '12', year: '2018' })).toBe(
-      undefined
-    );
-    expect((initialCicaDecisionDateField.validator as Function)({ day: '', month: '', year: '' })).toBe(
-      'incompleteDayAndMonthAndYear'
-    );
-    expect((initialCicaDecisionDateField.validator as Function)({ day: 'ab', month: '', year: '2000' })).toBe(
-      'invalidAndIncomplete'
-    );
+
+    const validator = initialCicaDecisionDateField.validator!;
+    expect(validator({ day: '21', month: '12', year: '2018' })).toBeUndefined();
+    expect(validator({ day: '', month: '', year: '' })).toStrictEqual({
+      errorType: 'required',
+      subitemNames: ['day', 'month', 'year'],
+    });
+    expect(validator({ day: '', month: '12', year: '2000' })).toStrictEqual({
+      errorType: 'incompleteDay',
+      subitemNames: ['day'],
+    });
+    expect(validator({ day: 'ab', month: '12', year: '2000' })).toStrictEqual({
+      errorType: 'invalidDay',
+      subitemNames: ['day'],
+    });
   });
 });
 

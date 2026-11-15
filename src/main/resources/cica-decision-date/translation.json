@@ -26,28 +26,32 @@
   "errors": {
     "en": {
       "initialCicaDecisionDate": {
-        "invalid": "Date of CICA initial review decision letter must be a real date",
-        "invalidAndIncomplete": "Date of CICA initial review decision letter must be a real date and must include a day, month and year",
+        "required": "Date of CICA initial review decision letter must include a day, month and year",
         "incompleteDay": "Date of CICA initial review decision letter must include a day",
         "incompleteMonth": "Date of CICA initial review decision letter must include a month",
         "incompleteYear": "Date of CICA initial review decision letter must include a year",
         "incompleteDayAndMonth": "Date of CICA initial review decision letter must include a day and month",
         "incompleteDayAndYear": "Date of CICA initial review decision letter must include a day and year",
         "incompleteMonthAndYear": "Date of CICA initial review decision letter must include a month and year",
-        "incompleteDayAndMonthAndYear": "Date of CICA initial review decision letter must include a day, month and year"
+        "invalid": "Date of CICA initial review decision letter must be a real date",
+        "invalidDay": "Date of CICA initial review decision letter must include a valid day",
+        "invalidMonth": "Date of CICA initial review decision letter must include a valid month",
+        "invalidYear": "Date of CICA initial review decision letter must include a valid year"
       }
     },
     "cy": {
       "initialCicaDecisionDate": {
-        "invalid": "Rhaid i'r dyddiad llythyr penderfyniad adolygu cychwynnol ADAT fod yn ddyddiad go iawn",
-        "invalidAndIncomplete": "Rhaid i'r dyddiad llythyr penderfyniad adolygu cychwynnol ADAT fod yn ddyddiad go iawn a rhaid iddo gynnwys diwrnod, mis a blwyddyn",
+        "required": "Rhaid i'r dyddiad llythyr penderfyniad adolygu cychwynnol ADAT gynnwys diwrnod, mis a blwyddyn",
         "incompleteDay": "Rhaid i’r dyddiad llythyr penderfyniad adolygu cychwynnol ADAT gynnwys diwrnod",
         "incompleteMonth": "Rhaid i’r dyddiad llythyr penderfyniad adolygu cychwynnol ADAT gynnwys mis",
         "incompleteYear": "Rhaid i’r dyddiad llythyr penderfyniad adolygu cychwynnol ADAT gynnwys blwyddyn",
         "incompleteDayAndMonth": "Rhaid i’r dyddiad llythyr penderfyniad adolygu cychwynnol ADAT gynnwys diwrnod a mis",
         "incompleteDayAndYear": "Rhaid i’r dyddiad llythyr penderfyniad adolygu cychwynnol ADAT gynnwys diwrnod a blwyddyn",
         "incompleteMonthAndYear": "Rhaid i’r dyddiad llythyr penderfyniad adolygu cychwynnol ADAT gynnwys mis a blwyddyn",
-        "incompleteDayAndMonthAndYear": "Rhaid i'r dyddiad llythyr penderfyniad adolygu cychwynnol ADAT gynnwys diwrnod, mis a blwyddyn"
+        "invalid": "Rhaid i'r dyddiad llythyr penderfyniad adolygu cychwynnol ADAT fod yn ddyddiad go iawn",
+        "invalidDay": "Rhaid i'r dyddiad llythyr penderfyniad adolygu cychwynnol ADAT gynnwys diwrnod dilys",
+        "invalidMonth": "Rhaid i'r dyddiad llythyr penderfyniad adolygu cychwynnol ADAT gynnwys mis dilys",
+        "invalidYear": "Rhaid i'r dyddiad llythyr penderfyniad adolygu cychwynnol ADAT gynnwys blwyddyn dilys"
       }
     }
   }

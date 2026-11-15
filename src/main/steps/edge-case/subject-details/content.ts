@@ -32,29 +32,30 @@ export const form: FormContent = {
           name: 'day',
           classes: 'govuk-input--width-2',
           attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
+          autocomplete: 'bday-day',
         },
         {
           label: l => l.month,
           name: 'month',
           classes: 'govuk-input--width-2',
           attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
+          autocomplete: 'bday-month',
         },
         {
           label: l => l.year,
           name: 'year',
           classes: 'govuk-input--width-4',
           attributes: { maxLength: 4, pattern: '[0-9]*', inputMode: 'numeric' },
+          autocomplete: 'bday-year',
         },
       ],
       parser: body => convertToDateObject('subjectDateOfBirth', body as Record<string, unknown>),
       validator: value => {
         const date = value as CaseDate;
-        if (isDateInputInvalid(date) && isDateInputNotFilled(date)) {
-          return 'invalidAndIncomplete';
+        if (isDateInputNotFilled(date)) {
+          return isDateInputNotFilled(date);
         } else if (isDateInputInvalid(date)) {
           return isDateInputInvalid(date);
-        } else if (isDateInputNotFilled(date)) {
-          return isDateInputNotFilled(date);
         } else if (isFutureDate(date)) {
           return isFutureDate(date);
         } else if (isObsoleteDate(date)) {

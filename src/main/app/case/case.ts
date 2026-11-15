@@ -61,8 +61,8 @@ export interface Case {
   applicantAddress1: string;
   applicantAddress2: string;
   applicantAddressTown: string;
-  applicantAddressCountry: any;
-  applicantAddressPostcode: any;
+  applicantAddressCountry: string;
+  applicantAddressPostcode: string;
   applicantStatementOfTruth: string;
   subjectFullName: string;
   subjectDateOfBirth: CaseDate;

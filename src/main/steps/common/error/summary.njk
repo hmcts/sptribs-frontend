@@ -8,8 +8,9 @@
         text: errorSaving
       }), errorList) %}
     {% else %}
+      {% set suffix = '-' + item.subitemNames[0] if item.subitemNames and item.subitemNames.length > 0 else '' %}
       {% set errorList = (errorList.push({
-        href: '#' + item.propertyName,
+        href: '#' + item.propertyName + suffix,
         text: errors[item.propertyName][item.errorType]
       }), errorList) %}
     {% endif %}
