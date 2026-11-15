@@ -67,7 +67,7 @@
         "invalidMonth": "Rhaid i’r dyddiad geni gynnwys mis dilys",
         "invalidYear": "Rhaid i’r dyddiad geni gynnwys blwyddyn dilys",
         "invalidDateInFuture": "Rhaid i’r dyddiad geni fod yn y gorffennol",
-        "invalidDateInPast": "Rhaid i’r dyddiad geni fod ar ôl 31/12/1899"
+        "invalidDateObsolete": "Rhaid i’r dyddiad geni fod ar ôl 31/12/1899"
       }
     }
   }

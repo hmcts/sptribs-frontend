@@ -3,6 +3,7 @@ import { Case, CaseWithId } from '../case/case';
 import { AnyObject } from '../controller/PostController';
 
 import { setupCheckboxParser } from './parser';
+import { Validator } from './validation';
 
 export class Form {
   constructor(private readonly fields: FormFields) {}
@@ -43,12 +44,15 @@ export class Form {
   }
 
   private getErrorsFromField(body: Partial<Case>, id: string, field: FormField): FormError[] {
-    const errorType = field.validator && field.validator(body[id]);
-    const formError: FormError | undefined = errorType
-      ? typeof errorType === 'string'
-        ? { propertyName: id, errorType }
-        : { propertyName: id, ...errorType }
+    const validatorError = field.validator && field.validator(body[id]);
+
+    // The error may have been returned as a string, or a partial FormError. Handle each case.
+    const formError: FormError | undefined = validatorError
+      ? typeof validatorError === 'string'
+        ? { propertyName: id, errorType: validatorError }
+        : { propertyName: id, ...validatorError }
       : undefined;
+
     const errors: FormError[] = formError ? [formError] : [];
 
     // if there are checkboxes or options, check them for errors
@@ -116,13 +120,6 @@ type Label = string | LanguageLookup;
 
 type Warning = Label;
 
-/**
- * Function to validate a field value. Can return simply a {@link FormError.errorType}, but can optionally return a
- * {@link FormError} if greater control is needed.
- */
-export type ValidationCheck = (
-  value: Partial<Case>[keyof Case]
-) => void | string | FormError | Omit<FormError, 'propertyName'>;
 export type FormFields = Record<string, FormField>;
 export type FormFieldsFn = (userCase: Partial<Case>, language?: string) => FormFields;
 
@@ -156,7 +153,7 @@ export interface FormOptions {
   hideError?: boolean;
   values: FormInput[];
   attributes?: Partial<HTMLInputElement | HTMLTextAreaElement>;
-  validator?: ValidationCheck;
+  validator?: Validator;
   parser?: Parser;
   disabled?: boolean;
 
@@ -177,7 +174,7 @@ export interface FormInput {
   selected?: boolean;
   value?: string | number;
   attributes?: Partial<HTMLInputElement | HTMLTextAreaElement>;
-  validator?: ValidationCheck;
+  validator?: Validator;
   parser?: Parser;
   warning?: Warning;
   conditionalText?: Label;

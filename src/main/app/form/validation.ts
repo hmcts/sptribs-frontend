@@ -9,9 +9,12 @@ import { FormError } from './Form';
 
 dayjs.extend(customParseFormat);
 
-export type Validator<T = unknown> = (
-  value: T | undefined
-) => void | string | FormError | Omit<FormError, 'propertyName'>;
+/**
+ * Function to validate a field value. Can return simply a {@link FormError.errorType} string, but can optionally return
+ * a {@link FormError} if greater control is needed.
+ */
+export type Validator = (value: unknown) => void | string | FormError | Omit<FormError, 'propertyName'>;
+
 export type DateValidator = (caseDate: CaseDate | undefined) => void | Omit<FormError, 'propertyName'>;
 
 export const enum ValidationError {
