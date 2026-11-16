@@ -18,6 +18,28 @@ const findTranslationFiles = (dir: string): string[] => {
   });
 };
 
+type Translations = { [key: string]: string | Translations };
+
+/** Recursively checks that two sets of translations has the same keys. */
+const haveSameKeys = (a: Translations, b: Translations): boolean => {
+  const aKeys = Object.keys(a);
+  if (aKeys.length !== Object.keys(b).length) {
+    return false;
+  }
+
+  return aKeys.every(k => {
+    if (!(k in b)) {
+      return false;
+    }
+    const av = a[k];
+    const bv = b[k];
+    if (typeof av === 'string' || typeof bv === 'string') {
+      return typeof av === typeof bv;
+    }
+    return av !== null && bv !== null && haveSameKeys(av, bv);
+  });
+};
+
 describe('translation.json files', () => {
   const translationFiles = findTranslationFiles(RESOURCES_DIR).map(filePath => path.relative(RESOURCES_DIR, filePath));
 
@@ -38,9 +60,9 @@ describe('translation.json files', () => {
       if (!(topLevelKey in json)) {
         continue;
       }
-      const engKeys = Object.keys((json[topLevelKey] as Record<string, unknown>).en || {});
-      const welshKeys = Object.keys((json[topLevelKey] as Record<string, unknown>).cy || {});
-      expect(engKeys.sort()).toStrictEqual(welshKeys.sort());
+      const en = (json[topLevelKey] as Record<string, unknown>).en || {};
+      const cy = (json[topLevelKey] as Record<string, unknown>).cy || {};
+      expect(haveSameKeys(en as Translations, cy as Translations)).toBe(true);
     }
   });
 });
