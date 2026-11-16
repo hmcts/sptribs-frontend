@@ -48,10 +48,10 @@
         "incompleteDayAndMonth": "Rhaid i’r dyddiad llythyr penderfyniad adolygu cychwynnol ADAT gynnwys diwrnod a mis",
         "incompleteDayAndYear": "Rhaid i’r dyddiad llythyr penderfyniad adolygu cychwynnol ADAT gynnwys diwrnod a blwyddyn",
         "incompleteMonthAndYear": "Rhaid i’r dyddiad llythyr penderfyniad adolygu cychwynnol ADAT gynnwys mis a blwyddyn",
-        "invalid": "Rhaid i'r dyddiad llythyr penderfyniad adolygu cychwynnol ADAT fod yn ddyddiad go iawn",
-        "invalidDay": "Rhaid i'r dyddiad llythyr penderfyniad adolygu cychwynnol ADAT gynnwys diwrnod dilys",
-        "invalidMonth": "Rhaid i'r dyddiad llythyr penderfyniad adolygu cychwynnol ADAT gynnwys mis dilys",
-        "invalidYear": "Rhaid i'r dyddiad llythyr penderfyniad adolygu cychwynnol ADAT gynnwys blwyddyn dilys"
+        "invalid": "Rhaid i’r dyddiad llythyr penderfyniad adolygu cychwynnol ADAT fod yn ddyddiad go iawn",
+        "invalidDay": "Rhaid i’r dyddiad llythyr penderfyniad adolygu cychwynnol ADAT gynnwys diwrnod dilys",
+        "invalidMonth": "Rhaid i’r dyddiad llythyr penderfyniad adolygu cychwynnol ADAT gynnwys mis dilys",
+        "invalidYear": "Rhaid i’r dyddiad llythyr penderfyniad adolygu cychwynnol ADAT gynnwys blwyddyn dilys"
       }
     }
   }
