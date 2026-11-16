@@ -26,7 +26,7 @@
   "errors": {
     "en": {
       "initialCicaDecisionDate": {
-        "required": "Date of CICA initial review decision letter must include a day, month and year",
+        "required": "Enter date of CICA initial review decision letter",
         "incompleteDay": "Date of CICA initial review decision letter must include a day",
         "incompleteMonth": "Date of CICA initial review decision letter must include a month",
         "incompleteYear": "Date of CICA initial review decision letter must include a year",
@@ -41,7 +41,7 @@
     },
     "cy": {
       "initialCicaDecisionDate": {
-        "required": "Rhaid i'r dyddiad llythyr penderfyniad adolygu cychwynnol ADAT gynnwys diwrnod, mis a blwyddyn",
+        "required": "Nodwch ddyddiad llythyr penderfyniad adolygu cychwynnol ADAT",
         "incompleteDay": "Rhaid i’r dyddiad llythyr penderfyniad adolygu cychwynnol ADAT gynnwys diwrnod",
         "incompleteMonth": "Rhaid i’r dyddiad llythyr penderfyniad adolygu cychwynnol ADAT gynnwys mis",
         "incompleteYear": "Rhaid i’r dyddiad llythyr penderfyniad adolygu cychwynnol ADAT gynnwys blwyddyn",
