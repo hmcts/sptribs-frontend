@@ -40,13 +40,13 @@ export const enum ValidationError {
 }
 
 /** `parseInt` and `+` are both overly permissive in different ways. Check both. */
-const parseSmallInteger = (value: string): void | number => {
+const parseSmallInteger = (value: string): number | undefined => {
   const unitaryPlus = +value;
-  const parsedInt = parseInt(value, 10);
+  const parsedInt = Number.parseInt(value, 10);
   if (unitaryPlus !== parsedInt) {
     // Either they are numbers but not equal (e.g. 1.1 vs 1) or one or both is NaN (since NaN !== NaN).
     // Either way it should not be parsed as a valid integer.
-    return;
+    return undefined;
   }
   return parsedInt;
 };
@@ -134,15 +134,9 @@ export const isDateInputInvalid: DateValidator = date => {
   const month = parseSmallInteger(date.month);
   const year = parseSmallInteger(date.year);
 
-  if (day === undefined || day < 1 || day > 31) {
-    invalidParts.day = true;
-  }
-  if (month === undefined || month < 1 || month > 12) {
-    invalidParts.month = true;
-  }
-  if (year === undefined || year < 1000) {
-    invalidParts.year = true;
-  }
+  invalidParts.day = day === undefined || day < 1 || day > 31;
+  invalidParts.month = month === undefined || month < 1 || month > 12;
+  invalidParts.year = year === undefined || year < 1000;
 
   if (!invalidParts.day && !invalidParts.month) {
     // Could still be an invalid day for that month
@@ -164,21 +158,27 @@ export const isDateInputInvalid: DateValidator = date => {
   }
 
   /** e.g. ['day', 'year'] */
-  const invalidPartsArray = Object.keys(invalidParts).filter(part => invalidParts[part]);
+  const invalidPartsArray = Object.keys(invalidParts).filter(
+    part => invalidParts[part]
+  ) as (keyof typeof invalidParts)[];
 
   if (invalidPartsArray.length === 0) {
     return;
-  } else if (invalidPartsArray.length === 1) {
-    if (invalidParts.day) {
-      return { errorType: ValidationError.INVALID_DAY, subitemNames: ['day'] };
-    } else if (invalidParts.month) {
-      return { errorType: ValidationError.INVALID_MONTH, subitemNames: ['month'] };
-    } else if (invalidParts.year) {
-      return { errorType: ValidationError.INVALID_YEAR, subitemNames: ['year'] };
-    }
-  } else {
-    return { errorType: ValidationError.INVALID, subitemNames: invalidPartsArray };
   }
+
+  if (invalidPartsArray.length === 1) {
+    const part = invalidPartsArray[0];
+    return {
+      errorType: {
+        day: ValidationError.INVALID_DAY,
+        month: ValidationError.INVALID_MONTH,
+        year: ValidationError.INVALID_YEAR,
+      }[part],
+      subitemNames: invalidPartsArray,
+    };
+  }
+
+  return { errorType: ValidationError.INVALID, subitemNames: invalidPartsArray };
 };
 
 export const isFutureDate: DateValidator = date => {
@@ -261,7 +261,7 @@ export const isInvalidPostcode: Validator = value => {
 
 export const isPhoneNoValid: Validator = value => {
   if (typeof value === 'string') {
-    return !value.match(/^$|^[0-9 +()-]{11,}$/) ? ValidationError.INVALID : undefined;
+    return !/^$|^[0-9 +()-]{11,}$/.exec(value) ? ValidationError.INVALID : undefined;
   }
 };
 
