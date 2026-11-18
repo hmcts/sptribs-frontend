@@ -15,6 +15,9 @@ export const convertToDateObject: DateParser = (property, body) =>
     { year: '', month: '', day: '' }
   );
 
+export const trimString = (property: string, body: Record<string, unknown>): string =>
+  body[property]?.toString().trim() || '';
+
 type CheckboxParser = (isSavingAndSigningOut: boolean) => ([key, field]: [string, FormField]) => [string, FormField];
 
 export const setupCheckboxParser: CheckboxParser =

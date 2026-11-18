@@ -1,6 +1,7 @@
 import { EmailAddress } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
+import { trimString } from '../../../app/form/parser';
 import { isEmailValid, isFieldFilledIn, isPhoneNoValid } from '../../../app/form/validation';
 import { ResourceReader } from '../../../modules/resourcereader/ResourceReader';
 
@@ -13,6 +14,7 @@ export const form: FormContent = {
       hint: h => h.emailAddressHint,
 
       values: [{ label: l => l.emailAddress, value: EmailAddress.EMAIL_ADDRESS }],
+      parser: body => trimString('subjectEmailAddress', body as Record<string, unknown>),
       validator: value => isFieldFilledIn(value) || isEmailValid(value),
     },
     subjectContactNumber: {
@@ -21,6 +23,7 @@ export const form: FormContent = {
       label: l => l.contactNumberLabel,
       hint: h => h.contactNumberHint,
 
+      parser: body => trimString('subjectContactNumber', body as Record<string, unknown>),
       validator: value => isFieldFilledIn(value) || isPhoneNoValid(value),
     },
     subjectAgreeContact: {
