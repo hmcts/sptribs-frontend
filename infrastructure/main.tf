@@ -3,9 +3,9 @@ provider "azurerm" {
 }
 
 locals {
-  vaultName = "${var.product}-${var.env}"
-  managed_redis_environments = toset(["aat", "demo", "ithc", "perftest", "prod"])
-  managed_redis_instances    = contains(local.managed_redis_environments, var.env) ? toset([var.env]) : toset([])
+  vaultName                         = "${var.product}-${var.env}"
+  managed_redis_environments        = toset(["aat", "demo", "ithc", "perftest", "prod"])
+  managed_redis_instances           = contains(local.managed_redis_environments, var.env) ? toset([var.env]) : toset([])
   managed_redis_secret_environments = toset(["aat", "demo", "ithc", "perftest", "prod"])
 }
 
@@ -24,6 +24,8 @@ data "azurerm_subnet" "managed_redis_private_endpoint" {
 }
 
 module "sptribs-frontend-session-storage" {
+  count = local.retire_classic_redis ? 0 : 1
+
   source                        = "git@github.com:hmcts/cnp-module-redis?ref=master"
   product                       = var.product
   location                      = var.location
@@ -54,8 +56,8 @@ module "sptribs_frontend_managed_redis" {
 
   public_network_access   = "Disabled"
   create_private_endpoint = true
-  subnet_id = data.azurerm_subnet.managed_redis_private_endpoint[each.key].id
-  private_dns_zone_ids    = [
+  subnet_id               = data.azurerm_subnet.managed_redis_private_endpoint[each.key].id
+  private_dns_zone_ids = [
     "/subscriptions/${var.private_dns_subscription_id}/resourceGroups/core-infra-intsvc-rg/providers/Microsoft.Network/privateDnsZones/privatelink.redis.azure.net"
   ]
 
@@ -107,12 +109,14 @@ data "azurerm_key_vault_secret" "idam-systemupdate-password" {
 }
 
 resource "azurerm_key_vault_secret" "redis_access_key" {
+  count = local.retire_classic_redis ? 0 : 1
+
   name         = "redis-access-key"
-  value        = module.sptribs-frontend-session-storage.access_key
+  value        = module.sptribs-frontend-session-storage[0].access_key
   content_type = "terraform-managed"
 
   tags = merge(var.common_tags, {
-    "source" : "redis ${module.sptribs-frontend-session-storage.host_name}"
+    "source" : "redis ${module.sptribs-frontend-session-storage[0].host_name}"
   })
 
   key_vault_id = data.azurerm_key_vault.sptribs_key_vault.id
