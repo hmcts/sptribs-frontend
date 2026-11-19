@@ -118,7 +118,7 @@ export const cy: typeof en = {
   whoManages: "Pwy sy’n rheoli'r gwasanaeth hwn",
   managedBy:
     'Gwasanaeth Llysoedd a Thribiwnlysoedd EM (GLlTEM) sy’n rheoli’r gwasanaeth hwn, sef un o asiantaethau gweithredol y Weinyddiaeth Gyfiawnder (MoJ).',
-  moj: "MoJ yw’r rheolydd data at ddibenion diogelu data. <a class='govuk-link' target='_blank' href='https://www.gov.uk/government/organisations/ministry-of-justice/about/personal-information-charter.cy'>Mae siarter gwybodaeth bersonol y Weinyddiaeth Gyfiawnder (yn agor mewn ffenestr newydd) (yn agor mewn tab newydd)</a> yn esbonio sut mae’r MoJ yn prosesu data personol.",
+  moj: "MoJ yw’r rheolydd data at ddibenion diogelu data. <a class='govuk-link' target='_blank' href='https://www.gov.uk/government/organisations/ministry-of-justice/about/personal-information-charter.cy'>Mae siarter gwybodaeth bersonol y Weinyddiaeth Gyfiawnder (yn agor mewn tab newydd)</a> yn esbonio sut mae’r MoJ yn prosesu data personol.",
   responsibleForDeciding:
     "Fel rhan o’r MoJ, mae GLlTEM yn gyfrifol am benderfynu sut mae eich data personol yn cael ei ddefnyddio ac am ddiogelu'r data personol rydych yn ei ddarparu.",
   moreInformation:
@@ -165,7 +165,7 @@ export const cy: typeof en = {
   ifAnother:
     'Pan fydd eich hawliad neu eich cais ei brosesu, mae’n bosib y byddwn angen cysylltu ag adran, asiantaeth neu sefydliad arall yn y llywodraeth ac efallai y byddwn yn rhannu eich data gyda nhw.',
   ifYouContactUs:
-    "Os byddwch yn cysylltu â ni ac yn gofyn am help gyda’r gwasanaeth rydych yn ei ddefnyddio, efallai y byddwn yn rhannu eich data personol gyda’r <a class='govuk-link' href='https://www.goodthingsfoundation.org/' target='_blank'>Good Things Foundation (yn agor mewn ffenestr newydd) (yn agor mewn tab newydd)</a>. Rydym yn gweithio mewn partneriaeth â'r cwmni hwn i gynnig cefnogaeth wyneb yn wyneb.",
+    "Os byddwch yn cysylltu â ni ac yn gofyn am help gyda’r gwasanaeth rydych yn ei ddefnyddio, efallai y byddwn yn rhannu eich data personol gyda’r <a class='govuk-link' href='https://www.goodthingsfoundation.org/' target='_blank'>Good Things Foundation (yn agor mewn tab newydd)</a>. Rydym yn gweithio mewn partneriaeth â'r cwmni hwn i gynnig cefnogaeth wyneb yn wyneb.",
   crime:
     'Mewn rhai amgylchiadau efallai y byddwn yn rhannu eich data. Er enghraifft er mwyn atal neu i ddatrys trosedd, neu i gynhyrchu ystadegau cyffredinol.',
   weUse:
