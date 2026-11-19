@@ -4,6 +4,7 @@ import { CaseWithId } from '../../app/case/case';
 import { Fee } from '../../app/case/definition';
 import { Eligibility } from '../../app/controller/AppRequest';
 import { PageContent, TranslationFn } from '../../app/controller/GetController';
+import { FormFields } from '../../app/form/Form';
 
 const en = {
   phase: 'Beta',
@@ -261,7 +262,19 @@ export const generatePageContent = ({
   };
 
   if (pageContent) {
-    Object.assign(content, pageContent(content));
+    // Generate the page-specific content and copy it in
+    const generatedPageContent = pageContent(content);
+    Object.assign(content, generatedPageContent);
+
+    // If there is a field with `isPageHeading`, flag this.
+    if (generatedPageContent.form) {
+      const form = generatedPageContent.form as { fields?: FormFields };
+      const fields = Object.values(form.fields ?? {});
+      const pageHeadingField = fields.filter(field => field.isPageHeading);
+      if (pageHeadingField.length > 0) {
+        content.hasFieldPageHeading = true;
+      }
+    }
   }
 
   return content;
@@ -285,6 +298,11 @@ export type CommonContent = typeof en & {
   addresses?: any[];
   eligibility?: Eligibility;
   fee?: Fee;
+  /**
+   * Whether there's a field with `isPageHeading` set. In this case, we should not show the title as a heading.
+   * @see https://design-system.service.gov.uk/components/text-input/#if-youre-asking-one-question-on-the-page
+   */
+  hasFieldPageHeading?: boolean;
 };
 
 export type Language = 'en' | 'cy';
