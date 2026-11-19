@@ -13,6 +13,7 @@ export const form: FormContent = {
         type: 'radios',
         classes: 'govuk-radios',
         labelSize: 'l',
+        isPageHeading: true,
         label: l => l.label,
         selected: false,
         values: [
