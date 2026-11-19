@@ -40,6 +40,7 @@ describe('role-type content', () => {
   test('should return correct english content', () => {
     const generatedContent = generateContent(commonContent);
     expect(generatedContent.continue).toEqual(enContent.continue);
+    expect(generatedContent.title).toEqual(enContent.title);
     expect(generatedContent.label).toEqual(enContent.label);
     expect(generatedContent.serviceName).toEqual(enContent.serviceName);
     expect(generatedContent.one).toEqual(enContent.one);
@@ -50,6 +51,7 @@ describe('role-type content', () => {
   test('should return correct welsh content', () => {
     const generatedContent = generateContent({ ...commonContent, language: CY });
     expect(generatedContent.continue).toEqual(cyContent.continue);
+    expect(generatedContent.title).toEqual(cyContent.title);
     expect(generatedContent.label).toEqual(cyContent.label);
     expect(generatedContent.serviceName).toEqual(cyContent.serviceName);
     expect(generatedContent.one).toEqual(cyContent.one);
@@ -65,6 +67,7 @@ describe('role-type content', () => {
     expect(namedApplicantField.type).toBe('radios');
     expect(namedApplicantField.classes).toBe('govuk-radios');
     expect((namedApplicantField.label as Function)(generatedContent)).toBe(enContent.label);
+    expect(namedApplicantField.isPageHeading).toBeTruthy();
     expect((namedApplicantField.values[0].label as Function)(generatedContent)).toBe(enContent.one);
     expect((namedApplicantField.values[1].label as Function)(generatedContent)).toBe(enContent.two);
   });
