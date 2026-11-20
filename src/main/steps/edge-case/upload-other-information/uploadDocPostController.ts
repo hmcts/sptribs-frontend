@@ -2,7 +2,6 @@ import autobind from 'autobind-decorator';
 
 import { FileMimeTypeInfo, FileType, UploadController } from '../../../app/controller/UploadController';
 import { FormFields, FormFieldsFn } from '../../../app/form/Form';
-import { EQUALITY, UPLOAD_OTHER_INFORMATION } from '../../urls';
 
 @autobind
 export default class UploadDocumentController extends UploadController {
@@ -12,14 +11,6 @@ export default class UploadDocumentController extends UploadController {
 
   protected getPropertyName(): string {
     return 'otherCaseInformation';
-  }
-
-  protected getNextPageRedirectUrl(): `/${string}` {
-    return EQUALITY;
-  }
-
-  protected getCurrentPageRedirectUrl(): `/${string}` {
-    return UPLOAD_OTHER_INFORMATION;
   }
 
   protected getValidationTotal(): string {

@@ -36,7 +36,12 @@ describe('PostController', () => {
         },
       };
       const create = jest.fn().mockResolvedValue([document]);
-      const req = mockRequest({ locals: { documentApi: { create } } });
+      const req = mockRequest({
+        path: url,
+        url,
+        originalUrl: url,
+        locals: { documentApi: { create } },
+      });
       const res = mockResponse();
       const controller = new Controller({});
       Object.assign(req, { body });
@@ -51,7 +56,12 @@ describe('PostController', () => {
     });
 
     test('shows the existing validation error when neither text fields nor a file are provided', async () => {
-      const req = mockRequest({ locals: { documentApi: { create: jest.fn() } } });
+      const req = mockRequest({
+        path: url,
+        url,
+        originalUrl: url,
+        locals: { documentApi: { create: jest.fn() } },
+      });
       const res = mockResponse();
       const controller = new Controller({});
       Object.assign(req, { body: undefined, files: null });
@@ -70,7 +80,12 @@ describe('PostController', () => {
     { saveAndContinue: '', hasOwnProperty: 'submitted field' },
   ])('recognises the continue button without relying on the body prototype: %p', async body => {
     const controller = new UploadController({});
-    const req = mockRequest({ body });
+    const req = mockRequest({
+      path: UPLOAD_APPEAL_FORM,
+      url: UPLOAD_APPEAL_FORM,
+      originalUrl: UPLOAD_APPEAL_FORM,
+      body,
+    });
     const res = mockResponse();
     const continueMock = jest.spyOn(controller, 'postDocumentUploader').mockResolvedValue();
 
@@ -254,7 +269,11 @@ describe('PostController', () => {
       },
     };
     const controller = new UploadController(mockForm.fields);
-    const req = mockRequest({});
+    const req = mockRequest({
+      path: UPLOAD_APPEAL_FORM,
+      url: UPLOAD_APPEAL_FORM,
+      originalUrl: UPLOAD_APPEAL_FORM,
+    });
     const res = mockResponse();
 
     req.session.caseDocuments = [];
@@ -278,6 +297,9 @@ describe('PostController', () => {
       },
     };
     const req = mockRequest({
+      path: UPLOAD_OTHER_INFORMATION,
+      url: UPLOAD_OTHER_INFORMATION,
+      originalUrl: UPLOAD_OTHER_INFORMATION,
       locals: {
         documentApi: {
           create: jest.fn(),

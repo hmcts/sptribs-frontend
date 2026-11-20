@@ -1,91 +1,119 @@
 import * as fs from 'fs';
 
 import { Case, CaseWithId } from '../app/case/case';
-import { AppRequest } from '../app/controller/AppRequest';
+import { AppRequest, AppSession } from '../app/controller/AppRequest';
 import { TranslationFn } from '../app/controller/GetController';
 import { Form, FormContent } from '../app/form/Form';
 
 import { Step } from './constants';
 import { edgecaseSequence } from './edge-case/edgecaseSequence';
-import { EDGE_CASE_URL, SUBJECT_DETAILS } from './urls';
+import { APPLICATION_SUBMITTED, CHECK_YOUR_ANSWERS, COOKIES, EDGE_CASE_URL, SUBJECT_DETAILS } from './urls';
 
-const stepForms: Record<string, Form> = {};
+const stepForms: Record<string, FormContent | undefined> = {};
 
 [edgecaseSequence].forEach((sequence: Step[], i: number) => {
   const dir = __dirname + (i === 0 ? '/edge-case' : '');
   for (const step of sequence) {
     const stepContentFile = `${dir}${step.url}/content.ts`;
     if (fs.existsSync(stepContentFile)) {
-      const content = require(stepContentFile);
+      const content: { form?: FormContent } = require(stepContentFile);
 
       if (content.form) {
-        stepForms[step.url] = new Form(content.form.fields);
+        stepForms[step.url] = content.form;
       }
     }
   }
 });
 
-const getNextIncompleteStep = (
-  data: CaseWithId,
-  step: Step,
-  sequence: Step[],
-  removeExcluded = false,
-  checkedSteps: Step[] = []
-): string => {
-  const stepForm = stepForms[step.url];
-  // if this step has a form
-  if (stepForm !== undefined) {
-    // and that form has errors
-    // if (!stepForm.isComplete(data) || stepForm.getErrors(data).length > 0)
-    if (!stepForm.isComplete(data)) {
-      // go to that step
-      return removeExcluded && checkedSteps.length && step.excludeFromContinueApplication
-        ? checkedSteps[checkedSteps.length - 1].url
-        : step.url;
-    } else {
-      // if there are no errors go to the next page and work out what to do
-      const nextStepUrl = step.getNextStep(data);
-      const nextStep = sequence.find(s => s.url === nextStepUrl);
-
-      return nextStep
-        ? getNextIncompleteStep(data, nextStep, sequence, removeExcluded, checkedSteps.concat(step))
-        : SUBJECT_DETAILS;
-    }
+const getNextCyaStep = (data: CaseWithId, session: AppSession, step: Step, sequence: Step[]): string => {
+  // Never go past the Check Your Answers page.
+  if (step.url === CHECK_YOUR_ANSWERS) {
+    return step.url;
   }
 
-  // if the page has no form then ask it where to go
-  return step.getNextStep(data);
+  const stepFormContent = stepForms[step.url];
+  const formFields =
+    typeof stepFormContent?.fields === 'function' ? stepFormContent.fields(data) : stepFormContent?.fields;
+  const stepForm = formFields ? new Form(formFields) : undefined;
+
+  // Check whether the step is complete.
+  const isStepComplete = step.isComplete
+    ? step.isComplete(session)
+    : !stepForm || stepForm.getErrors(data).length === 0;
+
+  if (!isStepComplete) {
+    // It is not currently complete or valid, so return to it
+    return step.url;
+  }
+
+  // It is complete and valid, so check the next step in the sequence
+  const nextStepUrl = step.getNextStep(data);
+  const nextStep = sequence.find(s => s.url === nextStepUrl);
+
+  return nextStep ? getNextCyaStep(data, session, nextStep, sequence) : CHECK_YOUR_ANSWERS;
 };
 
-export const getNextIncompleteStepUrl = (req: AppRequest): string => {
-  const { queryString } = getPathAndQueryString(req);
-  const sequence = getUserSequence();
-  const url = getNextIncompleteStep(req.session.userCase, sequence[0], sequence, true);
-
-  return `${url}${queryString}`;
+/**
+ * Get the next step in a Check Your Answers flow.
+ * <br>
+ * Most of the time, this will be the Check Your Answers page itself, but the latest update will have added a new step
+ * to the sequence which will be incomplete. So, go to the next incomplete step.
+ */
+export const getNextCyaStepUrl = (req: AppRequest): string => {
+  if ((req.body as Record<string, unknown>).saveAsDraft) {
+    return SUBJECT_DETAILS;
+  }
+  const currentStep = edgecaseSequence.find(s => s.url === req.path) ?? edgecaseSequence[0];
+  return getNextCyaStep(req.session.userCase, req.session, currentStep, edgecaseSequence);
 };
 
 export const getNextStepUrl = (req: AppRequest, data: Partial<Case>): string => {
-  //eslint-disable-next-line @typescript-eslint/no-explicit-any
-  if ((req.body as any).saveAsDraft) {
+  if ((req.body as Record<string, unknown>).saveAsDraft) {
     return SUBJECT_DETAILS;
   }
   const { path, queryString } = getPathAndQueryString(req);
-  const nextStep = [...edgecaseSequence].find(s => s.url === path);
+  const currentStep = edgecaseSequence.find(s => s.url === path);
 
-  const url = nextStep ? nextStep.getNextStep(data) : SUBJECT_DETAILS;
+  const url = currentStep ? currentStep.getNextStep(data) : SUBJECT_DETAILS;
 
   return `${url}${queryString}`;
+};
+
+/** Get whether a path is part of a Check Your Answers flow. */
+export const inCyaFlow = (path: string, userCase: Partial<Case>): boolean => {
+  if (path === CHECK_YOUR_ANSWERS || path === APPLICATION_SUBMITTED || path === COOKIES) {
+    return false;
+  }
+
+  const startingStep = edgecaseSequence.find(s => s.url === path);
+  if (startingStep === undefined) {
+    return false;
+  }
+  let currentStep = startingStep;
+
+  const visitedSteps: Set<string> = new Set();
+  while (!visitedSteps.has(currentStep.url)) {
+    if (currentStep.url === CHECK_YOUR_ANSWERS) {
+      // Reached CYA page
+      return true;
+    }
+
+    visitedSteps.add(currentStep.url);
+    const nextStep = edgecaseSequence.find(s => s.url === currentStep.getNextStep(userCase));
+    if (nextStep === undefined) {
+      return false;
+    }
+    currentStep = nextStep;
+  }
+
+  // Loop detected
+  return false;
 };
 
 const getPathAndQueryString = (req: AppRequest): { path: string; queryString: string } => {
   const [path, searchParams] = req.originalUrl.split('?');
   const queryString = searchParams ? `?${searchParams}` : '';
   return { path, queryString };
-};
-
-const getUserSequence = () => {
-  return edgecaseSequence;
 };
 
 const getStepFiles = (stepDir: string) => {

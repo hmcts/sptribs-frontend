@@ -76,7 +76,11 @@ describe('Form upload controller', () => {
     };
     const controller = new UploadDocumentController(mockForm.fields);
 
-    const req = mockRequest({});
+    const req = mockRequest({
+      path: UPLOAD_SUPPORTING_DOCUMENTS,
+      url: UPLOAD_SUPPORTING_DOCUMENTS,
+      originalUrl: UPLOAD_SUPPORTING_DOCUMENTS,
+    });
     const res = mockResponse();
     (req.files as any) = { documents: { mimetype: 'audio/mp4', size: 104857600 } };
     req.session.caseDocuments = [];
@@ -105,7 +109,11 @@ describe('Form upload controller', () => {
     };
     const controller = new UploadDocumentController(mockForm.fields);
 
-    const req = mockRequest({});
+    const req = mockRequest({
+      path: UPLOAD_SUPPORTING_DOCUMENTS,
+      url: UPLOAD_SUPPORTING_DOCUMENTS,
+      originalUrl: UPLOAD_SUPPORTING_DOCUMENTS,
+    });
     const res = mockResponse();
     (req.files as any) = { documents: { mimetype: 'application/pdf', size: 104857601 } };
     req.session.caseDocuments = [];
@@ -134,7 +142,11 @@ describe('Form upload controller', () => {
     };
     const controller = new UploadDocumentController(mockForm.fields);
 
-    const req = mockRequest({});
+    const req = mockRequest({
+      path: UPLOAD_SUPPORTING_DOCUMENTS,
+      url: UPLOAD_SUPPORTING_DOCUMENTS,
+      originalUrl: UPLOAD_SUPPORTING_DOCUMENTS,
+    });
     const res = mockResponse();
     (req.files as any) = { documents: { mimetype: 'audio/mp4', size: 104857601 } };
     req.session.caseDocuments = [];
@@ -165,6 +177,9 @@ describe('Form upload controller', () => {
       },
     };
     const req = mockRequest({
+      path: UPLOAD_SUPPORTING_DOCUMENTS,
+      url: UPLOAD_SUPPORTING_DOCUMENTS,
+      originalUrl: UPLOAD_SUPPORTING_DOCUMENTS,
       locals: {
         documentApi: {
           create: jest.fn(),
@@ -207,6 +222,9 @@ describe('Form upload controller', () => {
       },
     };
     const req = mockRequest({
+      path: UPLOAD_SUPPORTING_DOCUMENTS,
+      url: UPLOAD_SUPPORTING_DOCUMENTS,
+      originalUrl: UPLOAD_SUPPORTING_DOCUMENTS,
       locals: {
         documentApi: {
           create: jest.fn(),
@@ -231,6 +249,9 @@ describe('Form upload controller', () => {
       const controller = new UploadDocumentController({});
       const res = mockResponse();
       const req = mockRequest({
+        path: UPLOAD_SUPPORTING_DOCUMENTS,
+        url: UPLOAD_SUPPORTING_DOCUMENTS,
+        originalUrl: UPLOAD_SUPPORTING_DOCUMENTS,
         session: {
           user: { email: 'test@example.com' },
           save: jest.fn(done => done('MOCK_ERROR')),
@@ -260,7 +281,11 @@ describe('checking for the redirect of post document upload', () => {
     },
   };
 
-  const req = mockRequest({});
+  const req = mockRequest({
+    path: UPLOAD_SUPPORTING_DOCUMENTS,
+    url: UPLOAD_SUPPORTING_DOCUMENTS,
+    originalUrl: UPLOAD_SUPPORTING_DOCUMENTS,
+  });
   const res = mockResponse();
   const postingController = new UploadDocumentController(mockForm.fields);
   it('continue to next page after the documents has been proccessed', async () => {

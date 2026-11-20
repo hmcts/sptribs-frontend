@@ -73,7 +73,7 @@ describe('Document upload controller', () => {
     };
     const controller = new UploadDocumentController(mockForm.fields);
 
-    const req = mockRequest({});
+    const req = mockRequest({ url: UPLOAD_OTHER_INFORMATION, path: UPLOAD_OTHER_INFORMATION });
     const res = mockResponse();
     (req.files as any) = { documents: { mimetype: 'image/gif', size: 20480000 } };
     req.session.caseDocuments = [];
@@ -102,7 +102,7 @@ describe('Document upload controller', () => {
     };
     const controller = new UploadDocumentController(mockForm.fields);
 
-    const req = mockRequest({});
+    const req = mockRequest({ url: UPLOAD_OTHER_INFORMATION, path: UPLOAD_OTHER_INFORMATION });
     const res = mockResponse();
     (req.files as any) = { documents: { mimetype: 'text/plain', size: 104857601 } };
     req.session.caseDocuments = [];
@@ -131,7 +131,7 @@ describe('Document upload controller', () => {
     };
     const controller = new UploadDocumentController(mockForm.fields);
 
-    const req = mockRequest({});
+    const req = mockRequest({ url: UPLOAD_OTHER_INFORMATION, path: UPLOAD_OTHER_INFORMATION });
     const res = mockResponse();
     (req.files as any) = { documents: { mimetype: 'image/gif', size: 104857601 } };
     req.session.caseDocuments = [];
@@ -162,6 +162,9 @@ describe('Document upload controller', () => {
       },
     };
     const req = mockRequest({
+      url: UPLOAD_OTHER_INFORMATION,
+      path: UPLOAD_OTHER_INFORMATION,
+      originalUrl: UPLOAD_OTHER_INFORMATION,
       locals: {
         documentApi: {
           create: jest.fn(),
@@ -205,6 +208,9 @@ describe('Document upload controller', () => {
       },
     };
     const req = mockRequest({
+      url: UPLOAD_OTHER_INFORMATION,
+      path: UPLOAD_OTHER_INFORMATION,
+      originalUrl: UPLOAD_OTHER_INFORMATION,
       locals: {
         documentApi: {
           create: jest.fn(),
@@ -229,6 +235,9 @@ describe('Document upload controller', () => {
       const controller = new UploadDocumentController({});
       const res = mockResponse();
       const req = mockRequest({
+        url: UPLOAD_OTHER_INFORMATION,
+        path: UPLOAD_OTHER_INFORMATION,
+        originalUrl: UPLOAD_OTHER_INFORMATION,
         session: {
           user: { email: 'test@example.com' },
 
@@ -248,6 +257,9 @@ describe('Document upload controller', () => {
     test('should throw an error when documentRelevance contains markdown link', async () => {
       const res = mockResponse();
       const req = mockRequest({
+        url: UPLOAD_OTHER_INFORMATION,
+        path: UPLOAD_OTHER_INFORMATION,
+        originalUrl: UPLOAD_OTHER_INFORMATION,
         body: {
           documentRelevance: '[Click here](https://www.google.co.uk)',
           additionalInformation: 'some info',
@@ -264,6 +276,9 @@ describe('Document upload controller', () => {
     test('should throw an error when additionalInformation contains markdown link', async () => {
       const res = mockResponse();
       const req = mockRequest({
+        url: UPLOAD_OTHER_INFORMATION,
+        path: UPLOAD_OTHER_INFORMATION,
+        originalUrl: UPLOAD_OTHER_INFORMATION,
         body: {
           documentRelevance: 'doc relevance',
           additionalInformation: '[Click here](https://www.google.co.uk)',
@@ -281,6 +296,9 @@ describe('Document upload controller', () => {
       const controller = new UploadDocumentController({});
       const res = mockResponse();
       const req = mockRequest({
+        url: UPLOAD_OTHER_INFORMATION,
+        path: UPLOAD_OTHER_INFORMATION,
+        originalUrl: UPLOAD_OTHER_INFORMATION,
         body: {
           documentRelevance: 'doc relevance',
           additionalInformation: '[Click here](https://www.google.co.uk)',
@@ -305,6 +323,9 @@ describe('when data contains markdown link', () => {
   test('should throw an error when documentRelevance contains HTML', async () => {
     const res = mockResponse();
     const req = mockRequest({
+      url: UPLOAD_OTHER_INFORMATION,
+      path: UPLOAD_OTHER_INFORMATION,
+      originalUrl: UPLOAD_OTHER_INFORMATION,
       body: {
         documentRelevance: '<a>https://www.google.co.uk</a>)',
         additionalInformation: 'some info',
@@ -321,6 +342,9 @@ describe('when data contains markdown link', () => {
   test('should throw an error when additionalInformation contains HTML', async () => {
     const res = mockResponse();
     const req = mockRequest({
+      url: UPLOAD_OTHER_INFORMATION,
+      path: UPLOAD_OTHER_INFORMATION,
+      originalUrl: UPLOAD_OTHER_INFORMATION,
       body: {
         documentRelevance: 'doc relevance',
         additionalInformation: '<a>https://www.google.co.uk</a>',
@@ -338,6 +362,9 @@ describe('when data contains markdown link', () => {
     const controller = new UploadDocumentController({});
     const res = mockResponse();
     const req = mockRequest({
+      url: UPLOAD_OTHER_INFORMATION,
+      path: UPLOAD_OTHER_INFORMATION,
+      originalUrl: UPLOAD_OTHER_INFORMATION,
       body: {
         documentRelevance: 'doc relevance',
         additionalInformation: '<a>https://www.google.co.uk</a>',
@@ -376,7 +403,11 @@ describe('checking for the redirect of post document upload', () => {
   let postingController;
 
   beforeEach(() => {
-    req = mockRequest({});
+    req = mockRequest({
+      url: UPLOAD_OTHER_INFORMATION,
+      path: UPLOAD_OTHER_INFORMATION,
+      originalUrl: UPLOAD_OTHER_INFORMATION,
+    });
     res = mockResponse();
     postingController = new UploadDocumentController(mockForm.fields);
   });

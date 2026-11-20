@@ -5,6 +5,7 @@ import Negotiator from 'negotiator';
 
 import { DocumentManagementFile } from '../../app/document/CaseDocumentManagementClient';
 import { LanguageToggle } from '../../modules/i18n';
+import { inCyaFlow } from '../../steps';
 import { CommonContent, Language, generatePageContent } from '../../steps/common/common.content';
 import { TOGGLE_SWITCH } from '../../steps/common/constants/commonConstants';
 import * as Urls from '../../steps/urls';
@@ -29,6 +30,8 @@ export class GetController {
       // so we don't want to call render again
       return;
     }
+
+    this.manageCya(req);
 
     const language = this.getPreferredLanguage(req) as Language;
     const addresses = req.session?.addresses;
@@ -155,6 +158,25 @@ export class GetController {
     // Browsers default language
     const negotiator = new Negotiator(req);
     return negotiator.language(LanguageToggle.supportedLanguages) || 'en';
+  }
+
+  /**
+   * If this page was reached from a "Check your answers" page, track this.
+   * If this page is not part of a sequence with "Check your answers", clear the session variable.
+   */
+  private manageCya(req: AppRequest): void {
+    const inCheckYourAnswersFlow =
+      'subjectFullName' in req.session.userCase && inCyaFlow(req.path, req.session.userCase);
+    if (inCheckYourAnswersFlow) {
+      // This page is part of a sequence with "Check your answers"
+      if ('check-your-answers' in req.query) {
+        req.session.isCheckYourAnswers = true;
+      } else {
+        // Leave unchanged
+      }
+    } else {
+      req.session.isCheckYourAnswers = false;
+    }
   }
 
   public parseAndSetReturnUrl(req: AppRequest): void {
