@@ -95,10 +95,10 @@
     "uuid": "^11.0.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.23.2",
-    "@babel/eslint-parser": "^7.22.15",
-    "@babel/preset-env": "^7.23.2",
-    "@babel/preset-typescript": "^7.23.2",
+    "@babel/core": "^8.0.0",
+    "@babel/eslint-parser": "^8.0.0",
+    "@babel/preset-env": "^8.0.0",
+    "@babel/preset-typescript": "^8.0.0",
     "@sonar/scan": "^5.0.0",
     "@types/cors": "^2.8.17",
     "@types/jest": "^29.5.4",
@@ -153,7 +153,7 @@
   },
   "resolutions": {
     "@azure/msal-node": "^3.0.0",
-    "@babel/traverse": "^7.23.2",
+    "@babel/traverse": "^8.0.0",
     "@opentelemetry/core": "^2.8.0",
     "@tootallnate/once": "^3.0.1",
     "@types/express": "^4.17.25",
