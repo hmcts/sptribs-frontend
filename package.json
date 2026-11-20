@@ -152,7 +152,7 @@
     "webpack-node-externals": "^3.0.0"
   },
   "resolutions": {
-    "@azure/msal-node": "^3.0.0",
+    "@azure/msal-node": "^7.0.0",
     "@babel/traverse": "^8.0.0",
     "@opentelemetry/core": "^2.8.0",
     "@tootallnate/once": "^3.0.1",
