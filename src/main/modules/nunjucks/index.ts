@@ -4,7 +4,7 @@ import config from 'config';
 import express from 'express';
 import { configure, runtime } from 'nunjucks';
 
-import { FormInput } from '../../app/form/Form';
+import { FormError, FormInput } from '../../app/form/Form';
 
 export class Nunjucks {
   enableFor(app: express.Express): void {
@@ -42,47 +42,56 @@ export class Nunjucks {
       return { text: errors[fieldName][fieldError.errorType] };
     });
 
-    env.addGlobal('formItems', function (items: FormInput[], userAnswer: string | Record<string, string>) {
-      return items.map(i => ({
-        id: i.id,
-        label: this.env.globals.getContent.call(this, i.label),
-        text: this.env.globals.getContent.call(this, i.label),
-        name: i.name,
-        classes: i.classes,
-        disabled: i.disabled,
-        value: i.value ?? userAnswer?.[i.name as string] ?? (userAnswer as string),
-        attributes: i.attributes,
-        checked: i.selected ?? userAnswer?.[i.name as string]?.includes(i.value as string) ?? i.value === userAnswer,
-        hint: i.hint && {
-          html: this.env.globals.getContent.call(this, i.hint),
-        },
-        divider: this.env.globals.getContent.call(this, i.divider),
-        open: i.open,
-        conditional: (() => {
-          if (i.warning) {
-            return {
-              html: env.render(`${__dirname}/../../steps/common/error/warning.njk`, {
-                message: this.env.globals.getContent.call(this, i.warning),
-                warning: this.ctx.warning,
-              }),
-            };
-          } else if (i.conditionalText) {
-            return {
-              html: this.env.globals.getContent.call(this, i.conditionalText),
-            };
-          } else if (i.subFields) {
-            return {
-              html: env.render(`${__dirname}/../../steps/common/form/fields.njk`, {
-                ...this.ctx,
-                form: { fields: i.subFields },
-              }),
-            };
-          } else {
-            return undefined;
-          }
-        })(),
-      }));
-    });
+    env.addGlobal(
+      'formItems',
+      function (fieldName: string, items: FormInput[], userAnswer: string | Record<string, string>) {
+        const sessionErrors: FormError[] | undefined = this.ctx.sessionErrors;
+        const fieldErrors = sessionErrors?.filter(error => error.propertyName === fieldName);
+
+        return items.map(i => ({
+          id: i.id,
+          label: this.env.globals.getContent.call(this, i.label),
+          text: this.env.globals.getContent.call(this, i.label),
+          name: i.name,
+          classes: i.classes,
+          disabled: i.disabled,
+          value: i.value ?? userAnswer?.[i.name as string] ?? (userAnswer as string),
+          attributes: i.attributes,
+          checked: i.selected ?? userAnswer?.[i.name as string]?.includes(i.value as string) ?? i.value === userAnswer,
+          hint: i.hint && {
+            html: this.env.globals.getContent.call(this, i.hint),
+          },
+          divider: this.env.globals.getContent.call(this, i.divider),
+          open: i.open,
+          conditional: (() => {
+            if (i.warning) {
+              return {
+                html: env.render(`${__dirname}/../../steps/common/error/warning.njk`, {
+                  message: this.env.globals.getContent.call(this, i.warning),
+                  warning: this.ctx.warning,
+                }),
+              };
+            } else if (i.conditionalText) {
+              return {
+                html: this.env.globals.getContent.call(this, i.conditionalText),
+              };
+            } else if (i.subFields) {
+              return {
+                html: env.render(`${__dirname}/../../steps/common/form/fields.njk`, {
+                  ...this.ctx,
+                  form: { fields: i.subFields },
+                }),
+              };
+            } else {
+              return undefined;
+            }
+          })(),
+          // Either true (always error styling) or undefined (maybe error styling), not false (never error styling).
+          // This is to get the behaviour correct when there's a non-item-specific error on the parent field.
+          error: fieldErrors?.some(error => error.subitemNames?.includes(i.name as string)) || undefined,
+        }));
+      }
+    );
 
     const globals = {
       dynatrace: {

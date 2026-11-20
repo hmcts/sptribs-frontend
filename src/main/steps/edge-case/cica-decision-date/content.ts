@@ -35,12 +35,10 @@ export const form: FormContent = {
       parser: body => convertToDateObject('initialCicaDecisionDate', body as Record<string, unknown>),
       validator: value => {
         const date = value as CaseDate;
-        if (isDateInputInvalid(date) && isDateInputNotFilled(date)) {
-          return 'invalidAndIncomplete';
+        if (isDateInputNotFilled(date)) {
+          return isDateInputNotFilled(date);
         } else if (isDateInputInvalid(date)) {
           return isDateInputInvalid(date);
-        } else if (isDateInputNotFilled(date)) {
-          return isDateInputNotFilled(date);
         } else {
           return undefined;
         }
