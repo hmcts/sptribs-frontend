@@ -10,7 +10,7 @@ export const en = {
   whoManages: 'Who manages this service',
   managedBy:
     'This service is managed by HM Courts and Tribunals Service (HMCTS), which is an executive agency of the Ministry of Justice (MoJ).',
-  moj: "The MoJ is known as the data controller for data protection purposes. <a class='govuk-link' href='https://www.gov.uk/government/organisations/ministry-of-justice/about/personal-information-charter' target='_blank'>The MoJ personal information charter (opens in a new window)</a> explains how the MoJ processes personal data.",
+  moj: "The MoJ is known as the data controller for data protection purposes. <a class='govuk-link' href='https://www.gov.uk/government/organisations/ministry-of-justice/about/personal-information-charter' target='_blank'>The MoJ personal information charter (opens in a new tab)</a> explains how the MoJ processes personal data.",
   responsibleForDeciding:
     'As part of the MoJ, HMCTS is responsible for deciding how your personal data is used and for protecting the personal data you provide.',
   moreInformation:
@@ -56,7 +56,7 @@ export const en = {
   ifAnother:
     'While processing your application, another government department, agency or organisation might be involved and we may share your data with them.',
   ifYouContactUs:
-    'If you contact us and ask for help with the service you’re using, your personal data may be shared with the <a class="govuk-link" href="https://www.goodthingsfoundation.org/" target="_blank">Good Things Foundation (opens in a new window)</a>. This is a company who we have partnered with to offer face to face support.',
+    'If you contact us and ask for help with the service you’re using, your personal data may be shared with the <a class="govuk-link" href="https://www.goodthingsfoundation.org/" target="_blank">Good Things Foundation (opens in a new tab)</a>. This is a company who we have partnered with to offer face to face support.',
   crime:
     'In some circumstances we may share your data. For example, to prevent or detect crime, or to produce anonymised statistics.',
   weUse:
@@ -85,7 +85,7 @@ export const en = {
     'that we transfer the personal information you gave us to another organisation, or to you, in certain circumstances',
   ifYouWantToSeePersonal: 'If you want to see the personal data that we hold on you, you can:',
   completeForm:
-    "complete a form to make a <a class='govuk-link' href='https://www.gov.uk/government/publications/request-your-personal-data-from-moj' target='_blank'>subject access request (opens in a new window)</a>. Your request goes to the MoJ as data controller",
+    "complete a form to make a <a class='govuk-link' href='https://www.gov.uk/government/publications/request-your-personal-data-from-moj' target='_blank'>subject access request (opens in a new tab)</a>. Your request goes to the MoJ as data controller",
   writeToUs: 'write to us: Disclosure Team, Post point 10.24, 102 Petty France, London, SW1H 9AJ',
   emailUs: 'email: <a href="mailto:data.access@justice.gov.uk" class="govuk-link">data.access@justice.gov.uk</a>',
   askMoreInformation: 'You can ask for more information about:',
@@ -95,7 +95,7 @@ export const en = {
   howWeCheck: 'how we check that the information we hold is accurate and up-to-date',
   howToComplain: 'How to complain',
   seeOurComplaints:
-    "See our <a class='govuk-link' href='https://www.gov.uk/government/organisations/hm-courts-and-tribunals-service/about/complaints-procedure' target='_blank'>complaints procedure (opens in a new window)</a> if you want to complain about how we've handled your personal data.",
+    "See our <a class='govuk-link' href='https://www.gov.uk/government/organisations/hm-courts-and-tribunals-service/about/complaints-procedure' target='_blank'>complaints procedure (opens in a new tab)</a> if you want to complain about how we've handled your personal data.",
   concernsDataProtection:
     'If you have any concerns about our use of your personal data, you can contact the MoJ data protection officer:',
   mojAddress:
@@ -118,7 +118,7 @@ export const cy: typeof en = {
   whoManages: "Pwy sy’n rheoli'r gwasanaeth hwn",
   managedBy:
     'Gwasanaeth Llysoedd a Thribiwnlysoedd EM (GLlTEM) sy’n rheoli’r gwasanaeth hwn, sef un o asiantaethau gweithredol y Weinyddiaeth Gyfiawnder (MoJ).',
-  moj: "MoJ yw’r rheolydd data at ddibenion diogelu data. <a class='govuk-link' target = 'blank' href='https://www.gov.uk/government/organisations/ministry-of-justice/about/personal-information-charter.cy'>Mae siarter gwybodaeth bersonol y Weinyddiaeth Gyfiawnder (yn agor mewn ffenestr newydd)</a> yn esbonio sut mae’r MoJ yn prosesu data personol.",
+  moj: "MoJ yw’r rheolydd data at ddibenion diogelu data. <a class='govuk-link' target='_blank' href='https://www.gov.uk/government/organisations/ministry-of-justice/about/personal-information-charter.cy'>Mae siarter gwybodaeth bersonol y Weinyddiaeth Gyfiawnder (yn agor mewn tab newydd)</a> yn esbonio sut mae’r MoJ yn prosesu data personol.",
   responsibleForDeciding:
     "Fel rhan o’r MoJ, mae GLlTEM yn gyfrifol am benderfynu sut mae eich data personol yn cael ei ddefnyddio ac am ddiogelu'r data personol rydych yn ei ddarparu.",
   moreInformation:
@@ -165,7 +165,7 @@ export const cy: typeof en = {
   ifAnother:
     'Pan fydd eich hawliad neu eich cais ei brosesu, mae’n bosib y byddwn angen cysylltu ag adran, asiantaeth neu sefydliad arall yn y llywodraeth ac efallai y byddwn yn rhannu eich data gyda nhw.',
   ifYouContactUs:
-    "Os byddwch yn cysylltu â ni ac yn gofyn am help gyda’r gwasanaeth rydych yn ei ddefnyddio, efallai y byddwn yn rhannu eich data personol gyda’r <a class='govuk-link' href='https://www.goodthingsfoundation.org/' target='_blank'>Good Things Foundation (yn agor mewn ffenestr newydd)</a>. Rydym yn gweithio mewn partneriaeth â'r cwmni hwn i gynnig cefnogaeth wyneb yn wyneb.",
+    "Os byddwch yn cysylltu â ni ac yn gofyn am help gyda’r gwasanaeth rydych yn ei ddefnyddio, efallai y byddwn yn rhannu eich data personol gyda’r <a class='govuk-link' href='https://www.goodthingsfoundation.org/' target='_blank'>Good Things Foundation (yn agor mewn tab newydd)</a>. Rydym yn gweithio mewn partneriaeth â'r cwmni hwn i gynnig cefnogaeth wyneb yn wyneb.",
   crime:
     'Mewn rhai amgylchiadau efallai y byddwn yn rhannu eich data. Er enghraifft er mwyn atal neu i ddatrys trosedd, neu i gynhyrchu ystadegau cyffredinol.',
   weUse:
@@ -194,7 +194,7 @@ export const cy: typeof en = {
     "ein bod yn trosglwyddo'r wybodaeth bersonol a roesoch i ni i sefydliad arall, neu i chi, mewn rhai amgylchiadau",
   ifYouWantToSeePersonal: 'Os ydych eisiau gweld y data personol rydym yn ei gadw amdanoch, gallwch:',
   completeForm:
-    "llenwi ffurflen i wneud <a class='govuk-link' target = 'blank' href='https://www.gov.uk/government/organisations/ministry-of-justice/about/personal-information-charter.cy'>cais gwrthrych am wybodaeth (yn agor mewn ffenestr newydd)</a>. Bydd eich cais yn mynd i’r rheolydd data, sef MoJ.",
+    "llenwi ffurflen i wneud <a class='govuk-link' target='_blank' href='https://www.gov.uk/government/organisations/ministry-of-justice/about/personal-information-charter.cy'>cais gwrthrych am wybodaeth (yn agor mewn tab newydd)</a>. Bydd eich cais yn mynd i’r rheolydd data, sef MoJ.",
   writeToUs: 'ysgrifennu atom yn: Disclosure Team, Post point 10.24, 102 Petty France, Llundain, SW1H 9AJ',
   emailUs: 'e-bost: <a href="mailto:data.access@justice.gov.uk" class="govuk-link">data.access@justice.gov.uk</a>',
   askMoreInformation: 'Gallwch ofyn am fwy o wybodaeth ynghylch:',
@@ -204,7 +204,7 @@ export const cy: typeof en = {
   howWeCheck: 'sut rydym yn gwirio bod yr wybodaeth sydd gennym yn gywir ac yn gyfredol',
   howToComplain: 'Sut i wneud cwyn',
   seeOurComplaints:
-    "Gweler ein <a class='govuk-link' target='blank' href='https://www.gov.uk/government/organisations/hm-courts-and-tribunals-service/about/complaints-procedure.cy'>trefn gwyno (yn agor mewn ffenestr newydd)</a> os ydych eisiau cwyno am sut rydym wedi trin eich data personol.",
+    "Gweler ein <a class='govuk-link' target='_blank' href='https://www.gov.uk/government/organisations/hm-courts-and-tribunals-service/about/complaints-procedure.cy'>trefn gwyno (yn agor mewn tab newydd)</a> os ydych eisiau cwyno am sut rydym wedi trin eich data personol.",
   concernsDataProtection:
     "Os oes gennych unrhyw bryderon am ein defnydd o'ch data personol, gallwch gysylltu â swyddog diogelu data'r MoJ:",
   mojAddress:
