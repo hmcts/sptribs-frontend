@@ -14,6 +14,7 @@ export const form: FormContent = {
       type: 'text',
       classes: 'govuk-input',
       label: l => l.cicaReferenceNumberLabel,
+      hint: l => l.cicaReferenceNumberHint,
       validator: input =>
         isFieldFilledIn(input) ||
         isMarkDownLinkIncluded(input) ||
