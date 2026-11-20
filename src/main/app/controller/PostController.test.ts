@@ -40,7 +40,7 @@ describe('PostController', () => {
     await controller.post(req, res);
 
     expect(getNextStepUrlMock).not.toHaveBeenCalled();
-    expect(res.redirect).toHaveBeenCalledWith(req.path);
+    expect(res.redirect).toHaveBeenCalledWith(req.path + '#');
     expect(req.session.errors).toEqual(errors);
   });
 
@@ -204,7 +204,7 @@ describe('PostController', () => {
     const res = mockResponse();
     await controller.post(req, res);
 
-    expect(res.redirect).toHaveBeenCalledWith('/save-and-sign-out');
+    expect(res.redirect).toHaveBeenCalledWith('/save-and-sign-out#');
   });
 
   it('saves and signs out even if was an error saving data', async () => {
@@ -216,7 +216,7 @@ describe('PostController', () => {
     const res = mockResponse();
     await controller.post(req, res);
 
-    expect(res.redirect).toHaveBeenCalledWith('/save-and-sign-out');
+    expect(res.redirect).toHaveBeenCalledWith('/save-and-sign-out#');
   });
 
   it('when user clicks on cancel button response should be redirected to UK GOV Home page', async () => {
@@ -226,7 +226,7 @@ describe('PostController', () => {
     const res = mockResponse();
     await controller.post(req, res);
     expect(res.redirect).toHaveBeenCalledWith(
-      'https://www.gov.uk/government/organisations/hm-courts-and-tribunals-service'
+      'https://www.gov.uk/government/organisations/hm-courts-and-tribunals-service#'
     );
   });
 
@@ -239,7 +239,7 @@ describe('PostController', () => {
     const res = mockResponse();
     await controller.post(req, res);
 
-    expect(res.redirect).toHaveBeenCalledWith('/next-step-url');
+    expect(res.redirect).toHaveBeenCalledWith('/next-step-url#');
   });
 
   test('whether the citizen update call is made with the expected user data', async () => {
@@ -259,7 +259,7 @@ describe('PostController', () => {
 
     expect(req.session.userCase).toEqual(expectedUserCase);
     expect(getNextStepUrlMock).toHaveBeenCalledWith(req, expectedUserCase);
-    expect(res.redirect).toHaveBeenCalledWith('/next-step-url');
+    expect(res.redirect).toHaveBeenCalledWith('/next-step-url#');
     expect(req.session.errors).toStrictEqual([]);
   });
 
@@ -292,7 +292,7 @@ describe('PostController', () => {
 
     expect(req.session.userCase).toEqual(expectedUserCase);
     expect(getNextStepUrlMock).toHaveBeenCalledWith(req, expectedUserCase);
-    expect(res.redirect).toHaveBeenCalledWith('/next-step-url');
+    expect(res.redirect).toHaveBeenCalledWith('/next-step-url#');
     expect(req.session.errors).toStrictEqual([]);
   });
 
@@ -457,7 +457,7 @@ describe('PostController', () => {
 
       controller.redirect(req, res);
 
-      expect(res.redirect).toHaveBeenCalledWith(expectedRedirect);
+      expect(res.redirect).toHaveBeenCalledWith(expectedRedirect + '#');
       expect(getNextStepUrlMock).toHaveBeenCalledTimes(expectedNextStepCalls);
       expect(getNextCyaStepUrlMock).toHaveBeenCalledTimes(expectedNextCyaCalls);
     });
