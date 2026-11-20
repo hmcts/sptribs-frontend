@@ -145,6 +145,7 @@ export interface FormOptions {
   classes?: string;
   labelHidden?: boolean;
   labelSize?: string | null;
+  isPageHeading?: boolean;
   hideError?: boolean;
   values: FormInput[];
   attributes?: Partial<HTMLInputElement | HTMLTextAreaElement>;
@@ -161,6 +162,7 @@ export interface FormInput {
   type?: string;
   label?: Label;
   labelSize?: string | null;
+  isPageHeading?: boolean;
   section?: Label;
   hint?: Label;
   subtext?: Label;

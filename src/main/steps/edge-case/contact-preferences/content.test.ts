@@ -46,6 +46,7 @@ describe('contact-preferences', () => {
 
   test('should return correct english content', () => {
     expect(generatedContent.serviceName).toEqual(en.serviceName);
+    expect(generatedContent.title).toEqual(en.title);
     expect(generatedContent.label).toEqual(en.label);
     expect(generatedContent.accountOwner).toEqual(en.accountOwner);
     expect(generatedContent.namedPerson).toEqual(en.namedPerson);
@@ -56,6 +57,7 @@ describe('contact-preferences', () => {
   test('should return correct welsh content', () => {
     generatedContent = generateContent({ ...commonContent, language: CY });
     expect(generatedContent.serviceName).toEqual(cy.serviceName);
+    expect(generatedContent.title).toEqual(cy.title);
     expect(generatedContent.label).toEqual(cy.label);
     expect(generatedContent.accountOwner).toEqual(cy.accountOwner);
     expect(generatedContent.namedPerson).toEqual(cy.namedPerson);
@@ -70,6 +72,7 @@ describe('contact-preferences', () => {
     expect(field.type).toBe('radios');
     expect(field.classes).toBe('govuk-radios');
     expect((field.label as Function)(generatedContent)).toBe(en.label);
+    expect(field.isPageHeading).toBeTruthy();
 
     expect((field.values[0].label as Function)(generatedContent)).toBe(en.accountOwner);
     expect(field.values[0].value).toBe(ContactPreference.ACCOUNT_OWNER);
