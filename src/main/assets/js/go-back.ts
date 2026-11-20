@@ -34,14 +34,14 @@ if (backLink) {
         }
       }
       if (previousPage) {
-        location.pathname = previousPage;
+        location.assign(previousPage);
       } else {
         // Should not occur unless the user has directly typed the url, for example
-        location.pathname = '/';
+        location.assign('/');
       }
     } else {
       // Should not occur unless the user has directly typed the url, for example
-      location.pathname = '/';
+      location.assign('/');
     }
   };
 }
