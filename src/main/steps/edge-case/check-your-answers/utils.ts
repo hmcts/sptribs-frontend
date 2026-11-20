@@ -47,6 +47,11 @@ type SummaryListContent = PageContent & {
   language?: string;
 };
 
+const addQueryParam = (url: string, param: string, value?: string): string => {
+  const separator = url.includes('?') ? '&' : '?';
+  return value ? `${url}${separator}${param}=${encodeURIComponent(value)}` : `${url}${separator}${param}`;
+};
+
 const getSectionSummaryList = (rows: SummaryListRow[], content: PageContent): GovUkNunjucksSummary[] => {
   return rows.map(item => {
     const changeUrl = item.changeUrl;
@@ -58,9 +63,10 @@ const getSectionSummaryList = (rows: SummaryListRow[], content: PageContent): Go
             actions: {
               items: [
                 {
-                  href: changeUrl, //
+                  href: addQueryParam(changeUrl, 'check-your-answers'), //
                   text: content.change as string,
                   visuallyHiddenText: `${item.key}`,
+                  attributes: { 'data-cya-change-link': true },
                 },
               ],
             },

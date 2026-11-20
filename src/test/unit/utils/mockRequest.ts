@@ -10,6 +10,9 @@ export const mockRequest = ({
   query = {},
   fileErrors = [],
   locals = {},
+  path = '/request',
+  url = '/request',
+  originalUrl = '/request',
 } = {}): AppRequest =>
   ({
     headers: { 'accept-language': 'en', ...headers },
@@ -60,8 +63,8 @@ export const mockRequest = ({
       },
     },
     cookies,
-    path: '/request',
-    url: '/request',
-    originalUrl: '/request',
+    path,
+    url,
+    originalUrl,
     logout: jest.fn(),
   }) as unknown as AppRequest;

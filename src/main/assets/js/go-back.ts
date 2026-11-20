@@ -53,6 +53,14 @@ if (submitButton) {
   };
 }
 
+const CYA_CHANGE_LINK_ATTRIBUTE = 'data-cya-change-link';
+document.querySelectorAll(`a[${CYA_CHANGE_LINK_ATTRIBUTE}]`).forEach(element => {
+  const link = element as HTMLAnchorElement;
+  link.addEventListener('click', () => {
+    sessionStorage.setItem(SUBMITTED_KEY, location.pathname);
+  });
+});
+
 window.onload = function () {
   const submittedFrom = sessionStorage.getItem(SUBMITTED_KEY);
   if (submittedFrom) {

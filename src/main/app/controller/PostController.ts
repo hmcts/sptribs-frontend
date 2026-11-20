@@ -2,7 +2,7 @@ import autobind from 'autobind-decorator';
 import config from 'config';
 import { Response } from 'express';
 
-import { getNextStepUrl } from '../../steps';
+import { getNextCyaStepUrl, getNextStepUrl } from '../../steps';
 import {
   CHECK_YOUR_ANSWERS,
   CICA_DECISION_DATE,
@@ -125,7 +125,16 @@ export class PostController<T extends AnyObject> {
 
   public redirect(req: AppRequest<T>, res: Response, nextUrl?: string): void {
     if (!nextUrl) {
-      nextUrl = req.session.errors?.length ? req.url : getNextStepUrl(req, req.session.userCase);
+      if (req.session.errors?.length || req.session.fileErrors?.length) {
+        nextUrl = req.url;
+      } else if (req.session.isCheckYourAnswers) {
+        nextUrl = getNextCyaStepUrl(req);
+        if (nextUrl === CHECK_YOUR_ANSWERS) {
+          req.session.isCheckYourAnswers = false;
+        }
+      } else {
+        nextUrl = getNextStepUrl(req, req.session.userCase);
+      }
     }
 
     req.session.save(err => {

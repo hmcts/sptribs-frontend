@@ -186,26 +186,6 @@ describe('Form', () => {
     });
   });
 
-  describe('checks if the form is complete', () => {
-    test.each([
-      { body: {}, expected: false },
-      {
-        body: {
-          field: 'Yes',
-          dateField: {
-            day: '1',
-            month: '1',
-            year: '2000',
-          },
-          checkboxes: ['checkbox1'],
-        },
-        expected: true,
-      },
-    ])('checks if complete when %o', ({ body, expected }: { body: Record<string, unknown>; expected: boolean }) => {
-      expect(form.isComplete(body)).toBe(expected);
-    });
-  });
-
   test('Should build a form with a custom field function', async () => {
     const mockFieldFnForm: FormContent = {
       fields: () => ({

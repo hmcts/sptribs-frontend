@@ -35,6 +35,7 @@ export interface AppSession extends Session {
   fileErrors: any[];
   addresses: [];
   returnUrl?: string;
+  isCheckYourAnswers?: boolean;
   cookieStorageMessage?: boolean;
 }
 

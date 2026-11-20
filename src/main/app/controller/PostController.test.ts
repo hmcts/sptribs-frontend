@@ -10,10 +10,12 @@ import { AppRequest } from './AppRequest';
 import { PostController } from './PostController';
 
 const getNextStepUrlMock = jest.spyOn(steps, 'getNextStepUrl');
+const getNextCyaStepUrlMock = jest.spyOn(steps, 'getNextCyaStepUrl');
 
 describe('PostController', () => {
   afterEach(() => {
     getNextStepUrlMock.mockClear();
+    getNextCyaStepUrlMock.mockClear();
   });
 
   const mockFormContent = {
@@ -403,6 +405,61 @@ describe('PostController', () => {
       const eventName = controller.getEventName(req);
 
       expect(eventName).toBeUndefined();
+    });
+  });
+
+  describe('redirect', () => {
+    const controller = new PostController({});
+
+    test.each([
+      {
+        note: 'stays on current page when validation errors exist',
+        sessionPatch: {
+          errors: [{ propertyName: 'field', errorType: 'required' }],
+          fileErrors: [],
+        },
+        expectedRedirect: '/current-page',
+        expectedNextStepCalls: 0,
+        expectedNextCyaCalls: 0,
+      },
+      {
+        note: 'stays on current page when file errors exist',
+        sessionPatch: { errors: [], fileErrors: [{ text: 'bad upload', href: '#' }] },
+        expectedRedirect: '/current-page',
+        expectedNextStepCalls: 0,
+        expectedNextCyaCalls: 0,
+      },
+      {
+        note: 'uses CYA next-step logic when in CYA flow and no errors',
+        sessionPatch: { errors: [], fileErrors: [], isCheckYourAnswers: true },
+        expectedRedirect: '/next-cya-step',
+        expectedNextStepCalls: 0,
+        expectedNextCyaCalls: 1,
+      },
+      {
+        note: 'uses normal next-step logic when not in CYA flow and no errors',
+        sessionPatch: { errors: [], fileErrors: [], isCheckYourAnswers: false },
+        expectedRedirect: '/next-normal-step',
+        expectedNextStepCalls: 1,
+        expectedNextCyaCalls: 0,
+      },
+    ])('$note', ({ sessionPatch, expectedRedirect, expectedNextStepCalls, expectedNextCyaCalls }) => {
+      getNextStepUrlMock.mockReturnValue('/next-normal-step');
+      getNextCyaStepUrlMock.mockReturnValue('/next-cya-step');
+
+      const req = mockRequest({
+        session: sessionPatch,
+        url: '/current-page',
+        path: '/current-page',
+        originalUrl: '/current-page',
+      });
+      const res = mockResponse();
+
+      controller.redirect(req, res);
+
+      expect(res.redirect).toHaveBeenCalledWith(expectedRedirect + '#');
+      expect(getNextStepUrlMock).toHaveBeenCalledTimes(expectedNextStepCalls);
+      expect(getNextCyaStepUrlMock).toHaveBeenCalledTimes(expectedNextCyaCalls);
     });
   });
 });

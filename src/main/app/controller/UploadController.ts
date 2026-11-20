@@ -8,7 +8,6 @@ import { AppRequest } from '../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../app/form/Form';
 import { ResourceReader } from '../../modules/resourcereader/ResourceReader';
-import { UPLOAD_APPEAL_FORM, UPLOAD_SUPPORTING_DOCUMENTS } from '../../steps/urls';
 import { CaseDocument } from '../case/case';
 import { CITIZEN_CIC_UPDATE_CASE } from '../case/definition';
 import { fromApiFormat } from '../case/from-api-format';
@@ -137,12 +136,8 @@ export class UploadController extends PostController<AnyObject> {
           eventTrigger.token
         );
 
-        req.session.save(err => {
-          if (err) {
-            throw err;
-          }
-          res.redirect(this.getNextPageRedirectUrl());
-        });
+        // Successfully continued
+        this.redirect(req, res);
       } catch (error) {
         logger.error(error);
         this.createUploadedFileError(req, res, chooseFileLink, 'UPLOAD_DELETE_FAIL_ERROR');
@@ -189,7 +184,6 @@ export class UploadController extends PostController<AnyObject> {
   private uploadFileError(
     req: AppRequest<AnyObject>,
     res: Response<any, Record<string, any>>,
-    redirectUrlIfError: string,
     errorMessage?: string,
     link?: string
   ): void {
@@ -198,7 +192,7 @@ export class UploadController extends PostController<AnyObject> {
       href: link,
     });
 
-    this.redirect(req, res, redirectUrlIfError);
+    this.redirect(req, res);
   }
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
@@ -234,12 +228,7 @@ export class UploadController extends PostController<AnyObject> {
     }
 
     if (req.session.errors?.length) {
-      req.session.save(err => {
-        if (err) {
-          throw err;
-        }
-        res.redirect(this.getCurrentPageRedirectUrl());
-      });
+      this.redirect(req, res);
     } else if (saveAndContinue) {
       await this.postDocumentUploader(req, res);
     } else if (isNull(req.files)) {
@@ -268,26 +257,18 @@ export class UploadController extends PostController<AnyObject> {
       if (isValidMimeType && isValidFileSize) {
         await this.uploadDocument(req, res, chooseFileLink);
       } else {
-        this.redirect(req, res, this.getCurrentPageRedirectUrl());
+        this.redirect(req, res);
       }
     } else {
       this.createUploadedFileError(req, res, filesUploadedLink, 'TOTAL_FILES_EXCEED_ERROR');
 
-      this.redirect(req, res, this.getCurrentPageRedirectUrl());
+      this.redirect(req, res);
     }
   }
 
   //methods overridden in subclasses
   protected getPropertyName(): string {
     return 'caseDocuments';
-  }
-
-  protected getNextPageRedirectUrl(): `/${string}` {
-    return UPLOAD_SUPPORTING_DOCUMENTS;
-  }
-
-  protected getCurrentPageRedirectUrl(): `/${string}` {
-    return UPLOAD_APPEAL_FORM;
   }
 
   protected getValidationTotal(): string {
@@ -327,7 +308,7 @@ export class UploadController extends PostController<AnyObject> {
     errorType: string
   ): void {
     let errorMessage;
-    const fileValidation = FileValidations.ResourceReaderContents(req, this.getCurrentPageRedirectUrl());
+    const fileValidation = FileValidations.ResourceReaderContents(req, req.path);
     switch (errorType) {
       case 'NO_FILE_UPLOAD_ERROR':
         errorMessage = fileValidation.NO_FILE_UPLOAD_ERROR;
@@ -349,7 +330,7 @@ export class UploadController extends PostController<AnyObject> {
         errorMessage = fileValidation.UPLOAD_DELETE_FAIL_ERROR;
     }
 
-    this.uploadFileError(req, res, this.getCurrentPageRedirectUrl(), errorMessage, fileLink);
+    this.uploadFileError(req, res, errorMessage, fileLink);
   }
 
   private setUpForm(req: AppRequest<AnyObject>): void {
@@ -384,7 +365,9 @@ export class UploadController extends PostController<AnyObject> {
       }
 
       req.session[this.getPropertyName()].push(newDocument);
-      req.session.save(() => this.redirect(req, res, this.getCurrentPageRedirectUrl()));
+
+      // Uploaded document, redirect back to the current page.
+      this.redirect(req, res, req.url);
     } catch (error) {
       logger.error(error);
       this.createUploadedFileError(req, res, chooseFileLink, 'UPDATE_DELETE_FAIL_ERROR');
