@@ -7,7 +7,7 @@
     legend: {
       text: getContent(field.label),
       classes: "govuk-visually-hidden" if field.labelHidden else "govuk-fieldset__legend--m",
-      isPageHeading: true if not title
+      isPageHeading: field.isPageHeading
     }
   },
   hint: {
