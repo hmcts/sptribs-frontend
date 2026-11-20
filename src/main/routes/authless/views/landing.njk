@@ -40,8 +40,6 @@
 {% block content %}
   <h1 class="govuk-heading-l">{{ content['heading'] }}</h1>
   <p class="govuk-body-l">{{ content['body'] | safe }}</p>
-  <h2 class="govuk-heading-m"><span class="govuk-!-font-weight-bold">{{ content['subheading'] }}</span></h2>
-  <p class="govuk-body-l">{{ content['subbody'] | safe }}</p>
 
   <br/>
 
@@ -50,6 +48,14 @@
     href: loginURL,
     isStartButton: true
   }) }}
+
+  <h2 class="govuk-heading-l">{{ content['accessHeading'] }}</h2>
+  <p class="govuk-body-l">{{ content['accessBody'] }}</p>
+  <p class="govuk-body-l"><a href="{{ dashboardURL }}" class="govuk-link">{{ content['dashboardLink'] }}</a></p>
+
+  <h2 class="govuk-heading-l">{{ content['uploadHeading'] }}</h2>
+  <p class="govuk-body-l">{{ content['uploadBody'] }}</p>
+  <p class="govuk-body-l"><a href="{{ dssUpdateURL }}" class="govuk-link">{{ content['updateLink'] }}</a></p>
 {% endblock %}
 
 {% block govukFooter %}
