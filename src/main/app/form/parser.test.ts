@@ -1,5 +1,5 @@
 import { FormField } from './Form';
-import { convertToDateObject, setupCheckboxParser } from './parser';
+import { convertToDateObject, setupCheckboxParser, trimString } from './parser';
 
 describe('Parser', () => {
   describe('convertToDateObject()', () => {
@@ -15,6 +15,18 @@ describe('Parser', () => {
         month: '1',
         year: '1',
       });
+    });
+  });
+
+  describe('trimString()', () => {
+    test('correctly trims string values', () => {
+      const mockBody = { testField: '  test value  ' };
+      expect(trimString('testField', mockBody)).toBe('test value');
+    });
+
+    test('returns empty string if value is undefined', () => {
+      const mockBody = { testField: undefined };
+      expect(trimString('testField', mockBody)).toBe('');
     });
   });
 
