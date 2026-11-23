@@ -78,7 +78,8 @@ export const isFileNameValid = (filename: string | undefined): filename is strin
 };
 
 export const isCICAReferenceNumberAcceptable: Validator = value => {
-  if (value && value[0] !== 'G' && value[0] !== 'X') {
+  const allowedFirstCharacters = ['G', 'X', 'g', 'x'];
+  if (value && !allowedFirstCharacters.includes(value[0])) {
     return ValidationError.INVALID;
   }
 };
