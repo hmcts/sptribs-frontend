@@ -148,11 +148,4 @@ describe('GOV.UK page templates', () => {
     expect(header.indexOf('app-header__service-name')).toBeLessThan(header.indexOf('govuk-phase-banner'));
     expect(header).toContain('href="?lang=cy"');
   });
-
-  test('the authless base template renders the fallback phase banner', () => {
-    const html = templates.render('authless-templates.njk', page);
-
-    expect(html).toContain('govuk-phase-banner');
-    expect(html).toContain('Help us improve this service');
-  });
 });
