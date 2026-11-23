@@ -1,6 +1,6 @@
 locals {
   # Preview uses the AAT cache. Keep production and unlisted environments intact.
-  retire_classic_redis = contains(["aat", "demo", "ithc", "perftest"], var.env)
+  retire_classic_redis = true
 }
 
 # Preserve existing resource identities when adding count, especially in production.
