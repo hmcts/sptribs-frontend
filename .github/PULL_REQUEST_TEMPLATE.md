@@ -4,7 +4,7 @@ Enter a description.
 
 ### JIRA link
 
-https://tools.hmcts.net/jira/browse/DTSSTCI-
+https://hmcts.atlassian.net/browse/DTSSTCI-
 
 **Before merging a pull request make sure that:**
 

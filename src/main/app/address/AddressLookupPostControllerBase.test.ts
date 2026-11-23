@@ -58,7 +58,7 @@ describe('AddressLookupPostControllerBase', () => {
       mockGetNextStepUrl.mockReturnValue('/MOCK_ENDPOINT');
       await controller.post(req, res);
       expect(mockGetNextStepUrl).toHaveBeenCalledWith(req, req.session.userCase);
-      expect(res.redirect).toHaveBeenCalledWith('/MOCK_ENDPOINT');
+      expect(res.redirect).toHaveBeenCalledWith('/MOCK_ENDPOINT#');
     });
   });
 
@@ -85,7 +85,7 @@ describe('AddressLookupPostControllerBase', () => {
       mockGetNextStepUrl.mockReturnValue('/MOCK_ENDPOINT');
       await controller.post(req, res);
       expect(mockGetNextStepUrl).not.toHaveBeenCalled();
-      expect(res.redirect).toHaveBeenCalledWith('/request');
+      expect(res.redirect).toHaveBeenCalledWith('/request#');
     });
   });
 
