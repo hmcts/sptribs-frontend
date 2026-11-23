@@ -12,7 +12,7 @@ export const fields: ToApiConverters = {
   }),
   cicaReferenceNumber: (data: Case) => ({
     editCicaCaseDetails: {
-      cicaReferenceNumber: data.cicaReferenceNumber,
+      cicaReferenceNumber: toApiCicaReferenceNumber(data.cicaReferenceNumber),
     },
   }),
   initialCicaDecisionDate: (data: Case) => ({
@@ -22,7 +22,12 @@ export const fields: ToApiConverters = {
 
 export const toApiFormat = (data: Partial<Case>): CaseData => formatCase(fields, data);
 
-export const toApiDate = (date: CaseDate | undefined): string => {
+const toApiCicaReferenceNumber = (cicaReferenceNumber: string): string => {
+  // Convert the first character to uppercase, since we accepted lowercase characters as user input
+  return cicaReferenceNumber[0].toUpperCase() + cicaReferenceNumber.slice(1);
+};
+
+const toApiDate = (date: CaseDate | undefined): string => {
   if (!date?.year || !date?.month || !date?.day) {
     return '';
   }
