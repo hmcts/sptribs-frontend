@@ -67,49 +67,28 @@ describe('Validation', () => {
   });
 
   describe('isCICAReferenceNumberAcceptable()', () => {
-    test('should return error if value does not begin with G or X and additional text before', async () => {
-      const isValid = isCICAReferenceNumberAcceptable('ref G');
-      expect(isValid).toStrictEqual('invalid');
-    });
-
-    test('should return error if value does not begin with G or X and additional text before and after', async () => {
-      const isValid = isCICAReferenceNumberAcceptable('ref G testCicaRef123');
-      expect(isValid).toStrictEqual('invalid');
-    });
-
-    test('should return error if value does not begin with or contain G or X and one word', async () => {
-      const isValid = isCICAReferenceNumberAcceptable('testCicaRef123');
-      expect(isValid).toStrictEqual('invalid');
-    });
-
-    test('should return error if value begins with whitespace but not G or X', async () => {
-      const isValid = isCICAReferenceNumberAcceptable(' G testCicaRef123');
-      expect(isValid).toStrictEqual('invalid');
-    });
-
-    test('should return error if value begins with multiple whitespaces but not G or X', async () => {
-      const isValid = isCICAReferenceNumberAcceptable('     G testCicaRef123');
-      expect(isValid).toStrictEqual('invalid');
-    });
-
-    test('should return null if value passed is valid (i.e. begins G)', async () => {
-      const isValid = isCICAReferenceNumberAcceptable('G testCicaRef123');
-      expect(isValid).toStrictEqual(undefined);
-    });
-
-    test('should return null if value passed is valid (i.e. begins X)', async () => {
-      const isValid = isCICAReferenceNumberAcceptable('X testCicaRef123');
-      expect(isValid).toStrictEqual(undefined);
-    });
-
-    test('should return null if value passed is empty', async () => {
-      const isValid = isCICAReferenceNumberAcceptable('');
-      expect(isValid).toStrictEqual(undefined);
-    });
-
-    test('should return null if value passed is undefined', async () => {
-      const isValid = isCICAReferenceNumberAcceptable(undefined);
-      expect(isValid).toStrictEqual(undefined);
+    test.each([
+      { note: 'valid (empty)', value: '', expected: undefined },
+      { note: 'valid (begins with G)', value: 'G testCicaRef123', expected: undefined },
+      { note: 'valid (begins with X)', value: 'X testCicaRef123', expected: undefined },
+      { note: 'valid (begins with g)', value: 'g testCicaRef123', expected: undefined },
+      { note: 'valid (begins with x)', value: 'x testCicaRef123', expected: undefined },
+      { note: 'invalid (does not begin with G or X)', value: 'testCicaRef123', expected: 'invalid' },
+      { note: 'invalid (does not begin with G or X and additional text before)', value: 'ref G', expected: 'invalid' },
+      {
+        note: 'invalid (does not begin with G or X and additional text before and after)',
+        value: 'ref G testCicaRef123',
+        expected: 'invalid',
+      },
+      { note: 'invalid (begins with whitespace but not G or X)', value: ' G testCicaRef123', expected: 'invalid' },
+      {
+        note: 'invalid (begins with multiple whitespaces but not G or X)',
+        value: '     G testCicaRef123',
+        expected: 'invalid',
+      },
+    ])('validates when $note', ({ value, expected }) => {
+      const isValid = isCICAReferenceNumberAcceptable(value);
+      expect(isValid).toStrictEqual(expected);
     });
   });
 
