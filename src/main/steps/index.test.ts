@@ -10,7 +10,7 @@ import {
   SUBJECT_DETAILS,
 } from './urls';
 
-import { getNextCyaStepUrl, getNextStepUrl, inCyaFlow } from './index';
+import { getNextCyaStepUrl, getNextStepUrl, isCyaCapable } from './index';
 
 describe('getNextStepUrl', () => {
   test.each([
@@ -86,6 +86,6 @@ describe('inCyaFlow', () => {
       expected: false,
     },
   ])('$note', ({ path, userCase, expected }) => {
-    expect(inCyaFlow(path, userCase ?? {})).toBe(expected);
+    expect(isCyaCapable(path, userCase ?? {})).toBe(expected);
   });
 });

@@ -79,8 +79,8 @@ export const getNextStepUrl = (req: AppRequest, data: Partial<Case>): string => 
   return `${url}${queryString}`;
 };
 
-/** Get whether a path is part of a Check Your Answers flow. */
-export const inCyaFlow = (path: string, userCase: Partial<Case>): boolean => {
+/** Get whether a step could be part of a Check Your Answers flow. */
+export const isCyaCapable = (path: string, userCase: Partial<Case>): boolean => {
   if (path === CHECK_YOUR_ANSWERS || path === APPLICATION_SUBMITTED || path === COOKIES) {
     return false;
   }
