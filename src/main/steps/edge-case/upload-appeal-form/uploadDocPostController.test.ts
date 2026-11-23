@@ -89,7 +89,7 @@ describe('Document upload controller', () => {
     await controller.post(req, res);
 
     expect(getNextStepUrlMock).not.toHaveBeenCalled();
-    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_APPEAL_FORM);
+    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_APPEAL_FORM + '#');
     expect(req.session.fileErrors).toHaveLength(1);
     expect(req.session.fileErrors[0].text).toEqual('This service only accepts files in the formats - MS Word, PDF');
   });
@@ -118,7 +118,7 @@ describe('Document upload controller', () => {
 
     expect(req.locals.api.triggerEvent).not.toHaveBeenCalled();
     expect(getNextStepUrlMock).not.toHaveBeenCalled();
-    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_APPEAL_FORM);
+    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_APPEAL_FORM + '#');
     expect(req.session.fileErrors).toHaveLength(1);
     expect(req.session.fileErrors[0].text).toEqual(
       'File size exceeds the maximum permitted value. Upload a file that is less than 100 MB'
@@ -149,7 +149,7 @@ describe('Document upload controller', () => {
 
     expect(req.locals.api.triggerEvent).not.toHaveBeenCalled();
     expect(getNextStepUrlMock).not.toHaveBeenCalled();
-    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_APPEAL_FORM);
+    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_APPEAL_FORM + '#');
     expect(req.session.fileErrors).toHaveLength(2);
     expect(req.session.fileErrors[0].text).toEqual(
       'File size exceeds the maximum permitted value. Upload a file that is less than 100 MB'
@@ -200,7 +200,7 @@ describe('Document upload controller', () => {
     expect(req.session.fileErrors).toHaveLength(0);
     expect(req.session.caseDocuments).toHaveLength(1);
     expect(req.session.caseDocuments[0].originalDocumentName).toEqual('test.pdf');
-    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_APPEAL_FORM);
+    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_APPEAL_FORM + '#');
     expect(req.locals.documentApi.create).toHaveBeenCalled();
   });
 
@@ -235,7 +235,7 @@ describe('Document upload controller', () => {
 
     await controller.post(req, res);
     req.body['documentUploadProceed'] = false;
-    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_APPEAL_FORM);
+    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_APPEAL_FORM + '#');
     expect(req.locals.documentApi.create).toHaveBeenCalled();
     expect(req.session.fileErrors[0].text).toEqual('Document upload or deletion has failed. Try again');
   });
@@ -339,7 +339,7 @@ describe('checking for the redirect of post document upload', () => {
     ] as DocumentManagementFile[];
 
     await postingController.postDocumentUploader(req, res);
-    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_APPEAL_FORM);
+    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_APPEAL_FORM + '#');
     expect(req.session.fileErrors).toHaveLength(1);
     expect(req.session.fileErrors[0].text).toEqual('Document upload or deletion has failed. Try again');
   });
@@ -356,7 +356,7 @@ describe('checking for the redirect of post document upload', () => {
     req.body['saveAndContinue'] = true;
 
     await postingController.post(req, res);
-    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_APPEAL_FORM);
+    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_APPEAL_FORM + '#');
     expect(req.session.fileErrors[0].text).toEqual('You must upload the application before you can proceed further');
   });
 
@@ -370,7 +370,7 @@ describe('checking for the redirect of post document upload', () => {
     delete req.body['saveAndContinue'];
 
     await postingController.post(req, res);
-    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_APPEAL_FORM);
+    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_APPEAL_FORM + '#');
     expect(req.session.fileErrors[0].text).toEqual('Choose a file to upload');
   });
 
@@ -439,7 +439,7 @@ describe('checking for the redirect of post document upload', () => {
     delete req.body['saveAndContinue'];
 
     await postingController.post(req, res);
-    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_APPEAL_FORM);
+    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_APPEAL_FORM + '#');
     expect(req.session.fileErrors[0].text).toEqual(
       'You can upload 5 files only. Delete one of the uploaded files and retry'
     );

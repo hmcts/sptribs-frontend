@@ -47,7 +47,7 @@ describe('PostController', () => {
       expect(create).toHaveBeenCalledWith({ files: req.files, classification: 'PUBLIC' });
       expect(req.session[sessionProperty]).toEqual([document]);
       expect(req.session.fileErrors).toHaveLength(0);
-      expect(res.redirect).toHaveBeenCalledWith(url);
+      expect(res.redirect).toHaveBeenCalledWith(url + '#');
     });
 
     test('shows the existing validation error when neither text fields nor a file are provided', async () => {
@@ -61,7 +61,7 @@ describe('PostController', () => {
       expect(req.locals.documentApi.create).not.toHaveBeenCalled();
       expect(req.session.fileErrors).toHaveLength(1);
       expect(req.session.fileErrors[0].href).toBe('#file-upload-1');
-      expect(res.redirect).toHaveBeenCalledWith(url);
+      expect(res.redirect).toHaveBeenCalledWith(url + '#');
     });
   });
 
@@ -263,7 +263,7 @@ describe('PostController', () => {
     expect(req.session.fileErrors).toHaveLength(1);
     expect(req.session.fileErrors[0].text).toEqual('You must upload the application before you can proceed further');
     expect(req.session.fileErrors[0].href).toEqual('#file-upload-1');
-    expect(res.redirect).toHaveBeenCalledWith('/' + testCurrentPageRedirectUrl);
+    expect(res.redirect).toHaveBeenCalledWith('/' + testCurrentPageRedirectUrl + '#');
   });
 
   test('Should upload additional document with document relevance successfully', async () => {
@@ -304,7 +304,7 @@ describe('PostController', () => {
     req.body['documentUploadProceed'] = false;
 
     await controller.post(req, res);
-    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION);
+    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_OTHER_INFORMATION + '#');
     expect(req.session.fileErrors).toHaveLength(0);
     expect(req.session.otherCaseInformation).toHaveLength(1);
     expect(req.session.otherCaseInformation[0]).toHaveProperty('description');
