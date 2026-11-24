@@ -333,7 +333,6 @@ describe('manageCya', () => {
       path: '/representation',
       query: { 'check-your-answers': '' },
       initialFlag: false,
-      userCase: { subjectFullName: 'Test User' },
       expected: true,
     },
     {
@@ -341,7 +340,6 @@ describe('manageCya', () => {
       path: '/representation',
       query: {},
       initialFlag: true,
-      userCase: { subjectFullName: 'Test User' },
       expected: true,
     },
     {
@@ -349,7 +347,6 @@ describe('manageCya', () => {
       path: '/check-your-answers',
       query: {},
       initialFlag: true,
-      userCase: { subjectFullName: 'Test User' },
       expected: false,
     },
     {
@@ -357,7 +354,6 @@ describe('manageCya', () => {
       path: '/not-a-step',
       query: { 'check-your-answers': '' },
       initialFlag: true,
-      userCase: { subjectFullName: 'Test User' },
       expected: false,
     },
     {
@@ -365,7 +361,6 @@ describe('manageCya', () => {
       path: '/not-a-step',
       query: {},
       initialFlag: true,
-      userCase: { subjectFullName: 'Test User' },
       expected: false,
     },
     {
@@ -373,7 +368,7 @@ describe('manageCya', () => {
       path: '/subject-details',
       query: {},
       initialFlag: true,
-      userCase: {},
+      userCase: { id: '' },
       expected: false,
     },
   ])('$note', ({ path, query, initialFlag, userCase, expected }) => {
