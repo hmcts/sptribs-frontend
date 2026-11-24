@@ -11,8 +11,8 @@ import {
   SAVE_AND_SIGN_OUT,
   SUBJECT_CONTACT_DETAILS,
 } from '../../steps/urls';
-import { Case, CaseWithId } from '../case/case';
-import { CITIZEN_CIC_CREATE_CASE, CITIZEN_CIC_SUBMIT_CASE, CITIZEN_CIC_UPDATE_CASE, YesOrNo } from '../case/definition';
+import { Case, CaseWithId, applyFormUpdatesToCase } from '../case/case';
+import { CITIZEN_CIC_CREATE_CASE, CITIZEN_CIC_SUBMIT_CASE, CITIZEN_CIC_UPDATE_CASE } from '../case/definition';
 import { Form, FormFields, FormFieldsFn } from '../form/Form';
 import { ValidationError } from '../form/validation';
 
@@ -64,10 +64,10 @@ export class PostController<T extends AnyObject> {
   }
 
   private async saveAndContinue(req: AppRequest<T>, res: Response, form: Form, formData: Partial<Case>): Promise<void> {
-    Object.assign(req.session.userCase, formData);
     req.session.errors = form.getErrors(formData);
-
     this.filterErrorsForSaveAsDraft(req);
+
+    const formDataToSend = applyFormUpdatesToCase(req.session.userCase, formData);
 
     if (req.session?.user && req.session.errors.length === 0) {
       if (!(Object.values(noHitToSaveAndContinue) as string[]).includes(req.originalUrl)) {
@@ -75,14 +75,14 @@ export class PostController<T extends AnyObject> {
         if (eventName === CITIZEN_CIC_CREATE_CASE) {
           req.session.userCase = await this.createCase(req);
         } else if (eventName === CITIZEN_CIC_UPDATE_CASE) {
-          formData.representation = req.session.userCase.representation === YesOrNo.YES ? YesOrNo.YES : YesOrNo.NO;
-          req.session.userCase = await this.save(req, formData, eventName);
+          req.session.userCase = await this.save(req, formDataToSend, eventName);
         }
       }
     }
 
     this.redirect(req, res);
   }
+
   async createCase(req: AppRequest<T>): Promise<CaseWithId | PromiseLike<CaseWithId>> {
     try {
       req.session.userCase = await req.locals.api.createCase(req.session.userCase);

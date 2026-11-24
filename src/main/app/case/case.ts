@@ -1,13 +1,7 @@
 import { AnyObject } from '../controller/PostController';
 
-import type {
-  CaseData,
-  CaseworkerCICDocument,
-  EditCicaCaseDetails,
-  LanguagePreference,
-  ListValue,
-  YesOrNo,
-} from './definition';
+import type { CaseData, CaseworkerCICDocument, EditCicaCaseDetails, LanguagePreference, ListValue } from './definition';
+import { YesOrNo } from './definition';
 
 export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
   caseTypeOfApplication: 'dssCaseDataCaseTypeOfApplication',
@@ -70,11 +64,16 @@ export interface Case {
   subjectContactNumber: string;
   subjectAgreeContact: string;
   representation: YesOrNo;
-  representationQualified: YesOrNo;
-  representativeFullName: string;
-  representativeOrganisationName: string;
-  representativeContactNumber: string;
-  representativeEmailAddress: string;
+  /** Must only be present if `representation` is `YesOrNo.YES` */
+  representationQualified?: YesOrNo;
+  /** Must only be present if `representation` is `YesOrNo.YES` */
+  representativeFullName?: string;
+  /** Must only be present if `representation` is `YesOrNo.YES` */
+  representativeOrganisationName?: string;
+  /** Must only be present if `representation` is `YesOrNo.YES` */
+  representativeContactNumber?: string;
+  /** Must only be present if `representation` is `YesOrNo.YES` */
+  representativeEmailAddress?: string;
   cicaReferenceNumber: string;
   ccdReferenceNumber: string;
   editCicaCaseDetails: EditCicaCaseDetails;
@@ -93,6 +92,40 @@ export interface CaseWithId extends Case {
   id: string;
   state: any;
 }
+
+/**
+ * Apply a page's form submission to the case. This mutates `userCase` in place.
+ * <br>
+ * This isn't quite as simple as `Object.assign`, because we need to ensure that some invariants are maintained.
+ * For example, if the user has indicated that they do not have a representative, we need to ensure that all
+ * representative fields are undefined.
+ * @return The form data which must be sent off to apply these changes to the remote server. This is usually equal
+ * to the `formData` argument, but may be different if we need to clear out some fields in other parts of the case.
+ */
+export const applyFormUpdatesToCase = (userCase: Partial<Case>, formData: Partial<Case>): Partial<Case> => {
+  Object.assign(userCase, formData);
+  const newFormData = { ...formData };
+
+  if (userCase.representation === YesOrNo.NO) {
+    // Representative is unset, so ensure that all representative fields are cleared.
+    delete userCase.representationQualified;
+    delete userCase.representativeFullName;
+    delete userCase.representativeOrganisationName;
+    delete userCase.representativeContactNumber;
+    delete userCase.representativeEmailAddress;
+
+    // And tell the form to explicitly clear out these fields on the remote server too.
+    // Cast to `any` because our API types currently don't accept null as a valid value, even though null is
+    // the correct way to clear out fields in CCD.
+    newFormData.representationQualified = null as any;
+    newFormData.representativeFullName = null as any;
+    newFormData.representativeOrganisationName = null as any;
+    newFormData.representativeContactNumber = null as any;
+    newFormData.representativeEmailAddress = null as any;
+  }
+
+  return newFormData;
+};
 
 export enum Checkbox {
   Checked = 'checked',
