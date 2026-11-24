@@ -51,18 +51,23 @@ jest.mock('cookie-parser', () => {
   };
 });
 
+import { randomUUID } from 'node:crypto';
+
 import config from 'config';
 import { Application } from 'express';
 import { LoggerInstance } from 'winston';
 
 import { SessionStorage } from '.';
 
+const mockSessionSecret = randomUUID();
+const mockRedisKey = randomUUID();
+
 describe('session', () => {
   let mockApp;
   let mockLogger: LoggerInstance;
 
   beforeEach(() => {
-    config.get = jest.fn().mockImplementationOnce(() => 'MOCK_HIDDEN_VALUE'); // silly fortify false positive
+    config.get = jest.fn().mockImplementationOnce(() => mockSessionSecret);
     mockApp = {
       locals: {
         developmentMode: false,
@@ -87,7 +92,7 @@ describe('session', () => {
       name: 'sptribs-frontend-session',
       resave: false,
       saveUninitialized: false,
-      secret: 'MOCK_HIDDEN_VALUE',
+      secret: mockSessionSecret,
       cookie: {
         httpOnly: true,
         maxAge: 1260000,
@@ -101,7 +106,7 @@ describe('session', () => {
 
   const mockConfigValues = (values: Record<string, unknown>) => {
     config.get = jest.fn((key: string) =>
-      key in values ? values[key] : 'MOCK_HIDDEN_VALUE'
+      key in values ? values[key] : mockSessionSecret
     ) as unknown as typeof config.get;
   };
 
@@ -110,7 +115,7 @@ describe('session', () => {
       mockConfigValues({
         'session.redis.host': 'MOCK_REDIS_HOST',
         'session.redis.port': 6380,
-        'session.redis.key': 'MOCK_REDIS_KEY',
+        'session.redis.key': mockRedisKey,
       });
       mockApp = {
         use: jest.fn(callback => callback),
@@ -133,7 +138,7 @@ describe('session', () => {
           tls: true,
           connectTimeout: 15000,
         },
-        password: 'MOCK_REDIS_KEY',
+        password: mockRedisKey,
       });
     });
 
@@ -149,7 +154,7 @@ describe('session', () => {
       mockConfigValues({
         'session.redis.host': 'sptribs-frontend-aat.uksouth.redis.azure.net',
         'session.redis.port': '10000',
-        'session.redis.key': 'MOCK_REDIS_KEY',
+        'session.redis.key': mockRedisKey,
       });
 
       new SessionStorage().enableFor(mockApp, mockLogger);
@@ -163,7 +168,7 @@ describe('session', () => {
           tls: true,
           connectTimeout: 15000,
         },
-        password: 'MOCK_REDIS_KEY',
+        password: mockRedisKey,
       });
     });
 
@@ -195,10 +200,10 @@ describe('SessionStorage getStore error handling', () => {
 
     config.get = jest
       .fn()
-      .mockImplementationOnce(() => 'MOCK_SECRET')
+      .mockImplementationOnce(() => mockSessionSecret)
       .mockImplementationOnce(() => 'MOCK_REDIS_HOST')
       .mockImplementationOnce(() => 6380)
-      .mockImplementationOnce(() => 'MOCK_REDIS_KEY');
+      .mockImplementationOnce(() => mockRedisKey);
 
     const mockApp = {
       use: jest.fn(callback => callback),
