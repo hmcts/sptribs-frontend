@@ -39,7 +39,7 @@ describe('RepresentationPostController', () => {
     await controller.post(req, res);
 
     expect(getNextStepUrlMock).not.toHaveBeenCalled();
-    expect(res.redirect).toHaveBeenCalledWith(req.path);
+    expect(res.redirect).toHaveBeenCalledWith(req.path + '#');
     expect(req.session.errors).toEqual(errors);
   });
 
@@ -68,7 +68,7 @@ describe('RepresentationPostController', () => {
     await controller.post(req, res);
 
     expect(getNextStepUrlMock).not.toHaveBeenCalled();
-    expect(res.redirect).toHaveBeenCalledWith(REPRESENTATION_QUALIFIED);
+    expect(res.redirect).toHaveBeenCalledWith(REPRESENTATION_QUALIFIED + '#');
   });
 
   test('Should not redirect to the representation qualified page when errors occur and "Yes" radio button selected', async () => {
@@ -102,7 +102,7 @@ describe('RepresentationPostController', () => {
     await controller.post(req, res);
 
     expect(getNextStepUrlMock).not.toHaveBeenCalled();
-    expect(res.redirect).toHaveBeenCalledWith(req.path);
+    expect(res.redirect).toHaveBeenCalledWith(req.path + '#');
     expect(req.session.errors).toEqual(errors);
 
     (Form.prototype.getErrors as jest.Mock).mockRestore();
@@ -133,7 +133,7 @@ describe('RepresentationPostController', () => {
     await controller.post(req, res);
 
     expect(getNextStepUrlMock).not.toHaveBeenCalled();
-    expect(res.redirect).toHaveBeenCalledWith(CICA_REFERENCE_NUMBER);
+    expect(res.redirect).toHaveBeenCalledWith(CICA_REFERENCE_NUMBER + '#');
   });
 
   test('Should redirect to cica-reference-number page when "No" radio button selected on form with a custom field function', async () => {
@@ -156,7 +156,7 @@ describe('RepresentationPostController', () => {
     await controller.post(req, res);
 
     expect(getNextStepUrlMock).not.toHaveBeenCalled();
-    expect(res.redirect).toHaveBeenCalledWith(CICA_REFERENCE_NUMBER);
+    expect(res.redirect).toHaveBeenCalledWith(CICA_REFERENCE_NUMBER + '#');
     expect(fieldsFn).toHaveBeenCalledWith(req.session.userCase);
   });
 });

@@ -37,7 +37,7 @@ export class SessionStorage {
     const redisHost = config.get('session.redis.host') as string;
     if (redisHost) {
       const redisPort = Number(config.get('session.redis.port'));
-      const redisService = this.getRedisService(redisHost);
+      const redisService = redisHost.endsWith('.redis.azure.net') ? 'Azure Managed Redis' : 'Redis';
       logger.info(`Using ${redisService} for session storage`);
 
       const client = createClient({
@@ -59,15 +59,5 @@ export class SessionStorage {
     }
 
     return new FileStore({ path: '/tmp' });
-  }
-
-  private getRedisService(redisHost: string): string {
-    if (redisHost.includes('redis.cache.windows.net')) {
-      return 'Azure Cache for Redis';
-    }
-    if (redisHost.endsWith('.redis.azure.net')) {
-      return 'Azure Managed Redis';
-    }
-    return 'Redis';
   }
 }

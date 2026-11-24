@@ -4,12 +4,13 @@ import { CaseWithId } from '../../app/case/case';
 import { Fee } from '../../app/case/definition';
 import { Eligibility } from '../../app/controller/AppRequest';
 import { PageContent, TranslationFn } from '../../app/controller/GetController';
+import { FormFields } from '../../app/form/Form';
 
 const en = {
   phase: 'Beta',
   serviceName: 'Appeal to the First-tier Tribunal',
   feedback:
-    "<b> Help us improve this service </b><br>This is a new service. Help us for others to improve it by <a  class='govuk-link' href='https://www.smartsurvey.co.uk/s/Specials_Feedback?pageurl=currentUrl'target=_blank>giving your feedback</a>",
+    "<b> Help us improve this service </b><br>This is a new service. Help us for others to improve it by <a class='govuk-link' href='https://www.smartsurvey.co.uk/s/Specials_Feedback?pageurl=currentUrl' target=_blank>giving your feedback (opens in a new tab)</a>",
   languageToggle: '<a href="?lng=cy" class="govuk-link language">Cymraeg</a>',
   govUk: 'GOV.UK',
   errorPrefix: 'Error:',
@@ -125,7 +126,7 @@ const cy: typeof en = {
   phase: 'Beta',
   serviceName: 'Apelio i’r Tribiwnlys Haen Gyntaf',
   feedback:
-    "<b>Helpwch ni i wella’r gwasanaeth hwn</b><br> Mae hwn yn wasanaeth newydd. Helpwch ni ei wella i bobl eraill trwy <a class='govuk-link' href='https://www.smartsurvey.co.uk/s/Specials_Feedback/?pageurl=currentUrl' target=_blank>roi eich adborth</a>",
+    "<b>Helpwch ni i wella’r gwasanaeth hwn</b><br> Mae hwn yn wasanaeth newydd. Helpwch ni ei wella i bobl eraill trwy <a class='govuk-link' href='https://www.smartsurvey.co.uk/s/Specials_Feedback/?pageurl=currentUrl' target=_blank>roi eich adborth (yn agor mewn tab newydd)</a>",
   languageToggle: '<a href="?lng=en" class="govuk-link language">English</a>',
   govUk: 'GOV.UK',
   errorPrefix: 'Gwall:',
@@ -261,7 +262,19 @@ export const generatePageContent = ({
   };
 
   if (pageContent) {
-    Object.assign(content, pageContent(content));
+    // Generate the page-specific content and copy it in
+    const generatedPageContent = pageContent(content);
+    Object.assign(content, generatedPageContent);
+
+    // If there is a field with `isPageHeading`, flag this.
+    if (generatedPageContent.form) {
+      const form = generatedPageContent.form as { fields?: FormFields };
+      const fields = Object.values(form.fields ?? {});
+      const pageHeadingField = fields.filter(field => field.isPageHeading);
+      if (pageHeadingField.length > 0) {
+        content.hasFieldPageHeading = true;
+      }
+    }
   }
 
   return content;
@@ -285,6 +298,11 @@ export type CommonContent = typeof en & {
   addresses?: any[];
   eligibility?: Eligibility;
   fee?: Fee;
+  /**
+   * Whether there's a field with `isPageHeading` set. In this case, we should not show the title as a heading.
+   * @see https://design-system.service.gov.uk/components/text-input/#if-youre-asking-one-question-on-the-page
+   */
+  hasFieldPageHeading?: boolean;
 };
 
 export type Language = 'en' | 'cy';

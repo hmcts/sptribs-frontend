@@ -3,7 +3,7 @@ import { TranslationFn } from '../../app/controller/GetController';
 export const en = {
   title: 'Accessibility statement for Appeal against a decision of the Criminal Injuries Compensation Authority',
   websiteRanBy:
-    'This accessibility statement applies to <a href="https://special-tribunals.service.gov.uk/cic-submit" class="govuk-link" target="_blank" aria-label="This link will open in a new tab for https://special-tribunals.service.gov.uk/cic-submit">GOV.UK - The best place to find government services and information (special-tribunals.service.gov.uk)</a> that allows users to submit a criminal injuries compensation appeal online.',
+    'This accessibility statement applies to <a href="https://special-tribunals.service.gov.uk/cic-submit" class="govuk-link" target="_blank" aria-label="This link will open in a new tab for https://special-tribunals.service.gov.uk/cic-submit">GOV.UK - The best place to find government services and information (special-tribunals.service.gov.uk) (opens in a new tab)</a> that allows users to submit a criminal injuries compensation appeal online.',
   asManyAsPossible:
     'This website is run by HM Courts and Tribunals. We want as many people as possible to be able to use this website. For example, that means you should be able to:',
   asManyAsPossibleColours: 'change colours, contrast levels and fonts',
@@ -14,7 +14,7 @@ export const en = {
     'listen to most of the website using a screen reader (including the most recent versions of JAWS, NVDA and VoiceOver)',
   simpleAsPossible: 'We’ve also made the website text as simple as possible to understand.',
   abilityNet:
-    '<a href="https://mcmw.abilitynet.org.uk" class="govuk-link" target="_blank" aria-label="This link will open in a new tab for AbilityNet">AbilityNet</a> has advice on making your device easier to use if you have a disability.',
+    '<a href="https://mcmw.abilitynet.org.uk" class="govuk-link" target="_blank" aria-label="This link will open in a new tab for AbilityNet">AbilityNet (opens in a new tab)</a> has advice on making your device easier to use if you have a disability.',
   howAccessible: 'How accessible this website is',
   somePartsNot: 'We know some parts of this website are not fully accessible:',
   somePartsNotReflow: 'the text will not reflow in a single column when you change the size of the browser window',
@@ -28,7 +28,7 @@ export const en = {
   needMoreInformation:
     'If you need information on this website in a different format like accessible PDF, large print, easy read, audio recording or braille:',
   email:
-    'email <a href="mailto:HMCTSforms@justice.gov.uk" class="govuk-link" aria-label="This link will open in a new email to HMCTSforms@justice.gov.uk">HMCTSforms@justice.gov.uk</a>',
+    'email <a href="mailto:HMCTSforms@justice.gov.uk" class="govuk-link" aria-label="This link will open in a new email to HMCTSforms@justice.gov.uk">HMCTSforms@justice.gov.uk (opens in a new email)</a>',
   phone: 'call 0300 790 6234',
   tribunalsCentre: 'Glasgow Tribunals Centre 20 York Street Glasgow G2 8GT',
   considerYourRequest: 'We’ll consider your request and get back to you in 10 days.',
@@ -38,20 +38,20 @@ export const en = {
   accessibilityPhoneNumber: 'call 0300 790 6234',
   enforcementProcedure: 'Enforcement procedure',
   humanRightsCommission:
-    'The Equality and Human Rights Commission (EHRC) is responsible for enforcing the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018 (the ‘accessibility regulations’). If you’re not happy with how we respond to your complaint, <a href="https://www.equalityadvisoryservice.com/" class="govuk-link" target="_blank" aria-label="This link will open in a new tab for Equality Advisory and Support Service">contact the Equality Advisory and Support Service (EASS)</a>.',
+    'The Equality and Human Rights Commission (EHRC) is responsible for enforcing the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018 (the ‘accessibility regulations’). If you’re not happy with how we respond to your complaint, <a href="https://www.equalityadvisoryservice.com/" class="govuk-link" target="_blank" aria-label="This link will open in a new tab for Equality Advisory and Support Service">contact the Equality Advisory and Support Service (EASS) (opens in a new tab)</a>.',
   contactingUs: 'Contacting us by phone or visiting us in person',
   contactTextRelay:
     'We provide a text relay service for people who are D/deaf, hearing impaired or have a speech impediment.',
   contactInductionLoops:
     'Our offices have audio induction loops, or if you contact us before your visit we can arrange a British Sign Language (BSL) interpreter.',
   contactCourtDirectly:
-    'Find out how to contact us at: <a href="https://www.find-court-tribunal.service.gov.uk" class="govuk-link" target="blank">Find a Court or Tribunal - GOV.UK (find-court-tribunal.service.gov.uk)</a>.',
+    'Find out how to contact us at: <a href="https://www.find-court-tribunal.service.gov.uk" class="govuk-link" target="_blank">Find a Court or Tribunal - GOV.UK (find-court-tribunal.service.gov.uk) (opens in a new tab)</a>.',
   technicalInfo: 'Technical information about this website’s accessibility',
   hmctsIsCommitted:
     'HMCTS is committed to making its website accessible, in accordance with the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018.',
   complianceStatus: 'Compliance status',
   partiallyCompliant:
-    'This website is partially compliant with the <a href="https://www.w3.org/TR/WCAG21/" class="govuk-link" target="blank">Web Content Accessibility Guidelines version 2.1</a> AA standard, due to the non-compliances and exemptions listed below.',
+    'This website is partially compliant with the <a href="https://www.w3.org/TR/WCAG21/" class="govuk-link" target="_blank">Web Content Accessibility Guidelines version 2.1 (opens in a new tab)</a> AA standard, due to the non-compliances and exemptions listed below.',
   nonAccessibleContent: 'Non-accessible content',
   nonAccessibleReasons: 'The content listed below is non-accessible for the following reasons.',
   nonComplianceAccessibility: 'Non-compliance with the accessibility regulations',
@@ -70,7 +70,7 @@ export const en = {
 export const cy = {
   title: 'Datganiad Hygyrchedd ar gyfer Apelio yn erbyn penderfyniad yr Awdurdod Digolledu am Anafiadau Troseddol',
   websiteRanBy:
-    'Mae’r datganiad hygyrchedd hwn yn berthnasol i <a href="https://special-tribunals.service.gov.uk/cic-submit" class="govuk-link" target="_blank" aria-label="Bydd y ddolen hon yn agor mewn tab newydd ar gyfer https://special-tribunals.service.gov.uk/cic-submit">GOV.UK - Y lle gorau i ddod o hyd i wasanaethau a gwybodaeth gan y llywodraeth (special-tribunals.service.gov.uk)</a> sy’n caniatáu i ddefnyddwyr gyflwyno apêl digolledu am anafiadau troseddol ar-lein.',
+    'Mae’r datganiad hygyrchedd hwn yn berthnasol i <a href="https://special-tribunals.service.gov.uk/cic-submit" class="govuk-link" target="_blank" aria-label="Bydd y ddolen hon yn agor mewn tab newydd ar gyfer https://special-tribunals.service.gov.uk/cic-submit">GOV.UK - Y lle gorau i ddod o hyd i wasanaethau a gwybodaeth gan y llywodraeth (special-tribunals.service.gov.uk) (yn agor mewn tab newydd)</a> sy’n caniatáu i ddefnyddwyr gyflwyno apêl digolledu am anafiadau troseddol ar-lein.',
   asManyAsPossible:
     "Mae’r wefan hon yn cael ei rhedeg gan Lysoedd a Thribiwnlysoedd EM. Rydym am i gynifer o bobl â phosibl allu defnyddio’r wefan hon. Er enghraifft, mae hynny'n golygu y dylech allu:",
   asManyAsPossibleColours: 'newid lliwiau, lefelau cyferbyniad a ffontiau',
@@ -81,7 +81,7 @@ export const cy = {
     "gwrando ar y rhan fwyaf o'r wefan gan ddefnyddio darllenydd sgrin (gan gynnwys fersiynau diweddaraf JAWS, NVDA a VoiceOver)",
   simpleAsPossible: 'Rydym hefyd wedi gwneud testun y wefan mor syml â phosibl i’w ddeall.',
   abilityNet:
-    'Mae gan <a href="https://mcmw.abilitynet.org.uk" class="govuk-link" target="_blank" aria-label="Bydd y ddolen hon yn agor mewn tab newydd ar gyfer AbilityNet">AbilityNet</a> gyngor ar wneud eich dyfais yn haws ei defnyddio os oes gennych anabledd.',
+    'Mae gan <a href="https://mcmw.abilitynet.org.uk" class="govuk-link" target="_blank" aria-label="Bydd y ddolen hon yn agor mewn tab newydd ar gyfer AbilityNet">AbilityNet (yn agor mewn tab newydd)</a> gyngor ar wneud eich dyfais yn haws ei defnyddio os oes gennych anabledd.',
   howAccessible: "Pa mor hygyrch yw'r wefan hon",
   somePartsNot: 'Gwyddwn nad yw rhai rhannau o’r wefan hon yn gwbl hygyrch:',
   somePartsNotReflow: 'nid yw’r testun yn newid i fod mewn un golofn pan fyddwch yn newid maint ffenestr y porwr',
@@ -95,7 +95,7 @@ export const cy = {
   needMoreInformation:
     'Os oes angen gwybodaeth arnoch ar y wefan hon mewn fformat gwahanol fel PDF hygyrch, print bras, hawdd ei ddarllen, recordiad sain neu braille:',
   email:
-    'e-bost <a href="mailto:HMCTSforms@justice.gov.uk" class="govuk-link" aria-label="Bydd y ddolen hon yn agor mewn e-bost newydd i HMCTSforms@justice.gov.uk">HMCTSforms@justice.gov.uk</a>',
+    'e-bost <a href="mailto:HMCTSforms@justice.gov.uk" class="govuk-link" aria-label="Bydd y ddolen hon yn agor mewn e-bost newydd i HMCTSforms@justice.gov.uk">HMCTSforms@justice.gov.uk (yn agor mewn e-bost newydd)</a>',
   phone: 'ffoniwch 0300 790 6234',
   tribunalsCentre: 'Glasgow Tribunals Centre 20 York Street Glasgow G2 8GT',
   considerYourRequest: 'Byddwn yn ystyried eich cais ac yn ymateb o fewn 10 diwrnod gwaith.',
@@ -105,20 +105,20 @@ export const cy = {
   accessibilityPhoneNumber: 'ffoniwch 0300 790 6234',
   enforcementProcedure: 'Gweithdrefn orfodi',
   humanRightsCommission:
-    'Mae’r Comisiwn Cydraddoldeb a Hawliau Dynol (EHRC) yn gyfrifol am orfodi Rheoliadau Hygyrchedd Cyrff y Sector Cyhoeddus (Gwefannau a Chymwysiadau Symudol) (Rhif 2) 2018 (y ‘rheoliadau hygyrchedd’). Os nad ydych yn hapus gyda’r ffordd yr ydym yn ymateb i’ch cwyn, <a href="https://www.equalityadvisoryservice.com/" class="govuk-link" target="_blank" aria-label="Bydd y ddolen hon yn agor mewn tab newydd ar gyfer y Gwasanaeth Cynghori a Chymorth Cydraddoldeb">cysylltwch â’r Gwasanaeth Cynghori a Chymorth Cydraddoldeb (EASS)</a>.',
+    'Mae’r Comisiwn Cydraddoldeb a Hawliau Dynol (EHRC) yn gyfrifol am orfodi Rheoliadau Hygyrchedd Cyrff y Sector Cyhoeddus (Gwefannau a Chymwysiadau Symudol) (Rhif 2) 2018 (y ‘rheoliadau hygyrchedd’). Os nad ydych yn hapus gyda’r ffordd yr ydym yn ymateb i’ch cwyn, <a href="https://www.equalityadvisoryservice.com/" class="govuk-link" target="_blank" aria-label="Bydd y ddolen hon yn agor mewn tab newydd ar gyfer y Gwasanaeth Cynghori a Chymorth Cydraddoldeb">cysylltwch â’r Gwasanaeth Cynghori a Chymorth Cydraddoldeb (EASS) (yn agor mewn tab newydd)</a>.',
   contactingUs: 'Cysylltu â ni dros y ffôn neu ymweld â ni yn bersonol',
   contactTextRelay:
     'Rydym yn darparu gwasanaeth cyfnewid negeseuon testun ar gyfer pobl fyddar, pobl sydd â nam ar eu clyw a phobl sydd â nam ar eu lleferydd.',
   contactInductionLoops:
     'Mae yna ddolenni sain yn ein swyddfeydd, neu os byddwch yn cysylltu â ni cyn eich ymweliad, gallwn drefnu cyfieithydd Iaith Arwyddion Prydain (BSL) ar eich cyfer.',
   contactCourtDirectly:
-    'Gwybodaeth am sut i gysylltu â ni: <a href="https://www.find-court-tribunal.service.gov.uk" class="govuk-link" target="blank">Dod o hyd i lys neu dribiwnlys - GOV.UK (find-court-tribunal.service.gov.uk)</a>.',
+    'Gwybodaeth am sut i gysylltu â ni: <a href="https://www.find-court-tribunal.service.gov.uk" class="govuk-link" target="_blank">Dod o hyd i lys neu dribiwnlys - GOV.UK (find-court-tribunal.service.gov.uk) (yn agor mewn tab newydd)</a>.',
   technicalInfo: 'Gwybodaeth dechnegol am hygyrchedd y wefan hon',
   hmctsIsCommitted:
     'Mae GLlTEM wedi ymrwymo i wneud ei wefan yn hygyrch, yn unol â Rheoliadau Hygyrchedd Cyrff y Sector Cyhoeddus (Gwefannau a Chymwysiadau Symudol) (Rhif 2) 2018.',
   complianceStatus: 'Statws cydymffurfio',
   partiallyCompliant:
-    'Mae’r wefan hon yn cydymffurfio’n rhannol â safon AA <a href="https://www.w3.org/TR/WCAG21/" class="govuk-link" target="blank">Canllawiau Hygyrchedd Cynnwys Gwe fersiwn 2.1</a> oherwydd y diffyg cydymffurfio a\'r eithriadau a restrir isod.',
+    'Mae’r wefan hon yn cydymffurfio’n rhannol â safon AA <a href="https://www.w3.org/TR/WCAG21/" class="govuk-link" target="_blank">Canllawiau Hygyrchedd Cynnwys Gwe fersiwn 2.1 (yn agor mewn tab newydd)</a> oherwydd y diffyg cydymffurfio a\'r eithriadau a restrir isod.',
   nonAccessibleContent: 'Cynnwys anhygyrch',
   nonAccessibleReasons: 'Mae’r cynnwys a restrir isod yn anhygyrch am y rhesymau canlynol.',
   nonComplianceAccessibility: 'Methiant i gydymffurfio â’r rheoliadau hygyrchedd',
