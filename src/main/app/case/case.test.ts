@@ -1,4 +1,4 @@
-import { Case, formatCase } from './case';
+import { Case, applyFormUpdatesToCase, formatCase } from './case';
 import { LanguagePreference, YesOrNo } from './definition';
 
 describe('formatCase', () => {
@@ -90,5 +90,79 @@ describe('Case interface', () => {
     };
 
     expect(caseData).toBeDefined();
+  });
+});
+
+describe('applyFormUpdatesToCase', () => {
+  test.each([
+    {
+      note: 'clears representative fields and sends nulls when representation becomes NO',
+      initialUserCase: {
+        representation: YesOrNo.YES,
+        representationQualified: YesOrNo.YES,
+        representativeFullName: 'Rep Name',
+        representativeOrganisationName: 'Rep Org',
+        representativeContactNumber: '07123456789',
+        representativeEmailAddress: 'rep@example.com',
+      } as Partial<Case>,
+      formData: { representation: YesOrNo.NO } as Partial<Case>,
+      expectedUserCase: {
+        representation: YesOrNo.NO,
+      },
+      expectedPayload: {
+        representation: YesOrNo.NO,
+        representationQualified: null,
+        representativeFullName: null,
+        representativeOrganisationName: null,
+        representativeContactNumber: null,
+        representativeEmailAddress: null,
+      },
+    },
+    {
+      note: 'does not clear representative fields when representation is YES',
+      initialUserCase: {
+        representation: YesOrNo.YES,
+        representativeFullName: 'Rep Name',
+        representativeOrganisationName: 'Rep Org',
+      } as Partial<Case>,
+      formData: { subjectFullName: 'New Subject' } as Partial<Case>,
+      expectedUserCase: {
+        representation: YesOrNo.YES,
+        representativeFullName: 'Rep Name',
+        representativeOrganisationName: 'Rep Org',
+        subjectFullName: 'New Subject',
+      },
+      expectedPayload: {
+        subjectFullName: 'New Subject',
+      },
+    },
+    {
+      note: 'still clears representative fields when case already has representation NO',
+      initialUserCase: {
+        representation: YesOrNo.NO,
+        representationQualified: YesOrNo.YES,
+        representativeFullName: 'Stale Rep',
+      } as Partial<Case>,
+      formData: { subjectContactNumber: '07000000000' } as Partial<Case>,
+      expectedUserCase: {
+        representation: YesOrNo.NO,
+        subjectContactNumber: '07000000000',
+      },
+      expectedPayload: {
+        subjectContactNumber: '07000000000',
+        representationQualified: null,
+        representativeFullName: null,
+        representativeOrganisationName: null,
+        representativeContactNumber: null,
+        representativeEmailAddress: null,
+      },
+    },
+  ])('$note', ({ initialUserCase, formData, expectedUserCase, expectedPayload }) => {
+    const userCase = { ...initialUserCase };
+
+    const result = applyFormUpdatesToCase(userCase, formData);
+
+    expect(userCase).toEqual(expectedUserCase);
+    expect(result).toEqual(expectedPayload);
   });
 });
