@@ -546,14 +546,25 @@ describe('isMarkDownLinkIncluded()', () => {
 });
 
 describe('isCCDReferenceNumberAcceptable()', () => {
-  test('should return error if value is less than 16 digits', async () => {
-    const isValid = isCCDReferenceNumberAcceptable('12345678');
-    expect(isValid).toStrictEqual('invalid');
-  });
+  test.each(['1234567890123456', '1234-5678-9012-3456', '1234 5678 9012 3456', ' 1234 - 5678 - 9012 - 3456 '])(
+    'accepts %p',
+    value => {
+      expect(isCCDReferenceNumberAcceptable(value)).toBeUndefined();
+    }
+  );
 
-  test('should return error if value has gaps and - in', async () => {
-    const isValid = isCCDReferenceNumberAcceptable('1234 - 1234 - 1234 -1234');
-    expect(isValid).toStrictEqual('invalid');
+  test.each([
+    '123456789012345',
+    '12345678901234567',
+    '1234a-5678-9012-3456',
+    '1234/5678-9012-3456',
+    '1234\t5678-9012-3456',
+    '1234567890123456\n',
+    ' - ',
+    '',
+    undefined,
+  ])('rejects %p', value => {
+    expect(isCCDReferenceNumberAcceptable(value)).toBe('invalid');
   });
 });
 

@@ -48,4 +48,22 @@ describe('CCDLookupGetController', () => {
       })
     );
   });
+
+  test('Makes the original input available for one retry without changing the case', async () => {
+    const submittedReference = '1234 - 5678 - 9012 - 3456a';
+    const req = mockRequest({
+      session: {
+        ccdReferenceForRetry: submittedReference,
+        errors: [{ propertyName: 'ccdReference', errorType: 'invalid' }],
+      },
+    });
+    const res = mockResponse();
+    const originalCase = { ...req.session.userCase };
+
+    await controller.get(req, res);
+
+    expect(res.locals.ccdReferenceForRetry).toBe(submittedReference);
+    expect(req.session.ccdReferenceForRetry).toBeUndefined();
+    expect(req.session.userCase).toEqual(originalCase);
+  });
 });

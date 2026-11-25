@@ -48,8 +48,10 @@ export const isCICAReferenceNumberAcceptable: Validator = value => {
   }
 };
 
+export const normaliseCCDReferenceNumber = (value: string): string => value.replace(/[ -]/g, '');
+
 export const isCCDReferenceNumberAcceptable: Validator = value => {
-  if (typeof value !== 'string' || !/^\d{16}$/.test(value)) {
+  if (typeof value !== 'string' || !/^\d{16}$/.test(normaliseCCDReferenceNumber(value))) {
     return ValidationError.INVALID;
   }
 };

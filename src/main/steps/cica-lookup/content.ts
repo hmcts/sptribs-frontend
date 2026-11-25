@@ -1,6 +1,7 @@
 import { TranslationFn } from '../../app/controller/GetController';
 import { FormContent } from '../../app/form/Form';
 import {
+  ValidationError,
   containsInvalidCharacters,
   isCCDReferenceNumberAcceptable,
   isFieldFilledIn,
@@ -14,11 +15,18 @@ export const form: FormContent = {
       type: 'text',
       classes: 'govuk-input',
       label: l => l.ccdReferenceLabel,
-      validator: input =>
-        isFieldFilledIn(input) ||
-        isMarkDownLinkIncluded(input) ||
-        containsInvalidCharacters(input) ||
-        isCCDReferenceNumberAcceptable(input),
+      validator: input => {
+        if (input !== undefined && typeof input !== 'string') {
+          return ValidationError.INVALID;
+        }
+
+        return (
+          isFieldFilledIn(input) ||
+          isMarkDownLinkIncluded(input) ||
+          containsInvalidCharacters(input) ||
+          isCCDReferenceNumberAcceptable(input)
+        );
+      },
     },
   },
   submit: {

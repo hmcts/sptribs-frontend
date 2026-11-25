@@ -28,6 +28,7 @@ export interface AppSession extends Session {
   cookieMessage: boolean;
   user: UserDetails;
   userCase: CaseWithId;
+  ccdReferenceForRetry?: string;
   validatedPostcode?: string;
   eligibility: Eligibility;
   lang: string | undefined;
