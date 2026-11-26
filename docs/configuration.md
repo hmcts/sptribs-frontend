@@ -67,7 +67,7 @@ The Helm chart lists the secrets to mount from the `sptribs-<env>` Azure Key Vau
 |---|---|
 | `idam-ui-secret` | `services.idam.clientSecret` |
 | `idam-systemupdate-username`, `idam-systemupdate-password` | `services.idam.systemUsername`, `services.idam.systemPassword` |
-| `redis-new` (mounted with the alias `redis-access-key`) | `session.redis.key` and `session.secret` |
+| `redis-new` (mounted with the alias `redis-access-key`) | `session.redis.key` |
 | `s2s-case-api-secret` | `services.authProvider.secret` |
 | `app-insights-connection-string` (`app-insights-connection-string-preview` in preview, aliased) | `appInsights.instrumentationKey` |
 | `postcode-lookup-token` | `services.postcodeLookup.token` |
