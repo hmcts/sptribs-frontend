@@ -165,7 +165,7 @@ export class GetController {
    * If this page is not part of a sequence with "Check your answers", clear the session variable.
    */
   private manageCya(req: AppRequest): void {
-    const inCheckYourAnswersFlow = !this.isBlank(req) && isCyaCapable(req.path, req.session.userCase);
+    const inCheckYourAnswersFlow = !this.isBlank(req) && isCyaCapable(req.path, req);
     if (inCheckYourAnswersFlow) {
       // This page is part of a sequence with "Check your answers"
       if ('check-your-answers' in req.query) {

@@ -1,3 +1,4 @@
+import { Case } from '../../app/case/case';
 import { YesOrNo } from '../../app/case/definition';
 import {
   APPLICATION_SUBMITTED,
@@ -21,7 +22,8 @@ describe('edgecaseSequence', () => {
   test.each([
     { note: 'with representative', representation: YesOrNo.YES },
     { note: 'without representative', representation: YesOrNo.NO },
-  ])('follows the expected sequence: $note', ({ representation }) => {
+    { note: 'skip equality', equalityAsked: true },
+  ])('follows the expected sequence: $note', ({ representation, equalityAsked }) => {
     const expectedSequence = [
       SUBJECT_DETAILS,
       SUBJECT_CONTACT_DETAILS,
@@ -32,7 +34,7 @@ describe('edgecaseSequence', () => {
       UPLOAD_APPEAL_FORM,
       UPLOAD_SUPPORTING_DOCUMENTS,
       UPLOAD_OTHER_INFORMATION,
-      EQUALITY,
+      ...(equalityAsked ? [] : [EQUALITY]),
       CHECK_YOUR_ANSWERS,
       APPLICATION_SUBMITTED,
       SUBJECT_DETAILS,
@@ -42,7 +44,7 @@ describe('edgecaseSequence', () => {
     // Follow the sequence until we reach a duplicate step
     while (new Set(actualSequence).size === actualSequence.length) {
       const currentStep = edgecaseSequence.find(s => s.url === actualSequence[actualSequence.length - 1])!;
-      actualSequence.push(currentStep.getNextStep({ representation }));
+      actualSequence.push(currentStep.getNextStep({ representation, equalityAsked } as Case));
     }
 
     expect(actualSequence).toEqual(expectedSequence);

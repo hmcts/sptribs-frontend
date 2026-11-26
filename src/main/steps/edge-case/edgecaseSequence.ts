@@ -37,8 +37,7 @@ export const edgecaseSequence: Step[] = [
   {
     url: REPRESENTATION,
     showInSection: Sections.AboutEdgeCase,
-    getNextStep: caseData =>
-      caseData.representation === YesOrNo.YES ? REPRESENTATION_QUALIFIED : CICA_REFERENCE_NUMBER,
+    getNextStep: data => (data?.representation === YesOrNo.YES ? REPRESENTATION_QUALIFIED : CICA_REFERENCE_NUMBER),
   },
   {
     url: REPRESENTATION_QUALIFIED,
@@ -79,7 +78,8 @@ export const edgecaseSequence: Step[] = [
     // Also, it is always part of the sequence. Therefore, if we're in the Check Your Answers flow,
     // the user has already seen this step, so don't visit it again.
     isComplete: () => true,
-    getNextStep: () => EQUALITY,
+    // Skip the equality step if we've already asked the user the equality questions.
+    getNextStep: data => (data?.equalityAsked ? CHECK_YOUR_ANSWERS : EQUALITY),
   },
   {
     url: EQUALITY,

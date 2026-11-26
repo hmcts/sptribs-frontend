@@ -35,6 +35,7 @@ export interface AppSession extends Session {
   fileErrors: any[];
   addresses: [];
   returnUrl?: string;
+  /** Whether we're in the "Check your answers" flow. If true, we route to the next step differently. */
   isCheckYourAnswers?: boolean;
   cookieStorageMessage?: boolean;
 }

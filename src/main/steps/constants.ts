@@ -1,4 +1,4 @@
-import { CaseWithId } from '../app/case/case';
+import { Case } from '../app/case/case';
 import { AppSession } from '../app/controller/AppRequest';
 
 import { PageLink } from './urls';
@@ -14,5 +14,5 @@ export interface Step {
   excludeFromContinueApplication?: boolean;
   /** Overrides how we check whether this step is complete. If unset, the page's form validators are used. */
   isComplete?: (session: AppSession) => boolean;
-  getNextStep: (data: Partial<CaseWithId>) => PageLink;
+  getNextStep: (data: Case) => PageLink;
 }

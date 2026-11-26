@@ -128,7 +128,7 @@ export class PostController<T extends AnyObject> {
       if (req.session.errors?.length || req.session.fileErrors?.length) {
         nextUrl = req.url;
       } else if (req.session.isCheckYourAnswers) {
-        nextUrl = getNextCyaStepUrl(req);
+        nextUrl = getNextCyaStepUrl(req, req.session.userCase);
         if (nextUrl === CHECK_YOUR_ANSWERS) {
           req.session.isCheckYourAnswers = false;
         }

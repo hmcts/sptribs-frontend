@@ -1,4 +1,5 @@
 import { mockRequest } from '../../test/unit/utils/mockRequest';
+import { Case } from '../app/case/case';
 import { YesOrNo } from '../app/case/definition';
 
 import {
@@ -18,13 +19,13 @@ describe('getNextStepUrl', () => {
       note: 'returns SUBJECT_DETAILS when saveAsDraft is selected',
       originalUrl: REPRESENTATION,
       body: { saveAsDraft: true },
-      data: { representation: YesOrNo.YES },
+      userCase: { representation: YesOrNo.YES },
       expected: SUBJECT_DETAILS,
     },
     {
       note: 'preserves query string when moving to next step',
       originalUrl: `${REPRESENTATION}?check-your-answers`,
-      data: { representation: YesOrNo.YES },
+      userCase: { representation: YesOrNo.YES },
       expected: `${REPRESENTATION_QUALIFIED}?check-your-answers`,
     },
     {
@@ -32,9 +33,9 @@ describe('getNextStepUrl', () => {
       originalUrl: '/not-a-real-step',
       expected: SUBJECT_DETAILS,
     },
-  ])('$note', ({ originalUrl, body, data, expected }) => {
-    const req = mockRequest({ body: body ?? {}, originalUrl });
-    expect(getNextStepUrl(req, data ?? {})).toBe(expected);
+  ])('$note', ({ originalUrl, body, userCase, expected }) => {
+    const req = mockRequest({ body: body ?? {}, originalUrl, userCase: userCase ?? {} });
+    expect(getNextStepUrl(req, (userCase ?? {}) as Case)).toBe(expected);
   });
 });
 
@@ -53,7 +54,7 @@ describe('getNextCyaStepUrl', () => {
     },
   ])('$note', ({ path, userCase, expected }) => {
     const req = mockRequest({ userCase: userCase ?? {}, path });
-    expect(getNextCyaStepUrl(req)).toBe(expected);
+    expect(getNextCyaStepUrl(req, (userCase ?? {}) as Case)).toBe(expected);
   });
 });
 
@@ -86,6 +87,7 @@ describe('inCyaFlow', () => {
       expected: false,
     },
   ])('$note', ({ path, userCase, expected }) => {
-    expect(isCyaCapable(path, userCase ?? {})).toBe(expected);
+    const req = mockRequest({ userCase: userCase ?? {}, path });
+    expect(isCyaCapable(path, req)).toBe(expected);
   });
 });

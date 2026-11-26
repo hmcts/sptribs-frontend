@@ -86,6 +86,8 @@ export interface Case {
   otherInfoDocuments: CaseDocument[];
   applicantDocuments: ListValue<CaseworkerCICDocument>[];
   languagePreference: LanguagePreference;
+  /** Whether we've asked the user the equality questions yet. If true, we avoid asking again. */
+  equalityAsked?: boolean;
 }
 
 export interface CaseWithId extends Case {
