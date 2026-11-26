@@ -5,9 +5,11 @@ import { YesOrNo } from '../app/case/definition';
 import {
   APPLICATION_SUBMITTED,
   CHECK_YOUR_ANSWERS,
+  CICA_REFERENCE_NUMBER,
   EQUALITY,
   REPRESENTATION,
   REPRESENTATION_QUALIFIED,
+  SUBJECT_CONTACT_DETAILS,
   SUBJECT_DETAILS,
 } from './urls';
 
@@ -17,24 +19,35 @@ describe('getNextStepUrl', () => {
   test.each([
     {
       note: 'returns SUBJECT_DETAILS when saveAsDraft is selected',
-      originalUrl: REPRESENTATION,
+      path: REPRESENTATION,
       body: { saveAsDraft: true },
       userCase: { representation: YesOrNo.YES },
       expected: SUBJECT_DETAILS,
     },
     {
-      note: 'preserves query string when moving to next step',
-      originalUrl: `${REPRESENTATION}?check-your-answers`,
-      userCase: { representation: YesOrNo.YES },
-      expected: `${REPRESENTATION_QUALIFIED}?check-your-answers`,
-    },
-    {
       note: 'falls back to SUBJECT_DETAILS for unknown path',
-      originalUrl: '/not-a-real-step',
+      path: '/not-a-real-step',
       expected: SUBJECT_DETAILS,
     },
-  ])('$note', ({ originalUrl, body, userCase, expected }) => {
-    const req = mockRequest({ body: body ?? {}, originalUrl, userCase: userCase ?? {} });
+    {
+      note: 'Goes to next step',
+      path: SUBJECT_DETAILS,
+      expected: SUBJECT_CONTACT_DETAILS,
+    },
+    {
+      note: 'Goes to representation qualified when representation is Yes',
+      path: REPRESENTATION,
+      userCase: { representation: YesOrNo.YES },
+      expected: REPRESENTATION_QUALIFIED,
+    },
+    {
+      note: 'Goes to cica reference number when representation is No',
+      path: REPRESENTATION,
+      userCase: { representation: YesOrNo.NO },
+      expected: CICA_REFERENCE_NUMBER,
+    },
+  ])('$note', ({ path, body, userCase, expected }) => {
+    const req = mockRequest({ body: body ?? {}, path, userCase: userCase ?? {} });
     expect(getNextStepUrl(req, (userCase ?? {}) as Case)).toBe(expected);
   });
 });

@@ -83,12 +83,9 @@ export const getNextStepUrl = (req: AppRequest, data: Case): string => {
   if ((req.body as Record<string, unknown>).saveAsDraft) {
     return SUBJECT_DETAILS;
   }
-  const { path, queryString } = getPathAndQueryString(req);
-  const currentStep = edgecaseSequence.find(s => s.url === path);
+  const currentStep = edgecaseSequence.find(s => s.url === req.path);
 
-  const url = currentStep ? currentStep.getNextStep(data) : SUBJECT_DETAILS;
-
-  return `${url}${queryString}`;
+  return currentStep ? currentStep.getNextStep(data) : SUBJECT_DETAILS;
 };
 
 /** Get whether a step could be part of a Check Your Answers flow. */
@@ -122,12 +119,6 @@ export const isCyaCapable = (path: string, req: AppRequest): boolean => {
 
   // Loop detected - this means the current page does not lead to the Check Your Answers page
   return false;
-};
-
-const getPathAndQueryString = (req: AppRequest): { path: string; queryString: string } => {
-  const [path, searchParams] = req.originalUrl.split('?');
-  const queryString = searchParams ? `?${searchParams}` : '';
-  return { path, queryString };
 };
 
 const getStepFiles = (stepDir: string) => {

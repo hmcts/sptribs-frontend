@@ -179,9 +179,8 @@ export class GetController {
   }
 
   private isBlank(req: AppRequest) {
-    if (req.session.userCase.id === null || req.session.userCase.id === undefined || req.session.userCase.id === '') {
-      return true;
-    }
+    // False if id exists and is truthy.
+    return !req?.session?.userCase?.id;
   }
 
   public parseAndSetReturnUrl(req: AppRequest): void {

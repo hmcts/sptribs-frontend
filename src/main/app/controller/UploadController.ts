@@ -367,7 +367,7 @@ export class UploadController extends PostController<AnyObject> {
       req.session[this.getPropertyName()].push(newDocument);
 
       // Uploaded document, redirect back to the current page.
-      this.redirect(req, res, req.url);
+      this.redirect(req, res, req.path);
     } catch (error) {
       logger.error(error);
       this.createUploadedFileError(req, res, chooseFileLink, 'UPDATE_DELETE_FAIL_ERROR');

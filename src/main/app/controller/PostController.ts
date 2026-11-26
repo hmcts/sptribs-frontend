@@ -123,10 +123,19 @@ export class PostController<T extends AnyObject> {
     return req.session.userCase;
   }
 
+  /**
+   * Redirect to the next page. This function handles:
+   * 1. Redirects back to current page in case of any errors
+   * 2. Is aware of a sequence of pages via getNextStepUrl
+   * 3. Is aware of whether we've come from a Check Your Answers page, and redirects accordingly
+   * 4. Save the session
+   * <br>
+   * Query params (?) and fragments (#) of the current request URL are not kept.
+   */
   public redirect(req: AppRequest<T>, res: Response, nextUrl?: string): void {
     if (!nextUrl) {
       if (req.session.errors?.length || req.session.fileErrors?.length) {
-        nextUrl = req.url;
+        nextUrl = req.path;
       } else if (req.session.isCheckYourAnswers) {
         nextUrl = getNextCyaStepUrl(req, req.session.userCase);
         if (nextUrl === CHECK_YOUR_ANSWERS) {
