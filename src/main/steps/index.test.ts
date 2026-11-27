@@ -1,53 +1,106 @@
 import { mockRequest } from '../../test/unit/utils/mockRequest';
-import { AppRequest } from '../app/controller/AppRequest';
+import { Case } from '../app/case/case';
+import { YesOrNo } from '../app/case/definition';
 
-import { APPLYING_WITH_URL, TASK_LIST_URL } from './urls';
+import {
+  APPLICATION_SUBMITTED,
+  CHECK_YOUR_ANSWERS,
+  CICA_REFERENCE_NUMBER,
+  EQUALITY,
+  REPRESENTATION,
+  REPRESENTATION_QUALIFIED,
+  SUBJECT_CONTACT_DETAILS,
+  SUBJECT_DETAILS,
+} from './urls';
 
-import { getNextIncompleteStepUrl, getNextStepUrl } from './index';
+import { getNextCyaStepUrl, getNextStepUrl, isCyaCapable } from './index';
 
-describe('getNextIncompleteStepUrl()', () => {
-  it('returns the next step when correct details a passed', () => {
-    expect(getNextIncompleteStepUrl(mockRequest())).not.toBe(TASK_LIST_URL);
+describe('getNextStepUrl', () => {
+  test.each([
+    {
+      note: 'returns SUBJECT_DETAILS when saveAsDraft is selected',
+      path: REPRESENTATION,
+      body: { saveAsDraft: true },
+      userCase: { representation: YesOrNo.YES },
+      expected: SUBJECT_DETAILS,
+    },
+    {
+      note: 'falls back to SUBJECT_DETAILS for unknown path',
+      path: '/not-a-real-step',
+      expected: SUBJECT_DETAILS,
+    },
+    {
+      note: 'Goes to next step',
+      path: SUBJECT_DETAILS,
+      expected: SUBJECT_CONTACT_DETAILS,
+    },
+    {
+      note: 'Goes to representation qualified when representation is Yes',
+      path: REPRESENTATION,
+      userCase: { representation: YesOrNo.YES },
+      expected: REPRESENTATION_QUALIFIED,
+    },
+    {
+      note: 'Goes to cica reference number when representation is No',
+      path: REPRESENTATION,
+      userCase: { representation: YesOrNo.NO },
+      expected: CICA_REFERENCE_NUMBER,
+    },
+  ])('$note', ({ path, body, userCase, expected }) => {
+    const req = mockRequest({ body: body ?? {}, path, userCase: userCase ?? {} });
+    expect(getNextStepUrl(req, (userCase ?? {}) as Case)).toBe(expected);
   });
 });
 
-describe('Steps', () => {
-  describe('getNextStep()', () => {
-    let mockReq: AppRequest;
-    beforeEach(() => {
-      mockReq = mockRequest();
-    });
+describe('getNextCyaStepUrl', () => {
+  test.each([
+    {
+      note: 'returns newly available page after changing representation to Yes',
+      path: REPRESENTATION,
+      userCase: { representation: YesOrNo.YES },
+      expected: REPRESENTATION_QUALIFIED,
+    },
+    {
+      note: 'returns CHECK_YOUR_ANSWERS from equality step in CYA flow',
+      path: EQUALITY,
+      expected: CHECK_YOUR_ANSWERS,
+    },
+  ])('$note', ({ path, userCase, expected }) => {
+    const req = mockRequest({ userCase: userCase ?? {}, path });
+    expect(getNextCyaStepUrl(req, (userCase ?? {}) as Case)).toBe(expected);
+  });
+});
 
-    it('returns the next step when correct details a passed', () => {
-      mockReq.originalUrl = APPLYING_WITH_URL;
-      const data = {};
-      expect(getNextStepUrl(mockReq, data)).not.toBe(TASK_LIST_URL);
-    });
-
-    it('moves into a dead end when the response matches', () => {
-      mockReq.originalUrl = APPLYING_WITH_URL;
-      const data = {};
-      const actual = getNextStepUrl(mockReq, data);
-      expect(actual).not.toBe('/task-list');
-    });
-
-    it('keeps the query string', () => {
-      mockReq.originalUrl = `${APPLYING_WITH_URL}?customQueryString`;
-      const data = {};
-      expect(getNextStepUrl(mockReq, data)).not.toBe(`${TASK_LIST_URL}?customQueryString`);
-    });
-
-    it('returns task list url in case of unrecognised urls', () => {
-      mockReq.originalUrl = '/non-existing-url';
-      const data = {};
-      expect(getNextStepUrl(mockReq, data)).not.toBe(TASK_LIST_URL);
-    });
-
-    it('returns task list url in case of saveAsDraft', () => {
-      mockReq.originalUrl = `${APPLYING_WITH_URL}`;
-      const data = {};
-      mockReq.body['saveAsDraft'] = true;
-      expect(getNextStepUrl(mockReq, data)).not.toBe(TASK_LIST_URL);
-    });
+describe('inCyaFlow', () => {
+  test.each([
+    {
+      note: 'returns true for a CYA sequence page',
+      path: REPRESENTATION,
+      expected: true,
+    },
+    {
+      note: "returns true for a CYA sequence page even if it's currently hidden",
+      path: REPRESENTATION_QUALIFIED,
+      userCase: { representation: YesOrNo.NO },
+      expected: true,
+    },
+    {
+      note: 'returns false for the CHECK_YOUR_ANSWERS page itself',
+      path: CHECK_YOUR_ANSWERS,
+      expected: false,
+    },
+    {
+      note: 'returns false for application submitted page',
+      path: APPLICATION_SUBMITTED,
+      expected: false,
+    },
+    {
+      note: 'returns false for unknown page',
+      path: '/not-a-real-step',
+      expected: false,
+    },
+  ])('$note', ({ path, userCase, expected }) => {
+    const req = mockRequest({ userCase: userCase ?? {}, path });
+    expect(isCyaCapable(path, req)).toBe(expected);
   });
 });

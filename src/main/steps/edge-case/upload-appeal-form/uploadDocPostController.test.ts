@@ -81,7 +81,11 @@ describe('Document upload controller', () => {
     };
     const controller = new UploadDocumentController(mockForm.fields);
 
-    const req = mockRequest({});
+    const req = mockRequest({
+      path: UPLOAD_APPEAL_FORM,
+      url: UPLOAD_APPEAL_FORM,
+      originalUrl: UPLOAD_APPEAL_FORM,
+    });
     const res = mockResponse();
     (req.files as any) = { documents: { mimetype: 'text/plain', size: 20480000 } };
     req.session.caseDocuments = [];
@@ -109,7 +113,7 @@ describe('Document upload controller', () => {
     };
     const controller = new UploadDocumentController(mockForm.fields);
 
-    const req = mockRequest({});
+    const req = mockRequest({ path: UPLOAD_APPEAL_FORM, url: UPLOAD_APPEAL_FORM, originalUrl: UPLOAD_APPEAL_FORM });
     const res = mockResponse();
     (req.files as any) = { documents: { mimetype: 'application/pdf', size: 104857601 } };
     req.session.caseDocuments = [];
@@ -140,7 +144,7 @@ describe('Document upload controller', () => {
     };
     const controller = new UploadDocumentController(mockForm.fields);
 
-    const req = mockRequest({});
+    const req = mockRequest({ path: UPLOAD_APPEAL_FORM, url: UPLOAD_APPEAL_FORM, originalUrl: UPLOAD_APPEAL_FORM });
     const res = mockResponse();
     (req.files as any) = { documents: { mimetype: 'text/plain', size: 104857601 } };
     req.session.caseDocuments = [];
@@ -171,6 +175,9 @@ describe('Document upload controller', () => {
       },
     };
     const req = mockRequest({
+      path: UPLOAD_APPEAL_FORM,
+      url: UPLOAD_APPEAL_FORM,
+      originalUrl: UPLOAD_APPEAL_FORM,
       locals: {
         documentApi: {
           create: jest.fn(),
@@ -218,6 +225,9 @@ describe('Document upload controller', () => {
       },
     };
     const req = mockRequest({
+      path: UPLOAD_APPEAL_FORM,
+      url: UPLOAD_APPEAL_FORM,
+      originalUrl: UPLOAD_APPEAL_FORM,
       locals: {
         documentApi: {
           create: jest.fn(),
@@ -245,6 +255,9 @@ describe('Document upload controller', () => {
       const controller = new UploadDocumentController({});
       const res = mockResponse();
       const req = mockRequest({
+        path: UPLOAD_APPEAL_FORM,
+        url: UPLOAD_APPEAL_FORM,
+        originalUrl: UPLOAD_APPEAL_FORM,
         session: {
           user: { email: 'test@example.com' },
 
@@ -275,7 +288,7 @@ describe('checking for the redirect of post document upload', () => {
     },
   };
 
-  const req = mockRequest({});
+  const req = mockRequest({ path: UPLOAD_APPEAL_FORM, url: UPLOAD_APPEAL_FORM, originalUrl: UPLOAD_APPEAL_FORM });
   const res = mockResponse();
   const postingController = new UploadDocumentController(mockForm.fields);
   it('continue to next page after the documents has been proccessed', async () => {
@@ -305,7 +318,7 @@ describe('checking for the redirect of post document upload', () => {
     ] as DocumentManagementFile[];
 
     await postingController.postDocumentUploader(req, res);
-    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_SUPPORTING_DOCUMENTS);
+    expect(res.redirect).toHaveBeenCalledWith(UPLOAD_SUPPORTING_DOCUMENTS + '#');
     expect(req.session.fileErrors).toHaveLength(0);
   });
 

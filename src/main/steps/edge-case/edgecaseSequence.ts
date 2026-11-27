@@ -1,3 +1,4 @@
+import { YesOrNo } from '../../app/case/definition';
 import { Sections, Step } from '../constants';
 import {
   APPLICATION_SUBMITTED,
@@ -36,7 +37,7 @@ export const edgecaseSequence: Step[] = [
   {
     url: REPRESENTATION,
     showInSection: Sections.AboutEdgeCase,
-    getNextStep: () => REPRESENTATION_QUALIFIED,
+    getNextStep: data => (data?.representation === YesOrNo.YES ? REPRESENTATION_QUALIFIED : CICA_REFERENCE_NUMBER),
   },
   {
     url: REPRESENTATION_QUALIFIED,
@@ -61,27 +62,31 @@ export const edgecaseSequence: Step[] = [
   {
     url: UPLOAD_APPEAL_FORM,
     showInSection: Sections.AboutEdgeCase,
+    isComplete: session => session.caseDocuments?.length > 0,
     getNextStep: () => UPLOAD_SUPPORTING_DOCUMENTS,
   },
   {
     url: UPLOAD_SUPPORTING_DOCUMENTS,
     showInSection: Sections.AboutEdgeCase,
+    isComplete: session => session.supportingCaseDocuments?.length > 0,
     getNextStep: () => UPLOAD_OTHER_INFORMATION,
   },
   {
     url: UPLOAD_OTHER_INFORMATION,
     showInSection: Sections.AboutEdgeCase,
-    getNextStep: () => EQUALITY,
+    // This step is always considered complete, as it is optional and has no form fields
+    // Also, it is always part of the sequence. Therefore, if we're in the Check Your Answers flow,
+    // the user has already seen this step, so don't visit it again.
+    isComplete: () => true,
+    // Skip the equality step if we've already asked the user the equality questions.
+    getNextStep: data => (data?.equalityAsked ? CHECK_YOUR_ANSWERS : EQUALITY),
   },
   {
     url: EQUALITY,
     showInSection: Sections.AboutEdgeCase,
+    // If we're in Check Your Answers flow, the user has already seen this step, so don't visit it again.
+    isComplete: () => true,
     getNextStep: () => CHECK_YOUR_ANSWERS,
-  },
-  {
-    url: CHECK_YOUR_ANSWERS,
-    showInSection: Sections.AboutEdgeCase,
-    getNextStep: () => APPLICATION_SUBMITTED,
   },
   {
     url: USER_ROLE,
@@ -112,6 +117,8 @@ export const edgecaseSequence: Step[] = [
     url: CHECK_YOUR_ANSWERS,
     showInSection: Sections.AboutEdgeCase,
     getNextStep: () => APPLICATION_SUBMITTED,
+    // This step never counts as complete
+    isComplete: () => false,
   },
   {
     url: APPLICATION_SUBMITTED,

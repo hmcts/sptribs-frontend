@@ -2,7 +2,7 @@ import autobind from 'autobind-decorator';
 import config from 'config';
 import { Response } from 'express';
 
-import { getNextStepUrl } from '../../steps';
+import { getNextCyaStepUrl, getNextStepUrl } from '../../steps';
 import {
   CHECK_YOUR_ANSWERS,
   CICA_DECISION_DATE,
@@ -11,8 +11,8 @@ import {
   SAVE_AND_SIGN_OUT,
   SUBJECT_CONTACT_DETAILS,
 } from '../../steps/urls';
-import { Case, CaseWithId } from '../case/case';
-import { CITIZEN_CIC_CREATE_CASE, CITIZEN_CIC_SUBMIT_CASE, CITIZEN_CIC_UPDATE_CASE, YesOrNo } from '../case/definition';
+import { Case, CaseWithId, applyFormUpdatesToCase } from '../case/case';
+import { CITIZEN_CIC_CREATE_CASE, CITIZEN_CIC_SUBMIT_CASE, CITIZEN_CIC_UPDATE_CASE } from '../case/definition';
 import { Form, FormFields, FormFieldsFn } from '../form/Form';
 import { ValidationError } from '../form/validation';
 
@@ -64,10 +64,10 @@ export class PostController<T extends AnyObject> {
   }
 
   private async saveAndContinue(req: AppRequest<T>, res: Response, form: Form, formData: Partial<Case>): Promise<void> {
-    Object.assign(req.session.userCase, formData);
     req.session.errors = form.getErrors(formData);
-
     this.filterErrorsForSaveAsDraft(req);
+
+    const formDataToSend = applyFormUpdatesToCase(req.session.userCase, formData);
 
     if (req.session?.user && req.session.errors.length === 0) {
       if (!(Object.values(noHitToSaveAndContinue) as string[]).includes(req.originalUrl)) {
@@ -75,14 +75,14 @@ export class PostController<T extends AnyObject> {
         if (eventName === CITIZEN_CIC_CREATE_CASE) {
           req.session.userCase = await this.createCase(req);
         } else if (eventName === CITIZEN_CIC_UPDATE_CASE) {
-          formData.representation = req.session.userCase.representation === YesOrNo.YES ? YesOrNo.YES : YesOrNo.NO;
-          req.session.userCase = await this.save(req, formData, eventName);
+          req.session.userCase = await this.save(req, formDataToSend, eventName);
         }
       }
     }
 
     this.redirect(req, res);
   }
+
   async createCase(req: AppRequest<T>): Promise<CaseWithId | PromiseLike<CaseWithId>> {
     try {
       req.session.userCase = await req.locals.api.createCase(req.session.userCase);
@@ -123,9 +123,27 @@ export class PostController<T extends AnyObject> {
     return req.session.userCase;
   }
 
+  /**
+   * Redirect to the next page. This function handles:
+   * 1. Redirects back to current page in case of any errors
+   * 2. Is aware of a sequence of pages via getNextStepUrl
+   * 3. Is aware of whether we've come from a Check Your Answers page, and redirects accordingly
+   * 4. Save the session
+   * <br>
+   * Query params (?) and fragments (#) of the current request URL are not kept.
+   */
   public redirect(req: AppRequest<T>, res: Response, nextUrl?: string): void {
     if (!nextUrl) {
-      nextUrl = req.session.errors?.length ? req.url : getNextStepUrl(req, req.session.userCase);
+      if (req.session.errors?.length || req.session.fileErrors?.length) {
+        nextUrl = req.path;
+      } else if (req.session.isCheckYourAnswers) {
+        nextUrl = getNextCyaStepUrl(req, req.session.userCase);
+        if (nextUrl === CHECK_YOUR_ANSWERS) {
+          req.session.isCheckYourAnswers = false;
+        }
+      } else {
+        nextUrl = getNextStepUrl(req, req.session.userCase);
+      }
     }
 
     req.session.save(err => {

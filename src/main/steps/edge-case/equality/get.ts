@@ -58,7 +58,8 @@ export default class PCQGetController {
       pcqId: req.session.userCase.pcqId,
       partyId: req.session.userCase.subjectEmailAddress,
       language: lang,
-      returnUrl: `${protocol}${res.locals.host}${port}${CHECK_YOUR_ANSWERS}`,
+      // Add query parameter, which we use to avoid directing the user to the PCQ page again.
+      returnUrl: `${protocol}${res.locals.host}${port}${CHECK_YOUR_ANSWERS}?equality-asked`,
       ageCheck: ageCheckValue.toString(),
     };
     pcqParams['token'] = createToken(pcqParams, tokenKey);

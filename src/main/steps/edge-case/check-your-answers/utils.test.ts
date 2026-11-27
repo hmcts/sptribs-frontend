@@ -23,8 +23,9 @@ describe('upload-addition-documents > check-your-answers', () => {
               actions: {
                 items: [
                   {
-                    href: '/full-name',
+                    href: '/full-name?check-your-answers',
                     text: 'change',
+                    attributes: { 'data-cya-change-link': true },
                     visuallyHiddenText: 'Subject’s name',
                   },
                 ],
@@ -36,8 +37,9 @@ describe('upload-addition-documents > check-your-answers', () => {
               actions: {
                 items: [
                   {
-                    href: '/date-of-birth',
+                    href: '/date-of-birth?check-your-answers',
                     text: 'change',
+                    attributes: { 'data-cya-change-link': true },
                     visuallyHiddenText: 'Subject’s DoB',
                   },
                 ],
@@ -51,6 +53,7 @@ describe('upload-addition-documents > check-your-answers', () => {
                   {
                     href: '/address/manual',
                     text: 'change',
+                    attributes: { 'data-cya-change-link': true },
                     visuallyHiddenText: 'Address',
                   },
                 ],
@@ -62,8 +65,9 @@ describe('upload-addition-documents > check-your-answers', () => {
               actions: {
                 items: [
                   {
-                    href: '/contact-preferences',
+                    href: '/contact-preferences?check-your-answers',
                     text: 'change',
+                    attributes: { 'data-cya-change-link': true },
                     visuallyHiddenText: 'Who should receive emails about the application',
                   },
                 ],
@@ -75,8 +79,9 @@ describe('upload-addition-documents > check-your-answers', () => {
               actions: {
                 items: [
                   {
-                    href: '/subject-contact-details',
+                    href: '/subject-contact-details?check-your-answers',
                     text: 'change',
+                    attributes: { 'data-cya-change-link': true },
                     visuallyHiddenText: 'Email address of the person named on the application',
                   },
                 ],
@@ -88,8 +93,9 @@ describe('upload-addition-documents > check-your-answers', () => {
               actions: {
                 items: [
                   {
-                    href: '/contact-details',
+                    href: '/contact-details?check-your-answers',
                     text: 'change',
+                    attributes: { 'data-cya-change-link': true },
                     visuallyHiddenText: 'Contact number of the person named on the application',
                   },
                 ],
@@ -118,8 +124,9 @@ describe('upload-addition-documents > named owner > check-your-answers', () => {
               actions: {
                 items: [
                   {
-                    href: '/full-name',
+                    href: '/full-name?check-your-answers',
                     text: 'change',
+                    attributes: { 'data-cya-change-link': true },
                     visuallyHiddenText: 'Subject’s name',
                   },
                 ],
@@ -131,8 +138,9 @@ describe('upload-addition-documents > named owner > check-your-answers', () => {
               actions: {
                 items: [
                   {
-                    href: '/date-of-birth',
+                    href: '/date-of-birth?check-your-answers',
                     text: 'change',
+                    attributes: { 'data-cya-change-link': true },
                     visuallyHiddenText: 'Subject’s DoB',
                   },
                 ],
@@ -146,6 +154,7 @@ describe('upload-addition-documents > named owner > check-your-answers', () => {
                   {
                     href: '/address/manual',
                     text: 'change',
+                    attributes: { 'data-cya-change-link': true },
                     visuallyHiddenText: 'Address',
                   },
                 ],
@@ -157,8 +166,9 @@ describe('upload-addition-documents > named owner > check-your-answers', () => {
               actions: {
                 items: [
                   {
-                    href: '/contact-preferences',
+                    href: '/contact-preferences?check-your-answers',
                     text: 'change',
+                    attributes: { 'data-cya-change-link': true },
                     visuallyHiddenText: 'Who should receive emails about the application',
                   },
                 ],
@@ -170,8 +180,9 @@ describe('upload-addition-documents > named owner > check-your-answers', () => {
               actions: {
                 items: [
                   {
-                    href: '/subject-contact-details',
+                    href: '/subject-contact-details?check-your-answers',
                     text: 'change',
+                    attributes: { 'data-cya-change-link': true },
                     visuallyHiddenText: 'Email address of the person named on the application',
                   },
                 ],
@@ -183,8 +194,9 @@ describe('upload-addition-documents > named owner > check-your-answers', () => {
               actions: {
                 items: [
                   {
-                    href: '/contact-details',
+                    href: '/contact-details?check-your-answers',
                     text: 'change',
+                    attributes: { 'data-cya-change-link': true },
                     visuallyHiddenText: 'Contact number of the person named on the application',
                   },
                 ],
@@ -213,8 +225,9 @@ describe('upload-addition-documents > named owner and both > named owner > check
               actions: {
                 items: [
                   {
-                    href: '/full-name',
+                    href: '/full-name?check-your-answers',
                     text: 'change',
+                    attributes: { 'data-cya-change-link': true },
                     visuallyHiddenText: 'Subject’s name',
                   },
                 ],
@@ -226,8 +239,9 @@ describe('upload-addition-documents > named owner and both > named owner > check
               actions: {
                 items: [
                   {
-                    href: '/date-of-birth',
+                    href: '/date-of-birth?check-your-answers',
                     text: 'change',
+                    attributes: { 'data-cya-change-link': true },
                     visuallyHiddenText: 'Subject’s DoB',
                   },
                 ],
@@ -241,6 +255,7 @@ describe('upload-addition-documents > named owner and both > named owner > check
                   {
                     href: '/address/manual',
                     text: 'change',
+                    attributes: { 'data-cya-change-link': true },
                     visuallyHiddenText: 'Address',
                   },
                 ],
@@ -252,8 +267,9 @@ describe('upload-addition-documents > named owner and both > named owner > check
               actions: {
                 items: [
                   {
-                    href: '/contact-preferences',
+                    href: '/contact-preferences?check-your-answers',
                     text: 'change',
+                    attributes: { 'data-cya-change-link': true },
                     visuallyHiddenText: 'Who should receive emails about the application',
                   },
                 ],
@@ -265,8 +281,9 @@ describe('upload-addition-documents > named owner and both > named owner > check
               actions: {
                 items: [
                   {
-                    href: '/subject-contact-details',
+                    href: '/subject-contact-details?check-your-answers',
                     text: 'change',
+                    attributes: { 'data-cya-change-link': true },
                     visuallyHiddenText: 'Email address of the person named on the application',
                   },
                 ],
@@ -278,8 +295,9 @@ describe('upload-addition-documents > named owner and both > named owner > check
               actions: {
                 items: [
                   {
-                    href: '/contact-details',
+                    href: '/contact-details?check-your-answers',
                     text: 'change',
+                    attributes: { 'data-cya-change-link': true },
                     visuallyHiddenText: 'Contact number of the person named on the application',
                   },
                 ],
@@ -291,8 +309,9 @@ describe('upload-addition-documents > named owner and both > named owner > check
               actions: {
                 items: [
                   {
-                    href: '/contact-details',
+                    href: '/contact-details?check-your-answers',
                     text: 'change',
+                    attributes: { 'data-cya-change-link': true },
                     visuallyHiddenText: 'Contact number of the person named on the application',
                   },
                 ],
@@ -321,8 +340,9 @@ describe('Additional Form Summary > check-your-answers', () => {
               actions: {
                 items: [
                   {
-                    href: '/full-name',
+                    href: '/full-name?check-your-answers',
                     text: 'change',
+                    attributes: { 'data-cya-change-link': true },
                     visuallyHiddenText: 'Subject’s name',
                   },
                 ],
@@ -352,8 +372,9 @@ describe('Other information > check-your-answers', () => {
               actions: {
                 items: [
                   {
-                    href: '/full-name',
+                    href: '/full-name?check-your-answers',
                     text: 'change',
+                    attributes: { 'data-cya-change-link': true },
                     visuallyHiddenText: 'Subject’s name',
                   },
                 ],
@@ -382,8 +403,9 @@ describe('Form Summary > check-your-answers', () => {
               actions: {
                 items: [
                   {
-                    href: '/full-name',
+                    href: '/full-name?check-your-answers',
                     text: 'change',
+                    attributes: { 'data-cya-change-link': true },
                     visuallyHiddenText: 'Subject’s name',
                   },
                 ],
@@ -413,8 +435,9 @@ describe('Other information > check-your-answers no documents', () => {
               actions: {
                 items: [
                   {
-                    href: '/full-name',
+                    href: '/full-name?check-your-answers',
                     text: 'change',
+                    attributes: { 'data-cya-change-link': true },
                     visuallyHiddenText: 'Subject’s name',
                   },
                 ],
@@ -448,8 +471,9 @@ describe('Representation Summary > check-your-answers', () => {
               actions: {
                 items: [
                   {
-                    href: '/representation',
+                    href: '/representation?check-your-answers',
                     text: 'change',
+                    attributes: { 'data-cya-change-link': true },
                     visuallyHiddenText: 'Is there a representative named on completed tribunal form?',
                   },
                 ],
@@ -461,8 +485,9 @@ describe('Representation Summary > check-your-answers', () => {
               actions: {
                 items: [
                   {
-                    href: '/representation-qualified',
+                    href: '/representation-qualified?check-your-answers',
                     text: 'change',
+                    attributes: { 'data-cya-change-link': true },
                     visuallyHiddenText: 'Is the named representative legally qualified?',
                   },
                 ],
@@ -494,8 +519,9 @@ describe('Representation Summary > check-your-answers', () => {
               actions: {
                 items: [
                   {
-                    href: '/representation',
+                    href: '/representation?check-your-answers',
                     text: 'change',
+                    attributes: { 'data-cya-change-link': true },
                     visuallyHiddenText: 'Is there a representative named on completed tribunal form?',
                   },
                 ],
@@ -527,8 +553,9 @@ describe('cica-reference-number > check-your-answers', () => {
               actions: {
                 items: [
                   {
-                    href: '/cica-reference-number',
+                    href: '/cica-reference-number?check-your-answers',
                     text: 'change',
+                    attributes: { 'data-cya-change-link': true },
                     visuallyHiddenText: 'CICA reference number',
                   },
                 ],
@@ -560,8 +587,9 @@ describe('cica-decision-date > check-your-answers', () => {
               actions: {
                 items: [
                   {
-                    href: '/cica-decision-date',
+                    href: '/cica-decision-date?check-your-answers',
                     text: 'change',
+                    attributes: { 'data-cya-change-link': true },
                     visuallyHiddenText: 'Date of CICA initial review decision letter',
                   },
                 ],

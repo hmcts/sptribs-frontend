@@ -1,91 +1,124 @@
 import * as fs from 'fs';
 
-import { Case, CaseWithId } from '../app/case/case';
-import { AppRequest } from '../app/controller/AppRequest';
+import { Case } from '../app/case/case';
+import { AppRequest, AppSession } from '../app/controller/AppRequest';
 import { TranslationFn } from '../app/controller/GetController';
 import { Form, FormContent } from '../app/form/Form';
 
 import { Step } from './constants';
 import { edgecaseSequence } from './edge-case/edgecaseSequence';
-import { EDGE_CASE_URL, SUBJECT_DETAILS } from './urls';
+import { APPLICATION_SUBMITTED, CHECK_YOUR_ANSWERS, COOKIES, EDGE_CASE_URL, SUBJECT_DETAILS } from './urls';
 
-const stepForms: Record<string, Form> = {};
+/**
+ * Pre-gather each step's content file. We do this once on startup because `require` is very slow and should not be
+ * performed on every request.
+ */
+const stepForms: Record<string, FormContent | undefined> = {};
 
 [edgecaseSequence].forEach((sequence: Step[], i: number) => {
   const dir = __dirname + (i === 0 ? '/edge-case' : '');
   for (const step of sequence) {
     const stepContentFile = `${dir}${step.url}/content.ts`;
     if (fs.existsSync(stepContentFile)) {
-      const content = require(stepContentFile);
+      const content: { form?: FormContent } = require(stepContentFile);
 
       if (content.form) {
-        stepForms[step.url] = new Form(content.form.fields);
+        stepForms[step.url] = content.form;
       }
     }
   }
 });
 
-const getNextIncompleteStep = (
-  data: CaseWithId,
-  step: Step,
-  sequence: Step[],
-  removeExcluded = false,
-  checkedSteps: Step[] = []
-): string => {
-  const stepForm = stepForms[step.url];
-  // if this step has a form
-  if (stepForm !== undefined) {
-    // and that form has errors
-    // if (!stepForm.isComplete(data) || stepForm.getErrors(data).length > 0)
-    if (!stepForm.isComplete(data)) {
-      // go to that step
-      return removeExcluded && checkedSteps.length && step.excludeFromContinueApplication
-        ? checkedSteps[checkedSteps.length - 1].url
-        : step.url;
-    } else {
-      // if there are no errors go to the next page and work out what to do
-      const nextStepUrl = step.getNextStep(data);
-      const nextStep = sequence.find(s => s.url === nextStepUrl);
-
-      return nextStep
-        ? getNextIncompleteStep(data, nextStep, sequence, removeExcluded, checkedSteps.concat(step))
-        : SUBJECT_DETAILS;
-    }
+/** Get the next step in a Check Your Answers flow, recursively. This is essentially the next incomplete step. */
+const getNextCyaStep = (data: Case, session: AppSession, step: Step, sequence: Step[]): string => {
+  // Never go past the Check Your Answers page.
+  if (step.url === CHECK_YOUR_ANSWERS) {
+    return CHECK_YOUR_ANSWERS;
   }
 
-  // if the page has no form then ask it where to go
-  return step.getNextStep(data);
+  const stepFormContent = stepForms[step.url];
+  const formFields =
+    typeof stepFormContent?.fields === 'function' ? stepFormContent.fields(data) : stepFormContent?.fields;
+  const stepForm = formFields ? new Form(formFields) : undefined;
+
+  // Check whether the given step is complete.
+  const isStepComplete = step.isComplete
+    ? step.isComplete(session)
+    : !stepForm || stepForm.getErrors(data).length === 0;
+
+  if (!isStepComplete) {
+    // The given step not currently complete or valid, so that's the answer.
+    return step.url;
+  }
+
+  // The given step is complete and valid, so check the next step in the sequence, recursively.
+  const nextStepUrl = step.getNextStep(data);
+  const nextStep = sequence.find(s => s.url === nextStepUrl);
+
+  return nextStep ? getNextCyaStep(data, session, nextStep, sequence) : CHECK_YOUR_ANSWERS;
 };
 
-export const getNextIncompleteStepUrl = (req: AppRequest): string => {
-  const { queryString } = getPathAndQueryString(req);
-  const sequence = getUserSequence();
-  const url = getNextIncompleteStep(req.session.userCase, sequence[0], sequence, true);
-
-  return `${url}${queryString}`;
-};
-
-export const getNextStepUrl = (req: AppRequest, data: Partial<Case>): string => {
-  //eslint-disable-next-line @typescript-eslint/no-explicit-any
-  if ((req.body as any).saveAsDraft) {
+/**
+ * Get the next step in a Check Your Answers flow.
+ * <br>
+ * Most of the time, all the next steps will already be complete, so this will return the Check Your Answers page.
+ * However, if a user has changed an answer which either:
+ * * makes another page no-longer complete, or
+ * * makes a new page available which was previously skipped,
+ * <br>
+ * then we may need to take the user to an incomplete page.
+ * <br>
+ * For example, if a user changes their `/representation` answer from "No" to "Yes", then the
+ * `/representation-qualified` page now needs to be filled in, so we need to take the user there next.
+ */
+export const getNextCyaStepUrl = (req: AppRequest, data: Case): string => {
+  if ((req.body as Record<string, unknown>).saveAsDraft) {
     return SUBJECT_DETAILS;
   }
-  const { path, queryString } = getPathAndQueryString(req);
-  const nextStep = [...edgecaseSequence].find(s => s.url === path);
-
-  const url = nextStep ? nextStep.getNextStep(data) : SUBJECT_DETAILS;
-
-  return `${url}${queryString}`;
+  const currentStep = edgecaseSequence.find(s => s.url === req.path) ?? edgecaseSequence[0];
+  return getNextCyaStep(data, req.session, currentStep, edgecaseSequence);
 };
 
-const getPathAndQueryString = (req: AppRequest): { path: string; queryString: string } => {
-  const [path, searchParams] = req.originalUrl.split('?');
-  const queryString = searchParams ? `?${searchParams}` : '';
-  return { path, queryString };
+export const getNextStepUrl = (req: AppRequest, data: Case): string => {
+  if ((req.body as Record<string, unknown>).saveAsDraft) {
+    return SUBJECT_DETAILS;
+  }
+  const currentStep = edgecaseSequence.find(s => s.url === req.path);
+
+  return currentStep ? currentStep.getNextStep(data) : SUBJECT_DETAILS;
 };
 
-const getUserSequence = () => {
-  return edgecaseSequence;
+/** Get whether a step could be part of a Check Your Answers flow. */
+export const isCyaCapable = (path: string, req: AppRequest): boolean => {
+  if (path === CHECK_YOUR_ANSWERS || path === APPLICATION_SUBMITTED || path === COOKIES) {
+    return false;
+  }
+
+  const startingStep = edgecaseSequence.find(s => s.url === path);
+  if (startingStep === undefined) {
+    return false;
+  }
+  let currentStep = startingStep;
+
+  // Progress through the sequence calling .getNextStep until we reach the Check Your Answers page.
+  const visitedSteps: Set<string> = new Set();
+  while (!visitedSteps.has(currentStep.url)) {
+    if (currentStep.url === CHECK_YOUR_ANSWERS) {
+      // Reached CYA page
+      return true;
+    }
+
+    visitedSteps.add(currentStep.url);
+    const nextStep = edgecaseSequence.find(s => s.url === currentStep.getNextStep(req.session.userCase));
+    if (nextStep === undefined) {
+      // Something went wrong, we reached a step that doesn't exist in the sequence
+      return false;
+    }
+    currentStep = nextStep;
+  }
+
+  // Loop detected - this means the current page does not lead to the Check Your Answers page
+  return false;
 };
 
 const getStepFiles = (stepDir: string) => {

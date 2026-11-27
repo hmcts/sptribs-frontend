@@ -64,42 +64,6 @@ export class Form {
 
     return errors;
   }
-
-  public getFieldNames(): Set<string> {
-    const fields = this.fields;
-    const fieldNames: Set<string> = new Set();
-    for (const fieldKey in fields) {
-      const stepField = fields[fieldKey] as FormOptions;
-      if (stepField.values && stepField.type !== 'date') {
-        for (const [, value] of Object.entries(stepField.values)) {
-          if (value.name) {
-            fieldNames.add(value.name);
-          } else {
-            fieldNames.add(fieldKey);
-          }
-          if (value.subFields) {
-            for (const field of Object.keys(value.subFields)) {
-              fieldNames.add(field);
-            }
-          }
-        }
-      } else {
-        fieldNames.add(fieldKey);
-      }
-    }
-
-    return fieldNames;
-  }
-
-  public isComplete(body: Partial<Case>): boolean {
-    for (const field of this.getFieldNames().values()) {
-      if (body[field] === undefined || body[field] === null) {
-        return false;
-      }
-    }
-
-    return true;
-  }
 }
 export type DropdownOptionsLookup = (lang: Record<string, never>) => [];
 

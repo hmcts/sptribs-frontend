@@ -323,3 +323,59 @@ describe('parseAndSetReturnUrl', () => {
     expect(req.session.returnUrl).toBeFalsy();
   });
 });
+
+describe('manageCya', () => {
+  const controller = new GetController('page', () => ({}));
+
+  test.each([
+    {
+      note: 'sets isCheckYourAnswers=true when page is in CYA flow and query param is present',
+      path: '/representation',
+      query: { 'check-your-answers': '' },
+      initialFlag: false,
+      expected: true,
+    },
+    {
+      note: 'keeps existing isCheckYourAnswers value when in CYA flow and query param is absent',
+      path: '/representation',
+      query: {},
+      initialFlag: true,
+      expected: true,
+    },
+    {
+      note: 'sets isCheckYourAnswers=false when page is at end of CYA flow',
+      path: '/check-your-answers',
+      query: {},
+      initialFlag: true,
+      expected: false,
+    },
+    {
+      note: 'sets isCheckYourAnswers=false when page is not in CYA flow, with query param',
+      path: '/not-a-step',
+      query: { 'check-your-answers': '' },
+      initialFlag: true,
+      expected: false,
+    },
+    {
+      note: 'sets isCheckYourAnswers=false when page is not in CYA flow, without query param',
+      path: '/not-a-step',
+      query: {},
+      initialFlag: true,
+      expected: false,
+    },
+    {
+      note: 'sets isCheckYourAnswers=false when page is in CYA flow, but userCase is missing required data',
+      path: '/subject-details',
+      query: {},
+      initialFlag: true,
+      userCase: { id: '' },
+      expected: false,
+    },
+  ])('$note', ({ path, query, initialFlag, userCase, expected }) => {
+    const req = mockRequest({ path, query, userCase, session: { isCheckYourAnswers: initialFlag } });
+    const res = mockResponse();
+    controller.get(req, res);
+
+    expect(req.session.isCheckYourAnswers).toBe(expected);
+  });
+});
