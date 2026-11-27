@@ -3,7 +3,7 @@ import { YesOrNo } from '../case/definition';
 
 import { Form, FormContent, FormFields, FormFieldsFn } from './Form';
 import { convertToDateObject } from './parser';
-import { areDateFieldsFilledIn, isFieldFilledIn } from './validation';
+import { isDateInputNotFilled, isFieldFilledIn } from './validation';
 
 describe('Form', () => {
   const mockForm: FormContent = {
@@ -24,7 +24,7 @@ describe('Form', () => {
           { label: l => l.dateFormat['year'], name: 'year' },
         ],
         parser: value => convertToDateObject('dateField', value as Record<string, unknown>),
-        validator: value => areDateFieldsFilledIn(value as CaseDate),
+        validator: value => isDateInputNotFilled(value as CaseDate),
       },
       checkboxes: {
         type: 'checkboxes',
@@ -56,11 +56,7 @@ describe('Form', () => {
       checkboxes: 'checkbox1',
     } as unknown as Case);
 
-    expect(mockForm.fields['field'].validator).toHaveBeenCalledWith(YesOrNo.YES, {
-      field: YesOrNo.YES,
-      dateField: { day: '1', month: '1', year: '2000' },
-      checkboxes: 'checkbox1',
-    });
+    expect(mockForm.fields['field'].validator).toHaveBeenCalledWith(YesOrNo.YES);
     expect(errors).toStrictEqual([]);
   });
 
@@ -75,6 +71,7 @@ describe('Form', () => {
       {
         propertyName: 'dateField',
         errorType: 'required',
+        subitemNames: ['day', 'month', 'year'],
       },
       {
         propertyName: 'checkboxes',

@@ -1,44 +1,58 @@
 {
-    "translations": {
-        "en": {
-            "continue": "Continue",
-            "serviceName": "Enter subject's DOB",
-            "title": "What is the date of birth of the person named on this application?",
-            "hint": "For example, 27 3 2007",
-            "day": "Day",
-            "month": "Month",
-            "year": "Year"
-        },
-        "cy": {
-            "continue": "Parhau",
-            "serviceName": "Nodwch ddyddiad geni yr unigolyn perthnasol",
-            "title": "Beth yw dyddiad geni yr unigolyn a enwir yn y cais hwn?",
-            "hint": "Er enghraifft, 27 3 2007",
-            "day": "Diwrnod",
-            "month": "Mis",
-            "year": "Blwyddyn"
-        }
+  "translations": {
+    "en": {
+      "continue": "Continue",
+      "serviceName": "Enter subject's DOB",
+      "title": "What is the date of birth of the person named on this application?",
+      "hint": "For example, 27 3 2007",
+      "day": "Day",
+      "month": "Month",
+      "year": "Year"
     },
-    "errors":{
-        "en": {
-            "applicantDateOfBirth": {
-                "required": "Enter your date of birth",
-                "invalidDate": "Date of birth must be a real date",
-                "incompleteDay": "Your date of birth must include a day",
-                "incompleteMonth": "Your date of birth must include a month",
-                "incompleteYear": "Your date of birth must include a year",
-                "invalidDateInFuture": "Your date of birth must be in the past"
-            }
-        },
-        "cy": {
-            "applicantDateOfBirth": {
-                "required": "Nodwch eich dyddiad geni",
-                "invalidDate": "Rhaid i’r dyddiad geni fod yn ddyddiad dilys",
-                "incompleteDay": "Rhaid i’ch dyddiad geni gynnwys diwrnod",
-                "incompleteMonth": "Rhaid i’ch dyddiad geni gynnwys mis",
-                "incompleteYear": "Rhaid i’ch dyddiad geni gynnwys blwyddyn",
-                "invalidDateInFuture": "Rhaid i’ch dyddiad geni fod yn y gorffennol"
-            }
-        }
+    "cy": {
+      "continue": "Parhau",
+      "serviceName": "Nodwch ddyddiad geni yr unigolyn perthnasol",
+      "title": "Beth yw dyddiad geni yr unigolyn a enwir yn y cais hwn?",
+      "hint": "Er enghraifft, 27 3 2007",
+      "day": "Diwrnod",
+      "month": "Mis",
+      "year": "Blwyddyn"
     }
+  },
+  "errors": {
+    "en": {
+      "applicantDateOfBirth": {
+        "required": "Enter your date of birth",
+        "incompleteDay": "Your date of birth must include a day",
+        "incompleteMonth": "Your date of birth must include a month",
+        "incompleteYear": "Your date of birth must include a year",
+        "incompleteDayAndMonth": "Your date of birth must include a day and month",
+        "incompleteDayAndYear": "Your date of birth must include a day and year",
+        "incompleteMonthAndYear": "Your date of birth must include a month and year",
+        "invalid": "Your date of birth must be a real date",
+        "invalidDay": "Your date of birth must include a valid day",
+        "invalidMonth": "Your date of birth must include a valid month",
+        "invalidYear": "Your date of birth must include a valid year",
+        "invalidDateInFuture": "Your date of birth must be in the past",
+        "invalidDateObsolete": "Your date of birth must be after 31/12/1899"
+      }
+    },
+    "cy": {
+      "applicantDateOfBirth": {
+        "required": "Nodwch eich dyddiad geni",
+        "incompleteDay": "Rhaid i’ch dyddiad geni gynnwys diwrnod",
+        "incompleteMonth": "Rhaid i’ch dyddiad geni gynnwys mis",
+        "incompleteYear": "Rhaid i’ch dyddiad geni gynnwys blwyddyn",
+        "incompleteDayAndMonth": "Rhaid i’ch dyddiad geni gynnwys diwrnod a mis",
+        "incompleteDayAndYear": "Rhaid i’ch dyddiad geni gynnwys diwrnod a blwyddyn",
+        "incompleteMonthAndYear": "Rhaid i’ch dyddiad geni gynnwys mis a blwyddyn",
+        "invalid": "Rhaid i’ch dyddiad geni fod yn ddyddiad go iawn",
+        "invalidDay": "Rhaid i’ch dyddiad geni gynnwys diwrnod dilys",
+        "invalidMonth": "Rhaid i’ch dyddiad geni gynnwys mis dilys",
+        "invalidYear": "Rhaid i’ch dyddiad geni gynnwys blwyddyn dilys",
+        "invalidDateInFuture": "Rhaid i’ch dyddiad geni fod yn y gorffennol",
+        "invalidDateObsolete": "Rhaid i’ch dyddiad geni fod ar ôl 31/12/1899"
+      }
+    }
+  }
 }

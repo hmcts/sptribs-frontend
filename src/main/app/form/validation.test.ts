@@ -1,7 +1,6 @@
 import { CaseDate } from '../case/case';
 
 import {
-  areDateFieldsFilledIn,
   atLeastOneFieldIsChecked,
   containsInvalidCharacters,
   doesArrayHaveValues,
@@ -92,38 +91,6 @@ describe('Validation', () => {
     });
   });
 
-  describe('areFieldsFilledIn()', () => {
-    test('Should check if values in object exist', async () => {
-      const isValid = areDateFieldsFilledIn({ day: '1', month: '1', year: '1' });
-      expect(isValid).toStrictEqual(undefined);
-    });
-
-    test('Should check if all values in object does not exist', async () => {
-      const isValid = areDateFieldsFilledIn({ day: '', month: '', year: '' });
-      expect(isValid).toStrictEqual('required');
-    });
-
-    test('Should check if day does not exist', async () => {
-      const isValid = areDateFieldsFilledIn({ day: '', month: '12', year: '' });
-      expect(isValid).toStrictEqual('incompleteDay');
-    });
-
-    test('Should check if month does not exist', async () => {
-      const isValid = areDateFieldsFilledIn({ day: '12', month: '', year: '' });
-      expect(isValid).toStrictEqual('incompleteMonth');
-    });
-
-    test('Should check if year does not exist', async () => {
-      const isValid = areDateFieldsFilledIn({ day: '21', month: '12', year: '' });
-      expect(isValid).toStrictEqual('incompleteYear');
-    });
-
-    test('Should check if object does not exist', async () => {
-      const isValid = areDateFieldsFilledIn(undefined);
-      expect(isValid).toStrictEqual('required');
-    });
-  });
-
   describe('isFutureDate()', () => {
     test('Should check if date entered is future date', async () => {
       const dateObj = new Date();
@@ -142,89 +109,50 @@ describe('Validation', () => {
       date.year += '1';
       isValid = isFutureDate(date);
 
-      expect(isValid).toStrictEqual('invalidDateInFuture');
+      expect(isValid).toStrictEqual({ errorType: 'invalidDateInFuture', subitemNames: ['day', 'month', 'year'] });
     });
   });
 
   describe('isDateInputNotFilled()', () => {
-    test('Should return incompleteDayAndMonthAndYear error if no date fields are entered', async () => {
-      const date = {
-        day: '',
-        month: '',
-        year: '',
-      };
-
-      let isValid = isDateInputNotFilled(undefined);
-      expect(isValid).toStrictEqual('incompleteDayAndMonthAndYear');
-
-      isValid = isDateInputNotFilled(date);
-      expect(isValid).toStrictEqual('incompleteDayAndMonthAndYear');
-    });
-
-    test('Should return incompleteDayAndMonth error if no day and month fields are entered', async () => {
-      const date = {
-        day: '',
-        month: '',
-        year: '2000',
-      };
-
-      const isValid = isDateInputNotFilled(date);
-      expect(isValid).toStrictEqual('incompleteDayAndMonth');
-    });
-
-    test('Should return incompleteDayAndYear error if no day and year fields are entered', async () => {
-      const date = {
-        day: '',
-        month: '12',
-        year: '',
-      };
-
-      const isValid = isDateInputNotFilled(date);
-      expect(isValid).toStrictEqual('incompleteDayAndYear');
-    });
-
-    test('Should return incompleteMonthAndYear error if no month and year fields are entered', async () => {
-      const date = {
-        day: '31',
-        month: '',
-        year: '',
-      };
-
-      const isValid = isDateInputNotFilled(date);
-      expect(isValid).toStrictEqual('incompleteMonthAndYear');
-    });
-
-    test('Should return incompleteDay error if no day field is entered', async () => {
-      const date = {
-        day: '',
-        month: '12',
-        year: '2000',
-      };
-
-      const isValid = isDateInputNotFilled(date);
-      expect(isValid).toStrictEqual('incompleteDay');
-    });
-
-    test('Should return incompleteMonth error if no month field is entered', async () => {
-      const date = {
-        day: '31',
-        month: '',
-        year: '2000',
-      };
-
-      const isValid = isDateInputNotFilled(date);
-      expect(isValid).toStrictEqual('incompleteMonth');
-    });
-
-    test('Should return incompleteYear error if no year field is entered', async () => {
-      const date = {
-        day: '31',
-        month: '12',
-        year: '',
-      };
-
-      const isValid = isDateInputNotFilled(date);
-      expect(isValid).toStrictEqual('incompleteYear');
+    test.each([
+      { date: undefined, errorType: 'required', subitemNames: ['day', 'month', 'year'] },
+      {
+        date: { day: '', month: '12', year: '2000' },
+        errorType: 'incompleteDay',
+        subitemNames: ['day'],
+      },
+      {
+        date: { day: '31', month: '', year: '2000' },
+        errorType: 'incompleteMonth',
+        subitemNames: ['month'],
+      },
+      {
+        date: { day: '31', month: '12', year: '' },
+        errorType: 'incompleteYear',
+        subitemNames: ['year'],
+      },
+      {
+        date: { day: '', month: '', year: '' },
+        errorType: 'required',
+        subitemNames: ['day', 'month', 'year'],
+      },
+      {
+        date: { day: '', month: '', year: '2000' },
+        errorType: 'incompleteDayAndMonth',
+        subitemNames: ['day', 'month'],
+      },
+      {
+        date: { day: '', month: '12', year: '' },
+        errorType: 'incompleteDayAndYear',
+        subitemNames: ['day', 'year'],
+      },
+      {
+        date: { day: '31', month: '', year: '' },
+        errorType: 'incompleteMonthAndYear',
+        subitemNames: ['month', 'year'],
+      },
+    ])('Should return $errorType error if date fields are missing', ({ date, errorType, subitemNames }) => {
+      expect(isDateInputNotFilled(date)).toStrictEqual({ errorType, subitemNames });
     });
   });
 
@@ -239,7 +167,7 @@ describe('Validation', () => {
       let isValid = isObsoleteDate(undefined);
       expect(isValid).toStrictEqual(undefined);
       isValid = isObsoleteDate(date);
-      expect(isValid).toStrictEqual('invalidDateInPast');
+      expect(isValid).toStrictEqual({ errorType: 'invalidDateObsolete', subitemNames: ['day', 'month', 'year'] });
     });
   });
 
@@ -255,7 +183,7 @@ describe('Validation', () => {
       expect(isValid).toStrictEqual(undefined);
 
       isValid = isLessThanAYear(date);
-      expect(isValid).toStrictEqual('lessThanAYear');
+      expect(isValid).toStrictEqual({ errorType: 'lessThanAYear', subitemNames: ['day', 'month', 'year'] });
 
       date.year = (+date.year - 1).toString();
       isValid = isLessThanAYear(date);
@@ -287,7 +215,7 @@ describe('Validation', () => {
       expect(isValid).toStrictEqual(undefined);
 
       isValid = isMoreThan18Years(date);
-      expect(isValid).toStrictEqual('invalidDateOver18');
+      expect(isValid).toStrictEqual({ errorType: 'invalidDateOver18', subitemNames: ['day', 'month', 'year'] });
 
       date.year = (+date.year + 2).toString();
       isValid = isMoreThan18Years(date);
@@ -298,22 +226,111 @@ describe('Validation', () => {
 
   describe('isDateInputInvalid()', () => {
     test.each([
-      { date: { day: 1, month: 1, year: 1970 }, expected: undefined },
-      { date: { day: 31, month: 12, year: 2000 }, expected: undefined },
-      { date: { day: 31, month: 12, year: 123 }, expected: undefined },
-      { date: { day: 1, month: 1, year: 1 }, expected: undefined },
-      { date: { day: -31, month: 12, year: 2000 }, expected: 'invalid' },
-      { date: { day: 31, month: -12, year: 2000 }, expected: 'invalid' },
-      { date: { day: 32, month: 12, year: 2000 }, expected: 'invalid' },
-      { date: { day: 31, month: 13, year: 2000 }, expected: 'invalid' },
-      { date: { day: 'no', month: '!%', year: 'way' }, expected: 'invalid' },
+      { date: undefined, expected: undefined },
+      { date: { day: '15', month: '11', year: '2026' }, expected: undefined },
+      { date: { day: ' 15', month: '11 ', year: ' 2026 ' }, expected: undefined },
+      { date: { day: '1', month: '1', year: '1000' }, expected: undefined },
+      { date: { day: '31', month: '12', year: '3000' }, expected: undefined },
+      { date: { day: '01', month: '01', year: '2000' }, expected: undefined },
+      { date: { day: 1, month: 1, year: 2000 }, expected: undefined },
+      // Basic bounds checks
+      // day
+      {
+        date: { day: '-31', month: '12', year: '2000' },
+        expected: { errorType: 'invalidDay', subitemNames: ['day'] },
+      },
+      {
+        date: { day: '0', month: '12', year: '2000' },
+        expected: { errorType: 'invalidDay', subitemNames: ['day'] },
+      },
+      {
+        date: { day: '32', month: '12', year: '2000' },
+        expected: { errorType: 'invalidDay', subitemNames: ['day'] },
+      },
+      // month
+      {
+        date: { day: '1', month: '-12', year: '2000' },
+        expected: { errorType: 'invalidMonth', subitemNames: ['month'] },
+      },
+      {
+        date: { day: '1', month: '0', year: '2000' },
+        expected: { errorType: 'invalidMonth', subitemNames: ['month'] },
+      },
+      {
+        date: { day: '1', month: '13', year: '2000' },
+        expected: { errorType: 'invalidMonth', subitemNames: ['month'] },
+      },
+      // year
+      {
+        date: { day: '1', month: '12', year: '-2000' },
+        expected: { errorType: 'invalidYear', subitemNames: ['year'] },
+      },
+      {
+        date: { day: '1', month: '12', year: '999' },
+        expected: { errorType: 'invalidYear', subitemNames: ['year'] },
+      },
+      // combinations
+      {
+        date: { day: '0', month: '0', year: '2000' },
+        expected: { errorType: 'invalid', subitemNames: ['day', 'month'] },
+      },
+      {
+        date: { day: '1', month: '0', year: '0' },
+        expected: { errorType: 'invalid', subitemNames: ['month', 'year'] },
+      },
+      {
+        date: { day: '0', month: '1', year: '0' },
+        expected: { errorType: 'invalid', subitemNames: ['day', 'year'] },
+      },
+      // invalid characters
+      {
+        date: { day: 'no', month: '!%', year: 'way' },
+        expected: { errorType: 'invalid', subitemNames: ['day', 'month', 'year'] },
+      },
+      {
+        date: { day: ' ', month: ' ', year: ' ' },
+        expected: { errorType: 'invalid', subitemNames: ['day', 'month', 'year'] },
+      },
+      {
+        date: { day: '31', month: 'ab', year: '2000' },
+        expected: { errorType: 'invalidMonth', subitemNames: ['month'] },
+      },
+      {
+        date: { day: 'cd', month: '12', year: '2000' },
+        expected: { errorType: 'invalidDay', subitemNames: ['day'] },
+      },
+      {
+        date: { day: '31', month: '12', year: 'ef' },
+        expected: { errorType: 'invalidYear', subitemNames: ['year'] },
+      },
+      {
+        date: { day: '31hello', month: '12', year: '2000' },
+        expected: { errorType: 'invalidDay', subitemNames: ['day'] },
+      },
+      {
+        date: { day: 'hello31', month: '12', year: '2000' },
+        expected: { errorType: 'invalidDay', subitemNames: ['day'] },
+      },
+      // Months with different numbers of days
+      {
+        date: { day: '31', month: '1', year: '2000' },
+        expected: undefined,
+      },
+      {
+        date: { day: '31', month: '4', year: '2000' },
+        expected: { errorType: 'invalid', subitemNames: ['day', 'month'] },
+      },
+      // Leap years
       { date: { day: '29', month: '2', year: '2000' }, expected: undefined },
-      { date: { day: '31', month: '2', year: '2000' }, expected: 'invalid' },
-      { date: { day: 31, month: 'ab', year: 2000 }, expected: 'invalid' },
-      { date: { day: 'cd', month: 12, year: '2000' }, expected: 'invalid' },
-      { date: { day: 31, month: 12, year: 'ef' }, expected: 'invalid' },
-      { date: { day: ' ', month: ' ', year: ' ' }, expected: undefined },
-      { expected: undefined },
+      { date: { day: '29', month: '2', year: '2004' }, expected: undefined },
+      {
+        date: { day: '29', month: '2', year: '2001' },
+        expected: { errorType: 'invalid', subitemNames: ['day', 'month', 'year'] },
+      },
+      {
+        date: { day: '29', month: '2', year: '2100' },
+        expected: { errorType: 'invalid', subitemNames: ['day', 'month', 'year'] },
+      },
     ])('checks dates validity when %o', ({ date, expected }) => {
       const isValid = isDateInputInvalid(date as unknown as CaseDate);
 
@@ -388,7 +405,7 @@ describe('Validation', () => {
 
   describe('isEmailValid()', () => {
     it.each([
-      { mockEmail: '', expected: '' },
+      { mockEmail: '', expected: undefined },
       { mockEmail: 'test', expected: 'invalid' },
       { mockEmail: '12345', expected: 'invalid' },
       { mockEmail: 'test@test.com', expected: undefined },

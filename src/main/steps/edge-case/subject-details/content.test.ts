@@ -112,7 +112,13 @@ describe('subject-details-content', () => {
     expect(dobField.values[2].name).toBe('year');
     expect(dobField.values[2].classes).toBe('govuk-input--width-4');
     expect(dobField.values[2].attributes?.maxLength).toBe(4);
+  });
 
+  test('date of birth should parse correctly', () => {
+    const generatedContent = generateContent(commonContent);
+    const form = generatedContent.form as FormContent;
+    const fields = form.fields as FormFields;
+    const dobField = fields.subjectDateOfBirth as FormOptions;
     expect(
       (dobField.parser as Function)({
         'subjectDateOfBirth-day': '21',
@@ -120,9 +126,48 @@ describe('subject-details-content', () => {
         'subjectDateOfBirth-year': '2018',
       })
     ).toEqual({ day: '21', month: '12', year: '2018' });
-    expect((dobField.validator as Function)({ day: '', month: '', year: '' })).toBe('incompleteDayAndMonthAndYear');
-    expect((dobField.validator as Function)({ day: '1', month: '1', year: '1889' })).toBe('invalidDateInPast');
-    expect((dobField.validator as Function)({ day: 'ab', month: '', year: '2000' })).toBe('invalidAndIncomplete');
+  });
+
+  // Just check each main kind of failure - no need to repeat tests from validation.test.ts
+  test.each([
+    // Valid
+    { description: 'ordinary', data: { day: '1', month: '1', year: '2000' }, isValid: true },
+    // Not filled
+    {
+      description: 'day and month missing',
+      data: { day: '', month: '', year: '2000' },
+      errorType: 'incompleteDayAndMonth',
+      subitemNames: ['day', 'month'],
+    },
+    // Invalid
+    {
+      description: 'invalid day (0)',
+      data: { day: '0', month: '1', year: '2000' },
+      errorType: 'invalidDay',
+      subitemNames: ['day'],
+    },
+    // Future
+    {
+      description: 'date in the future',
+      data: { day: '1', month: '1', year: '3000' },
+      errorType: 'invalidDateInFuture',
+      subitemNames: ['day', 'month', 'year'],
+    },
+    // Obsolete
+    {
+      description: 'date in the far past',
+      data: { day: '1', month: '1', year: '1889' },
+      errorType: 'invalidDateObsolete',
+      subitemNames: ['day', 'month', 'year'],
+    },
+  ])('invalid date of birth: $description', ({ data, errorType, subitemNames, isValid }) => {
+    const generatedContent = generateContent(commonContent);
+    const form = generatedContent.form as FormContent;
+    const fields = form.fields as FormFields;
+    const dobField = fields.subjectDateOfBirth as FormOptions;
+
+    const result = dobField.validator!(data);
+    expect(result).toStrictEqual(isValid ? undefined : { errorType, subitemNames });
   });
 });
 

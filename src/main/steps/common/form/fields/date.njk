@@ -13,7 +13,7 @@
   hint: {
     html: getContent(field.hint)
   },
-  items: formItems(field.values, userCase[fieldName]),
+  items: formItems(fieldName, field.values, userCase[fieldName]),
   errorMessage: getError(fieldName),
   formGroup: {
     classes: "govuk-visually-hidden " + field.id if field.hidden else field.id

@@ -2,7 +2,7 @@ import { CaseDate } from '../../../app/case/case';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { convertToDateObject } from '../../../app/form/parser';
-import { isDateInputInvalid, isFutureDate } from '../../../app/form/validation';
+import { isDateInputInvalid, isDateInputNotFilled, isFutureDate, isObsoleteDate } from '../../../app/form/validation';
 import { ResourceReader } from '../../../modules/resourcereader/ResourceReader';
 
 const DATE_OF_BIRTH = 'date-of-birth';
@@ -21,22 +21,38 @@ export const form: FormContent = {
           name: 'day',
           classes: 'govuk-input--width-2',
           attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
+          autocomplete: 'bday-day',
         },
         {
           label: l => l.month,
           name: 'month',
           classes: 'govuk-input--width-2',
           attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
+          autocomplete: 'bday-month',
         },
         {
           label: l => l.year,
           name: 'year',
           classes: 'govuk-input--width-4',
           attributes: { maxLength: 4, pattern: '[0-9]*', inputMode: 'numeric' },
+          autocomplete: 'bday-year',
         },
       ],
       parser: body => convertToDateObject('applicantDateOfBirth', body as Record<string, unknown>),
-      validator: value => isDateInputInvalid(value as CaseDate) || isFutureDate(value as CaseDate),
+      validator: value => {
+        const date = value as CaseDate;
+        if (isDateInputNotFilled(date)) {
+          return isDateInputNotFilled(date);
+        } else if (isDateInputInvalid(date)) {
+          return isDateInputInvalid(date);
+        } else if (isFutureDate(date)) {
+          return isFutureDate(date);
+        } else if (isObsoleteDate(date)) {
+          return isObsoleteDate(date);
+        } else {
+          return undefined;
+        }
+      },
     },
   },
   submit: {

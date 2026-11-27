@@ -1,8 +1,9 @@
 //import { SummaryListContent } from '../../steps/common/models/summaryListContent';
-import { Case, CaseDate, CaseWithId } from '../case/case';
+import { Case, CaseWithId } from '../case/case';
 import { AnyObject } from '../controller/PostController';
 
 import { setupCheckboxParser } from './parser';
+import { Validator } from './validation';
 
 export class Form {
   constructor(private readonly fields: FormFields) {}
@@ -43,8 +44,16 @@ export class Form {
   }
 
   private getErrorsFromField(body: Partial<Case>, id: string, field: FormField): FormError[] {
-    const errorType = field.validator && field.validator(body[id], body);
-    const errors: FormError[] = errorType ? [{ errorType, propertyName: id }] : [];
+    const validatorError = field.validator && field.validator(body[id]);
+
+    // The error may have been returned as a string, or a partial FormError. Handle each case.
+    const formError: FormError | undefined = validatorError
+      ? typeof validatorError === 'string'
+        ? { propertyName: id, errorType: validatorError }
+        : { propertyName: id, ...validatorError }
+      : undefined;
+
+    const errors: FormError[] = formError ? [formError] : [];
 
     // if there are checkboxes or options, check them for errors
     if (isFormOptions(field)) {
@@ -105,16 +114,12 @@ export type DropdownOptionsLookup = (lang: Record<string, never>) => [];
 
 export type LanguageLookup = (lang: Record<string, never>) => string;
 
-type Parser = (value: Record<string, unknown> | string[]) => void;
+type Parser = (value: Record<string, unknown> | string[]) => unknown;
 
 type Label = string | LanguageLookup;
 
 type Warning = Label;
 
-export type ValidationCheck = (
-  value: string | string[] | CaseDate | undefined,
-  formData: Partial<Case>
-) => void | string;
 export type FormFields = Record<string, FormField>;
 export type FormFieldsFn = (userCase: Partial<Case>, language?: string) => FormFields;
 
@@ -149,7 +154,7 @@ export interface FormOptions {
   hideError?: boolean;
   values: FormInput[];
   attributes?: Partial<HTMLInputElement | HTMLTextAreaElement>;
-  validator?: ValidationCheck;
+  validator?: Validator;
   parser?: Parser;
   disabled?: boolean;
 
@@ -171,7 +176,7 @@ export interface FormInput {
   selected?: boolean;
   value?: string | number;
   attributes?: Partial<HTMLInputElement | HTMLTextAreaElement>;
-  validator?: ValidationCheck;
+  validator?: Validator;
   parser?: Parser;
   warning?: Warning;
   conditionalText?: Label;
@@ -180,6 +185,7 @@ export interface FormInput {
   open?: boolean;
   options?: DropdownOptionsLookup;
   disabled?: boolean;
+  autocomplete?: string;
 }
 
 function isFormOptions(field: FormField): field is FormOptions {
@@ -191,8 +197,16 @@ export interface CsrfField {
 }
 
 export type FormError = {
+  /** Name and HTML ID of the field where the error message should be displayed. */
   propertyName: string;
+  /** Internal string for the error type, corresponding to a user-readable string under `errors[propertyName]`. */
   errorType: string;
+  /**
+   * If this error specifically relates to one or more subitems of this field, list the names here. The first listed
+   * name will be used as the fragment link. All sub items listed here will have error styling applied.
+   * E.g. `subitemNames: ['day', 'year']` for a date input with errors in the day and year fields.
+   */
+  subitemNames?: string[];
 };
 
 interface CaseWithFormData extends CaseWithId {

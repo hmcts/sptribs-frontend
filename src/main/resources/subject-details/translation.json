@@ -33,37 +33,41 @@
         "containsInvalidCharacters": "Full name must not include HTML"
       },
       "subjectDateOfBirth": {
-        "invalid": "Date of birth must be a real date",
-        "invalidAndIncomplete": "Date of birth must be a real date and must include a day, month and year",
+        "required": "Enter date of birth",
         "incompleteDay": "Date of birth must include a day",
         "incompleteMonth": "Date of birth must include a month",
         "incompleteYear": "Date of birth must include a year",
         "incompleteDayAndMonth": "Date of birth must include a day and month",
         "incompleteDayAndYear": "Date of birth must include a day and year",
         "incompleteMonthAndYear": "Date of birth must include a month and year",
-        "incompleteDayAndMonthAndYear": "Date of birth must include a day, month and year",
+        "invalid": "Date of birth must be a real date",
+        "invalidDay": "Date of birth must include a valid day",
+        "invalidMonth": "Date of birth must include a valid month",
+        "invalidYear": "Date of birth must include a valid year",
         "invalidDateInFuture": "Date of birth must be in the past",
-        "invalidDateInPast": "Date of birth must be after 31/12/1899"
+        "invalidDateObsolete": "Date of birth must be after 31/12/1899"
       }
     },
     "cy": {
       "subjectFullName": {
         "required": "Nodwch enw llawn",
-        "containsMarkdownLink": "Ni ddylai'r enw llawn gynnwys dolen",
-        "containsInvalidCharacters": "Ni ddylai'r enw llawn gynnwys HTML"
+        "containsMarkdownLink": "Ni ddylai’r enw llawn gynnwys dolen",
+        "containsInvalidCharacters": "Ni ddylai’r enw llawn gynnwys HTML"
       },
       "subjectDateOfBirth": {
-        "invalid": "Rhaid i'r dyddiad geni fod yn ddyddiad go iawn",
-        "invalidAndIncomplete": "Rhaid i'r dyddiad geni fod yn ddyddiad go iawn a rhaid iddo gynnwys diwrnod, mis a blwyddyn",
+        "required": "Nodwch ddyddiad geni",
         "incompleteDay": "Rhaid i’r dyddiad geni gynnwys diwrnod",
         "incompleteMonth": "Rhaid i’r dyddiad geni gynnwys mis",
         "incompleteYear": "Rhaid i’r dyddiad geni gynnwys blwyddyn",
         "incompleteDayAndMonth": "Rhaid i’r dyddiad geni gynnwys diwrnod a mis",
         "incompleteDayAndYear": "Rhaid i’r dyddiad geni gynnwys diwrnod a blwyddyn",
         "incompleteMonthAndYear": "Rhaid i’r dyddiad geni gynnwys mis a blwyddyn",
-        "incompleteDayAndMonthAndYear": "Rhaid i'r dyddiad geni gynnwys diwrnod, mis a blwyddyn",
-        "invalidDateInFuture": "Rhaid i'r dyddiad geni fod yn y gorffennol",
-        "invalidDateInPast": "Rhaid i'r dyddiad geni fod ar ôl 31/12/1899"
+        "invalid": "Rhaid i’r dyddiad geni fod yn ddyddiad go iawn",
+        "invalidDay": "Rhaid i’r dyddiad geni gynnwys diwrnod dilys",
+        "invalidMonth": "Rhaid i’r dyddiad geni gynnwys mis dilys",
+        "invalidYear": "Rhaid i’r dyddiad geni gynnwys blwyddyn dilys",
+        "invalidDateInFuture": "Rhaid i’r dyddiad geni fod yn y gorffennol",
+        "invalidDateObsolete": "Rhaid i’r dyddiad geni fod ar ôl 31/12/1899"
       }
     }
   }
