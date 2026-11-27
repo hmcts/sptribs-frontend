@@ -1,3 +1,10 @@
 {% extends "../common/template.njk" %}
 
 {% block backLink %}{% endblock %}
+
+{% block form %}
+  {% if ccdReferenceForRetry is defined %}
+    {% set userCase = { ccdReference: ccdReferenceForRetry } %}
+  {% endif %}
+  {% include "../common/form/form.njk" %}
+{% endblock %}

@@ -4,6 +4,7 @@ import { Response } from 'express';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../app/controller/PostController';
 import { Form, FormFields } from '../../app/form/Form';
+import { normaliseCCDReferenceNumber } from '../../app/form/validation';
 import {
   classifyDashboardError,
   createDashboardAttemptId,
@@ -23,6 +24,7 @@ export default class CCDLookupPostController extends PostController<AnyObject> {
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     startDashboardJourney(req);
     const attemptId = createDashboardAttemptId();
+    delete req.session.ccdReferenceForRetry;
 
     if (req.body.cancel) {
       trackDashboardEvent(req, {
@@ -36,6 +38,7 @@ export default class CCDLookupPostController extends PostController<AnyObject> {
       return this.redirect(req, res, SUBJECT_DETAILS);
     }
 
+    const submittedReference = req.body.ccdReference;
     const formInstance = new Form(this.fields as FormFields);
     const formErrors = formInstance.getErrors(req.body);
 
@@ -49,10 +52,13 @@ export default class CCDLookupPostController extends PostController<AnyObject> {
         next_step: 'cica_lookup',
       });
       req.session.errors = formErrors;
+      if (typeof submittedReference === 'string') {
+        req.session.ccdReferenceForRetry = submittedReference;
+      }
       return this.redirect(req, res, CICA_LOOKUP);
     }
 
-    const ccdReference = req.body.ccdReference as string;
+    const ccdReference = normaliseCCDReferenceNumber(submittedReference as string);
     const startedAt = Date.now();
 
     req.session.validatedPostcode = undefined;
@@ -99,6 +105,7 @@ export default class CCDLookupPostController extends PostController<AnyObject> {
           this.logLookupFailure(req, attemptId, startedAt, status, 'invalid_reference', 'cica_lookup');
           // Invalid input (should mostly be caught by frontend validation)
           req.session.errors = [{ propertyName: 'ccdReference', errorType: 'invalid' }];
+          req.session.ccdReferenceForRetry = submittedReference as string;
           return this.redirect(req, res, CICA_LOOKUP);
 
         default:

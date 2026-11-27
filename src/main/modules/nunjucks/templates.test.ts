@@ -2,7 +2,9 @@ import path from 'path';
 
 import { Environment, FileSystemLoader } from 'nunjucks';
 
+import lookupTranslations from '../../resources/cica-lookup/translation.json';
 import landingTranslations from '../../resources/landing/translation.json';
+import { form as lookupForm } from '../../steps/cica-lookup/content';
 
 const root = path.join(__dirname, '..', '..');
 const templates = new Environment(
@@ -17,6 +19,9 @@ const templates = new Environment(
 
 templates.addGlobal('globals', { basePath: '', dynatrace: { dynatraceUrl: '/monitor.js' } });
 templates.addGlobal('getError', () => false);
+templates.addGlobal('getContent', function (prop) {
+  return typeof prop === 'function' ? prop(this.ctx) : prop;
+});
 
 const page = {
   title: 'What is your date of birth?',
@@ -63,6 +68,23 @@ describe('GOV.UK page templates', () => {
     expect(html.match(/<title>([\s\S]*?)<\/title>/)?.[1].trim()).toBe(
       'What is your date of birth? - Example service - GOV.UK'
     );
+  });
+
+  test('the case lookup displays the submitted reference safely alongside the error summary', () => {
+    const html = templates.render('cica-lookup/template.njk', {
+      ...page,
+      ...lookupTranslations.translations.en,
+      form: lookupForm,
+      errors: lookupTranslations.errors.en,
+      errorSummaryHeading: 'There is a problem',
+      sessionErrors: [{ propertyName: 'ccdReference', errorType: 'containsInvalidCharacters' }],
+      ccdReferenceForRetry: '<1234 - 5678 - 9012 - 3456>',
+    });
+
+    const referenceInput = html.match(/<input[^>]+id="ccdReference"[^>]*>/)?.[0];
+    expect(referenceInput).toContain('value="&lt;1234 - 5678 - 9012 - 3456&gt;"');
+    expect(html).toContain('href="#ccdReference"');
+    expect(html).toContain(lookupTranslations.errors.en.ccdReference.containsInvalidCharacters);
   });
 
   test.each([
